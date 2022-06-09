@@ -1,23 +1,20 @@
 import "../styles/globals.css";
-import type { NextPage } from "next";
-import type { AppProps } from "next/app";
 import store from "../redux/store";
 import { Provider } from "react-redux";
-import { ReactElement, ReactNode } from "react";
+import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
-type NextPageWithLayout = NextPage & {
-  getLayout?: (page: ReactElement) => ReactNode;
-};
+const googleAPIKey = process.env.GOOGLEMAPS_API_KEY as string;
 
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-};
+function MyApp({ Component, pageProps }: any) {
+  const render = (status: Status) => {
+    return <h1>{status}</h1>;
+  };
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const getLayout = Component.getLayout ?? ((page) => page);
   return (
     <Provider store={store}>
-      {getLayout(<Component {...pageProps} />)};
+      <Wrapper apiKey={googleAPIKey} render={render}>
+        <Component {...pageProps} />;
+      </Wrapper>
     </Provider>
   );
 }
