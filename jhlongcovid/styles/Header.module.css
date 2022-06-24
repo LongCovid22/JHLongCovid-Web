@@ -1,0 +1,21 @@
+.leftHeaderStack {
+  margin-top: 20px;
+  margin-left: 20px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.rightHeaderStack {
+  margin-top: 20px;
+  margin-right: 20px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 5px 0px;
+}
+
+.search {
+  padding: 5px 10px;
+  width: 400px;
+}

@@ -15,6 +15,9 @@ const Map: React.FC<MapProps> = ({ style }) => {
         new window.google.maps.Map(mapRef.current, {
           center: { lat: 43.1009031, lng: -75.2326641 },
           zoom: 10,
+          mapTypeControl: false,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          fullscreenControl: false,
         })
       );
     }
