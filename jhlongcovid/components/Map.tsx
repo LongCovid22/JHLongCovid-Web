@@ -1,5 +1,6 @@
 import styles from "./layout.module.css";
 import { ReactElement, useEffect, useRef, useState } from "react";
+import { mapStyle } from "../mapStyle";
 
 interface MapProps extends google.maps.MapOptions {
   style: { [key: string]: string };
@@ -18,6 +19,7 @@ const Map: React.FC<MapProps> = ({ style }) => {
           mapTypeControl: false,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           fullscreenControl: false,
+          styles: mapStyle,
         })
       );
     }
