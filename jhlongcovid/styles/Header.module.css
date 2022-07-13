@@ -4,6 +4,11 @@
   position: absolute;
   top: 0px;
   left: 0px;
+  background-color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 500px;
+  min-width: 250px;
+  width: calc(30%);
 }
 
 .rightHeaderStack {
@@ -12,10 +17,16 @@
   position: absolute;
   top: 0px;
   right: 0px;
-  padding: 5px 0px;
+  padding: 0.5rem 1rem;
+  border-radius: 500px;
+  min-width: 100px;
+  width: calc(20%);
+  background-color: white;
 }
 
-.search {
-  padding: 5px 10px;
-  width: 400px;
+.header {
+  top: 20px;
+  left: 20px;
+  position: absolute;
+  width: 100%;
 }

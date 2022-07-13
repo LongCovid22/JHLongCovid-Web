@@ -1,9 +1,8 @@
 import { ReactElement } from "react";
 import styles from "../styles/Home.module.css";
 import Map from "../components/Map";
-import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
-import Header from "../components/Header";
+import { Header } from "../components/Header/Header";
+import { Flex, Spacer } from "@chakra-ui/react";
 
 const Home = () => {
   console.log("rendering home");
