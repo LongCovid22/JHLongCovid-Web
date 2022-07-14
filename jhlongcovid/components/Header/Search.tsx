@@ -1,7 +1,8 @@
 import { Box, Input, IconButton, Flex } from "@chakra-ui/react";
 import React from "react";
 import styles from "../../styles/Header.module.css";
-import { SearchIcon } from "@chakra-ui/icons";
+import { Search2Icon } from "@chakra-ui/icons";
+import { hopkinsBlue } from "../../theme/styles";
 
 interface SearchProps {}
 
@@ -23,9 +24,10 @@ export const Search: React.FC<SearchProps> = () => {
       <Box>
         <IconButton
           aria-label="Search address"
-          icon={<SearchIcon />}
+          icon={<Search2Icon />}
           borderRadius={"50%"}
-          color="#002D72"
+          bg="hopkinsBlue.100"
+          color="hopkinsBlue.600"
         />
       </Box>
     </Flex>

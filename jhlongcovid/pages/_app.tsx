@@ -1,10 +1,17 @@
 import "../styles/globals.css";
 import store from "../redux/store";
 import { Provider } from "react-redux";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import { hopkinsBlue } from "../theme/styles";
 
 const googleAPIKey = process.env.GOOGLEMAPS_API_KEY as string;
+
+const theme = extendTheme({
+  colors: {
+    hopkinsBlue,
+  },
+});
 
 function MyApp({ Component, pageProps }: any) {
   const render = (status: Status) => {
@@ -13,7 +20,7 @@ function MyApp({ Component, pageProps }: any) {
 
   return (
     <Provider store={store}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Wrapper apiKey={googleAPIKey} render={render}>
           <Component {...pageProps} />
         </Wrapper>

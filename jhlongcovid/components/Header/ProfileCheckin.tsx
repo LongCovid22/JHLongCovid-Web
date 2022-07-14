@@ -25,7 +25,7 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
         flex={1}
         borderRadius={"500px"}
         textColor="white"
-        backgroundColor={"#002D72"}
+        colorScheme="hopkinsBlue"
       >
         Contribute
       </Button>
