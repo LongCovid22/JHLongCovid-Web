@@ -1,29 +1,15 @@
 import "../styles/globals.css";
 import store from "../redux/store";
 import { Provider } from "react-redux";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import { createTheme, ThemeProvider } from "@mui/material";
+import { hopkinsBlue } from "../theme/styles";
 
 const googleAPIKey = process.env.GOOGLEMAPS_API_KEY as string;
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#002d74",
-    },
-    secondary: {
-      main: "#f3c300",
-    },
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          paddingLeft: "10px",
-          paddingRight: "10px",
-        },
-      },
-    },
+const theme = extendTheme({
+  colors: {
+    hopkinsBlue,
   },
 });
 
@@ -34,11 +20,11 @@ function MyApp({ Component, pageProps }: any) {
 
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <ChakraProvider theme={theme}>
         <Wrapper apiKey={googleAPIKey} render={render}>
           <Component {...pageProps} />
         </Wrapper>
-      </ThemeProvider>
+      </ChakraProvider>
     </Provider>
   );
 }

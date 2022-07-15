@@ -1,16 +1,22 @@
-import { ReactElement } from "react";
+import { useState } from "react";
 import styles from "../styles/Home.module.css";
 import Map from "../components/Map";
-import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
-import Header from "../components/Header";
+import { Header } from "../components/Header/Header";
+import { Flex, Spacer } from "@chakra-ui/react";
+import { Marker } from "../components/Marker";
+import { mockMapData } from "../mockData";
 
 const Home = () => {
-  console.log("rendering home");
+  const [data, setData] = useState(mockMapData);
+  console.log(data);
   return (
     <>
       <div className={styles.main}>
-        <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }} />
+        <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
+          {data.map((mark) => (
+            <Marker position={{ lat: mark.lat, lng: mark.long }} />
+          ))}
+        </Map>
         <Header />
       </div>
     </>
