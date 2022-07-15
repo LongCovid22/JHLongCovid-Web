@@ -6,23 +6,6 @@ import { Flex, Spacer } from "@chakra-ui/react";
 import { Marker } from "../components/Marker";
 import { mockMapData } from "../mockData";
 
-const getRandomFloat = (min: number, max: number, decimals: number) => {
-  const str = (Math.random() * (max - min) + min).toFixed(decimals);
-  return parseFloat(str);
-};
-
-const mockData = () => {
-  const data = [];
-  for (let i = 0; i < 4000; i++) {
-    data.push({
-      id: i,
-      lat: getRandomFloat(-30, 50, 4),
-      lon: getRandomFloat(-30, 50, 4),
-    });
-  }
-  return data;
-};
-
 const Home = () => {
   const [data, setData] = useState(mockMapData);
   console.log(data);

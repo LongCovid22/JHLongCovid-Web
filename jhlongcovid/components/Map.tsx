@@ -37,7 +37,6 @@ const Map: React.FC<MapProps> = ({ children, style, ...options }) => {
   return (
     <div id="map" ref={mapRef} style={style}>
       {Children.map(children, (child) => {
-        console.log("cloning children");
         if (isValidElement(child)) {
           // set the map prop on the child component
           return cloneElement(child, { map });
