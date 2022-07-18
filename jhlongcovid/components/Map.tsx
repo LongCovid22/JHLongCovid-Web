@@ -38,6 +38,7 @@ const Map: React.FC<MapProps> = ({ children, style, ...options }) => {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         fullscreenControl: false,
         styles: mapStyle,
+        disableDefaultUI: true,
       });
       setMap(
         newMap
