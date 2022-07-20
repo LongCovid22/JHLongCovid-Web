@@ -1,9 +1,5 @@
-import {
-  Action,
-  configureStore,
-  ThunkAction,
-} from '@reduxjs/toolkit';
-import zoomReducer from '../features/zoom/zoomSlice';
+import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import zoomReducer from "../features/zoom/zoomSlice";
 
 const store = configureStore({
   reducer: {

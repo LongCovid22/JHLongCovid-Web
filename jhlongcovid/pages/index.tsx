@@ -8,15 +8,14 @@ import { mockMapData } from "../mockData";
 
 const Home = () => {
   const [data, setData] = useState(mockMapData);
-  console.log(data);
+
   return (
     <>
       <div className={styles.main}>
-        <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
-          {data.map((mark) => (
-            <Marker position={{ lat: mark.lat, lng: mark.long }} />
-          ))}
-        </Map>
+        <Map
+          style={{ flexGrow: "1", height: "100vh", width: "100%" }}
+          data={data}
+        />
         <Header />
       </div>
     </>

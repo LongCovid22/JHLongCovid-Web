@@ -9,20 +9,15 @@ import {
   cloneElement,
 } from "react";
 import { mapStyle } from "../theme/mapStyle";
-
-import {
-  useAppDispatch, 
-  useAppSelector
-} from '../redux/hooks';
-
-import { selectZoom, setByAmount} from '../features/zoom/zoomSlice';
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { selectZoom, setByAmount } from "../features/zoom/zoomSlice";
 
 interface MapProps extends google.maps.MapOptions {
   style: { [key: string]: string };
-  children: React.ReactNode;
+  data: any; // Will have to come up with an interface
 }
 
-const Map: React.FC<MapProps> = ({ children, style, ...options }) => {
+const Map: React.FC<MapProps> = ({ style, data, ...options }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
 
@@ -39,26 +34,31 @@ const Map: React.FC<MapProps> = ({ children, style, ...options }) => {
         fullscreenControl: false,
         styles: mapStyle,
       });
-      setMap(
-        newMap
-      );
 
       newMap.addListener("zoom_changed", () => {
         dispatch(setByAmount(Number(newMap.getZoom())));
-        // console.log(zoomNum);
-      })
-    }
-  }, [mapRef, map]);
+      });
 
-  return (
-    <div id="map" ref={mapRef} style={style}>
-      {Children.map(children, (child) => {
-        if (isValidElement(child)) {
-          return cloneElement(child, { map });
-        }
-      })}
-    </div>
-  );
+      data.map((mark: { lat: any; long: any }) => {
+        const marker = new google.maps.Marker({
+          position: { lat: mark.lat, lng: mark.long },
+          map: newMap,
+        });
+
+        // Pan to marker on marker click
+        google.maps.event.addListener(marker, "click", function () {
+          const position = marker.getPosition();
+          if (position !== null && position !== undefined) {
+            newMap.panTo(position);
+          }
+        });
+      });
+
+      setMap(newMap);
+    }
+  }, [mapRef, map, data]);
+
+  return <div id="map" ref={mapRef} style={style} />;
 };
 
 export default Map;
