@@ -39,6 +39,17 @@ const Map: React.FC<MapProps> = ({ style, data, ...options }) => {
         dispatch(setByAmount(Number(newMap.getZoom())));
       });
 
+      newMap.addListener("bounds_changed", () => {
+        const bounds = newMap.getBounds();
+        if (bounds !== null && bounds !== undefined) {
+          console.log("bounds ", bounds);
+          // const marker = new google.maps.Marker({
+          //   position: { lat: bounds.vb.hi, lng: bounds.Ra.hi },
+          //   map: newMap,
+          // });
+        }
+      });
+
       data.map((mark: { lat: any; long: any }) => {
         const marker = new google.maps.Marker({
           position: { lat: mark.lat, lng: mark.long },
