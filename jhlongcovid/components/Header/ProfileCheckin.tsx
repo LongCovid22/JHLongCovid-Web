@@ -9,14 +9,10 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import styles from "../../styles/Header.module.css";
-import { SearchIcon } from "@chakra-ui/icons";
-
-
 
 interface ProfileCheckinProps {}
 
 export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
-
   return (
     <Flex
       className={styles.rightHeaderStack}
