@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+import { calculatePanelOffset } from "./Map/mapFunctions";
+import { useAppDispatch } from "../redux/hooks";
+import { setLeftSidePanelPres } from "../redux/slices/presentationSlice";
 
 interface CircleProps extends google.maps.CircleOptions {
   covidSummary: any;
@@ -9,6 +12,7 @@ interface CircleProps extends google.maps.CircleOptions {
 
 export const Marker: React.FC<CircleProps> = (options) => {
   const [marker, setMarker] = React.useState<google.maps.Circle>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!marker) {
@@ -69,6 +73,7 @@ export const Marker: React.FC<CircleProps> = (options) => {
         content: contentString,
         pixelOffset: new google.maps.Size(210, 80),
         maxWidth: 300,
+        disableAutoPan: true,
       });
 
       google.maps.event.addListener(marker, "mouseover", function () {
@@ -78,6 +83,18 @@ export const Marker: React.FC<CircleProps> = (options) => {
           map: options.map,
           shouldFocus: false,
           // pixelOffset: new google.maps.size(250, 150)
+        });
+
+        // Pan to marker on marker click
+        google.maps.event.addListener(marker, "click", function () {
+          if (options.map !== null && options.map !== undefined) {
+            const markerPosition =
+              marker.getCenter() ?? new google.maps.LatLng(0.0, 0.0);
+            options.map.panTo(markerPosition);
+            options.map.panBy(calculatePanelOffset(options.map), 0);
+
+            dispatch(setLeftSidePanelPres(true));
+          }
         });
       });
 

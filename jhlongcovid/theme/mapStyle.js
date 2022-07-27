@@ -114,7 +114,8 @@ export const mapStyle = [
     elementType: "geometry",
     stylers: [
       {
-        color: "#ffffff",
+        // color: "#ffffff",
+        visibility: "off",
       },
     ],
   },
@@ -124,6 +125,18 @@ export const mapStyle = [
     stylers: [
       {
         visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "administrative.province",
+    elementType: "geometry.stroke",
+    stylers: [
+      {
+        color: "#9e9e9e",
+      },
+      {
+        visibility: "on",
       },
     ],
   },

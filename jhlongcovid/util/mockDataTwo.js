@@ -1,6 +1,4 @@
-
-const lat_long = 
-`41.001938375, -83.6665354077
+const lat_long = `41.001938375, -83.6665354077
 38.4207190191, -77.4574003866
 40.1764332141, -98.4999473753
 28.4225359982, -99.756726125
@@ -3234,8 +3232,7 @@ const lat_long =
 28.0087830727, -97.5182740096
 29.905528266, -90.3582204731
 `;
-const county_names = 
-`Hancock
+const county_names = `Hancock
 Stafford
 Webster
 Dimmit
@@ -6470,8 +6467,7 @@ San Patricio
 St. Charles
 `;
 
-const state_abbrev = 
-`OH
+const state_abbrev = `OH
 VA
 NE
 TX
@@ -9705,8 +9701,7 @@ AR
 TX
 LA
 `;
-const state_name = 
-`Ohio
+const state_name = `Ohio
 Virginia
 Nebraska
 Texas
@@ -12939,87 +12934,87 @@ Nebraska
 Arkansas
 Texas
 Louisiana
-`
+`;
 
 function countyStateAggregator(countyInfo) {
-
-    let result = {};
-    countyInfo.forEach((x, i) => {
-        if (x.stateAbbrev in result) {
-            result[x.stateAbbrev] = {
-                long : x.long + result[x.stateAbbrev].long,
-                lat : x.lat + result[x.stateAbbrev].lat,
-                level : 'state',
-                count : 1 + result[x.stateAbbrev].count,
-                covidSummary : {
-                    totalLongCovidCases: x.covidSummary.totalLongCovidCases + result[x.stateAbbrev].covidSummary.totalLongCovidCases,
-                    perReportedLongCovidCase: x.covidSummary.perReportedLongCovidCase + result[x.stateAbbrev].covidSummary.perReportedLongCovidCase,
-                    perPeopleRecoveredLongCovid: x.covidSummary.perPeopleRecoveredLongCovid + result[x.stateAbbrev].covidSummary.perPeopleRecoveredLongCovid
-                },
-                stateAbbrev: x.stateAbbrev,
-                name: x.stateName
-            }
-        } else {
-            result[x.stateAbbrev] = {
-                long : x.long,
-                lat : x.lat,
-                level : 'state',
-                count : 1,
-                covidSummary: x.covidSummary,
-                stateAbbrev: x.stateAbbrev,
-                name: x.stateName
-            }
-        }
-    });
-    
-    Object.keys(result).forEach(res => {
-        result[res].long /= result[res].count;
-        result[res].lat /= result[res].count;
-        // result[res].covidSummary.totalLongCovidCases /= result[res].count;
-        result[res].covidSummary.perReportedLongCovidCase /= result[res].count;
-        result[res].covidSummary.perPeopleRecoveredLongCovid /= result[res].count;
-    })
-
-    let result_array = [];
-
-    Object.keys(result).forEach(res => {
-        if (res.long != NaN) {
-            result_array.push(result[res]);
-        }
+  let result = {};
+  countyInfo.forEach((x, i) => {
+    if (x.stateAbbrev in result) {
+      result[x.stateAbbrev] = {
+        long: x.long + result[x.stateAbbrev].long,
+        lat: x.lat + result[x.stateAbbrev].lat,
+        level: "state",
+        count: 1 + result[x.stateAbbrev].count,
+        covidSummary: {
+          totalLongCovidCases:
+            x.covidSummary.totalLongCovidCases +
+            result[x.stateAbbrev].covidSummary.totalLongCovidCases,
+          perReportedLongCovidCase:
+            x.covidSummary.perReportedLongCovidCase +
+            result[x.stateAbbrev].covidSummary.perReportedLongCovidCase,
+          perPeopleRecoveredLongCovid:
+            x.covidSummary.perPeopleRecoveredLongCovid +
+            result[x.stateAbbrev].covidSummary.perPeopleRecoveredLongCovid,
+        },
+        stateAbbrev: x.stateAbbrev,
+        name: x.stateName,
+      };
+    } else {
+      result[x.stateAbbrev] = {
+        long: x.long,
+        lat: x.lat,
+        level: "state",
+        count: 1,
+        covidSummary: x.covidSummary,
+        stateAbbrev: x.stateAbbrev,
+        name: x.stateName,
+      };
     }
-        
-    );
-    return result_array;
+  });
+
+  Object.keys(result).forEach((res) => {
+    result[res].long /= result[res].count;
+    result[res].lat /= result[res].count;
+    // result[res].covidSummary.totalLongCovidCases /= result[res].count;
+    result[res].covidSummary.perReportedLongCovidCase /= result[res].count;
+    result[res].covidSummary.perPeopleRecoveredLongCovid /= result[res].count;
+  });
+
+  let result_array = [];
+
+  Object.keys(result).forEach((res) => {
+    if (res.long != NaN) {
+      result_array.push(result[res]);
+    }
+  });
+  return result_array;
 }
 
 export function read() {
+  const lat_long_data = lat_long.split("\n").slice(0, -1);
+  const county_names_data = county_names.split("\n");
+  const state_abbrev_data = state_abbrev.split("\n");
+  const state_name_data = state_name.split("\n");
 
-    const lat_long_data = lat_long.split("\n").slice(0, -1);
-    const county_names_data = county_names.split("\n");
-    const state_abbrev_data = state_abbrev.split("\n");
-    const state_name_data = state_name.split("\n");
+  let index = 0;
+  const county_data = lat_long_data.map((elem) => {
+    let lat_long = elem.split(" ");
+    lat_long[0] = lat_long[0].slice(0, -1);
+    return {
+      lat: Number(lat_long[0]),
+      long: Number(lat_long[1]),
+      level: "county",
+      name: county_names_data[index],
+      stateAbbrev: state_abbrev_data[index],
+      stateName: state_name_data[index++],
+      covidSummary: {
+        totalLongCovidCases: Math.floor(Math.random() * 200),
+        perReportedLongCovidCase: Math.random(),
+        perPeopleRecoveredLongCovid: Math.random(),
+      },
+    };
+  });
 
-    let index = 0;
-    const county_data = lat_long_data.map((elem) => {
-        let lat_long = elem.split(' ');
-        lat_long[0] = lat_long[0].slice(0, -1);
-        return {
-            lat : Number(lat_long[0]),
-            long : Number(lat_long[1]),
-            level : "county",
-            name : county_names_data[index],
-            stateAbbrev: state_abbrev_data[index],
-            stateName: state_name_data[index++],
-            covidSummary: {
-                totalLongCovidCases: Math.floor(Math.random() * 200),
-                perReportedLongCovidCase: Math.random(),
-                perPeopleRecoveredLongCovid: Math.random()
-            }
-        };
-    });
-
-    const state_data = countyStateAggregator(county_data);
-    return [county_data, state_data];
+  const state_data = countyStateAggregator(county_data);
+  return [county_data, state_data];
 }
-
-
