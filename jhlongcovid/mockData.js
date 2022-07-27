@@ -1,3 +1,10 @@
+/*
+Total long covid cases
+% of reported covid cases that are long
+% of people that have recovered from long covid
+*/
+
+
 export const mockMapData = [
   {
     id: 0,

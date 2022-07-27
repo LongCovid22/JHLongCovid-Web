@@ -7,7 +7,7 @@ export type ZoomState = {
 };
 
 const initialState: ZoomState = {
-  value: 10,
+  value: 5,
 };
 
 export const zoomSlice = createSlice({
@@ -16,7 +16,6 @@ export const zoomSlice = createSlice({
   reducers: {
     setByAmount: (state, action: PayloadAction<number>) => {
       state.value = action.payload;
-      console.log(state.value);
     },
   },
 });

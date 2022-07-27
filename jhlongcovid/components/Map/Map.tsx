@@ -1,6 +1,4 @@
-import styles from "./layout.module.css";
 import {
-  ReactElement,
   useEffect,
   useRef,
   useState,
@@ -11,40 +9,34 @@ import {
 import { mapStyle } from "../../theme/mapStyle";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectZoom, setByAmount } from "../../redux/slices/zoomSlice";
-import {
-  selectLeftSidePanelPres,
-  setLeftSidePanelPres,
-} from "../../redux/slices/presentationSlice";
-import { selectWidth } from "../../redux/slices/viewportSlice";
-import { calculatePanelOffset } from "./mapFunctions";
 
 interface MapProps extends google.maps.MapOptions {
   style: { [key: string]: string };
-  data: any; // Will have to come up with an interface
+  children: React.ReactNode;
 }
 
-const Map: React.FC<MapProps> = ({ style, data, ...options }) => {
+// interface City {
+//   center: google.maps.LatLngLiteral;
+//   population: number;
+// }
+
+const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
 
   const dispatch = useAppDispatch();
   const zoomNum = useAppSelector(selectZoom);
-  const vpWidth = useAppSelector(selectWidth);
-
-  const getViewportWidth = () => {
-    return vpWidth;
-  };
 
   useEffect(() => {
-    console.log("Here's the vp width: ", vpWidth);
     if (mapRef.current && !map) {
       const newMap = new window.google.maps.Map(mapRef.current, {
-        center: { lat: 43.1009031, lng: -75.2326641 },
+        center: { lat: 39.8283, lng: -98.5795 },
         zoom: zoomNum,
         mapTypeControl: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         fullscreenControl: false,
         styles: mapStyle,
+        disableDefaultUI: true,
       });
 
       newMap.addListener("zoom_changed", () => {
@@ -56,28 +48,26 @@ const Map: React.FC<MapProps> = ({ style, data, ...options }) => {
         // ** may need this as state in the future **
       });
 
-      data.map((mark: { lat: any; long: any }) => {
-        const marker = new google.maps.Marker({
-          position: { lat: mark.lat, lng: mark.long },
-          map: newMap,
-        });
-
-        // Pan to marker on marker click
-        google.maps.event.addListener(marker, "click", function () {
-          const markerPosition =
-            marker.getPosition() ?? new google.maps.LatLng(0.0, 0.0);
-          newMap.panTo(markerPosition);
-          newMap.panBy(calculatePanelOffset(newMap), 0);
-
-          dispatch(setLeftSidePanelPres(true));
-        });
+      newMap.addListener("center_changed", () => {
+        // 3 seconds after the center of the map has changed, pan back to the
+        // marker.
+        // console.log(newMap.getCenter()?.lat());
+        // console.log(newMap.getCenter()?.lng());
       });
 
       setMap(newMap);
     }
-  }, [mapRef, map, data, vpWidth]);
+  }, [mapRef, map]);
 
-  return <div id="map" ref={mapRef} style={style} />;
+  return (
+    <div id="map" ref={mapRef} style={style}>
+      {Children.map(children, (child) => {
+        if (isValidElement(child)) {
+          return cloneElement(child, { map });
+        }
+      })}
+    </div>
+  );
 };
 
 export default Map;
