@@ -10,7 +10,7 @@ import {
   };
   
   const initialState: ZoomState = {
-    value: 10,
+    value: 5,
   };
   
   export const zoomSlice = createSlice({
