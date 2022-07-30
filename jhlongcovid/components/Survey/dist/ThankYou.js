@@ -13,14 +13,12 @@ exports.ThankYou = function (props) {
         birthday	What year were you born?
     */
     return (react_2["default"].createElement(react_2["default"].Fragment, null,
-        react_2["default"].createElement(react_1.Modal, { isOpen: props.isOpen, onClose: props.onClose },
-            react_2["default"].createElement(react_1.ModalOverlay, null),
-            react_2["default"].createElement(react_1.ModalContent, null,
-                react_2["default"].createElement(react_1.ModalHeader, null, "Thank you for your response!"),
-                react_2["default"].createElement(react_1.ModalCloseButton, null),
-                react_2["default"].createElement(react_1.ModalBody, null, "For any questions on this questionnaire, please contact the study team at ahassoo1@jhu.edu or (XXX) XXX-XXXX. \\n This study also involves optional follow-ups regarding your past exposure with COVID-19. If you choose to participate in this part of the study, you will be able to cancel your participation at any time."),
-                react_2["default"].createElement(react_1.ModalFooter, null,
-                    "Would you like to follow up?",
-                    react_2["default"].createElement(react_1.Button, { colorScheme: 'blue', mr: 3 }, "Yes"),
-                    react_2["default"].createElement(react_1.Button, { colorScheme: 'blue', mr: 3 }, "No"))))));
+        react_2["default"].createElement(react_1.ModalContent, null,
+            react_2["default"].createElement(react_1.ModalHeader, null, "Thank you for your response!"),
+            react_2["default"].createElement(react_1.ModalCloseButton, null),
+            react_2["default"].createElement(react_1.ModalBody, null, "For any questions on this questionnaire, please contact the study team at ahassoo1@jhu.edu or (XXX) XXX-XXXX. \\n This study also involves optional follow-ups regarding your past exposure with COVID-19. If you choose to participate in this part of the study, you will be able to cancel your participation at any time."),
+            react_2["default"].createElement(react_1.ModalFooter, null,
+                "Would you like to follow up?",
+                react_2["default"].createElement(react_1.Button, { colorScheme: 'blue', mr: 3 }, "Yes"),
+                react_2["default"].createElement(react_1.Button, { colorScheme: 'blue', mr: 3 }, "No")))));
 };

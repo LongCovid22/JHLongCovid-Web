@@ -1,13 +1,13 @@
 "use strict";
 exports.__esModule = true;
-exports.PostCovid = void 0;
+exports.VaccinationHistory = void 0;
 var react_1 = require("@chakra-ui/react");
 var react_2 = require("@chakra-ui/react");
 var react_3 = require("@chakra-ui/react");
-var react_4 = require("react");
 var hooks_1 = require("../../redux/hooks");
 var surveySlice_1 = require("../../redux/slices/surveySlice");
-exports.PostCovid = function (props) {
+var react_4 = require("react");
+exports.VaccinationHistory = function (props) {
     var dispatch = hooks_1.useAppDispatch();
     /*
         educ	Please select the highest level of education you have completed.
@@ -19,21 +19,28 @@ exports.PostCovid = function (props) {
     */
     return (react_4["default"].createElement(react_4["default"].Fragment, null,
         react_4["default"].createElement(react_1.ModalContent, null,
-            react_4["default"].createElement(react_1.ModalHeader, null, "Post-Covid Symptoms"),
+            react_4["default"].createElement(react_1.ModalHeader, null, "Vaccination"),
             react_4["default"].createElement(react_1.ModalCloseButton, null),
             react_4["default"].createElement(react_1.ModalBody, null,
                 react_4["default"].createElement(react_2.FormControl, null,
                     react_4["default"].createElement(react_3.Box, { p: '1', w: '80%' },
-                        react_4["default"].createElement(react_2.FormLabel, null, "Did you experience any symptoms relating to your COVID Infection after you tested negative for COVID?"),
+                        react_4["default"].createElement(react_2.FormLabel, null, "Have you been vaccinated against COVID-19?"),
                         react_4["default"].createElement(react_1.Select, null,
                             react_4["default"].createElement("option", null, "Yes"),
                             react_4["default"].createElement("option", null, "No"))),
-                    react_4["default"].createElement(react_2.FormLabel, null, "Which of the following symptoms did you experinece after you recovery from COVID-19 and as a result of your COVID-19?"),
-                    react_4["default"].createElement(react_1.Checkbox, null, "General Symptoms"),
-                    react_4["default"].createElement(react_1.Checkbox, null, "Respiratory and heart symptoms"),
-                    react_4["default"].createElement(react_1.Checkbox, null, "Neurological symptoms"),
-                    react_4["default"].createElement(react_1.Checkbox, null, "Digestive symptoms"),
-                    react_4["default"].createElement(react_1.Checkbox, null, "Other Post-COVID symptoms"))),
+                    react_4["default"].createElement(react_3.Box, { p: '1', w: '80%' },
+                        react_4["default"].createElement(react_2.FormLabel, null, "Which vaccine did you receive?"),
+                        react_4["default"].createElement(react_1.Select, null,
+                            react_4["default"].createElement("option", null, "Pfizer"),
+                            react_4["default"].createElement("option", null, "Johnson and Johnson"),
+                            react_4["default"].createElement("option", null, "Moderna"),
+                            react_4["default"].createElement("option", null, "Sinovax"),
+                            react_4["default"].createElement("option", null, "Other"))),
+                    react_4["default"].createElement(react_3.Box, { p: '1', w: '80%' },
+                        react_4["default"].createElement(react_2.FormLabel, null, "Are you up to date with your COVID-19 booster?"),
+                        react_4["default"].createElement(react_1.Select, null,
+                            react_4["default"].createElement("option", null, "Yes"),
+                            react_4["default"].createElement("option", null, "No"))))),
             react_4["default"].createElement(react_1.ModalFooter, null,
                 react_4["default"].createElement(react_1.Button, { colorScheme: 'blue', mr: 3, onClick: function () { return dispatch(surveySlice_1.decrementProgress()); } }, "Prev"),
                 react_4["default"].createElement(react_1.Button, { colorScheme: 'blue', mr: 3, onClick: function () { return dispatch(surveySlice_1.incrementProgress()); } }, "Next")))));

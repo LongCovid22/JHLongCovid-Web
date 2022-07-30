@@ -20,11 +20,22 @@ import {
     FormHelperText,
 } from '@chakra-ui/react';
 
-import { Flex, Spacer, Box } from '@chakra-ui/react'
+import { Flex, Spacer, Box } from '@chakra-ui/react';
+
+import {
+    useAppDispatch,
+} from '../../redux/hooks';
+
+import {
+    decrementProgress,
+    incrementProgress,
+} from '../../redux/slices/surveySlice';
 
 import React from "react";
 
 export const VaccinationHistory = (props) => {
+
+    const dispatch = useAppDispatch();
     /*
         educ	Please select the highest level of education you have completed.
         height	Please enter your height.
@@ -36,8 +47,7 @@ export const VaccinationHistory = (props) => {
 
     return (
         <>
-            <Modal isOpen={props.isOpen} onClose={props.onClose}>
-                <ModalOverlay />
+            
                 <ModalContent>
                     <ModalHeader>Vaccination</ModalHeader>
                     <ModalCloseButton />
@@ -77,13 +87,15 @@ export const VaccinationHistory = (props) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='blue' mr={3}>
+                        <Button colorScheme='blue' mr={3} onClick={() => dispatch(decrementProgress())}>
+                            Prev
+                        </Button>
+                        <Button colorScheme='blue' mr={3} onClick={() => dispatch(incrementProgress())}>
                             Next
                         </Button>
-                        {/* <Button variant='ghost'>Secondary Action</Button> */}
                     </ModalFooter>
                 </ModalContent>
-            </Modal>
+            
         </>
     )
 }

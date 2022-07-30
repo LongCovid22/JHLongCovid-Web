@@ -36,8 +36,7 @@ export const ThankYou = (props) => {
 
     return (
         <>
-            <Modal isOpen={props.isOpen} onClose={props.onClose}>
-                <ModalOverlay />
+            
                 <ModalContent>
                     <ModalHeader>Thank you for your response!</ModalHeader>
                     <ModalCloseButton />
@@ -56,7 +55,7 @@ export const ThankYou = (props) => {
                         {/* <Button variant='ghost'>Secondary Action</Button> */}
                     </ModalFooter>
                 </ModalContent>
-            </Modal>
+            
         </>
     )
 }
