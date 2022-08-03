@@ -77,7 +77,6 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
           position: "absolute",
           top: "90px",
           left: presentLeftSidePanel ? "20px" : "0px",
-          borderRadius: "40px",
           height: height - 130,
         }}
       >
