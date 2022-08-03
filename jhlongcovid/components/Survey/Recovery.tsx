@@ -48,7 +48,7 @@ export const Recovery = () => {
 
   return (
     <>
-      <ModalContent>
+      <ModalContent borderRadius={20}>
         <ModalHeader>COVID or Post-COVID Recovery</ModalHeader>
         <ModalCloseButton marginRight={3} marginTop={2}>
           <CloseButton

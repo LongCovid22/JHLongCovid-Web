@@ -49,7 +49,7 @@ export const CovidHistory = () => {
 
   return (
     <>
-      <ModalContent h="1000px">
+      <ModalContent borderRadius={20}>
         <ModalHeader>History of COVID-19</ModalHeader>
         <ModalCloseButton marginRight={3} marginTop={2}>
           <CloseButton

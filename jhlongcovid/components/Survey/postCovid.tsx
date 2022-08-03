@@ -49,7 +49,7 @@ export const PostCovid = () => {
 
   return (
     <>
-      <ModalContent>
+      <ModalContent borderRadius={20}>
         <ModalHeader>Post-Covid Symptoms</ModalHeader>
         <ModalCloseButton marginRight={3} marginTop={2}>
           <CloseButton

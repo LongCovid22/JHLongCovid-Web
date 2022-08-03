@@ -40,7 +40,7 @@ export const Identifiers = () => {
   // const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <ModalContent>
+      <ModalContent borderRadius={20}>
         <ModalHeader>Profile</ModalHeader>
         <ModalCloseButton marginRight={3} marginTop={2}>
           <CloseButton

@@ -49,7 +49,7 @@ export const Demographics = () => {
 
   return (
     <>
-      <ModalContent h="700px">
+      <ModalContent borderRadius={20}>
         <ModalHeader>Demographics</ModalHeader>
         <ModalCloseButton marginRight={3} marginTop={2}>
           <CloseButton

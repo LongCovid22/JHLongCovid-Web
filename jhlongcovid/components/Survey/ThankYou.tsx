@@ -16,7 +16,8 @@ import {
   HStack,
   CloseButton,
 } from "@chakra-ui/react";
-
+import { decrementProgress } from "../../redux/slices/surveySlice";
+import { useAppDispatch } from "../../redux/hooks";
 import {
   FormControl,
   FormLabel,
@@ -29,6 +30,7 @@ import { Flex, Spacer, Box } from "@chakra-ui/react";
 import React from "react";
 
 export const ThankYou = () => {
+  const dispatch = useAppDispatch();
   /*
         educ	Please select the highest level of education you have completed.
         height	Please enter your height.
@@ -58,7 +60,11 @@ export const ThankYou = () => {
         </ModalBody>
         <ModalFooter>
           <HStack>
-            <Button colorScheme="hopkinsBlue" borderRadius={500}>
+            <Button
+              colorScheme="hopkinsBlue"
+              borderRadius={500}
+              onClick={() => dispatch(decrementProgress())}
+            >
               Prev
             </Button>
             <Button colorScheme="hopkinsBlue" borderRadius={500}>

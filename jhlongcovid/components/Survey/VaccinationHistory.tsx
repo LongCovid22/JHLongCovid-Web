@@ -48,7 +48,7 @@ export const VaccinationHistory = () => {
 
   return (
     <>
-      <ModalContent>
+      <ModalContent borderRadius={20}>
         <ModalHeader>Vaccination</ModalHeader>
         <ModalCloseButton marginRight={3} marginTop={2}>
           <CloseButton
