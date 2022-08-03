@@ -48,13 +48,6 @@ const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
         // ** may need this as state in the future **
       });
 
-      newMap.addListener("center_changed", () => {
-        // 3 seconds after the center of the map has changed, pan back to the
-        // marker.
-        // console.log(newMap.getCenter()?.lat());
-        // console.log(newMap.getCenter()?.lng());
-      });
-
       setMap(newMap);
     }
   }, [mapRef, map]);

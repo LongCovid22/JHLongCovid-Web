@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "../styles/Home.module.css";
 import Map from "../components/Map/Map";
 import { Header } from "../components/Header/Header";
@@ -9,12 +9,16 @@ import { selectWidth, setDimensions } from "../redux/slices/viewportSlice";
 import { selectZoom } from "../redux/slices/zoomSlice";
 import { read } from "../util/mockDataTwo";
 import { sumUpCases } from "./preprocess";
+import Script from "next/script";
+import React from "react";
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const width = useAppSelector(selectWidth);
   const [county_data, setCountyData] = useState<any[]>([]);
   const [state_data, setStateData] = useState<any[]>([]);
+  const [aggregateData, setAggregateData] = useState<any[]>([]);
+  const [selectedData, setSelectedData] = useState<any[]>([]);
 
   const zoomNum = useAppSelector(selectZoom);
 
@@ -22,13 +26,17 @@ const Home = () => {
   //assumption: total of state data = total of county data
   const totalLongCovidCases = sumUpCases(state_data);
 
-  let markers = county_data;
+  const toggleAggregateDataOnZoom = () => {
+    let markers = county_data;
 
-  if (zoomNum >= 7) {
-    markers = county_data;
-  } else {
-    markers = state_data;
-  }
+    if (zoomNum >= 7) {
+      markers = county_data;
+    } else {
+      markers = state_data;
+    }
+
+    setAggregateData(markers);
+  };
 
   const setViewport = () => {
     dispatch(
@@ -39,6 +47,31 @@ const Home = () => {
     );
   };
 
+  // Memoize map to only re-render when data changes
+  const MapMemo = useMemo(() => {
+    return (
+      <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
+        {aggregateData.map((data) => (
+          <Marker
+            key={`marker-${data.lat}-${data.long}`}
+            center={{ lat: data.lat, lng: data.long }}
+            radius={
+              data.level === "state"
+                ? (data.covidSummary.totalLongCovidCases /
+                    totalLongCovidCases) *
+                  5000000
+                : (data.covidSummary.totalLongCovidCases /
+                    totalLongCovidCases) *
+                  10000000
+            }
+            data={data}
+            setSelectedData={setSelectedData}
+          />
+        ))}
+      </Map>
+    );
+  }, [aggregateData]);
+
   useEffect(() => {
     // set vp height and width and bind the set of the vp height and with on resize
     setViewport();
@@ -47,35 +80,21 @@ const Home = () => {
     const [county_data, state_data] = read();
     setStateData(state_data);
     setCountyData(county_data);
-
     return () => removeEventListener("resize", setViewport);
   }, []);
 
+  useEffect(() => {
+    toggleAggregateDataOnZoom();
+  }, [zoomNum, state_data, county_data]);
+
   return (
     <>
+      <Script src="https://cdn.jsdelivr.net/npm/apexcharts" />
+      <Script src="https://cdn.jsdelivr.net/npm/react-apexcharts" />
       <div className={styles.main}>
-        <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
-          {markers.map((mark) => (
-            <Marker
-              center={{ lat: mark.lat, lng: mark.long }}
-              radius={
-                mark.level === "state"
-                  ? (mark.covidSummary.totalLongCovidCases /
-                      totalLongCovidCases) *
-                    5000000
-                  : (mark.covidSummary.totalLongCovidCases /
-                      totalLongCovidCases) *
-                    10000000
-              }
-              covidSummary={mark.covidSummary}
-              name={mark.name}
-              level={mark.level}
-              state={mark.stateName}
-            />
-          ))}
-        </Map>
+        {MapMemo}
         <Header />
-        <LeftSidePanel />
+        <LeftSidePanel data={selectedData} />
       </div>
     </>
   );

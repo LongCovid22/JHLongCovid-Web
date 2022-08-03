@@ -15,12 +15,56 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "../../styles/LeftSidePanel.module.css";
 import { InfoPanelMetrics } from "../Metrics/InfoPanelMetrics";
+import dynamic from "next/dynamic";
+import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
 
-interface LeftSidePanelProps {}
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export const LeftSidePanel: React.FC<LeftSidePanelProps> = () => {
+interface LeftSidePanelProps {
+  data: any;
+}
+
+export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
   const dispatch = useAppDispatch();
   const presentLeftSidePanel = useAppSelector(selectLeftSidePanelPres);
+  const width = useAppSelector(selectWidth);
+  const height = useAppSelector(selectHeight);
+
+  const series = [
+    {
+      data: [135, 25, 75],
+    },
+  ];
+  const options = {
+    xaxis: {
+      categories: ["20-40", "41-60", "61-80"],
+      title: {
+        text: "Age Range (Years)",
+      },
+    },
+    yaxis: {
+      title: {
+        text: "Long COVID Cases",
+      },
+    },
+    title: {
+      text: "Long COVID Count by Age",
+    },
+  };
+
+  const series2 = [35, 22, 21, 10, 12];
+  const options2 = {
+    labels: [
+      "General",
+      "Neurologic",
+      "Digestive",
+      "Respiratory/Heart",
+      "Other",
+    ],
+    title: {
+      text: "% of Symptoms in Body System",
+    },
+  };
 
   return (
     <>
@@ -31,13 +75,17 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = () => {
           minWidth: "410px",
           width: "35%",
           position: "absolute",
-          top: "100px",
+          top: "90px",
           left: presentLeftSidePanel ? "20px" : "0px",
           borderRadius: "40px",
-          height: "calc(100% - 160px)",
+          height: height - 130,
         }}
       >
-        <Box className={styles.leftSidePanel} boxShadow={"xl"}>
+        <Box
+          className={styles.leftSidePanel}
+          boxShadow={"xl"}
+          height={height - 130}
+        >
           <Flex width={"100%"} paddingTop={2}>
             <Spacer />
             <CloseButton
@@ -49,8 +97,29 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = () => {
               }}
             />
           </Flex>
-          <VStack width={"100%"} height={"100%"} padding={"1rem"} spacing={8}>
-            <InfoPanelMetrics />
+          <VStack
+            width={"100%"}
+            height={height - 240}
+            padding={"1rem"}
+            spacing={8}
+            overflowY={"auto"}
+            overflowX="hidden"
+          >
+            <InfoPanelMetrics data={data} />
+            <Chart
+              options={options}
+              series={series}
+              type="bar"
+              width={width * 0.35 < 420 ? 350 : width * 0.35 - 70}
+              height={300}
+            />
+            <Chart
+              options={options2}
+              series={series2}
+              type="donut"
+              width={width * 0.35 < 420 ? 350 : width * 0.35 - 70}
+              height={300}
+            />
             <Spacer />
           </VStack>
         </Box>
