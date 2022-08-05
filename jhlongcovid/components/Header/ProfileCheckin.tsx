@@ -1,25 +1,18 @@
 import {
-  Box,
-  Input,
   Button,
   Flex,
-  ButtonGroup,
+
   Avatar,
-  Wrap,
+
   Modal,
   ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
+
   useDisclosure,
-  FormControl,
-  FormLabel,
-  Select,
-  Stack,
+  IconButton,
   Checkbox,
 } from "@chakra-ui/react";
+
+
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/Header.module.css";
 
@@ -105,12 +98,15 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
   // return(<BasicUsage />)
 
   return (
+    
     <Flex
       className={styles.rightHeaderStack}
       align="center"
       gap={3}
       boxShadow={"xl"}
     >
+
+
       <Survey />
       <Avatar></Avatar>
     </Flex>
