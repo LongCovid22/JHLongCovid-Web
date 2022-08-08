@@ -1,20 +1,32 @@
-import { Box, Input, CloseButton, IconButton, Flex, Slide, Image, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box, Input,
+  IconButton, Flex,
+  useDisclosure, Menu,
+  MenuButton, MenuList, MenuItem, Image, Text, Icon,
+  Modal, ModalOverlay, ModalContent, ModalHeader,
+  ModalCloseButton, ModalBody, ModalFooter, Button
+} from "@chakra-ui/react";
 import React from "react";
 import styles from "../../styles/Header.module.css";
 import { Search2Icon } from "@chakra-ui/icons";
 import { hopkinsBlue } from "../../theme/styles";
 
-import { HamburgerIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, AddIcon, ExternalLinkIcon, RepeatIcon, EditIcon } from '@chakra-ui/icons';
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+
+import { MdOutlinePrivacyTip, MdChecklist } from 'react-icons/md';
+
+import { ImNewspaper } from "react-icons/im";
 
 interface SearchProps { }
 
 export const Search: React.FC<SearchProps> = () => {
   const height = useAppSelector(selectHeight);
 
-  const {isOpen, onToggle} = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
+  // let isOpen = false;
   return (
     <Flex
       className={styles.leftHeaderStack}
@@ -23,91 +35,117 @@ export const Search: React.FC<SearchProps> = () => {
       boxShadow={"xl"}
     >
 
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label='Options'
+          icon={<HamburgerIcon />}
+          variant='outline'
+        />
+        <MenuList style={{
+          minWidth: "250px",
+          width: "15%",
+        }}>
 
-      <IconButton
-        // colorScheme='blue'
-        aria-label='Search database'
-
-        bg="hopkinsBlue.100"
-        color="hopkinsBlue.600"
-
-
-        icon={<HamburgerIcon
-
-
-
-        />}
-
-        onClick = {onToggle}
-      />
-
-      <Slide direction="left" in={isOpen}
-
-        style={{
-          minWidth: "410px",
-          width: "35%",
-          position: "absolute",
-          top: "100px",
-          left: "0px",
-          height: height - 200
-        }}
-
-      >
-
-        <Box bg='white'
-            rounded='md'
-            shadow='md'>
-
-          <CloseButton
-            size={"md"}
-            bgColor="hopkinsBlue.100"
-            color={"hopkinsBlue.600"}
-            onClick = {onToggle}
-          />
-
-          <Box
-
-            overflowY="auto"
-            p='40px'
-            color='white'
-            mt='4'
-            bg='white'
-            rounded='md'
-            shadow='md'
-
-            height={height - 200}
-          >
+          <Box className={styles.Image}>
 
             <Image src='/jhu_logo.jpg' alt='Dan Abramov' />
-            <Text fontSize='sm' color="black" fontWeight="bold">
-              Johns Hopkins experts in global public health, infectious disease, and emergency preparedness have been at the forefront of the international response to COVID-19.
-            </Text>
-            <br></br>
-            <Text fontSize='sm' color="black" >
-              This website is a resource to help advance the understanding of the virus, inform the public, and brief policymakers in order to guide a response, improve care, and save lives.
-
-            </Text>
-
-
-
-            <br></br>
 
             <Text fontSize='sm' color="black" >
-              We value your privacy for any and all information you chose to share through this website. Please see our Terms of Use, and to know how we use your personal data, please see our Privacy Policy
+              <strong>
+                JHU.edu Copyright © 2022 by Johns Hopkins University & Medicine. All rights reserved.
+              </strong>
+              <br></br>
+              Johns Hopkins experts in global public health, infectious disease, and emergency preparedness have been at the forefront of the international response to COVID-19. Privacy has been at the forefront
+              of our work.
             </Text>
 
-            <br></br>
 
-            <Text fontSize='sm' color="black" >
-              Privacy Statement <br></br>
-              JHU.edu Copyright © 2022 by Johns Hopkins University & Medicine. All rights reserved.
-            </Text>
+            <Button onClick={onOpen} style={{
+          width: "100%",
+        }}>
+          
+          <Icon as={MdOutlinePrivacyTip} />
+          
+          Privacy Statement</Button>
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Modal Title</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  "Hey"
+                </ModalBody>
+
+                <ModalFooter>
+                  <Button colorScheme='blue' mr={3} onClick={onClose}>
+                    Close
+                  </Button>
+                  <Button variant='ghost'>Secondary Action</Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+
+            <Button onClick={onOpen} style={{
+          width: "100%",
+        }}>
+          <Icon as={ImNewspaper} />
+          Legal Statement</Button>
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Modal Title</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  "Hey"
+                </ModalBody>
+
+                <ModalFooter>
+                  <Button colorScheme='blue' mr={3} onClick={onClose}>
+                    Close
+                  </Button>
+                  <Button variant='ghost'>Secondary Action</Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+
+            <Button onClick={onOpen} style={{
+          width: "100%",
+        }}>
+          <Icon as={MdChecklist} />
+          Terms of Service</Button>
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Modal Title</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  "Hey"
+                </ModalBody>
+
+                <ModalFooter>
+                  <Button colorScheme='blue' mr={3} onClick={onClose}>
+                    Close
+                  </Button>
+                  <Button variant='ghost'>Secondary Action</Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+
 
 
           </Box>
-        </Box>
+          
 
-      </Slide>
+
+
+
+
+         
+        </MenuList>
+      </Menu>
+
+
       <Box flex={1}>
         <Input
           variant="unstyled"
