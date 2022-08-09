@@ -35,7 +35,7 @@ export const Search: React.FC<SearchProps> = () => {
       boxShadow={"xl"}
     >
 
-      <Menu>
+      <Menu closeOnBlur = {false}>
         <MenuButton
           as={IconButton}
           aria-label='Options'
@@ -49,7 +49,7 @@ export const Search: React.FC<SearchProps> = () => {
 
           <Box className={styles.Image}>
 
-            <Image src='/jhu_logo.jpg' alt='Dan Abramov' />
+            <Image src='/jhu_logo.jpg'/>
 
             <Text fontSize='sm' color="black" >
               <strong>
@@ -61,87 +61,69 @@ export const Search: React.FC<SearchProps> = () => {
             </Text>
 
 
-            <Button onClick={onOpen} style={{
-          width: "100%",
-        }}>
-          
-          <Icon as={MdOutlinePrivacyTip} />
-          
-          Privacy Statement</Button>
+            <Button leftIcon={<Icon as={MdOutlinePrivacyTip} />} variant="ghost" justifyContent="flex-start" onClick={onOpen} style={{
+              width: "100%",
+            }}>
+              Privacy Statement</Button>
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader>Modal Title</ModalHeader>
+                <ModalHeader>Privacy Stuff</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                  "Hey"
+                  
                 </ModalBody>
-
-                <ModalFooter>
-                  <Button colorScheme='blue' mr={3} onClick={onClose}>
-                    Close
-                  </Button>
-                  <Button variant='ghost'>Secondary Action</Button>
-                </ModalFooter>
               </ModalContent>
             </Modal>
 
-            <Button onClick={onOpen} style={{
-          width: "100%",
-        }}>
-          <Icon as={ImNewspaper} />
-          Legal Statement</Button>
+            <Button leftIcon={<Icon as={ImNewspaper} />} variant="ghost" justifyContent="flex-start" onClick={onOpen} style={{
+              width: "100%",
+            }}>
+              
+
+               Legal Statement
+            </Button>
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader>Modal Title</ModalHeader>
+                <ModalHeader>Legal Stuff</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                   "Hey"
                 </ModalBody>
 
-                <ModalFooter>
-                  <Button colorScheme='blue' mr={3} onClick={onClose}>
-                    Close
-                  </Button>
-                  <Button variant='ghost'>Secondary Action</Button>
-                </ModalFooter>
+                
               </ModalContent>
             </Modal>
 
-            <Button onClick={onOpen} style={{
-          width: "100%",
-        }}>
-          <Icon as={MdChecklist} />
-          Terms of Service</Button>
+            <Button leftIcon={<Icon as={MdChecklist} />} variant="ghost" justifyContent="flex-start" onClick={onOpen} style={{
+              width: "100%",
+            }}>
+              
+              Terms of Service</Button>
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader>Modal Title</ModalHeader>
+                <ModalHeader>Terms of Service Stuff</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                   "Hey"
                 </ModalBody>
 
-                <ModalFooter>
-                  <Button colorScheme='blue' mr={3} onClick={onClose}>
-                    Close
-                  </Button>
-                  <Button variant='ghost'>Secondary Action</Button>
-                </ModalFooter>
+             
               </ModalContent>
             </Modal>
 
 
 
           </Box>
-          
 
 
 
 
 
-         
+
+
         </MenuList>
       </Menu>
 
