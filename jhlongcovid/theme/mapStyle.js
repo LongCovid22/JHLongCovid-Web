@@ -114,8 +114,8 @@ export const mapStyle = [
     elementType: "geometry",
     stylers: [
       {
-        // color: "#ffffff",
-        visibility: "off",
+        color: "#ffffff",
+        // visibility: "off",
       },
     ],
   },
@@ -134,9 +134,13 @@ export const mapStyle = [
     stylers: [
       {
         color: "#9e9e9e",
+        // color: "#000000",
       },
       {
         visibility: "on",
+      },
+      {
+        weight: 1.75,
       },
     ],
   },

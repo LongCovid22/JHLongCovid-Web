@@ -1,8 +1,14 @@
 .leftSidePanel {
   background-color: white;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 0.75rem;
   min-width: 410px;
   width: 100%;
-  border-radius: 40px;
+  border-radius: 30px;
   min-height: 100%;
+}
+
+.leftSidePanel::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+  display: none;
 }
