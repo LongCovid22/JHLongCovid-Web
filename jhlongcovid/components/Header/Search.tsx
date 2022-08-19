@@ -18,6 +18,7 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
+  Center,
   Button,
   VStack,
 } from "@chakra-ui/react";
@@ -40,7 +41,7 @@ import { MdOutlinePrivacyTip, MdChecklist } from "react-icons/md";
 
 import { ImNewspaper } from "react-icons/im";
 
-interface SearchProps {}
+interface SearchProps { }
 
 export const Search: React.FC<SearchProps> = () => {
   const height = useAppSelector(selectHeight);
@@ -54,33 +55,22 @@ export const Search: React.FC<SearchProps> = () => {
       gap={3}
       boxShadow={"xl"}
     >
-      {/* <Menu>
-        <MenuButton as={Button} rightIcon={<HamburgerIcon />}>
-          Actions
-        </MenuButton>
-        <MenuList>
-          <MenuItem>Download</MenuItem>
-          <MenuItem>Create a Copy</MenuItem>
-          <MenuItem>Mark as Draft</MenuItem>
-          <MenuItem>Delete</MenuItem>
-          <MenuItem>Attend a Workshop</MenuItem>
-        </MenuList>
-      </Menu> */}
-      <Menu>
+      <Menu closeOnBlur={false} closeOnSelect={false}>
         <MenuButton
           as={IconButton}
-          // aria-label="Options"
+          aria-label="Options"
           icon={<HamburgerIcon />}
           variant="outline"
+
         />
         <MenuList
-        // style={{
-        //   minWidth: "300px",
-        //   width: "15%",
-        //   padding: 20,
-        //   borderRadius: 20,
-        //   marginTop: 10,
-        // }}
+          style={{
+            minWidth: "300px",
+            width: "15%",
+            padding: 20,
+            borderRadius: 20,
+            marginTop: 10,
+          }}
         >
           {/* <Box className={styles.Image}> */}
           <VStack spacing={4} maxWidth={300}>
@@ -98,15 +88,15 @@ export const Search: React.FC<SearchProps> = () => {
               forefront of our work.
             </Text>
 
-            <VStack align={"start"}>
+            <VStack >
               <Button
                 leftIcon={<Icon as={MdOutlinePrivacyTip} />}
-                // variant="ghost"
-                // justifyContent="flex-start"
+                variant="ghost"
+                justifyContent="flex-start"
                 onClick={onOpen}
-                // style={{
-                //   width: "100%",
-                // }}
+                style={{
+                  width: "100%",
+                }}
               >
                 Privacy Statement
               </Button>
