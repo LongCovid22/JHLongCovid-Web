@@ -83,7 +83,7 @@ export const Search: React.FC<SearchProps> = () => {
         // }}
         >
           {/* <Box className={styles.Image}> */}
-          <VStack spacing={4}>
+          <VStack spacing={4} maxWidth={300}>
             <Image src="/jhu_logo.jpg" />
             <Text fontSize="sm" color="black">
               <strong>
@@ -97,6 +97,7 @@ export const Search: React.FC<SearchProps> = () => {
               international response to COVID-19. Privacy has been at the
               forefront of our work.
             </Text>
+
             <VStack align={"start"}>
               <Button
                 leftIcon={<Icon as={MdOutlinePrivacyTip} />}
