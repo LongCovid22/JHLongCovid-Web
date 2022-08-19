@@ -1,17 +1,13 @@
 import {
   Button,
   Flex,
-
   Avatar,
-
   Modal,
   ModalOverlay,
-
   useDisclosure,
   IconButton,
   Checkbox,
 } from "@chakra-ui/react";
-
 
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/Header.module.css";
@@ -26,7 +22,7 @@ import { CovidHistory } from "../Survey/covidHistory";
 
 import { Recovery } from "../Survey/Recovery";
 
-import { PostCovid } from "../Survey/PostCovid";
+import { PostCovid } from "../Survey/postCovid";
 
 import { VaccinationHistory } from "../Survey/VaccinationHistory";
 
@@ -98,15 +94,15 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
   // return(<BasicUsage />)
 
   return (
-    
     <Flex
       className={styles.rightHeaderStack}
       align="center"
       gap={3}
       boxShadow={"xl"}
+      style={{
+        zIndex: 0,
+      }}
     >
-
-
       <Survey />
       <Avatar></Avatar>
     </Flex>

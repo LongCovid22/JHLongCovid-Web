@@ -7,7 +7,6 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuItem,
   Image,
   Text,
   Icon,
@@ -17,7 +16,6 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
   Button,
   VStack,
 } from "@chakra-ui/react";
@@ -26,13 +24,7 @@ import styles from "../../styles/Header.module.css";
 import { Search2Icon } from "@chakra-ui/icons";
 import { hopkinsBlue } from "../../theme/styles";
 
-import {
-  HamburgerIcon,
-  AddIcon,
-  ExternalLinkIcon,
-  RepeatIcon,
-  EditIcon,
-} from "@chakra-ui/icons";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
@@ -54,35 +46,22 @@ export const Search: React.FC<SearchProps> = () => {
       gap={3}
       boxShadow={"xl"}
     >
-      {/* <Menu>
-        <MenuButton as={Button} rightIcon={<HamburgerIcon />}>
-          Actions
-        </MenuButton>
-        <MenuList>
-          <MenuItem>Download</MenuItem>
-          <MenuItem>Create a Copy</MenuItem>
-          <MenuItem>Mark as Draft</MenuItem>
-          <MenuItem>Delete</MenuItem>
-          <MenuItem>Attend a Workshop</MenuItem>
-        </MenuList>
-      </Menu> */}
       <Menu>
         <MenuButton
           as={IconButton}
-          // aria-label="Options"
           icon={<HamburgerIcon />}
           variant="outline"
         />
         <MenuList
-        // style={{
-        //   minWidth: "300px",
-        //   width: "15%",
-        //   padding: 20,
-        //   borderRadius: 20,
-        //   marginTop: 10,
-        // }}
+          style={{
+            minWidth: "300px",
+            width: "15%",
+            padding: 20,
+            borderRadius: 20,
+            marginTop: 10,
+          }}
+          dropShadow={"xl"}
         >
-          {/* <Box className={styles.Image}> */}
           <VStack spacing={4} maxWidth={300}>
             <Image src="/jhu_logo.jpg" />
             <Text fontSize="sm" color="black">
@@ -98,15 +77,12 @@ export const Search: React.FC<SearchProps> = () => {
               forefront of our work.
             </Text>
 
-            <VStack align={"start"}>
+            <VStack width={"100%"}>
               <Button
                 leftIcon={<Icon as={MdOutlinePrivacyTip} />}
-                // variant="ghost"
-                // justifyContent="flex-start"
                 onClick={onOpen}
-                // style={{
-                //   width: "100%",
-                // }}
+                width="100%"
+                justifyContent="start"
               >
                 Privacy Statement
               </Button>
@@ -122,11 +98,9 @@ export const Search: React.FC<SearchProps> = () => {
               <Button
                 leftIcon={<Icon as={ImNewspaper} />}
                 variant="ghost"
-                justifyContent="flex-start"
                 onClick={onOpen}
-                style={{
-                  width: "100%",
-                }}
+                width="100%"
+                justifyContent="start"
               >
                 Legal Statement
               </Button>
@@ -142,11 +116,9 @@ export const Search: React.FC<SearchProps> = () => {
               <Button
                 leftIcon={<Icon as={MdChecklist} />}
                 variant="ghost"
-                justifyContent="flex-start"
                 onClick={onOpen}
-                style={{
-                  width: "100%",
-                }}
+                width="100%"
+                justifyContent="start"
               >
                 Terms of Service
               </Button>
