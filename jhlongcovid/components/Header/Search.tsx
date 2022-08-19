@@ -54,21 +54,33 @@ export const Search: React.FC<SearchProps> = () => {
       gap={3}
       boxShadow={"xl"}
     >
+      {/* <Menu>
+        <MenuButton as={Button} rightIcon={<HamburgerIcon />}>
+          Actions
+        </MenuButton>
+        <MenuList>
+          <MenuItem>Download</MenuItem>
+          <MenuItem>Create a Copy</MenuItem>
+          <MenuItem>Mark as Draft</MenuItem>
+          <MenuItem>Delete</MenuItem>
+          <MenuItem>Attend a Workshop</MenuItem>
+        </MenuList>
+      </Menu> */}
       <Menu>
         <MenuButton
           as={IconButton}
-          aria-label="Options"
+          // aria-label="Options"
           icon={<HamburgerIcon />}
           variant="outline"
         />
         <MenuList
-          style={{
-            minWidth: "300px",
-            width: "15%",
-            padding: 20,
-            borderRadius: 20,
-            marginTop: 10,
-          }}
+        // style={{
+        //   minWidth: "300px",
+        //   width: "15%",
+        //   padding: 20,
+        //   borderRadius: 20,
+        //   marginTop: 10,
+        // }}
         >
           {/* <Box className={styles.Image}> */}
           <VStack spacing={4}>
@@ -85,15 +97,15 @@ export const Search: React.FC<SearchProps> = () => {
               international response to COVID-19. Privacy has been at the
               forefront of our work.
             </Text>
-            <VStack align={"start"} style={{ width: "100%" }}>
+            <VStack align={"start"}>
               <Button
                 leftIcon={<Icon as={MdOutlinePrivacyTip} />}
-                variant="ghost"
-                justifyContent="flex-start"
+                // variant="ghost"
+                // justifyContent="flex-start"
                 onClick={onOpen}
-                style={{
-                  width: "100%",
-                }}
+                // style={{
+                //   width: "100%",
+                // }}
               >
                 Privacy Statement
               </Button>
@@ -147,8 +159,6 @@ export const Search: React.FC<SearchProps> = () => {
               </Modal>
             </VStack>
           </VStack>
-
-          {/* </Box> */}
         </MenuList>
       </Menu>
 
