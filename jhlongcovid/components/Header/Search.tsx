@@ -16,6 +16,8 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
+  ModalFooter,
+  Center,
   Button,
   VStack,
 } from "@chakra-ui/react";
@@ -46,9 +48,10 @@ export const Search: React.FC<SearchProps> = () => {
       gap={3}
       boxShadow={"xl"}
     >
-      <Menu>
+      <Menu closeOnBlur={false} closeOnSelect={false}>
         <MenuButton
           as={IconButton}
+          aria-label="Options"
           icon={<HamburgerIcon />}
           variant="outline"
         />
@@ -60,7 +63,6 @@ export const Search: React.FC<SearchProps> = () => {
             borderRadius: 20,
             marginTop: 10,
           }}
-          dropShadow={"xl"}
         >
           <VStack spacing={4} maxWidth={300}>
             <Image src="/jhu_logo.jpg" />
@@ -76,13 +78,15 @@ export const Search: React.FC<SearchProps> = () => {
               international response to COVID-19. Privacy has been at the
               forefront of our work.
             </Text>
-
             <VStack width={"100%"}>
               <Button
                 leftIcon={<Icon as={MdOutlinePrivacyTip} />}
+                variant="ghost"
+                justifyContent="flex-start"
                 onClick={onOpen}
-                width="100%"
-                justifyContent="start"
+                style={{
+                  width: "100%",
+                }}
               >
                 Privacy Statement
               </Button>
