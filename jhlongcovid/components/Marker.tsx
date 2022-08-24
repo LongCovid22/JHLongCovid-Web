@@ -23,47 +23,43 @@ export const Marker: React.FC<CircleProps> = ({
     if (!marker) {
       const circle = new google.maps.Circle({
         // radius: 10000,
-        strokeColor: "#FF0000",
+        strokeColor: "#0065ff",
         strokeOpacity: 0.8,
         strokeWeight: 2,
-        fillColor: "#FF0000",
+        fillColor: "#0065ff",
         fillOpacity: 0.35,
       });
 
       setMarker(circle);
 
       const contentString =
-        data.level === "state"
-          ? '<h1 style = "font-weight: bold">' +
-            data.name +
-            "</h1>" +
-            "<p> Total Long Covid Cases: " +
-            data.covidSummary.totalLongCovidCases +
-            "</p>" +
-            "<p> Percentage of Long Covid Recoveries: " +
-            data.covidSummary.perPeopleRecoveredLongCovid +
-            "</p>" +
-            "<p> Percentage of Reported Long Covid Cases: " +
-            data.covidSummary.perReportedLongCovidCase +
-            "</p>"
-          : '<h1 style = "font-weight: bold">' +
-            data.name +
-            ", " +
-            data.stateAbbrev +
-            "</h1>" +
-            "<p> Total Long Covid Cases: " +
-            data.covidSummary.totalLongCovidCases +
-            "</p>" +
-            "<p> Percentage of Long Covid Recoveries: " +
-            data.covidSummary.perPeopleRecoveredLongCovid +
-            "</p>" +
-            "<p> Percentage of Reported Long Covid Cases: " +
-            data.covidSummary.perReportedLongCovidCase +
-            "</p>";
+        '<div style="padding: 10px">' +
+        `<h1 style = "font-weight: bold; font-size: 18px;">${
+          data.level === "state"
+            ? data.name
+            : data.name + ", " + data.stateAbbrev
+        }</h1>` +
+        "<span>" +
+        '<h5 style="margin-top: 10px; font-weight: 400;"> Total Long Covid Cases</h5>' +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 18px">${data.covidSummary.totalLongCovidCases}</h5>` +
+        "</span>" +
+        "<span>" +
+        '<h5 style="margin-top: 10px; font-weight: 400;">Long COVID Recovery Rate</h5>' +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 18px">${Math.ceil(
+          data.covidSummary.perPeopleRecoveredLongCovid * 100
+        )}%</h5>` +
+        "</span>" +
+        "<span>" +
+        '<h5 style="margin-top: 10px; font-weight: 400;">% of Reported Long Cases</h5>' +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 18px">${Math.ceil(
+          data.covidSummary.perReportedLongCovidCase * 100
+        )}%</h5>` +
+        "</span>" +
+        "</div";
 
       const infowindow = new google.maps.InfoWindow({
         content: contentString,
-        pixelOffset: new google.maps.Size(0, 180),
+        pixelOffset: new google.maps.Size(0, -20),
         maxWidth: 300,
         disableAutoPan: true,
       });
