@@ -1,15 +1,15 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-jhlongcovid-dev-110715-authRole",
-      "UnauthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-dev-110715-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-dev-110715-authRole",
-      "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-jhlongcovid-dev-110715-deployment",
-      "UnauthRoleName": "amplify-jhlongcovid-dev-110715-unauthRole",
-      "StackName": "amplify-jhlongcovid-dev-110715",
-      "StackId": "arn:aws:cloudformation:us-east-2:317973408936:stack/amplify-jhlongcovid-dev-110715/c6246a00-2550-11ed-ba84-06db792f6838",
-      "AmplifyAppId": "d32b8x4bp8p0zc"
+      "AuthRoleName": "amplify-jhlongcovid-dev-115541-authRole",
+      "UnauthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-dev-115541-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-dev-115541-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-jhlongcovid-dev-115541-deployment",
+      "UnauthRoleName": "amplify-jhlongcovid-dev-115541-unauthRole",
+      "StackName": "amplify-jhlongcovid-dev-115541",
+      "StackId": "arn:aws:cloudformation:us-east-1:317973408936:stack/amplify-jhlongcovid-dev-115541/8a3bc9f0-2557-11ed-9f24-0a21d99abced",
+      "AmplifyAppId": "d304vc3h5b8tce"
     }
   }
 }
