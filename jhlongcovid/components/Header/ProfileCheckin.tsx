@@ -34,6 +34,7 @@ import {
   incrementProgress,
   selectProgress,
 } from "../../redux/slices/surveySlice";
+import { selectWidth } from "../../redux/slices/viewportSlice";
 
 interface ProfileCheckinProps {}
 
@@ -92,6 +93,7 @@ function Survey() {
 
 export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
   // return(<BasicUsage />)
+  const width = useAppSelector(selectWidth);
 
   return (
     <Flex
@@ -100,7 +102,8 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
       gap={3}
       boxShadow={"xl"}
       style={{
-        zIndex: 0,
+        minWidth: width < 700 ? "410px" : "250px",
+        top: width < 700 ? "70px" : "0px",
       }}
     >
       <Survey />
