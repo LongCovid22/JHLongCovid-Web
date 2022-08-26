@@ -1,0 +1,158 @@
+{
+  "intro": {
+    "1": {
+      "question": "In total, since the beginning of the pandemic in the US (January 2020), how many times do you think you have been infected with COVID‐19?",
+      "options": [
+        "0 infections (never)",
+        "1 infection (only once)",
+        "2 infections (reinfected once)",
+        "3 infections (reinfected twice)",
+        "More than 3 infections: (please enter number below)"
+      ],
+      "answerFormat": "choice",
+      "answer": null,
+      "branching": {
+        "predicate": "answer === 0",
+        "goto": {
+          "section": "vaccination",
+          "questionNum": "12"
+        }
+      }
+    }
+  },
+  "covid": {
+    "instructions": "The following questions refer to your most recent (new) COVID-19 infection If you know or think you had multiple infections, please answer the following questions based on your most recent infection",
+    "2": {
+      "question": "When do you know or think you had COVID-19?",
+      "options": "Date Month Year",
+      "answerFormat": "date",
+      "answer": null,
+      "branching": null
+    },
+    "3": {
+      "question": "Did you take a COVID test at that time?",
+      "options": ["Yes", "No"],
+      "answerFormat": "choice",
+      "answer": null,
+      "branching": {
+        "predicate": "answer === true",
+        "goto": {
+          "section": "covid",
+          "questionNum": "6"
+        }
+      }
+    },
+    "4": {
+      "question": "What were your test results? Check all that apply. “Positive” means the test showed COVID-19.",
+      "options": [
+        "Positive antigen (\"rapid\") test at home",
+        "Positive antigen (\"rapid\") test at a clinic, tent, or other facility",
+        "Positive PCR test",
+        "Positive test, but unsure if antigen or PCR",
+        "I did not have a positive test",
+        "I don't know",
+        "Decline to answer"
+      ],
+      "answerFormat": "choice",
+      "answer": null,
+      "branching": null
+    },
+    "5": {
+      "question": "Were you hospitalized for COVID-19?",
+      "options": [
+        "Yes, I was hospitalized due to health problems relating to COVID-19",
+        "I was hospitalized, but it was not related to COVID-19 symptoms",
+        "No"
+      ],
+      "answerFormat": "choice",
+      "answer": null,
+      "branching": {
+        "predicate": "answer === 2",
+        "goto": {
+          "section": "covid",
+          "questionNum": "10"
+        }
+      }
+    },
+    "6": {
+      "question": "Did you have any symptoms?",
+      "options": ["Yes", "No"],
+      "answerFormat": "choice",
+      "answer": null,
+      "branching": {
+        "predicate": "answer === false",
+        "goto": {
+          "section": "covid",
+          "questionNum": "8"
+        }
+      }
+    },
+    "7": {
+      "question": "When your symptoms were at their worst, did they prevent you from going about your daily activities?",
+      "options": [
+        "Not at all",
+        "A little bit",
+        "Somewhat",
+        "Quite a bit",
+        "Very much"
+      ],
+      "answerFormat": "choice",
+      "answer": null,
+      "branching": null
+    },
+    "8": {
+      "question": "Did you take any of the following medications? Check all that apply.",
+      "options": [
+        "Antiviral pill, such as Paxlovid",
+        "Monoclonal antibodies",
+        "Oral steroids, such as dexamethasone, prednisone, or prednisolone",
+        "Antibiotics, such as a “Z-pak”",
+        "Other medication: ",
+        "I took medications for COVID-19 but I don't know what they were",
+        "I did not take any medications for COVID-19",
+        "Decline to answer"
+      ],
+      "answerFormat": ["choice", "other"],
+      "answer": null,
+      "branching": null
+    }
+  },
+  "recovery": {
+    "9": {
+      "question": "Qould you say that you are completely recovered from COVID-19 now?",
+      "options": ["Yes", "No", "Unsure", "Decline to answer"],
+      "answerFormat": "choice",
+      "answer": null,
+      "branching": {
+        "predicate": "answer === 0",
+        "goto": {
+          "section": "recovery",
+          "questionNum": "11"
+        }
+      }
+    },
+    "10": {
+      "question": "How long did it take for you to recover from your most recent infection",
+      "options": ["Months", "Days"],
+      "answerFormat": "input",
+      "answer": null,
+      "branching": null
+    },
+    "11": {
+      "question": "Do you think that you are experiencing, or have ever experienced, what has been called “long COVID,” or symptoms that continue for at least a month after your infection?",
+      "options": ["Yes", "No", "Unsure", "Decline to answer"],
+      "answerFormat": "input",
+      "answer": null,
+      "branching": null
+    }
+  },
+  "vaccination": {
+    "12": {
+      "question": "In total, how many COVID-19 vaccine shots have you received?",
+      "options": ["(Input)", "Decline to answer"],
+      "answerFormat": ["choice", "input"],
+      "answer": null,
+      "branching": null
+    }
+  }
+}
