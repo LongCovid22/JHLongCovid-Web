@@ -75,15 +75,15 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
           minWidth: "410px",
           width: "35%",
           position: "absolute",
-          top: "90px",
+          top: width < 700 ? "160px" : "90px",
           left: presentLeftSidePanel ? "20px" : "0px",
-          height: height - 130,
+          height: width < 700 ? height - 300 : height - 130,
         }}
       >
         <Box
           className={styles.leftSidePanel}
           boxShadow={"xl"}
-          height={height - 130}
+          height={width < 700 ? height - 200 : height - 130}
         >
           <Flex width={"100%"} paddingTop={2}>
             <Spacer />
@@ -98,7 +98,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
           </Flex>
           <VStack
             width={"100%"}
-            height={height - 240}
+            height={width < 700 ? height - 290 : height - 220}
             padding={"1rem"}
             spacing={8}
             overflowY={"auto"}

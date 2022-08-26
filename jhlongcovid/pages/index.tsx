@@ -25,7 +25,6 @@ const Home = () => {
   //preprocess county vs state data
   //assumption: total of state data = total of county data
   const totalLongCovidCases = sumUpCases(state_data);
-
   const toggleAggregateDataOnZoom = () => {
     let markers = county_data;
 
