@@ -12,6 +12,10 @@ import { sumUpCases } from "./preprocess";
 import Script from "next/script";
 import React from "react";
 
+import { Amplify } from 'aws-amplify';
+import awsExports from '../src/aws-exports';
+Amplify.configure(awsExports);
+
 const Home = () => {
   const dispatch = useAppDispatch();
   const width = useAppSelector(selectWidth);

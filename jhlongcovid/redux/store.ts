@@ -5,12 +5,15 @@ import viewportReducer from "./slices/viewportSlice";
 
 import surveyReducer from "./slices/surveySlice";
 
+import userReducer from "./slices/userSlice";
+
 const store = configureStore({
   reducer: {
     zoom: zoomReducer,
     presentation: presentationReducer,
     viewport: viewportReducer,
-    survey: surveyReducer
+    survey: surveyReducer,
+    user : userReducer
   },
 });
 

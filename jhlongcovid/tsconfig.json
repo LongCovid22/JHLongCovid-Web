@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "mockData2.js", "countyStateAggregator.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "mockData2.js", "countyStateAggregator.js", "components/Header/AwsAuth.js"],
   "exclude": ["node_modules"]
 }

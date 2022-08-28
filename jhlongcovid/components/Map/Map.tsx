@@ -15,11 +15,6 @@ interface MapProps extends google.maps.MapOptions {
   children: React.ReactNode;
 }
 
-// interface City {
-//   center: google.maps.LatLngLiteral;
-//   population: number;
-// }
-
 const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();

@@ -4,6 +4,7 @@ import {
   Avatar,
   Modal,
   ModalOverlay,
+  ModalContent,
   useDisclosure,
   IconButton,
   Checkbox,
@@ -28,7 +29,12 @@ import { VaccinationHistory } from "../Survey/VaccinationHistory";
 
 import { ThankYou } from "../Survey/ThankYou";
 
+import { EmailRegister } from "../Survey/EmailRegister";
+
+import { MultiFactor } from "../Survey/MultiFactor";
+
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+
 
 import {
   incrementProgress,
@@ -54,9 +60,19 @@ function Survey() {
       >
         Contribute
       </Button>
-      {/* <Recovery isOpen = {isOpen} onClose = {onClose}/> */}
+
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
         <ModalOverlay />
+        {/* provide email */}
+        <div style={{ display: number === -2 ? "inline" : "none" }}>
+          <EmailRegister />
+        </div>
+        {/* verify email through MFA */}
+        <div style={{ display: number === -1 ? "inline" : "none" }}>
+          <MultiFactor />
+        </div>
+
+
         <div style={{ display: number === 0 ? "inline" : "none" }}>
           <Intro />
         </div>

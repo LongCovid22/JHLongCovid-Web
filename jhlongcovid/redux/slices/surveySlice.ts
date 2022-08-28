@@ -8,7 +8,7 @@ export type SurveyState = {
 };
 
 const initialState: SurveyState = {
-  progress: 0,
+  progress: -2,
 };
 
 export const surveySlice = createSlice({
