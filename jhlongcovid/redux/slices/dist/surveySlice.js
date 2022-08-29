@@ -4,7 +4,7 @@ exports.__esModule = true;
 exports.selectProgress = exports.decrementProgress = exports.incrementProgress = exports.surveySlice = void 0;
 var toolkit_1 = require("@reduxjs/toolkit");
 var initialState = {
-    progress: 0
+    progress: -2
 };
 exports.surveySlice = toolkit_1.createSlice({
     name: "survey",
