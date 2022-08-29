@@ -34,14 +34,32 @@ const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
         disableDefaultUI: true,
       });
 
-      newMap.addListener("zoom_changed", () => {
-        dispatch(setByAmount(Number(newMap.getZoom())));
-      });
+      // newMap.addListener("zoom_changed", () => {
+      //   dispatch(setByAmount(Number(newMap.getZoom())));
+
+      //   // console.log(zoomNum);
+      // });
 
       newMap.addListener("bounds_changed", () => {
         const bounds = newMap.getBounds();
         // ** may need this as state in the future **
       });
+
+      newMap.addListener("idle", () => {
+        
+
+        if(zoomNum != newMap.getZoom()) {
+          // console.log("zoom changed");
+          dispatch(setByAmount(Number(newMap.getZoom())));
+          // console.log(zoomNum)
+        // console.log(newMap.getZoom())
+        } 
+
+        
+      })
+
+      //add listener for idle
+      //check to see if zoom has changed, otherwise no need to change the zoom value
 
       setMap(newMap);
     }

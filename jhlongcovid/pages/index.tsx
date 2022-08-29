@@ -52,6 +52,8 @@ const Home = () => {
 
   // Memoize map to only re-render when data changes
   const MapMemo = useMemo(() => {
+    // console.log("re-render map");
+    
     return (
       <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
         {aggregateData.map((data) => (
@@ -88,6 +90,8 @@ const Home = () => {
 
   useEffect(() => {
     toggleAggregateDataOnZoom();
+
+    console.log(zoomNum);
   }, [zoomNum, state_data, county_data]);
 
   return (
