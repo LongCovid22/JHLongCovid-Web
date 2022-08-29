@@ -149,8 +149,352 @@
   "vaccination": {
     "12": {
       "question": "In total, how many COVID-19 vaccine shots have you received?",
-      "options": ["(Input)", "Decline to answer"],
-      "answerFormat": ["choice", "input"],
+      "options": [{ "type": "number", "title": "Number of shots: ", "placeholder": "Enter number of shots"}, "Decline to answer"],
+      "answerFormat": ["input", "choice"],
+      "answer": null,
+      "branching": {
+        "predicate": "0",
+        "goto": {
+          "section": "generalHealth",
+          "questionNum": "15"
+        }
+      }
+    },
+    "13": {
+      "question": "When was your most recent COVID vaccine?",
+      "options": [{ "type": "date", "title": "Date of shot: ", "placeholder": "Enter date of shot"}, "Unsure", "Decline to answer"],
+      "answerFormat": ["input", "choice", "choice"],
+      "answer": null,
+      "branching": null
+    },
+    "14": {
+      "question": "Which type of COVID vaccine was your last shot?",
+      "options": [
+        "Pfizer",
+        "Moderna",
+        "J&J",
+        "AstraZeneca",
+        "Other",
+        "Unsure",
+        "Decline to answer"
+      ],
+      "answerFormat": ["choice", "choice", "choice", "choice", "input", "choice", "choice"],
+      "answer": null,
+      "branching": null
+    }
+  },
+  "generalHealth": {
+    "15": {
+      "question": "Please answer the following questions based on your most recent health status",
+      
+      "options": [
+        
+      ]
+    }
+    "instructions": "Please answer the following questions based on your most recent health status",
+    "15": {
+      "question": "In general, would you say your health is",
+      "options": ["Excellent", "Very Good", "Good", "Fair", "Poor"],
+      "answerFormat": ["promis"],
+      "answer": null,
+      "branching": null
+    },
+    "16": {
+      "question": "In general, would you say your quality of life is",
+      "options": ["Excellent", "Very Good", "Good", "Fair", "Poor"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "17": {
+      "question": "In general, how would you rate your physical health",
+      "options": ["Excellent", "Very Good", "Good", "Fair", "Poor"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "18": {
+      "question": "In general, how would you rate your mental health, including your mood and your ability to think?",
+      "options": ["Excellent", "Very Good", "Good", "Fair", "Poor"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "19": {
+      "question": "In general, how would you rate your satisfaction with your social activities and relationships?",
+      "options": ["Excellent", "Very Good", "Good", "Fair", "Poor"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "20": {
+      "question": "In general, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in your community, and responsibilities as a parent, child, spouse, employee, friend, etc.)?",
+      "options": ["Excellent", "Very Good", "Good", "Fair", "Poor"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    }
+  },
+  "symptoms": {
+    "instructions": "During the past month, have you had any of the following symptoms? If yes, please tell us if the symptom was mild (not very bothersome), moderate (somewhat bothersome), or severe (very bothersome)",
+    "21": {
+      "question": "Weakness or fatigue",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "22": {
+      "question": "Feeling sick after you exert yourself physically or mentally",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "23": {
+      "question": "Fever, chills, sweats or flushing",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "24": {
+      "question": "Loss of or change in smell or taste",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "25": {
+      "question": "Headache",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "26": {
+      "question": "Body or muscle aches",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "27": {
+      "question": "Shortness of breath (trouble breathing)",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "28": {
+      "question": "Cough",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "29": {
+      "question": "Palpitations or racing heart beat",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "30": {
+      "question": "Swelling of your legs",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "31": {
+      "question": "Nausea",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "32": {
+      "question": "Vomiting",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "33": {
+      "question": "Diarrhea",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "34": {
+      "question": "Constipation",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "35": {
+      "question": "Bladder problems including incontinence, trouble passing urine or emptying bladder",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "36": {
+      "question": "Nerve problems including tremor, shaking, numbness, tingling, or burning sensation",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "37": {
+      "question": "Anxiety, depression, or stress",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "38": {
+      "question": "Problems thinking or concentrating",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "39": {
+      "question": "Trouble sleeping",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "40": {
+      "question": "Feeling faint, lightheaded or dizzy after standing up",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "41": {
+      "question": "Skin color changes or rash",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "42": {
+      "question": "Excessively dry mouth or excessive thirst",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "43": {
+      "question": "Vision problems",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "44": {
+      "question": "Problems with hearing (hearing loss, ringing in ears)",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "45": {
+      "question": "Hair loss",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "46": {
+      "question": "Problems with teeth",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "47": {
+      "question": "Changes to menstrual cycle or menopause symptoms (such as hot flashes)",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    },
+    "48": {
+      "question": "Changes in desire for, comfort with or capacity for sex",
+      "options": ["No", "Mild", "Moderate", "Severe"],
+      "answerFormat": "scale",
+      "answer": null,
+      "branching": null
+    }
+  },
+  "medicalConditions": {
+    "22": {
+      "question": "Since the beginning of 2020, has a health care provider given you a new diagnosis of any of the following conditions?",
+      "options": [
+        "Heart problems, such as heart failure or arrhythmia",
+        "Lung problems, such as asthma, COPD, or fibrosis",
+        "Blood clots in the lung (“pulmonary embolism”) leg or arm (“deep vein thrombosis”)",
+        "Sleep apnea or insomnia",
+        "Memory or cognitive impairment or dementia",
+        "Migraine or other headache disorder",
+        "Stroke",
+        "Kidney problems or kidney disease",
+        "Stomach problems or gastrointestinal disease, like stomach ulcer or gastrointestinal disease",
+        "Psychological problems or psychiatric problems, like depression or anxiety or psychosis",
+        "Diabetes",
+        "Thyroid problems",
+        "Cancer",
+        "Other",
+        "No new diagnoses since the beginning of 2020",
+        "Not sure"
+      ],
+      "answerFormat": "choice",
+      "answer": null,
+      "branching": null
+    }
+  },
+  "social": {
+    "23": {
+      "question": "Do you currently have some form of health insurance to help pay for medical bills?",
+      "options": ["Yes", "No", "Not sure", "Decline to answer"],
+      "answerFormat": "choice",
+      "answer": null,
+      "branching": null
+    },
+    "24": {
+      "question": "Do you currently have some form of health insurance to help pay for medical bills?",
+      "options": [
+        "Very difficult",
+        "Somewhat difficult",
+        "Not at all difficult",
+        "Don't know",
+        "Prefer not to answer"
+      ],
+      "answerFormat": "choice",
+      "answer": null,
+      "branching": null
+    },
+    "25": {
+      "question": "What is your current work situation?",
+      "options": [
+        "Working outside of the home",
+        "On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave)",
+        "Working inside the home",
+        "Looking for work, unemployed",
+        "Retired",
+        "Disabled, permanently or temporarily",
+        "Student",
+        "Don't know",
+        "Prefer not to answer"
+      ],
+      "answerFormat": "choice",
       "answer": null,
       "branching": null
     }
