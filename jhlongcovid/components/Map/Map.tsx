@@ -10,70 +10,115 @@ import { mapStyle } from "../../theme/mapStyle";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectZoom, setByAmount } from "../../redux/slices/zoomSlice";
 
+import { selectLat, selectLong, setLat, setLong } from '../../redux/slices/mapSlice';
+
+// import GoogleMapReact from 'google-map-react';
+import { useGoogleMaps } from "react-hook-google-maps";
+
+
 interface MapProps extends google.maps.MapOptions {
   style: { [key: string]: string };
   children: React.ReactNode;
 }
 
-const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
+const Map: React.FC<MapProps> = ({ style, setMapFunc, children, ...options }) => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<google.maps.Map>();
+  
 
   const dispatch = useAppDispatch();
   const zoomNum = useAppSelector(selectZoom);
+  const latNum = useAppSelector(selectLat);
+  const longNum = useAppSelector(selectLong);
 
-  useEffect(() => {
-    if (mapRef.current && !map) {
-      const newMap = new window.google.maps.Map(mapRef.current, {
-        center: { lat: 39.8283, lng: -98.5795 },
-        zoom: zoomNum,
-        mapTypeControl: false,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
+
+  const { ref, map, google } = useGoogleMaps(
+    // Use your own API key, you can get one from Google (https://console.cloud.google.com/google/maps-apis/overview)
+    "AIzaSyARLcESSEoAqmN5cM63b_3EQv9Qiqe1OsU",
+    // NOTE: even if you change options later
+    {
+      center: { lat: 39.8283, lng: -98.5795 },
+      zoom: 5,
+      mapTypeControl: false,
+        // mapTypeId: google.maps.MapTypeId.ROADMAP,
         fullscreenControl: false,
         styles: mapStyle,
         disableDefaultUI: true,
-      });
+    },
+  );
 
-      // newMap.addListener("zoom_changed", () => {
-      //   dispatch(setByAmount(Number(newMap.getZoom())));
+  setMapFunc(map);
 
-      //   // console.log(zoomNum);
-      // });
+  if (map) {
+    map.addListener("idle", () => {
+      if (zoomNum != map.getZoom()) {
+        dispatch(setByAmount(Number(map.getZoom())));
+      }
+    });
+  }
+  
 
-      newMap.addListener("bounds_changed", () => {
-        const bounds = newMap.getBounds();
-        // ** may need this as state in the future **
-      });
+  // useEffect(() => {
+    
 
-      newMap.addListener("idle", () => {
-        
+  //   if (mapRef.current && !map) {
+  //     const newMap = new window.google.maps.Map(mapRef.current, {
+  //       center: { lat: latNum, lng: longNum },
+  //       zoom: zoomNum,
+  //       mapTypeControl: false,
+  //       mapTypeId: google.maps.MapTypeId.ROADMAP,
+  //       fullscreenControl: false,
+  //       styles: mapStyle,
+  //       disableDefaultUI: true,
+  //     });
+  //     // newMap.addListener("bounds_changed", () => {
+  //     //   const bounds = newMap.getBounds();
+  //     //   console.log(bounds);
+  //     //   newMap.panTo(new google.maps.LatLng(39.8283, -98.5795));
+  //     //   // dispatch(setLat(39.8283));
+  //     //   // dispatch(setLong(-98.5795));
+  //     // });
 
-        if(zoomNum != newMap.getZoom()) {
-          // console.log("zoom changed");
-          dispatch(setByAmount(Number(newMap.getZoom())));
-          // console.log(zoomNum)
-        // console.log(newMap.getZoom())
-        } 
+  //     setMapFunc(newMap);
 
-        
-      })
+  //     newMap.addListener("idle", () => {
+  //       if (zoomNum != map.getZoom()) {
+  //         dispatch(setByAmount(Number(map.getZoom())));
+  //       }
+  //     });
+      
+      
+  //   }
 
-      //add listener for idle
-      //check to see if zoom has changed, otherwise no need to change the zoom value
+    
+  // }, [mapRef, map, latNum, longNum]);
 
-      setMap(newMap);
-    }
-  }, [mapRef, map]);
 
   return (
-    <div id="map" ref={mapRef} style={style}>
-      {Children.map(children, (child) => {
-        if (isValidElement(child)) {
-          return cloneElement(child, { map });
-        }
-      })}
-    </div>
+
+
+//     <GoogleMapReact
+//       defaultCenter={{lat : 10.9, lng: 77.01}}
+//       defaultZoom={5}
+//     >
+//       {/* {Children.map(children, (child) => {
+//   if (isValidElement(child)) {
+//     return cloneElement(child, { map });
+//   }
+// })} */}
+//     </GoogleMapReact>
+
+<div id="map" ref={ref} style={style}>
+{Children.map(children, (child) => {
+  if (isValidElement(child)) {
+    return cloneElement(child, { map });
+  }
+})}
+</div>
+
+
+
   );
 };
 
 export default Map;
+

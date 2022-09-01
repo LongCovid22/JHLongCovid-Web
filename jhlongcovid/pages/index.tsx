@@ -16,6 +16,10 @@ import { Amplify } from 'aws-amplify';
 import awsExports from '../src/aws-exports';
 Amplify.configure(awsExports);
 
+interface IHash {
+  [name: string] : google.maps.Circle
+}
+
 const Home = () => {
   const dispatch = useAppDispatch();
   const width = useAppSelector(selectWidth);
@@ -24,6 +28,11 @@ const Home = () => {
   const [aggregateData, setAggregateData] = useState<any[]>([]);
   const [selectedData, setSelectedData] = useState<any[]>([]);
 
+
+  const [map, setMap] = useState<google.maps.Map>();
+
+  const [markerData, setMarkerData] = useState<IHash>({});
+
   const zoomNum = useAppSelector(selectZoom);
 
   //preprocess county vs state data
@@ -31,13 +40,11 @@ const Home = () => {
   const totalLongCovidCases = sumUpCases(state_data);
   const toggleAggregateDataOnZoom = () => {
     let markers = county_data;
-
     if (zoomNum >= 7) {
       markers = county_data;
     } else {
       markers = state_data;
     }
-
     setAggregateData(markers);
   };
 
@@ -55,7 +62,7 @@ const Home = () => {
     // console.log("re-render map");
     
     return (
-      <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
+      <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }} setMapFunc = {setMap} >
         {aggregateData.map((data) => (
           <Marker
             key={`marker-${data.lat}-${data.long}`}
@@ -71,6 +78,10 @@ const Home = () => {
             }
             data={data}
             setSelectedData={setSelectedData}
+
+            markerData = {markerData}
+
+            setMarkerData = {setMarkerData}
           />
         ))}
       </Map>
@@ -90,17 +101,16 @@ const Home = () => {
 
   useEffect(() => {
     toggleAggregateDataOnZoom();
-
-    console.log(zoomNum);
   }, [zoomNum, state_data, county_data]);
 
   return (
     <>
       <Script src="https://cdn.jsdelivr.net/npm/apexcharts" />
       <Script src="https://cdn.jsdelivr.net/npm/react-apexcharts" />
+
       <div className={styles.main}>
         {MapMemo}
-        <Header />
+        <Header map = {map} markerData = {markerData} />
         <LeftSidePanel data={selectedData} />
       </div>
     </>

@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { calculatePanelOffset } from "./Map/mapFunctions";
 import { useAppDispatch } from "../redux/hooks";
 import { setLeftSidePanelPres } from "../redux/slices/presentationSlice";
-import { InfoPanelMetrics } from "./Metrics/InfoPanelMetrics";
-import { Box } from "@chakra-ui/react";
 
 interface CircleProps extends google.maps.CircleOptions {
   data: any;
@@ -12,6 +10,8 @@ interface CircleProps extends google.maps.CircleOptions {
 
 export const Marker: React.FC<CircleProps> = ({
   data,
+  markerData,
+  setMarkerData,
   setSelectedData,
   ...options
 }) => {
@@ -20,6 +20,8 @@ export const Marker: React.FC<CircleProps> = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    console.log(data);
+
     if (!marker) {
       const circle = new google.maps.Circle({
         // radius: 10000,
@@ -76,6 +78,7 @@ export const Marker: React.FC<CircleProps> = ({
 
   useEffect(() => {
     // console.log(options);
+    // console.log(data);
     if (marker) {
       marker.setOptions(options);
 
@@ -101,6 +104,12 @@ export const Marker: React.FC<CircleProps> = ({
           dispatch(setLeftSidePanelPres(true));
           options.map.panTo(markerPosition);
           options.map.panBy(calculatePanelOffset(options.map), 0);
+
+          if(data.level == 'county') {
+            options.map.setZoom(11);
+          } else {
+            options.map.setZoom(6);
+          }
         }
       });
 
@@ -109,6 +118,20 @@ export const Marker: React.FC<CircleProps> = ({
           infoWindow.close();
         }
       });
+
+      let new_marker_data = markerData;
+
+
+      if(data.level == "county") {
+        new_marker_data[data.name + ' County, ' + data.stateAbbrev + ', USA'] = marker;
+      } else {
+        new_marker_data[data.name] = marker;
+      }
+      
+
+
+
+      setMarkerData(new_marker_data);
     }
   }, [marker, options]);
 

@@ -7,13 +7,16 @@ import surveyReducer from "./slices/surveySlice";
 
 import userReducer from "./slices/userSlice";
 
+import mapReducer from './slices/mapSlice';
+
 const store = configureStore({
   reducer: {
     zoom: zoomReducer,
     presentation: presentationReducer,
     viewport: viewportReducer,
     survey: surveyReducer,
-    user : userReducer
+    user : userReducer,
+    map: mapReducer
   },
 });
 
