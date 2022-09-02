@@ -16,8 +16,8 @@ interface MapProps extends google.maps.MapOptions {
 }
 
 const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
-  const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
+  const mapRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useAppDispatch();
   const zoomNum = useAppSelector(selectZoom);
@@ -42,7 +42,6 @@ const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
         const bounds = newMap.getBounds();
         // ** may need this as state in the future **
       });
-
       setMap(newMap);
     }
   }, [mapRef, map]);

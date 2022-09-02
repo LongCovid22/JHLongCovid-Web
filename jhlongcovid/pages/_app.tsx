@@ -7,8 +7,6 @@ import { hopkinsBlue } from "../theme/styles";
 import "./styles.css";
 import React from "react";
 
-
-
 const googleAPIKey = process.env.GOOGLEMAPS_API_KEY as string;
 
 const theme = extendTheme({
@@ -25,7 +23,7 @@ function MyApp({ Component, pageProps }: any) {
   return (
     <Provider store={store}>
       <ChakraProvider theme={theme}>
-        <Wrapper apiKey={googleAPIKey} render={render}>
+        <Wrapper apiKey={googleAPIKey} render={render} libraries={["places"]}>
           <Component {...pageProps} />
         </Wrapper>
       </ChakraProvider>

@@ -30,7 +30,7 @@ import { useAppDispatch } from "../../redux/hooks";
 
 import {
   decrementProgress,
-  incrementProgress,
+  nextQuestion,
 } from "../../redux/slices/surveySlice";
 
 import React from "react";
@@ -102,7 +102,7 @@ export const VaccinationHistory = () => {
             <Button
               colorScheme="hopkinsBlue"
               borderRadius={500}
-              onClick={() => dispatch(incrementProgress())}
+              onClick={() => dispatch(nextQuestion({ answer: "" }))}
             >
               Next
             </Button>

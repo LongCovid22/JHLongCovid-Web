@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import styles from "../styles/Home.module.css";
 import Map from "../components/Map/Map";
 import { Header } from "../components/Header/Header";
@@ -11,9 +11,12 @@ import { read } from "../util/mockDataTwo";
 import { sumUpCases } from "./preprocess";
 import Script from "next/script";
 import React from "react";
+import { Button } from "@chakra-ui/react";
 
-import { Amplify } from 'aws-amplify';
-import awsExports from '../src/aws-exports';
+import { Amplify } from "aws-amplify";
+import awsExports from "../src/aws-exports";
+import { initQuestions } from "../redux/slices/surveySlice";
+
 Amplify.configure(awsExports);
 
 const Home = () => {
@@ -90,6 +93,11 @@ const Home = () => {
     toggleAggregateDataOnZoom();
   }, [zoomNum, state_data, county_data]);
 
+  // Upon user sign in & component mount
+  useEffect(() => {
+    dispatch(initQuestions({ authId: null }));
+  }, []);
+
   return (
     <>
       <Script src="https://cdn.jsdelivr.net/npm/apexcharts" />
@@ -98,6 +106,7 @@ const Home = () => {
         {MapMemo}
         <Header />
         <LeftSidePanel data={selectedData} />
+        <Button onClick={() => {}}>Click to Pan</Button>
       </div>
     </>
   );
