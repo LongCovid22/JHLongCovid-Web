@@ -6,6 +6,7 @@ import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { hopkinsBlue } from "../theme/styles";
 import "./styles.css";
 import React from "react";
+import { MapProvider } from "../components/context/MapContext";
 
 const googleAPIKey = process.env.GOOGLEMAPS_API_KEY as string;
 
@@ -24,7 +25,9 @@ function MyApp({ Component, pageProps }: any) {
     <Provider store={store}>
       <ChakraProvider theme={theme}>
         <Wrapper apiKey={googleAPIKey} render={render} libraries={["places"]}>
-          <Component {...pageProps} />
+          <MapProvider>
+            <Component {...pageProps} />
+          </MapProvider>
         </Wrapper>
       </ChakraProvider>
     </Provider>
