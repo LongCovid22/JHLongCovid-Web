@@ -2,7 +2,6 @@ import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import zoomReducer from "./slices/zoomSlice";
 import presentationReducer from "./slices/presentationSlice";
 import viewportReducer from "./slices/viewportSlice";
-
 import surveyReducer from "./slices/surveySlice";
 
 const store = configureStore({
@@ -10,7 +9,7 @@ const store = configureStore({
     zoom: zoomReducer,
     presentation: presentationReducer,
     viewport: viewportReducer,
-    survey: surveyReducer
+    survey: surveyReducer,
   },
 });
 

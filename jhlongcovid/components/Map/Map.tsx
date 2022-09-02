@@ -9,6 +9,7 @@ import {
 import { mapStyle } from "../../theme/mapStyle";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectZoom, setByAmount } from "../../redux/slices/zoomSlice";
+import { useMapUpdateContext } from "../context/MapContext";
 
 interface MapProps extends google.maps.MapOptions {
   style: { [key: string]: string };
@@ -23,6 +24,7 @@ interface MapProps extends google.maps.MapOptions {
 const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
+  const mapUpdateContext = useMapUpdateContext();
 
   const dispatch = useAppDispatch();
   const zoomNum = useAppSelector(selectZoom);
@@ -49,6 +51,10 @@ const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
       });
 
       setMap(newMap);
+
+      if (mapUpdateContext) {
+        mapUpdateContext.setMapContext(newMap);
+      }
     }
   }, [mapRef, map]);
 
