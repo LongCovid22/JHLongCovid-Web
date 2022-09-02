@@ -6,7 +6,7 @@ import { Marker } from "../components/Marker";
 import { LeftSidePanel } from "../components/LeftSidePanel/LeftSidePanel";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { selectWidth, setDimensions } from "../redux/slices/viewportSlice";
-import { selectZoom } from "../redux/slices/zoomSlice";
+import { selectZoom, selectLoLat, selectHighLat, selectLoLong, selectHighLong } from "../redux/slices/zoomSlice";
 import { read } from "../util/mockDataTwo";
 import { sumUpCases } from "./preprocess";
 import Script from "next/script";
@@ -14,6 +14,8 @@ import React from "react";
 
 import { Amplify } from 'aws-amplify';
 import awsExports from '../src/aws-exports';
+import { ComponentPropsToStylePropsMap } from "@aws-amplify/ui-react";
+import { count } from "console";
 Amplify.configure(awsExports);
 
 interface IHash {
@@ -34,14 +36,36 @@ const Home = () => {
   const [markerData, setMarkerData] = useState<IHash>({});
 
   const zoomNum = useAppSelector(selectZoom);
+  const latLow = useAppSelector(selectLoLat);
+  const latHigh = useAppSelector(selectHighLat);
+  const longLow = useAppSelector(selectLoLong);
+  const longHigh = useAppSelector(selectHighLong);
+
+  // let lat = {
+  //   lo : useAppSelector(selectLoLat),
+  //   high: useAppSelector(selectHighLat),
+  // }
+
+  // let long = {
+  //   lo: useAppSelector(selectLoLong),
+  //   high: useAppSelector(selectHighLong)
+  // } 
 
   //preprocess county vs state data
   //assumption: total of state data = total of county data
   const totalLongCovidCases = sumUpCases(state_data);
   const toggleAggregateDataOnZoom = () => {
-    let markers = county_data;
+    let markers = [];
     if (zoomNum >= 7) {
-      markers = county_data;
+      let array = [];
+      for(let i = 0; i < county_data.length; i++) {
+        let county = county_data[i];
+        if(latLow <= county.lat && county.lat <= latHigh
+          && longLow <= county.long && county.long <= longHigh) {
+          array.push(county);
+        }
+      }
+      markers = array;
     } else {
       markers = state_data;
     }
@@ -101,7 +125,7 @@ const Home = () => {
 
   useEffect(() => {
     toggleAggregateDataOnZoom();
-  }, [zoomNum, state_data, county_data]);
+  }, [zoomNum, latLow, latHigh, longLow, longHigh, state_data, county_data]);
 
   return (
     <>

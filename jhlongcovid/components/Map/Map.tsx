@@ -8,9 +8,7 @@ import {
 } from "react";
 import { mapStyle } from "../../theme/mapStyle";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { selectZoom, setByAmount } from "../../redux/slices/zoomSlice";
-
-import { selectLat, selectLong, setLat, setLong } from '../../redux/slices/mapSlice';
+import { selectZoom, setByAmount, setLowLong, setHiLong, setLowLat, setHiLat } from "../../redux/slices/zoomSlice";
 
 // import GoogleMapReact from 'google-map-react';
 import { useGoogleMaps } from "react-hook-google-maps";
@@ -27,8 +25,7 @@ const Map: React.FC<MapProps> = ({ style, setMapFunc, children, ...options }) =>
 
   const dispatch = useAppDispatch();
   const zoomNum = useAppSelector(selectZoom);
-  const latNum = useAppSelector(selectLat);
-  const longNum = useAppSelector(selectLong);
+
 
 
   const { ref, map, google } = useGoogleMaps(
@@ -50,9 +47,18 @@ const Map: React.FC<MapProps> = ({ style, setMapFunc, children, ...options }) =>
 
   if (map) {
     map.addListener("idle", () => {
+      // console.log(map.getBounds());
       if (zoomNum != map.getZoom()) {
         dispatch(setByAmount(Number(map.getZoom())));
       }
+
+      let bounds = map.getBounds();
+
+      dispatch(setLowLong(bounds.Qa.lo));
+      dispatch(setHiLong(bounds.Qa.hi));
+      dispatch(setLowLat(bounds.yb.lo));
+      dispatch(setHiLat(bounds.yb.hi));
+
     });
   }
   

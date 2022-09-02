@@ -20,7 +20,7 @@ export const Marker: React.FC<CircleProps> = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
 
     if (!marker) {
       const circle = new google.maps.Circle({
@@ -111,6 +111,18 @@ export const Marker: React.FC<CircleProps> = ({
             options.map.setZoom(6);
           }
         }
+
+
+        if (infoWindow !== undefined) {
+          infoWindow.setPosition(marker.getCenter());
+          infoWindow.open({
+            anchor: marker,
+            map: options.map,
+            shouldFocus: false,
+            // pixelOffset: new google.maps.size(250, 150)
+          });
+        }
+
       });
 
       google.maps.event.addListener(marker, "mouseout", function () {
