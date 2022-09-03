@@ -56,20 +56,49 @@ const Home = () => {
   const totalLongCovidCases = sumUpCases(state_data);
   const toggleAggregateDataOnZoom = () => {
     let markers = [];
-    if (zoomNum >= 7) {
+    if (zoomNum >= 8) {
       let array = [];
       for(let i = 0; i < county_data.length; i++) {
         let county = county_data[i];
-        if(latLow <= county.lat && county.lat <= latHigh
-          && longLow <= county.long && county.long <= longHigh) {
+        if(latLow <= county.lat && county.lat <= latHigh 
+          && longLow  <= county.long && county.long <= longHigh ) {
           array.push(county);
         }
       }
-      markers = array;
-    } else {
+      // markers = array;
+
+      setAggregateData(array);
+
+
+      
+
+      
+      
+
+
+      // setTimeout(() => {
+
+      //   console.log('third');
+
+    
+      //   for(let i = 0; i < county_data.length; i++) {
+      //     let county = county_data[i];
+      //     if((latLow * 0.90 <= county.lat && county.lat <= latHigh *1.1
+      //       && longLow * 1.1 <= county.long && county.long <= longHigh *0.95) 
+            
+      //       && !(latLow <= county.lat && county.lat <= latHigh
+      //         && longLow <= county.long && county.long <= longHigh)) {
+      //       array.push(county);
+      //     }
+      //   }
+      //   setAggregateData(array);
+        
+      // }, 5000);
+    } else if (zoomNum < 8) {
       markers = state_data;
+      setAggregateData(markers);
     }
-    setAggregateData(markers);
+    
   };
 
   const setViewport = () => {
