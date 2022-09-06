@@ -102,14 +102,17 @@ export const Marker: React.FC<CircleProps> = ({
 
           setSelectedData(data);
           dispatch(setLeftSidePanelPres(true));
-          options.map.panTo(markerPosition);
-          options.map.panBy(calculatePanelOffset(options.map), 0);
 
           if(data.level == 'county') {
             options.map.setZoom(11);
           } else {
             options.map.setZoom(6);
           }
+
+          options.map.panTo(markerPosition);
+          options.map.panBy(calculatePanelOffset(options.map), 0);
+
+          
         }
 
 
