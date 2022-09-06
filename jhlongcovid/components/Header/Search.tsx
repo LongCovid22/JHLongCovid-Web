@@ -76,9 +76,7 @@ export const Search: React.FC<SearchProps> = ({map, markerData}) => {
 
   }
 
-  const search = (input: string) => {
-    console.log("Searching for " + input);
-  }
+  
 
   // let isOpen = false;
   return (
@@ -179,38 +177,7 @@ export const Search: React.FC<SearchProps> = ({map, markerData}) => {
             </VStack>
           </MenuList>
         </Menu>
-
-        <Box flex={1}>
-          {/* <form onSubmit={e => {
-            e.preventDefault();
-            search(input)
-          }}>
-            <Input
-              variant="unstyled"
-              placeholder="Search for an address"
-              className={styles.search}
-              onChange={handleChange}
-              value = {input}
-
-            />
-          </form> */}
-          <SearchLocationInput map = {map} markerData = {markerData}/>
-
-
-        </Box>
-        <Box>
-
-          <IconButton
-            aria-label="Search address"
-            icon={<Search2Icon />}
-            borderRadius={"50%"}
-            bg="hopkinsBlue.100"
-            color="hopkinsBlue.600"
-            onClick={() => search(input)}
-          />
-
-
-        </Box>
+        <SearchLocationInput map = {map} markerData = {markerData}/>
       </Flex>
 
 
