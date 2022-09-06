@@ -55,7 +55,6 @@ export const Search: React.FC<SearchProps> = ({map, markerData}) => {
 
   const handleChange = async (event) => {
     setInput(event.target.value);
-    console.log(event.target.value);
 
     if (event.target.value) {
       var config = {

@@ -77,8 +77,6 @@ export const Marker: React.FC<CircleProps> = ({
   }, [marker]);
 
   useEffect(() => {
-    // console.log(options);
-    // console.log(data);
     if (marker) {
       marker.setOptions(options);
 
@@ -138,9 +136,15 @@ export const Marker: React.FC<CircleProps> = ({
 
 
       if(data.level == "county") {
-        new_marker_data[data.name + ' County, ' + data.stateAbbrev + ', USA'] = marker;
+        new_marker_data[data.name + ' County, ' + data.stateAbbrev + ', USA'] = {
+          marker : marker,
+          data : data
+        };
       } else {
-        new_marker_data[data.name] = marker;
+        new_marker_data[data.name] = {
+          marker : marker,
+          data : data
+        };
       }
       
 
