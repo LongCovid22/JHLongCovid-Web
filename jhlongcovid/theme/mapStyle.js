@@ -115,6 +115,7 @@ export const mapStyle = [
     stylers: [
       {
         color: "#ffffff",
+        // visibility: "off",
       },
     ],
   },
@@ -124,6 +125,22 @@ export const mapStyle = [
     stylers: [
       {
         visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "administrative.province",
+    elementType: "geometry.stroke",
+    stylers: [
+      {
+        color: "#9e9e9e",
+        // color: "#000000",
+      },
+      {
+        visibility: "on",
+      },
+      {
+        weight: 1.75,
       },
     ],
   },

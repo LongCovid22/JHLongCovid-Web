@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { hopkinsBlue } from "../theme/styles";
+import "./styles.css";
+import React from "react";
 
 const googleAPIKey = process.env.GOOGLEMAPS_API_KEY as string;
 

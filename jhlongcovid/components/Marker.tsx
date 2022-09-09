@@ -1,11 +1,70 @@
 import React, { useEffect } from "react";
+import { calculatePanelOffset } from "./Map/mapFunctions";
+import { useAppDispatch } from "../redux/hooks";
+import { setLeftSidePanelPres } from "../redux/slices/presentationSlice";
+import { InfoPanelMetrics } from "./Metrics/InfoPanelMetrics";
+import { Box } from "@chakra-ui/react";
 
-export const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
-  const [marker, setMarker] = React.useState<google.maps.Marker>();
+interface CircleProps extends google.maps.CircleOptions {
+  data: any;
+  setSelectedData: (data: any) => void;
+}
+
+export const Marker: React.FC<CircleProps> = ({
+  data,
+  setSelectedData,
+  ...options
+}) => {
+  const [marker, setMarker] = React.useState<google.maps.Circle>();
+  const [infoWindow, setInfowWindow] = React.useState<google.maps.InfoWindow>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!marker) {
-      setMarker(new google.maps.Marker());
+      const circle = new google.maps.Circle({
+        // radius: 10000,
+        strokeColor: "#0065ff",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#0065ff",
+        fillOpacity: 0.35,
+      });
+
+      setMarker(circle);
+
+      const contentString =
+        '<div style="padding: 10px">' +
+        `<h1 style = "font-weight: bold; font-size: 18px;">${
+          data.level === "state"
+            ? data.name
+            : data.name + ", " + data.stateAbbrev
+        }</h1>` +
+        "<span>" +
+        '<h5 style="margin-top: 10px; font-weight: 400;"> Total Long Covid Cases</h5>' +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 18px">${data.covidSummary.totalLongCovidCases}</h5>` +
+        "</span>" +
+        "<span>" +
+        '<h5 style="margin-top: 10px; font-weight: 400;">Long COVID Recovery Rate</h5>' +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 18px">${Math.ceil(
+          data.covidSummary.perPeopleRecoveredLongCovid * 100
+        )}%</h5>` +
+        "</span>" +
+        "<span>" +
+        '<h5 style="margin-top: 10px; font-weight: 400;">% of Reported Long Cases</h5>' +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 18px">${Math.ceil(
+          data.covidSummary.perReportedLongCovidCase * 100
+        )}%</h5>` +
+        "</span>" +
+        "</div";
+
+      const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+        pixelOffset: new google.maps.Size(0, -20),
+        maxWidth: 300,
+        disableAutoPan: true,
+      });
+
+      setInfowWindow(infowindow);
     }
 
     return () => {
@@ -16,8 +75,40 @@ export const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
   }, [marker]);
 
   useEffect(() => {
+    // console.log(options);
     if (marker) {
       marker.setOptions(options);
+
+      google.maps.event.addListener(marker, "mouseover", function () {
+        if (infoWindow !== undefined) {
+          infoWindow.setPosition(marker.getCenter());
+          infoWindow.open({
+            anchor: marker,
+            map: options.map,
+            shouldFocus: false,
+            // pixelOffset: new google.maps.size(250, 150)
+          });
+        }
+      });
+
+      // Pan to marker on marker click
+      google.maps.event.addListener(marker, "click", function () {
+        if (options.map !== null && options.map !== undefined) {
+          const markerPosition =
+            marker.getCenter() ?? new google.maps.LatLng(0.0, 0.0);
+
+          setSelectedData(data);
+          dispatch(setLeftSidePanelPres(true));
+          options.map.panTo(markerPosition);
+          options.map.panBy(calculatePanelOffset(options.map), 0);
+        }
+      });
+
+      google.maps.event.addListener(marker, "mouseout", function () {
+        if (infoWindow !== undefined) {
+          infoWindow.close();
+        }
+      });
     }
   }, [marker, options]);
 

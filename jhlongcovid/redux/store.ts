@@ -1,7 +1,17 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import zoomReducer from "./slices/zoomSlice";
+import presentationReducer from "./slices/presentationSlice";
+import viewportReducer from "./slices/viewportSlice";
+
+import surveyReducer from "./slices/surveySlice";
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    zoom: zoomReducer,
+    presentation: presentationReducer,
+    viewport: viewportReducer,
+    survey: surveyReducer
+  },
 });
 
 export default store;
