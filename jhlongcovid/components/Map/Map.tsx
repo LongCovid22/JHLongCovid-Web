@@ -45,11 +45,10 @@ const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
         }
 
         let bounds = newMap.getBounds();
-
-        dispatch(setLowLong(bounds.Qa.lo));
-        dispatch(setHiLong(bounds.Qa.hi));
-        dispatch(setLowLat(bounds.yb.lo));
-        dispatch(setHiLat(bounds.yb.hi));
+        dispatch(setLowLong(bounds?.getSouthWest().lng()));
+        dispatch(setHiLong(bounds?.getNorthEast().lng()));
+        dispatch(setLowLat(bounds?.getSouthWest().lat()));
+        dispatch(setHiLat(bounds?.getNorthEast().lat()));
 
       });
 

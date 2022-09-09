@@ -93,7 +93,7 @@ export const Marker: React.FC<CircleProps> = ({
       });
 
       // Pan to marker on marker click
-      google.maps.event.addListener(marker, "click", function () {
+      google.maps.event.addListener(marker, "click", async function () {
         if (options.map !== null && options.map !== undefined) {
           const markerPosition =
             marker.getCenter() ?? new google.maps.LatLng(0.0, 0.0);
@@ -123,6 +123,14 @@ export const Marker: React.FC<CircleProps> = ({
             // pixelOffset: new google.maps.size(250, 150)
           });
         }
+
+        setTimeout(() => {
+          if (infoWindow !== undefined) {
+            infoWindow.close();
+          }
+        }, 3000);
+
+
 
       });
 

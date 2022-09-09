@@ -11,15 +11,52 @@ let autoComplete;
 
 const axios = require("axios");
 
+function enableEnterKey(input) {
+
+  /* Store original event listener */
+  const _addEventListener = input.addEventListener
+
+  const addEventListenerWrapper = (type, listener) => {
+    if (type === 'keydown') {
+      /* Store existing listener function */
+      const _listener = listener
+      listener = (event) => {
+        /* Simulate a 'down arrow' keypress if no address has been selected */
+        const suggestionSelected = document.getElementsByClassName('pac-item-selected').length
+        if (event.key === 'Enter' && !suggestionSelected) {
+          const e = new KeyboardEvent('keydown', { 
+            key: 'ArrowDown', 
+            code: 'ArrowDown', 
+            keyCode: 40, 
+          })
+          _listener.apply(input, [e])
+        }
+        _listener.apply(input, [event])
+      }
+    }
+    _addEventListener.apply(input, [type, listener])
+  }
+
+  input.addEventListener = addEventListenerWrapper
+}
+
 function handleScriptLoad(updateQuery, autoCompleteRef, map, markerData) {
+
+
   autoComplete = new window.google.maps.places.Autocomplete(
     autoCompleteRef.current,
     { componentRestrictions: { country: "us" } }
   );
-  autoComplete.setFields(["address_components", "formatted_address"]);
-  autoComplete.addListener("place_changed", () =>
-    handlePlaceSelect(updateQuery, map, markerData)
-  );
+  autoComplete.setFields(["address_components", "formatted_address", "geometry"]);
+  
+
+  enableEnterKey(autoCompleteRef.current);
+
+  autoComplete.addListener("place_changed", () => {
+    handlePlaceSelect(updateQuery, map, markerData);
+  } );
+
+
 }
 
 const searchLocation = async (query) => {
@@ -38,9 +75,13 @@ const searchLocation = async (query) => {
 async function handlePlaceSelect(updateQuery, map, markerData) {
   const addressObject = autoComplete.getPlace();
 
-  console.log(addressObject);
+  // console.log(addressObject);
 
-  if (addressObject) {
+  if(addressObject && (!addressObject.geometry || !addressObject.geometry.location)) {
+    console.log('No results found');
+
+  }
+  else if (addressObject && addressObject.geometry) {
     const query = addressObject.formatted_address;
     updateQuery(query);
 
@@ -67,10 +108,10 @@ async function handlePlaceSelect(updateQuery, map, markerData) {
           map.setZoom(12);
         }
         const new_bnd = map.getBounds();
-        const latLow = new_bnd.yb.lo;
-        const latHigh = new_bnd.yb.hi;
-        const longLow = new_bnd.Qa.lo;
-        const longHigh = new_bnd.Qa.hi;
+        const latLow = new_bnd?.getSouthWest().lat();
+        const latHigh = new_bnd?.getNorthEast().lat();
+        const longLow = new_bnd?.getSouthWest().lng();
+        const longHigh = new_bnd?.getNorthEast().lng();
 
         //wait for 1 second for marker to load (is there a better way?)
         setTimeout(() => {
@@ -146,10 +187,10 @@ function SearchLocationInput({ map, markerData }) {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(value);
       }}
     >
       <Input
+        id = "address-field"
         ref={autoCompleteRef}
         onChange={(event) => setValue(event.currentTarget.value)}
         placeholder="Enter a City"
@@ -167,7 +208,18 @@ function SearchLocationInput({ map, markerData }) {
             borderRadius={"50%"}
             bg="hopkinsBlue.100"
             color="hopkinsBlue.600"
-            onClick={() => search(value)}
+            onClick={() =>
+              // Enter
+              autoCompleteRef.current.dispatchEvent(new KeyboardEvent('keydown', {
+                code: 'Enter',
+                key: 'Enter',
+                charCode: 13,
+                keyCode: 13,
+                view: window,
+                bubbles: true
+            }))
+            
+            }
           />
         </Box>
     </>
