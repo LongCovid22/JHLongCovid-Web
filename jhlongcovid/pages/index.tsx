@@ -6,7 +6,13 @@ import { Marker } from "../components/Marker";
 import { LeftSidePanel } from "../components/LeftSidePanel/LeftSidePanel";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { selectWidth, setDimensions } from "../redux/slices/viewportSlice";
-import { selectZoom } from "../redux/slices/zoomSlice";
+import {
+  selectZoom,
+  selectLoLat,
+  selectHighLat,
+  selectLoLong,
+  selectHighLong,
+} from "../redux/slices/zoomSlice";
 import { read } from "../util/mockDataTwo";
 import { sumUpCases } from "./preprocess";
 import Script from "next/script";
@@ -18,6 +24,10 @@ import { initQuestions } from "../redux/slices/surveySlice";
 
 Amplify.configure(awsExports);
 
+interface IHash {
+  [name: string]: google.maps.Circle;
+}
+
 const Home = () => {
   const dispatch = useAppDispatch();
   const width = useAppSelector(selectWidth);
@@ -26,21 +36,69 @@ const Home = () => {
   const [aggregateData, setAggregateData] = useState<any[]>([]);
   const [selectedData, setSelectedData] = useState<any[]>([]);
 
+  const [map, setMap] = useState<google.maps.Map>();
+
+  const [markerData, setMarkerData] = useState<IHash>({});
+
   const zoomNum = useAppSelector(selectZoom);
+  const latLow = useAppSelector(selectLoLat);
+  const latHigh = useAppSelector(selectHighLat);
+  const longLow = useAppSelector(selectLoLong);
+  const longHigh = useAppSelector(selectHighLong);
+
+  // let lat = {
+  //   lo : useAppSelector(selectLoLat),
+  //   high: useAppSelector(selectHighLat),
+  // }
+
+  // let long = {
+  //   lo: useAppSelector(selectLoLong),
+  //   high: useAppSelector(selectHighLong)
+  // }
 
   //preprocess county vs state data
   //assumption: total of state data = total of county data
   const totalLongCovidCases = sumUpCases(state_data);
   const toggleAggregateDataOnZoom = () => {
-    let markers = county_data;
+    let markers = [];
+    if (zoomNum >= 8) {
+      let array = [];
+      for (let i = 0; i < county_data.length; i++) {
+        let county = county_data[i];
+        if (
+          latLow <= county.lat &&
+          county.lat <= latHigh &&
+          longLow <= county.long &&
+          county.long <= longHigh
+        ) {
+          array.push(county);
+        }
+      }
+      // markers = array;
 
-    if (zoomNum >= 7) {
-      markers = county_data;
-    } else {
+      setAggregateData(array);
+
+      // setTimeout(() => {
+
+      //   console.log('third');
+
+      //   for(let i = 0; i < county_data.length; i++) {
+      //     let county = county_data[i];
+      //     if((latLow * 0.90 <= county.lat && county.lat <= latHigh *1.1
+      //       && longLow * 1.1 <= county.long && county.long <= longHigh *0.95)
+
+      //       && !(latLow <= county.lat && county.lat <= latHigh
+      //         && longLow <= county.long && county.long <= longHigh)) {
+      //       array.push(county);
+      //     }
+      //   }
+      //   setAggregateData(array);
+
+      // }, 5000);
+    } else if (zoomNum < 8) {
       markers = state_data;
+      setAggregateData(markers);
     }
-
-    setAggregateData(markers);
   };
 
   const setViewport = () => {
@@ -54,8 +112,13 @@ const Home = () => {
 
   // Memoize map to only re-render when data changes
   const MapMemo = useMemo(() => {
+    // console.log("re-render map");
+
     return (
-      <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
+      <Map
+        style={{ flexGrow: "1", height: "100vh", width: "100%" }}
+        setMapFunc={setMap}
+      >
         {aggregateData.map((data) => (
           <Marker
             key={`marker-${data.lat}-${data.long}`}
@@ -71,6 +134,8 @@ const Home = () => {
             }
             data={data}
             setSelectedData={setSelectedData}
+            markerData={markerData}
+            setMarkerData={setMarkerData}
           />
         ))}
       </Map>
@@ -90,7 +155,7 @@ const Home = () => {
 
   useEffect(() => {
     toggleAggregateDataOnZoom();
-  }, [zoomNum, state_data, county_data]);
+  }, [zoomNum, latLow, latHigh, longLow, longHigh, state_data, county_data]);
 
   // Upon user sign in & component mount
   useEffect(() => {
@@ -101,9 +166,10 @@ const Home = () => {
     <>
       <Script src="https://cdn.jsdelivr.net/npm/apexcharts" />
       <Script src="https://cdn.jsdelivr.net/npm/react-apexcharts" />
+
       <div className={styles.main}>
         {MapMemo}
-        <Header />
+        <Header map={map} markerData={markerData} />
         <LeftSidePanel data={selectedData} />
       </div>
     </>

@@ -3,12 +3,14 @@ import { Search } from "./Search";
 import React from "react";
 import { ProfileCheckin } from "./ProfileCheckin";
 
-interface HeaderProps {}
+interface HeaderProps {
+  markerData: any;
+}
 
-export const Header: React.FC<HeaderProps> = () => {
+export const Header: React.FC<HeaderProps> = ({ markerData }) => {
   return (
     <Flex>
-      <Search />
+      <Search markerData={markerData} />
       <ProfileCheckin />
     </Flex>
   );

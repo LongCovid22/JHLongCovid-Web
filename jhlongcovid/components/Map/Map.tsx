@@ -8,14 +8,23 @@ import {
 } from "react";
 import { mapStyle } from "../../theme/mapStyle";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { selectZoom, setByAmount } from "../../redux/slices/zoomSlice";
+import {
+  selectZoom,
+  setByAmount,
+  setLowLong,
+  setHiLong,
+  setLowLat,
+  setHiLat,
+} from "../../redux/slices/zoomSlice";
+
+// import GoogleMapReact from 'google-map-react';
+import { useGoogleMaps } from "react-hook-google-maps";
 import { useMapUpdateContext } from "../context/MapContext";
 
 interface MapProps extends google.maps.MapOptions {
   style: { [key: string]: string };
   children: React.ReactNode;
 }
-
 const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
   const [map, setMap] = useState<google.maps.Map>();
   const mapRef = useRef<HTMLDivElement>(null);
@@ -36,14 +45,21 @@ const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
         disableDefaultUI: true,
       });
 
-      newMap.addListener("zoom_changed", () => {
-        dispatch(setByAmount(Number(newMap.getZoom())));
+      newMap.addListener("idle", () => {
+        // console.log(map.getBounds());
+        if (zoomNum != newMap.getZoom()) {
+          dispatch(setByAmount(Number(newMap.getZoom())));
+        }
+
+        let bounds = newMap.getBounds();
+        if (bounds !== undefined) {
+          dispatch(setLowLong(bounds.getSouthWest().lng()));
+          dispatch(setHiLong(bounds.getNorthEast().lng()));
+          dispatch(setLowLat(bounds.getSouthWest().lat()));
+          dispatch(setHiLat(bounds.getNorthEast().lat()));
+        }
       });
 
-      newMap.addListener("bounds_changed", () => {
-        const bounds = newMap.getBounds();
-        // ** may need this as state in the future **
-      });
       setMap(newMap);
 
       if (mapUpdateContext) {
