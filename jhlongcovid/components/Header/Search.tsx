@@ -31,52 +31,54 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
-import { MdOutlinePrivacyTip, MdChecklist, MdAirlineSeatIndividualSuite } from "react-icons/md";
+import {
+  MdOutlinePrivacyTip,
+  MdChecklist,
+  MdAirlineSeatIndividualSuite,
+} from "react-icons/md";
 
 import { ImNewspaper } from "react-icons/im";
 import { ComponentPropsToStylePropsMap } from "@aws-amplify/ui-react";
 
-interface SearchProps { }
+interface SearchProps {
+  map: google.maps.Map;
+  markerData: any;
+}
 
+var axios = require("axios");
 
-var axios = require('axios');
+import SearchLocationInput from "./searchLocationInput";
 
-import SearchLocationInput from './searchLocationInput';
-
-
-export const Search: React.FC<SearchProps> = ({map, markerData}) => {
+export const Search: React.FC<SearchProps> = ({ map, markerData }) => {
   const height = useAppSelector(selectHeight);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [input, setInput] = React.useState('');
+  const [input, setInput] = React.useState("");
 
   const [places, setPlaces] = React.useState([]);
 
+  // const handleChange = async (event) => {
+  //   setInput(event.target.value);
 
-  const handleChange = async (event) => {
-    setInput(event.target.value);
+  //   if (event.target.value) {
+  //     var config = {
+  //       method: 'get',
+  //       url: 'http://localhost:3000/?string=' + event.target.value
+  //     }
 
-    if (event.target.value) {
-      var config = {
-        method: 'get',
-        url: 'http://localhost:3000/?string=' + event.target.value
-      }
+  //     try {
+  //       let res = await axios(config);
+  //       setPlaces(res.data.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   } else {
+  //     setPlaces([]);
+  //   }
 
-      try {
-        let res = await axios(config);
-        setPlaces(res.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      setPlaces([]);
-    }
+  //   console.log(places);
 
-    console.log(places);
-
-  }
-
-  
+  // }
 
   // let isOpen = false;
   return (
@@ -107,15 +109,15 @@ export const Search: React.FC<SearchProps> = ({map, markerData}) => {
               <Image src="/jhu_logo.jpg" />
               <Text fontSize="sm" color="black">
                 <strong>
-                  JHU.edu Copyright © 2022 by Johns Hopkins University & Medicine.
-                  All rights reserved.
+                  JHU.edu Copyright © 2022 by Johns Hopkins University &
+                  Medicine. All rights reserved.
                 </strong>
               </Text>
               <Text fontSize="sm" color="black">
-                Johns Hopkins experts in global public health, infectious disease,
-                and emergency preparedness have been at the forefront of the
-                international response to COVID-19. Privacy has been at the
-                forefront of our work.
+                Johns Hopkins experts in global public health, infectious
+                disease, and emergency preparedness have been at the forefront
+                of the international response to COVID-19. Privacy has been at
+                the forefront of our work.
               </Text>
               <VStack width={"100%"}>
                 <Button
@@ -177,40 +179,29 @@ export const Search: React.FC<SearchProps> = ({map, markerData}) => {
             </VStack>
           </MenuList>
         </Menu>
-        <SearchLocationInput map = {map} markerData = {markerData}/>
+        <SearchLocationInput map={map} markerData={markerData} />
       </Flex>
 
-
-      {
-        (input.length > 0 && places.length > 0 && places[0] != null) &&
+      {input.length > 0 && places.length > 0 && places[0] != null && (
         <Flex
           className={styles.newLeft}
           align="center"
           gap={3}
           boxShadow={"xl"}
         >
-
           <VStack
-            divider={<StackDivider borderColor='gray.200' />}
+            divider={<StackDivider borderColor="gray.200" />}
             spacing={4}
-            align='stretch'
+            align="stretch"
           >
-            {
-              places.map((value, index) =>
-                <Box key={index} h='30px'>
-                  {value}
-                </Box>
-
-              )
-            }
+            {places.map((value, index) => (
+              <Box key={index} h="30px">
+                {value}
+              </Box>
+            ))}
           </VStack>
         </Flex>
-      }
+      )}
     </>
-
-
-
-
-
   );
 };

@@ -1,70 +1,65 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Input } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
-import {
-  Box,
-  IconButton,
-} from "@chakra-ui/react";
-
+import { Box, IconButton } from "@chakra-ui/react";
 import { useMapContext } from "../context/MapContext";
 let autoComplete;
 
 const axios = require("axios");
 
 function enableEnterKey(input) {
-
   /* Store original event listener */
-  const _addEventListener = input.addEventListener
+  const _addEventListener = input.addEventListener;
 
   const addEventListenerWrapper = (type, listener) => {
-    if (type === 'keydown') {
+    if (type === "keydown") {
       /* Store existing listener function */
-      const _listener = listener
+      const _listener = listener;
       listener = (event) => {
         /* Simulate a 'down arrow' keypress if no address has been selected */
-        const suggestionSelected = document.getElementsByClassName('pac-item-selected').length
-        if (event.key === 'Enter' && !suggestionSelected) {
-          const e = new KeyboardEvent('keydown', { 
-            key: 'ArrowDown', 
-            code: 'ArrowDown', 
-            keyCode: 40, 
-          })
-          _listener.apply(input, [e])
+        const suggestionSelected =
+          document.getElementsByClassName("pac-item-selected").length;
+        if (event.key === "Enter" && !suggestionSelected) {
+          const e = new KeyboardEvent("keydown", {
+            key: "ArrowDown",
+            code: "ArrowDown",
+            keyCode: 40,
+          });
+          _listener.apply(input, [e]);
         }
-        _listener.apply(input, [event])
-      }
+        _listener.apply(input, [event]);
+      };
     }
-    _addEventListener.apply(input, [type, listener])
-  }
+    _addEventListener.apply(input, [type, listener]);
+  };
 
-  input.addEventListener = addEventListenerWrapper
+  input.addEventListener = addEventListenerWrapper;
 }
 
-function handleScriptLoad(updateQuery, autoCompleteRef, map, markerData) {
-
-
+function handleScriptLoad(updateQuery, autoCompleteRef, map, markerData, key) {
   autoComplete = new window.google.maps.places.Autocomplete(
     autoCompleteRef.current,
     { componentRestrictions: { country: "us" } }
   );
-  autoComplete.setFields(["address_components", "formatted_address", "geometry"]);
-  
+  autoComplete.setFields([
+    "address_components",
+    "formatted_address",
+    "geometry",
+  ]);
 
   enableEnterKey(autoCompleteRef.current);
 
   autoComplete.addListener("place_changed", () => {
-    handlePlaceSelect(updateQuery, map, markerData);
-  } );
-
-
+    handlePlaceSelect(updateQuery, map, markerData, key);
+  });
 }
 
-const searchLocation = async (query) => {
+const searchLocation = async (query, apiKey) => {
   try {
     const response = await axios.get(
       `https://maps.googleapis.com/maps/api/geocode/json?address=` +
         query +
-        `&key=AIzaSyARLcESSEoAqmN5cM63b_3EQv9Qiqe1OsU`
+        `&key=${apiKey}`
     );
     return response.data;
   } catch (errors) {
@@ -72,20 +67,21 @@ const searchLocation = async (query) => {
   }
 };
 
-async function handlePlaceSelect(updateQuery, map, markerData) {
+async function handlePlaceSelect(updateQuery, map, markerData, apiKey) {
   const addressObject = autoComplete.getPlace();
 
   // console.log(addressObject);
 
-  if(addressObject && (!addressObject.geometry || !addressObject.geometry.location)) {
-    console.log('No results found');
-
-  }
-  else if (addressObject && addressObject.geometry) {
+  if (
+    addressObject &&
+    (!addressObject.geometry || !addressObject.geometry.location)
+  ) {
+    console.log("No results found");
+  } else if (addressObject && addressObject.geometry) {
     const query = addressObject.formatted_address;
     updateQuery(query);
 
-    let res = await searchLocation(query);
+    let res = await searchLocation(query, apiKey);
 
     if (res.status == "OK" && map) {
       let ne = res.results[0].geometry.viewport.northeast;
@@ -156,74 +152,64 @@ async function handlePlaceSelect(updateQuery, map, markerData) {
   }
 }
 
-function handleSubmit(event) {
-  event.preventDefault();
-  if (event.key === "Enter") {
-    console.log("hey");
-  }
-}
-
 function SearchLocationInput({ map, markerData }) {
   const [query, setQuery] = useState("");
   const autoCompleteRef = useRef(null);
-  const key = "AIzaSyARLcESSEoAqmN5cM63b_3EQv9Qiqe1OsU";
+  const key = process.env.GOOGLEMAPS_API_KEY;
   const mapContext = useMapContext();
 
   const [value, setValue] = React.useState("");
 
   useEffect(() => {
-    handleScriptLoad(setValue, autoCompleteRef, mapContext.map, markerData);
+    handleScriptLoad(
+      setValue,
+      autoCompleteRef,
+      mapContext.map,
+      markerData,
+      key
+    );
   }, [mapContext]);
 
-  const search = (input) => {
-    console.log("Searching for " + input);
-  }
-
   return (
-
-    
     <>
-    <Box flex={1}>
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
-      <Input
-        id = "address-field"
-        ref={autoCompleteRef}
-        onChange={(event) => setValue(event.currentTarget.value)}
-        placeholder="Enter a City"
-        value={value}
-      />
-    </form>
-          
-
-        </Box>
-        <Box>
-
+      <Box flex={1}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <Input
+            id="address-field"
+            ref={autoCompleteRef}
+            onChange={(event) => setValue(event.currentTarget.value)}
+            placeholder="Enter a City"
+            value={value}
+          />
+        </form>
+      </Box>
+      <Box>
         <IconButton
-            aria-label="Search address"
-            icon={<Search2Icon />}
-            borderRadius={"50%"}
-            bg="hopkinsBlue.100"
-            color="hopkinsBlue.600"
-            onClick={() =>
-              // Enter
-              autoCompleteRef.current.dispatchEvent(new KeyboardEvent('keydown', {
-                code: 'Enter',
-                key: 'Enter',
+          aria-label="Search address"
+          icon={<Search2Icon />}
+          borderRadius={"50%"}
+          bg="hopkinsBlue.100"
+          color="hopkinsBlue.600"
+          onClick={() =>
+            // Enter
+            autoCompleteRef.current.dispatchEvent(
+              new KeyboardEvent("keydown", {
+                code: "Enter",
+                key: "Enter",
                 charCode: 13,
                 keyCode: 13,
                 view: window,
-                bubbles: true
-            }))
-            
-            }
-          />
-        </Box>
+                bubbles: true,
+              })
+            )
+          }
+        />
+      </Box>
     </>
-    
   );
 }
 
