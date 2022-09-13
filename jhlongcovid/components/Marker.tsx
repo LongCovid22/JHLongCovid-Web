@@ -5,6 +5,8 @@ import { setLeftSidePanelPres } from "../redux/slices/presentationSlice";
 
 interface CircleProps extends google.maps.CircleOptions {
   data: any;
+  markerData: any;
+  setMarkerData: (data: any) => void;
   setSelectedData: (data: any) => void;
 }
 
@@ -101,7 +103,7 @@ export const Marker: React.FC<CircleProps> = ({
           setSelectedData(data);
           dispatch(setLeftSidePanelPres(true));
 
-          if(data.level == 'county') {
+          if (data.level == "county") {
             options.map.setZoom(11);
           } else {
             options.map.setZoom(6);
@@ -109,10 +111,7 @@ export const Marker: React.FC<CircleProps> = ({
 
           options.map.panTo(markerPosition);
           options.map.panBy(calculatePanelOffset(options.map), 0);
-
-          
         }
-
 
         if (infoWindow !== undefined) {
           infoWindow.setPosition(marker.getCenter());
@@ -129,9 +128,6 @@ export const Marker: React.FC<CircleProps> = ({
             infoWindow.close();
           }
         }, 3000);
-
-
-
       });
 
       google.maps.event.addListener(marker, "mouseout", function () {
@@ -142,21 +138,18 @@ export const Marker: React.FC<CircleProps> = ({
 
       let new_marker_data = markerData;
 
-
-      if(data.level == "county") {
-        new_marker_data[data.name + ' County, ' + data.stateAbbrev + ', USA'] = {
-          marker : marker,
-          data : data
-        };
+      if (data.level == "county") {
+        new_marker_data[data.name + " County, " + data.stateAbbrev + ", USA"] =
+          {
+            marker: marker,
+            data: data,
+          };
       } else {
         new_marker_data[data.name] = {
-          marker : marker,
-          data : data
+          marker: marker,
+          data: data,
         };
       }
-      
-
-
 
       setMarkerData(new_marker_data);
     }
