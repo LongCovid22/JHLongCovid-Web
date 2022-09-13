@@ -11,7 +11,6 @@ import {
   Spacer,
   FormLabel,
 } from "@chakra-ui/react";
-import { urlToHttpOptions } from "url";
 
 interface OptionProps {
   option: any;
@@ -24,7 +23,7 @@ const Option: React.FC<OptionProps> = ({ option, answerType, index }) => {
     return <Radio value={index}>{option}</Radio>;
   } else {
     return (
-      <Stack direction={"column"}>
+      <Stack direction={"column"} width={"100%"}>
         <Text>{option.title}</Text>
         <Input
           width={"50%"}
@@ -40,7 +39,7 @@ const Choices = (answerFormat: any, options: any) => {
   if (Array.isArray(answerFormat)) {
     return (
       <RadioGroup w={"100%"}>
-        <VStack align="flex-start" spacing={"10px"}>
+        <VStack align="flex-start" spacing={"15px"} width={"100%"}>
           {answerFormat.map((value: any, key: number) => {
             const option = options[key];
             return (
@@ -69,13 +68,13 @@ const Choices = (answerFormat: any, options: any) => {
   }
 };
 
-export const Choice: React.FC<SurveyQuestionProps> = ({
+export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
 }) => {
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>
-      <Text fontSize={"md"} fontWeight={"regular"}>
+      <Text fontSize={"md"} fontWeight={"regular"} width={"100%"}>
         {currentQuestion.question}
       </Text>
       <VStack spacing={"15px"} width={"100%"}>

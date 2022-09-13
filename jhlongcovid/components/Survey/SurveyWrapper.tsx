@@ -18,18 +18,27 @@ import {
   Text,
   Spacer,
   VStack,
+  Input,
 } from "@chakra-ui/react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
 import {
   initQuestions,
   nextQuestion,
+  prevQuestion,
   selectCurrentQuestion,
+  selectIsFirstQuestion,
+  selectIslastQuestion,
 } from "../../redux/slices/surveySlice";
 import { Welcome } from "./SurveyBody/Welcome";
 import { Consent } from "./SurveyBody/Consent";
 import { Demographics } from "./SurveyBody/Demographics";
-import { Choice } from "./SurveyBody/Choice";
+import { ChoiceQuestion } from "./SurveyBody/ChoiceQuestion";
+import { InputQuestion } from "./SurveyBody/InputQuestion";
+import { Password } from "./SurveyBody/Password";
+import { ThankYou } from "./SurveyBody/ThankYou";
+import { MFA } from "./SurveyBody/MFA";
+import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 
 interface SurveyWrapperProps {
   onClose: () => void;
@@ -46,7 +55,9 @@ const Body: React.FC<SurveyQuestionProps> = ({
 }) => {
   const answerFormat = currentQuestion.answerFormat;
   if (Array.isArray(answerFormat)) {
-    return <Choice currentQuestion={currentQuestion} setAnswer={setAnswer} />;
+    return (
+      <ChoiceQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
+    );
   } else if (answerFormat === "consent") {
     return <Consent currentQuestion={currentQuestion} setAnswer={setAnswer} />;
   } else if (answerFormat === "demographics") {
@@ -56,9 +67,25 @@ const Body: React.FC<SurveyQuestionProps> = ({
   } else if (answerFormat === "welcome") {
     return <Welcome currentQuestion={currentQuestion} setAnswer={setAnswer} />;
   } else if (answerFormat === "choice") {
-    return <Choice currentQuestion={currentQuestion} setAnswer={setAnswer} />;
+    return (
+      <ChoiceQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
+    );
+  } else if (answerFormat === "input") {
+    return (
+      <InputQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
+    );
+  } else if (answerFormat === "password") {
+    return <Password currentQuestion={currentQuestion} setAnswer={setAnswer} />;
+  } else if (answerFormat === "thankYou") {
+    return <ThankYou currentQuestion={currentQuestion} setAnswer={setAnswer} />;
+  } else if (answerFormat === "mfa") {
+    return <MFA currentQuestion={currentQuestion} setAnswer={setAnswer} />;
+  } else if (answerFormat === "scale") {
+    return (
+      <ScaleQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
+    );
   } else {
-    return <Text>Sample</Text>;
+    return <Text>Sample Text</Text>;
   }
 };
 
@@ -66,13 +93,23 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
   const currentQuestion = useAppSelector(selectCurrentQuestion);
+  const isFirstQuestion = useAppSelector(selectIsFirstQuestion);
+  const isLastQuestion = useAppSelector(selectIslastQuestion);
   const dispatch = useAppDispatch();
   const [answer, setAnswer] = useState();
-  const mockChoice = {};
+  const [isFinalSection, setIsFinalSection] = useState(false);
 
   const handleNextQuestion = () => {
     dispatch(nextQuestion({ answer: answer }));
   };
+
+  useEffect(() => {
+    setIsFinalSection(
+      currentQuestion.answerFormat === "mfa" ||
+        currentQuestion.answerFormat === "thankYou" ||
+        currentQuestion.answerFormat === "password"
+    );
+  }, [currentQuestion]);
 
   return (
     <ModalContent
@@ -110,12 +147,35 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       </ModalBody>
       <ModalFooter>
         <HStack>
+          {currentQuestion.answerFormat === "password" && (
+            <Button
+              background={"hopkinsBlue.100"}
+              color={"hopkinsBlue.500"}
+              borderRadius={500}
+              onClick={() => {
+                dispatch(() => handleNextQuestion());
+              }}
+            >
+              Skip
+            </Button>
+          )}
+          {!isFirstQuestion && !isFinalSection && (
+            <Button
+              colorScheme="hopkinsBlue"
+              borderRadius={500}
+              onClick={() => {
+                dispatch(prevQuestion());
+              }}
+            >
+              Prev
+            </Button>
+          )}
           <Button
             colorScheme="hopkinsBlue"
             borderRadius={500}
             onClick={() => handleNextQuestion()}
           >
-            {currentQuestion.lastQuestion ? "Finish" : "Next"}
+            {isLastQuestion ? "Finish" : "Next"}
           </Button>
         </HStack>
       </ModalFooter>

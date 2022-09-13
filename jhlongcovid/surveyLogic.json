@@ -6,7 +6,7 @@
         "title": "",
         "question": "Welcome to the Johns Hopkins Long COVID Questionnaire",
         "options": [
-          "This questionnaire asks you about your exposure to COVID-19 and how that has affected your life beyond your infection. Please know that participation in this survey is optional, and that while responses will be shared on the aggregate, individual responses will be free of all personal identifiers."
+          "This questionnaire asks you about your exposure to COVID-19 and how it has affected your life beyond your infection. Please know that participation in this survey is optional, and that while responses will be shared on the aggregate, individual responses will be free of all personal identifiers."
         ],
         "answerFormat": "welcome",
         "answer": null,
@@ -47,7 +47,7 @@
           {
             "title": "More than 3 infections: (please enter number)",
             "type": "number",
-            "placeholder": "Enter number"
+            "placeholder": "Enter number of infections"
           }
         ],
         "answerFormat": ["choice", "choice", "choice", "choice", "input"],
@@ -194,10 +194,10 @@
         "answerFormat": ["choice", "choice", "choice", "choice"],
         "answer": null,
         "branching": {
-          "predicate": "0",
+          "predicate": 0,
           "goto": {
-            "section": "recovery",
-            "question": "11"
+            "section": 2,
+            "question": 2
           }
         }
       },
@@ -237,10 +237,10 @@
         "answerFormat": ["input", "choice"],
         "answer": null,
         "branching": {
-          "predicate": "0",
+          "predicate": 0,
           "goto": {
-            "section": "generalHealth",
-            "question": "15"
+            "section": 4,
+            "question": 0
           }
         }
       },
@@ -268,7 +268,11 @@
           "Moderna",
           "J&J",
           "AstraZeneca",
-          "Other",
+          {
+            "type": "text",
+            "title": "Other",
+            "placeholder": "Enter vaccine type"
+          },
           "Unsure",
           "Decline to answer"
         ],
@@ -419,6 +423,42 @@
           "choice"
         ],
         "answer": null,
+        "branching": null
+      }
+    ],
+    [
+      {
+        "title": "Create Account",
+        "question": "In order to better understand Long COVID, we would like to check in to see how your COVID experience changes over time. To participate, enter your preffered password to create an account!",
+        "options": null,
+        "answer": null,
+        "answerFormat": "password",
+        "branching": {
+          "predicate": 2,
+          "goto": {
+            "section": 8,
+            "question": 2
+          }
+        }
+      },
+      {
+        "title": "Create Account",
+        "question": "Please enter the verification code sent to your email",
+        "options": {
+          "type": "number",
+          "title": "Verification code",
+          "placeholder": "Enter verification code"
+        },
+        "answer": null,
+        "answerFormat": "mfa",
+        "branching": null
+      },
+      {
+        "title": "Thank You",
+        "question": "Thank you for participating in the Johns Hopkins Long COVID survey. You will be emailed with a receipt of your survey entry shortly!",
+        "options": null,
+        "answer": null,
+        "answerFormat": "thankYou",
         "branching": null
       }
     ]

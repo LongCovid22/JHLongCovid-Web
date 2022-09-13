@@ -18,11 +18,8 @@ interface MapProps extends google.maps.MapOptions {
 
 const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
   const [map, setMap] = useState<google.maps.Map>();
-<<<<<<< HEAD
   const mapRef = useRef<HTMLDivElement>(null);
-=======
   const mapUpdateContext = useMapUpdateContext();
->>>>>>> dev
 
   const dispatch = useAppDispatch();
   const zoomNum = useAppSelector(selectZoom);

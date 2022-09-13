@@ -105,7 +105,6 @@ const Home = () => {
         {MapMemo}
         <Header />
         <LeftSidePanel data={selectedData} />
-        <Button onClick={() => {}}>Click to Pan</Button>
       </div>
     </>
   );
