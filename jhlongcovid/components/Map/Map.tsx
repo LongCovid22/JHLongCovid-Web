@@ -16,9 +16,6 @@ import {
   setLowLat,
   setHiLat,
 } from "../../redux/slices/zoomSlice";
-
-// import GoogleMapReact from 'google-map-react';
-import { useGoogleMaps } from "react-hook-google-maps";
 import { useMapUpdateContext } from "../context/MapContext";
 
 interface MapProps extends google.maps.MapOptions {

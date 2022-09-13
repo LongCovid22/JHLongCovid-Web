@@ -19,10 +19,6 @@ import { Identifiers } from "../Survey/Identifiers";
 
 import { CovidHistory } from "../Survey/covidHistory";
 
-import { Recovery } from "../Survey/Recovery";
-
-import { PostCovid } from "../Survey/postCovid";
-
 import { VaccinationHistory } from "../Survey/VaccinationHistory";
 
 import { ThankYou } from "../Survey/ThankYou";
