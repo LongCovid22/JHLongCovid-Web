@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }: any) {
   return (
     <Provider store={store}>
       <ChakraProvider theme={theme}>
-        <Wrapper apiKey={googleAPIKey} render={render}>
+        <Wrapper apiKey={googleAPIKey} render={render} libraries={["places"]}>
           <MapProvider>
             <Component {...pageProps} />
           </MapProvider>

@@ -10,6 +10,11 @@
       "StackName": "amplify-jhlongcovid-dev-115541",
       "StackId": "arn:aws:cloudformation:us-east-1:317973408936:stack/amplify-jhlongcovid-dev-115541/8a3bc9f0-2557-11ed-9f24-0a21d99abced",
       "AmplifyAppId": "d304vc3h5b8tce"
+    },
+    "categories": {
+      "auth": {
+        "jhlongcovid": {}
+      }
     }
   }
 }
