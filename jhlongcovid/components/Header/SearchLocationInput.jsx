@@ -152,7 +152,7 @@ async function handlePlaceSelect(updateQuery, map, markerData, apiKey) {
   }
 }
 
-function SearchLocationInput({ map, markerData }) {
+function SearchLocationInput({ markerData }) {
   const [query, setQuery] = useState("");
   const autoCompleteRef = useRef(null);
   const key = process.env.GOOGLEMAPS_API_KEY;

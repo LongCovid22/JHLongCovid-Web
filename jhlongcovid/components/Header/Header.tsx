@@ -4,13 +4,13 @@ import React from "react";
 import { ProfileCheckin } from "./ProfileCheckin";
 
 interface HeaderProps {
-  map: google.maps.Map
+  markerData: any;
 }
 
-export const Header: React.FC<HeaderProps> = ({map, markerData}) => {
+export const Header: React.FC<HeaderProps> = ({ markerData }) => {
   return (
     <Flex>
-      <Search map = {map} markerData = {markerData}/>
+      <Search markerData={markerData} />
       <ProfileCheckin />
     </Flex>
   );

@@ -24,12 +24,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import styles from "../../styles/Header.module.css";
-import { Search2Icon } from "@chakra-ui/icons";
-import { hopkinsBlue } from "../../theme/styles";
-
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import {
   MdOutlinePrivacyTip,
@@ -38,49 +33,20 @@ import {
 } from "react-icons/md";
 
 import { ImNewspaper } from "react-icons/im";
-import { ComponentPropsToStylePropsMap } from "@aws-amplify/ui-react";
 
 interface SearchProps {
-  map: google.maps.Map;
   markerData: any;
 }
 
 var axios = require("axios");
 
-import SearchLocationInput from "./searchLocationInput";
+import SearchLocationInput from "./SearchLocationInput";
 
-export const Search: React.FC<SearchProps> = ({ map, markerData }) => {
-  const height = useAppSelector(selectHeight);
+export const Search: React.FC<SearchProps> = ({ markerData }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [input, setInput] = React.useState("");
-
   const [places, setPlaces] = React.useState([]);
 
-  // const handleChange = async (event) => {
-  //   setInput(event.target.value);
-
-  //   if (event.target.value) {
-  //     var config = {
-  //       method: 'get',
-  //       url: 'http://localhost:3000/?string=' + event.target.value
-  //     }
-
-  //     try {
-  //       let res = await axios(config);
-  //       setPlaces(res.data.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   } else {
-  //     setPlaces([]);
-  //   }
-
-  //   console.log(places);
-
-  // }
-
-  // let isOpen = false;
   return (
     <>
       <Flex
@@ -179,7 +145,7 @@ export const Search: React.FC<SearchProps> = ({ map, markerData }) => {
             </VStack>
           </MenuList>
         </Menu>
-        <SearchLocationInput map={map} markerData={markerData} />
+        <SearchLocationInput markerData={markerData} />
       </Flex>
 
       {input.length > 0 && places.length > 0 && places[0] != null && (
