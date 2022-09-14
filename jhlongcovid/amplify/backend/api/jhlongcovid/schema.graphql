@@ -21,7 +21,7 @@ type MapData
   lat: Float!
   long: Float!
   covidSummary: CovidSummary!
-  symptomsSummary: SymptomsSummary!
+  symptomSummary: SymptomSummary!
   vaccinationSummary: VaccinationSummary!
   generealHealthSummary: GeneralHealthSummary!
   recoverySummary: RecoverySummary!
@@ -40,10 +40,10 @@ type User @model @auth(rules: [{ allow: owner }]) {
     @index(
       name: "byEmail"
       sortKeyFields: ["createdAt"]
-      queryField: "surveysByEmail"
+      queryField: "usersByEmail"
     )
-  age: Int
-  race: Race
+  age: Int!
+  race: Race!
   lastSubmission: AWSDateTime!
   lastSignIn: AWSDateTime!
   notificationFreq: NotificationFrequency
@@ -58,6 +58,7 @@ enum Race {
   NATIVE
   HISPANIC
   OTHER
+  NONE # For people who opt out
 }
 
 enum NotificationFrequency {
@@ -101,9 +102,12 @@ type SurveyEntry
       sortKeyFields: ["createdAt"]
       queryField: "surveysByType"
     )
+  age: Int!
+  race: Race!
   timeElapsed: AWSDateTime
   covidEntry: CovidEntry @hasOne
   vaccinationEntry: VaccinationEntry @hasOne
+  socialDeterminantsEntry: SocialDeterminantsEntry @hasOne
   recoveryEntry: RecoveryEntry @hasOne
   generalHealthEntry: GeneralHealthEntry @hasOne
   symptomsEntry: SymptomEntry @hasOne
@@ -136,16 +140,38 @@ type VaccinationEntry
   id: ID!
   state: String!
     @index(
-      name: "byCountySortByDate"
+      name: "byStateSortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "vaccinationEntryByState"
+      queryField: "stateVaccEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateVaccEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateVaccEntryByRace"
     )
   countyState: String!
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "vaccinationEntryByCounty"
+      queryField: "countyVaccEntryByDate"
     )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countyVaccEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countyVaccEntryByRace"
+    )
+  age: Int!
+  race: Race!
   surveyEntry: SurveyEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
@@ -175,19 +201,41 @@ type CovidEntry
   id: ID!
   state: String!
     @index(
-      name: "byCountySortByDate"
+      name: "byStateSortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "covidEntryByState"
+      queryField: "stateCovidEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateCovidEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateCovidEntryByRace"
     )
   countyState: String!
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "covidEntryByCounty"
+      queryField: "countyCovidEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countyCovidEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countyCovidEntryByRace"
     )
   surveyEntry: SurveyEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
+  age: Int!
+  race: Race!
   timesPositive: Int # -1 == Unsure, null == decline
   lastPositive: AWSDateTime
   tested: Boolean
@@ -211,22 +259,45 @@ type RecoveryEntry
   id: ID!
   state: String!
     @index(
-      name: "byCountySortByDate"
+      name: "byStateSortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "covidEntryByState"
+      queryField: "stateRecovEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateRecovEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateRecovEntryByRace"
     )
   countyState: String!
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "covidEntryByCounty"
+      queryField: "countyRecovEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countyRecovEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countyRecovEntryByRace"
     )
   surveyEntry: SurveyEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
+  age: Int!
+  race: Race!
   recovered: Int
   lengthOfRecovery: RecoveryLength
   hasLongCovid: Int
+  createdAt: AWSDateTime!
 }
 
 type RecoveryLength {
@@ -245,22 +316,45 @@ type GeneralHealthEntry
   id: ID!
   state: String!
     @index(
-      name: "byCountySortByDate"
+      name: "byStateSortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "covidEntryByState"
+      queryField: "stateGenHealthEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateGenHealthEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateGenHealthEntryByRace"
     )
   countyState: String!
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "covidEntryByCounty"
+      queryField: "countyGenHealthEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countyGenHealthEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countyGenHealthEntryByRace"
     )
   surveyEntry: SurveyEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
+  age: Int!
+  race: Race!
   health: Int!
   generalHealthResults: AWSJSON!
   totalScore: Int!
+  createdAt: AWSDateTime!
 }
 
 """
@@ -271,7 +365,7 @@ Pre Covid Symptoms - Model for keeping track of symptoms recorded during pre cov
       - Get all pre covid symptom entries for a given county, sorted by date
       - ** More will be added once we agree on the set of symptoms **
 """
-type SymptomsEntry
+type SymptomEntry
   @model
   @auth(
     rules: [
@@ -284,17 +378,39 @@ type SymptomsEntry
     @index(
       name: "byStateSortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "preCovidSymptomsByState"
+      queryField: "stateSymptomEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateSymptomEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateSymptomEntryByRace"
     )
   countyState: String!
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "symptomsByCounty"
+      queryField: "countySymptomEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countySymptomEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countySymptomEntryByRace"
     )
   surveyEntry: SurveyEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
+  age: Int!
+  race: Race!
   createdAt: AWSDateTime!
   symptoms: AWSJSON!
 }
@@ -310,22 +426,45 @@ type SocialDeterminantsEntry
   id: ID!
   state: String!
     @index(
-      name: "byCountySortByDate"
+      name: "byStateSortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "preCovidSymptomsByState"
+      queryField: "stateSocialDetEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateSocialDetEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateSocialDetEntryByRace"
     )
   countyState: String!
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "preCovidSymptomsByCounty"
+      queryField: "countySocialDetEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countySocialDetEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countySocialDetEntryByRace"
     )
   surveyEntry: SurveyEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
+  age: Int!
+  race: Race!
   hasMedicalInsurance: Int
   difficultCoveringExpenses: Int
   currentWorkSituation: Int
+  createdAt: AWSDateTime!
 }
 
 type MonthlyEntry
@@ -339,20 +478,43 @@ type MonthlyEntry
   id: ID!
   state: String!
     @index(
-      name: "byCountySortByDate"
+      name: "byStateSortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "preCovidSymptomsByState"
+      queryField: "stateMonthlyEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateMonthlyEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateMonthlyEntryByRace"
     )
   countyState: String!
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "preCovidSymptomsByCounty"
+      queryField: "countyMonthlyEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countyMonthlyEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countyMonthlyEntryByRace"
     )
   surveyEntry: SurveyEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
+  age: Int!
+  race: Race!
   results: AWSJSON
+  createdAt: AWSDateTime!
 }
 
 # -------- Summary Types --------
@@ -370,12 +532,12 @@ type CovidSummary {
   percentRecovered: Int
 }
 
-type SymptomsSummary {
+type SymptomSummary {
   mostCommonSymptom: String
   symptomCounts: AWSJSON
 }
 
-type vaccinationSummary {
+type VaccinationSummary {
   percentVaccinated: Int
   avgNumOfVaccPerPerson: Int
   pfizerCount: Int
