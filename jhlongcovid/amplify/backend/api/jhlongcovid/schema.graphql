@@ -1,0 +1,566 @@
+"""
+MapData - Object that will be queried for on map pan/zoom. Will contain summary-level
+  information to show within map markers and within panels that we want to display over
+  the map markers.
+
+  Access Patterns:
+    - Based on the level ("state" | "county") give all map data sorted by latitude and longitude
+"""
+type MapData
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read] }
+      { allow: private, provider: iam }
+    ]
+  ) {
+  id: ID!
+  level: String! @primaryKey(sortKeyFields: ["lat", "long"]) # represents location level e.g. "state" | "county"
+  name: String!
+  stateAbbrev: String!
+  lat: Float!
+  long: Float!
+  covidSummary: CovidSummary!
+  symptomSummary: SymptomSummary!
+  vaccinationSummary: VaccinationSummary!
+  generealHealthSummary: GeneralHealthSummary!
+  recoverySummary: RecoverySummary!
+  socialSummary: SocialSummary!
+  totalFullEntries: Int! # total survey entries at that given state or county.
+  # Could be used to give percentages using numbers from the summary objects
+}
+
+"""
+User - Store User specific information. Will store notification preferences along with other
+  activity metrics
+"""
+type User @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  email: String!
+    @index(
+      name: "byEmail"
+      sortKeyFields: ["createdAt"]
+      queryField: "usersByEmail"
+    )
+  age: Int!
+  race: Race!
+  lastSubmission: AWSDateTime!
+  lastSignIn: AWSDateTime!
+  notificationFreq: NotificationFrequency
+  notificaitonMethod: NotificationMethod
+  createdAt: AWSDateTime!
+}
+
+enum Race {
+  WHITE
+  BLACK
+  ASIAN
+  NATIVE
+  HISPANIC
+  OTHER
+  NONE # For people who opt out
+}
+
+enum NotificationFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+}
+
+enum NotificationMethod {
+  EMAIL
+  PUSH
+}
+
+"""
+SurveyEntry - Represents the result of an entire User's survey.
+
+  Access Patterns:
+    - Get all surveys performed by a user (specified by User ID)
+    - Get all surveys by type (daily, weekly, monthly, guest)
+"""
+type SurveyEntry
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: public, operations: [create, read] }
+    ]
+  ) {
+  id: ID!
+  email: String!
+    @index(
+      name: "byEmail"
+      sortKeyFields: ["createdAt"]
+      queryField: "surveysByEmail"
+    )
+  createdAt: AWSTime!
+  surveyVersion: Int!
+  surveyType: SurveyType!
+    @index(
+      name: "byType"
+      sortKeyFields: ["createdAt"]
+      queryField: "surveysByType"
+    )
+  age: Int!
+  race: Race!
+  timeElapsed: AWSDateTime
+  covidEntry: CovidEntry @hasOne
+  vaccinationEntry: VaccinationEntry @hasOne
+  socialDeterminantsEntry: SocialDeterminantsEntry @hasOne
+  recoveryEntry: RecoveryEntry @hasOne
+  generalHealthEntry: GeneralHealthEntry @hasOne
+  symptomsEntry: SymptomEntry @hasOne
+  monthlyEntry: MonthlyEntry @hasOne
+}
+
+enum SurveyType {
+  DAILY
+  WEEKLY
+  MONTHLY
+  FULL
+}
+
+"""
+Vaccination Entry - Represents the results of the vaccination subsection of the survey entry.
+
+  Access Patterns:
+    - Get all vaccination entries for a given state, sorted by date
+    - Get all vaccination entries for a given county, sorted by date
+    - ** Any other access patterns that I am forgetting? **
+"""
+type VaccinationEntry
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: public, operations: [create, read] }
+    ]
+  ) {
+  id: ID!
+  state: String!
+    @index(
+      name: "byStateSortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "stateVaccEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateVaccEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateVaccEntryByRace"
+    )
+  countyState: String!
+    @index(
+      name: "byCountySortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "countyVaccEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countyVaccEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countyVaccEntryByRace"
+    )
+  age: Int!
+  race: Race!
+  surveyEntry: SurveyEntry
+    @belongsTo
+    @auth(rules: [{ allow: private, provider: iam }])
+  totalVaccineShots: Int
+  vaccinated: Boolean
+  vaccineType: String
+  dateOfLastVaccine: AWSDateTime
+  createdAt: AWSDateTime!
+}
+
+"""
+Covid Entry - Represents the results of the covid subsections of the survey entry.
+
+  Access Patterns:
+      - Get all covid entries for a given state, sorted by date
+      - Get all covid entries for a given county, sorted by date
+      - ** Any other access patterns that I am forgetting? **
+"""
+type CovidEntry
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: public, operations: [create, read] }
+    ]
+  ) {
+  id: ID!
+  state: String!
+    @index(
+      name: "byStateSortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "stateCovidEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateCovidEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateCovidEntryByRace"
+    )
+  countyState: String!
+    @index(
+      name: "byCountySortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "countyCovidEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countyCovidEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countyCovidEntryByRace"
+    )
+  surveyEntry: SurveyEntry
+    @belongsTo
+    @auth(rules: [{ allow: private, provider: iam }])
+  age: Int!
+  race: Race!
+  timesPositive: Int # -1 == Unsure, null == decline
+  lastPositive: AWSDateTime
+  tested: Boolean
+  testMethod: Int
+  hospitalized: Int
+  symptomatic: Boolean
+  symptomsPreventScale: Int
+  medications: Int
+  returnedToHealth: Int
+  createdAt: AWSDateTime!
+}
+
+type RecoveryEntry
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: public, operations: [create, read] }
+    ]
+  ) {
+  id: ID!
+  state: String!
+    @index(
+      name: "byStateSortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "stateRecovEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateRecovEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateRecovEntryByRace"
+    )
+  countyState: String!
+    @index(
+      name: "byCountySortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "countyRecovEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countyRecovEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countyRecovEntryByRace"
+    )
+  surveyEntry: SurveyEntry
+    @belongsTo
+    @auth(rules: [{ allow: private, provider: iam }])
+  age: Int!
+  race: Race!
+  recovered: Int
+  lengthOfRecovery: RecoveryLength
+  hasLongCovid: Int
+  createdAt: AWSDateTime!
+}
+
+type RecoveryLength {
+  months: Int
+  days: Int
+}
+
+type GeneralHealthEntry
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: public, operations: [create, read] }
+    ]
+  ) {
+  id: ID!
+  state: String!
+    @index(
+      name: "byStateSortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "stateGenHealthEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateGenHealthEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateGenHealthEntryByRace"
+    )
+  countyState: String!
+    @index(
+      name: "byCountySortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "countyGenHealthEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countyGenHealthEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countyGenHealthEntryByRace"
+    )
+  surveyEntry: SurveyEntry
+    @belongsTo
+    @auth(rules: [{ allow: private, provider: iam }])
+  age: Int!
+  race: Race!
+  health: Int!
+  generalHealthResults: AWSJSON!
+  totalScore: Int!
+  createdAt: AWSDateTime!
+}
+
+"""
+Pre Covid Symptoms - Model for keeping track of symptoms recorded during pre covid symptom section
+
+  Access Patterns:
+      - Get all pre covid symptom entries for a given state, sorted by date
+      - Get all pre covid symptom entries for a given county, sorted by date
+      - ** More will be added once we agree on the set of symptoms **
+"""
+type SymptomEntry
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: public, operations: [create, read] }
+    ]
+  ) {
+  id: ID!
+  state: String!
+    @index(
+      name: "byStateSortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "stateSymptomEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateSymptomEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateSymptomEntryByRace"
+    )
+  countyState: String!
+    @index(
+      name: "byCountySortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "countySymptomEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countySymptomEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countySymptomEntryByRace"
+    )
+  surveyEntry: SurveyEntry
+    @belongsTo
+    @auth(rules: [{ allow: private, provider: iam }])
+  age: Int!
+  race: Race!
+  createdAt: AWSDateTime!
+  symptoms: AWSJSON!
+}
+
+type SocialDeterminantsEntry
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: public, operations: [create, read] }
+    ]
+  ) {
+  id: ID!
+  state: String!
+    @index(
+      name: "byStateSortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "stateSocialDetEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateSocialDetEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateSocialDetEntryByRace"
+    )
+  countyState: String!
+    @index(
+      name: "byCountySortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "countySocialDetEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countySocialDetEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countySocialDetEntryByRace"
+    )
+  surveyEntry: SurveyEntry
+    @belongsTo
+    @auth(rules: [{ allow: private, provider: iam }])
+  age: Int!
+  race: Race!
+  hasMedicalInsurance: Int
+  difficultCoveringExpenses: Int
+  currentWorkSituation: Int
+  createdAt: AWSDateTime!
+}
+
+type MonthlyEntry
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: public, operations: [create, read] }
+    ]
+  ) {
+  id: ID!
+  state: String!
+    @index(
+      name: "byStateSortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "stateMonthlyEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateMonthlyEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateMonthlyEntryByRace"
+    )
+  countyState: String!
+    @index(
+      name: "byCountySortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "countyMonthlyEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countyMonthlyEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countyMonthlyEntryByRace"
+    )
+  surveyEntry: SurveyEntry
+    @belongsTo
+    @auth(rules: [{ allow: private, provider: iam }])
+  age: Int!
+  race: Race!
+  results: AWSJSON
+  createdAt: AWSDateTime!
+}
+
+# -------- Summary Types --------
+# These summary types are to be updated on each survey entry for both the state and county levels.
+# They represent information that could be displayed on click or hover of a map marker.
+# The aim of having these types is to avoid extra queries as a user navigates throughout the map.
+
+type CovidSummary {
+  covidCount: Int
+  percentHospitalizedDueToCovid: Int
+  avgPositiveCasesPerPerson: Int
+  percentSymptomatic: Int
+  percentTookMedication: Int
+  medicationCounts: AWSJSON
+  percentRecovered: Int
+}
+
+type SymptomSummary {
+  mostCommonSymptom: String
+  symptomCounts: AWSJSON
+}
+
+type VaccinationSummary {
+  percentVaccinated: Int
+  avgNumOfVaccPerPerson: Int
+  pfizerCount: Int
+  modernaCount: Int
+  jjCount: Int
+  azCount: Int
+}
+
+type RecoverySummary {
+  longCovidCount: Int
+  percentLongCovid: Int
+  avgRecoveryLength: RecoveryLength
+}
+
+type GeneralHealthSummary {
+  avgTotalScore: Int
+  avgHealthCounts: AWSJSON
+}
+
+type SocialSummary {
+  percentHaveMedicalInsurance: Int
+  percentDifficultyCoveringExpenses: Int
+  averageWorkingSituation: String
+  workingSituationCounts: AWSJSON
+}
+# -------------------------------
