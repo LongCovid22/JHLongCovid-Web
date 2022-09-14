@@ -42,11 +42,22 @@ type User @model @auth(rules: [{ allow: owner }]) {
       sortKeyFields: ["createdAt"]
       queryField: "surveysByEmail"
     )
+  age: Int
+  race: Race
   lastSubmission: AWSDateTime!
   lastSignIn: AWSDateTime!
   notificationFreq: NotificationFrequency
   notificaitonMethod: NotificationMethod
   createdAt: AWSDateTime!
+}
+
+enum Race {
+  WHITE
+  BLACK
+  ASIAN
+  NATIVE
+  HISPANIC
+  OTHER
 }
 
 enum NotificationFrequency {
