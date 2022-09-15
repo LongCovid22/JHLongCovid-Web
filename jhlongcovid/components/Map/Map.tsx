@@ -16,6 +16,8 @@ import {
   setLowLat,
   setHiLat,
 } from "../../redux/slices/zoomSlice";
+
+// import GoogleMapReact from 'google-map-react';
 import { useMapUpdateContext } from "../context/MapContext";
 
 interface MapProps extends google.maps.MapOptions {
@@ -23,8 +25,8 @@ interface MapProps extends google.maps.MapOptions {
   children: React.ReactNode;
 }
 const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
-  const [map, setMap] = useState<google.maps.Map>();
   const mapRef = useRef<HTMLDivElement>(null);
+  const [map, setMap] = useState<google.maps.Map>();
   const mapUpdateContext = useMapUpdateContext();
 
   const dispatch = useAppDispatch();
@@ -49,12 +51,10 @@ const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
         }
 
         let bounds = newMap.getBounds();
-        if (bounds !== undefined) {
-          dispatch(setLowLong(bounds.getSouthWest().lng()));
-          dispatch(setHiLong(bounds.getNorthEast().lng()));
-          dispatch(setLowLat(bounds.getSouthWest().lat()));
-          dispatch(setHiLat(bounds.getNorthEast().lat()));
-        }
+        dispatch(setLowLong(bounds?.getSouthWest().lng()));
+        dispatch(setHiLong(bounds?.getNorthEast().lng()));
+        dispatch(setLowLat(bounds?.getSouthWest().lat()));
+        dispatch(setHiLat(bounds?.getNorthEast().lat()));
       });
 
       setMap(newMap);

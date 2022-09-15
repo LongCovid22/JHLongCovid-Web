@@ -293,7 +293,7 @@
       {
         "title": "General Health",
         "question": "Please answer the following questions based on your most recent health status",
-        "scale": ["Excellent", "Very Good", "Good", "Fair", "Poor"],
+        "scale": ["Poor", "Fair", "Good", "Very Good", "Excellent"],
         "answerFormat": "scale",
         "options": [
           "In general, would you say your health is",
@@ -369,7 +369,24 @@
           "No new diagnoses since the beginning of 2020",
           "Not sure"
         ],
-        "answerFormat": "choice",
+        "answerFormat": [
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice"
+        ],
         "answer": null,
         "branching": null
       }
