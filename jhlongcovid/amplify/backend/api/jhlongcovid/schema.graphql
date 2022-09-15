@@ -243,7 +243,7 @@ type CovidEntry
   hospitalized: Int
   symptomatic: Boolean
   symptomsPreventScale: Int
-  medications: Int
+  medicationsTaken: [String]
   returnedToHealth: Int
   createdAt: AWSDateTime!
 }
@@ -413,6 +413,7 @@ type SymptomEntry
   race: Race!
   createdAt: AWSDateTime!
   symptoms: AWSJSON!
+  medicalConditions: [String]!
 }
 
 type SocialDeterminantsEntry
