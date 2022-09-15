@@ -239,7 +239,7 @@ export const getSurveyEntry = /* GraphQL */ `
         hospitalized
         symptomatic
         symptomsPreventScale
-        medications
+        medicationsTaken
         returnedToHealth
         createdAt
         updatedAt
@@ -399,6 +399,7 @@ export const getSurveyEntry = /* GraphQL */ `
         race
         createdAt
         symptoms
+        medicalConditions
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -471,7 +472,7 @@ export const listSurveyEntries = /* GraphQL */ `
           hospitalized
           symptomatic
           symptomsPreventScale
-          medications
+          medicationsTaken
           returnedToHealth
           createdAt
           updatedAt
@@ -537,6 +538,7 @@ export const listSurveyEntries = /* GraphQL */ `
           race
           createdAt
           symptoms
+          medicalConditions
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -603,7 +605,7 @@ export const surveysByEmail = /* GraphQL */ `
           hospitalized
           symptomatic
           symptomsPreventScale
-          medications
+          medicationsTaken
           returnedToHealth
           createdAt
           updatedAt
@@ -669,6 +671,7 @@ export const surveysByEmail = /* GraphQL */ `
           race
           createdAt
           symptoms
+          medicalConditions
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -735,7 +738,7 @@ export const surveysByType = /* GraphQL */ `
           hospitalized
           symptomatic
           symptomsPreventScale
-          medications
+          medicationsTaken
           returnedToHealth
           createdAt
           updatedAt
@@ -801,6 +804,7 @@ export const surveysByType = /* GraphQL */ `
           race
           createdAt
           symptoms
+          medicalConditions
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -858,7 +862,7 @@ export const getVaccinationEntry = /* GraphQL */ `
           hospitalized
           symptomatic
           symptomsPreventScale
-          medications
+          medicationsTaken
           returnedToHealth
           createdAt
           updatedAt
@@ -924,6 +928,7 @@ export const getVaccinationEntry = /* GraphQL */ `
           race
           createdAt
           symptoms
+          medicalConditions
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -1350,7 +1355,7 @@ export const getCovidEntry = /* GraphQL */ `
           hospitalized
           symptomatic
           symptomsPreventScale
-          medications
+          medicationsTaken
           returnedToHealth
           createdAt
           updatedAt
@@ -1416,6 +1421,7 @@ export const getCovidEntry = /* GraphQL */ `
           race
           createdAt
           symptoms
+          medicalConditions
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -1448,7 +1454,7 @@ export const getCovidEntry = /* GraphQL */ `
       hospitalized
       symptomatic
       symptomsPreventScale
-      medications
+      medicationsTaken
       returnedToHealth
       createdAt
       updatedAt
@@ -1494,7 +1500,7 @@ export const listCovidEntries = /* GraphQL */ `
         hospitalized
         symptomatic
         symptomsPreventScale
-        medications
+        medicationsTaken
         returnedToHealth
         createdAt
         updatedAt
@@ -1552,7 +1558,7 @@ export const stateCovidEntryByDate = /* GraphQL */ `
         hospitalized
         symptomatic
         symptomsPreventScale
-        medications
+        medicationsTaken
         returnedToHealth
         createdAt
         updatedAt
@@ -1610,7 +1616,7 @@ export const stateCovidEntryByAge = /* GraphQL */ `
         hospitalized
         symptomatic
         symptomsPreventScale
-        medications
+        medicationsTaken
         returnedToHealth
         createdAt
         updatedAt
@@ -1668,7 +1674,7 @@ export const stateCovidEntryByRace = /* GraphQL */ `
         hospitalized
         symptomatic
         symptomsPreventScale
-        medications
+        medicationsTaken
         returnedToHealth
         createdAt
         updatedAt
@@ -1726,7 +1732,7 @@ export const countyCovidEntryByDate = /* GraphQL */ `
         hospitalized
         symptomatic
         symptomsPreventScale
-        medications
+        medicationsTaken
         returnedToHealth
         createdAt
         updatedAt
@@ -1784,7 +1790,7 @@ export const countyCovidEntryByAge = /* GraphQL */ `
         hospitalized
         symptomatic
         symptomsPreventScale
-        medications
+        medicationsTaken
         returnedToHealth
         createdAt
         updatedAt
@@ -1842,7 +1848,7 @@ export const countyCovidEntryByRace = /* GraphQL */ `
         hospitalized
         symptomatic
         symptomsPreventScale
-        medications
+        medicationsTaken
         returnedToHealth
         createdAt
         updatedAt
@@ -1880,7 +1886,7 @@ export const getRecoveryEntry = /* GraphQL */ `
           hospitalized
           symptomatic
           symptomsPreventScale
-          medications
+          medicationsTaken
           returnedToHealth
           createdAt
           updatedAt
@@ -1946,6 +1952,7 @@ export const getRecoveryEntry = /* GraphQL */ `
           race
           createdAt
           symptoms
+          medicalConditions
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -2386,7 +2393,7 @@ export const getGeneralHealthEntry = /* GraphQL */ `
           hospitalized
           symptomatic
           symptomsPreventScale
-          medications
+          medicationsTaken
           returnedToHealth
           createdAt
           updatedAt
@@ -2452,6 +2459,7 @@ export const getGeneralHealthEntry = /* GraphQL */ `
           race
           createdAt
           symptoms
+          medicalConditions
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -2872,7 +2880,7 @@ export const getSymptomEntry = /* GraphQL */ `
           hospitalized
           symptomatic
           symptomsPreventScale
-          medications
+          medicationsTaken
           returnedToHealth
           createdAt
           updatedAt
@@ -2938,6 +2946,7 @@ export const getSymptomEntry = /* GraphQL */ `
           race
           createdAt
           symptoms
+          medicalConditions
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -2965,6 +2974,7 @@ export const getSymptomEntry = /* GraphQL */ `
       race
       createdAt
       symptoms
+      medicalConditions
       updatedAt
       symptomEntrySurveyEntryId
     }
@@ -3003,6 +3013,7 @@ export const listSymptomEntries = /* GraphQL */ `
         race
         createdAt
         symptoms
+        medicalConditions
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -3053,6 +3064,7 @@ export const stateSymptomEntryByDate = /* GraphQL */ `
         race
         createdAt
         symptoms
+        medicalConditions
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -3103,6 +3115,7 @@ export const stateSymptomEntryByAge = /* GraphQL */ `
         race
         createdAt
         symptoms
+        medicalConditions
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -3153,6 +3166,7 @@ export const stateSymptomEntryByRace = /* GraphQL */ `
         race
         createdAt
         symptoms
+        medicalConditions
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -3203,6 +3217,7 @@ export const countySymptomEntryByDate = /* GraphQL */ `
         race
         createdAt
         symptoms
+        medicalConditions
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -3253,6 +3268,7 @@ export const countySymptomEntryByAge = /* GraphQL */ `
         race
         createdAt
         symptoms
+        medicalConditions
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -3303,6 +3319,7 @@ export const countySymptomEntryByRace = /* GraphQL */ `
         race
         createdAt
         symptoms
+        medicalConditions
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -3338,7 +3355,7 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
           hospitalized
           symptomatic
           symptomsPreventScale
-          medications
+          medicationsTaken
           returnedToHealth
           createdAt
           updatedAt
@@ -3404,6 +3421,7 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
           race
           createdAt
           symptoms
+          medicalConditions
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -3824,7 +3842,7 @@ export const getMonthlyEntry = /* GraphQL */ `
           hospitalized
           symptomatic
           symptomsPreventScale
-          medications
+          medicationsTaken
           returnedToHealth
           createdAt
           updatedAt
@@ -3890,6 +3908,7 @@ export const getMonthlyEntry = /* GraphQL */ `
           race
           createdAt
           symptoms
+          medicalConditions
           updatedAt
           symptomEntrySurveyEntryId
         }

@@ -17,7 +17,7 @@
       "answerFormat": ["choice", "choice", "choice", "choice", "input"],
       "answer": null,
       "branching": {
-        "predicate": "0",
+        "predicate": 0,
         "goto": {
           "section": "vaccination",
           "questionNum": "12"
