@@ -120,7 +120,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   useEffect(() => {
     setAnswer(currentAnswer);
     console.log("survey wrapper current answer", currentAnswer);
-    console.log("CURRENT ANSWER: ", answer);
   }, [currentAnswer]);
 
   return (

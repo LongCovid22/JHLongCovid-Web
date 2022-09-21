@@ -123,7 +123,7 @@ export const surveySlice = createSlice({
       }
     },
     prevQuestion: (state) => {
-      if (state.currentQuestionIndex > 0) {
+      if (state.currentQuestionIndex > -1) {
         if (state.lastQuestion) {
           state.lastQuestion = false;
         }
@@ -138,7 +138,7 @@ export const surveySlice = createSlice({
         state.currentQuestionIndex = state.currentQuestionIndex - 1;
       }
 
-      if (state.currentQuestionIndex === 0) {
+      if (state.currentQuestionIndex === -1) {
         state.firstQuestion = true;
       }
     },
@@ -154,7 +154,7 @@ export const surveySlice = createSlice({
      */
     initQuestions: (state, { payload }) => {
       // let stateCopy = { ...state };
-
+      console.log(surveyLogic);
       // User not signed in, give full survey
       if (payload.userId == null) {
         while (state.questionStack.length > 0) {
@@ -164,15 +164,13 @@ export const surveySlice = createSlice({
           state.answerStack.pop();
         }
         state.questionStack.push({ section: 0, question: 0 });
-        state.questionStack.push({ section: 0, question: 1 });
 
-        state.answerStack.push(null);
         state.answerStack.push(null);
 
         state.questions = surveyLogic.questions;
         state.currentQuestion = surveyLogic.questions[0][0];
         state.currentAnswer = state.answerStack[0];
-        state.currentQuestionIndex = 0;
+        state.currentQuestionIndex = -1;
         state.firstQuestion = true;
         state.lastQuestion = false;
       }

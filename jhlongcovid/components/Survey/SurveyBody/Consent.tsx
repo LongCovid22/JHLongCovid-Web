@@ -35,7 +35,6 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
 }) => {
-  console.log("current question: ", currentQuestion);
   return (
     <>
       <VStack height={"100%"} spacing={"15px"}>
