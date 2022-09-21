@@ -59,7 +59,10 @@ export const surveySlice = createSlice({
       const currQuestion = state.currentQuestion;
       const { section, question } =
         state.questionStack[state.currentQuestionIndex];
-      state.questions[section][question].answer = payload.answer;
+      state.questions[section][question] = {
+        ...state.questions[section][question],
+        ...payload,
+      };
 
       // Check branching logic as to which question to push on the stack next
       const branching = currQuestion.branching;

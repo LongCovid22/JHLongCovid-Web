@@ -53,7 +53,7 @@
         "answerFormat": ["choice", "choice", "choice", "choice", "input"],
         "answer": null,
         "branching": {
-          "predicate": 0,
+          "predicate": "0 infections (never)",
           "goto": {
             "section": 3,
             "question": 0

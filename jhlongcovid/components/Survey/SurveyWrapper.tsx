@@ -47,6 +47,7 @@ interface SurveyWrapperProps {
 export interface SurveyQuestionProps {
   currentQuestion: any;
   setAnswer: (answer: any) => void;
+  defaultValue?: string;
 }
 
 const Body: React.FC<SurveyQuestionProps> = ({
@@ -96,8 +97,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const isFirstQuestion = useAppSelector(selectIsFirstQuestion);
   const isLastQuestion = useAppSelector(selectIslastQuestion);
   const dispatch = useAppDispatch();
-  const [answer, setAnswer] = useState();
+  const [answer, setAnswer] = useState<string | string[] | undefined>(
+    currentQuestion.answer
+  );
   const [isFinalSection, setIsFinalSection] = useState(false);
+  // const []
 
   const handleNextQuestion = () => {
     dispatch(nextQuestion({ answer: answer }));
