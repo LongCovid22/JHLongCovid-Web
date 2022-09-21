@@ -11,7 +11,8 @@ import {
   Spacer,
   FormLabel,
 } from "@chakra-ui/react";
-import { ConsoleLogger } from "@aws-amplify/core";
+import { selectCurrentAnswer } from "../../../redux/slices/surveySlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 
 interface OptionProps {
   option: any;
@@ -24,11 +25,17 @@ const Choices = (
   answerFormat: any,
   options: any,
   setValue: (val: string) => void,
-  value: string
+  choiceValue: string,
+  inputValue: string
 ) => {
   if (Array.isArray(answerFormat)) {
     return (
-      <RadioGroup w={"100%"} onChange={setValue} value={value}>
+      <RadioGroup
+        w={"100%"}
+        onChange={setValue}
+        value={choiceValue}
+        key="choiceGroup"
+      >
         <VStack align="flex-start" spacing={"15px"} width={"100%"}>
           {answerFormat.map((af: any, key: number) => {
             const option = options[key];
@@ -40,14 +47,15 @@ const Choices = (
               );
             } else {
               return (
-                <Stack direction={"column"} width={"100%"}>
+                <Stack direction={"column"} width={"100%"} key={key}>
                   <Text>{option.title}</Text>
                   <Input
-                    key={key}
+                    value={inputValue}
                     width={"50%"}
                     type={option.type}
                     placeholder={option.placeholder}
                     onChange={(event) => {
+                      console.log("On change");
                       setValue(event.target.value);
                     }}
                   />
@@ -68,21 +76,30 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
   setAnswer,
   defaultValue,
 }) => {
-  const [value, setValue] = useState<string>("");
+  const currentAnswer = useAppSelector(selectCurrentAnswer);
+  const [choiceValue, setChoiceValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>("");
   const handleAnswerChange = (val: string) => {
-    console.log("Setting answer to: ", val);
-    setValue(val);
+    if (
+      Array.isArray(currentQuestion.options) &&
+      currentQuestion.options.includes(val)
+    ) {
+      setChoiceValue(val);
+      setInputValue("");
+    } else {
+      setInputValue(val);
+      setChoiceValue("");
+    }
     setAnswer(val);
   };
 
   useEffect(() => {
-    if (
-      Array.isArray(currentQuestion.options) &&
-      currentQuestion.options.includes(currentQuestion.answer)
-    ) {
-      setValue(currentQuestion.answer);
+    if (currentAnswer !== null) {
+      handleAnswerChange(currentAnswer as string);
+    } else {
+      setAnswer(currentAnswer);
     }
-  }, []);
+  }, [currentAnswer]);
 
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>
@@ -94,33 +111,9 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
           currentQuestion.answerFormat,
           currentQuestion.options,
           handleAnswerChange,
-          value
+          choiceValue,
+          inputValue
         )}
-        {/* {Array.isArray(currentQuestion.answerFormat) &&
-          currentQuestion.answerFormat.map((af: any, key: number) => {
-            if (`${af}` === "input") {
-              const option = currentQuestion.options[key];
-              return (
-                // <Stack direction={"column"} width={"100%"}>
-                //   <Text>{option.title}</Text>
-
-                // </Stack>
-                <Input
-                  key={8}
-                  width={"50%"}
-                  type={option.type}
-                  placeholder={option.placeholder}
-                  onClick={() => console.log("Hey I was clicked")}
-                  onChange={(event) => {
-                    console.log("chagnin");
-                    handleAnswerChange(event.target.value);
-                  }}
-                />
-              );
-            } else {
-              return null;
-            }
-          })} */}
       </VStack>
     </VStack>
   );

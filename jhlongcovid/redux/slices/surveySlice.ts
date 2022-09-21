@@ -9,8 +9,10 @@ import { setUncaughtExceptionCaptureCallback } from "process";
 export type SurveyState = {
   currentQuestionIndex: number;
   currentQuestion: any;
+  currentAnswer: string | string[] | null;
   questions: any;
   questionStack: any[];
+  answerStack: any[];
   lastQuestion: boolean;
   firstQuestion: boolean;
 };
@@ -18,8 +20,10 @@ export type SurveyState = {
 const initialState: SurveyState = {
   currentQuestionIndex: 0,
   currentQuestion: {},
+  currentAnswer: null,
   questions: surveyLogic.questions,
   questionStack: [],
+  answerStack: [],
   lastQuestion: false,
   firstQuestion: true,
 };
@@ -57,12 +61,14 @@ export const surveySlice = createSlice({
     nextQuestion: (state, { payload }) => {
       // Update questionnaire answer
       const currQuestion = state.currentQuestion;
-      const { section, question } =
-        state.questionStack[state.currentQuestionIndex];
-      state.questions[section][question] = {
-        ...state.questions[section][question],
-        ...payload,
-      };
+      // const { section, question } =
+      //   state.questionStack[state.currentQuestionIndex];
+      // state.questions[section][question] = {
+      //   ...state.questions[section][question],
+      //   ...payload,
+      // };
+
+      state.answerStack[state.currentQuestionIndex] = payload.answer;
 
       // Check branching logic as to which question to push on the stack next
       const branching = currQuestion.branching;
@@ -71,16 +77,23 @@ export const surveySlice = createSlice({
       if (!state.lastQuestion) {
         // If there is no branching logic or the answer does not meet the predicate, go to
         // next question in the section or to the next section
-        if (branching == null || currQuestion.answer !== branching.predicate) {
+        if (branching == null || payload.answer !== branching.predicate) {
           const nextQuestionInfo = getNextQuestionInfo(
             state.questionStack[state.currentQuestionIndex + 1],
             state.questions
           );
           state.questionStack.push(nextQuestionInfo);
+
+          if (state.currentQuestionIndex + 1 == state.answerStack.length - 1) {
+            state.answerStack.push(null);
+          }
+
           state.currentQuestion =
             state.questions[nextQuestionInfo.section][
               nextQuestionInfo.question
             ];
+          state.currentAnswer =
+            state.answerStack[state.currentQuestionIndex + 1];
           state.currentQuestionIndex += 1;
           if (checkIfLastQuestion(nextQuestionInfo, state.questions)) {
             state.lastQuestion = true;
@@ -88,6 +101,11 @@ export const surveySlice = createSlice({
         } else {
           // If branching logic hits, branch to the question it says
           state.questionStack.push(branching.goto);
+          if (state.currentQuestionIndex + 1 == state.answerStack.length - 1) {
+            state.answerStack.push(null);
+          }
+          state.currentAnswer =
+            state.answerStack[state.currentQuestionIndex + 1];
           state.currentQuestion =
             state.questions[branching.goto.section][branching.goto.question];
           state.currentQuestionIndex += 1;
@@ -111,10 +129,12 @@ export const surveySlice = createSlice({
         }
 
         state.questionStack.pop();
+        // state.answerStack.pop();
         state.currentQuestion =
           state.questions[
             state.questionStack[state.currentQuestionIndex].section
           ][state.questionStack[state.currentQuestionIndex].question];
+        state.currentAnswer = state.answerStack[state.currentQuestionIndex - 1];
         state.currentQuestionIndex = state.currentQuestionIndex - 1;
       }
 
@@ -140,10 +160,18 @@ export const surveySlice = createSlice({
         while (state.questionStack.length > 0) {
           state.questionStack.pop();
         }
+        while (state.answerStack.length > 0) {
+          state.answerStack.pop();
+        }
         state.questionStack.push({ section: 0, question: 0 });
         state.questionStack.push({ section: 0, question: 1 });
+
+        state.answerStack.push(null);
+        state.answerStack.push(null);
+
         state.questions = surveyLogic.questions;
         state.currentQuestion = surveyLogic.questions[0][0];
+        state.currentAnswer = state.answerStack[0];
         state.currentQuestionIndex = 0;
         state.firstQuestion = true;
         state.lastQuestion = false;
@@ -163,6 +191,9 @@ export const selectIsFirstQuestion = (state: RootState) => {
 };
 export const selectIslastQuestion = (state: RootState) => {
   return state.survey.lastQuestion;
+};
+export const selectCurrentAnswer = (state: RootState) => {
+  return state.survey.currentAnswer;
 };
 
 export default surveySlice.reducer;

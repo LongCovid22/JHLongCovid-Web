@@ -26,6 +26,7 @@ import {
   initQuestions,
   nextQuestion,
   prevQuestion,
+  selectCurrentAnswer,
   selectCurrentQuestion,
   selectIsFirstQuestion,
   selectIslastQuestion,
@@ -94,10 +95,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
   const currentQuestion = useAppSelector(selectCurrentQuestion);
+  const currentAnswer = useAppSelector(selectCurrentAnswer);
   const isFirstQuestion = useAppSelector(selectIsFirstQuestion);
   const isLastQuestion = useAppSelector(selectIslastQuestion);
   const dispatch = useAppDispatch();
-  const [answer, setAnswer] = useState<string | string[] | undefined>(
+  const [answer, setAnswer] = useState<string | string[] | null>(
     currentQuestion.answer
   );
   const [isFinalSection, setIsFinalSection] = useState(false);
@@ -114,6 +116,12 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         currentQuestion.answerFormat === "password"
     );
   }, [currentQuestion]);
+
+  useEffect(() => {
+    setAnswer(currentAnswer);
+    console.log("survey wrapper current answer", currentAnswer);
+    console.log("CURRENT ANSWER: ", answer);
+  }, [currentAnswer]);
 
   return (
     <ModalContent
