@@ -98,13 +98,13 @@
           "Decline to answer"
         ],
         "answerFormat": [
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice"
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice"
         ],
         "answer": null,
         "branching": null
@@ -370,22 +370,22 @@
           "Not sure"
         ],
         "answerFormat": [
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice",
-          "choice"
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice"
         ],
         "answer": null,
         "branching": null

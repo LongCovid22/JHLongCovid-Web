@@ -54,6 +54,26 @@ const getNextQuestionInfo = (
   }
 };
 
+const getNextQuestionAnswerDefault = (
+  questionInfo: { section: number; question: number },
+  questions: any
+): string | string[] => {
+  const question = questions[questionInfo.section][questionInfo.question];
+  if (Array.isArray(question.answerFormat)) {
+    if (question.answerFormat.includes("choice")) {
+      return "";
+    } else if (question.answerFormat.includes("multichoice")) {
+      return [];
+    } else {
+      return "";
+    }
+  } else if (question.answerFormat === "scale") {
+    return Array.from({ length: question.options.length }, () => "");
+  } else {
+    return "";
+  }
+};
+
 export const surveySlice = createSlice({
   name: "survey",
   initialState,
@@ -78,14 +98,17 @@ export const surveySlice = createSlice({
         // If there is no branching logic or the answer does not meet the predicate, go to
         // next question in the section or to the next section
         if (branching == null || payload.answer !== branching.predicate) {
+          // Gets info for question 2 questions ahead of current question
           const nextQuestionInfo = getNextQuestionInfo(
-            state.questionStack[state.currentQuestionIndex + 1],
+            state.questionStack[state.currentQuestionIndex],
             state.questions
           );
           state.questionStack.push(nextQuestionInfo);
 
-          if (state.currentQuestionIndex + 1 == state.answerStack.length - 1) {
-            state.answerStack.push(null);
+          if (state.currentQuestionIndex + 1 == state.answerStack.length) {
+            state.answerStack.push(
+              getNextQuestionAnswerDefault(nextQuestionInfo, state.questions)
+            );
           }
 
           state.currentQuestion =
@@ -101,7 +124,7 @@ export const surveySlice = createSlice({
         } else {
           // If branching logic hits, branch to the question it says
           state.questionStack.push(branching.goto);
-          if (state.currentQuestionIndex + 1 == state.answerStack.length - 1) {
+          if (state.currentQuestionIndex + 1 == state.answerStack.length) {
             state.answerStack.push(null);
           }
           state.currentAnswer =
@@ -122,8 +145,14 @@ export const surveySlice = createSlice({
         console.log("Finally finished survey");
       }
     },
-    prevQuestion: (state) => {
-      if (state.currentQuestionIndex > -1) {
+    prevQuestion: (state, { payload }) => {
+      if (state.currentQuestionIndex > 0) {
+        // Set the answer to the current question
+        state.answerStack[state.currentQuestionIndex] = payload.answer;
+
+        // Start moving to the previous question information
+        state.currentQuestionIndex -= 1;
+
         if (state.lastQuestion) {
           state.lastQuestion = false;
         }
@@ -134,11 +163,11 @@ export const surveySlice = createSlice({
           state.questions[
             state.questionStack[state.currentQuestionIndex].section
           ][state.questionStack[state.currentQuestionIndex].question];
-        state.currentAnswer = state.answerStack[state.currentQuestionIndex - 1];
-        state.currentQuestionIndex = state.currentQuestionIndex - 1;
+
+        state.currentAnswer = state.answerStack[state.currentQuestionIndex];
       }
 
-      if (state.currentQuestionIndex === -1) {
+      if (state.currentQuestionIndex === 0) {
         state.firstQuestion = true;
       }
     },
@@ -164,13 +193,12 @@ export const surveySlice = createSlice({
           state.answerStack.pop();
         }
         state.questionStack.push({ section: 0, question: 0 });
-
-        state.answerStack.push(null);
+        state.answerStack.push("");
 
         state.questions = surveyLogic.questions;
         state.currentQuestion = surveyLogic.questions[0][0];
         state.currentAnswer = state.answerStack[0];
-        state.currentQuestionIndex = -1;
+        state.currentQuestionIndex = 0;
         state.firstQuestion = true;
         state.lastQuestion = false;
       }

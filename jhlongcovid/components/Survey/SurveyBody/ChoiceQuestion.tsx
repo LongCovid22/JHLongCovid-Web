@@ -74,7 +74,6 @@ const Choices = (
 export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
-  defaultValue,
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const [choiceValue, setChoiceValue] = useState<string>("");

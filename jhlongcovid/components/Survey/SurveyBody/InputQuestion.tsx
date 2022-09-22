@@ -56,7 +56,9 @@ export const InputQuestion: React.FC<SurveyQuestionProps> = ({
 
   useEffect(() => {
     if (currentAnswer !== null) {
-      setInputValue(currentAnswer as string);
+      handleAnswerChange(currentAnswer as string);
+    } else {
+      setAnswer(null);
     }
   }, [currentAnswer]);
 

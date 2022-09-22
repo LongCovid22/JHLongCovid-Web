@@ -40,6 +40,7 @@ import { Password } from "./SurveyBody/Password";
 import { ThankYou } from "./SurveyBody/ThankYou";
 import { MFA } from "./SurveyBody/MFA";
 import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
+import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
 
 interface SurveyWrapperProps {
   onClose: () => void;
@@ -48,18 +49,30 @@ interface SurveyWrapperProps {
 export interface SurveyQuestionProps {
   currentQuestion: any;
   setAnswer: (answer: any) => void;
-  defaultValue?: string;
 }
 
 const Body: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
 }) => {
-  const answerFormat = currentQuestion.answerFormat;
+  let answerFormat = currentQuestion.answerFormat;
   if (Array.isArray(answerFormat)) {
-    return (
-      <ChoiceQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
-    );
+    answerFormat = answerFormat as string[];
+    if (answerFormat.includes("multichoice")) {
+      return (
+        <MultiChoiceQuestion
+          currentQuestion={currentQuestion}
+          setAnswer={setAnswer}
+        />
+      );
+    } else {
+      return (
+        <ChoiceQuestion
+          currentQuestion={currentQuestion}
+          setAnswer={setAnswer}
+        />
+      );
+    }
   } else if (answerFormat === "consent") {
     return <Consent currentQuestion={currentQuestion} setAnswer={setAnswer} />;
   } else if (answerFormat === "demographics") {
@@ -106,6 +119,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   // const []
 
   const handleNextQuestion = () => {
+    setAnswer(null);
     dispatch(nextQuestion({ answer: answer }));
   };
 
@@ -118,9 +132,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   }, [currentQuestion]);
 
   useEffect(() => {
+    console.log("current answer: ", currentAnswer);
     setAnswer(currentAnswer);
-    console.log("survey wrapper current answer", currentAnswer);
-  }, [currentAnswer]);
+  }, [currentAnswer, currentQuestion]);
 
   return (
     <ModalContent
@@ -175,7 +189,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               colorScheme="hopkinsBlue"
               borderRadius={500}
               onClick={() => {
-                dispatch(prevQuestion());
+                dispatch(prevQuestion({ answer: answer }));
               }}
             >
               Prev

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Flex,
   VStack,
@@ -20,11 +20,29 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
+import { selectCurrentAnswer } from "../../../redux/slices/surveySlice";
+import { useAppSelector } from "../../../redux/hooks";
 
 export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
 }) => {
+  const currentAnswer = useAppSelector(selectCurrentAnswer);
+  const [scaleValues, setScaleValues] = useState<string[]>([]);
+
+  const handleScaleChange = (row: number, value: string) => {
+    let copy = [...scaleValues];
+    copy[row] = value;
+    setScaleValues(copy);
+    setAnswer(copy);
+  };
+
+  useEffect(() => {
+    if (currentAnswer !== null) {
+      setScaleValues(currentAnswer as string[]);
+    }
+  }, [currentQuestion]);
+
   const ScaleQuestionGridItems = (currentQuestion: any): any[] => {
     let gridItems: any[] = [];
 
@@ -53,7 +71,12 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
       );
       gridItems.push(
         <GridItem colSpan={currentQuestion.scale.length}>
-          <RadioGroup>
+          <RadioGroup
+            onChange={(val: string) => {
+              handleScaleChange(i, val);
+            }}
+            value={scaleValues[i]}
+          >
             <Grid
               templateColumns={`repeat(${currentQuestion.scale.length}, 1fr)`}
             >
@@ -62,7 +85,7 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
                   <GridItem alignItems={"center"}>
                     <Flex w="100%" h="100%" direction={"row"}>
                       <Spacer />
-                      <Radio value={si} />
+                      <Radio value={`${si}`} />
                       <Spacer />
                     </Flex>
                   </GridItem>
