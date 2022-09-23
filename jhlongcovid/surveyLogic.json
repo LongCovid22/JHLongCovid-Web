@@ -78,7 +78,7 @@
         "answerFormat": ["choice", "choice"],
         "answer": null,
         "branching": {
-          "predicate": false,
+          "predicate": "No",
           "goto": {
             "section": 1,
             "question": 4
@@ -120,7 +120,7 @@
         "answerFormat": ["choice", "choice", "choice"],
         "answer": null,
         "branching": {
-          "predicate": 0,
+          "predicate": "Yes, I was hospitalized due to health problems relating to COVID-19",
           "goto": {
             "section": 2,
             "question": 1
@@ -134,7 +134,7 @@
         "answerFormat": ["choice", "choice"],
         "answer": null,
         "branching": {
-          "predicate": false,
+          "predicate": "No",
           "goto": {
             "section": 1,
             "question": 6
@@ -194,7 +194,7 @@
         "answerFormat": ["choice", "choice", "choice", "choice"],
         "answer": null,
         "branching": {
-          "predicate": 0,
+          "predicate": "No",
           "goto": {
             "section": 2,
             "question": 2
@@ -237,7 +237,7 @@
         "answerFormat": ["input", "choice"],
         "answer": null,
         "branching": {
-          "predicate": 0,
+          "predicate": "0",
           "goto": {
             "section": 4,
             "question": 0
@@ -451,7 +451,7 @@
         "answer": null,
         "answerFormat": "password",
         "branching": {
-          "predicate": 2,
+          "predicate": "",
           "goto": {
             "section": 8,
             "question": 2

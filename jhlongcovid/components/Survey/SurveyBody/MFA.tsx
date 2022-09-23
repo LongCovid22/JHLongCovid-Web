@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   VStack,
   Text,
@@ -16,40 +16,32 @@ import {
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
 
-interface OptionProps {
-  option: any;
-  answerType: string;
-  index: number;
-}
-
-const Option: React.FC<OptionProps> = ({ option, answerType, index }) => {
-  return (
-    <Stack direction={"column"} width={"100%"}>
-      <Text>{option.title}</Text>
-      <Input
-        width={"50%"}
-        type={option.type}
-        placeholder={option.placeholder}
-      />
-    </Stack>
-  );
-};
-
 export const MFA: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
 }) => {
+  const [verificationCode, setVerificationCode] = useState("");
+
+  // implement confirmSignUp. setAnswer to success on finish
+
   return (
     <>
       <VStack height={"100%"} spacing={"15px"}>
         <Text fontSize={"md"} fontWeight={"regular"} width={"100%"}>
           {currentQuestion.question}
         </Text>
-        <Option
-          option={currentQuestion.options}
-          answerType={currentQuestion.answerFormat}
-          index={0}
-        />
+        <Stack direction={"column"} width={"100%"}>
+          <Text>{currentQuestion.options.title}</Text>
+          <Input
+            width={"50%"}
+            type={currentQuestion.options.type}
+            placeholder={currentQuestion.options.placeholder}
+            value={verificationCode}
+            onChange={(event) => {
+              setVerificationCode(event.target.value);
+            }}
+          />
+        </Stack>
       </VStack>
     </>
   );

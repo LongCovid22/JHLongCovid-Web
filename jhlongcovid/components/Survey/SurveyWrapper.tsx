@@ -112,15 +112,15 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const isFirstQuestion = useAppSelector(selectIsFirstQuestion);
   const isLastQuestion = useAppSelector(selectIslastQuestion);
   const dispatch = useAppDispatch();
-  const [answer, setAnswer] = useState<string | string[] | null>(
+  const [answer, setAnswer] = useState<string | string[] | object | null>(
     currentQuestion.answer
   );
   const [isFinalSection, setIsFinalSection] = useState(false);
   // const []
 
   const handleNextQuestion = () => {
-    setAnswer(null);
     dispatch(nextQuestion({ answer: answer }));
+    setAnswer("");
   };
 
   useEffect(() => {

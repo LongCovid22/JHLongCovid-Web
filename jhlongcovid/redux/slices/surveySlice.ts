@@ -9,7 +9,7 @@ import { setUncaughtExceptionCaptureCallback } from "process";
 export type SurveyState = {
   currentQuestionIndex: number;
   currentQuestion: any;
-  currentAnswer: string | string[] | null;
+  currentAnswer: string | string[] | object | null;
   questions: any;
   questionStack: any[];
   answerStack: any[];
@@ -57,7 +57,7 @@ const getNextQuestionInfo = (
 const getNextQuestionAnswerDefault = (
   questionInfo: { section: number; question: number },
   questions: any
-): string | string[] => {
+): string | string[] | object => {
   const question = questions[questionInfo.section][questionInfo.question];
   if (Array.isArray(question.answerFormat)) {
     if (question.answerFormat.includes("choice")) {
@@ -69,6 +69,8 @@ const getNextQuestionAnswerDefault = (
     }
   } else if (question.answerFormat === "scale") {
     return Array.from({ length: question.options.length }, () => "");
+  } else if (question.answerFormat === "demographics") {
+    return { zip: "", age: "", race: "" };
   } else {
     return "";
   }
@@ -98,19 +100,21 @@ export const surveySlice = createSlice({
         // If there is no branching logic or the answer does not meet the predicate, go to
         // next question in the section or to the next section
         if (branching == null || payload.answer !== branching.predicate) {
-          // Gets info for question 2 questions ahead of current question
+          // Get next question info and push it on to question stack
           const nextQuestionInfo = getNextQuestionInfo(
             state.questionStack[state.currentQuestionIndex],
             state.questions
           );
           state.questionStack.push(nextQuestionInfo);
 
+          // Push default values for answers
           if (state.currentQuestionIndex + 1 == state.answerStack.length) {
             state.answerStack.push(
               getNextQuestionAnswerDefault(nextQuestionInfo, state.questions)
             );
           }
 
+          // Set the next current question and current answer
           state.currentQuestion =
             state.questions[nextQuestionInfo.section][
               nextQuestionInfo.question
@@ -125,7 +129,9 @@ export const surveySlice = createSlice({
           // If branching logic hits, branch to the question it says
           state.questionStack.push(branching.goto);
           if (state.currentQuestionIndex + 1 == state.answerStack.length) {
-            state.answerStack.push(null);
+            state.answerStack.push(
+              getNextQuestionAnswerDefault(branching.goto, state.questions)
+            );
           }
           state.currentAnswer =
             state.answerStack[state.currentQuestionIndex + 1];
@@ -140,12 +146,10 @@ export const surveySlice = createSlice({
         if (state.firstQuestion) {
           state.firstQuestion = false;
         }
-      } else {
-        // Submit answers
-        console.log("Finally finished survey");
       }
     },
     prevQuestion: (state, { payload }) => {
+      // If we are past the first question
       if (state.currentQuestionIndex > 0) {
         // Set the answer to the current question
         state.answerStack[state.currentQuestionIndex] = payload.answer;
@@ -158,7 +162,6 @@ export const surveySlice = createSlice({
         }
 
         state.questionStack.pop();
-        // state.answerStack.pop();
         state.currentQuestion =
           state.questions[
             state.questionStack[state.currentQuestionIndex].section

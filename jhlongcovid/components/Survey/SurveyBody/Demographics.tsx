@@ -19,11 +19,31 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
+import { useAppSelector } from "../../../redux/hooks";
+import { selectCurrentAnswer } from "../../../redux/slices/surveySlice";
 
 export const Demographics: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
 }) => {
+  const currentAnswer = useAppSelector(selectCurrentAnswer);
+  const [demos, setDemos] = useState({ zip: "", age: "", race: "" });
+
+  const handleAnswerChange = (key: string, value: string) => {
+    let demosCopy = { ...demos };
+    demosCopy[key] = value;
+    setDemos(demosCopy);
+    setAnswer(demosCopy);
+  };
+
+  useEffect(() => {
+    if (currentAnswer !== null) {
+      setDemos(currentAnswer as { zip: string; age: string; race: string });
+    } else {
+      setAnswer(currentAnswer);
+    }
+  }, [currentAnswer]);
+
   return (
     <VStack width={"100%"} height={"100%"} spacing={"20px"}>
       <Text fontSize={"md"} fontWeight={"regular"}>
@@ -31,7 +51,14 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
       </Text>
       <FormControl>
         <FormLabel>Zip code</FormLabel>
-        <Input type={"number"} placeholder={"Enter zip code"} />
+        <Input
+          type={"number"}
+          placeholder={"Enter zip code"}
+          value={demos["zip"]}
+          onChange={(event) => {
+            handleAnswerChange("zip", event.target.value);
+          }}
+        />
         <FormHelperText>
           Your zip code will not be stored. It will only be used to locate your
           county and state
@@ -39,7 +66,15 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
       </FormControl>
       <FormControl>
         <FormLabel>Age</FormLabel>
-        <NumberInput defaultValue={18} min={1} max={110}>
+        <NumberInput
+          defaultValue={18}
+          min={1}
+          max={110}
+          value={demos.age}
+          onChange={(val) => {
+            handleAnswerChange("age", val);
+          }}
+        >
           <NumberInputField />
           <NumberInputStepper>
             <NumberIncrementStepper />
@@ -49,7 +84,12 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
       </FormControl>
       <FormControl>
         <FormLabel>Race</FormLabel>
-        <RadioGroup defaultValue="other">
+        <RadioGroup
+          value={demos.race}
+          onChange={(val) => {
+            handleAnswerChange("race", val);
+          }}
+        >
           <Grid templateColumns="repeat(2, 1fr)" gap={3}>
             <GridItem>
               <Radio value="white">White</Radio>

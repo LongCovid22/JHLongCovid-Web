@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   VStack,
   Text,
@@ -14,6 +14,8 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
+import { useAppSelector } from "../../../redux/hooks";
+import { selectCurrentAnswer } from "../../../redux/slices/surveySlice";
 
 const BulletedList = ({ options }: { options: any }) => {
   return (
@@ -35,6 +37,22 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
 }) => {
+  const currentAnswer = useAppSelector(selectCurrentAnswer);
+  const [email, setEmail] = useState("");
+
+  const handleAnswerChange = (value: string) => {
+    setEmail(value);
+    setAnswer(value);
+  };
+
+  useEffect(() => {
+    if (currentAnswer !== null) {
+      setEmail(currentAnswer as string);
+    } else {
+      setAnswer(currentAnswer);
+    }
+  }, [currentAnswer]);
+
   return (
     <>
       <VStack height={"100%"} spacing={"15px"}>
@@ -49,6 +67,10 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
             type="email"
             placeholder="Enter email "
             colorScheme="hopkinsBlue"
+            value={email}
+            onChange={(event) => {
+              handleAnswerChange(event.target.value);
+            }}
           />
           <FormHelperText>Enter email address to give consent</FormHelperText>
         </FormControl>

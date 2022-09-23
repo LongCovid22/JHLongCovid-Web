@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   VStack,
   Text,
@@ -19,6 +19,9 @@ export const Password: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
 }) => {
+  const [pass, setPass] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+
   return (
     <>
       <VStack height={"100%"} spacing={"15px"}>
