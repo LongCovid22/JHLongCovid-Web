@@ -10,9 +10,11 @@ import {
   Stack,
   Spacer,
   FormLabel,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { selectCurrentAnswer } from "../../../redux/slices/surveySlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { validate } from "graphql";
 
 interface OptionProps {
   option: any;
@@ -24,9 +26,10 @@ interface OptionProps {
 const Choices = (
   answerFormat: any,
   options: any,
-  setValue: (val: string) => void,
+  setValue: (val: string, validation?: any) => void,
   choiceValue: string,
-  inputValue: string
+  inputValue: string,
+  inputError: boolean
 ) => {
   if (Array.isArray(answerFormat)) {
     return (
@@ -48,17 +51,24 @@ const Choices = (
             } else {
               return (
                 <Stack direction={"column"} width={"100%"} key={key}>
-                  <Text>{option.title}</Text>
-                  <Input
-                    value={inputValue}
-                    width={"50%"}
-                    type={option.type}
-                    placeholder={option.placeholder}
-                    onChange={(event) => {
-                      console.log("On change");
-                      setValue(event.target.value);
-                    }}
-                  />
+                  <FormControl isInvalid={inputError}>
+                    <FormLabel>{option.title}</FormLabel>
+                    <Input
+                      value={inputValue}
+                      width={"50%"}
+                      placeholder={option.placeholder}
+                      type={option.type}
+                      focusBorderColor="clear"
+                      onChange={(event) => {
+                        setValue(event.target.value, option.validation);
+                      }}
+                    />
+                    {inputError && option.validation && (
+                      <FormErrorMessage>
+                        {option.validation.errorText}
+                      </FormErrorMessage>
+                    )}
+                  </FormControl>
                 </Stack>
               );
             }
@@ -78,18 +88,35 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const [choiceValue, setChoiceValue] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>("");
-  const handleAnswerChange = (val: string) => {
+  const [inputError, setInputError] = useState<boolean>(false);
+
+  const handleAnswerChange = (val: string, validation?: any) => {
     if (
       Array.isArray(currentQuestion.options) &&
       currentQuestion.options.includes(val)
     ) {
       setChoiceValue(val);
       setInputValue("");
+      setInputError(false);
+      setAnswer(val);
     } else {
-      setInputValue(val);
-      setChoiceValue("");
+      if (isValidText(validation, val)) {
+        setInputError(false);
+        setInputValue(val);
+        setChoiceValue("");
+        setAnswer(val);
+      } else {
+        setInputError(true);
+      }
     }
-    setAnswer(val);
+  };
+
+  const isValidText = (validation: undefined | any, inputValue: string) => {
+    if (inputValue !== "" && validation !== undefined) {
+      let reg = new RegExp(validation.regex);
+      return reg.test(inputValue);
+    }
+    return true;
   };
 
   useEffect(() => {
@@ -111,7 +138,8 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
           currentQuestion.options,
           handleAnswerChange,
           choiceValue,
-          inputValue
+          inputValue,
+          inputError
         )}
       </VStack>
     </VStack>

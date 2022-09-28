@@ -49,11 +49,15 @@ interface SurveyWrapperProps {
 export interface SurveyQuestionProps {
   currentQuestion: any;
   setAnswer: (answer: any) => void;
+  setErrorPresent?: (error: boolean) => void;
+  setErrorText?: (text: string) => void;
 }
 
 const Body: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
+  setErrorPresent,
+  setErrorText,
 }) => {
   let answerFormat = currentQuestion.answerFormat;
   if (Array.isArray(answerFormat)) {
@@ -74,7 +78,14 @@ const Body: React.FC<SurveyQuestionProps> = ({
       );
     }
   } else if (answerFormat === "consent") {
-    return <Consent currentQuestion={currentQuestion} setAnswer={setAnswer} />;
+    return (
+      <Consent
+        currentQuestion={currentQuestion}
+        setAnswer={setAnswer}
+        setErrorPresent={setErrorPresent}
+        setErrorText={setErrorText}
+      />
+    );
   } else if (answerFormat === "demographics") {
     return (
       <Demographics currentQuestion={currentQuestion} setAnswer={setAnswer} />
@@ -116,10 +127,64 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     currentQuestion.answer
   );
   const [isFinalSection, setIsFinalSection] = useState(false);
+  const [missingAnswer, setMissingAnswer] = useState(false);
+  const [errorText, setErrorText] = useState("");
+  const [errorPresent, setErrorPresent] = useState(false);
   // const []
 
-  const handleNextQuestion = () => {
-    dispatch(nextQuestion({ answer: answer }));
+  const handleQuestionChange = (direction: "next" | "prev") => {
+    if (direction === "next") {
+      if (
+        currentQuestion.answerFormat !== "welcome" &&
+        currentQuestion.answerFormat !== "password"
+      ) {
+        if (currentQuestion.answerFormat === "demographics") {
+          let emptyFields = [];
+          if (answer !== null) {
+            let demographics = answer as {
+              zip: string;
+              age: string;
+              race: string;
+            };
+            if (demographics.zip === "") {
+              emptyFields.push("zip code");
+            }
+            if (demographics.age === "") {
+              emptyFields.push("age");
+            }
+            if (demographics.race === "") {
+              emptyFields.push("race");
+            }
+
+            if (emptyFields.length > 0) {
+              setErrorText(`Please provide ${emptyFields.join(", ")}`);
+              setMissingAnswer(true);
+              return;
+            }
+          }
+        }
+
+        if (
+          answer === "" ||
+          answer === null ||
+          (Array.isArray(answer) && answer.length === 0) ||
+          (Array.isArray(answer) &&
+            answer.filter((element) => element === "").length > 0)
+        ) {
+          setErrorText("Please provide an answer to the missing fields");
+          setMissingAnswer(true);
+          return;
+        } else {
+          setMissingAnswer(false);
+        }
+      }
+
+      if (!errorPresent) {
+        dispatch(nextQuestion({ answer: answer }));
+      }
+    } else {
+      dispatch(prevQuestion({ answer: answer }));
+    }
     setAnswer("");
   };
 
@@ -132,7 +197,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   }, [currentQuestion]);
 
   useEffect(() => {
-    console.log("current answer: ", currentAnswer);
+    setErrorText("");
+    setMissingAnswer(false);
+    setErrorPresent!(false);
     setAnswer(currentAnswer);
   }, [currentAnswer, currentQuestion]);
 
@@ -168,17 +235,27 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           overflowY: "auto",
         }}
       >
-        <Body currentQuestion={currentQuestion} setAnswer={setAnswer} />
+        <Body
+          currentQuestion={currentQuestion}
+          setAnswer={setAnswer}
+          setErrorPresent={setErrorPresent}
+          setErrorText={setErrorText}
+        />
       </ModalBody>
       <ModalFooter>
         <HStack>
+          {(missingAnswer || errorPresent) && (
+            <Text fontSize={"14px"} color={"red"}>
+              {errorText}
+            </Text>
+          )}
           {currentQuestion.answerFormat === "password" && (
             <Button
               background={"hopkinsBlue.100"}
               color={"hopkinsBlue.500"}
               borderRadius={500}
               onClick={() => {
-                dispatch(() => handleNextQuestion());
+                handleQuestionChange("next");
               }}
             >
               Skip
@@ -189,7 +266,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               colorScheme="hopkinsBlue"
               borderRadius={500}
               onClick={() => {
-                dispatch(prevQuestion({ answer: answer }));
+                handleQuestionChange("prev");
               }}
             >
               Prev
@@ -198,7 +275,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           <Button
             colorScheme="hopkinsBlue"
             borderRadius={500}
-            onClick={() => handleNextQuestion()}
+            onClick={() => handleQuestionChange("next")}
           >
             {isLastQuestion ? "Finish" : "Next"}
           </Button>

@@ -17,6 +17,7 @@ import {
   Select,
   Grid,
   GridItem,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
 import { useAppSelector } from "../../../redux/hooks";
@@ -52,8 +53,9 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
       <FormControl>
         <FormLabel>Zip code</FormLabel>
         <Input
-          type={"number"}
+          type={"text"}
           placeholder={"Enter zip code"}
+          focusBorderColor={"clear"}
           value={demos["zip"]}
           onChange={(event) => {
             handleAnswerChange("zip", event.target.value);

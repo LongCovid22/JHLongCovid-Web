@@ -115,10 +115,7 @@ const Home = () => {
     // console.log("re-render map");
 
     return (
-      <Map
-        style={{ flexGrow: "1", height: "100vh", width: "100%" }}
-        setMapFunc={setMap}
-      >
+      <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
         {aggregateData.map((data) => (
           <Marker
             key={`marker-${data.lat}-${data.long}`}
@@ -169,7 +166,7 @@ const Home = () => {
 
       <div className={styles.main}>
         {MapMemo}
-        <Header map={map} markerData={markerData} />
+        <Header markerData={markerData} />
         <LeftSidePanel data={selectedData} />
       </div>
     </>

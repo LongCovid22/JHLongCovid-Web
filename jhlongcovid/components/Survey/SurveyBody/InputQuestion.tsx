@@ -10,6 +10,7 @@ import {
   Stack,
   Spacer,
   FormLabel,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { selectCurrentAnswer } from "../../../redux/slices/surveySlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
@@ -23,21 +24,27 @@ interface OptionProps {
 const Choices = (
   answerFormat: any,
   options: any,
-  setValue: (val: string) => void,
-  inputValue: string
+  setValue: (val: string, validation?: any) => void,
+  inputValue: string,
+  inputError: boolean
 ) => {
+  console.log("Options: ", options);
   return (
-    <FormControl>
-      <Stack direction={"column"} width={"100%"}>
-        <Text>{options.title}</Text>
-        <Input
-          width={"50%"}
-          value={inputValue}
-          type={options.type}
-          placeholder={options.placeholder}
-          onChange={(event) => setValue(event.target.value)}
-        />
-      </Stack>
+    <FormControl isInvalid={inputError}>
+      <FormLabel>{options.title}</FormLabel>
+      <Input
+        value={inputValue}
+        width={"50%"}
+        type={options.type}
+        placeholder={options.placeholder}
+        focusBorderColor="clear"
+        onChange={(event) => {
+          setValue(event.target.value, options.validation);
+        }}
+      />
+      {inputError && options.validation && (
+        <FormErrorMessage>{options.validation.errorText}</FormErrorMessage>
+      )}
     </FormControl>
   );
 };
@@ -48,10 +55,24 @@ export const InputQuestion: React.FC<SurveyQuestionProps> = ({
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const [inputValue, setInputValue] = useState<string>("");
+  const [inputError, setInputError] = useState<boolean>(false);
 
-  const handleAnswerChange = (val: string) => {
-    setInputValue(val);
-    setAnswer(val);
+  const handleAnswerChange = (val: string, validation?: any) => {
+    if (isValidText(validation, val)) {
+      setInputError(false);
+      setInputValue(val);
+      setAnswer(val);
+    } else {
+      setInputError(true);
+    }
+  };
+
+  const isValidText = (validation: undefined | any, inputValue: string) => {
+    if (inputValue !== "" && validation !== undefined) {
+      let reg = new RegExp(validation.regex);
+      return reg.test(inputValue);
+    }
+    return true;
   };
 
   useEffect(() => {
@@ -72,7 +93,8 @@ export const InputQuestion: React.FC<SurveyQuestionProps> = ({
           currentQuestion.answerFormat,
           currentQuestion.options,
           handleAnswerChange,
-          inputValue
+          inputValue,
+          inputError
         )}
       </VStack>
     </VStack>

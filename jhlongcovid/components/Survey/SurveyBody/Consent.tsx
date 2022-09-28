@@ -12,6 +12,7 @@ import {
   HStack,
   ListIcon,
   FormHelperText,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
 import { useAppSelector } from "../../../redux/hooks";
@@ -36,18 +37,38 @@ const BulletedList = ({ options }: { options: any }) => {
 export const Consent: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
+  setErrorPresent,
+  setErrorText,
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
 
   const handleAnswerChange = (value: string) => {
     setEmail(value);
     setAnswer(value);
+    if (validateEmail(value)) {
+      setEmailError(false);
+      setErrorText!("");
+      setErrorPresent!(false);
+    } else {
+      if (value !== "") {
+        setEmailError(true);
+        setErrorPresent!(true);
+        setErrorText!("Please enter valid email");
+      }
+    }
+  };
+
+  const validateEmail = (email: string) => {
+    return email.match(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
   };
 
   useEffect(() => {
     if (currentAnswer !== null) {
-      setEmail(currentAnswer as string);
+      handleAnswerChange(currentAnswer as string);
     } else {
       setAnswer(currentAnswer);
     }
@@ -61,18 +82,25 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
         </Text>
         <BulletedList options={currentQuestion.options} />
         <Spacer />
-        <FormControl>
+        <FormControl isInvalid={emailError}>
           <FormLabel>Email Address</FormLabel>
           <Input
             type="email"
             placeholder="Enter email "
             colorScheme="hopkinsBlue"
             value={email}
+            focusBorderColor={"clear"}
             onChange={(event) => {
               handleAnswerChange(event.target.value);
             }}
           />
-          <FormHelperText>Enter email address to give consent</FormHelperText>
+          {emailError ? (
+            <FormErrorMessage>
+              Please enter valid email address
+            </FormErrorMessage>
+          ) : (
+            <FormHelperText>Enter email address to give consent</FormHelperText>
+          )}
         </FormControl>
       </VStack>
     </>

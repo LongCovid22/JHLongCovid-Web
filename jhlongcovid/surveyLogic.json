@@ -46,8 +46,12 @@
           "3 infections (reinfected twice)",
           {
             "title": "More than 3 infections: (please enter number)",
-            "type": "number",
-            "placeholder": "Enter number of infections"
+            "type": "text",
+            "placeholder": "Enter number of infections",
+            "validation": {
+              "regex": "^[0-9]+$",
+              "errorText": "Please enter a valid number"
+            }
           }
         ],
         "answerFormat": ["choice", "choice", "choice", "choice", "input"],
@@ -66,7 +70,11 @@
         "instructions": "The following questions refer to your most recent (new) COVID-19 infection If you know or think you had multiple infections, please answer the following questions based on your most recent infection",
         "title": "COVID",
         "question": "When do you know or think you had COVID-19?",
-        "options": { "type": "date", "placeholder": "Enter date" },
+        "options": {
+          "title": "Date:",
+          "type": "date",
+          "placeholder": "Enter date"
+        },
         "answerFormat": "input",
         "answer": null,
         "branching": null
@@ -203,11 +211,15 @@
       },
       {
         "title": "Recovery",
-        "question": "How long did it take for you to recover from your most recent infection",
+        "question": "How long did it take for you to recover from your most recent infection?",
         "options": {
-          "type": "number",
+          "type": "text",
           "title": "Days: ",
-          "placeholder": "Enter number of days"
+          "placeholder": "Enter number of days",
+          "validation": {
+            "regex": "^[0-9]+$",
+            "errorText": "Please enter a valid number"
+          }
         },
         "answerFormat": "input",
         "answer": null,
@@ -228,9 +240,13 @@
         "question": "In total, how many COVID-19 vaccine shots have you received?",
         "options": [
           {
-            "type": "number",
+            "type": "text",
             "title": "Number of shots: ",
-            "placeholder": "Enter number of shots"
+            "placeholder": "Enter number of shots",
+            "validation": {
+              "regex": "^[0-9]+$",
+              "errorText": "Please enter a valid number"
+            }
           },
           "Decline to answer"
         ],
@@ -451,7 +467,7 @@
         "answer": null,
         "answerFormat": "password",
         "branching": {
-          "predicate": "",
+          "predicate": "skip",
           "goto": {
             "section": 8,
             "question": 2
@@ -462,9 +478,13 @@
         "title": "Create Account",
         "question": "Please enter the verification code sent to your email",
         "options": {
-          "type": "number",
+          "type": "text",
           "title": "Verification code",
-          "placeholder": "Enter verification code"
+          "placeholder": "Enter verification code",
+          "validation": {
+            "regex": "^[0-9]+$",
+            "errorText": "Please enter a valid number"
+          }
         },
         "answer": null,
         "answerFormat": "mfa",
