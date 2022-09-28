@@ -51,10 +51,12 @@ const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
         }
 
         let bounds = newMap.getBounds();
-        dispatch(setLowLong(bounds?.getSouthWest().lng()));
-        dispatch(setHiLong(bounds?.getNorthEast().lng()));
-        dispatch(setLowLat(bounds?.getSouthWest().lat()));
-        dispatch(setHiLat(bounds?.getNorthEast().lat()));
+        if (bounds !== undefined) {
+          dispatch(setLowLong(bounds.getSouthWest().lng()));
+          dispatch(setHiLong(bounds.getNorthEast().lng()));
+          dispatch(setLowLat(bounds.getSouthWest().lat()));
+          dispatch(setHiLat(bounds.getNorthEast().lat()));
+        }
       });
 
       setMap(newMap);

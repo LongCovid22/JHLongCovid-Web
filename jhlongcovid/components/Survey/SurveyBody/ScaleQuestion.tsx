@@ -82,7 +82,7 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
             >
               {currentQuestion.scale.map((sv: string, si: number) => {
                 return (
-                  <GridItem alignItems={"center"}>
+                  <GridItem alignItems={"center"} key={si}>
                     <Flex w="100%" h="100%" direction={"row"}>
                       <Spacer />
                       <Radio value={`${si}`} />
