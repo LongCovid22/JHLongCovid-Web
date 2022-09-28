@@ -16,5 +16,23 @@
         "jhlongcovid": {}
       }
     }
+  },
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-jhlongcovid-staging-100445-authRole",
+      "UnauthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-staging-100445-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-staging-100445-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
+      "UnauthRoleName": "amplify-jhlongcovid-staging-100445-unauthRole",
+      "StackName": "amplify-jhlongcovid-staging-100445",
+      "StackId": "arn:aws:cloudformation:us-east-1:317973408936:stack/amplify-jhlongcovid-staging-100445/822fada0-3f36-11ed-928b-0a3b4282c6bf",
+      "AmplifyAppId": "d304vc3h5b8tce"
+    },
+    "categories": {
+      "auth": {
+        "jhlongcovid": {}
+      }
+    }
   }
 }
