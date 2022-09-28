@@ -28,7 +28,6 @@ const Choices = (
   inputValue: string,
   inputError: boolean
 ) => {
-  console.log("Options: ", options);
   return (
     <FormControl isInvalid={inputError}>
       <FormLabel>{options.title}</FormLabel>

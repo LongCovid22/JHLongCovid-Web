@@ -185,8 +185,6 @@ export const surveySlice = createSlice({
      * user will experience during the survey.
      */
     initQuestions: (state, { payload }) => {
-      // let stateCopy = { ...state };
-      console.log(surveyLogic);
       // User not signed in, give full survey
       if (payload.userId == null) {
         while (state.questionStack.length > 0) {
