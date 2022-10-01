@@ -3,10 +3,8 @@ import zoomReducer from "./slices/zoomSlice";
 import presentationReducer from "./slices/presentationSlice";
 import viewportReducer from "./slices/viewportSlice";
 import surveyReducer from "./slices/surveySlice";
-
 import userReducer from "./slices/userSlice";
-
-import mapReducer from './slices/mapSlice';
+import mapReducer from "./slices/mapSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,8 +12,8 @@ const store = configureStore({
     presentation: presentationReducer,
     viewport: viewportReducer,
     survey: surveyReducer,
-    user : userReducer,
-    map: mapReducer
+    user: userReducer,
+    map: mapReducer,
   },
 });
 

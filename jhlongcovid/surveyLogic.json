@@ -1,352 +1,503 @@
 {
   "version": "1.0",
-  "intro": {
-    "1": {
-      "question": "In total, since the beginning of the pandemic in the US (January 2020), how many times do you think you have been infected with COVID‐19?",
-      "options": [
-        "0 infections (never)",
-        "1 infection (only once)",
-        "2 infections (reinfected once)",
-        "3 infections (reinfected twice)",
-        {
-          "title": "More than 3 infections: (please enter number)",
-          "type": "number",
-          "placeholder": "Enter number"
-        }
-      ],
-      "answerFormat": ["choice", "choice", "choice", "choice", "input"],
-      "answer": null,
-      "branching": {
-        "predicate": 0,
-        "goto": {
-          "section": "vaccination",
-          "questionNum": "12"
-        }
-      }
-    }
-  },
-  "covid": {
-    "instructions": "The following questions refer to your most recent (new) COVID-19 infection If you know or think you had multiple infections, please answer the following questions based on your most recent infection",
-    "2": {
-      "question": "When do you know or think you had COVID-19?",
-      "options": { "type": "date", "placeholder": "Enter date" },
-      "answerFormat": "input",
-      "answer": null,
-      "branching": null
-    },
-    "3": {
-      "question": "Did you take a COVID test at that time?",
-      "options": ["Yes", "No"],
-      "answerFormat": "choice",
-      "answer": null,
-      "branching": {
-        "predicate": "true",
-        "goto": {
-          "section": "covid",
-          "questionNum": "6"
-        }
-      }
-    },
-    "4": {
-      "question": "What were your test results? Check all that apply. “Positive” means the test showed COVID-19.",
-      "options": [
-        "Positive antigen (\"rapid\") test at home",
-        "Positive antigen (\"rapid\") test at a clinic, tent, or other facility",
-        "Positive PCR test",
-        "Positive test, but unsure if antigen or PCR",
-        "I did not have a positive test",
-        "I don't know",
-        "Decline to answer"
-      ],
-      "answerFormat": "choice",
-      "answer": null,
-      "branching": null
-    },
-    "5": {
-      "question": "Were you hospitalized for COVID-19?",
-      "options": [
-        "Yes, I was hospitalized due to health problems relating to COVID-19",
-        "I was hospitalized, but it was not related to COVID-19 symptoms",
-        "No"
-      ],
-      "answerFormat": "choice",
-      "answer": null,
-      "branching": {
-        "predicate": "2",
-        "goto": {
-          "section": "covid",
-          "questionNum": "10"
-        }
-      }
-    },
-    "6": {
-      "question": "Did you have any symptoms?",
-      "options": ["Yes", "No"],
-      "answerFormat": "choice",
-      "answer": null,
-      "branching": {
-        "predicate": "false",
-        "goto": {
-          "section": "covid",
-          "questionNum": "8"
-        }
-      }
-    },
-    "7": {
-      "question": "When your symptoms were at their worst, did they prevent you from going about your daily activities?",
-      "options": [
-        "Not at all",
-        "A little bit",
-        "Somewhat",
-        "Quite a bit",
-        "Very much"
-      ],
-      "answerFormat": "choice",
-      "answer": null,
-      "branching": null
-    },
-    "8": {
-      "question": "Did you take any of the following medications? Check all that apply.",
-      "options": [
-        "Antiviral pill, such as Paxlovid",
-        "Monoclonal antibodies",
-        "Oral steroids, such as dexamethasone, prednisone, or prednisolone",
-        "Antibiotics, such as a “Z-pak”",
-        {
-          "title": "Other medications: ",
-          "type": "text",
-          "placeholder": "Enter medication"
-        },
-        "I took medications for COVID-19 but I don't know what they were",
-        "I did not take any medications for COVID-19",
-        "Decline to answer"
-      ],
-      "answerFormat": [
-        "choice",
-        "choice",
-        "choice",
-        "choice",
-        "input",
-        "choice",
-        "choice",
-        "choice"
-      ],
-      "answer": null,
-      "branching": null
-    }
-  },
-  "recovery": {
-    "9": {
-      "question": "Qould you say that you are completely recovered from COVID-19 now?",
-      "options": ["Yes", "No", "Unsure", "Decline to answer"],
-      "answerFormat": "choice",
-      "answer": null,
-      "branching": {
-        "predicate": "0",
-        "goto": {
-          "section": "recovery",
-          "questionNum": "11"
-        }
-      }
-    },
-    "10": {
-      "question": "How long did it take for you to recover from your most recent infection",
-      "options": {
-        "type": "number",
-        "title": "Days: ",
-        "placeholder": "Enter number of days"
+  "questions": [
+    [
+      {
+        "title": "",
+        "question": "Welcome to the Johns Hopkins Long COVID Questionnaire",
+        "options": [
+          "This questionnaire asks you about your exposure to COVID-19 and how it has affected your life beyond your infection. Please know that participation in this survey is optional, and that while responses will be shared on the aggregate, individual responses will be free of all personal identifiers."
+        ],
+        "answerFormat": "welcome",
+        "answer": null,
+        "branching": null
       },
-      "answerFormat": "input",
-      "answer": null,
-      "branching": null
-    },
-    "11": {
-      "question": "Do you think that you are experiencing, or have ever experienced, what has been called “long COVID,” or symptoms that continue for at least a month after your infection?",
-      "options": ["Yes", "No", "Unsure", "Decline to answer"],
-      "answerFormat": "choice",
-      "answer": null,
-      "branching": null
-    }
-  },
-  "vaccination": {
-    "12": {
-      "question": "In total, how many COVID-19 vaccine shots have you received?",
-      "options": [
-        {
-          "type": "number",
-          "title": "Number of shots: ",
-          "placeholder": "Enter number of shots"
-        },
-        "Decline to answer"
-      ],
-      "answerFormat": ["input", "choice"],
-      "answer": null,
-      "branching": {
-        "predicate": "0",
-        "goto": {
-          "section": "generalHealth",
-          "questionNum": "15"
+      {
+        "title": "Consent",
+        "question": "The following information will be collected to better understand your experience with COVID-19. Once collected, all data will be de-identified and aggregated to contribute to data seen on the map.",
+        "options": [
+          "COVID-19 Experience",
+          "COVID-19 Recovery (if applicable)",
+          "Vaccination History",
+          "General Health",
+          "Medical Conditions",
+          "Symptoms",
+          "Social Determinants"
+        ],
+        "answerFormat": "consent",
+        "answer": null,
+        "branching": null
+      },
+      {
+        "title": "Demographics",
+        "question": "Please enter the following demographic information:",
+        "options": [],
+        "answerFormat": "demographics",
+        "answer": null,
+        "branching": null
+      },
+      {
+        "title": "Intro",
+        "question": "In total, since the beginning of the pandemic in the US (January 2020), how many times do you think you have been infected with COVID‐19?",
+        "options": [
+          "0 infections (never)",
+          "1 infection (only once)",
+          "2 infections (reinfected once)",
+          "3 infections (reinfected twice)",
+          {
+            "title": "More than 3 infections: (please enter number)",
+            "type": "text",
+            "placeholder": "Enter number of infections",
+            "validation": {
+              "regex": "^[0-9]+$",
+              "errorText": "Please enter a valid number"
+            }
+          }
+        ],
+        "answerFormat": ["choice", "choice", "choice", "choice", "input"],
+        "answer": null,
+        "branching": {
+          "predicate": "0 infections (never)",
+          "goto": {
+            "section": 3,
+            "question": 0
+          }
         }
       }
-    },
-    "13": {
-      "question": "When was your most recent COVID vaccine?",
-      "options": [
-        {
+    ],
+    [
+      {
+        "instructions": "The following questions refer to your most recent (new) COVID-19 infection If you know or think you had multiple infections, please answer the following questions based on your most recent infection",
+        "title": "COVID",
+        "question": "When do you know or think you had COVID-19?",
+        "options": {
+          "title": "Date:",
           "type": "date",
-          "title": "Date of shot: ",
-          "placeholder": "Enter date of shot"
+          "placeholder": "Enter date"
         },
-        "Unsure",
-        "Decline to answer"
-      ],
-      "answerFormat": ["input", "choice", "choice"],
-      "answer": null,
-      "branching": null
-    },
-    "14": {
-      "question": "Which type of COVID vaccine was your last shot?",
-      "options": [
-        "Pfizer",
-        "Moderna",
-        "J&J",
-        "AstraZeneca",
-        "Other",
-        "Unsure",
-        "Decline to answer"
-      ],
-      "answerFormat": [
-        "choice",
-        "choice",
-        "choice",
-        "choice",
-        "input",
-        "choice",
-        "choice"
-      ],
-      "answer": null,
-      "branching": null
-    }
-  },
-  "generalHealth": {
-    "15": {
-      "question": "Please answer the following questions based on your most recent health status",
-      "scale": ["Excellent", "Very Good", "Good", "Fair", "Poor"],
-      "answerFormat": "scale",
-      "options": [
-        "In general, would you say your health is",
-        "In general, would you say your quality of life is",
-        "In general, how would you rate your physical health",
-        "In general, how would you rate your mental health, including your mood and your ability to think?",
-        "In general, how would you rate your satisfaction with your social activities and relationships?",
-        "In general, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in your community, and responsibilities as a parent, child, spouse, employee, friend, etc.)?"
-      ],
-      "answer": null,
-      "branching": null
-    }
-  },
-  "symptoms": {
-    "16": {
-      "question": "During the past month, have you had any of the following symptoms? If yes, please tell us if the symptom was mild (not very bothersome), moderate (somewhat bothersome), or severe (very bothersome)",
-      "scale": ["No", "Mild", "Moderate", "Severe"],
-      "answerFormat": "scale",
-      "options": [
-        "Weakness or fatigue",
-        "Feeling sick after you exert yourself physically or mentally",
-        "Fever, chills, sweats or flushing",
-        "Loss of or change in smell or taste",
-        "Headache",
-        "Body or muscle aches",
-        "Shortness of breath (trouble breathing)",
-        "Cough",
-        "Palpitations or racing heart beat",
-        "Swelling of your legs",
-        "Nausea",
-        "Vomiting",
-        "Diarrhea",
-        "Constipation",
-        "Bladder problems including incontinence, trouble passing urine or emptying bladder",
-        "Nerve problems including tremor, shaking, numbness, tingling, or burning sensation",
-        "Anxiety, depression, or stress",
-        "Problems thinking or concentrating",
-        "Trouble sleeping",
-        "Feeling faint, lightheaded or dizzy after standing up",
-        "Skin color changes or rash",
-        "Excessively dry mouth or excessive thirst",
-        "Vision problems",
-        "Problems with hearing (hearing loss, ringing in ears)",
-        "Hair loss",
-        "Problems with teeth",
-        "Changes to menstrual cycle or menopause symptoms (such as hot flashes)",
-        "Changes in desire for, comfort with or capacity for sex"
-      ],
-      "answer": null,
-      "branching": null
-    }
-  },
-  "medicalConditions": {
-    "17": {
-      "question": "Since the beginning of 2020, has a health care provider given you a new diagnosis of any of the following conditions?",
-      "options": [
-        "Heart problems, such as heart failure or arrhythmia",
-        "Lung problems, such as asthma, COPD, or fibrosis",
-        "Blood clots in the lung (“pulmonary embolism”) leg or arm (“deep vein thrombosis”)",
-        "Sleep apnea or insomnia",
-        "Memory or cognitive impairment or dementia",
-        "Migraine or other headache disorder",
-        "Stroke",
-        "Kidney problems or kidney disease",
-        "Stomach problems or gastrointestinal disease, like stomach ulcer or gastrointestinal disease",
-        "Psychological problems or psychiatric problems, like depression or anxiety or psychosis",
-        "Diabetes",
-        "Thyroid problems",
-        "Cancer",
-        "Other",
-        "No new diagnoses since the beginning of 2020",
-        "Not sure"
-      ],
-      "answerFormat": "choice",
-      "answer": null,
-      "branching": null
-    }
-  },
-  "social": {
-    "18": {
-      "question": "Do you currently have some form of health insurance to help pay for medical bills?",
-      "options": ["Yes", "No", "Not sure", "Decline to answer"],
-      "answerFormat": "choice",
-      "answer": null,
-      "branching": null
-    },
-    "19": {
-      "question": "Do you currently have some form of health insurance to help pay for medical bills?",
-      "options": [
-        "Very difficult",
-        "Somewhat difficult",
-        "Not at all difficult",
-        "Don't know",
-        "Prefer not to answer"
-      ],
-      "answerFormat": "choice",
-      "answer": null,
-      "branching": null
-    },
-    "20": {
-      "question": "What is your current work situation?",
-      "options": [
-        "Working outside of the home",
-        "On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave)",
-        "Working inside the home",
-        "Looking for work, unemployed",
-        "Retired",
-        "Disabled, permanently or temporarily",
-        "Student",
-        "Don't know",
-        "Prefer not to answer"
-      ],
-      "answerFormat": "choice",
-      "answer": null,
-      "branching": null
-    }
-  }
+        "answerFormat": "input",
+        "answer": null,
+        "branching": null
+      },
+      {
+        "title": "COVID",
+        "question": "Did you take a COVID test at that time?",
+        "options": ["Yes", "No"],
+        "answerFormat": ["choice", "choice"],
+        "answer": null,
+        "branching": {
+          "predicate": "No",
+          "goto": {
+            "section": 1,
+            "question": 4
+          }
+        }
+      },
+      {
+        "title": "COVID",
+        "question": "What were your test results? Check all that apply. “Positive” means the test showed COVID-19.",
+        "options": [
+          "Positive antigen (\"rapid\") test at home",
+          "Positive antigen (\"rapid\") test at a clinic, tent, or other facility",
+          "Positive PCR test",
+          "Positive test, but unsure if antigen or PCR",
+          "I did not have a positive test",
+          "I don't know",
+          "Decline to answer"
+        ],
+        "answerFormat": [
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice"
+        ],
+        "answer": null,
+        "branching": null
+      },
+      {
+        "title": "COVID",
+        "question": "Were you hospitalized for COVID-19?",
+        "options": [
+          "Yes, I was hospitalized due to health problems relating to COVID-19",
+          "I was hospitalized, but it was not related to COVID-19 symptoms",
+          "No"
+        ],
+        "answerFormat": ["choice", "choice", "choice"],
+        "answer": null,
+        "branching": {
+          "predicate": "Yes, I was hospitalized due to health problems relating to COVID-19",
+          "goto": {
+            "section": 2,
+            "question": 1
+          }
+        }
+      },
+      {
+        "title": "COVID",
+        "question": "Did you have any symptoms?",
+        "options": ["Yes", "No"],
+        "answerFormat": ["choice", "choice"],
+        "answer": null,
+        "branching": {
+          "predicate": "No",
+          "goto": {
+            "section": 1,
+            "question": 6
+          }
+        }
+      },
+      {
+        "title": "COVID",
+        "question": "When your symptoms were at their worst, did they prevent you from going about your daily activities?",
+        "options": [
+          "Not at all",
+          "A little bit",
+          "Somewhat",
+          "Quite a bit",
+          "Very much"
+        ],
+        "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
+        "answer": null,
+        "branching": null
+      },
+      {
+        "title": "COVID",
+        "question": "Did you take any of the following medications? Check all that apply.",
+        "options": [
+          "Antiviral pill, such as Paxlovid",
+          "Monoclonal antibodies",
+          "Oral steroids, such as dexamethasone, prednisone, or prednisolone",
+          "Antibiotics, such as a “Z-pak”",
+          {
+            "title": "Other medications: ",
+            "type": "text",
+            "placeholder": "Enter medication"
+          },
+          "I took medications for COVID-19 but I don't know what they were",
+          "I did not take any medications for COVID-19",
+          "Decline to answer"
+        ],
+        "answerFormat": [
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "input",
+          "choice",
+          "choice",
+          "choice"
+        ],
+        "answer": null,
+        "branching": null
+      }
+    ],
+    [
+      {
+        "title": "Recovery",
+        "question": "Would you say that you are completely recovered from COVID-19 now?",
+        "options": ["Yes", "No", "Unsure", "Decline to answer"],
+        "answerFormat": ["choice", "choice", "choice", "choice"],
+        "answer": null,
+        "branching": {
+          "predicate": "No",
+          "goto": {
+            "section": 2,
+            "question": 2
+          }
+        }
+      },
+      {
+        "title": "Recovery",
+        "question": "How long did it take for you to recover from your most recent infection?",
+        "options": {
+          "type": "text",
+          "title": "Days: ",
+          "placeholder": "Enter number of days",
+          "validation": {
+            "regex": "^[0-9]+$",
+            "errorText": "Please enter a valid number"
+          }
+        },
+        "answerFormat": "input",
+        "answer": null,
+        "branching": null
+      },
+      {
+        "title": "Recovery",
+        "question": "Do you think that you are experiencing, or have ever experienced, what has been called “long COVID,” or symptoms that continue for at least a month after your infection?",
+        "options": ["Yes", "No", "Unsure", "Decline to answer"],
+        "answerFormat": ["choice", "choice", "choice", "choice"],
+        "answer": null,
+        "branching": null
+      }
+    ],
+    [
+      {
+        "title": "Vaccination",
+        "question": "In total, how many COVID-19 vaccine shots have you received?",
+        "options": [
+          {
+            "type": "text",
+            "title": "Number of shots: ",
+            "placeholder": "Enter number of shots",
+            "validation": {
+              "regex": "^[0-9]+$",
+              "errorText": "Please enter a valid number"
+            }
+          },
+          "Decline to answer"
+        ],
+        "answerFormat": ["input", "choice"],
+        "answer": null,
+        "branching": {
+          "predicate": "0",
+          "goto": {
+            "section": 4,
+            "question": 0
+          }
+        }
+      },
+      {
+        "title": "Vaccination",
+        "question": "When was your most recent COVID vaccine?",
+        "options": [
+          {
+            "type": "date",
+            "title": "Date of shot: ",
+            "placeholder": "Enter date of shot"
+          },
+          "Unsure",
+          "Decline to answer"
+        ],
+        "answerFormat": ["input", "choice", "choice"],
+        "answer": null,
+        "branching": null
+      },
+      {
+        "title": "Vaccination",
+        "question": "Which type of COVID vaccine was your last shot?",
+        "options": [
+          "Pfizer",
+          "Moderna",
+          "J&J",
+          "AstraZeneca",
+          {
+            "type": "text",
+            "title": "Other",
+            "placeholder": "Enter vaccine type"
+          },
+          "Unsure",
+          "Decline to answer"
+        ],
+        "answerFormat": [
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "input",
+          "choice",
+          "choice"
+        ],
+        "answer": null,
+        "branching": null
+      }
+    ],
+    [
+      {
+        "title": "General Health",
+        "question": "Please answer the following questions based on your most recent health status",
+        "scale": ["Poor", "Fair", "Good", "Very Good", "Excellent"],
+        "answerFormat": "scale",
+        "options": [
+          "In general, would you say your health is",
+          "In general, would you say your quality of life is",
+          "In general, how would you rate your physical health",
+          "In general, how would you rate your mental health, including your mood and your ability to think?",
+          "In general, how would you rate your satisfaction with your social activities and relationships?",
+          "In general, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in your community, and responsibilities as a parent, child, spouse, employee, friend, etc.)?"
+        ],
+        "answer": null,
+        "branching": null
+      }
+    ],
+    [
+      {
+        "title": "Symptoms",
+        "question": "During the past month, have you had any of the following symptoms? If yes, please tell us if the symptom was mild (not very bothersome), moderate (somewhat bothersome), or severe (very bothersome)",
+        "scale": ["No", "Mild", "Moderate", "Severe"],
+        "answerFormat": "scale",
+        "options": [
+          "Weakness or fatigue",
+          "Feeling sick after you exert yourself physically or mentally",
+          "Fever, chills, sweats or flushing",
+          "Loss of or change in smell or taste",
+          "Headache",
+          "Body or muscle aches",
+          "Shortness of breath (trouble breathing)",
+          "Cough",
+          "Palpitations or racing heart beat",
+          "Swelling of your legs",
+          "Nausea",
+          "Vomiting",
+          "Diarrhea",
+          "Constipation",
+          "Bladder problems including incontinence, trouble passing urine or emptying bladder",
+          "Nerve problems including tremor, shaking, numbness, tingling, or burning sensation",
+          "Anxiety, depression, or stress",
+          "Problems thinking or concentrating",
+          "Trouble sleeping",
+          "Feeling faint, lightheaded or dizzy after standing up",
+          "Skin color changes or rash",
+          "Excessively dry mouth or excessive thirst",
+          "Vision problems",
+          "Problems with hearing (hearing loss, ringing in ears)",
+          "Hair loss",
+          "Problems with teeth",
+          "Changes to menstrual cycle or menopause symptoms (such as hot flashes)",
+          "Changes in desire for, comfort with or capacity for sex"
+        ],
+        "answer": null,
+        "branching": null
+      }
+    ],
+    [
+      {
+        "title": "Medical Conditions",
+        "question": "Since the beginning of 2020, has a health care provider given you a new diagnosis of any of the following conditions?",
+        "options": [
+          "Heart problems, such as heart failure or arrhythmia",
+          "Lung problems, such as asthma, COPD, or fibrosis",
+          "Blood clots in the lung (“pulmonary embolism”) leg or arm (“deep vein thrombosis”)",
+          "Sleep apnea or insomnia",
+          "Memory or cognitive impairment or dementia",
+          "Migraine or other headache disorder",
+          "Stroke",
+          "Kidney problems or kidney disease",
+          "Stomach problems or gastrointestinal disease, like stomach ulcer or gastrointestinal disease",
+          "Psychological problems or psychiatric problems, like depression or anxiety or psychosis",
+          "Diabetes",
+          "Thyroid problems",
+          "Cancer",
+          "Other",
+          "No new diagnoses since the beginning of 2020",
+          "Not sure"
+        ],
+        "answerFormat": [
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice"
+        ],
+        "answer": null,
+        "branching": null
+      }
+    ],
+    [
+      {
+        "title": "Social Determinants",
+        "question": "Do you currently have some form of health insurance to help pay for medical bills?",
+        "options": ["Yes", "No", "Not sure", "Decline to answer"],
+        "answerFormat": ["choice", "choice", "choice", "choice"],
+        "answer": null,
+        "branching": null
+      },
+      {
+        "title": "Social Determinants",
+        "question": "Do you currently have some form of health insurance to help pay for medical bills?",
+        "options": [
+          "Very difficult",
+          "Somewhat difficult",
+          "Not at all difficult",
+          "Don't know",
+          "Prefer not to answer"
+        ],
+        "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
+        "answer": null,
+        "branching": null
+      },
+      {
+        "title": "Social Determinants",
+        "question": "What is your current work situation?",
+        "options": [
+          "Working outside of the home",
+          "On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave)",
+          "Working inside the home",
+          "Looking for work, unemployed",
+          "Retired",
+          "Disabled, permanently or temporarily",
+          "Student",
+          "Don't know",
+          "Prefer not to answer"
+        ],
+        "answerFormat": [
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice",
+          "choice"
+        ],
+        "answer": null,
+        "branching": null
+      }
+    ],
+    [
+      {
+        "title": "Create Account",
+        "question": "In order to better understand Long COVID, we would like to check in to see how your COVID experience changes over time. To participate, enter your preffered password to create an account!",
+        "options": null,
+        "answer": null,
+        "answerFormat": "password",
+        "branching": {
+          "predicate": "skip",
+          "goto": {
+            "section": 8,
+            "question": 2
+          }
+        }
+      },
+      {
+        "title": "Create Account",
+        "question": "Please enter the verification code sent to your email",
+        "options": {
+          "type": "text",
+          "title": "Verification code",
+          "placeholder": "Enter verification code",
+          "validation": {
+            "regex": "^[0-9]+$",
+            "errorText": "Please enter a valid number"
+          }
+        },
+        "answer": null,
+        "answerFormat": "mfa",
+        "branching": null
+      },
+      {
+        "title": "Thank You",
+        "question": "Thank you for participating in the Johns Hopkins Long COVID survey. You will be emailed with a receipt of your survey entry shortly!",
+        "options": null,
+        "answer": null,
+        "answerFormat": "thankYou",
+        "branching": null
+      }
+    ]
+  ]
 }

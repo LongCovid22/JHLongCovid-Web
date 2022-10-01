@@ -8,10 +8,16 @@ import {
 } from "react";
 import { mapStyle } from "../../theme/mapStyle";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { selectZoom, setByAmount, setLowLong, setHiLong, setLowLat, setHiLat } from "../../redux/slices/zoomSlice";
+import {
+  selectZoom,
+  setByAmount,
+  setLowLong,
+  setHiLong,
+  setLowLat,
+  setHiLat,
+} from "../../redux/slices/zoomSlice";
 
 // import GoogleMapReact from 'google-map-react';
-import { useGoogleMaps } from "react-hook-google-maps";
 import { useMapUpdateContext } from "../context/MapContext";
 
 interface MapProps extends google.maps.MapOptions {
@@ -49,10 +55,7 @@ const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
         dispatch(setHiLong(bounds?.getNorthEast().lng()));
         dispatch(setLowLat(bounds?.getSouthWest().lat()));
         dispatch(setHiLat(bounds?.getNorthEast().lat()));
-
       });
-
-
 
       setMap(newMap);
 
@@ -74,4 +77,3 @@ const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
 };
 
 export default Map;
-

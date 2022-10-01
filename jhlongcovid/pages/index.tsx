@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import styles from "../styles/Home.module.css";
 import Map from "../components/Map/Map";
 import { Header } from "../components/Header/Header";
@@ -6,19 +6,26 @@ import { Marker } from "../components/Marker";
 import { LeftSidePanel } from "../components/LeftSidePanel/LeftSidePanel";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { selectWidth, setDimensions } from "../redux/slices/viewportSlice";
-import { selectZoom, selectLoLat, selectHighLat, selectLoLong, selectHighLong } from "../redux/slices/zoomSlice";
+import {
+  selectZoom,
+  selectLoLat,
+  selectHighLat,
+  selectLoLong,
+  selectHighLong,
+} from "../redux/slices/zoomSlice";
 import { read } from "../util/mockDataTwo";
 import { sumUpCases } from "./preprocess";
 import Script from "next/script";
 import React from "react";
 import { Button } from "@chakra-ui/react";
+import { Amplify } from "aws-amplify";
+import awsExports from "../src/aws-exports";
+import { initQuestions } from "../redux/slices/surveySlice";
 
-import { Amplify } from 'aws-amplify';
-import awsExports from '../src/aws-exports';
 Amplify.configure(awsExports);
 
 interface IHash {
-  [name: string] : google.maps.Circle
+  [name: string]: google.maps.Circle;
 }
 
 const Home = () => {
@@ -28,7 +35,6 @@ const Home = () => {
   const [state_data, setStateData] = useState<any[]>([]);
   const [aggregateData, setAggregateData] = useState<any[]>([]);
   const [selectedData, setSelectedData] = useState<any[]>([]);
-
 
   const [map, setMap] = useState<google.maps.Map>();
 
@@ -45,10 +51,14 @@ const Home = () => {
     let markers = [];
     if (zoomNum >= 8) {
       let array = [];
-      for(let i = 0; i < county_data.length; i++) {
+      for (let i = 0; i < county_data.length; i++) {
         let county = county_data[i];
-        if(latLow <= county.lat && county.lat <= latHigh 
-          && longLow  <= county.long && county.long <= longHigh ) {
+        if (
+          latLow <= county.lat &&
+          county.lat <= latHigh &&
+          longLow <= county.long &&
+          county.long <= longHigh
+        ) {
           array.push(county);
         }
       }
@@ -57,7 +67,6 @@ const Home = () => {
       markers = state_data;
       setAggregateData(markers);
     }
-    
   };
 
   const setViewport = () => {
@@ -72,9 +81,9 @@ const Home = () => {
   // Memoize map to only re-render when data changes
   const MapMemo = useMemo(() => {
     // console.log("re-render map");
-    
+
     return (
-      <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }} setMapFunc = {setMap} >
+      <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
         {aggregateData.map((data) => (
           <Marker
             key={`marker-${data.lat}-${data.long}`}
@@ -90,10 +99,8 @@ const Home = () => {
             }
             data={data}
             setSelectedData={setSelectedData}
-
-            markerData = {markerData}
-
-            setMarkerData = {setMarkerData}
+            markerData={markerData}
+            setMarkerData={setMarkerData}
           />
         ))}
       </Map>
@@ -115,6 +122,11 @@ const Home = () => {
     toggleAggregateDataOnZoom();
   }, [zoomNum, latLow, latHigh, longLow, longHigh, state_data, county_data]);
 
+  // Upon user sign in & component mount
+  useEffect(() => {
+    dispatch(initQuestions({ authId: null }));
+  }, []);
+
   return (
     <>
       <Script src="https://cdn.jsdelivr.net/npm/apexcharts" />
@@ -122,7 +134,7 @@ const Home = () => {
 
       <div className={styles.main}>
         {MapMemo}
-        <Header map = {map} markerData = {markerData} />
+        <Header markerData={markerData} />
         <LeftSidePanel data={selectedData} />
       </div>
     </>
