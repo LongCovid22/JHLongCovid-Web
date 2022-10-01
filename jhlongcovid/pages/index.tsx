@@ -15,8 +15,6 @@ import { Button } from "@chakra-ui/react";
 
 import { Amplify } from 'aws-amplify';
 import awsExports from '../src/aws-exports';
-import { ComponentPropsToStylePropsMap } from "@aws-amplify/ui-react";
-import { count } from "console";
 Amplify.configure(awsExports);
 
 interface IHash {
@@ -42,18 +40,6 @@ const Home = () => {
   const longLow = useAppSelector(selectLoLong);
   const longHigh = useAppSelector(selectHighLong);
 
-  // let lat = {
-  //   lo : useAppSelector(selectLoLat),
-  //   high: useAppSelector(selectHighLat),
-  // }
-
-  // let long = {
-  //   lo: useAppSelector(selectLoLong),
-  //   high: useAppSelector(selectHighLong)
-  // } 
-
-  //preprocess county vs state data
-  //assumption: total of state data = total of county data
   const totalLongCovidCases = sumUpCases(state_data);
   const toggleAggregateDataOnZoom = () => {
     let markers = [];
@@ -66,36 +52,7 @@ const Home = () => {
           array.push(county);
         }
       }
-      // markers = array;
-
       setAggregateData(array);
-
-
-
-      
-
-      
-      
-
-
-      // setTimeout(() => {
-
-      //   console.log('third');
-
-    
-      //   for(let i = 0; i < county_data.length; i++) {
-      //     let county = county_data[i];
-      //     if((latLow * 0.90 <= county.lat && county.lat <= latHigh *1.1
-      //       && longLow * 1.1 <= county.long && county.long <= longHigh *0.95) 
-            
-      //       && !(latLow <= county.lat && county.lat <= latHigh
-      //         && longLow <= county.long && county.long <= longHigh)) {
-      //       array.push(county);
-      //     }
-      //   }
-      //   setAggregateData(array);
-        
-      // }, 5000);
     } else if (zoomNum < 8) {
       markers = state_data;
       setAggregateData(markers);
