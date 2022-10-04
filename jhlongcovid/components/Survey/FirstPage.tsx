@@ -45,6 +45,11 @@ import { MFA } from "./SurveyBody/MFA";
 import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
 
+import { Landing } from "./PreSurvey/Landing";
+
+import { SignIn} from "./PreSurvey/SignIn";
+import {SignUp} from "./PreSurvey/SignUp";
+
 // import mobileHealth from '../mobileHealth.jpg';
 
 
@@ -179,53 +184,11 @@ export const FirstPage: React.FC<SurveyWrapperProps> = ({ onClose }) => {
                     overflowY: "auto",
                 }}
             >
-                {/* <Body
-          currentQuestion={currentQuestion}
-          setAnswer={setAnswer}
-          setErrorPresent={setErrorPresent}
-          setErrorText={setErrorText}
-        /> */}
-
-
-                <Center>
-                    <VStack spacing={5}>
-                        <Image src="/jhu_logo.jpg" maxW="300px" />
-                        <Text fontSize={"2xl"}>Welcome to the Long Covid Survey!</Text>
-                        <Image src="/mobile_health.jpg" maxW = "100px"/>
-                        <HStack spacing={6}>
-                            <Button
-                                colorScheme="hopkinsBlue"
-                                borderRadius={500}
-                            >
-                                Sign Up
-                            </Button>
-
-                            <Button
-                                colorScheme="hopkinsBlue"
-                                borderRadius={500}
-                            >
-                                Sign In
-                            </Button>
-
-                            <Button
-                                colorScheme="hopkinsBlue"
-                                borderRadius={500}
-                            >
-                                Contribute as Guest
-                            </Button>
-                        </HStack>
-                        <Center>
-                            <Text>
-                                <Link color='blue.900' href='#'>
-                                    I've completed the survey as a guest and want to sign up.
-                                </Link>
-                            </Text>
-                        </Center>
-
-                    </VStack>
-
-                </Center>
-
+                {/* <Landing>
+                </Landing> */}
+                {/* <SignIn></SignIn>
+                 */}
+                 <SignUp></SignUp>
 
 
             </ModalBody>

@@ -130,7 +130,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [missingAnswer, setMissingAnswer] = useState(false);
   const [errorText, setErrorText] = useState("");
   const [errorPresent, setErrorPresent] = useState(false);
-  // const []
+
 
   const handleQuestionChange = (direction: "next" | "prev") => {
     if (direction === "next") {
