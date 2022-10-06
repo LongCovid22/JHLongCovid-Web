@@ -40,8 +40,8 @@ function Survey() {
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
         <ModalOverlay />
-          {/* <SurveyWrapper onClose={onClose} /> */}
-          <FirstPage onClose = {onClose} />
+          <SurveyWrapper onClose={onClose} />
+          {/* <FirstPage onClose = {onClose} /> */}
 
       </Modal>
     </>

@@ -39,6 +39,7 @@ export const MFA: React.FC<SurveyQuestionProps> = ({
             value={verificationCode}
             onChange={(event) => {
               setVerificationCode(event.target.value);
+              setAnswer(event.target.value);
             }}
           />
         </Stack>

@@ -41,28 +41,28 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
   setErrorText,
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [fullNameError, setFullNameError] = useState(false);
 
   const handleAnswerChange = (value: string) => {
-    setEmail(value);
+    setFullName(value);
     setAnswer(value);
-    if (validateEmail(value)) {
-      setEmailError(false);
+    if (validateFullName(value)) {
+      setFullNameError(false);
       setErrorText!("");
       setErrorPresent!(false);
     } else {
       if (value !== "") {
-        setEmailError(true);
+        setFullNameError(true);
         setErrorPresent!(true);
-        setErrorText!("Please enter valid email");
+        setErrorText!("Please enter valid full name");
       }
     }
   };
 
-  const validateEmail = (email: string) => {
-    return email.match(
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  const validateFullName = (fullName: string) => {
+    return fullName.match(
+      /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g
     );
   };
 
@@ -82,24 +82,24 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
         </Text>
         <BulletedList options={currentQuestion.options} />
         <Spacer />
-        <FormControl isInvalid={emailError}>
-          <FormLabel>Email Address</FormLabel>
+        <FormControl isInvalid={fullNameError}>
+          <FormLabel>Enter your Full Name</FormLabel>
           <Input
-            type="email"
-            placeholder="Enter email "
+            type="text"
+            placeholder="Enter Full Name "
             colorScheme="hopkinsBlue"
-            value={email}
+            value={fullName}
             focusBorderColor={"clear"}
             onChange={(event) => {
               handleAnswerChange(event.target.value);
             }}
           />
-          {emailError ? (
+          {fullNameError ? (
             <FormErrorMessage>
-              Please enter valid email address
+              Please enter valid full name
             </FormErrorMessage>
           ) : (
-            <FormHelperText>Enter email address to give consent</FormHelperText>
+            <FormHelperText>Enter full name to give consent</FormHelperText>
           )}
         </FormControl>
       </VStack>

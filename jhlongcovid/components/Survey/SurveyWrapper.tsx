@@ -2,24 +2,17 @@ import React, { useState, useEffect } from "react";
 import {
   Button,
   Flex,
-  Avatar,
-  Modal,
-  ModalCloseButton,
   ModalContent,
   CloseButton,
   ModalFooter,
   HStack,
-  useDisclosure,
-  IconButton,
-  Checkbox,
-  Box,
   ModalBody,
   ModalHeader,
   Text,
-  Spacer,
-  VStack,
-  Input,
+  Spacer
 } from "@chakra-ui/react";
+
+//redux imports
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
 import {
@@ -31,6 +24,8 @@ import {
   selectIsFirstQuestion,
   selectIslastQuestion,
 } from "../../redux/slices/surveySlice";
+
+//survey component templates
 import { Welcome } from "./SurveyBody/Welcome";
 import { Consent } from "./SurveyBody/Consent";
 import { Demographics } from "./SurveyBody/Demographics";
@@ -42,10 +37,12 @@ import { MFA } from "./SurveyBody/MFA";
 import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
 
+// type for the onClose function to close the modal
 interface SurveyWrapperProps {
   onClose: () => void;
 }
 
+// type for the things that go into a body page
 export interface SurveyQuestionProps {
   currentQuestion: any;
   setAnswer: (answer: any) => void;
@@ -191,8 +188,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   useEffect(() => {
     setIsFinalSection(
       currentQuestion.answerFormat === "mfa" ||
-        currentQuestion.answerFormat === "thankYou" ||
-        currentQuestion.answerFormat === "password"
+      currentQuestion.answerFormat === "thankYou" ||
+      currentQuestion.answerFormat === "password"
     );
   }, [currentQuestion]);
 
