@@ -15,15 +15,9 @@ import styles from "../../styles/Header.module.css";
 
 import { Intro } from "../Survey/Intro";
 
-import { Demographics } from "../Survey/Demographics";
-
 import { Identifiers } from "../Survey/Identifiers";
 
 import { CovidHistory } from "../Survey/covidHistory";
-
-import { Recovery } from "../Survey/Recovery";
-
-import { PostCovid } from "../Survey/postCovid";
 
 import { VaccinationHistory } from "../Survey/VaccinationHistory";
 
@@ -35,12 +29,8 @@ import { MultiFactor } from "../Survey/MultiFactor";
 
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
-
-import {
-  incrementProgress,
-  selectProgress,
-} from "../../redux/slices/surveySlice";
 import { selectWidth } from "../../redux/slices/viewportSlice";
+import { SurveyWrapper } from "../Survey/SurveyWrapper";
 
 interface ProfileCheckinProps {}
 
@@ -48,7 +38,6 @@ function Survey() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const dispatch = useAppDispatch();
-  const number = useAppSelector(selectProgress);
   return (
     <>
       <Button
@@ -63,15 +52,14 @@ function Survey() {
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
         <ModalOverlay />
+        <SurveyWrapper onClose={onClose} />
         {/* provide email */}
-        <div style={{ display: number === -2 ? "inline" : "none" }}>
+        {/* <div style={{ display: number === -2 ? "inline" : "none" }}>
           <EmailRegister />
         </div>
-        {/* verify email through MFA */}
         <div style={{ display: number === -1 ? "inline" : "none" }}>
           <MultiFactor />
         </div>
-
 
         <div style={{ display: number === 0 ? "inline" : "none" }}>
           <Intro />
@@ -101,7 +89,7 @@ function Survey() {
 
         <div style={{ display: number === 7 ? "inline" : "none" }}>
           <ThankYou />
-        </div>
+        </div> */}
       </Modal>
     </>
   );
