@@ -57,7 +57,6 @@ function Survey() {
         colorScheme="hopkinsBlue"
         onClick={onOpen}
         animation={!isOpen ? animation : undefined}
-        h="45px"
       >
         Contribute
       </Button>
