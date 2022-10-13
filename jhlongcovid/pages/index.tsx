@@ -161,9 +161,6 @@ const Home = () => {
 
   return (
     <>
-      <Script src="https://cdn.jsdelivr.net/npm/apexcharts" />
-      <Script src="https://cdn.jsdelivr.net/npm/react-apexcharts" />
-
       <div className={styles.main}>
         {MapMemo}
         <Header markerData={markerData} />
