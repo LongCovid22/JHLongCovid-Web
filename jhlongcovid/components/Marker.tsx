@@ -2,16 +2,18 @@ import React, { useEffect } from "react";
 import { calculatePanelOffset } from "./Map/mapFunctions";
 import { useAppDispatch } from "../redux/hooks";
 import { setLeftSidePanelPres } from "../redux/slices/presentationSlice";
-import { InfoPanelMetrics } from "./Metrics/InfoPanelMetrics";
-import { Box } from "@chakra-ui/react";
 
 interface CircleProps extends google.maps.CircleOptions {
   data: any;
+  markerData: any;
+  setMarkerData: (data: any) => void;
   setSelectedData: (data: any) => void;
 }
 
 export const Marker: React.FC<CircleProps> = ({
   data,
+  markerData,
+  setMarkerData,
   setSelectedData,
   ...options
 }) => {
@@ -20,6 +22,8 @@ export const Marker: React.FC<CircleProps> = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    // console.log(data);
+
     if (!marker) {
       const circle = new google.maps.Circle({
         // radius: 10000,
@@ -75,7 +79,6 @@ export const Marker: React.FC<CircleProps> = ({
   }, [marker]);
 
   useEffect(() => {
-    // console.log(options);
     if (marker) {
       marker.setOptions(options);
 
@@ -92,16 +95,39 @@ export const Marker: React.FC<CircleProps> = ({
       });
 
       // Pan to marker on marker click
-      google.maps.event.addListener(marker, "click", function () {
+      google.maps.event.addListener(marker, "click", async function () {
         if (options.map !== null && options.map !== undefined) {
           const markerPosition =
             marker.getCenter() ?? new google.maps.LatLng(0.0, 0.0);
 
           setSelectedData(data);
           dispatch(setLeftSidePanelPres(true));
+
+          if (data.level == "county") {
+            options.map.setZoom(11);
+          } else {
+            options.map.setZoom(6);
+          }
+
           options.map.panTo(markerPosition);
           options.map.panBy(calculatePanelOffset(options.map), 0);
         }
+
+        if (infoWindow !== undefined) {
+          infoWindow.setPosition(marker.getCenter());
+          infoWindow.open({
+            anchor: marker,
+            map: options.map,
+            shouldFocus: false,
+            // pixelOffset: new google.maps.size(250, 150)
+          });
+        }
+
+        setTimeout(() => {
+          if (infoWindow !== undefined) {
+            infoWindow.close();
+          }
+        }, 3000);
       });
 
       google.maps.event.addListener(marker, "mouseout", function () {
@@ -109,6 +135,23 @@ export const Marker: React.FC<CircleProps> = ({
           infoWindow.close();
         }
       });
+
+      let new_marker_data = markerData;
+
+      if (data.level == "county") {
+        new_marker_data[data.name + " County, " + data.stateAbbrev + ", USA"] =
+          {
+            marker: marker,
+            data: data,
+          };
+      } else {
+        new_marker_data[data.name] = {
+          marker: marker,
+          data: data,
+        };
+      }
+
+      setMarkerData(new_marker_data);
     }
   }, [marker, options]);
 

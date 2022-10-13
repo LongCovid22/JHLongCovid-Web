@@ -1,3 +1,17 @@
+.newLeft {
+  margin-top: 80px;
+  margin-left: 100px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: white;
+  padding: 0.5rem 1.5rem;
+  min-width: 410px;
+  width: calc(20%);
+  /* height: 60px; */
+}
+
+
 .leftHeaderStack {
   margin-top: 20px;
   margin-left: 20px;
@@ -20,7 +34,6 @@
   right: 0px;
   padding: 0.5rem 1rem;
   border-radius: 500px;
-  min-width: 250px;
   width: calc(20%);
   background-color: white;
   height: 60px;
