@@ -27,32 +27,22 @@ interface ProfileCheckinProps {}
 
 const animationKeyframes = keyframes`
 0% {
-  opacity: 0.7;
-  transform: scale(1);
+  transform: scale(0.95);
+  box-shadow: 0 0 0 0 rgba(0, 101, 255, 0.7);
 }
-35%,80% {
-  opacity: 1;
-  transform: scale(1.05,1.05);
-}
-100% {
-  opacity: 0.5;
-  transform: scale(1);
-}
-0% {
-  -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
-  box-shadow: 0 0 00 rgba(204,169,44, 0.4);
-}
+
 70% {
-    -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
-    box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+  transform: scale(1);
+  box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
 }
+
 100% {
-    -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
-    box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  transform: scale(0.95);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 }
 `;
 
-const animation = `${animationKeyframes} 2s ease-in-out infinite`;
+const animation = `${animationKeyframes} 1.5s infinite`;
 
 interface ProfileCheckinProps {}
 
@@ -66,7 +56,8 @@ function Survey() {
         textColor="white"
         colorScheme="hopkinsBlue"
         onClick={onOpen}
-        animation={animation}
+        animation={!isOpen ? animation : undefined}
+        h="45px"
       >
         Contribute
       </Button>
