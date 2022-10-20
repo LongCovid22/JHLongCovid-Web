@@ -62,6 +62,11 @@
             "section": 3,
             "question": 0
           }
+        },
+        "schemaInfo": {
+          "tableName": "CovidEntry",
+          "field": "timesPositive",
+          "type": "Int"
         }
       }
     ],
@@ -77,7 +82,12 @@
         },
         "answerFormat": "input",
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "CovidEntry",
+          "field": "lastPositive",
+          "type": "AWSDateTime"
+        }
       },
       {
         "title": "COVID",
@@ -91,6 +101,11 @@
             "section": 1,
             "question": 4
           }
+        },
+        "schemaInfo": {
+          "tableName": "CovidEntry",
+          "field": "tested",
+          "type": "Boolean"
         }
       },
       {
@@ -115,7 +130,12 @@
           "multichoice"
         ],
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "CovidEntry",
+          "field": "testMethod",
+          "type": "String"
+        }
       },
       {
         "title": "COVID",
@@ -133,6 +153,11 @@
             "section": 2,
             "question": 1
           }
+        },
+        "schemaInfo": {
+          "tableName": "CovidEntry",
+          "field": "hospitalized",
+          "type": "Int"
         }
       },
       {
@@ -147,6 +172,11 @@
             "section": 1,
             "question": 6
           }
+        },
+        "schemaInfo": {
+          "tableName": "CovidEntry",
+          "field": "symptomatic",
+          "type": "Boolean"
         }
       },
       {
@@ -161,7 +191,12 @@
         ],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "CovidEntry",
+          "field": "symptomsPreventScale",
+          "type": "String"
+        }
       },
       {
         "title": "COVID",
@@ -191,7 +226,12 @@
           "choice"
         ],
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "CovidEntry",
+          "field": "medicationsTaken",
+          "type": "[String]"
+        }
       }
     ],
     [
@@ -207,6 +247,11 @@
             "section": 2,
             "question": 2
           }
+        },
+        "schemaInfo": {
+          "tableName": "RecoveryEntry",
+          "field": "recovered",
+          "type": "String"
         }
       },
       {
@@ -223,7 +268,12 @@
         },
         "answerFormat": "input",
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "RecoveryEntry",
+          "field": "lengthOfRecovery",
+          "type": "RecoveryLength"
+        }
       },
       {
         "title": "Recovery",
@@ -231,7 +281,12 @@
         "options": ["Yes", "No", "Unsure", "Decline to answer"],
         "answerFormat": ["choice", "choice", "choice", "choice"],
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "RecoveryEntry",
+          "field": "hasLongCovid",
+          "type": "String"
+        }
       }
     ],
     [
@@ -258,6 +313,11 @@
             "section": 4,
             "question": 0
           }
+        },
+        "schemaInfo": {
+          "tableName": "VaccinationEntry",
+          "field": "totalVaccineShots",
+          "type": "Int"
         }
       },
       {
@@ -274,7 +334,12 @@
         ],
         "answerFormat": ["input", "choice", "choice"],
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "VaccinationEntry",
+          "field": "dateOfLastVaccine",
+          "type": "AWSDateTime"
+        }
       },
       {
         "title": "Vaccination",
@@ -302,7 +367,12 @@
           "choice"
         ],
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "VaccinationEntry",
+          "field": "vaccineType",
+          "type": "String"
+        }
       }
     ],
     [
@@ -320,7 +390,12 @@
           "In general, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in your community, and responsibilities as a parent, child, spouse, employee, friend, etc.)?"
         ],
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "GeneralHealthEntry",
+          "field": "generalHealthResults",
+          "type": "AWSJSON"
+        }
       }
     ],
     [
@@ -360,7 +435,12 @@
           "Changes in desire for, comfort with or capacity for sex"
         ],
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "SymptomsEntry",
+          "field": "symptoms",
+          "type": "AWSJSON"
+        }
       }
     ],
     [
@@ -404,7 +484,12 @@
           "multichoice"
         ],
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "SymptomsEntry",
+          "field": "medicalConditions",
+          "type": "[String]"
+        }
       }
     ],
     [
@@ -414,7 +499,12 @@
         "options": ["Yes", "No", "Not sure", "Decline to answer"],
         "answerFormat": ["choice", "choice", "choice", "choice"],
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "SocialDeterminantsEntry",
+          "field": "hasMedicalInsurance",
+          "type": "String"
+        }
       },
       {
         "title": "Social Determinants",
@@ -428,7 +518,12 @@
         ],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "SocialDeterminantsEntry",
+          "field": "difficultCoveringExpenses",
+          "type": "String"
+        }
       },
       {
         "title": "Social Determinants",
@@ -456,7 +551,12 @@
           "choice"
         ],
         "answer": null,
-        "branching": null
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "SocialDeterminantsEntry",
+          "field": "currentWorkSituation",
+          "type": "String"
+        }
       }
     ],
     [

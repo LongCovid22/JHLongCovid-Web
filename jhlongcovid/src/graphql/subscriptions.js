@@ -38,10 +38,7 @@ export const onCreateMapData = /* GraphQL */ `
       recoverySummary {
         longCovidCount
         percentLongCovid
-        avgRecoveryLength {
-          months
-          days
-        }
+        avgRecoveryLength
       }
       socialSummary {
         percentHaveMedicalInsurance
@@ -92,10 +89,7 @@ export const onUpdateMapData = /* GraphQL */ `
       recoverySummary {
         longCovidCount
         percentLongCovid
-        avgRecoveryLength {
-          months
-          days
-        }
+        avgRecoveryLength
       }
       socialSummary {
         percentHaveMedicalInsurance
@@ -146,10 +140,7 @@ export const onDeleteMapData = /* GraphQL */ `
       recoverySummary {
         longCovidCount
         percentLongCovid
-        avgRecoveryLength {
-          months
-          days
-        }
+        avgRecoveryLength
       }
       socialSummary {
         percentHaveMedicalInsurance
@@ -170,6 +161,7 @@ export const onCreateUser = /* GraphQL */ `
       email
       age
       race
+      sex
       lastSubmission
       lastSignIn
       notificationFreq
@@ -187,6 +179,7 @@ export const onUpdateUser = /* GraphQL */ `
       email
       age
       race
+      sex
       lastSubmission
       lastSignIn
       notificationFreq
@@ -204,6 +197,7 @@ export const onDeleteUser = /* GraphQL */ `
       email
       age
       race
+      sex
       lastSubmission
       lastSignIn
       notificationFreq
@@ -224,6 +218,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
       surveyType
       age
       race
+      sex
       timeElapsed
       covidEntry {
         id
@@ -237,6 +232,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -249,6 +245,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         timesPositive
         lastPositive
         tested
@@ -268,6 +265,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
         countyState
         age
         race
+        sex
         surveyEntry {
           id
           email
@@ -276,6 +274,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -306,6 +305,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -318,6 +318,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         hasMedicalInsurance
         difficultCoveringExpenses
         currentWorkSituation
@@ -337,6 +338,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -349,6 +351,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         recovered
         lengthOfRecovery {
           months
@@ -371,6 +374,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -383,6 +387,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         health
         generalHealthResults
         totalScore
@@ -402,6 +407,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -414,6 +420,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         createdAt
         symptoms
         medicalConditions
@@ -432,6 +439,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -444,6 +452,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         results
         createdAt
         updatedAt
@@ -470,6 +479,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
       surveyType
       age
       race
+      sex
       timeElapsed
       covidEntry {
         id
@@ -483,6 +493,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -495,6 +506,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         timesPositive
         lastPositive
         tested
@@ -514,6 +526,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
         countyState
         age
         race
+        sex
         surveyEntry {
           id
           email
@@ -522,6 +535,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -552,6 +566,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -564,6 +579,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         hasMedicalInsurance
         difficultCoveringExpenses
         currentWorkSituation
@@ -583,6 +599,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -595,6 +612,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         recovered
         lengthOfRecovery {
           months
@@ -617,6 +635,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -629,6 +648,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         health
         generalHealthResults
         totalScore
@@ -648,6 +668,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -660,6 +681,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         createdAt
         symptoms
         medicalConditions
@@ -678,6 +700,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -690,6 +713,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         results
         createdAt
         updatedAt
@@ -716,6 +740,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
       surveyType
       age
       race
+      sex
       timeElapsed
       covidEntry {
         id
@@ -729,6 +754,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -741,6 +767,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         timesPositive
         lastPositive
         tested
@@ -760,6 +787,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
         countyState
         age
         race
+        sex
         surveyEntry {
           id
           email
@@ -768,6 +796,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -798,6 +827,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -810,6 +840,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         hasMedicalInsurance
         difficultCoveringExpenses
         currentWorkSituation
@@ -829,6 +860,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -841,6 +873,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         recovered
         lengthOfRecovery {
           months
@@ -863,6 +896,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -875,6 +909,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         health
         generalHealthResults
         totalScore
@@ -894,6 +929,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -906,6 +942,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         createdAt
         symptoms
         medicalConditions
@@ -924,6 +961,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           surveyType
           age
           race
+          sex
           timeElapsed
           updatedAt
           surveyEntryCovidEntryId
@@ -936,6 +974,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
         }
         age
         race
+        sex
         results
         createdAt
         updatedAt
@@ -960,6 +999,7 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
       countyState
       age
       race
+      sex
       surveyEntry {
         id
         email
@@ -968,6 +1008,7 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -975,6 +1016,7 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -994,6 +1036,7 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -1008,6 +1051,7 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -1021,6 +1065,7 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -1033,6 +1078,7 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -1046,6 +1092,7 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -1058,6 +1105,7 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -1090,6 +1138,7 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
       countyState
       age
       race
+      sex
       surveyEntry {
         id
         email
@@ -1098,6 +1147,7 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -1105,6 +1155,7 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -1124,6 +1175,7 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -1138,6 +1190,7 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -1151,6 +1204,7 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -1163,6 +1217,7 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -1176,6 +1231,7 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -1188,6 +1244,7 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -1220,6 +1277,7 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
       countyState
       age
       race
+      sex
       surveyEntry {
         id
         email
@@ -1228,6 +1286,7 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -1235,6 +1294,7 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -1254,6 +1314,7 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -1268,6 +1329,7 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -1281,6 +1343,7 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -1293,6 +1356,7 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -1306,6 +1370,7 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -1318,6 +1383,7 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -1356,6 +1422,7 @@ export const onCreateCovidEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -1363,6 +1430,7 @@ export const onCreateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -1382,6 +1450,7 @@ export const onCreateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -1396,6 +1465,7 @@ export const onCreateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -1409,6 +1479,7 @@ export const onCreateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -1421,6 +1492,7 @@ export const onCreateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -1434,6 +1506,7 @@ export const onCreateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -1446,6 +1519,7 @@ export const onCreateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -1462,6 +1536,7 @@ export const onCreateCovidEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       timesPositive
       lastPositive
       tested
@@ -1491,6 +1566,7 @@ export const onUpdateCovidEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -1498,6 +1574,7 @@ export const onUpdateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -1517,6 +1594,7 @@ export const onUpdateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -1531,6 +1609,7 @@ export const onUpdateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -1544,6 +1623,7 @@ export const onUpdateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -1556,6 +1636,7 @@ export const onUpdateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -1569,6 +1650,7 @@ export const onUpdateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -1581,6 +1663,7 @@ export const onUpdateCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -1597,6 +1680,7 @@ export const onUpdateCovidEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       timesPositive
       lastPositive
       tested
@@ -1626,6 +1710,7 @@ export const onDeleteCovidEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -1633,6 +1718,7 @@ export const onDeleteCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -1652,6 +1738,7 @@ export const onDeleteCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -1666,6 +1753,7 @@ export const onDeleteCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -1679,6 +1767,7 @@ export const onDeleteCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -1691,6 +1780,7 @@ export const onDeleteCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -1704,6 +1794,7 @@ export const onDeleteCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -1716,6 +1807,7 @@ export const onDeleteCovidEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -1732,6 +1824,7 @@ export const onDeleteCovidEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       timesPositive
       lastPositive
       tested
@@ -1761,6 +1854,7 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -1768,6 +1862,7 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -1787,6 +1882,7 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -1801,6 +1897,7 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -1814,6 +1911,7 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -1826,6 +1924,7 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -1839,6 +1938,7 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -1851,6 +1951,7 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -1867,6 +1968,7 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       recovered
       lengthOfRecovery {
         months
@@ -1893,6 +1995,7 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -1900,6 +2003,7 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -1919,6 +2023,7 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -1933,6 +2038,7 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -1946,6 +2052,7 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -1958,6 +2065,7 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -1971,6 +2079,7 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -1983,6 +2092,7 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -1999,6 +2109,7 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       recovered
       lengthOfRecovery {
         months
@@ -2025,6 +2136,7 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -2032,6 +2144,7 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -2051,6 +2164,7 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -2065,6 +2179,7 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -2078,6 +2193,7 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -2090,6 +2206,7 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -2103,6 +2220,7 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -2115,6 +2233,7 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -2131,6 +2250,7 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       recovered
       lengthOfRecovery {
         months
@@ -2157,6 +2277,7 @@ export const onCreateGeneralHealthEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -2164,6 +2285,7 @@ export const onCreateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -2183,6 +2305,7 @@ export const onCreateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -2197,6 +2320,7 @@ export const onCreateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -2210,6 +2334,7 @@ export const onCreateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -2222,6 +2347,7 @@ export const onCreateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -2235,6 +2361,7 @@ export const onCreateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -2247,6 +2374,7 @@ export const onCreateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -2263,6 +2391,7 @@ export const onCreateGeneralHealthEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       health
       generalHealthResults
       totalScore
@@ -2286,6 +2415,7 @@ export const onUpdateGeneralHealthEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -2293,6 +2423,7 @@ export const onUpdateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -2312,6 +2443,7 @@ export const onUpdateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -2326,6 +2458,7 @@ export const onUpdateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -2339,6 +2472,7 @@ export const onUpdateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -2351,6 +2485,7 @@ export const onUpdateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -2364,6 +2499,7 @@ export const onUpdateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -2376,6 +2512,7 @@ export const onUpdateGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -2392,6 +2529,7 @@ export const onUpdateGeneralHealthEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       health
       generalHealthResults
       totalScore
@@ -2415,6 +2553,7 @@ export const onDeleteGeneralHealthEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -2422,6 +2561,7 @@ export const onDeleteGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -2441,6 +2581,7 @@ export const onDeleteGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -2455,6 +2596,7 @@ export const onDeleteGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -2468,6 +2610,7 @@ export const onDeleteGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -2480,6 +2623,7 @@ export const onDeleteGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -2493,6 +2637,7 @@ export const onDeleteGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -2505,6 +2650,7 @@ export const onDeleteGeneralHealthEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -2521,6 +2667,7 @@ export const onDeleteGeneralHealthEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       health
       generalHealthResults
       totalScore
@@ -2544,6 +2691,7 @@ export const onCreateSymptomEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -2551,6 +2699,7 @@ export const onCreateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -2570,6 +2719,7 @@ export const onCreateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -2584,6 +2734,7 @@ export const onCreateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -2597,6 +2748,7 @@ export const onCreateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -2609,6 +2761,7 @@ export const onCreateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -2622,6 +2775,7 @@ export const onCreateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -2634,6 +2788,7 @@ export const onCreateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -2650,6 +2805,7 @@ export const onCreateSymptomEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       createdAt
       symptoms
       medicalConditions
@@ -2672,6 +2828,7 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -2679,6 +2836,7 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -2698,6 +2856,7 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -2712,6 +2871,7 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -2725,6 +2885,7 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -2737,6 +2898,7 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -2750,6 +2912,7 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -2762,6 +2925,7 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -2778,6 +2942,7 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       createdAt
       symptoms
       medicalConditions
@@ -2800,6 +2965,7 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -2807,6 +2973,7 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -2826,6 +2993,7 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -2840,6 +3008,7 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -2853,6 +3022,7 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -2865,6 +3035,7 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -2878,6 +3049,7 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -2890,6 +3062,7 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -2906,6 +3079,7 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       createdAt
       symptoms
       medicalConditions
@@ -2928,6 +3102,7 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -2935,6 +3110,7 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -2954,6 +3130,7 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -2968,6 +3145,7 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -2981,6 +3159,7 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -2993,6 +3172,7 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -3006,6 +3186,7 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -3018,6 +3199,7 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -3034,6 +3216,7 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       hasMedicalInsurance
       difficultCoveringExpenses
       currentWorkSituation
@@ -3057,6 +3240,7 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -3064,6 +3248,7 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -3083,6 +3268,7 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -3097,6 +3283,7 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -3110,6 +3297,7 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -3122,6 +3310,7 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -3135,6 +3324,7 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -3147,6 +3337,7 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -3163,6 +3354,7 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       hasMedicalInsurance
       difficultCoveringExpenses
       currentWorkSituation
@@ -3186,6 +3378,7 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -3193,6 +3386,7 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -3212,6 +3406,7 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -3226,6 +3421,7 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -3239,6 +3435,7 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -3251,6 +3448,7 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -3264,6 +3462,7 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -3276,6 +3475,7 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -3292,6 +3492,7 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       hasMedicalInsurance
       difficultCoveringExpenses
       currentWorkSituation
@@ -3315,6 +3516,7 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -3322,6 +3524,7 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -3341,6 +3544,7 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -3355,6 +3559,7 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -3368,6 +3573,7 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -3380,6 +3586,7 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -3393,6 +3600,7 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -3405,6 +3613,7 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -3421,6 +3630,7 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       results
       createdAt
       updatedAt
@@ -3442,6 +3652,7 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -3449,6 +3660,7 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -3468,6 +3680,7 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -3482,6 +3695,7 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -3495,6 +3709,7 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -3507,6 +3722,7 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -3520,6 +3736,7 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -3532,6 +3749,7 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -3548,6 +3766,7 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       results
       createdAt
       updatedAt
@@ -3569,6 +3788,7 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
         surveyType
         age
         race
+        sex
         timeElapsed
         covidEntry {
           id
@@ -3576,6 +3796,7 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           timesPositive
           lastPositive
           tested
@@ -3595,6 +3816,7 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           totalVaccineShots
           vaccinated
           vaccineType
@@ -3609,6 +3831,7 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -3622,6 +3845,7 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           recovered
           hasLongCovid
           createdAt
@@ -3634,6 +3858,7 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           health
           generalHealthResults
           totalScore
@@ -3647,6 +3872,7 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           createdAt
           symptoms
           medicalConditions
@@ -3659,6 +3885,7 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
           countyState
           age
           race
+          sex
           results
           createdAt
           updatedAt
@@ -3675,6 +3902,7 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
       }
       age
       race
+      sex
       results
       createdAt
       updatedAt
