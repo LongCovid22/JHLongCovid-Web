@@ -35,19 +35,19 @@ User - Store User specific information. Will store notification preferences alon
   activity metrics
 """
 type User @model @auth(rules: [{ allow: owner }]) {
-  id: ID!
-  email: String!
+  id: ID! # Cognito ID
+  email: String!  # Email associated with account
     @index(
       name: "byEmail"
       sortKeyFields: ["createdAt"]
       queryField: "usersByEmail"
     )
-  age: Int!
-  race: Race!
-  lastSubmission: AWSDateTime!
-  lastSignIn: AWSDateTime!
-  notificationFreq: NotificationFrequency
-  notificaitonMethod: NotificationMethod
+  age: Int # null
+  race: Race # null
+  lastSubmission: AWSDateTime # Will make this not required but to start null
+  lastSignIn: AWSDateTime! # Current DateTime AUTO SIGN IN
+  notificationFreq: NotificationFrequency # Daily
+  notificaitonMethod: NotificationMethod # Email
   createdAt: AWSDateTime!
 }
 
