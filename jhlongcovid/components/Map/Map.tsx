@@ -42,6 +42,15 @@ const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
         fullscreenControl: false,
         styles: mapStyle,
         disableDefaultUI: true,
+        restriction: {
+          latLngBounds: {
+            east: 179.9999,
+            north: 85,
+            south: -85,
+            west: -179.9999,
+          },
+          strictBounds: true,
+        },
       });
 
       newMap.addListener("idle", () => {
