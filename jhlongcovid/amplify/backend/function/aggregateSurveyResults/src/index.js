@@ -30,11 +30,11 @@ exports.handler = async (event) => {
    *          values: [6, 12, 53, 34]
    *       },
    *      "race": {
-   *          ranges: ["White", "AfricanAmer", "25-60", "60+"],
+   *          ranges: ["White", "AfricanAmer", ... ],
    *          values: [6, 12, 53, 34]
    *      },
    *      "sex": {
-   *          ranges: ["1-13", "13-25", "25-60", "60+"],
+   *          ranges: ["male", "female", "other"],
    *          values: [6, 12, 53, 34]
    *      }
    *   }
@@ -42,6 +42,13 @@ exports.handler = async (event) => {
    */
 
   console.log(`EVENT: ${JSON.stringify(event)}`);
+  /**
+   *  {
+   *    statusCode: orejeor,
+   *    body: JSON
+   *  }
+   */
+
   return {
     statusCode: 200,
     //  Uncomment below to enable CORS requests
