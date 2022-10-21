@@ -644,3 +644,18 @@ type SocialSummary {
   workingSituationCounts: AWSJSON
 }
 # -------------------------------
+# LAMBDA RESOLVERS
+
+type Mutation {
+  aggregateSurveyResults(results: SurveyResults): Response
+    @function(name: "aggregateSurveyResults-${env}")
+}
+
+type SurveyResults {
+  surveyResults: AWSJSON!
+}
+
+type Response {
+  statusCode: Int
+  body: String
+}

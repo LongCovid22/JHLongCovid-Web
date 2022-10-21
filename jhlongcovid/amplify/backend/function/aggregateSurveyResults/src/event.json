@@ -1,0 +1,39 @@
+{
+  "arguments": {
+    "surveyResults": {
+      "id": "Sample unique id",
+      "email": "test@gmail.com",
+      "surveyVersion": 1,
+      "surveyType": "GUEST",
+      "age": "23",
+      "race": "OTHER",
+      "sex": "Male",
+      "county": "Sample County",
+      "state": "Sample State",
+      "covidResults": {
+        "timesPositive": 3,
+        "lastPositive": "12/23/22",
+        "tested": true,
+        "testMethod": "Sample test method",
+        "hospitalized": 1,
+        "symptomatic": true,
+        "symptomsPreventScale": "Sample prevent",
+        "MedicationsTaken": ["Sample med 1", "Sample med 2"]
+      },
+      "vaccinationResults": {
+        "totalVaccineShots": 3,
+        "vaccinated": true,
+        "vaccineType": "Moderna",
+        "dateOfLastVaccine": "12/01/22"
+      },
+      "recoveryResults": {
+        "recovered": "Sample answer",
+        "lengthOfRecovery": {
+          "months": 1,
+          "days": 2
+        },
+        "hasLongCovid": "Yes"
+      }
+    }
+  }
+}
