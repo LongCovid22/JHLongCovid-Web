@@ -14,7 +14,7 @@ import {
   selectHighLong,
 } from "../redux/slices/zoomSlice";
 import { read } from "../util/mockDataTwo";
-import { sumUpCases } from "./preprocess";
+import { sumUpCases } from "../preprocess";
 import Script from "next/script";
 import React from "react";
 import { Button } from "@chakra-ui/react";

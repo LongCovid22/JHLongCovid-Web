@@ -36,15 +36,26 @@ import { Consent } from "./SurveyBody/Consent";
 import { Demographics } from "./SurveyBody/Demographics";
 import { ChoiceQuestion } from "./SurveyBody/ChoiceQuestion";
 import { InputQuestion } from "./SurveyBody/InputQuestion";
-import { Password } from "./SurveyBody/Password";
+import { Account } from "./SurveyBody/Account";
 import { ThankYou } from "./SurveyBody/ThankYou";
 import { MFA } from "./SurveyBody/MFA";
 import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
+import { confirmSignUp, signUp } from "../../authFunctions";
+import { AuthErrorTypes } from "@aws-amplify/auth/lib-esm/types";
 
 interface SurveyWrapperProps {
   onClose: () => void;
 }
+
+export type UserInfo = {
+  email: string;
+  password: string;
+  name: string;
+  age: string;
+  zip: string;
+  race: string;
+};
 
 export interface SurveyQuestionProps {
   currentQuestion: any;
@@ -100,8 +111,14 @@ const Body: React.FC<SurveyQuestionProps> = ({
     return (
       <InputQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
     );
-  } else if (answerFormat === "password") {
-    return <Password currentQuestion={currentQuestion} setAnswer={setAnswer} />;
+  } else if (answerFormat === "account") {
+    return (
+      <Account
+        currentQuestion={currentQuestion}
+        setAnswer={setAnswer}
+        setErrorPresent={setErrorPresent}
+      />
+    );
   } else if (answerFormat === "thankYou") {
     return <ThankYou currentQuestion={currentQuestion} setAnswer={setAnswer} />;
   } else if (answerFormat === "mfa") {
@@ -126,18 +143,32 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [answer, setAnswer] = useState<string | string[] | object | null>(
     currentQuestion.answer
   );
+
+  // state to keep track of user info filled out throughout the survey
+  const [userInfo, setUserInfo] = useState<UserInfo>({
+    email: "",
+    password: "",
+    name: "",
+    age: "",
+    zip: "",
+    race: "",
+  });
+
   const [isFinalSection, setIsFinalSection] = useState(false);
   const [missingAnswer, setMissingAnswer] = useState(false);
   const [errorText, setErrorText] = useState("");
   const [errorPresent, setErrorPresent] = useState(false);
   // const []
 
-  const handleQuestionChange = (direction: "next" | "prev") => {
+  const handleQuestionChange = async (direction: "next" | "prev" | "skip") => {
     if (direction === "next") {
-      if (
-        currentQuestion.answerFormat !== "welcome" &&
-        currentQuestion.answerFormat !== "password"
-      ) {
+      if (currentQuestion.answerFormat !== "welcome") {
+        if (currentQuestion.answerFormat === "thankYou") {
+          // Finish the survey
+          onClose();
+          dispatch(initQuestions({ authId: null }));
+        }
+
         if (currentQuestion.answerFormat === "demographics") {
           let emptyFields = [];
           if (answer !== null) {
@@ -179,23 +210,61 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         }
       }
 
-      if (!errorPresent) {
+      if (!errorPresent && direction === "next") {
+        // perform action on next button
+        // TODO: abstract out in to different function
+
+        // Update user info depending on the page
+        const userInfoUpdate = { ...userInfo };
+
+        if (currentQuestion.answerFormat === "consent") {
+          // TODO: get name from Hubert's changes
+        } else if (currentQuestion.answerFormat === "demographics") {
+          const a = answer as { zip: string; age: string; race: string };
+          userInfoUpdate.age = a.age;
+          userInfoUpdate.zip = a.zip;
+          userInfoUpdate.race = a.race;
+          setUserInfo(userInfoUpdate);
+        } else if (currentQuestion.answerFormat === "account") {
+          const a = answer as { email: string; password: string };
+          userInfoUpdate.email = a.email;
+          userInfoUpdate.password = a.password;
+          setUserInfo(userInfoUpdate);
+        }
+
+        try {
+          if (currentQuestion.answerFormat === "account") {
+            await signUp(userInfoUpdate);
+          } else if (currentQuestion.answerFormat === "mfa") {
+            await confirmSignUp(userInfoUpdate, answer as string);
+          }
+        } catch (error) {
+          const e = error as { __type: string; message: string };
+          setErrorPresent(true);
+          setErrorText(e.message);
+          return;
+        }
+
         dispatch(nextQuestion({ answer: answer }));
       }
+    } else if (direction === "skip") {
+      dispatch(nextQuestion({ answer: "skip" }));
     } else {
       dispatch(prevQuestion({ answer: answer }));
     }
     setAnswer("");
   };
 
+  // Mark final section
   useEffect(() => {
     setIsFinalSection(
       currentQuestion.answerFormat === "mfa" ||
         currentQuestion.answerFormat === "thankYou" ||
-        currentQuestion.answerFormat === "password"
+        currentQuestion.answerFormat === "account"
     );
   }, [currentQuestion]);
 
+  // Reset wrapper values for next question
   useEffect(() => {
     setErrorText("");
     setMissingAnswer(false);
@@ -249,13 +318,13 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               {errorText}
             </Text>
           )}
-          {currentQuestion.answerFormat === "password" && (
+          {currentQuestion.answerFormat === "account" && (
             <Button
               background={"hopkinsBlue.100"}
               color={"hopkinsBlue.500"}
               borderRadius={500}
               onClick={() => {
-                handleQuestionChange("next");
+                handleQuestionChange("skip");
               }}
             >
               Skip

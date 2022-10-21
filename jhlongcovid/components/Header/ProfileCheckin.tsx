@@ -15,9 +15,6 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 import styles from "../../styles/Header.module.css";
-
-import React, { useEffect, useState } from "react";
-
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import { selectWidth } from "../../redux/slices/viewportSlice";

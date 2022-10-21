@@ -562,10 +562,10 @@
     [
       {
         "title": "Create Account",
-        "question": "In order to better understand Long COVID, we would like to check in to see how your COVID experience changes over time. To participate, enter your preffered password to create an account!",
+        "question": "In order to better understand Long COVID, we would like to check in to see how your COVID experience changes over time. To participate, enter your email and desired password.",
         "options": null,
         "answer": null,
-        "answerFormat": "password",
+        "answerFormat": "account",
         "branching": {
           "predicate": "skip",
           "goto": {

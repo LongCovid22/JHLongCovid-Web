@@ -22,8 +22,8 @@ const initialState: SurveyState = {
   currentQuestion: {},
   currentAnswer: null,
   questions: surveyLogic.questions,
-  questionStack: [],
-  answerStack: [],
+  questionStack: [], // [{ section: 0, question: 0 }, {section: 0, question: 1}]
+  answerStack: [], // ["true", "2"]
   lastQuestion: false,
   firstQuestion: true,
 };
@@ -71,6 +71,8 @@ const getNextQuestionAnswerDefault = (
     return Array.from({ length: question.options.length }, () => "");
   } else if (question.answerFormat === "demographics") {
     return { zip: "", age: "", race: "" };
+  } else if (question.answerFormat === "account") {
+    return { email: "", password: "" };
   } else {
     return "";
   }
@@ -105,6 +107,7 @@ export const surveySlice = createSlice({
             state.questionStack[state.currentQuestionIndex],
             state.questions
           );
+          // { section: 0, question: 2}
           state.questionStack.push(nextQuestionInfo);
 
           // Push default values for answers
@@ -127,7 +130,7 @@ export const surveySlice = createSlice({
           }
         } else {
           // If branching logic hits, branch to the question it says
-          state.questionStack.push(branching.goto);
+          state.questionStack.push(branching.goto); // { section: 1, question; 3}
           if (state.currentQuestionIndex + 1 == state.answerStack.length) {
             state.answerStack.push(
               getNextQuestionAnswerDefault(branching.goto, state.questions)
@@ -186,7 +189,7 @@ export const surveySlice = createSlice({
      */
     initQuestions: (state, { payload }) => {
       // User not signed in, give full survey
-      if (payload.userId == null) {
+      if (payload.authId == null) {
         while (state.questionStack.length > 0) {
           state.questionStack.pop();
         }
