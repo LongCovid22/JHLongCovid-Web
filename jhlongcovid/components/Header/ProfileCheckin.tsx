@@ -18,12 +18,14 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectWidth } from "../../redux/slices/viewportSlice";
 import { SurveyWrapper } from "../Survey/SurveyWrapper";
 
-import { FirstPage } from "../Survey/FirstPage";
+import { PreSurvey } from "../Survey/PreSurvey";
 
 interface ProfileCheckinProps {}
 
 function Survey() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [showSurvey, setShowSurvey ] = useState(false);
 
   const dispatch = useAppDispatch();
   return (
@@ -40,8 +42,12 @@ function Survey() {
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
         <ModalOverlay />
-          <SurveyWrapper onClose={onClose} />
-          {/* <FirstPage onClose = {onClose} /> */}
+          {showSurvey && ( <SurveyWrapper onClose={onClose} />)}
+
+          {showSurvey === false && (<PreSurvey onClose = {onClose} setShowSurvey = {setShowSurvey} />)}
+
+         
+          
 
       </Modal>
     </>

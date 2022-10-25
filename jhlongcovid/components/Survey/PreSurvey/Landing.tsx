@@ -8,7 +8,13 @@ import {
     Link,
 } from "@chakra-ui/react";
 
-export const Landing: React.FC = () => {
+interface LandingProps {
+    setShowSurvey: (bool : boolean) => void;
+    setCurrentPage: (page : string) => void;
+  }
+  
+
+export const Landing: React.FC<LandingProps> = ({setShowSurvey, setCurrentPage}) => {
     return (
         <Center>
             <VStack spacing={5}>
@@ -19,6 +25,7 @@ export const Landing: React.FC = () => {
                     <Button
                         colorScheme="hopkinsBlue"
                         borderRadius={500}
+                        onClick = {() => setCurrentPage("signUp")}
                     >
                         Sign Up
                     </Button>
@@ -26,6 +33,7 @@ export const Landing: React.FC = () => {
                     <Button
                         colorScheme="hopkinsBlue"
                         borderRadius={500}
+                        onClick = {() => setCurrentPage("signIn")}
                     >
                         Sign In
                     </Button>
@@ -33,6 +41,7 @@ export const Landing: React.FC = () => {
                     <Button
                         colorScheme="hopkinsBlue"
                         borderRadius={500}
+                        onClick = {() => setShowSurvey(true)}
                     >
                         Contribute as Guest
                     </Button>

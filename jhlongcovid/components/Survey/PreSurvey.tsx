@@ -47,14 +47,15 @@ import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
 
 import { Landing } from "./PreSurvey/Landing";
 
-import { SignIn} from "./PreSurvey/SignIn";
-import {SignUp} from "./PreSurvey/SignUp";
+import { SignIn } from "./PreSurvey/SignIn";
+import { SignUp } from "./PreSurvey/SignUp";
 
 // import mobileHealth from '../mobileHealth.jpg';
 
 
 interface SurveyWrapperProps {
     onClose: () => void;
+    setShowSurvey : (bool : boolean) => void;
 }
 
 export interface SurveyQuestionProps {
@@ -64,7 +65,7 @@ export interface SurveyQuestionProps {
     setErrorText?: (text: string) => void;
 }
 
-export const FirstPage: React.FC<SurveyWrapperProps> = ({ onClose }) => {
+export const PreSurvey: React.FC<SurveyWrapperProps> = ({ onClose, setShowSurvey }) => {
     const width = useAppSelector(selectWidth);
     const height = useAppSelector(selectHeight);
     const currentQuestion = useAppSelector(selectCurrentQuestion);
@@ -79,62 +80,25 @@ export const FirstPage: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     const [missingAnswer, setMissingAnswer] = useState(false);
     const [errorText, setErrorText] = useState("");
     const [errorPresent, setErrorPresent] = useState(false);
-    // const []
+
+    const [currentPage, setCurrentPage] = useState("landing");
 
     const handleQuestionChange = (direction: "next" | "prev") => {
         if (direction === "next") {
-            if (
-                currentQuestion.answerFormat !== "welcome" &&
-                currentQuestion.answerFormat !== "password"
-            ) {
-                if (currentQuestion.answerFormat === "demographics") {
-                    let emptyFields = [];
-                    if (answer !== null) {
-                        let demographics = answer as {
-                            zip: string;
-                            age: string;
-                            race: string;
-                        };
-                        if (demographics.zip === "") {
-                            emptyFields.push("zip code");
-                        }
-                        if (demographics.age === "") {
-                            emptyFields.push("age");
-                        }
-                        if (demographics.race === "") {
-                            emptyFields.push("race");
-                        }
-
-                        if (emptyFields.length > 0) {
-                            setErrorText(`Please provide ${emptyFields.join(", ")}`);
-                            setMissingAnswer(true);
-                            return;
-                        }
-                    }
-                }
-
-                if (
-                    answer === "" ||
-                    answer === null ||
-                    (Array.isArray(answer) && answer.length === 0) ||
-                    (Array.isArray(answer) &&
-                        answer.filter((element) => element === "").length > 0)
-                ) {
-                    setErrorText("Please provide an answer to the missing fields");
-                    setMissingAnswer(true);
-                    return;
-                } else {
-                    setMissingAnswer(false);
-                }
-            }
-
-            if (!errorPresent) {
-                dispatch(nextQuestion({ answer: answer }));
+            if (currentPage === "landing") {
+                setCurrentPage("signIn")
+            } else if (currentPage === "signIn") {
+                setCurrentPage("signUp")
+            } else if (currentPage === "signUp") {
+                setShowSurvey(true);
             }
         } else {
-            dispatch(prevQuestion({ answer: answer }));
+            if (currentPage === "signUp") {
+                setCurrentPage("landing")
+            } else if (currentPage === "signIn") {
+                setCurrentPage("landing");
+            }
         }
-        setAnswer("");
     };
 
     useEffect(() => {
@@ -184,14 +148,48 @@ export const FirstPage: React.FC<SurveyWrapperProps> = ({ onClose }) => {
                     overflowY: "auto",
                 }}
             >
-                {/* <Landing>
-                </Landing> */}
-                {/* <SignIn></SignIn>
-                 */}
-                 <SignUp></SignUp>
+                {currentPage === "landing" && (
+                     <Landing setShowSurvey = {setShowSurvey} setCurrentPage = {setCurrentPage}>
+                     </Landing>
+                )}
 
+                {currentPage === "signIn" && (
+                    <SignIn setShowSurvey = {setShowSurvey} setCurrentPage = {setCurrentPage}></SignIn>
+                )}
 
+                {currentPage === "signUp" && (
+                    <SignUp setShowSurvey = {setShowSurvey} setCurrentPage = {setCurrentPage}></SignUp>
+                )
+                }
             </ModalBody>
+
+            <ModalFooter>
+                <HStack>
+
+                    {(currentPage === "signIn" || currentPage === "signUp") && (
+                        <Button
+                        background={"hopkinsBlue.100"}
+                        color={"hopkinsBlue.500"}
+                        borderRadius={500}
+                        onClick={() => {
+                            handleQuestionChange("prev");
+                        }}
+                    >
+                        Previous
+                    </Button>
+                    )}
+                    
+                    {/* <Button
+                        colorScheme="hopkinsBlue"
+                        borderRadius={500}
+                        onClick={() => {
+                            handleQuestionChange("next");
+                        }}
+                    >
+                        Next
+                    </Button> */}
+                </HStack>
+            </ModalFooter>
         </ModalContent>
     );
 };

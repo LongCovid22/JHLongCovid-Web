@@ -18,9 +18,12 @@ import { sumUpCases } from "./preprocess";
 import Script from "next/script";
 import React from "react";
 import { Button } from "@chakra-ui/react";
-import { Amplify } from "aws-amplify";
+import { Amplify, Auth } from "aws-amplify";
 import awsExports from "../src/aws-exports";
 import { initQuestions } from "../redux/slices/surveySlice";
+
+import awsconfig from "../src/aws-exports";
+Amplify.configure(awsconfig);
 
 Amplify.configure(awsExports);
 
