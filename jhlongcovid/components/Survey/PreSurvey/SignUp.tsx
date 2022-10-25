@@ -25,7 +25,7 @@ async function signUp(username : string, password: string) {
             //     enabled: true,
             // }
         });
-        console.log(user);
+        // console.log(user);
     } catch (error) {
         console.log('error signing up:', error);
     }
