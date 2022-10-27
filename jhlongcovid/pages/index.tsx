@@ -14,7 +14,7 @@ import {
   selectHighLong,
 } from "../redux/slices/zoomSlice";
 import { read } from "../util/mockDataTwo";
-import { sumUpCases } from "./preprocess";
+import { sumUpCases } from "../preprocess";
 import Script from "next/script";
 import React from "react";
 import { Button } from "@chakra-ui/react";
@@ -122,6 +122,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    console.log("zoomNum", zoomNum);
     toggleAggregateDataOnZoom();
   }, [zoomNum, latLow, latHigh, longLow, longHigh, state_data, county_data]);
 
@@ -132,9 +133,6 @@ const Home = () => {
 
   return (
     <>
-      <Script src="https://cdn.jsdelivr.net/npm/apexcharts" />
-      <Script src="https://cdn.jsdelivr.net/npm/react-apexcharts" />
-
       <div className={styles.main}>
         {MapMemo}
         <Header markerData={markerData} />

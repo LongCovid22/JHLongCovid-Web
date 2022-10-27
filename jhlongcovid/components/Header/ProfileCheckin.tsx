@@ -1,7 +1,12 @@
 import {
+  Box,
+  Container,
+  Input,
   Button,
   Flex,
   Avatar,
+  Wrap,
+  keyframes,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -9,16 +14,34 @@ import {
   IconButton,
   Checkbox,
 } from "@chakra-ui/react";
-
-import React, { useEffect, useState } from "react";
 import styles from "../../styles/Header.module.css";
-
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-
 import { selectWidth } from "../../redux/slices/viewportSlice";
 import { SurveyWrapper } from "../Survey/SurveyWrapper";
 
 import { PreSurvey } from "../Survey/PreSurvey";
+import React, { useState } from "react";
+
+interface ProfileCheckinProps {}
+
+const animationKeyframes = keyframes`
+0% {
+  transform: scale(0.95);
+  box-shadow: 0 0 0 0 rgba(0, 101, 255, 0.7);
+}
+
+70% {
+  transform: scale(1);
+  box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+}
+
+100% {
+  transform: scale(0.95);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+`;
+
+const animation = `${animationKeyframes} 1.5s infinite`;
 
 interface ProfileCheckinProps {}
 
@@ -36,19 +59,14 @@ function Survey() {
         textColor="white"
         colorScheme="hopkinsBlue"
         onClick={onOpen}
+        animation={!isOpen ? animation : undefined}
       >
         Contribute
       </Button>
-
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
         <ModalOverlay />
           {showSurvey && ( <SurveyWrapper onClose={onClose} />)}
-
           {showSurvey === false && (<PreSurvey onClose = {onClose} setShowSurvey = {setShowSurvey} />)}
-
-         
-          
-
       </Modal>
     </>
   );
@@ -62,7 +80,7 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
     <Flex
       className={styles.rightHeaderStack}
       align="center"
-      gap={3}
+      gap={2}
       boxShadow={"xl"}
       style={{
         minWidth: width < 700 ? "410px" : "250px",

@@ -72,7 +72,7 @@ export const Search: React.FC<SearchProps> = ({ markerData }) => {
             }}
           >
             <VStack spacing={4} maxWidth={300}>
-              <Image src="/jhu_logo.jpg" />
+              <Image src="/jhu_logo.jpg" alt="" />
               <Text fontSize="sm" color="black">
                 <strong>
                   JHU.edu Copyright © 2022 by Johns Hopkins University &
@@ -120,7 +120,7 @@ export const Search: React.FC<SearchProps> = ({ markerData }) => {
                   <ModalContent>
                     <ModalHeader>Legal Stuff</ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody>"Hey"</ModalBody>
+                    <ModalBody>Hey</ModalBody>
                   </ModalContent>
                 </Modal>
 
@@ -138,7 +138,7 @@ export const Search: React.FC<SearchProps> = ({ markerData }) => {
                   <ModalContent>
                     <ModalHeader>Terms of Service Stuff</ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody>"Hey"</ModalBody>
+                    <ModalBody>Hey</ModalBody>
                   </ModalContent>
                 </Modal>
               </VStack>

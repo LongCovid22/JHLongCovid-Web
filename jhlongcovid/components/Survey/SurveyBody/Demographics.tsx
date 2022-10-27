@@ -32,7 +32,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
 
   const handleAnswerChange = (key: string, value: string) => {
     let demosCopy = { ...demos };
-    demosCopy[key] = value;
+    demosCopy[key as keyof typeof demosCopy] = value;
     setDemos(demosCopy);
     setAnswer(demosCopy);
   };
