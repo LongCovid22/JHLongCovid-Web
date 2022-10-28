@@ -2,6 +2,16 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
+export type SurveyResults = {
+  surveyResults: string,
+};
+
+export type Response = {
+  __typename: "Response",
+  statusCode?: number | null,
+  body?: string | null,
+};
+
 export type CreateMapDataInput = {
   id?: string | null,
   level: string,
@@ -313,7 +323,7 @@ export type DeleteUserInput = {
 export type CreateSurveyEntryInput = {
   id?: string | null,
   email?: string | null,
-  createdAt: string,
+  createdAt?: string | null,
   surveyVersion: number,
   surveyType: SurveyType,
   age: number,
@@ -1201,6 +1211,18 @@ export type ModelMonthlyEntryConnection = {
   __typename: "ModelMonthlyEntryConnection",
   items:  Array<MonthlyEntry | null >,
   nextToken?: string | null,
+};
+
+export type AggregateSurveyResultsMutationVariables = {
+  results: SurveyResults,
+};
+
+export type AggregateSurveyResultsMutation = {
+  aggregateSurveyResults?:  {
+    __typename: "Response",
+    statusCode?: number | null,
+    body?: string | null,
+  } | null,
 };
 
 export type CreateMapDataMutationVariables = {
