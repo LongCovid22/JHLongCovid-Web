@@ -20,13 +20,7 @@
     "@react-native-community/netinfo": "^9.3.2",
     "@reduxjs/toolkit": "^1.8.2",
     "@types/google-map-react": "^2.1.7",
-<<<<<<< HEAD
-    "amazon-cognito-identity-js": "^5.2.10",
-    "apexcharts": "^3.35.4",
-    "aws-amplify": "^4.3.37",
-=======
     "aws-amplify": "^4.3.33",
->>>>>>> dev
     "axios": "^0.26.0",
     "chart.js": "^3.6.0",
     "chartjs-plugin-datalabels": "^2.1.0",

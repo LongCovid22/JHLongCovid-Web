@@ -46,19 +46,6 @@ export const MFA: React.FC<SurveyQuestionProps> = ({
           {currentQuestion.question}
         </Text>
         <Stack direction={"column"} width={"100%"}>
-<<<<<<< HEAD
-          <Text>{currentQuestion.options.title}</Text>
-          <Input
-            width={"50%"}
-            type={currentQuestion.options.type}
-            placeholder={currentQuestion.options.placeholder}
-            value={verificationCode}
-            onChange={(event) => {
-              setVerificationCode(event.target.value);
-              setAnswer(event.target.value);
-            }}
-          />
-=======
           <FormControl isInvalid={!isNum}>
             <FormLabel>{currentQuestion.options.title}</FormLabel>
             <Input
@@ -74,7 +61,6 @@ export const MFA: React.FC<SurveyQuestionProps> = ({
               <FormErrorMessage>Please enter a number</FormErrorMessage>
             )}
           </FormControl>
->>>>>>> dev
         </Stack>
       </VStack>
     </>

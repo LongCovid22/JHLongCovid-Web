@@ -18,11 +18,12 @@ import { sumUpCases } from "../preprocess";
 import Script from "next/script";
 import React from "react";
 import { Button } from "@chakra-ui/react";
-import { Amplify, Auth } from "aws-amplify";
+import { Amplify, API, Auth } from "aws-amplify";
 import awsExports from "../src/aws-exports";
 import { initQuestions } from "../redux/slices/surveySlice";
-
 import awsconfig from "../src/aws-exports";
+import { User } from "../src/API";
+import * as queries from "../src/graphql/queries";
 Amplify.configure(awsconfig);
 
 Amplify.configure(awsExports);
@@ -122,13 +123,30 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    console.log("zoomNum", zoomNum);
     toggleAggregateDataOnZoom();
   }, [zoomNum, latLow, latHigh, longLow, longHigh, state_data, county_data]);
 
   // Upon user sign in & component mount
   useEffect(() => {
-    dispatch(initQuestions({ authId: null }));
+    // Get current auth session
+    // If exists query for User
+    const getCurrentSession = async () => {
+      let user: User | undefined = undefined;
+
+      try {
+        const session = await Auth.currentAuthenticatedUser();
+        const user = await API.graphql({
+          query: queries.getUser,
+          variables: { id: session.authId },
+        });
+      } catch (error) {
+        if (error === "The user is not authenticated") {
+          dispatch(initQuestions({ authId: null }));
+        }
+      }
+    };
+
+    getCurrentSession().catch(console.error);
   }, []);
 
   return (
