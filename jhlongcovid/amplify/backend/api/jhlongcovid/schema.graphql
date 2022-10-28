@@ -95,7 +95,7 @@ type SurveyEntry
       sortKeyFields: ["createdAt"]
       queryField: "surveysByEmail"
     )
-  createdAt: AWSTime!
+  createdAt: AWSDateTime!
   surveyVersion: Int!
   surveyType: SurveyType!
     @index(
@@ -647,11 +647,11 @@ type SocialSummary {
 # LAMBDA RESOLVERS
 
 type Mutation {
-  aggregateSurveyResults(results: SurveyResults): Response
+  aggregateSurveyResults(results: SurveyResults!): Response
     @function(name: "aggregateSurveyResults-${env}")
 }
 
-type SurveyResults {
+input SurveyResults {
   surveyResults: AWSJSON!
 }
 
