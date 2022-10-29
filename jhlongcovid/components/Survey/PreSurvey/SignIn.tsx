@@ -1,7 +1,19 @@
 // username, password, submit button
 
-import { VStack, Input, Heading, Button, Box, Text } from "@chakra-ui/react";
-
+import {
+  VStack,
+  Input,
+  Heading,
+  Button,
+  Box,
+  Text,
+  Center,
+  FormControl,
+  FormLabel,
+  Spacer,
+  HStack,
+} from "@chakra-ui/react";
+import QRCode from "qrcode.react";
 import { useState } from "react";
 
 import { Auth } from "aws-amplify";
@@ -9,25 +21,6 @@ import { Auth } from "aws-amplify";
 interface SignInProps {
   setCurrentPage: (page: string) => void;
   setShowSurvey: (bool: boolean) => void;
-}
-
-async function signIn(
-  username: string,
-  password: string,
-  setShowSurvey: (bool: boolean) => void
-) {
-  try {
-    const user = await Auth.signIn(username, password);
-    console.log(" User signed in: ", user);
-    if (user.challengeName == "MFA_SETUP") {
-      const code = await Auth.setupTOTP(user);
-      console.log("Code: ", code);
-    }
-
-    setShowSurvey(true);
-  } catch (error) {
-    console.log("error signing in", error);
-  }
 }
 
 export const SignIn: React.FC<SignInProps> = ({
@@ -42,12 +35,33 @@ export const SignIn: React.FC<SignInProps> = ({
 
   const [qrString, setQRString] = useState("");
 
+  const signIn = async (username: string, password: string) => {
+    try {
+      const user = await Auth.signIn(username, password);
+      console.log(" User signed in: ", user);
+      if (user.challengeName == "MFA_SETUP") {
+        const code = await Auth.setupTOTP(user);
+        const qr =
+          "otpauth://totp/AWSCognito:" +
+          user.username +
+          "?secret=" +
+          code +
+          "&issuer=JH%20Long%20COVID";
+
+        setQRString(qr);
+      }
+    } catch (error) {
+      console.log("error signing in", error);
+    }
+  };
+
   return (
     <VStack>
       {qrString === "" ? (
-        <Box>
+        <VStack>
           <Heading>Sign In!</Heading>
-          <Input placeholder="username" onChange={changeUserName}></Input>
+
+          {/* <Input placeholder="username" onChange={changeUserName}></Input>
           <Input
             type="password"
             placeholder="password"
@@ -55,20 +69,21 @@ export const SignIn: React.FC<SignInProps> = ({
           ></Input>
           <Button
             onClick={() => {
-              signIn(username, password, setShowSurvey);
+              signIn(username, password);
             }}
           >
             Submit
-          </Button>
-        </Box>
+          </Button> */}
+        </VStack>
       ) : (
-        <Box>
+        <VStack>
           <Heading>MFA Setup</Heading>
-          <Text fontSize="lg">
+          <Text fontSize="lg" align="center">
             In order to setup MFA, please scan the bar code below with your
-            chose of authenticator app
+            choice of authenticator app
           </Text>
-        </Box>
+          <QRCode value={qrString} />
+        </VStack>
       )}
     </VStack>
   );

@@ -9,7 +9,7 @@ import {
   ModalBody,
   ModalHeader,
   Text,
-  Spacer
+  Spacer,
 } from "@chakra-ui/react";
 
 //redux imports
@@ -38,6 +38,8 @@ import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
 import { confirmSignUp, signUp } from "../../authFunctions";
 import { AuthErrorTypes } from "@aws-amplify/auth/lib-esm/types";
+import { PreSurvey } from "./SurveyBody/PreSurvey";
+import { selectUser } from "../../redux/slices/userSlice";
 
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
@@ -131,6 +133,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
 export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
+  const user = useAppSelector(selectUser);
   const currentQuestion = useAppSelector(selectCurrentQuestion);
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const isFirstQuestion = useAppSelector(selectIsFirstQuestion);
@@ -154,11 +157,21 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [missingAnswer, setMissingAnswer] = useState(false);
   const [errorText, setErrorText] = useState("");
   const [errorPresent, setErrorPresent] = useState(false);
-
+  const [preSurvey, setPreSurvey] = useState(true);
 
   const handleQuestionChange = async (direction: "next" | "prev" | "skip") => {
     if (direction === "next") {
       if (currentQuestion.answerFormat !== "welcome") {
+        // User hit continue as guest and needs to move in to
+        // the guest survey
+        if (preSurvey) {
+          setPreSurvey(false);
+          // dispatch the creation of the survey so that current question
+          // kicks off state change
+
+          return;
+        }
+
         if (currentQuestion.answerFormat === "thankYou") {
           // Finish the survey
           onClose();
@@ -260,6 +273,10 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     );
   }, [currentQuestion]);
 
+  useEffect(() => {
+    console.log("PRE SURVEY: ", preSurvey);
+  }, [preSurvey]);
+
   // Reset wrapper values for next question
   useEffect(() => {
     setErrorText("");
@@ -267,6 +284,17 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     setErrorPresent!(false);
     setAnswer(currentAnswer);
   }, [currentAnswer, currentQuestion]);
+
+  useEffect(() => {
+    // If a user is already signed in do not display the pre survey
+    // login screen. Instead create the survey depending on whether they
+    // are DAILY, WEEKLY, or MONTHLY
+    if (user !== undefined) {
+      setPreSurvey(false);
+    } else {
+      setPreSurvey(true);
+    }
+  }, [user]);
 
   return (
     <ModalContent
@@ -282,7 +310,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     >
       <ModalHeader>
         <Flex>
-          <Text fontSize={"2xl"}>{currentQuestion.title}</Text>
+          <Text fontSize={"2xl"}>
+            {!preSurvey ? currentQuestion.title : ""}
+          </Text>
           <Spacer />
           <CloseButton
             size={"md"}
@@ -300,21 +330,25 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           overflowY: "auto",
         }}
       >
-        <Body
-          currentQuestion={currentQuestion}
-          setAnswer={setAnswer}
-          setErrorPresent={setErrorPresent}
-          setErrorText={setErrorText}
-        />
+        {!preSurvey ? (
+          <Body
+            currentQuestion={currentQuestion}
+            setAnswer={setAnswer}
+            setErrorPresent={setErrorPresent}
+            setErrorText={setErrorText}
+          />
+        ) : (
+          <PreSurvey />
+        )}
       </ModalBody>
       <ModalFooter>
         <HStack>
-          {(missingAnswer || errorPresent) && (
+          {(missingAnswer || errorPresent) && !preSurvey && (
             <Text fontSize={"14px"} color={"red"}>
               {errorText}
             </Text>
           )}
-          {currentQuestion.answerFormat === "account" && (
+          {currentQuestion.answerFormat === "account" && !preSurvey && (
             <Button
               background={"hopkinsBlue.100"}
               color={"hopkinsBlue.500"}
@@ -326,7 +360,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               Skip
             </Button>
           )}
-          {!isFirstQuestion && !isFinalSection && (
+          {!isFirstQuestion && !isFinalSection && !preSurvey && (
             <Button
               colorScheme="hopkinsBlue"
               borderRadius={500}
@@ -337,13 +371,26 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               Prev
             </Button>
           )}
-          <Button
-            colorScheme="hopkinsBlue"
-            borderRadius={500}
-            onClick={() => handleQuestionChange("next")}
-          >
-            {isLastQuestion ? "Finish" : "Next"}
-          </Button>
+          {!preSurvey ? (
+            <Button
+              colorScheme="hopkinsBlue"
+              borderRadius={500}
+              onClick={() => handleQuestionChange("next")}
+            >
+              {isLastQuestion ? "Finish" : "Next"}
+            </Button>
+          ) : (
+            <Button
+              background={"hopkinsBlue.100"}
+              color={"hopkinsBlue.500"}
+              borderRadius={500}
+              onClick={() => {
+                setPreSurvey(false);
+              }}
+            >
+              Continue as guest
+            </Button>
+          )}
         </HStack>
       </ModalFooter>
     </ModalContent>

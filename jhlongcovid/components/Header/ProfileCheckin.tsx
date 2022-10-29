@@ -19,7 +19,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectWidth } from "../../redux/slices/viewportSlice";
 import { SurveyWrapper } from "../Survey/SurveyWrapper";
 
-import { PreSurvey } from "../Survey/PreSurvey";
+import { PreSurvey } from "../Survey/SurveyBody/PreSurvey";
 import React, { useState } from "react";
 
 interface ProfileCheckinProps {}
@@ -48,7 +48,7 @@ interface ProfileCheckinProps {}
 function Survey() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [showSurvey, setShowSurvey ] = useState(false);
+  const [showSurvey, setShowSurvey] = useState(false);
 
   const dispatch = useAppDispatch();
   return (
@@ -65,8 +65,11 @@ function Survey() {
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
         <ModalOverlay />
-          {showSurvey && ( <SurveyWrapper onClose={onClose} />)}
-          {showSurvey === false && (<PreSurvey onClose = {onClose} setShowSurvey = {setShowSurvey} />)}
+        <SurveyWrapper onClose={onClose} />
+        {/* {showSurvey && <SurveyWrapper onClose={onClose} />} */}
+        {/* {showSurvey === false && (
+          <PreSurvey onClose={onClose} setShowSurvey={setShowSurvey} />
+        )} */}
       </Modal>
     </>
   );
