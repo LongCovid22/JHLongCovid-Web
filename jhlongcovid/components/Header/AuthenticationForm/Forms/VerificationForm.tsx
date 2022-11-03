@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AuthState } from "../AuthenticationForm";
 import {
   VStack,
@@ -16,12 +16,14 @@ import {
 import { Auth } from "aws-amplify";
 import { CognitoUser } from "@aws-amplify/auth";
 import { setUser } from "../../../../redux/slices/userSlice";
+import { UserInfo } from "../../../Survey/SurveyWrapper";
 
 interface TotpProps {
   email: string;
   password: string;
   user: any;
   verifType: "SignUp" | "SignIn" | "VerifyTotp";
+  userInfo?: UserInfo;
   setQRString: (val: string) => void;
   setUser: (val: any) => void;
   changeAuthState: (state: AuthState) => void;
@@ -33,6 +35,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
   password,
   verifType,
   user,
+  userInfo,
   setUser,
   changeAuthState,
   onVerify,
@@ -84,6 +87,10 @@ export const VerificationForm: React.FC<TotpProps> = ({
       console.log("Error resending code", error);
     }
   };
+
+  useEffect(() => {
+    console.log("USERINFO IN VERIFICATION FORM: ", userInfo);
+  }, [userInfo]);
 
   return (
     <VStack width="75%" maxW="450px" minW="325px" spacing="25px">

@@ -17,10 +17,14 @@ import {
 import { SurveyQuestionProps } from "../SurveyWrapper";
 import { useAppSelector } from "../../../redux/hooks";
 import { selectCurrentAnswer } from "../../../redux/slices/surveySlice";
-import { createReadStream } from "fs";
+import {
+  AuthenticationForm,
+  AuthState,
+} from "../../Header/AuthenticationForm/AuthenticationForm";
 
 export const Account: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
+  userInfo,
   setAnswer,
   setErrorPresent,
 }) => {
@@ -87,6 +91,10 @@ export const Account: React.FC<SurveyQuestionProps> = ({
     setAnswer({ email: email, password: pass });
   }, [pass, confirmPass, email]);
 
+  useEffect(() => {
+    console.log("ACCOUNT INFO: ", userInfo);
+  }, []);
+
   // Populate email field with current answer values
   useEffect(() => {
     if (
@@ -106,7 +114,7 @@ export const Account: React.FC<SurveyQuestionProps> = ({
         <Text fontSize={"md"} fontWeight={"regular"}>
           {currentQuestion.question}
         </Text>
-        <FormControl isInvalid={!validEmail}>
+        {/* <FormControl isInvalid={!validEmail}>
           <FormLabel>Email Address</FormLabel>
           <Input
             value={email}
@@ -149,7 +157,14 @@ export const Account: React.FC<SurveyQuestionProps> = ({
           {!passwordsMatch && (
             <FormErrorMessage>Passwords do not match</FormErrorMessage>
           )}
-        </FormControl>
+        </FormControl> */}
+        <AuthenticationForm
+          initialAuthState={AuthState.SignUp}
+          userInfo={userInfo}
+          onVerify={() => {
+            console.log("Hooray verification is over!");
+          }}
+        />
       </VStack>
     </>
   );

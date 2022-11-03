@@ -18,6 +18,7 @@ interface SignUpFormProps {
   email: string;
   password: string;
   confirmPass: string;
+  additionalAttributes?: { fullName: string };
   setEmail: (val: string) => void;
   setPassword: (val: string) => void;
   setVerifType: (val: "SignUp" | "SignIn" | "VerifyTotp") => void;
@@ -29,6 +30,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   email,
   password,
   confirmPass,
+  additionalAttributes,
   setEmail,
   setPassword,
   setVerifType,
@@ -67,13 +69,16 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   };
 
   const handleSignUp = async () => {
+    let attributes: { email: string; name?: string } = { email };
+    if (additionalAttributes) {
+      attributes.name = additionalAttributes.fullName;
+    }
+
     try {
       const { user } = await Auth.signUp({
         username: email,
         password: confirmPass,
-        attributes: {
-          email,
-        },
+        attributes: attributes,
       });
       setVerifType("SignUp");
       changeAuthState(AuthState.VerifyCode);

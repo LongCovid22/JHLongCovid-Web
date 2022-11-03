@@ -47,8 +47,6 @@ interface SurveyWrapperProps {
 }
 
 export type UserInfo = {
-  email: string;
-  password: string;
   name: string;
   age: string;
   zip: string;
@@ -58,12 +56,14 @@ export type UserInfo = {
 export interface SurveyQuestionProps {
   currentQuestion: any;
   setAnswer: (answer: any) => void;
+  userInfo?: UserInfo;
   setErrorPresent?: (error: boolean) => void;
   setErrorText?: (text: string) => void;
 }
 
 const Body: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
+  userInfo,
   setAnswer,
   setErrorPresent,
   setErrorText,
@@ -113,6 +113,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
     return (
       <Account
         currentQuestion={currentQuestion}
+        userInfo={userInfo}
         setAnswer={setAnswer}
         setErrorPresent={setErrorPresent}
       />
@@ -145,8 +146,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
   // state to keep track of user info filled out throughout the survey
   const [userInfo, setUserInfo] = useState<UserInfo>({
-    email: "",
-    password: "",
     name: "",
     age: "",
     zip: "",
@@ -227,32 +226,29 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         const userInfoUpdate = { ...userInfo };
 
         if (currentQuestion.answerFormat === "consent") {
-          // TODO: get name from Hubert's changes
+          console.log("VALUE OF CONSENT SCREEN: ", answer);
+          userInfoUpdate.name = answer as string;
+          setUserInfo(userInfoUpdate);
         } else if (currentQuestion.answerFormat === "demographics") {
           const a = answer as { zip: string; age: string; race: string };
           userInfoUpdate.age = a.age;
           userInfoUpdate.zip = a.zip;
           userInfoUpdate.race = a.race;
           setUserInfo(userInfoUpdate);
-        } else if (currentQuestion.answerFormat === "account") {
-          const a = answer as { email: string; password: string };
-          userInfoUpdate.email = a.email;
-          userInfoUpdate.password = a.password;
-          setUserInfo(userInfoUpdate);
         }
 
-        try {
-          if (currentQuestion.answerFormat === "account") {
-            await signUp(userInfoUpdate);
-          } else if (currentQuestion.answerFormat === "mfa") {
-            await confirmSignUp(userInfoUpdate, answer as string);
-          }
-        } catch (error) {
-          const e = error as { __type: string; message: string };
-          setErrorPresent(true);
-          setErrorText(e.message);
-          return;
-        }
+        // try {
+        //   if (currentQuestion.answerFormat === "account") {
+        //     await signUp(userInfoUpdate);
+        //   } else if (currentQuestion.answerFormat === "mfa") {
+        //     await confirmSignUp(userInfoUpdate, answer as string);
+        //   }
+        // } catch (error) {
+        //   const e = error as { __type: string; message: string };
+        //   setErrorPresent(true);
+        //   setErrorText(e.message);
+        //   return;
+        // }
 
         dispatch(nextQuestion({ answer: answer }));
       }
@@ -292,6 +288,10 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     }
   }, [user]);
 
+  useEffect(() => {
+    console.log("USERINFO WAS CHANGED TO: ", userInfo);
+  }, [userInfo]);
+
   return (
     <ModalContent
       style={{
@@ -329,6 +329,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         {!preSurvey ? (
           <Body
             currentQuestion={currentQuestion}
+            userInfo={userInfo}
             setAnswer={setAnswer}
             setErrorPresent={setErrorPresent}
             setErrorText={setErrorText}
@@ -386,6 +387,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               color={"hopkinsBlue.500"}
               borderRadius={500}
               onClick={() => {
+                dispatch(initQuestions({ authId: null }));
                 setPreSurvey(false);
               }}
             >

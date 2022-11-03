@@ -15,6 +15,7 @@ import { SignUpForm } from "./Forms/SignUpForm";
 import { TotpForm } from "./Forms/TotpForm";
 import { VerificationForm } from "./Forms/VerificationForm";
 import { CognitoUser } from "@aws-amplify/auth";
+import { UserInfo } from "../../Survey/SurveyWrapper";
 
 export enum AuthState {
   SignIn,
@@ -23,10 +24,12 @@ export enum AuthState {
   VerifyCode,
 }
 
-export const AuthenticationForm: React.FC<{ onVerify: () => void }> = ({
-  onVerify,
-}) => {
-  const [authState, setAuthState] = useState<AuthState>(AuthState.SignIn);
+export const AuthenticationForm: React.FC<{
+  initialAuthState: AuthState;
+  userInfo?: UserInfo;
+  onVerify: () => void;
+}> = ({ initialAuthState, userInfo, onVerify }) => {
+  const [authState, setAuthState] = useState<AuthState>(initialAuthState);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -78,6 +81,7 @@ export const AuthenticationForm: React.FC<{ onVerify: () => void }> = ({
             password={password}
             user={user}
             verifType={verifType}
+            userInfo={userInfo}
             onVerify={onVerify}
             setUser={setUser}
             setQRString={setQRString}

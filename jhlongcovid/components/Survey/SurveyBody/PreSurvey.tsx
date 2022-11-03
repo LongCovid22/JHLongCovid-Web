@@ -24,6 +24,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { AuthenticationForm } from "../../Header/AuthenticationForm/AuthenticationForm";
+import { AuthState } from "../../Header/AuthenticationForm/AuthenticationForm";
 
 export const PreSurvey: React.FC<{ dismissPreSurvey: () => void }> = ({
   dismissPreSurvey,
@@ -33,6 +34,7 @@ export const PreSurvey: React.FC<{ dismissPreSurvey: () => void }> = ({
       <VStack spacing={"25px"}>
         <Image src="/jhu_logo.jpg" maxW="45%" />
         <AuthenticationForm
+          initialAuthState={AuthState.SignIn}
           onVerify={() => {
             dismissPreSurvey();
           }}
