@@ -23,11 +23,7 @@ const BulletedList = ({ options }: { options: any }) => {
     <>
       <UnorderedList width={"75%"} spacing={"5px"}>
         {options.map((value: string, key: number) => {
-          return (
-            <ListItem key={key} fontSize={"sm"}>
-              {value}
-            </ListItem>
-          );
+          return <ListItem key={key}>{value}</ListItem>;
         })}
       </UnorderedList>
     </>
@@ -61,9 +57,7 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
   };
 
   const validateFullName = (fullName: string) => {
-    return fullName.match(
-      /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g
-    );
+    return fullName.match(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g);
   };
 
   useEffect(() => {
@@ -83,10 +77,10 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
         <BulletedList options={currentQuestion.options} />
         <Spacer />
         <FormControl isInvalid={fullNameError}>
-          <FormLabel>Enter your Full Name</FormLabel>
+          <FormLabel>Print your full name</FormLabel>
           <Input
             type="text"
-            placeholder="Enter Full Name "
+            placeholder="Enter full name "
             colorScheme="hopkinsBlue"
             value={fullName}
             focusBorderColor={"clear"}
@@ -95,9 +89,7 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
             }}
           />
           {fullNameError ? (
-            <FormErrorMessage>
-              Please enter valid full name
-            </FormErrorMessage>
+            <FormErrorMessage>Please enter valid full name</FormErrorMessage>
           ) : (
             <FormHelperText>Enter full name to give consent</FormHelperText>
           )}

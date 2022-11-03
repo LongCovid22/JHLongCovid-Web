@@ -9,7 +9,6 @@ import {
   Button,
   Text,
   Heading,
-  FormErrorMessage,
 } from "@chakra-ui/react";
 import { AuthState } from "../AuthenticationForm";
 import { Auth } from "aws-amplify";
@@ -19,7 +18,8 @@ interface SignInFormProps {
   password: string;
   setEmail: (val: string) => void;
   setPassword: (val: string) => void;
-  setQRString: (val: string) => void;
+  setVerifType: (val: "SignUp" | "SignIn" | "VerifyTotp") => void;
+  setUser: (val: any) => void;
   changeAuthState: (state: AuthState) => void;
 }
 
@@ -28,7 +28,8 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   password,
   setEmail,
   setPassword,
-  setQRString,
+  setUser,
+  setVerifType,
   changeAuthState,
 }) => {
   const [signInError, setSignInError] = useState(false);
@@ -39,26 +40,30 @@ export const SignInForm: React.FC<SignInFormProps> = ({
       const user = await Auth.signIn(email, password);
       setSignInError(false);
       setErrorMessage("");
+      setUser(user);
       if (user.challengeName === "SOFTWARE_TOKEN_MFA") {
-        setEmail("");
-        setPassword("");
         changeAuthState(AuthState.VerifyCode);
       } else if (user.challengeName === "MFA_SETUP") {
-        setEmail("");
-        setPassword("");
-        const code = await Auth.setupTOTP(user);
-        const qr =
-          "otpauth://totp/AWSCognito:" +
-          user.username +
-          "?secret=" +
-          code +
-          "&issuer=JH%20Long%20COVID";
-        setQRString(qr);
         changeAuthState(AuthState.TotpSetup);
       }
-    } catch (error: any) {
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message === "User is not confirmed.") {
+          console.log("User not yet confirmed");
+          try {
+            await Auth.resendSignUp(email);
+            setVerifType("SignUp");
+            changeAuthState(AuthState.VerifyCode);
+            return;
+          } catch (resendCodeError) {
+            console.log("Error resending sing up code: ", resendCodeError);
+          }
+        }
+        setErrorMessage(error.message);
+      }
       setSignInError(true);
-      setErrorMessage(error.message);
     }
   };
 
@@ -94,7 +99,11 @@ export const SignInForm: React.FC<SignInFormProps> = ({
             }}
           />
         </FormControl>
-        {signInError && <FormErrorMessage>{errorMessage}</FormErrorMessage>}
+        {signInError && (
+          <Text color="red" fontSize={"13"}>
+            {errorMessage}
+          </Text>
+        )}
       </VStack>
 
       <HStack spacing={3} width="100%">

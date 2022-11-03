@@ -25,12 +25,18 @@ import {
 } from "@chakra-ui/react";
 import { AuthenticationForm } from "../../Header/AuthenticationForm/AuthenticationForm";
 
-export const PreSurvey: React.FC = () => {
+export const PreSurvey: React.FC<{ dismissPreSurvey: () => void }> = ({
+  dismissPreSurvey,
+}) => {
   return (
     <VStack height={"100%"} width={"100%"}>
       <VStack spacing={"25px"}>
         <Image src="/jhu_logo.jpg" maxW="45%" />
-        <AuthenticationForm />
+        <AuthenticationForm
+          onVerify={() => {
+            dismissPreSurvey();
+          }}
+        />
       </VStack>
     </VStack>
   );

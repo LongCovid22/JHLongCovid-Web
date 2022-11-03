@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import {
   VStack,
   FormControl,
@@ -12,6 +12,9 @@ import {
 } from "@chakra-ui/react";
 import { SignInForm } from "./Forms/SignInForm";
 import { SignUpForm } from "./Forms/SignUpForm";
+import { TotpForm } from "./Forms/TotpForm";
+import { VerificationForm } from "./Forms/VerificationForm";
+import { CognitoUser } from "@aws-amplify/auth";
 
 export enum AuthState {
   SignIn,
@@ -20,13 +23,18 @@ export enum AuthState {
   VerifyCode,
 }
 
-export const AuthenticationForm = () => {
+export const AuthenticationForm: React.FC<{ onVerify: () => void }> = ({
+  onVerify,
+}) => {
   const [authState, setAuthState] = useState<AuthState>(AuthState.SignIn);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [verifCode, setVerifCode] = useState("");
+  const [verifType, setVerifType] = useState<
+    "SignUp" | "SignIn" | "VerifyTotp"
+  >("SignIn");
   const [qrString, setQRString] = useState("");
+  const [user, setUser] = useState<undefined | CognitoUser>(undefined);
 
   const renderFormBasedOnAuthState = useCallback(() => {
     switch (authState) {
@@ -35,9 +43,10 @@ export const AuthenticationForm = () => {
           <SignInForm
             email={email}
             password={password}
+            setUser={setUser}
             setEmail={setEmail}
-            setQRString={setQRString}
             setPassword={setPassword}
+            setVerifType={setVerifType}
             changeAuthState={setAuthState}
           />
         );
@@ -49,16 +58,34 @@ export const AuthenticationForm = () => {
             confirmPass={confirmPassword}
             setEmail={setEmail}
             setPassword={setPassword}
+            setVerifType={setVerifType}
             setConfirmPassword={setConfirmPassword}
             changeAuthState={setAuthState}
           />
         );
       case AuthState.TotpSetup:
-        return <Text>Sample TOTP setup</Text>;
+        return (
+          <TotpForm
+            user={user}
+            setVerifType={setVerifType}
+            changeAuthState={setAuthState}
+          />
+        );
       case AuthState.VerifyCode:
-        return <Text>Sample Verify Code</Text>;
+        return (
+          <VerificationForm
+            email={email}
+            password={password}
+            user={user}
+            verifType={verifType}
+            onVerify={onVerify}
+            setUser={setUser}
+            setQRString={setQRString}
+            changeAuthState={setAuthState}
+          />
+        );
     }
-  }, [authState, email, password, confirmPassword, verifCode, qrString]);
+  }, [authState, email, password, confirmPassword, qrString]);
 
   return <>{renderFormBasedOnAuthState()}</>;
 };

@@ -273,10 +273,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     );
   }, [currentQuestion]);
 
-  useEffect(() => {
-    console.log("PRE SURVEY: ", preSurvey);
-  }, [preSurvey]);
-
   // Reset wrapper values for next question
   useEffect(() => {
     setErrorText("");
@@ -302,7 +298,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         background: "white",
         width: width < 700 ? 410 : width * 0.45,
         minWidth: 410,
-        maxWidth: width * 0.45,
+        maxWidth: 750,
         minHeight: height * 0.35,
         height: height < 720 ? height * 0.75 : "600px",
         borderRadius: "35px",
@@ -338,7 +334,12 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             setErrorText={setErrorText}
           />
         ) : (
-          <PreSurvey />
+          <PreSurvey
+            dismissPreSurvey={() => {
+              setPreSurvey(false);
+              dispatch(initQuestions({ authId: null }));
+            }}
+          />
         )}
       </ModalBody>
       <ModalFooter>

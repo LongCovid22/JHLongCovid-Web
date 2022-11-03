@@ -12,6 +12,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { AuthState } from "../AuthenticationForm";
+import { Auth } from "aws-amplify";
 
 interface SignUpFormProps {
   email: string;
@@ -19,6 +20,7 @@ interface SignUpFormProps {
   confirmPass: string;
   setEmail: (val: string) => void;
   setPassword: (val: string) => void;
+  setVerifType: (val: "SignUp" | "SignIn" | "VerifyTotp") => void;
   setConfirmPassword: (val: string) => void;
   changeAuthState: (state: AuthState) => void;
 }
@@ -29,12 +31,15 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   confirmPass,
   setEmail,
   setPassword,
+  setVerifType,
   setConfirmPassword,
   changeAuthState,
 }) => {
   const [validEmail, setValidEmail] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [signUpError, setSignUpError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleFirstPassword = (val: string) => {
     checkPassword(val);
@@ -59,6 +64,25 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
     }
 
     setEmail(val);
+  };
+
+  const handleSignUp = async () => {
+    try {
+      const { user } = await Auth.signUp({
+        username: email,
+        password: confirmPass,
+        attributes: {
+          email,
+        },
+      });
+      setVerifType("SignUp");
+      changeAuthState(AuthState.VerifyCode);
+    } catch (error) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
+      setSignUpError(true);
+    }
   };
 
   // Password validation
@@ -145,6 +169,11 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             <FormErrorMessage>Passwords do not match</FormErrorMessage>
           )}
         </FormControl>
+        {signUpError && (
+          <Text color="red" fontSize={"13"}>
+            {errorMessage}
+          </Text>
+        )}
       </VStack>
 
       <HStack spacing={3} width="100%">
@@ -163,7 +192,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           colorScheme="hopkinsBlue"
           borderRadius={500}
           onClick={(event) => {
-            // Perform Amplify sign up
+            handleSignUp();
           }}
         >
           Sign Up
