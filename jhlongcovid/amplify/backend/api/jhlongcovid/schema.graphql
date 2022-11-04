@@ -607,17 +607,21 @@ type MonthlyEntry
 # The aim of having these types is to avoid extra queries as a user navigates throughout the map.
 
 type CovidSummary {
+  #one person, one count (as long as infected in past before?)
   covidCount: AWSJSON
   percentHospitalizedDueToCovid: AWSJSON
   avgPositiveCasesPerPerson: AWSJSON
   percentSymptomatic: AWSJSON
   percentTookMedication: AWSJSON
+  # { med1: testAWSJSON, med2: testAWSJSON}
   medicationCounts: AWSJSON
+  #From recovery result?
   percentRecovered: AWSJSON
 }
 
 type SymptomSummary {
   mostCommonSymptom: AWSJSON
+  #{}
   symptomCounts: AWSJSON
 }
 
@@ -637,7 +641,9 @@ type RecoverySummary {
 }
 
 type GeneralHealthSummary {
+  #tot score?
   avgTotalScore: AWSJSON
+  #same idea of sympotoms
   avgHealthCounts: AWSJSON
 }
 

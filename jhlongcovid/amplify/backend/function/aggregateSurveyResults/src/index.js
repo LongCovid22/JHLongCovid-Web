@@ -11,6 +11,8 @@ const { HttpRequest } = require("@aws-sdk/protocol-http");
 const { default: fetch, Request } = require("node-fetch");
 
 const GRAPHQL_ENDPOINT = process.env.API_JHLONGCOVID_GRAPHQLAPIENDPOINTOUTPUT;
+
+// const GRAPHQL_ENDPOINT = 'http://localhost:20002/graphql';
 const AWS_REGION = process.env.AWS_REGION || "us-east-1";
 
 // const query = /* GraphQL */ `
@@ -76,6 +78,12 @@ const query = /* GraphQL */ `
   }
 `;
 
+const mockCredentials = { 
+  "accessKeyId": "ASIAVJKIAM-AuthRole", 
+  "secretAccessKey": "fake"
+}
+const credentials = process.env.AWS_EXECUTION_ENV.endsWith("mock") ? mockCredentials : defaultProvider()
+
 const testAWSJSON = {
   age: {
     ranges: ["1-13", "13-25", "25-60", "60+"],
@@ -94,10 +102,10 @@ const testAWSJSON = {
 const variables = {
   input: {
     level: "county",
-    name: "Orange County",
+    name: "Orange Fruit County",
     stateAbbrev: "CA",
-    lat: 13.5,
-    long: -54.3,
+    lat: 13.5453535,
+    long: -54.3453535,
     covidSummary: {
       covidCount: JSON.stringify(testAWSJSON),
       percentHospitalizedDueToCovid: JSON.stringify(testAWSJSON),
@@ -147,7 +155,8 @@ exports.handler = async (event) => {
   const endpoint = new URL(GRAPHQL_ENDPOINT);
 
   const signer = new SignatureV4({
-    credentials: defaultProvider(),
+    // credentials: defaultProvider(),
+    credentials: credentials,
     region: AWS_REGION,
     service: "appsync",
     sha256: Sha256,
