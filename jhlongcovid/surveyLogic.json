@@ -570,25 +570,9 @@
           "predicate": "skip",
           "goto": {
             "section": 8,
-            "question": 2
+            "question": 1
           }
         }
-      },
-      {
-        "title": "Create Account",
-        "question": "Please enter the verification code sent to your email",
-        "options": {
-          "type": "text",
-          "title": "Verification code",
-          "placeholder": "Enter verification code",
-          "validation": {
-            "regex": "^[0-9]+$",
-            "errorText": "Please enter a valid number"
-          }
-        },
-        "answer": null,
-        "answerFormat": "mfa",
-        "branching": null
       },
       {
         "title": "Thank You",

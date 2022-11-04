@@ -1,3 +1,7 @@
+type Todo @model @auth(rules: [{ allow: private, provider: iam }]) {
+  name: String
+  description: String
+}
 """
 MapData - Object that will be queried for on map pan/zoom. Will contain summary-level
   information to show within map markers and within panels that we want to display over

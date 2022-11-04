@@ -288,10 +288,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     }
   }, [user]);
 
-  useEffect(() => {
-    console.log("USERINFO WAS CHANGED TO: ", userInfo);
-  }, [userInfo]);
-
   return (
     <ModalContent
       style={{

@@ -13,10 +13,11 @@ import {
   FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
-import { Auth } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 import { CognitoUser } from "@aws-amplify/auth";
 import { setUser } from "../../../../redux/slices/userSlice";
 import { UserInfo } from "../../../Survey/SurveyWrapper";
+import * as mutations from "../../../../src/graphql/mutations";
 
 interface TotpProps {
   email: string;
@@ -47,14 +48,48 @@ export const VerificationForm: React.FC<TotpProps> = ({
     try {
       if (verifType === "SignUp") {
         // Confirm Sign up
-        await Auth.confirmSignUp(email, verifCode);
-
+        const { user } = await Auth.confirmSignUp(email, verifCode);
+        console.log("USER JUST SIGNED UP: ", user);
+        const currentUser = await Auth.currentUserPoolUser();
+        console.log("USER POOL SER: ", currentUser);
+        let userDetails = {};
+        if (userInfo) {
+          userDetails = {
+            id: user.userSub,
+            email: email,
+            age: userInfo.age,
+            race: userInfo.race,
+            // sex: userInfo.sex,
+          };
+        } else {
+          userDetails = {
+            id: user.username,
+            email: email,
+          };
+        }
+        console.log("Abount to create user");
+        const createdUser = await API.graphql({
+          query: mutations.createUser,
+          variables: userDetails,
+        });
+        console.log("Successfully created user: ", createdUser);
         // Sign in user immediately after sign up to start MFA setup
         const returnedUser = await Auth.signIn(email, password);
+        const userUpdateDetails = {
+          id: returnedUser.username,
+          lastSignIn: Date.now(),
+        };
+        const updatedUser = await API.graphql({
+          query: mutations.updateUser,
+          variables: userUpdateDetails,
+        });
+        console.log("Successfully updated user: ", updatedUser);
         if (returnedUser.challengeName === "MFA_SETUP") {
           setUser(returnedUser);
           changeAuthState(AuthState.TotpSetup);
         }
+
+        console.log("userInfo in sign up verification view: ", userInfo);
       } else if (verifType === "VerifyTotp") {
         // Verify Totp token setup for next sign in
         await Auth.verifyTotpToken(user, verifCode);
@@ -62,16 +97,39 @@ export const VerificationForm: React.FC<TotpProps> = ({
         // Set as preffered MFA method
         await Auth.setPreferredMFA(user, "TOTP");
 
+        const userUpdateDetails = {
+          id: user.username,
+          lastSignIn: Date(),
+        };
+        const updatedUser = await API.graphql({
+          query: mutations.updateUser,
+          variables: userUpdateDetails,
+        });
+        console.log("Successfully updated user: ", updatedUser);
         // Perform finishing authform tasks on verify
         onVerify();
       } else {
         // Confirm Sign In
-        await Auth.confirmSignIn(user, verifCode, "SOFTWARE_TOKEN_MFA");
+        const { returnedUser } = await Auth.confirmSignIn(
+          user,
+          verifCode,
+          "SOFTWARE_TOKEN_MFA"
+        );
+        const userUpdateDetails = {
+          id: user.username,
+          lastSignIn: Date.now(),
+        };
+        const updatedUser = await API.graphql({
+          query: mutations.updateUser,
+          variables: userUpdateDetails,
+        });
+        console.log("Successfully updated user: ", updatedUser);
         // TODO: Dispatch initQuestions with new user
         // TODO: Dispatch new user to userSlice in redux
         onVerify();
       }
     } catch (error) {
+      console.log("Error signing up: ", error);
       if (error instanceof Error) {
         setCodeErrorMessage(error.message);
       }

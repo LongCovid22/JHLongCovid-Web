@@ -91,10 +91,6 @@ export const Account: React.FC<SurveyQuestionProps> = ({
     setAnswer({ email: email, password: pass });
   }, [pass, confirmPass, email]);
 
-  useEffect(() => {
-    console.log("ACCOUNT INFO: ", userInfo);
-  }, []);
-
   // Populate email field with current answer values
   useEffect(() => {
     if (
