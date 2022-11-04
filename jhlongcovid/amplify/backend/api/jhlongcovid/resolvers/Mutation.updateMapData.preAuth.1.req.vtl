@@ -1,0 +1,17 @@
+## [Start] Merge default values and inputs. **
+#set( $mergedValues = $util.defaultIfNull($ctx.stash.defaultValues, {}) )
+$util.qr($mergedValues.putAll($util.defaultIfNull($ctx.args.input, {})))
+## [End] Merge default values and inputs. **
+## [Start] Set the primary key. **
+$util.qr($ctx.stash.metadata.put("modelObjectKey", {
+  "level": $util.dynamodb.toDynamoDB($mergedValues.level),
+  "lat#long": $util.dynamodb.toDynamoDB("${mergedValues.lat}#${mergedValues.long}")
+}))
+## [End] Set the primary key. **
+#if( $util.isNull($ctx.stash.metadata.dynamodbNameOverrideMap) )
+  $util.qr($ctx.stash.metadata.put("dynamodbNameOverrideMap", { 'lat#long': "latLong" }))
+#else
+  $util.qr($ctx.stash.metadata.dynamodbNameOverrideMap.put('lat#long', "latLong"))
+#end
+$util.qr($ctx.args.input.put('lat#long',"${mergedValues.lat}#${mergedValues.long}"))
+{}

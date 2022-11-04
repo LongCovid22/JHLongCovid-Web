@@ -1,6 +1,6 @@
 projects:
   jhlongcovid:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/jhlongcovid/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:
