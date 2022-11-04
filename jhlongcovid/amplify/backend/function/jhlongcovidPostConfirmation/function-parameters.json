@@ -13,5 +13,13 @@
   "triggerEventPath": "PostConfirmation.event.json",
   "roleName": "jhlongcovidPostConfirmation",
   "skipEdit": true,
-  "enableCors": false
+  "enableCors": false,
+  "permissions": {
+    "api": {
+      "jhlongcovid": [
+        "Query",
+        "Mutation"
+      ]
+    }
+  }
 }

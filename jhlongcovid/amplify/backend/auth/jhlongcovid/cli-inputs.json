@@ -81,4 +81,4 @@
     "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"jhlongcovidPostConfirmation\"\n  }\n]",
     "permissions": []
   }
-}
+} 

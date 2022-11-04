@@ -2,9 +2,42 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateTodo = /* GraphQL */ `
+  subscription OnCreateTodo($filter: ModelSubscriptionTodoFilterInput) {
+    onCreateTodo(filter: $filter) {
+      name
+      description
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateTodo = /* GraphQL */ `
+  subscription OnUpdateTodo($filter: ModelSubscriptionTodoFilterInput) {
+    onUpdateTodo(filter: $filter) {
+      name
+      description
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteTodo = /* GraphQL */ `
+  subscription OnDeleteTodo($filter: ModelSubscriptionTodoFilterInput) {
+    onDeleteTodo(filter: $filter) {
+      name
+      description
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateMapData = /* GraphQL */ `
-  subscription OnCreateMapData {
-    onCreateMapData {
+  subscription OnCreateMapData($filter: ModelSubscriptionMapDataFilterInput) {
+    onCreateMapData(filter: $filter) {
       id
       level
       name
@@ -54,8 +87,8 @@ export const onCreateMapData = /* GraphQL */ `
   }
 `;
 export const onUpdateMapData = /* GraphQL */ `
-  subscription OnUpdateMapData {
-    onUpdateMapData {
+  subscription OnUpdateMapData($filter: ModelSubscriptionMapDataFilterInput) {
+    onUpdateMapData(filter: $filter) {
       id
       level
       name
@@ -105,8 +138,8 @@ export const onUpdateMapData = /* GraphQL */ `
   }
 `;
 export const onDeleteMapData = /* GraphQL */ `
-  subscription OnDeleteMapData {
-    onDeleteMapData {
+  subscription OnDeleteMapData($filter: ModelSubscriptionMapDataFilterInput) {
+    onDeleteMapData(filter: $filter) {
       id
       level
       name
@@ -156,8 +189,11 @@ export const onDeleteMapData = /* GraphQL */ `
   }
 `;
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($owner: String) {
-    onCreateUser(owner: $owner) {
+  subscription OnCreateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onCreateUser(filter: $filter, owner: $owner) {
       id
       email
       age
@@ -174,8 +210,11 @@ export const onCreateUser = /* GraphQL */ `
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($owner: String) {
-    onUpdateUser(owner: $owner) {
+  subscription OnUpdateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onUpdateUser(filter: $filter, owner: $owner) {
       id
       email
       age
@@ -192,8 +231,11 @@ export const onUpdateUser = /* GraphQL */ `
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($owner: String) {
-    onDeleteUser(owner: $owner) {
+  subscription OnDeleteUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onDeleteUser(filter: $filter, owner: $owner) {
       id
       email
       age
@@ -210,8 +252,10 @@ export const onDeleteUser = /* GraphQL */ `
   }
 `;
 export const onCreateSurveyEntry = /* GraphQL */ `
-  subscription OnCreateSurveyEntry {
-    onCreateSurveyEntry {
+  subscription OnCreateSurveyEntry(
+    $filter: ModelSubscriptionSurveyEntryFilterInput
+  ) {
+    onCreateSurveyEntry(filter: $filter) {
       id
       email
       createdAt
@@ -1178,8 +1222,10 @@ export const onCreateSurveyEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateSurveyEntry = /* GraphQL */ `
-  subscription OnUpdateSurveyEntry {
-    onUpdateSurveyEntry {
+  subscription OnUpdateSurveyEntry(
+    $filter: ModelSubscriptionSurveyEntryFilterInput
+  ) {
+    onUpdateSurveyEntry(filter: $filter) {
       id
       email
       createdAt
@@ -2146,8 +2192,10 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteSurveyEntry = /* GraphQL */ `
-  subscription OnDeleteSurveyEntry {
-    onDeleteSurveyEntry {
+  subscription OnDeleteSurveyEntry(
+    $filter: ModelSubscriptionSurveyEntryFilterInput
+  ) {
+    onDeleteSurveyEntry(filter: $filter) {
       id
       email
       createdAt
@@ -3114,8 +3162,10 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
   }
 `;
 export const onCreateVaccinationEntry = /* GraphQL */ `
-  subscription OnCreateVaccinationEntry {
-    onCreateVaccinationEntry {
+  subscription OnCreateVaccinationEntry(
+    $filter: ModelSubscriptionVaccinationEntryFilterInput
+  ) {
+    onCreateVaccinationEntry(filter: $filter) {
       id
       state
       countyState
@@ -3390,8 +3440,10 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateVaccinationEntry = /* GraphQL */ `
-  subscription OnUpdateVaccinationEntry {
-    onUpdateVaccinationEntry {
+  subscription OnUpdateVaccinationEntry(
+    $filter: ModelSubscriptionVaccinationEntryFilterInput
+  ) {
+    onUpdateVaccinationEntry(filter: $filter) {
       id
       state
       countyState
@@ -3666,8 +3718,10 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteVaccinationEntry = /* GraphQL */ `
-  subscription OnDeleteVaccinationEntry {
-    onDeleteVaccinationEntry {
+  subscription OnDeleteVaccinationEntry(
+    $filter: ModelSubscriptionVaccinationEntryFilterInput
+  ) {
+    onDeleteVaccinationEntry(filter: $filter) {
       id
       state
       countyState
@@ -3942,8 +3996,10 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
   }
 `;
 export const onCreateCovidEntry = /* GraphQL */ `
-  subscription OnCreateCovidEntry {
-    onCreateCovidEntry {
+  subscription OnCreateCovidEntry(
+    $filter: ModelSubscriptionCovidEntryFilterInput
+  ) {
+    onCreateCovidEntry(filter: $filter) {
       id
       state
       countyState
@@ -4223,8 +4279,10 @@ export const onCreateCovidEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateCovidEntry = /* GraphQL */ `
-  subscription OnUpdateCovidEntry {
-    onUpdateCovidEntry {
+  subscription OnUpdateCovidEntry(
+    $filter: ModelSubscriptionCovidEntryFilterInput
+  ) {
+    onUpdateCovidEntry(filter: $filter) {
       id
       state
       countyState
@@ -4504,8 +4562,10 @@ export const onUpdateCovidEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteCovidEntry = /* GraphQL */ `
-  subscription OnDeleteCovidEntry {
-    onDeleteCovidEntry {
+  subscription OnDeleteCovidEntry(
+    $filter: ModelSubscriptionCovidEntryFilterInput
+  ) {
+    onDeleteCovidEntry(filter: $filter) {
       id
       state
       countyState
@@ -4785,8 +4845,10 @@ export const onDeleteCovidEntry = /* GraphQL */ `
   }
 `;
 export const onCreateRecoveryEntry = /* GraphQL */ `
-  subscription OnCreateRecoveryEntry {
-    onCreateRecoveryEntry {
+  subscription OnCreateRecoveryEntry(
+    $filter: ModelSubscriptionRecoveryEntryFilterInput
+  ) {
+    onCreateRecoveryEntry(filter: $filter) {
       id
       state
       countyState
@@ -5063,8 +5125,10 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateRecoveryEntry = /* GraphQL */ `
-  subscription OnUpdateRecoveryEntry {
-    onUpdateRecoveryEntry {
+  subscription OnUpdateRecoveryEntry(
+    $filter: ModelSubscriptionRecoveryEntryFilterInput
+  ) {
+    onUpdateRecoveryEntry(filter: $filter) {
       id
       state
       countyState
@@ -5341,8 +5405,10 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteRecoveryEntry = /* GraphQL */ `
-  subscription OnDeleteRecoveryEntry {
-    onDeleteRecoveryEntry {
+  subscription OnDeleteRecoveryEntry(
+    $filter: ModelSubscriptionRecoveryEntryFilterInput
+  ) {
+    onDeleteRecoveryEntry(filter: $filter) {
       id
       state
       countyState
@@ -5619,8 +5685,10 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
   }
 `;
 export const onCreateGeneralHealthEntry = /* GraphQL */ `
-  subscription OnCreateGeneralHealthEntry {
-    onCreateGeneralHealthEntry {
+  subscription OnCreateGeneralHealthEntry(
+    $filter: ModelSubscriptionGeneralHealthEntryFilterInput
+  ) {
+    onCreateGeneralHealthEntry(filter: $filter) {
       id
       state
       countyState
@@ -5894,8 +5962,10 @@ export const onCreateGeneralHealthEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateGeneralHealthEntry = /* GraphQL */ `
-  subscription OnUpdateGeneralHealthEntry {
-    onUpdateGeneralHealthEntry {
+  subscription OnUpdateGeneralHealthEntry(
+    $filter: ModelSubscriptionGeneralHealthEntryFilterInput
+  ) {
+    onUpdateGeneralHealthEntry(filter: $filter) {
       id
       state
       countyState
@@ -6169,8 +6239,10 @@ export const onUpdateGeneralHealthEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteGeneralHealthEntry = /* GraphQL */ `
-  subscription OnDeleteGeneralHealthEntry {
-    onDeleteGeneralHealthEntry {
+  subscription OnDeleteGeneralHealthEntry(
+    $filter: ModelSubscriptionGeneralHealthEntryFilterInput
+  ) {
+    onDeleteGeneralHealthEntry(filter: $filter) {
       id
       state
       countyState
@@ -6444,8 +6516,10 @@ export const onDeleteGeneralHealthEntry = /* GraphQL */ `
   }
 `;
 export const onCreateSymptomEntry = /* GraphQL */ `
-  subscription OnCreateSymptomEntry {
-    onCreateSymptomEntry {
+  subscription OnCreateSymptomEntry(
+    $filter: ModelSubscriptionSymptomEntryFilterInput
+  ) {
+    onCreateSymptomEntry(filter: $filter) {
       id
       state
       countyState
@@ -6718,8 +6792,10 @@ export const onCreateSymptomEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateSymptomEntry = /* GraphQL */ `
-  subscription OnUpdateSymptomEntry {
-    onUpdateSymptomEntry {
+  subscription OnUpdateSymptomEntry(
+    $filter: ModelSubscriptionSymptomEntryFilterInput
+  ) {
+    onUpdateSymptomEntry(filter: $filter) {
       id
       state
       countyState
@@ -6992,8 +7068,10 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteSymptomEntry = /* GraphQL */ `
-  subscription OnDeleteSymptomEntry {
-    onDeleteSymptomEntry {
+  subscription OnDeleteSymptomEntry(
+    $filter: ModelSubscriptionSymptomEntryFilterInput
+  ) {
+    onDeleteSymptomEntry(filter: $filter) {
       id
       state
       countyState
@@ -7266,8 +7344,10 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
   }
 `;
 export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
-  subscription OnCreateSocialDeterminantsEntry {
-    onCreateSocialDeterminantsEntry {
+  subscription OnCreateSocialDeterminantsEntry(
+    $filter: ModelSubscriptionSocialDeterminantsEntryFilterInput
+  ) {
+    onCreateSocialDeterminantsEntry(filter: $filter) {
       id
       state
       countyState
@@ -7541,8 +7621,10 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
-  subscription OnUpdateSocialDeterminantsEntry {
-    onUpdateSocialDeterminantsEntry {
+  subscription OnUpdateSocialDeterminantsEntry(
+    $filter: ModelSubscriptionSocialDeterminantsEntryFilterInput
+  ) {
+    onUpdateSocialDeterminantsEntry(filter: $filter) {
       id
       state
       countyState
@@ -7816,8 +7898,10 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
-  subscription OnDeleteSocialDeterminantsEntry {
-    onDeleteSocialDeterminantsEntry {
+  subscription OnDeleteSocialDeterminantsEntry(
+    $filter: ModelSubscriptionSocialDeterminantsEntryFilterInput
+  ) {
+    onDeleteSocialDeterminantsEntry(filter: $filter) {
       id
       state
       countyState
@@ -8091,8 +8175,10 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
   }
 `;
 export const onCreateMonthlyEntry = /* GraphQL */ `
-  subscription OnCreateMonthlyEntry {
-    onCreateMonthlyEntry {
+  subscription OnCreateMonthlyEntry(
+    $filter: ModelSubscriptionMonthlyEntryFilterInput
+  ) {
+    onCreateMonthlyEntry(filter: $filter) {
       id
       state
       countyState
@@ -8364,8 +8450,10 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateMonthlyEntry = /* GraphQL */ `
-  subscription OnUpdateMonthlyEntry {
-    onUpdateMonthlyEntry {
+  subscription OnUpdateMonthlyEntry(
+    $filter: ModelSubscriptionMonthlyEntryFilterInput
+  ) {
+    onUpdateMonthlyEntry(filter: $filter) {
       id
       state
       countyState
@@ -8637,8 +8725,10 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteMonthlyEntry = /* GraphQL */ `
-  subscription OnDeleteMonthlyEntry {
-    onDeleteMonthlyEntry {
+  subscription OnDeleteMonthlyEntry(
+    $filter: ModelSubscriptionMonthlyEntryFilterInput
+  ) {
+    onDeleteMonthlyEntry(filter: $filter) {
       id
       state
       countyState

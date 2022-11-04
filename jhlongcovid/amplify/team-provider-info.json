@@ -55,7 +55,8 @@
       "UnauthRoleName": "amplify-jhlongcovid-develop-113748-unauthRole",
       "StackName": "amplify-jhlongcovid-develop-113748",
       "StackId": "arn:aws:cloudformation:us-east-1:317973408936:stack/amplify-jhlongcovid-develop-113748/7a74d2e0-56d6-11ed-9844-0e1f31908ecd",
-      "AmplifyAppId": "d304vc3h5b8tce"
+      "AmplifyAppId": "d304vc3h5b8tce",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-jhlongcovid-develop-113748-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
@@ -67,7 +68,10 @@
           "s3Key": "amplify-builds/aggregateSurveyResults-796876566e575a63534b-build.zip"
         },
         "jhlongcovid": {},
-        "jhlongcovidPostConfirmation": {}
+        "jhlongcovidPostConfirmation": {
+          "deploymentBucketName": "amplify-jhlongcovid-develop-113748-deployment",
+          "s3Key": "amplify-builds/jhlongcovidPostConfirmation-6735516c473650506b54-build.zip"
+        }
       },
       "api": {
         "jhlongcovid": {}

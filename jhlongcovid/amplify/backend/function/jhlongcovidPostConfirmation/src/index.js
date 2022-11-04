@@ -1,4 +1,10 @@
-/**
+/* Amplify Params - DO NOT EDIT
+	API_JHLONGCOVID_GRAPHQLAPIENDPOINTOUTPUT
+	API_JHLONGCOVID_GRAPHQLAPIIDOUTPUT
+	API_JHLONGCOVID_GRAPHQLAPIKEYOUTPUT
+	ENV
+	REGION
+Amplify Params - DO NOT EDIT *//**
  * @fileoverview
  *
  * This CloudFormation Trigger creates a handler which awaits the other handlers
