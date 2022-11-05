@@ -38,7 +38,9 @@ type MapData
 User - Store User specific information. Will store notification preferences along with other
   activity metrics
 """
-type User @model @auth(rules: [{ allow: owner }]) {
+type User
+  @model
+  @auth(rules: [{ allow: owner }, { allow: private, provider: iam }]) {
   id: ID! # Cognito ID
   email: String!  # Email associated with account
     @index(
@@ -50,7 +52,7 @@ type User @model @auth(rules: [{ allow: owner }]) {
   race: Race # null if signed up aside from survey
   sex: String # null if signed up aside from survey
   lastSubmission: AWSDateTime # null if signed up aside from survey
-  lastSignIn: AWSDateTime! # Current DateTime at time of sign up after "autosignin"
+  lastSignIn: AWSDateTime # Current DateTime at time of sign up after "autosignin"
   notificationFreq: NotificationFrequency # Daily
   notificaitonMethod: NotificationMethod # Email
   createdAt: AWSDateTime! # Will automatically be populated

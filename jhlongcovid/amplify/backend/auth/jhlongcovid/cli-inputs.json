@@ -74,11 +74,11 @@
         ]
       }
     ],
-    "authProviders": [],
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"jhlongcovidPostConfirmation\"\n  }\n]",
-    "permissions": []
+    "permissions": [],
+    "authProviders": [],
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"jhlongcovidPostConfirmation\"\n  }\n]"
   }
-} 
+}

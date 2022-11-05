@@ -38,12 +38,6 @@
     "env": {
       "Type": "String"
     },
-    "deploymentBucketName": {
-      "Type": "String"
-    },
-    "s3Key": {
-      "Type": "String"
-    },
     "apijhlongcovidGraphQLAPIIdOutput": {
       "Type": "String",
       "Default": "apijhlongcovidGraphQLAPIIdOutput"
@@ -55,6 +49,12 @@
     "apijhlongcovidGraphQLAPIKeyOutput": {
       "Type": "String",
       "Default": "apijhlongcovidGraphQLAPIKeyOutput"
+    },
+    "deploymentBucketName": {
+      "Type": "String"
+    },
+    "s3Key": {
+      "Type": "String"
     }
   },
   "Conditions": {
