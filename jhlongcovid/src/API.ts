@@ -260,7 +260,7 @@ export type CreateUserInput = {
   race?: Race | null,
   sex?: string | null,
   lastSubmission?: string | null,
-  lastSignIn: string,
+  lastSignIn?: string | null,
   notificationFreq?: NotificationFrequency | null,
   notificaitonMethod?: NotificationMethod | null,
   createdAt?: string | null,
@@ -328,7 +328,7 @@ export type User = {
   race?: Race | null,
   sex?: string | null,
   lastSubmission?: string | null,
-  lastSignIn: string,
+  lastSignIn?: string | null,
   notificationFreq?: NotificationFrequency | null,
   notificaitonMethod?: NotificationMethod | null,
   createdAt: string,
@@ -1260,221 +1260,6 @@ export type ModelMonthlyEntryConnection = {
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionTodoFilterInput = {
-  name?: ModelSubscriptionStringInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionTodoFilterInput | null > | null,
-  or?: Array< ModelSubscriptionTodoFilterInput | null > | null,
-};
-
-export type ModelSubscriptionStringInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
-};
-
-export type ModelSubscriptionMapDataFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  level?: ModelSubscriptionStringInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  stateAbbrev?: ModelSubscriptionStringInput | null,
-  lat?: ModelSubscriptionFloatInput | null,
-  long?: ModelSubscriptionFloatInput | null,
-  totalFullEntries?: ModelSubscriptionIntInput | null,
-  and?: Array< ModelSubscriptionMapDataFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMapDataFilterInput | null > | null,
-};
-
-export type ModelSubscriptionIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
-};
-
-export type ModelSubscriptionFloatInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  in?: Array< number | null > | null,
-  notIn?: Array< number | null > | null,
-};
-
-export type ModelSubscriptionIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  in?: Array< number | null > | null,
-  notIn?: Array< number | null > | null,
-};
-
-export type ModelSubscriptionUserFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  email?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  lastSubmission?: ModelSubscriptionStringInput | null,
-  lastSignIn?: ModelSubscriptionStringInput | null,
-  notificationFreq?: ModelSubscriptionStringInput | null,
-  notificaitonMethod?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
-  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
-};
-
-export type ModelSubscriptionSurveyEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  email?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  surveyVersion?: ModelSubscriptionIntInput | null,
-  surveyType?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  timeElapsed?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionSurveyEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionSurveyEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionVaccinationEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  totalVaccineShots?: ModelSubscriptionIntInput | null,
-  vaccinated?: ModelSubscriptionBooleanInput | null,
-  vaccineType?: ModelSubscriptionStringInput | null,
-  dateOfLastVaccine?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionVaccinationEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionVaccinationEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-};
-
-export type ModelSubscriptionCovidEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  timesPositive?: ModelSubscriptionIntInput | null,
-  lastPositive?: ModelSubscriptionStringInput | null,
-  tested?: ModelSubscriptionBooleanInput | null,
-  testMethod?: ModelSubscriptionStringInput | null,
-  hospitalized?: ModelSubscriptionIntInput | null,
-  symptomatic?: ModelSubscriptionBooleanInput | null,
-  symptomsPreventScale?: ModelSubscriptionStringInput | null,
-  medicationsTaken?: ModelSubscriptionStringInput | null,
-  returnedToHealth?: ModelSubscriptionIntInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionCovidEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCovidEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionRecoveryEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  recovered?: ModelSubscriptionStringInput | null,
-  hasLongCovid?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionRecoveryEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionRecoveryEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionGeneralHealthEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  health?: ModelSubscriptionIntInput | null,
-  generalHealthResults?: ModelSubscriptionStringInput | null,
-  totalScore?: ModelSubscriptionIntInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionGeneralHealthEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionGeneralHealthEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionSymptomEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  symptoms?: ModelSubscriptionStringInput | null,
-  medicalConditions?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionSymptomEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionSymptomEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionSocialDeterminantsEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  hasMedicalInsurance?: ModelSubscriptionStringInput | null,
-  difficultCoveringExpenses?: ModelSubscriptionStringInput | null,
-  currentWorkSituation?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionSocialDeterminantsEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionSocialDeterminantsEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionMonthlyEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  results?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionMonthlyEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMonthlyEntryFilterInput | null > | null,
-};
-
 export type AggregateSurveyResultsMutationVariables = {
   results: SurveyResults,
 };
@@ -1735,7 +1520,7 @@ export type CreateUserMutation = {
     race?: Race | null,
     sex?: string | null,
     lastSubmission?: string | null,
-    lastSignIn: string,
+    lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificaitonMethod?: NotificationMethod | null,
     createdAt: string,
@@ -1758,7 +1543,7 @@ export type UpdateUserMutation = {
     race?: Race | null,
     sex?: string | null,
     lastSubmission?: string | null,
-    lastSignIn: string,
+    lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificaitonMethod?: NotificationMethod | null,
     createdAt: string,
@@ -1781,7 +1566,7 @@ export type DeleteUserMutation = {
     race?: Race | null,
     sex?: string | null,
     lastSubmission?: string | null,
-    lastSignIn: string,
+    lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificaitonMethod?: NotificationMethod | null,
     createdAt: string,
@@ -11323,7 +11108,7 @@ export type GetUserQuery = {
     race?: Race | null,
     sex?: string | null,
     lastSubmission?: string | null,
-    lastSignIn: string,
+    lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificaitonMethod?: NotificationMethod | null,
     createdAt: string,
@@ -11349,7 +11134,7 @@ export type ListUsersQuery = {
       race?: Race | null,
       sex?: string | null,
       lastSubmission?: string | null,
-      lastSignIn: string,
+      lastSignIn?: string | null,
       notificationFreq?: NotificationFrequency | null,
       notificaitonMethod?: NotificationMethod | null,
       createdAt: string,
@@ -11380,7 +11165,7 @@ export type UsersByEmailQuery = {
       race?: Race | null,
       sex?: string | null,
       lastSubmission?: string | null,
-      lastSignIn: string,
+      lastSignIn?: string | null,
       notificationFreq?: NotificationFrequency | null,
       notificaitonMethod?: NotificationMethod | null,
       createdAt: string,
@@ -25432,10 +25217,6 @@ export type CountyMonthlyEntryBySexQuery = {
   } | null,
 };
 
-export type OnCreateTodoSubscriptionVariables = {
-  filter?: ModelSubscriptionTodoFilterInput | null,
-};
-
 export type OnCreateTodoSubscription = {
   onCreateTodo?:  {
     __typename: "Todo",
@@ -25445,10 +25226,6 @@ export type OnCreateTodoSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
-};
-
-export type OnUpdateTodoSubscriptionVariables = {
-  filter?: ModelSubscriptionTodoFilterInput | null,
 };
 
 export type OnUpdateTodoSubscription = {
@@ -25462,10 +25239,6 @@ export type OnUpdateTodoSubscription = {
   } | null,
 };
 
-export type OnDeleteTodoSubscriptionVariables = {
-  filter?: ModelSubscriptionTodoFilterInput | null,
-};
-
 export type OnDeleteTodoSubscription = {
   onDeleteTodo?:  {
     __typename: "Todo",
@@ -25475,10 +25248,6 @@ export type OnDeleteTodoSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
-};
-
-export type OnCreateMapDataSubscriptionVariables = {
-  filter?: ModelSubscriptionMapDataFilterInput | null,
 };
 
 export type OnCreateMapDataSubscription = {
@@ -25538,10 +25307,6 @@ export type OnCreateMapDataSubscription = {
   } | null,
 };
 
-export type OnUpdateMapDataSubscriptionVariables = {
-  filter?: ModelSubscriptionMapDataFilterInput | null,
-};
-
 export type OnUpdateMapDataSubscription = {
   onUpdateMapData?:  {
     __typename: "MapData",
@@ -25597,10 +25362,6 @@ export type OnUpdateMapDataSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
-};
-
-export type OnDeleteMapDataSubscriptionVariables = {
-  filter?: ModelSubscriptionMapDataFilterInput | null,
 };
 
 export type OnDeleteMapDataSubscription = {
@@ -25661,7 +25422,6 @@ export type OnDeleteMapDataSubscription = {
 };
 
 export type OnCreateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
   owner?: string | null,
 };
 
@@ -25674,7 +25434,7 @@ export type OnCreateUserSubscription = {
     race?: Race | null,
     sex?: string | null,
     lastSubmission?: string | null,
-    lastSignIn: string,
+    lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificaitonMethod?: NotificationMethod | null,
     createdAt: string,
@@ -25684,7 +25444,6 @@ export type OnCreateUserSubscription = {
 };
 
 export type OnUpdateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
   owner?: string | null,
 };
 
@@ -25697,7 +25456,7 @@ export type OnUpdateUserSubscription = {
     race?: Race | null,
     sex?: string | null,
     lastSubmission?: string | null,
-    lastSignIn: string,
+    lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificaitonMethod?: NotificationMethod | null,
     createdAt: string,
@@ -25707,7 +25466,6 @@ export type OnUpdateUserSubscription = {
 };
 
 export type OnDeleteUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
   owner?: string | null,
 };
 
@@ -25720,17 +25478,13 @@ export type OnDeleteUserSubscription = {
     race?: Race | null,
     sex?: string | null,
     lastSubmission?: string | null,
-    lastSignIn: string,
+    lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificaitonMethod?: NotificationMethod | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
   } | null,
-};
-
-export type OnCreateSurveyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSurveyEntryFilterInput | null,
 };
 
 export type OnCreateSurveyEntrySubscription = {
@@ -26765,10 +26519,6 @@ export type OnCreateSurveyEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateSurveyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSurveyEntryFilterInput | null,
-};
-
 export type OnUpdateSurveyEntrySubscription = {
   onUpdateSurveyEntry?:  {
     __typename: "SurveyEntry",
@@ -27799,10 +27549,6 @@ export type OnUpdateSurveyEntrySubscription = {
     surveyEntrySymptomsEntryId?: string | null,
     surveyEntryMonthlyEntryId?: string | null,
   } | null,
-};
-
-export type OnDeleteSurveyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSurveyEntryFilterInput | null,
 };
 
 export type OnDeleteSurveyEntrySubscription = {
@@ -28837,10 +28583,6 @@ export type OnDeleteSurveyEntrySubscription = {
   } | null,
 };
 
-export type OnCreateVaccinationEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionVaccinationEntryFilterInput | null,
-};
-
 export type OnCreateVaccinationEntrySubscription = {
   onCreateVaccinationEntry?:  {
     __typename: "VaccinationEntry",
@@ -29131,10 +28873,6 @@ export type OnCreateVaccinationEntrySubscription = {
     updatedAt: string,
     vaccinationEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnUpdateVaccinationEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionVaccinationEntryFilterInput | null,
 };
 
 export type OnUpdateVaccinationEntrySubscription = {
@@ -29429,10 +29167,6 @@ export type OnUpdateVaccinationEntrySubscription = {
   } | null,
 };
 
-export type OnDeleteVaccinationEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionVaccinationEntryFilterInput | null,
-};
-
 export type OnDeleteVaccinationEntrySubscription = {
   onDeleteVaccinationEntry?:  {
     __typename: "VaccinationEntry",
@@ -29723,10 +29457,6 @@ export type OnDeleteVaccinationEntrySubscription = {
     updatedAt: string,
     vaccinationEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnCreateCovidEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionCovidEntryFilterInput | null,
 };
 
 export type OnCreateCovidEntrySubscription = {
@@ -30026,10 +29756,6 @@ export type OnCreateCovidEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateCovidEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionCovidEntryFilterInput | null,
-};
-
 export type OnUpdateCovidEntrySubscription = {
   onUpdateCovidEntry?:  {
     __typename: "CovidEntry",
@@ -30325,10 +30051,6 @@ export type OnUpdateCovidEntrySubscription = {
     updatedAt: string,
     covidEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnDeleteCovidEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionCovidEntryFilterInput | null,
 };
 
 export type OnDeleteCovidEntrySubscription = {
@@ -30628,10 +30350,6 @@ export type OnDeleteCovidEntrySubscription = {
   } | null,
 };
 
-export type OnCreateRecoveryEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionRecoveryEntryFilterInput | null,
-};
-
 export type OnCreateRecoveryEntrySubscription = {
   onCreateRecoveryEntry?:  {
     __typename: "RecoveryEntry",
@@ -30925,10 +30643,6 @@ export type OnCreateRecoveryEntrySubscription = {
     updatedAt: string,
     recoveryEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnUpdateRecoveryEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionRecoveryEntryFilterInput | null,
 };
 
 export type OnUpdateRecoveryEntrySubscription = {
@@ -31226,10 +30940,6 @@ export type OnUpdateRecoveryEntrySubscription = {
   } | null,
 };
 
-export type OnDeleteRecoveryEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionRecoveryEntryFilterInput | null,
-};
-
 export type OnDeleteRecoveryEntrySubscription = {
   onDeleteRecoveryEntry?:  {
     __typename: "RecoveryEntry",
@@ -31525,10 +31235,6 @@ export type OnDeleteRecoveryEntrySubscription = {
   } | null,
 };
 
-export type OnCreateGeneralHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionGeneralHealthEntryFilterInput | null,
-};
-
 export type OnCreateGeneralHealthEntrySubscription = {
   onCreateGeneralHealthEntry?:  {
     __typename: "GeneralHealthEntry",
@@ -31818,10 +31524,6 @@ export type OnCreateGeneralHealthEntrySubscription = {
     updatedAt: string,
     generalHealthEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnUpdateGeneralHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionGeneralHealthEntryFilterInput | null,
 };
 
 export type OnUpdateGeneralHealthEntrySubscription = {
@@ -32115,10 +31817,6 @@ export type OnUpdateGeneralHealthEntrySubscription = {
   } | null,
 };
 
-export type OnDeleteGeneralHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionGeneralHealthEntryFilterInput | null,
-};
-
 export type OnDeleteGeneralHealthEntrySubscription = {
   onDeleteGeneralHealthEntry?:  {
     __typename: "GeneralHealthEntry",
@@ -32408,10 +32106,6 @@ export type OnDeleteGeneralHealthEntrySubscription = {
     updatedAt: string,
     generalHealthEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnCreateSymptomEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSymptomEntryFilterInput | null,
 };
 
 export type OnCreateSymptomEntrySubscription = {
@@ -32704,10 +32398,6 @@ export type OnCreateSymptomEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateSymptomEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSymptomEntryFilterInput | null,
-};
-
 export type OnUpdateSymptomEntrySubscription = {
   onUpdateSymptomEntry?:  {
     __typename: "SymptomEntry",
@@ -32998,10 +32688,6 @@ export type OnUpdateSymptomEntrySubscription = {
   } | null,
 };
 
-export type OnDeleteSymptomEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSymptomEntryFilterInput | null,
-};
-
 export type OnDeleteSymptomEntrySubscription = {
   onDeleteSymptomEntry?:  {
     __typename: "SymptomEntry",
@@ -33290,10 +32976,6 @@ export type OnDeleteSymptomEntrySubscription = {
     updatedAt: string,
     symptomEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnCreateSocialDeterminantsEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSocialDeterminantsEntryFilterInput | null,
 };
 
 export type OnCreateSocialDeterminantsEntrySubscription = {
@@ -33587,10 +33269,6 @@ export type OnCreateSocialDeterminantsEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateSocialDeterminantsEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSocialDeterminantsEntryFilterInput | null,
-};
-
 export type OnUpdateSocialDeterminantsEntrySubscription = {
   onUpdateSocialDeterminantsEntry?:  {
     __typename: "SocialDeterminantsEntry",
@@ -33880,10 +33558,6 @@ export type OnUpdateSocialDeterminantsEntrySubscription = {
     updatedAt: string,
     socialDeterminantsEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnDeleteSocialDeterminantsEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSocialDeterminantsEntryFilterInput | null,
 };
 
 export type OnDeleteSocialDeterminantsEntrySubscription = {
@@ -34177,10 +33851,6 @@ export type OnDeleteSocialDeterminantsEntrySubscription = {
   } | null,
 };
 
-export type OnCreateMonthlyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionMonthlyEntryFilterInput | null,
-};
-
 export type OnCreateMonthlyEntrySubscription = {
   onCreateMonthlyEntry?:  {
     __typename: "MonthlyEntry",
@@ -34470,10 +34140,6 @@ export type OnCreateMonthlyEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateMonthlyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionMonthlyEntryFilterInput | null,
-};
-
 export type OnUpdateMonthlyEntrySubscription = {
   onUpdateMonthlyEntry?:  {
     __typename: "MonthlyEntry",
@@ -34761,10 +34427,6 @@ export type OnUpdateMonthlyEntrySubscription = {
     updatedAt: string,
     monthlyEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnDeleteMonthlyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionMonthlyEntryFilterInput | null,
 };
 
 export type OnDeleteMonthlyEntrySubscription = {

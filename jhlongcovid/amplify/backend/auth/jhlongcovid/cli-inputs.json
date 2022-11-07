@@ -40,11 +40,7 @@
     ],
     "userPoolGroups": false,
     "adminQueries": false,
-    "triggers": {
-      "PostConfirmation": [
-        "custom"
-      ]
-    },
+    "triggers": {},
     "hostedUI": false,
     "userPoolGroupList": [],
     "serviceName": "Cognito",
@@ -63,22 +59,11 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": [
-      {
-        "category": "function",
-        "resourceName": "jhlongcovidPostConfirmation",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      }
-    ],
-    "authProviders": [],
+    "dependsOn": [],
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"jhlongcovidPostConfirmation\"\n  }\n]",
-    "permissions": []
+    "permissions": [],
+    "authProviders": []
   }
-} 
+}

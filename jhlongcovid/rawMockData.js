@@ -1,5 +1,4 @@
-export const lat_long = 
-`41.001938375, -83.6665354077
+const lat_long = `41.001938375, -83.6665354077
 38.4207190191, -77.4574003866
 40.1764332141, -98.4999473753
 28.4225359982, -99.756726125
@@ -3233,8 +3232,7 @@ export const lat_long =
 28.0087830727, -97.5182740096
 29.905528266, -90.3582204731
 `;
-export const county_names = 
-`Hancock
+const county_names = `Hancock
 Stafford
 Webster
 Dimmit
@@ -6469,8 +6467,7 @@ San Patricio
 St. Charles
 `;
 
-export const state_abbrev = 
-`OH
+const state_abbrev = `OH
 VA
 NE
 TX
@@ -9704,8 +9701,7 @@ AR
 TX
 LA
 `;
-export const state_name = 
-`Ohio
+const state_name = `Ohio
 Virginia
 Nebraska
 Texas
@@ -12938,4 +12934,46 @@ Nebraska
 Arkansas
 Texas
 Louisiana
-`
+`;
+
+const getData = function () {
+  const coordinates = lat_long.split("\n");
+
+  const finalCoords = [];
+
+  coordinates.forEach((coord) => {
+    let latLong = coord.split(" ");
+    let lat = latLong[0];
+    latLong[0] = lat.slice(0, -1);
+    if (latLong.length == 2) {
+      let obj = {
+        lat: latLong[0],
+        long: latLong[1],
+      };
+
+      finalCoords.push(obj);
+    }
+  });
+  const countyNames = county_names.split("\n");
+  countyNames.pop();
+  const stateAbbrev = state_abbrev.split("\n");
+  stateAbbrev.pop();
+  const stateName = state_name.split("\n");
+  stateName.pop();
+
+  for (let i = 0; i < finalCoords.length; i++) {
+    finalCoords[i].county = countyNames[i];
+    finalCoords[i].stateAbbrev = stateAbbrev[i];
+    finalCoords[i].stateName = stateName[i];
+    finalCoords[i].level = "county";
+  }
+  return finalCoords;
+};
+
+module.exports = {
+    getData
+//   lat_long,
+//   county_names,
+//   state_abbrev,
+//   state_name,
+};

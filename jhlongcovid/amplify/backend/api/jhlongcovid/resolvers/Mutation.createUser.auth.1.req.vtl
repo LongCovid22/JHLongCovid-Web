@@ -13,7 +13,9 @@ $util.unauthorized()
       #return($util.toJson({}))
     #end
   #end
-$util.unauthorized()
+  #if( $ctx.identity.userArn == $ctx.stash.authRole )
+    #set( $isAuthorized = true )
+  #end
 #end
 #if( $util.authType() == "User Pool Authorization" )
   #set( $ownerEntity0 = $util.defaultIfNull($ctx.args.input.owner, null) )
