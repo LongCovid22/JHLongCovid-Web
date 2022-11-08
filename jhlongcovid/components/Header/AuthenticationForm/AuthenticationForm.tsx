@@ -28,8 +28,9 @@ export enum AuthState {
 export const AuthenticationForm: React.FC<{
   initialAuthState: AuthState;
   userInfo?: UserInfo;
+  midSurvey: Boolean;
   onVerify: () => void;
-}> = ({ initialAuthState, userInfo, onVerify }) => {
+}> = ({ initialAuthState, userInfo, midSurvey, onVerify }) => {
   const [authState, setAuthState] = useState<AuthState>(initialAuthState);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -68,6 +69,7 @@ export const AuthenticationForm: React.FC<{
             email={email}
             password={password}
             confirmPass={confirmPassword}
+            midSurvey={midSurvey}
             userInfo={userInfo}
             setEmail={setEmail}
             setPassword={setPassword}

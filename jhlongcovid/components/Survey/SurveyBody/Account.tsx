@@ -26,84 +26,8 @@ export const Account: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   userInfo,
   setAnswer,
-  setErrorPresent,
+  onVerify,
 }) => {
-  const currentAnswer = useAppSelector(selectCurrentAnswer);
-  const [pass, setPass] = useState("");
-  const [confirmPass, setConfirmPass] = useState("");
-  const [email, setEmail] = useState("");
-
-  const [validEmail, setValidEmail] = useState(true);
-  const [validPassword, setValidPassword] = useState(true);
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
-
-  const handleFirstPassword = (val: string) => {
-    checkPassword(val);
-    setPass(val);
-  };
-
-  const handleSecondPassword = (val: string) => {
-    setConfirmPass(val);
-    checkPassMatch(val);
-  };
-
-  const handleEmail = (val: string) => {
-    if (!checkEmail(val)) {
-      setValidEmail(false);
-    } else {
-      setValidEmail(true);
-    }
-    setEmail(val);
-  };
-
-  // Password validation
-  const checkPassword = (val: string) => {
-    const passRegex = new RegExp(
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\^$*.[\]{}()?"!@#%&/\\,><':;|_~`=+\- ])[A-Za-z0-9^$*.[\]{}()?"!@#%&/\\,><':;|_~`=+\- ]{8,256}$/
-    );
-    passRegex.test(val) ? setValidPassword(true) : setValidPassword(false);
-  };
-
-  // Email validation
-  const checkEmail = (email: string) => {
-    return email.match(
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-  };
-
-  // Confirm pass matching
-  const checkPassMatch = (val: string) => {
-    if (val === pass) {
-      setPasswordsMatch(true);
-    } else {
-      setPasswordsMatch(false);
-    }
-  };
-
-  // Check whether there is an error present to prevent the survey from moving forward
-  useEffect(() => {
-    setErrorPresent &&
-      setErrorPresent(!validPassword || !passwordsMatch || !validEmail);
-  }, [validPassword, passwordsMatch, validEmail]);
-
-  // Update the answer within the survey
-  useEffect(() => {
-    setAnswer({ email: email, password: pass });
-  }, [pass, confirmPass, email]);
-
-  // Populate email field with current answer values
-  useEffect(() => {
-    if (
-      typeof currentAnswer === "object" &&
-      !Array.isArray(currentAnswer) &&
-      currentAnswer !== null
-    ) {
-      const currAns = currentAnswer as { email: string; password: string };
-      setEmail(currAns.email);
-      // Could set password here but not necessary
-    }
-  }, [currentAnswer]);
-
   return (
     <>
       <VStack height={"100%"} spacing={"15px"}>
@@ -157,8 +81,11 @@ export const Account: React.FC<SurveyQuestionProps> = ({
         <AuthenticationForm
           initialAuthState={AuthState.SignUp}
           userInfo={userInfo}
+          midSurvey={true}
           onVerify={() => {
-            console.log("Hooray verification is over!");
+            if (onVerify) {
+              onVerify();
+            }
           }}
         />
       </VStack>

@@ -20,6 +20,7 @@ interface SignUpFormProps {
   email: string;
   password: string;
   confirmPass: string;
+  midSurvey: Boolean;
   userInfo?: UserInfo;
   setEmail: (val: string) => void;
   setPassword: (val: string) => void;
@@ -32,6 +33,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   email,
   password,
   confirmPass,
+  midSurvey,
   userInfo,
   setEmail,
   setPassword,
@@ -185,16 +187,18 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
 
       <HStack spacing={3} width="100%">
         <Spacer />
-        <Button
-          background={"hopkinsBlue.100"}
-          color={"hopkinsBlue.500"}
-          borderRadius={500}
-          onClick={() => {
-            changeAuthState(AuthState.SignIn);
-          }}
-        >
-          Sign In
-        </Button>
+        {!midSurvey && (
+          <Button
+            background={"hopkinsBlue.100"}
+            color={"hopkinsBlue.500"}
+            borderRadius={500}
+            onClick={() => {
+              changeAuthState(AuthState.SignIn);
+            }}
+          >
+            Sign In
+          </Button>
+        )}
         <Button
           colorScheme="hopkinsBlue"
           borderRadius={500}

@@ -28,9 +28,11 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
   setAnswer,
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
-  const [demos, setDemos] = useState({ zip: "", age: "", race: "" });
+  const [demos, setDemos] = useState({ zip: "", age: "", race: "", sex: "" });
 
   const handleAnswerChange = (key: string, value: string) => {
+    console.log("Setting demographics key: ", key);
+    console.log("Setting demographics value: ", value);
     let demosCopy = { ...demos };
     demosCopy[key as keyof typeof demosCopy] = value;
     setDemos(demosCopy);
@@ -39,7 +41,9 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
 
   useEffect(() => {
     if (currentAnswer !== null) {
-      setDemos(currentAnswer as { zip: string; age: string; race: string });
+      setDemos(
+        currentAnswer as { zip: string; age: string; race: string; sex: string }
+      );
     } else {
       setAnswer(currentAnswer);
     }
@@ -85,6 +89,19 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
         </NumberInput>
       </FormControl>
       <FormControl>
+        <FormLabel>Sex</FormLabel>
+        <Select
+          value={demos.sex}
+          onChange={(event) => {
+            handleAnswerChange("sex", event.target.value);
+          }}
+        >
+          <option></option>
+          <option>Male</option>
+          <option>Female</option>
+        </Select>
+      </FormControl>
+      <FormControl>
         <FormLabel>Race</FormLabel>
         <RadioGroup
           value={demos.race}
@@ -108,13 +125,13 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
               </Radio>
             </GridItem>
             <GridItem>
-              <Radio value="spanish">Hispanic, Latino, or Spanish</Radio>
+              <Radio value="hispanic">Hispanic, Latino, or Spanish</Radio>
             </GridItem>
             <GridItem>
               <Radio value="other">Other</Radio>
             </GridItem>
             <GridItem>
-              <Radio value="noIdentify">Choose to not identify</Radio>
+              <Radio value="none">Choose to not identify</Radio>
             </GridItem>
           </Grid>
         </RadioGroup>

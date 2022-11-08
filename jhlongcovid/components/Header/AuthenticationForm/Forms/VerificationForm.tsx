@@ -49,41 +49,9 @@ export const VerificationForm: React.FC<TotpProps> = ({
       if (verifType === "SignUp") {
         // Confirm Sign up
         const { user } = await Auth.confirmSignUp(email, verifCode);
-        console.log("USER JUST SIGNED UP: ", user);
-        const currentUser = await Auth.currentUserPoolUser();
-        console.log("USER POOL SER: ", currentUser);
-        let userDetails = {};
-        if (userInfo) {
-          userDetails = {
-            id: user.userSub,
-            email: email,
-            age: userInfo.age,
-            race: userInfo.race,
-            // sex: userInfo.sex,
-          };
-        } else {
-          userDetails = {
-            id: user.username,
-            email: email,
-          };
-        }
-        console.log("Abount to create user");
-        const createdUser = await API.graphql({
-          query: mutations.createUser,
-          variables: userDetails,
-        });
-        console.log("Successfully created user: ", createdUser);
+
         // Sign in user immediately after sign up to start MFA setup
         const returnedUser = await Auth.signIn(email, password);
-        const userUpdateDetails = {
-          id: returnedUser.username,
-          lastSignIn: Date.now(),
-        };
-        const updatedUser = await API.graphql({
-          query: mutations.updateUser,
-          variables: userUpdateDetails,
-        });
-        console.log("Successfully updated user: ", updatedUser);
         if (returnedUser.challengeName === "MFA_SETUP") {
           setUser(returnedUser);
           changeAuthState(AuthState.TotpSetup);
@@ -97,33 +65,53 @@ export const VerificationForm: React.FC<TotpProps> = ({
         // Set as preffered MFA method
         await Auth.setPreferredMFA(user, "TOTP");
 
-        const userUpdateDetails = {
-          id: user.username,
-          lastSignIn: Date(),
-        };
-        const updatedUser = await API.graphql({
-          query: mutations.updateUser,
-          variables: userUpdateDetails,
+        // Check for user info provided by the survey
+        let userDetails = {};
+        if (userInfo) {
+          userDetails = {
+            id: user.username,
+            email: email,
+            age: userInfo.age,
+            race: userInfo.race.toUpperCase(),
+            lastSignIn: new Date(),
+            sex: userInfo.sex,
+          };
+        } else {
+          userDetails = {
+            id: user.username,
+            email: email,
+            lastSignIn: new Date(),
+          };
+        }
+
+        // CREATE USER within DynamoDB
+        await API.graphql({
+          query: mutations.createUser,
+          variables: { input: userDetails },
+          authMode: "AMAZON_COGNITO_USER_POOLS",
         });
-        console.log("Successfully updated user: ", updatedUser);
+
         // Perform finishing authform tasks on verify
         onVerify();
       } else {
         // Confirm Sign In
-        const { returnedUser } = await Auth.confirmSignIn(
+        const returnedUser = await Auth.confirmSignIn(
           user,
           verifCode,
           "SOFTWARE_TOKEN_MFA"
         );
         const userUpdateDetails = {
-          id: user.username,
-          lastSignIn: Date.now(),
+          id: returnedUser.username,
+          lastSignIn: new Date(),
         };
-        const updatedUser = await API.graphql({
+
+        // UPDATE USER
+        await API.graphql({
           query: mutations.updateUser,
-          variables: userUpdateDetails,
+          variables: { input: userUpdateDetails },
+          authMode: "AMAZON_COGNITO_USER_POOLS",
         });
-        console.log("Successfully updated user: ", updatedUser);
+
         // TODO: Dispatch initQuestions with new user
         // TODO: Dispatch new user to userSlice in redux
         onVerify();
@@ -145,10 +133,6 @@ export const VerificationForm: React.FC<TotpProps> = ({
       console.log("Error resending code", error);
     }
   };
-
-  useEffect(() => {
-    console.log("USERINFO IN VERIFICATION FORM: ", userInfo);
-  }, [userInfo]);
 
   return (
     <VStack width="75%" maxW="450px" minW="325px" spacing="25px">

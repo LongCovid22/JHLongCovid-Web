@@ -51,6 +51,7 @@ export type UserInfo = {
   age: string;
   zip: string;
   race: string;
+  sex: string;
 };
 
 export interface SurveyQuestionProps {
@@ -59,6 +60,7 @@ export interface SurveyQuestionProps {
   userInfo?: UserInfo;
   setErrorPresent?: (error: boolean) => void;
   setErrorText?: (text: string) => void;
+  onVerify?: () => void;
 }
 
 const Body: React.FC<SurveyQuestionProps> = ({
@@ -67,6 +69,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
   setAnswer,
   setErrorPresent,
   setErrorText,
+  onVerify,
 }) => {
   let answerFormat = currentQuestion.answerFormat;
   if (Array.isArray(answerFormat)) {
@@ -115,7 +118,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
         currentQuestion={currentQuestion}
         userInfo={userInfo}
         setAnswer={setAnswer}
-        setErrorPresent={setErrorPresent}
+        onVerify={onVerify}
       />
     );
   } else if (answerFormat === "thankYou") {
@@ -150,6 +153,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     age: "",
     zip: "",
     race: "",
+    sex: "",
   });
 
   const [isFinalSection, setIsFinalSection] = useState(false);
@@ -167,7 +171,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           setPreSurvey(false);
           // dispatch the creation of the survey so that current question
           // kicks off state change
-
           return;
         }
 
@@ -184,6 +187,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               zip: string;
               age: string;
               race: string;
+              sex: string;
             };
             if (demographics.zip === "") {
               emptyFields.push("zip code");
@@ -193,6 +197,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             }
             if (demographics.race === "") {
               emptyFields.push("race");
+            }
+            if (demographics.sex === "") {
+              emptyFields.push("sex");
             }
 
             if (emptyFields.length > 0) {
@@ -226,14 +233,19 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         const userInfoUpdate = { ...userInfo };
 
         if (currentQuestion.answerFormat === "consent") {
-          console.log("VALUE OF CONSENT SCREEN: ", answer);
           userInfoUpdate.name = answer as string;
           setUserInfo(userInfoUpdate);
         } else if (currentQuestion.answerFormat === "demographics") {
-          const a = answer as { zip: string; age: string; race: string };
+          const a = answer as {
+            zip: string;
+            age: string;
+            race: string;
+            sex: string;
+          };
           userInfoUpdate.age = a.age;
           userInfoUpdate.zip = a.zip;
           userInfoUpdate.race = a.race;
+          userInfoUpdate.sex = a.sex;
           setUserInfo(userInfoUpdate);
         }
 
@@ -329,6 +341,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             setAnswer={setAnswer}
             setErrorPresent={setErrorPresent}
             setErrorText={setErrorText}
+            onVerify={() => handleQuestionChange("next")}
           />
         ) : (
           <PreSurvey
