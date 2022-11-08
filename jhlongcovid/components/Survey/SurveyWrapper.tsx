@@ -36,8 +36,6 @@ import { ThankYou } from "./SurveyBody/ThankYou";
 import { MFA } from "./SurveyBody/MFA";
 import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
-import { confirmSignUp, signUp } from "../../authFunctions";
-import { AuthErrorTypes } from "@aws-amplify/auth/lib-esm/types";
 import { PreSurvey } from "./SurveyBody/PreSurvey";
 import { selectUser } from "../../redux/slices/userSlice";
 
@@ -289,16 +287,16 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     setAnswer(currentAnswer);
   }, [currentAnswer, currentQuestion]);
 
-  useEffect(() => {
-    // If a user is already signed in do not display the pre survey
-    // login screen. Instead create the survey depending on whether they
-    // are DAILY, WEEKLY, or MONTHLY
-    if (user !== undefined) {
-      setPreSurvey(false);
-    } else {
-      setPreSurvey(true);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   // If a user is already signed in do not display the pre survey
+  //   // login screen. Instead create the survey depending on whether they
+  //   // are DAILY, WEEKLY, or MONTHLY
+  //   if (user !== undefined) {
+  //     setPreSurvey(false);
+  //   } else {
+  //     setPreSurvey(true);
+  //   }
+  // }, [user]);
 
   return (
     <ModalContent

@@ -79,7 +79,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
     }
 
     try {
-      const { user } = await Auth.signUp({
+      await Auth.signUp({
         username: email,
         password: confirmPass,
         attributes: attributes,

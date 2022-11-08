@@ -138,11 +138,15 @@ export const VerificationForm: React.FC<TotpProps> = ({
     <VStack width="75%" maxW="450px" minW="325px" spacing="25px">
       <VStack w="100%">
         <Heading size={"md"} mb="5px">
-          {verifType === "SignIn" ? "One-Time Passcode" : "Verification code"}
+          {verifType === "SignIn" || verifType === "VerifyTotp"
+            ? "One-Time Passcode"
+            : "Verification code"}
         </Heading>
         <FormControl isInvalid={codeIncorrect}>
           <FormLabel>
-            {verifType === "SignIn" ? "One-Time Passcode" : "Verification code"}
+            {verifType === "SignIn" || verifType === "VerifyTotp"
+              ? "One-Time Passcode"
+              : "Verification code"}
           </FormLabel>
           <Input
             value={verifCode}
@@ -154,11 +158,12 @@ export const VerificationForm: React.FC<TotpProps> = ({
             colorScheme="hopkinsBlue"
             onChange={(event) => setVerifCode(event.target.value)}
           />
-          {verifType === "SignIn" && (
-            <FormHelperText>
-              Please enter the code displayed in your authenticator app
-            </FormHelperText>
-          )}
+          {verifType === "SignIn" ||
+            (verifType === "VerifyTotp" && (
+              <FormHelperText>
+                Please enter the code displayed in your authenticator app
+              </FormHelperText>
+            ))}
           {codeIncorrect && (
             <FormErrorMessage>{codeErrorMessage}</FormErrorMessage>
           )}

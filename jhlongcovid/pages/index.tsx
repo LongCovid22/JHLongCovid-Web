@@ -15,17 +15,16 @@ import {
 } from "../redux/slices/zoomSlice";
 import { read } from "../util/mockDataTwo";
 import { sumUpCases } from "../preprocess";
-import Script from "next/script";
 import React from "react";
-import { Button } from "@chakra-ui/react";
-import { Amplify, API, Auth } from "aws-amplify";
+import { Amplify, API, Auth, Hub } from "aws-amplify";
 import awsExports from "../src/aws-exports";
 import { initQuestions } from "../redux/slices/surveySlice";
 import awsconfig from "../src/aws-exports";
-import { User } from "../src/API";
+import { GetUserQuery, User } from "../src/API";
 import * as queries from "../src/graphql/queries";
-Amplify.configure(awsconfig);
+import { resetUser, setUser } from "../redux/slices/userSlice";
 
+Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
 
 interface IHash {
@@ -73,6 +72,36 @@ const Home = () => {
     }
   };
 
+  const listenToAuthEvents = async (data: any) => {
+    console.log("HUB EVENT: ", data);
+    switch (data.payload.event) {
+      case "signIn":
+        try {
+          const userSession = await Auth.currentAuthenticatedUser();
+          const user = (await API.graphql({
+            query: queries.getUser,
+            variables: { id: userSession.username },
+            authMode: "AMAZON_COGNITO_USER_POOLS",
+          })) as { data: GetUserQuery; errors: any[] };
+          if (user.data.getUser === null) {
+            console.log("User is null in DynamoDB");
+          } else {
+            dispatch(setUser(user.data.getUser as User));
+          }
+          break;
+        } catch (error) {
+          console.log("Error querying for user: ", error);
+          break;
+        }
+      case "signOut":
+        dispatch(resetUser());
+        break;
+      default:
+        break;
+      // dispatch(setUser(null));
+    }
+  };
+
   const setViewport = () => {
     dispatch(
       setDimensions({
@@ -112,42 +141,70 @@ const Home = () => {
   }, [aggregateData]);
 
   useEffect(() => {
-    // set vp height and width and bind the set of the vp height and with on resize
-    setViewport();
-    window.addEventListener("resize", setViewport);
+    const initApp = async () => {
+      // set vp height and width and bind the set of the vp height and with on resize
+      setViewport();
+      window.addEventListener("resize", setViewport);
 
-    const [county_data, state_data] = read();
-    setStateData(state_data);
-    setCountyData(county_data);
-    return () => removeEventListener("resize", setViewport);
+      try {
+        const userSession = await Auth.currentAuthenticatedUser();
+        const user = (await API.graphql({
+          query: queries.getUser,
+          variables: { id: userSession.username },
+          authMode: "AMAZON_COGNITO_USER_POOLS",
+        })) as { data: GetUserQuery; errors: any[] };
+        if (user.data.getUser === null) {
+          console.log("User is null in DynamoDB");
+        } else {
+          dispatch(setUser(user.data.getUser as User));
+        }
+      } catch (error) {
+        console.log("Could not get authentication session: ", error);
+      }
+
+      // console.log("INIT USER: ", user);
+
+      // Hub listener for auth events
+      Hub.listen("auth", listenToAuthEvents);
+
+      const [county_data, state_data] = read();
+      setStateData(state_data);
+      setCountyData(county_data);
+    };
+
+    initApp();
+    return () => {
+      removeEventListener("resize", setViewport);
+      Hub.remove("auth", listenToAuthEvents);
+    };
   }, []);
 
   useEffect(() => {
     toggleAggregateDataOnZoom();
   }, [zoomNum, latLow, latHigh, longLow, longHigh, state_data, county_data]);
 
-  // Upon user sign in & component mount
-  useEffect(() => {
-    // Get current auth session
-    // If exists query for User
-    const getCurrentSession = async () => {
-      let user: User | undefined = undefined;
+  // // Upon user sign in & component mount
+  // useEffect(() => {
+  //   // Get current auth session
+  //   // If exists query for User
+  //   const getCurrentSession = async () => {
+  //     let user: User | undefined = undefined;
 
-      try {
-        const session = await Auth.currentAuthenticatedUser();
-        const user = await API.graphql({
-          query: queries.getUser,
-          variables: { id: session.authId },
-        });
-      } catch (error) {
-        if (error === "The user is not authenticated") {
-          dispatch(initQuestions({ authId: null }));
-        }
-      }
-    };
+  //     try {
+  //       const session = await Auth.currentAuthenticatedUser();
+  //       const user = await API.graphql({
+  //         query: queries.getUser,
+  //         variables: { id: session.authId },
+  //       });
+  //     } catch (error) {
+  //       if (error === "The user is not authenticated") {
+  //         dispatch(initQuestions({ authId: null }));
+  //       }
+  //     }
+  //   };
 
-    getCurrentSession().catch(console.error);
-  }, []);
+  //   getCurrentSession().catch(console.error);
+  // }, []);
 
   return (
     <>

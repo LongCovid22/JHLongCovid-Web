@@ -36,7 +36,6 @@ export const TotpForm: React.FC<TotpProps> = ({
 
   useEffect(() => {
     const setupTotp = async () => {
-      console.log("TOTP SETUP USER: ", user);
       if (user && qrString === "") {
         const code = await Auth.setupTOTP(user);
         const qr =

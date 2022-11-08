@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../src/API";
 import type { RootState } from "../store";
+import * as queries from "../../src/graphql/queries";
+import { API } from "aws-amplify";
 
 export type UserState = {
-  user?: User;
+  user?: User | undefined;
 };
 
 const initialState: UserState = {
@@ -14,14 +16,16 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, { payload }) => {
-      const user = payload.user;
-      state.user = user;
+    setUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+    },
+    resetUser: (state) => {
+      state.user = undefined;
     },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, resetUser } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user.user;
 
