@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../src/API";
 import type { RootState } from "../store";
-import * as queries from "../../src/graphql/queries";
-import { API } from "aws-amplify";
 
 export type UserState = {
   user?: User | undefined;

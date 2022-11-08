@@ -6,7 +6,9 @@
         "title": "",
         "question": "Welcome to the Johns Hopkins Long COVID Questionnaire",
         "options": [
-          "This questionnaire asks you about your exposure to COVID-19 and how it has affected your life beyond your infection. Please know that participation in this survey is optional, and that while responses will be shared on the aggregate, individual responses will be free of all personal identifiers."
+          "Tell us your experience with COVID-19!",
+          "How has COVID-19 affected life beyond your infection?",
+          "All information will be used to help us better understand how to treat people with difficulties related to COVID-19"
         ],
         "answerFormat": "welcome",
         "answer": null,

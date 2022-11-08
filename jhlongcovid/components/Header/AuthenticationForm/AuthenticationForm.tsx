@@ -16,7 +16,6 @@ import { TotpForm } from "./Forms/TotpForm";
 import { VerificationForm } from "./Forms/VerificationForm";
 import { CognitoUser } from "@aws-amplify/auth";
 import { UserInfo } from "../../Survey/SurveyWrapper";
-import { Auth } from "@aws-amplify/auth";
 
 export enum AuthState {
   SignIn,
@@ -40,14 +39,6 @@ export const AuthenticationForm: React.FC<{
   >("SignIn");
   const [qrString, setQRString] = useState("");
   const [user, setUser] = useState<undefined | CognitoUser>(undefined);
-
-  useEffect(() => {
-    const signOut = async () => {
-      await Auth.signOut();
-    };
-
-    signOut();
-  }, []);
 
   const renderFormBasedOnAuthState = useCallback(() => {
     switch (authState) {
