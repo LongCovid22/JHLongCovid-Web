@@ -104,7 +104,7 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
       }}
     >
       <Survey />
-      <Menu>
+      <Menu isLazy>
         <MenuButton>
           <Avatar></Avatar>
         </MenuButton>
