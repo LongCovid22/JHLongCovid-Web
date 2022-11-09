@@ -8,6 +8,14 @@ export type AmplifyDependentResourcesAttributes = {
             "AppClientID": "string"
         }
     },
+    "function": {
+        "aggregateSurveyResults": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        }
+    },
     "api": {
         "jhlongcovid": {
             "GraphQLAPIKeyOutput": "string",

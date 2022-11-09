@@ -1,3 +1,7 @@
+type Todo @model @auth(rules: [{ allow: private, provider: iam }]) {
+  name: String
+  description: String
+}
 """
 MapData - Object that will be queried for on map pan/zoom. Will contain summary-level
   information to show within map markers and within panels that we want to display over
@@ -34,7 +38,9 @@ type MapData
 User - Store User specific information. Will store notification preferences along with other
   activity metrics
 """
-type User @model @auth(rules: [{ allow: owner }]) {
+type User
+  @model
+  @auth(rules: [{ allow: owner }, { allow: private, provider: iam }]) {
   id: ID! # Cognito ID
   email: String!  # Email associated with account
     @index(
@@ -46,7 +52,7 @@ type User @model @auth(rules: [{ allow: owner }]) {
   race: Race # null if signed up aside from survey
   sex: String # null if signed up aside from survey
   lastSubmission: AWSDateTime # null if signed up aside from survey
-  lastSignIn: AWSDateTime! # Current DateTime at time of sign up after "autosignin"
+  lastSignIn: AWSDateTime # Current DateTime at time of sign up after "autosignin"
   notificationFreq: NotificationFrequency # Daily
   notificaitonMethod: NotificationMethod # Email
   createdAt: AWSDateTime! # Will automatically be populated
@@ -95,7 +101,7 @@ type SurveyEntry
       sortKeyFields: ["createdAt"]
       queryField: "surveysByEmail"
     )
-  createdAt: AWSTime!
+  createdAt: AWSDateTime!
   surveyVersion: Int!
   surveyType: SurveyType!
     @index(
@@ -603,17 +609,21 @@ type MonthlyEntry
 # The aim of having these types is to avoid extra queries as a user navigates throughout the map.
 
 type CovidSummary {
+  #one person, one count (as long as infected in past before?)
   covidCount: AWSJSON
   percentHospitalizedDueToCovid: AWSJSON
   avgPositiveCasesPerPerson: AWSJSON
   percentSymptomatic: AWSJSON
   percentTookMedication: AWSJSON
+  # { med1: testAWSJSON, med2: testAWSJSON}
   medicationCounts: AWSJSON
+  #From recovery result?
   percentRecovered: AWSJSON
 }
 
 type SymptomSummary {
   mostCommonSymptom: AWSJSON
+  #{}
   symptomCounts: AWSJSON
 }
 
@@ -633,7 +643,9 @@ type RecoverySummary {
 }
 
 type GeneralHealthSummary {
+  #tot score?
   avgTotalScore: AWSJSON
+  #same idea of sympotoms
   avgHealthCounts: AWSJSON
 }
 
@@ -644,3 +656,18 @@ type SocialSummary {
   workingSituationCounts: AWSJSON
 }
 # -------------------------------
+# LAMBDA RESOLVERS
+
+type Mutation {
+  aggregateSurveyResults(results: SurveyResults!): Response
+    @function(name: "aggregateSurveyResults-${env}")
+}
+
+input SurveyResults {
+  surveyResults: AWSJSON!
+}
+
+type Response {
+  statusCode: Int
+  body: String
+}

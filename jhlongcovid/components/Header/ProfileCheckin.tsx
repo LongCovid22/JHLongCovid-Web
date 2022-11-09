@@ -1,24 +1,32 @@
 import {
-  Box,
-  Container,
-  Input,
+  HStack,
+  Text,
   Button,
   Flex,
   Avatar,
-  Wrap,
   keyframes,
   Modal,
   ModalOverlay,
-  ModalContent,
   useDisclosure,
-  IconButton,
-  Checkbox,
+  Menu,
+  MenuButton,
+  MenuList,
+  VStack,
+  Spacer,
 } from "@chakra-ui/react";
 import styles from "../../styles/Header.module.css";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-
 import { selectWidth } from "../../redux/slices/viewportSlice";
 import { SurveyWrapper } from "../Survey/SurveyWrapper";
+
+import { PreSurvey } from "../Survey/SurveyBody/PreSurvey";
+import React, { useState } from "react";
+import {
+  AuthenticationForm,
+  AuthState,
+} from "./AuthenticationForm/AuthenticationForm";
+import { resetUser, selectUser } from "../../redux/slices/userSlice";
+import { Auth } from "aws-amplify";
 
 interface ProfileCheckinProps {}
 
@@ -45,6 +53,10 @@ interface ProfileCheckinProps {}
 
 function Survey() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [showSurvey, setShowSurvey] = useState(false);
+
+  const dispatch = useAppDispatch();
   return (
     <>
       <Button
@@ -60,6 +72,10 @@ function Survey() {
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
         <ModalOverlay />
         <SurveyWrapper onClose={onClose} />
+        {/* {showSurvey && <SurveyWrapper onClose={onClose} />} */}
+        {/* {showSurvey === false && (
+          <PreSurvey onClose={onClose} setShowSurvey={setShowSurvey} />
+        )} */}
       </Modal>
     </>
   );
@@ -68,6 +84,13 @@ function Survey() {
 export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
   // return(<BasicUsage />)
   const width = useAppSelector(selectWidth);
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+
+  const signOut = async () => {
+    await Auth.signOut();
+    dispatch(resetUser());
+  };
 
   return (
     <Flex
@@ -81,7 +104,39 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
       }}
     >
       <Survey />
-      <Avatar></Avatar>
+      <Menu>
+        <MenuButton>
+          <Avatar></Avatar>
+        </MenuButton>
+        <MenuList p={"15px"} borderRadius={"15px"}>
+          {user ? (
+            <VStack spacing="15px" marginY={"5px"}>
+              <HStack>
+                <Text fontWeight={"600"}>Signed in as: </Text>
+                <Spacer />
+                <Text color={"gray"}>{user.email}</Text>
+              </HStack>
+              <Button
+                bg={"red"}
+                w={"100%"}
+                borderRadius="500px"
+                color={"white"}
+                onClick={() => {
+                  signOut();
+                }}
+              >
+                Sign Out
+              </Button>
+            </VStack>
+          ) : (
+            <AuthenticationForm
+              initialAuthState={AuthState.SignIn}
+              midSurvey={false}
+              onVerify={() => {}}
+            />
+          )}
+        </MenuList>
+      </Menu>
     </Flex>
   );
 };

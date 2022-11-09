@@ -44,10 +44,10 @@ const Map: React.FC<MapProps> = ({ style, children, ...options }) => {
         disableDefaultUI: true,
         restriction: {
           latLngBounds: {
-            east: 179.9999,
+            east: 181, // 181 to ignore horiz boudns
             north: 85,
             south: -85,
-            west: -179.9999,
+            west: -181, // -181 to ignore horiz boudns
           },
           strictBounds: true,
         },

@@ -1,15 +1,16 @@
 projects:
   jhlongcovid:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/jhlongcovid/build/schema.graphql
     includes:
-      - src/graphql/**/*.js
+      - src/graphql/**/*.ts
     excludes:
       - ./amplify/**
     extensions:
       amplify:
-        codeGenTarget: javascript
-        generatedFileName: ''
+        codeGenTarget: typescript
+        generatedFileName: src/API.ts
         docsFilePath: src/graphql
+        maxDepth: 4
 extensions:
   amplify:
     version: 3

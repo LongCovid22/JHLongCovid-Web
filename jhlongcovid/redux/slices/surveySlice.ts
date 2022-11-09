@@ -70,7 +70,7 @@ const getNextQuestionAnswerDefault = (
   } else if (question.answerFormat === "scale") {
     return Array.from({ length: question.options.length }, () => "");
   } else if (question.answerFormat === "demographics") {
-    return { zip: "", age: "", race: "" };
+    return { zip: "", age: "", race: "", sex: "" };
   } else if (question.answerFormat === "account") {
     return { email: "", password: "" };
   } else {
