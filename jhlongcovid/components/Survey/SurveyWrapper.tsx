@@ -2,24 +2,17 @@ import React, { useState, useEffect } from "react";
 import {
   Button,
   Flex,
-  Avatar,
-  Modal,
-  ModalCloseButton,
   ModalContent,
   CloseButton,
   ModalFooter,
   HStack,
-  useDisclosure,
-  IconButton,
-  Checkbox,
-  Box,
   ModalBody,
   ModalHeader,
   Text,
   Spacer,
-  VStack,
-  Input,
 } from "@chakra-ui/react";
+
+//redux imports
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
 import {
@@ -31,6 +24,8 @@ import {
   selectIsFirstQuestion,
   selectIslastQuestion,
 } from "../../redux/slices/surveySlice";
+
+//survey component templates
 import { Welcome } from "./SurveyBody/Welcome";
 import { Consent } from "./SurveyBody/Consent";
 import { Demographics } from "./SurveyBody/Demographics";
@@ -41,34 +36,38 @@ import { ThankYou } from "./SurveyBody/ThankYou";
 import { MFA } from "./SurveyBody/MFA";
 import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
-import { confirmSignUp, signUp } from "../../authFunctions";
-import { AuthErrorTypes } from "@aws-amplify/auth/lib-esm/types";
+import { PreSurvey } from "./SurveyBody/PreSurvey";
+import { selectUser } from "../../redux/slices/userSlice";
 
+// type for the onClose function to close the modal
 interface SurveyWrapperProps {
   onClose: () => void;
 }
 
 export type UserInfo = {
-  email: string;
-  password: string;
   name: string;
   age: string;
   zip: string;
   race: string;
+  sex: string;
 };
 
 export interface SurveyQuestionProps {
   currentQuestion: any;
   setAnswer: (answer: any) => void;
+  userInfo?: UserInfo;
   setErrorPresent?: (error: boolean) => void;
   setErrorText?: (text: string) => void;
+  onVerify?: () => void;
 }
 
 const Body: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
+  userInfo,
   setAnswer,
   setErrorPresent,
   setErrorText,
+  onVerify,
 }) => {
   let answerFormat = currentQuestion.answerFormat;
   if (Array.isArray(answerFormat)) {
@@ -115,8 +114,9 @@ const Body: React.FC<SurveyQuestionProps> = ({
     return (
       <Account
         currentQuestion={currentQuestion}
+        userInfo={userInfo}
         setAnswer={setAnswer}
-        setErrorPresent={setErrorPresent}
+        onVerify={onVerify}
       />
     );
   } else if (answerFormat === "thankYou") {
@@ -135,6 +135,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
 export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
+  const user = useAppSelector(selectUser);
   const currentQuestion = useAppSelector(selectCurrentQuestion);
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const isFirstQuestion = useAppSelector(selectIsFirstQuestion);
@@ -146,23 +147,31 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
   // state to keep track of user info filled out throughout the survey
   const [userInfo, setUserInfo] = useState<UserInfo>({
-    email: "",
-    password: "",
     name: "",
     age: "",
     zip: "",
     race: "",
+    sex: "",
   });
 
   const [isFinalSection, setIsFinalSection] = useState(false);
   const [missingAnswer, setMissingAnswer] = useState(false);
   const [errorText, setErrorText] = useState("");
   const [errorPresent, setErrorPresent] = useState(false);
-  // const []
+  const [preSurvey, setPreSurvey] = useState(true);
 
   const handleQuestionChange = async (direction: "next" | "prev" | "skip") => {
     if (direction === "next") {
       if (currentQuestion.answerFormat !== "welcome") {
+        // User hit continue as guest and needs to move in to
+        // the guest survey
+        if (preSurvey) {
+          setPreSurvey(false);
+          // dispatch the creation of the survey so that current question
+          // kicks off state change
+          return;
+        }
+
         if (currentQuestion.answerFormat === "thankYou") {
           // Finish the survey
           onClose();
@@ -176,6 +185,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               zip: string;
               age: string;
               race: string;
+              sex: string;
             };
             if (demographics.zip === "") {
               emptyFields.push("zip code");
@@ -185,6 +195,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             }
             if (demographics.race === "") {
               emptyFields.push("race");
+            }
+            if (demographics.sex === "") {
+              emptyFields.push("sex");
             }
 
             if (emptyFields.length > 0) {
@@ -218,32 +231,34 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         const userInfoUpdate = { ...userInfo };
 
         if (currentQuestion.answerFormat === "consent") {
-          // TODO: get name from Hubert's changes
+          userInfoUpdate.name = answer as string;
+          setUserInfo(userInfoUpdate);
         } else if (currentQuestion.answerFormat === "demographics") {
-          const a = answer as { zip: string; age: string; race: string };
+          const a = answer as {
+            zip: string;
+            age: string;
+            race: string;
+            sex: string;
+          };
           userInfoUpdate.age = a.age;
           userInfoUpdate.zip = a.zip;
           userInfoUpdate.race = a.race;
-          setUserInfo(userInfoUpdate);
-        } else if (currentQuestion.answerFormat === "account") {
-          const a = answer as { email: string; password: string };
-          userInfoUpdate.email = a.email;
-          userInfoUpdate.password = a.password;
+          userInfoUpdate.sex = a.sex;
           setUserInfo(userInfoUpdate);
         }
 
-        try {
-          if (currentQuestion.answerFormat === "account") {
-            await signUp(userInfoUpdate);
-          } else if (currentQuestion.answerFormat === "mfa") {
-            await confirmSignUp(userInfoUpdate, answer as string);
-          }
-        } catch (error) {
-          const e = error as { __type: string; message: string };
-          setErrorPresent(true);
-          setErrorText(e.message);
-          return;
-        }
+        // try {
+        //   if (currentQuestion.answerFormat === "account") {
+        //     await signUp(userInfoUpdate);
+        //   } else if (currentQuestion.answerFormat === "mfa") {
+        //     await confirmSignUp(userInfoUpdate, answer as string);
+        //   }
+        // } catch (error) {
+        //   const e = error as { __type: string; message: string };
+        //   setErrorPresent(true);
+        //   setErrorText(e.message);
+        //   return;
+        // }
 
         dispatch(nextQuestion({ answer: answer }));
       }
@@ -272,13 +287,24 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     setAnswer(currentAnswer);
   }, [currentAnswer, currentQuestion]);
 
+  // useEffect(() => {
+  //   // If a user is already signed in do not display the pre survey
+  //   // login screen. Instead create the survey depending on whether they
+  //   // are DAILY, WEEKLY, or MONTHLY
+  //   if (user !== undefined) {
+  //     setPreSurvey(false);
+  //   } else {
+  //     setPreSurvey(true);
+  //   }
+  // }, [user]);
+
   return (
     <ModalContent
       style={{
         background: "white",
         width: width < 700 ? 410 : width * 0.45,
         minWidth: 410,
-        maxWidth: width * 0.45,
+        maxWidth: 750,
         minHeight: height * 0.35,
         height: height < 720 ? height * 0.75 : "600px",
         borderRadius: "35px",
@@ -286,7 +312,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     >
       <ModalHeader>
         <Flex>
-          <Text fontSize={"2xl"}>{currentQuestion.title}</Text>
+          <Text fontSize={"2xl"}>
+            {!preSurvey ? currentQuestion.title : ""}
+          </Text>
           <Spacer />
           <CloseButton
             size={"md"}
@@ -304,21 +332,32 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           overflowY: "auto",
         }}
       >
-        <Body
-          currentQuestion={currentQuestion}
-          setAnswer={setAnswer}
-          setErrorPresent={setErrorPresent}
-          setErrorText={setErrorText}
-        />
+        {!preSurvey ? (
+          <Body
+            currentQuestion={currentQuestion}
+            userInfo={userInfo}
+            setAnswer={setAnswer}
+            setErrorPresent={setErrorPresent}
+            setErrorText={setErrorText}
+            onVerify={() => handleQuestionChange("next")}
+          />
+        ) : (
+          <PreSurvey
+            dismissPreSurvey={() => {
+              setPreSurvey(false);
+              dispatch(initQuestions({ authId: null }));
+            }}
+          />
+        )}
       </ModalBody>
       <ModalFooter>
         <HStack>
-          {(missingAnswer || errorPresent) && (
+          {(missingAnswer || errorPresent) && !preSurvey && (
             <Text fontSize={"14px"} color={"red"}>
               {errorText}
             </Text>
           )}
-          {currentQuestion.answerFormat === "account" && (
+          {currentQuestion.answerFormat === "account" && !preSurvey && (
             <Button
               background={"hopkinsBlue.100"}
               color={"hopkinsBlue.500"}
@@ -330,7 +369,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               Skip
             </Button>
           )}
-          {!isFirstQuestion && !isFinalSection && (
+          {!isFirstQuestion && !isFinalSection && !preSurvey && (
             <Button
               colorScheme="hopkinsBlue"
               borderRadius={500}
@@ -341,13 +380,27 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               Prev
             </Button>
           )}
-          <Button
-            colorScheme="hopkinsBlue"
-            borderRadius={500}
-            onClick={() => handleQuestionChange("next")}
-          >
-            {isLastQuestion ? "Finish" : "Next"}
-          </Button>
+          {!preSurvey ? (
+            <Button
+              colorScheme="hopkinsBlue"
+              borderRadius={500}
+              onClick={() => handleQuestionChange("next")}
+            >
+              {isLastQuestion ? "Finish" : "Next"}
+            </Button>
+          ) : (
+            <Button
+              background={"hopkinsBlue.100"}
+              color={"hopkinsBlue.500"}
+              borderRadius={500}
+              onClick={() => {
+                dispatch(initQuestions({ authId: null }));
+                setPreSurvey(false);
+              }}
+            >
+              Continue as guest
+            </Button>
+          )}
         </HStack>
       </ModalFooter>
     </ModalContent>

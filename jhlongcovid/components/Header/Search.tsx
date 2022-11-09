@@ -68,7 +68,7 @@ export const Search: React.FC<SearchProps> = ({ markerData }) => {
               width: "15%",
               padding: 20,
               borderRadius: 20,
-              marginTop: 10,
+              marginTop: 5,
             }}
           >
             <VStack spacing={4} maxWidth={300}>
