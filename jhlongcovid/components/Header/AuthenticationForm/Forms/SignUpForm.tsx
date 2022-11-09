@@ -20,8 +20,9 @@ interface SignUpFormProps {
   email: string;
   password: string;
   confirmPass: string;
-  midSurvey: Boolean;
+  midSurvey: boolean;
   userInfo?: UserInfo;
+  showTitle?: boolean;
   setEmail: (val: string) => void;
   setPassword: (val: string) => void;
   setVerifType: (val: "SignUp" | "SignIn" | "VerifyTotp") => void;
@@ -35,6 +36,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   confirmPass,
   midSurvey,
   userInfo,
+  showTitle,
   setEmail,
   setPassword,
   setVerifType,
@@ -131,9 +133,11 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   return (
     <VStack width="75%" maxW="450px" minW="325px" spacing="25px">
       <VStack w="100%">
-        <Heading size={"md"} mb="5px">
-          Sign Up
-        </Heading>
+        {showTitle && (
+          <Heading size={"md"} mb="5px">
+            Sign Up
+          </Heading>
+        )}
         <FormControl isInvalid={!validEmail}>
           <FormLabel>Email Address</FormLabel>
           <Input

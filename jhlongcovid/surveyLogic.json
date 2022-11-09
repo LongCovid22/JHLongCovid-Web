@@ -16,7 +16,7 @@
       },
       {
         "title": "Consent",
-        "question": "The following information will be collected to better understand your experience with COVID-19. Once collected, all data will be de-identified and aggregated to contribute to data seen on the map.",
+        "question": "The following information will be collected to better understand your experience with COVID-19.",
         "options": [
           "COVID-19 Experience",
           "COVID-19 Recovery (if applicable)",

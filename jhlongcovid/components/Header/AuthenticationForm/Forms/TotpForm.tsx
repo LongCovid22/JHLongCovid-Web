@@ -18,12 +18,14 @@ import { CognitoUser } from "@aws-amplify/auth";
 
 interface TotpProps {
   user: any;
+  showTitle?: boolean;
   setVerifType: (val: "SignUp" | "SignIn" | "VerifyTotp") => void;
   changeAuthState: (state: AuthState) => void;
 }
 
 export const TotpForm: React.FC<TotpProps> = ({
   user,
+  showTitle,
   setVerifType,
   changeAuthState,
 }) => {
@@ -54,9 +56,11 @@ export const TotpForm: React.FC<TotpProps> = ({
   return (
     <VStack width="75%" maxW="450px" minW="325px" spacing="25px">
       <VStack w="100%">
-        <Heading size={"md"} mb="5px">
-          Setup MFA
-        </Heading>
+        {showTitle && (
+          <Heading size={"md"} mb="5px">
+            Setup MFA
+          </Heading>
+        )}
         <Text>
           Scan the below bar code using your authenticator app of choice (e.g.
           Google Authenticator)

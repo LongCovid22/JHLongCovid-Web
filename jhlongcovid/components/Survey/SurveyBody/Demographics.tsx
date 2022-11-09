@@ -31,8 +31,6 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
   const [demos, setDemos] = useState({ zip: "", age: "", race: "", sex: "" });
 
   const handleAnswerChange = (key: string, value: string) => {
-    console.log("Setting demographics key: ", key);
-    console.log("Setting demographics value: ", value);
     let demosCopy = { ...demos };
     demosCopy[key as keyof typeof demosCopy] = value;
     setDemos(demosCopy);
@@ -96,9 +94,9 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
             handleAnswerChange("sex", event.target.value);
           }}
         >
-          <option></option>
-          <option>Male</option>
-          <option>Female</option>
+          <option value={""}></option>
+          <option value={"Male"}>Male</option>
+          <option value={"Female"}>Female</option>
         </Select>
       </FormControl>
       <FormControl>

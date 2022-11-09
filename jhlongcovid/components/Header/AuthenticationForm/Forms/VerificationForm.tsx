@@ -25,6 +25,7 @@ interface TotpProps {
   user: any;
   verifType: "SignUp" | "SignIn" | "VerifyTotp";
   userInfo?: UserInfo;
+  showTitle?: boolean;
   setQRString: (val: string) => void;
   setUser: (val: any) => void;
   changeAuthState: (state: AuthState) => void;
@@ -37,6 +38,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
   verifType,
   user,
   userInfo,
+  showTitle,
   setUser,
   changeAuthState,
   onVerify,
@@ -137,11 +139,13 @@ export const VerificationForm: React.FC<TotpProps> = ({
   return (
     <VStack width="75%" maxW="450px" minW="325px" spacing="25px">
       <VStack w="100%">
-        <Heading size={"md"} mb="5px">
-          {verifType === "SignIn" || verifType === "VerifyTotp"
-            ? "One-Time Passcode"
-            : "Verification code"}
-        </Heading>
+        {showTitle && (
+          <Heading size={"md"} mb="5px">
+            {verifType === "SignIn" || verifType === "VerifyTotp"
+              ? "One-Time Passcode"
+              : "Verification code"}
+          </Heading>
+        )}
         <FormControl isInvalid={codeIncorrect}>
           <FormLabel>
             {verifType === "SignIn" || verifType === "VerifyTotp"

@@ -16,6 +16,7 @@ import { Auth } from "aws-amplify";
 interface SignInFormProps {
   email: string;
   password: string;
+  showTitle?: boolean;
   setEmail: (val: string) => void;
   setPassword: (val: string) => void;
   setVerifType: (val: "SignUp" | "SignIn" | "VerifyTotp") => void;
@@ -26,6 +27,7 @@ interface SignInFormProps {
 export const SignInForm: React.FC<SignInFormProps> = ({
   email,
   password,
+  showTitle,
   setEmail,
   setPassword,
   setUser,
@@ -75,9 +77,11 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   return (
     <VStack width="75%" maxW="450px" minW="325px" spacing="25px">
       <VStack w="100%">
-        <Heading size={"md"} mb="5px">
-          Sign In
-        </Heading>
+        {showTitle && (
+          <Heading size={"md"} mb="5px">
+            Sign In
+          </Heading>
+        )}
         <FormControl>
           <FormLabel>Email</FormLabel>
           <Input
