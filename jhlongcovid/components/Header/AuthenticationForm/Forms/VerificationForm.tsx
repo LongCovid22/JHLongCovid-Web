@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AuthState } from "../AuthenticationForm";
 import {
   VStack,
@@ -8,16 +8,15 @@ import {
   HStack,
   Spacer,
   Button,
-  Text,
   Heading,
   FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
-import { API, Auth } from "aws-amplify";
-import { CognitoUser } from "@aws-amplify/auth";
+import { Auth } from "aws-amplify";
 import { setUser } from "../../../../redux/slices/userSlice";
 import { UserInfo } from "../../../Survey/SurveyWrapper";
-import * as mutations from "../../../../src/graphql/mutations";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { createUser, updateUser, verifyTotp } from "../AuthFormFunctions";
 
 interface TotpProps {
   email: string;
@@ -26,8 +25,9 @@ interface TotpProps {
   verifType: "SignUp" | "SignIn" | "VerifyTotp";
   userInfo?: UserInfo;
   showTitle?: boolean;
+  midSurvey: boolean;
   setQRString: (val: string) => void;
-  setUser: (val: any) => void;
+  setUserInfo: (val: any) => void;
   changeAuthState: (state: AuthState) => void;
   onVerify: () => void;
 }
@@ -39,59 +39,39 @@ export const VerificationForm: React.FC<TotpProps> = ({
   user,
   userInfo,
   showTitle,
-  setUser,
+  midSurvey,
+  setUserInfo,
   changeAuthState,
   onVerify,
 }) => {
   const [verifCode, setVerifCode] = useState("");
   const [codeIncorrect, setCodeIncorrect] = useState(false);
   const [codeErrorMessage, setCodeErrorMessage] = useState("");
+  const dispatch = useAppDispatch();
+
   const handleCodeSubmit = async () => {
     try {
       if (verifType === "SignUp") {
         // Confirm Sign up
-        const { user } = await Auth.confirmSignUp(email, verifCode);
+        await Auth.confirmSignUp(email, verifCode);
 
         // Sign in user immediately after sign up to start MFA setup
         const returnedUser = await Auth.signIn(email, password);
         if (returnedUser.challengeName === "MFA_SETUP") {
-          setUser(returnedUser);
+          setUserInfo(returnedUser);
           changeAuthState(AuthState.TotpSetup);
         }
 
         console.log("userInfo in sign up verification view: ", userInfo);
       } else if (verifType === "VerifyTotp") {
-        // Verify Totp token setup for next sign in
-        await Auth.verifyTotpToken(user, verifCode);
+        // Verify totp
+        await verifyTotp(user, verifCode);
 
-        // Set as preffered MFA method
-        await Auth.setPreferredMFA(user, "TOTP");
-
-        // Check for user info provided by the survey
-        let userDetails = {};
-        if (userInfo) {
-          userDetails = {
-            id: user.username,
-            email: email,
-            age: userInfo.age,
-            race: userInfo.race.toUpperCase(),
-            lastSignIn: new Date(),
-            sex: userInfo.sex,
-          };
-        } else {
-          userDetails = {
-            id: user.username,
-            email: email,
-            lastSignIn: new Date(),
-          };
+        // Create new user after totp code verified
+        const newUser = await createUser(user, email, midSurvey, userInfo);
+        if (newUser) {
+          dispatch(setUser(newUser));
         }
-
-        // CREATE USER within DynamoDB
-        await API.graphql({
-          query: mutations.createUser,
-          variables: { input: userDetails },
-          authMode: "AMAZON_COGNITO_USER_POOLS",
-        });
 
         // Perform finishing authform tasks on verify
         onVerify();
@@ -102,20 +82,14 @@ export const VerificationForm: React.FC<TotpProps> = ({
           verifCode,
           "SOFTWARE_TOKEN_MFA"
         );
-        const userUpdateDetails = {
-          id: returnedUser.username,
-          lastSignIn: new Date(),
-        };
 
-        // UPDATE USER
-        await API.graphql({
-          query: mutations.updateUser,
-          variables: { input: userUpdateDetails },
-          authMode: "AMAZON_COGNITO_USER_POOLS",
-        });
+        // Update user
+        const updatedUser = await updateUser(midSurvey, returnedUser);
+        if (updatedUser) {
+          dispatch(setUser(updatedUser));
+        }
 
-        // TODO: Dispatch initQuestions with new user
-        // TODO: Dispatch new user to userSlice in redux
+        // Perform finishing authform tasks on verify
         onVerify();
       }
     } catch (error) {
