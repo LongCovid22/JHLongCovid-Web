@@ -623,16 +623,34 @@ type CovidSummary {
   avgPositiveCasesPerPerson: AWSJSON
   percentSymptomatic: AWSJSON
   percentTookMedication: AWSJSON
+  
+  #TODO!
   # { med1: testAWSJSON, med2: testAWSJSON}
   medicationCounts: AWSJSON
   #From recovery result?
   percentRecovered: AWSJSON
 }
 
+#TODO!
 type SymptomSummary {
   mostCommonSymptom: AWSJSON
   #{}
   symptomCounts: AWSJSON
+}
+
+#TODO!
+type GeneralHealthSummary {
+  #tot score?
+  avgTotalScore: AWSJSON
+  #same idea of sympotoms
+  avgHealthCounts: AWSJSON
+}
+
+type SocialSummary {
+  percentHaveMedicalInsurance: AWSJSON
+  percentDifficultyCoveringExpenses: AWSJSON
+  averageWorkingSituation: AWSJSON
+  workingSituationCounts: AWSJSON
 }
 
 type VaccinationSummary {
@@ -650,19 +668,7 @@ type RecoverySummary {
   avgRecoveryLength: AWSJSON
 }
 
-type GeneralHealthSummary {
-  #tot score?
-  avgTotalScore: AWSJSON
-  #same idea of sympotoms
-  avgHealthCounts: AWSJSON
-}
 
-type SocialSummary {
-  percentHaveMedicalInsurance: AWSJSON
-  percentDifficultyCoveringExpenses: AWSJSON
-  averageWorkingSituation: AWSJSON
-  workingSituationCounts: AWSJSON
-}
 # -------------------------------
 # LAMBDA RESOLVERS
 
