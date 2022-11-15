@@ -80,6 +80,12 @@
       },
       "api": {
         "jhlongcovid": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d304vc3h5b8tce",
+          "type": "cicd"
+        }
       }
     }
   }

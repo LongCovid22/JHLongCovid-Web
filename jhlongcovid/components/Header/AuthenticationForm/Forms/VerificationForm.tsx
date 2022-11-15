@@ -18,6 +18,12 @@ import { CognitoUser } from "@aws-amplify/auth";
 import { setUser } from "../../../../redux/slices/userSlice";
 import { UserInfo } from "../../../Survey/SurveyWrapper";
 import * as mutations from "../../../../src/graphql/mutations";
+import { useAppDispatch } from "../../../../redux/hooks";
+import {
+  CreateUserMutation,
+  UpdateUserMutation,
+  User,
+} from "../../../../src/API";
 
 interface TotpProps {
   email: string;
@@ -26,8 +32,9 @@ interface TotpProps {
   verifType: "SignUp" | "SignIn" | "VerifyTotp";
   userInfo?: UserInfo;
   showTitle?: boolean;
+  midSurvey: boolean;
   setQRString: (val: string) => void;
-  setUser: (val: any) => void;
+  setUserInfo: (val: any) => void;
   changeAuthState: (state: AuthState) => void;
   onVerify: () => void;
 }
@@ -39,13 +46,16 @@ export const VerificationForm: React.FC<TotpProps> = ({
   user,
   userInfo,
   showTitle,
-  setUser,
+  midSurvey,
+  setUserInfo,
   changeAuthState,
   onVerify,
 }) => {
   const [verifCode, setVerifCode] = useState("");
   const [codeIncorrect, setCodeIncorrect] = useState(false);
   const [codeErrorMessage, setCodeErrorMessage] = useState("");
+  const dispatch = useAppDispatch();
+
   const handleCodeSubmit = async () => {
     try {
       if (verifType === "SignUp") {
@@ -55,7 +65,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
         // Sign in user immediately after sign up to start MFA setup
         const returnedUser = await Auth.signIn(email, password);
         if (returnedUser.challengeName === "MFA_SETUP") {
-          setUser(returnedUser);
+          setUserInfo(returnedUser);
           changeAuthState(AuthState.TotpSetup);
         }
 
@@ -77,21 +87,27 @@ export const VerificationForm: React.FC<TotpProps> = ({
             race: userInfo.race.toUpperCase(),
             lastSignIn: new Date(),
             sex: userInfo.sex,
+            lastSubmission: midSurvey ? new Date() : null,
           };
         } else {
           userDetails = {
             id: user.username,
             email: email,
             lastSignIn: new Date(),
+            lastSubmission: midSurvey ? new Date() : null,
           };
         }
 
         // CREATE USER within DynamoDB
-        await API.graphql({
+        const newUser = (await API.graphql({
           query: mutations.createUser,
           variables: { input: userDetails },
           authMode: "AMAZON_COGNITO_USER_POOLS",
-        });
+        })) as { data: CreateUserMutation; errors: any[] };
+
+        if (newUser.data.createUser) {
+          dispatch(setUser(newUser.data.createUser as User));
+        }
 
         // Perform finishing authform tasks on verify
         onVerify();
@@ -105,17 +121,22 @@ export const VerificationForm: React.FC<TotpProps> = ({
         const userUpdateDetails = {
           id: returnedUser.username,
           lastSignIn: new Date(),
+          lastSubmission: midSurvey ? new Date() : null,
         };
 
         // UPDATE USER
-        await API.graphql({
+        const updatedUser = (await API.graphql({
           query: mutations.updateUser,
           variables: { input: userUpdateDetails },
           authMode: "AMAZON_COGNITO_USER_POOLS",
-        });
+        })) as { data: UpdateUserMutation; errors: any[] };
+        // console.log("Updated user query: ", updatedUser);
+        // // TODO: Dispatch initQuestions with new user
+        // // TODO: Dispatch new user to userSlice in redux
+        if (updatedUser.data.updateUser) {
+          dispatch(setUser(updatedUser.data.updateUser as User));
+        }
 
-        // TODO: Dispatch initQuestions with new user
-        // TODO: Dispatch new user to userSlice in redux
         onVerify();
       }
     } catch (error) {

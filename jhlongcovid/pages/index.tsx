@@ -22,7 +22,7 @@ import { initQuestions } from "../redux/slices/surveySlice";
 import awsconfig from "../src/aws-exports";
 import { GetUserQuery, User } from "../src/API";
 import * as queries from "../src/graphql/queries";
-import { resetUser, setUser } from "../redux/slices/userSlice";
+import { resetUser, selectUser, setUser } from "../redux/slices/userSlice";
 
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
@@ -48,6 +48,7 @@ const Home = () => {
   const latHigh = useAppSelector(selectHighLat);
   const longLow = useAppSelector(selectLoLong);
   const longHigh = useAppSelector(selectHighLong);
+  const user = useAppSelector(selectUser);
 
   const totalLongCovidCases = sumUpCases(state_data);
   const toggleAggregateDataOnZoom = () => {
@@ -73,7 +74,6 @@ const Home = () => {
   };
 
   const listenToAuthEvents = async (data: any) => {
-    console.log("HUB EVENT: ", data);
     switch (data.payload.event) {
       case "signIn":
         try {
@@ -110,6 +110,14 @@ const Home = () => {
       })
     );
   };
+
+  useEffect(() => {
+    if (user) {
+      dispatch(initQuestions({ authId: user.id }));
+    } else {
+      dispatch(initQuestions({ authId: null }));
+    }
+  }, [user]);
 
   // Memoize map to only re-render when data changes
   const MapMemo = useMemo(() => {

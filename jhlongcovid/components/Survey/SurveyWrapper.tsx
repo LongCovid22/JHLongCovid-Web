@@ -38,6 +38,8 @@ import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
 import { PreSurvey } from "./SurveyBody/PreSurvey";
 import { selectUser } from "../../redux/slices/userSlice";
+import * as mutations from "../../src/graphql/mutations";
+import { API } from "aws-amplify";
 
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
@@ -172,6 +174,32 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           return;
         }
 
+        if (currentQuestion.answerFormat === "account" && user) {
+          // Update user with new info
+          let userDetails = {};
+          if (userInfo) {
+            userDetails = {
+              id: user.id,
+              age: userInfo.age,
+              race: userInfo.race.toUpperCase(),
+              sex: userInfo.sex,
+              lastSubmission: new Date(),
+            };
+
+            try {
+              API.graphql({
+                query: mutations.updateUser,
+                variables: { input: userDetails },
+                authMode: "AMAZON_COGNITO_USER_POOLS",
+              });
+            } catch (error) {
+              console.log("Error: ", error);
+            }
+          }
+          dispatch(nextQuestion({ answer: answer }));
+          return;
+        }
+
         if (currentQuestion.answerFormat === "thankYou") {
           // Finish the survey
           onClose();
@@ -247,19 +275,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           setUserInfo(userInfoUpdate);
         }
 
-        // try {
-        //   if (currentQuestion.answerFormat === "account") {
-        //     await signUp(userInfoUpdate);
-        //   } else if (currentQuestion.answerFormat === "mfa") {
-        //     await confirmSignUp(userInfoUpdate, answer as string);
-        //   }
-        // } catch (error) {
-        //   const e = error as { __type: string; message: string };
-        //   setErrorPresent(true);
-        //   setErrorText(e.message);
-        //   return;
-        // }
-
         dispatch(nextQuestion({ answer: answer }));
       }
     } else if (direction === "skip") {
@@ -272,6 +287,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
   // Mark final section
   useEffect(() => {
+    if (currentQuestion.answerFormat === "account" && user) {
+      handleQuestionChange("next");
+    }
     setIsFinalSection(
       currentQuestion.answerFormat === "mfa" ||
         currentQuestion.answerFormat === "thankYou" ||
@@ -287,16 +305,16 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     setAnswer(currentAnswer);
   }, [currentAnswer, currentQuestion]);
 
-  // useEffect(() => {
-  //   // If a user is already signed in do not display the pre survey
-  //   // login screen. Instead create the survey depending on whether they
-  //   // are DAILY, WEEKLY, or MONTHLY
-  //   if (user !== undefined) {
-  //     setPreSurvey(false);
-  //   } else {
-  //     setPreSurvey(true);
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    // If a user is already signed in do not display the pre survey
+    // login screen. Instead create the survey depending on whether they
+    // are DAILY, WEEKLY, or MONTHLY
+    if (user !== undefined) {
+      setPreSurvey(false);
+    } else {
+      setPreSurvey(true);
+    }
+  }, [user]);
 
   return (
     <ModalContent

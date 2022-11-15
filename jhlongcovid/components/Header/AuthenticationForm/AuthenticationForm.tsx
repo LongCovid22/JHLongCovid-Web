@@ -91,9 +91,10 @@ export const AuthenticationForm: React.FC<{
             password={password}
             user={user}
             verifType={verifType}
+            midSurvey={midSurvey}
             userInfo={userInfo}
             onVerify={onVerify}
-            setUser={setUser}
+            setUserInfo={setUser}
             setQRString={setQRString}
             changeAuthState={setAuthState}
           />
