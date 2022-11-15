@@ -19,7 +19,15 @@ type MapData
     ]
   ) {
   id: ID!
-  level: String! @primaryKey(sortKeyFields: ["lat", "long"]) # represents location level e.g. "state" | "county"
+  level: String!
+    @primaryKey(sortKeyFields: ["lat", "long"])
+    @index(
+      name: "byLevelAndNameAndState"
+      sortKeyFields: ["name", "stateAbbrev"]
+      queryField: "mapDataByLevelNameState"
+    ) # represents location level e.g. "state" | "county"
+
+    @index(name: "byState", sortKeyFields: ["stateAbbrev"], queryField : "mapDataByStateAbbrev")
   name: String!
   stateAbbrev: String!
   lat: Float!

@@ -12947,8 +12947,8 @@ const getData = function () {
     latLong[0] = lat.slice(0, -1);
     if (latLong.length == 2) {
       let obj = {
-        lat: latLong[0],
-        long: latLong[1],
+        lat: parseFloat(latLong[0]),
+        long: parseFloat(latLong[1]),
       };
 
       finalCoords.push(obj);
@@ -12967,8 +12967,58 @@ const getData = function () {
     finalCoords[i].stateName = stateName[i];
     finalCoords[i].level = "county";
   }
-  return finalCoords;
+
+  let dict = {}
+
+  for(const coord of finalCoords) {
+    if (!(coord.stateAbbrev in dict)) {
+        dict[coord.stateAbbrev] = {
+            lat : parseFloat(coord.lat),
+            long : parseFloat(coord.long),
+            name : coord.stateName,
+            stateAbbrev : coord.stateAbbrev,
+            level : "state",
+            num : 1
+        }
+    } else {
+        dict[coord.stateAbbrev].num += 1
+        dict[coord.stateAbbrev].lat += parseFloat(coord.lat)
+        dict[coord.stateAbbrev].long += parseFloat(coord.long)
+    }
+  }
+
+  for (const coord in dict) {
+    dict[coord].lat = dict[coord].lat / dict[coord].num
+    dict[coord].long = dict[coord].long / dict[coord].num
+  }
+
+  let result = [];
+  finalCoords.forEach((coord) => {
+    let obj = {
+        lat: coord.lat,
+        long: coord.long,
+        name: coord.county,
+        stateAbbrev: coord.stateAbbrev,
+        level : "county"
+    };
+
+    result.push(obj);
+  })
+
+  for (const state in dict) {
+    let obj = {
+        lat : dict[state].lat,
+        long: dict[state].long,
+        name : dict[state].name,
+        stateAbbrev: dict[state].stateAbbrev,
+        level : 'state'
+    }
+    result.push(obj);
+}
+  return result;
 };
+getData();
+// console.log(getData());
 
 module.exports = {
     getData

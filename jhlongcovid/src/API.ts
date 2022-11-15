@@ -1027,6 +1027,31 @@ export type ModelMapDataConnection = {
   nextToken?: string | null,
 };
 
+export type ModelMapDataByLevelAndNameAndStateCompositeKeyConditionInput = {
+  eq?: ModelMapDataByLevelAndNameAndStateCompositeKeyInput | null,
+  le?: ModelMapDataByLevelAndNameAndStateCompositeKeyInput | null,
+  lt?: ModelMapDataByLevelAndNameAndStateCompositeKeyInput | null,
+  ge?: ModelMapDataByLevelAndNameAndStateCompositeKeyInput | null,
+  gt?: ModelMapDataByLevelAndNameAndStateCompositeKeyInput | null,
+  between?: Array< ModelMapDataByLevelAndNameAndStateCompositeKeyInput | null > | null,
+  beginsWith?: ModelMapDataByLevelAndNameAndStateCompositeKeyInput | null,
+};
+
+export type ModelMapDataByLevelAndNameAndStateCompositeKeyInput = {
+  name?: string | null,
+  stateAbbrev?: string | null,
+};
+
+export type ModelStringKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+};
+
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   email?: ModelStringInput | null,
@@ -1047,16 +1072,6 @@ export type ModelUserConnection = {
   __typename: "ModelUserConnection",
   items:  Array<User | null >,
   nextToken?: string | null,
-};
-
-export type ModelStringKeyConditionInput = {
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
 };
 
 export type ModelSurveyEntryFilterInput = {
@@ -11036,6 +11051,146 @@ export type ListMapDataQueryVariables = {
 
 export type ListMapDataQuery = {
   listMapData?:  {
+    __typename: "ModelMapDataConnection",
+    items:  Array< {
+      __typename: "MapData",
+      id: string,
+      level: string,
+      name: string,
+      stateAbbrev: string,
+      lat: number,
+      long: number,
+      covidSummary:  {
+        __typename: "CovidSummary",
+        covidCount?: string | null,
+        percentHospitalizedDueToCovid?: string | null,
+        avgPositiveCasesPerPerson?: string | null,
+        percentSymptomatic?: string | null,
+        percentTookMedication?: string | null,
+        medicationCounts?: string | null,
+        percentRecovered?: string | null,
+      },
+      symptomSummary:  {
+        __typename: "SymptomSummary",
+        mostCommonSymptom?: string | null,
+        symptomCounts?: string | null,
+      },
+      vaccinationSummary:  {
+        __typename: "VaccinationSummary",
+        percentVaccinated?: string | null,
+        avgNumOfVaccPerPerson?: string | null,
+        pfizerCount?: string | null,
+        modernaCount?: string | null,
+        jjCount?: string | null,
+        azCount?: string | null,
+      },
+      generealHealthSummary:  {
+        __typename: "GeneralHealthSummary",
+        avgTotalScore?: string | null,
+        avgHealthCounts?: string | null,
+      },
+      recoverySummary:  {
+        __typename: "RecoverySummary",
+        longCovidCount?: string | null,
+        percentLongCovid?: string | null,
+        avgRecoveryLength?: string | null,
+      },
+      socialSummary:  {
+        __typename: "SocialSummary",
+        percentHaveMedicalInsurance?: string | null,
+        percentDifficultyCoveringExpenses?: string | null,
+        averageWorkingSituation?: string | null,
+        workingSituationCounts?: string | null,
+      },
+      totalFullEntries: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type MapDataByLevelNameStateQueryVariables = {
+  level: string,
+  nameStateAbbrev?: ModelMapDataByLevelAndNameAndStateCompositeKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelMapDataFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type MapDataByLevelNameStateQuery = {
+  mapDataByLevelNameState?:  {
+    __typename: "ModelMapDataConnection",
+    items:  Array< {
+      __typename: "MapData",
+      id: string,
+      level: string,
+      name: string,
+      stateAbbrev: string,
+      lat: number,
+      long: number,
+      covidSummary:  {
+        __typename: "CovidSummary",
+        covidCount?: string | null,
+        percentHospitalizedDueToCovid?: string | null,
+        avgPositiveCasesPerPerson?: string | null,
+        percentSymptomatic?: string | null,
+        percentTookMedication?: string | null,
+        medicationCounts?: string | null,
+        percentRecovered?: string | null,
+      },
+      symptomSummary:  {
+        __typename: "SymptomSummary",
+        mostCommonSymptom?: string | null,
+        symptomCounts?: string | null,
+      },
+      vaccinationSummary:  {
+        __typename: "VaccinationSummary",
+        percentVaccinated?: string | null,
+        avgNumOfVaccPerPerson?: string | null,
+        pfizerCount?: string | null,
+        modernaCount?: string | null,
+        jjCount?: string | null,
+        azCount?: string | null,
+      },
+      generealHealthSummary:  {
+        __typename: "GeneralHealthSummary",
+        avgTotalScore?: string | null,
+        avgHealthCounts?: string | null,
+      },
+      recoverySummary:  {
+        __typename: "RecoverySummary",
+        longCovidCount?: string | null,
+        percentLongCovid?: string | null,
+        avgRecoveryLength?: string | null,
+      },
+      socialSummary:  {
+        __typename: "SocialSummary",
+        percentHaveMedicalInsurance?: string | null,
+        percentDifficultyCoveringExpenses?: string | null,
+        averageWorkingSituation?: string | null,
+        workingSituationCounts?: string | null,
+      },
+      totalFullEntries: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type MapDataByStateAbbrevQueryVariables = {
+  level: string,
+  stateAbbrev?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelMapDataFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type MapDataByStateAbbrevQuery = {
+  mapDataByStateAbbrev?:  {
     __typename: "ModelMapDataConnection",
     items:  Array< {
       __typename: "MapData",
