@@ -149,7 +149,6 @@ let variables = {
 };
 
 const makeRequest = async (query, variables) => {
-
   const endpoint = new URL(GRAPHQL_ENDPOINT);
   const signer = new SignatureV4({
     credentials: credentials,
@@ -165,7 +164,10 @@ const makeRequest = async (query, variables) => {
       host: endpoint.host,
     },
     hostname: endpoint.host,
-    body: (variables != null) ? JSON.stringify({ query, variables }) : JSON.stringify({ query }),
+    body:
+      variables != null
+        ? JSON.stringify({ query, variables })
+        : JSON.stringify({ query }),
     path: endpoint.pathname,
   });
 
@@ -186,7 +188,7 @@ const getMapData = async () => {
       }
     }
   }
-  `
+  `;
   let request = await makeRequest(listMapDataQuery);
 
   try {
@@ -196,7 +198,7 @@ const getMapData = async () => {
     console.log(error.message);
     return "error";
   }
-}
+};
 
 const deleteMapData = async (level, lat, long) => {
   const deleteQuery = `
@@ -207,7 +209,7 @@ const deleteMapData = async (level, lat, long) => {
   }
   `;
   const deleteVariables = {
-    input: {level, lat, long},
+    input: { level, lat, long },
   };
 
   let request = await makeRequest(deleteQuery, deleteVariables);
@@ -223,21 +225,20 @@ const deleteMapData = async (level, lat, long) => {
 const deleteAllMapData = async () => {
   let load = await getMapData();
 
-  while(load.data.listMapData.items.length > 0) {
+  while (load.data.listMapData.items.length > 0) {
     for (const mapData of load.data.listMapData.items) {
       await deleteMapData(mapData.level, mapData.lat, mapData.long);
     }
 
     load = await getMapData();
   }
-}
+};
 
 const getID = async (level, name, stateAbbrev) => {
-
   let query = null;
 
-  if (level === 'county') {
-    query =  `
+  if (level === "county") {
+    query = `
     query MyQuery {
       mapDataByLevelNameState(
         level: "${level}"
@@ -256,15 +257,19 @@ const getID = async (level, name, stateAbbrev) => {
             medicationCounts
             percentRecovered
           }
+          recoverySummary {
+            longCovidCount
+            percentLongCovid
+            avgRecoveryLength
+          }
           totalFullEntries
         }
 
       }
     }
-    `
-  } else if (level === 'state') {
-   query =
-  `
+    `;
+  } else if (level === "state") {
+    query = `
   query MyQuery {
     mapDataByStateAbbrev(level: "state", filter: {name: {eq: "${name}"}}) {
       items {
@@ -280,37 +285,37 @@ const getID = async (level, name, stateAbbrev) => {
           medicationCounts
           percentRecovered
         }
+        recoverySummary {
+          longCovidCount
+          percentLongCovid
+          avgRecoveryLength
+        }
         totalFullEntries
       }
     }
   }
   `;
   }
-  ;
-
-
   let request = await makeRequest(query);
 
   try {
     let response = await fetch(request);
     let load = await response.json();
-    if(level === "county") {
-      return load.data.mapDataByLevelNameState.items
+    if (level === "county") {
+      return load.data.mapDataByLevelNameState.items;
     } else if (level === "state") {
       // return load.data.mapDataByStateAbbrev.items
-      return load.data.mapDataByStateAbbrev.items
+      return load.data.mapDataByStateAbbrev.items;
     }
-    
   } catch (error) {
     console.log(error.message);
     return "error";
   }
-}
-
+};
 
 const populate = async () => {
   await deleteAllMapData();
-   for (const county of data.getData()) {
+  for (const county of data.getData()) {
     variables.input.level = county.level;
     variables.input.name = county.name;
     variables.input.stateAbbrev = county.stateAbbrev;
@@ -359,49 +364,63 @@ const populate = async () => {
         ],
       };
     }
-
   }
-}
+};
 
 const testGetByID = async () => {
   console.log(await getID("county", "Webster", "NE"));
   console.log(await getID("state", "Florida", null));
-}
+};
 
 const getStateAndCountyInfo = async (eventInput) => {
-  const { county, state} = eventInput;
+  const { county, state } = eventInput;
 
   const stateInfo = await getID("state", state, null);
   // console.log(stateInfo[0]);
 
   const countyInfo = await getID("county", county, stateInfo[0].stateAbbrev);
-  
+
   return {
-    county : countyInfo[0],
-    state: stateInfo[0]
-  }
+    county: countyInfo[0],
+    state: stateInfo[0],
+  };
+};
+
+const isObject = (variable) => {
+  //https://bobbyhadz.com/blog/javascript-check-if-value-is-object
+  return typeof variable === 'object' &&
+  variable !== null &&
+  !Array.isArray(variable)
 }
 
 const parse = (object) => {
   for (let property in object) {
-    object[property] = JSON.parse(object[property])
+    if (isObject(object[property])) {
+      for (prop in object[property]) {
+        object[property][prop] = JSON.parse(object[property][prop]);
+      }
+    }
   }
-}
+};
 
 const stringify = (object) => {
   for (let property in object) {
-    object[property] = JSON.stringify(object[property])
+    if (isObject(object[property])) {
+      for (prop in object[property]) {
+        object[property][prop] = JSON.stringify(object[property][prop]);
+      }
+    }
   }
 }
 
 const findMatchingIndex = (element, array) => {
-  for(let i = 0; i < array.length; i++) {
-    if(array[i] === element) {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === element) {
       return i;
     }
   }
   return -1;
-}
+};
 
 const findHardCodedAgeRangeIndex = (age) => {
   if (age <= 13) {
@@ -413,28 +432,111 @@ const findHardCodedAgeRangeIndex = (age) => {
   } else {
     return 3;
   }
+};
+
+const aggregatePercentageCustomBasedOnCondition = (raceIndex, ageIndex, sexIndex, total, property, condition, customAdd) => {
+  let addOne = condition ? customAdd : 0;
+  property.race.values[raceIndex] = parseFloat((property.race.values[raceIndex] * total + addOne) / (total + 1));
+  property.age.values[ageIndex] = parseFloat((property.age.values[ageIndex] * total + addOne) / (total + 1));
+  property.sex.values[sexIndex] = parseFloat((property.age.values[sexIndex] * total + addOne) / (total + 1));
 }
- 
+
+
 const updateCovidSummary = async (eventInput) => {
-  let { age, race, sex} = eventInput;
-  let { county, state } =  await getStateAndCountyInfo(eventInput);
+  let { age, race, sex, covidResults, recoveryResults } = eventInput;
+  let { county, state } = await getStateAndCountyInfo(eventInput);
   age = parseInt(age);
-  parse(county.covidSummary);
-  parse(state.covidSummary);
+  parse(county);
+  parse(state);
+
+
+  let raceIndex = findMatchingIndex(
+    race,
+    county.covidSummary.covidCount.race.ranges
+  );
+  let ageIndex = findHardCodedAgeRangeIndex(age);
+  let sexIndex = findMatchingIndex(
+    sex,
+    county.covidSummary.covidCount.sex.ranges
+  );
+
+  if (covidResults.timesPositive > 0) {
+    county.covidSummary.covidCount.race.values[raceIndex] += 1;
+    county.covidSummary.covidCount.age.values[ageIndex] += 1;
+    county.covidSummary.covidCount.sex.values[sexIndex] += 1;
+  }
+
+  let {percentSymptomatic, percentTookMedication, percentRecovered, percentHospitalizedDueToCovid, avgPositiveCasesPerPerson} = county.covidSummary;
+
+  // Formula for percentHospitalizedDueToCovid
+  // if(covidResults.hospitalized) {
+  //   newPercent = ((oldPercent * county.totalFullEntries) + 1) / (county.totalFullEntries + 1)
+  // } else {
+  //   newPercent = (oldPercent * county.totalFullEntries) / (county.totalFullEntries + 1)
+  // }
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentHospitalizedDueToCovid, covidResults.hospitalized, 1);
+  //averagePositiveCasesPerPerson Formula :
+  //new = (old * county.totalFullEntries) + timesPositive / (county.totalFullEntries + 1)
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, avgPositiveCasesPerPerson, true, covidResults.timesPositive)
+  // let average = county.covidSummary.avgPositiveCasesPerPerson;
+  // average.race.values[raceIndex] = parseFloat((average.race.values[raceIndex] * county.totalFullEntries + covidResults.timesPositive) / (county.totalFullEntries + 1));
+  // average.age.values[ageIndex] = parseFloat((average.age.values[ageIndex] * county.totalFullEntries + covidResults.timesPositive) / (county.totalFullEntries + 1));
+  // average.sex.values[sexIndex] = parseFloat((average.sex.values[sexIndex] * county.totalFullEntries + covidResults.timesPositive) / (county.totalFullEntries + 1));
+  //percentSymptomaticFormula :
+  // new =(old * county.totalFullEntries) + ((covidResults.symptomatic) ? 1 : 0) / (county.totalFullEntries + 1)
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentSymptomatic, covidResults.symptomatic, 1);
+  //percentTookMedicationFormula :
+  // new =(old * county.totalFullEntries) + ((covidResults.MedicationsTaken.length > 0) ? 1 : 0) / (county.totalFullEntries + 1)
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentTookMedication, covidResults.MedicationsTaken.length > 0, 1);
+  //percentRecoveredFormula :
+  // new =(old * county.totalFullEntries) + ((covidResults.symptomatic) ? 1 : 0) / (county.totalFullEntries + 1)
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentRecovered, recoveryResults.recovered === "Yes", 1);
+
+  if (covidResults.timesPositive > 0) {
+    state.covidSummary.covidCount.race.values[raceIndex] += 1;
+    state.covidSummary.covidCount.age.values[ageIndex] += 1;
+    state.covidSummary.covidCount.sex.values[sexIndex] += 1;
+  }
+
+  ({percentSymptomatic, percentTookMedication, percentRecovered, percentHospitalizedDueToCovid, avgPositiveCasesPerPerson} = state.covidSummary);
+
+  // Formula for percentHospitalizedDueToCovid
+  // if(covidResults.hospitalized) {
+  //   newPercent = ((oldPercent * county.totalFullEntries) + 1) / (county.totalFullEntries + 1)
+  // } else {
+  //   newPercent = (oldPercent * county.totalFullEntries) / (county.totalFullEntries + 1)
+  // }
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentHospitalizedDueToCovid, covidResults.hospitalized, 1);
+  //averagePositiveCasesPerPerson Formula :
+  //new = (old * county.totalFullEntries) + timesPositive / (county.totalFullEntries + 1)
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, avgPositiveCasesPerPerson, true, covidResults.timesPositive)
+  // let average = county.covidSummary.avgPositiveCasesPerPerson;
+  // average.race.values[raceIndex] = parseFloat((average.race.values[raceIndex] * county.totalFullEntries + covidResults.timesPositive) / (county.totalFullEntries + 1));
+  // average.age.values[ageIndex] = parseFloat((average.age.values[ageIndex] * county.totalFullEntries + covidResults.timesPositive) / (county.totalFullEntries + 1));
+  // average.sex.values[sexIndex] = parseFloat((average.sex.values[sexIndex] * county.totalFullEntries + covidResults.timesPositive) / (county.totalFullEntries + 1));
+  //percentSymptomaticFormula :
+  // new =(old * county.totalFullEntries) + ((covidResults.symptomatic) ? 1 : 0) / (county.totalFullEntries + 1)
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentSymptomatic, covidResults.symptomatic, 1);
+  //percentTookMedicationFormula :
+  // new =(old * county.totalFullEntries) + ((covidResults.MedicationsTaken.length > 0) ? 1 : 0) / (county.totalFullEntries + 1)
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentTookMedication, covidResults.MedicationsTaken.length > 0, 1);
+  //percentRecoveredFormula :
+  // new =(old * county.totalFullEntries) + ((covidResults.symptomatic) ? 1 : 0) / (county.totalFullEntries + 1)
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentRecovered, recoveryResults.recovered === "Yes", 1);
+  
+  
+  //TODO : update medicationCounts
+
+  //Upload "county" and "state" 
   county.totalFullEntries += 1;
   state.totalFullEntries += 1;
-  console.log(findMatchingIndex(race, county.covidSummary.covidCount.race.ranges));
-  console.log(findHardCodedAgeRangeIndex(age));
-  console.log(findMatchingIndex(sex, county.covidSummary.covidCount.sex.ranges));
 
-
-  stringify(county.covidSummary);
-  stringify(state.covidSummary);
+  stringify(county);
+  stringify(state);
 
   console.log(county);
   console.log(state);
-}
-
+};
 
 
 /**
@@ -460,6 +562,4 @@ exports.handler = async (event) => {
   //aggregate information for county data, and update!
 
   //agregate information for state data, and update!
-
- 
 };

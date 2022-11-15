@@ -15,7 +15,7 @@
         "lastPositive": "12/23/22",
         "tested": true,
         "testMethod": "Sample test method",
-        "hospitalized": 1,
+        "hospitalized": true,
         "symptomatic": true,
         "symptomsPreventScale": "Sample prevent",
         "MedicationsTaken": ["Antiviral", "Monoclonal antibodies"]
@@ -27,7 +27,7 @@
         "dateOfLastVaccine": "12/01/22"
       },
       "recoveryResults": {
-        "recovered": "Sample answer",
+        "recovered": "No",
         "lengthOfRecovery": {
           "months": 1,
           "days": 2
