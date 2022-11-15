@@ -40,6 +40,7 @@ import { PreSurvey } from "./SurveyBody/PreSurvey";
 import { selectUser } from "../../redux/slices/userSlice";
 import * as mutations from "../../src/graphql/mutations";
 import { API } from "aws-amplify";
+import { checkEmptyDemoFields } from "./SurveyFunctions";
 
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
@@ -169,8 +170,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         // the guest survey
         if (preSurvey) {
           setPreSurvey(false);
-          // dispatch the creation of the survey so that current question
-          // kicks off state change
           return;
         }
 
@@ -207,27 +206,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         }
 
         if (currentQuestion.answerFormat === "demographics") {
-          let emptyFields = [];
           if (answer !== null) {
-            let demographics = answer as {
-              zip: string;
-              age: string;
-              race: string;
-              sex: string;
-            };
-            if (demographics.zip === "") {
-              emptyFields.push("zip code");
-            }
-            if (demographics.age === "") {
-              emptyFields.push("age");
-            }
-            if (demographics.race === "") {
-              emptyFields.push("race");
-            }
-            if (demographics.sex === "") {
-              emptyFields.push("sex");
-            }
-
+            const emptyFields = checkEmptyDemoFields(answer);
             if (emptyFields.length > 0) {
               setErrorText(`Please provide ${emptyFields.join(", ")}`);
               setMissingAnswer(true);
@@ -252,9 +232,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       }
 
       if (!errorPresent && direction === "next") {
-        // perform action on next button
-        // TODO: abstract out in to different function
-
+        // Perform action on next button
         // Update user info depending on the page
         const userInfoUpdate = { ...userInfo };
 
