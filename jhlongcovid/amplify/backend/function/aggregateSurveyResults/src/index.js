@@ -15,6 +15,7 @@ const { default: fetch, Request } = require("node-fetch");
 const GRAPHQL_ENDPOINT = process.env.API_JHLONGCOVID_GRAPHQLAPIENDPOINTOUTPUT;
 
 const data = require("../../../../../rawMockData");
+const { ConsoleLogger } = require("@aws-amplify/core");
 
 // const GRAPHQL_ENDPOINT = 'http://localhost:20002/graphql';
 const AWS_REGION = process.env.AWS_REGION || "us-east-1";
@@ -442,23 +443,53 @@ const aggregatePercentageCustomBasedOnCondition = (raceIndex, ageIndex, sexIndex
 }
 
 
-const updateCovidSummary = async (eventInput) => {
-  let { age, race, sex, covidResults, recoveryResults } = eventInput;
+
+const aggregateSurveyResults = async (eventInput) => {
   let { county, state } = await getStateAndCountyInfo(eventInput);
-  age = parseInt(age);
+
+  eventInput.age = parseInt(eventInput.age);
   parse(county);
   parse(state);
 
-
   let raceIndex = findMatchingIndex(
-    race,
+    eventInput.race,
     county.covidSummary.covidCount.race.ranges
   );
-  let ageIndex = findHardCodedAgeRangeIndex(age);
+  let ageIndex = findHardCodedAgeRangeIndex(eventInput.age);
   let sexIndex = findMatchingIndex(
-    sex,
+    eventInput.sex,
     county.covidSummary.covidCount.sex.ranges
   );
+
+  console.log(raceIndex);
+  console.log(ageIndex);
+  console.log(sexIndex);
+
+
+  updateCovidSummary(eventInput, county, state, {raceIndex, ageIndex, sexIndex});
+
+
+  //Upload "county" and "state" 
+  incrementTotalFullEntries(county, state);
+  
+
+  stringify(county);
+  stringify(state);
+
+  console.log(county);
+  console.log(state);
+}
+
+const incrementTotalFullEntries = (county, state) => {
+  county.totalFullEntries += 1;
+  state.totalFullEntries += 1;
+}
+
+
+const updateCovidSummary = (eventInput, county, state, indexes) => {
+  let { covidResults, recoveryResults } = eventInput;
+  let {raceIndex, ageIndex, sexIndex} = indexes;
+  let {percentSymptomatic, percentTookMedication, percentRecovered, percentHospitalizedDueToCovid, avgPositiveCasesPerPerson} = county.covidSummary;
 
   if (covidResults.timesPositive > 0) {
     county.covidSummary.covidCount.race.values[raceIndex] += 1;
@@ -466,7 +497,6 @@ const updateCovidSummary = async (eventInput) => {
     county.covidSummary.covidCount.sex.values[sexIndex] += 1;
   }
 
-  let {percentSymptomatic, percentTookMedication, percentRecovered, percentHospitalizedDueToCovid, avgPositiveCasesPerPerson} = county.covidSummary;
 
   // Formula for percentHospitalizedDueToCovid
   // if(covidResults.hospitalized) {
@@ -527,15 +557,7 @@ const updateCovidSummary = async (eventInput) => {
   
   //TODO : update medicationCounts
 
-  //Upload "county" and "state" 
-  county.totalFullEntries += 1;
-  state.totalFullEntries += 1;
-
-  stringify(county);
-  stringify(state);
-
-  console.log(county);
-  console.log(state);
+  
 };
 
 
@@ -545,21 +567,10 @@ const updateCovidSummary = async (eventInput) => {
 exports.handler = async (event) => {
   // await updateCovidSummary();
 
-  // let statusCode = 200;
-  // return {
-  //   statusCode,
-  //   // body: JSON.stringify(body),
-  // };
   let input = event.arguments.surveyResults;
-  await updateCovidSummary(input);
+  await aggregateSurveyResults(input);
 
-  //get id of associated county
-  //get id of associated state
 
   // await testGetByID();
   // await populate();
-
-  //aggregate information for county data, and update!
-
-  //agregate information for state data, and update!
 };
