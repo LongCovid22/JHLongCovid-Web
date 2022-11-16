@@ -74,7 +74,17 @@ export const getMapData = /* GraphQL */ `
         percentHaveMedicalInsurance
         percentDifficultyCoveringExpenses
         averageWorkingSituation
-        workingSituationCounts
+        workingSituationCounts {
+          workingOutsideTheHome
+          onLeaveFromAJobWorkingOutsideHome
+          workingInsideHome
+          lookingForWorkUnemployed
+          retired
+          disabled
+          student
+          dontKnow
+          preferNotToAnswer
+        }
       }
       totalFullEntries
       createdAt
@@ -140,7 +150,17 @@ export const listMapData = /* GraphQL */ `
           percentHaveMedicalInsurance
           percentDifficultyCoveringExpenses
           averageWorkingSituation
-          workingSituationCounts
+          workingSituationCounts {
+            workingOutsideTheHome
+            onLeaveFromAJobWorkingOutsideHome
+            workingInsideHome
+            lookingForWorkUnemployed
+            retired
+            disabled
+            student
+            dontKnow
+            preferNotToAnswer
+          }
         }
         totalFullEntries
         createdAt
@@ -208,7 +228,17 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           percentHaveMedicalInsurance
           percentDifficultyCoveringExpenses
           averageWorkingSituation
-          workingSituationCounts
+          workingSituationCounts {
+            workingOutsideTheHome
+            onLeaveFromAJobWorkingOutsideHome
+            workingInsideHome
+            lookingForWorkUnemployed
+            retired
+            disabled
+            student
+            dontKnow
+            preferNotToAnswer
+          }
         }
         totalFullEntries
         createdAt
@@ -276,7 +306,17 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           percentHaveMedicalInsurance
           percentDifficultyCoveringExpenses
           averageWorkingSituation
-          workingSituationCounts
+          workingSituationCounts {
+            workingOutsideTheHome
+            onLeaveFromAJobWorkingOutsideHome
+            workingInsideHome
+            lookingForWorkUnemployed
+            retired
+            disabled
+            student
+            dontKnow
+            preferNotToAnswer
+          }
         }
         totalFullEntries
         createdAt

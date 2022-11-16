@@ -470,75 +470,6 @@ const aggregatePercentageCustomBasedOnCondition = (raceIndex, ageIndex, sexIndex
   property.sex.values[sexIndex] = parseFloat((property.age.values[sexIndex] * total + addOne) / (total + 1));
 }
 
-
-
-const aggregateSurveyResults = async (eventInput) => {
-  let { county, state } = await getStateAndCountyInfo(eventInput);
-
-  eventInput.age = parseInt(eventInput.age);
-  parse(county);
-  parse(state);
-
-  let raceIndex = findMatchingIndex(
-    eventInput.race,
-    county.covidSummary.covidCount.race.ranges
-  );
-  let ageIndex = findHardCodedAgeRangeIndex(eventInput.age);
-  let sexIndex = findMatchingIndex(
-    eventInput.sex,
-    county.covidSummary.covidCount.sex.ranges
-  );
-  updateCovidSummary(eventInput, county, state, {raceIndex, ageIndex, sexIndex});
-
-  updateVaccinationSummary(eventInput, county, state, {raceIndex, ageIndex, sexIndex});
-
-
-  //Upload "county" and "state" 
-  incrementTotalFullEntries(county, state);
-  
-
-  stringify(county);
-  stringify(state);
-
-  console.log(county.covidSummary);
-  console.log(state.covidSummary);
-}
-
-const incrementTotalFullEntries = (county, state) => {
-  county.totalFullEntries += 1;
-  state.totalFullEntries += 1;
-}
-
-const updateVaccinationSummary = (eventInput, county, state, indexes) => {
-  let {vaccinationResults} = eventInput;
-  let {raceIndex, ageIndex, sexIndex} = indexes;
-
-  //update county
-  let { percentVaccinated,avgNumOfVaccPerPerson,pfizerCount,modernaCount,jjCount,azCount } = county.vaccinationSummary;
-
-  //percentVaccinated formula
-  //new = (old * total + (vaccinated) ? 1 : 0) / (total + 1)
-  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentVaccinated, vaccinationResults.vaccinated ,1);
-
-  //avgNumOfVaccPerPerson = (old * total) + vaccinationResults.totalVacccineShots / (total + 1)
-  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, avgNumOfVaccPerPerson, true, vaccinationResults.totalVaccineShots);
-  
-  
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, pfizerCount, vaccinationResults.vaccineType === "Pfizer", 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, modernaCount, vaccinationResults.vaccineType === "Moderna", 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, jjCount, vaccinationResults.vaccineType === "J&J", 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, azCount, vaccinationResults.vaccineType === "AstraZeneca", 1);
-  
-  //update state
-  ({ percentVaccinated,avgNumOfVaccPerPerson,pfizerCount,modernaCount,jjCount,azCount } = state.vaccinationSummary);
-  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentVaccinated, vaccinationResults.vaccinated ,1);
-  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, avgNumOfVaccPerPerson, true, vaccinationResults.totalVaccineShots);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, pfizerCount, vaccinationResults.vaccineType === "Pfizer", 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, modernaCount, vaccinationResults.vaccineType === "Moderna", 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, jjCount, vaccinationResults.vaccineType === "J&J", 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, azCount, vaccinationResults.vaccineType === "AstraZeneca", 1);
-}
-
 const addCustomToTallyBasedOnCondition = (raceIndex, ageIndex, sexIndex, property, condition, customAdd) => {
   let addOne = condition ? customAdd : 0;
   property.race.values[raceIndex] += addOne;
@@ -614,6 +545,108 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
 
   
 };
+
+const updateVaccinationSummary = (eventInput, county, state, indexes) => {
+  let {vaccinationResults} = eventInput;
+  let {raceIndex, ageIndex, sexIndex} = indexes;
+
+  //update county
+  let { percentVaccinated,avgNumOfVaccPerPerson,pfizerCount,modernaCount,jjCount,azCount } = county.vaccinationSummary;
+
+  //percentVaccinated formula
+  //new = (old * total + (vaccinated) ? 1 : 0) / (total + 1)
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentVaccinated, vaccinationResults.vaccinated ,1);
+
+  //avgNumOfVaccPerPerson = (old * total) + vaccinationResults.totalVacccineShots / (total + 1)
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, avgNumOfVaccPerPerson, true, vaccinationResults.totalVaccineShots);
+  
+  
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, pfizerCount, vaccinationResults.vaccineType === "Pfizer", 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, modernaCount, vaccinationResults.vaccineType === "Moderna", 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, jjCount, vaccinationResults.vaccineType === "J&J", 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, azCount, vaccinationResults.vaccineType === "AstraZeneca", 1);
+  
+  //update state
+  ({ percentVaccinated,avgNumOfVaccPerPerson,pfizerCount,modernaCount,jjCount,azCount } = state.vaccinationSummary);
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentVaccinated, vaccinationResults.vaccinated ,1);
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, avgNumOfVaccPerPerson, true, vaccinationResults.totalVaccineShots);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, pfizerCount, vaccinationResults.vaccineType === "Pfizer", 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, modernaCount, vaccinationResults.vaccineType === "Moderna", 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, jjCount, vaccinationResults.vaccineType === "J&J", 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, azCount, vaccinationResults.vaccineType === "AstraZeneca", 1);
+}
+
+const updateRecoverySummary = (eventInput, county, state, indexes) => {
+  let { recoveryResults} = eventInput;
+  let {raceIndex, ageIndex, sexIndex} = indexes;
+  let { longCovidCount, percentLongCovid, avgRecoveryLength} = county.recoverySummary;
+
+  //longCovidCount
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, longCovidCount, recoveryResults.hasLongCovid === "Yes", 1);
+
+  //percentLongCovid
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentLongCovid, recoveryResults.hasLongCovid === "Yes", 1);
+
+  //avgRecoveryLength
+  let recoveryLength = recoveryResults.lengthOfRecovery.months * 31 + recoveryResults.lengthOfRecovery.days;
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, avgRecoveryLength, true, recoveryLength);
+
+
+
+  //state data
+  ({ longCovidCount, percentLongCovid, avgRecoveryLength} = state.recoverySummary);
+  //longCovidCount
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, longCovidCount, recoveryResults.hasLongCovid === "Yes", 1);
+  //percentLongCovid
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, percentLongCovid, recoveryResults.hasLongCovid === "Yes", 1);
+  //avgRecoveryLength
+  aggregatePercentageCustomBasedOnCondition(raceIndex, ageIndex, sexIndex, county.totalFullEntries, avgRecoveryLength, true, recoveryLength);
+
+} 
+
+const incrementTotalFullEntries = (county, state) => {
+  county.totalFullEntries += 1;
+  state.totalFullEntries += 1;
+}
+
+
+
+const aggregateSurveyResults = async (eventInput) => {
+  let { county, state } = await getStateAndCountyInfo(eventInput);
+
+  eventInput.age = parseInt(eventInput.age);
+  parse(county);
+  parse(state);
+
+  let raceIndex = findMatchingIndex(
+    eventInput.race,
+    county.covidSummary.covidCount.race.ranges
+  );
+  let ageIndex = findHardCodedAgeRangeIndex(eventInput.age);
+  let sexIndex = findMatchingIndex(
+    eventInput.sex,
+    county.covidSummary.covidCount.sex.ranges
+  );
+  updateCovidSummary(eventInput, county, state, {raceIndex, ageIndex, sexIndex});
+  updateVaccinationSummary(eventInput, county, state, {raceIndex, ageIndex, sexIndex});
+  updateRecoverySummary(eventInput, county, state, {raceIndex, ageIndex, sexIndex});
+
+  //Upload "county" and "state" 
+
+
+  //increment at the last. updates require OLD count
+  incrementTotalFullEntries(county, state);
+  
+
+  stringify(county);
+  stringify(state);
+
+  console.log(county.recoverySummary);
+  console.log(state.recoverySummary);
+}
+
+
+
 
 
 /**
