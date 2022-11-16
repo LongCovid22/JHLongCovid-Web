@@ -13,7 +13,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { selectCurrentAnswer } from "../../../redux/slices/surveySlice";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { useAppSelector } from "../../../redux/hooks";
 
 interface OptionProps {
   option: any;

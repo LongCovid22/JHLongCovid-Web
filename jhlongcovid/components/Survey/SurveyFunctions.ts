@@ -5,6 +5,8 @@ export const checkEmptyDemoFields = (answer: any) => {
     age: string;
     race: string;
     sex: string;
+    height: string;
+    weight: string;
   };
   if (demographics.zip === "") {
     emptyFields.push("zip code");
@@ -17,6 +19,12 @@ export const checkEmptyDemoFields = (answer: any) => {
   }
   if (demographics.sex === "") {
     emptyFields.push("sex");
+  }
+  if (demographics.height === "") {
+    emptyFields.push("height");
+  }
+  if (demographics.weight === "") {
+    emptyFields.push("weight");
   }
 
   return emptyFields;

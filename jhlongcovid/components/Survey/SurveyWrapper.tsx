@@ -53,6 +53,8 @@ export type UserInfo = {
   zip: string;
   race: string;
   sex: string;
+  height: string;
+  weight: string;
 };
 
 export interface SurveyQuestionProps {
@@ -155,6 +157,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     zip: "",
     race: "",
     sex: "",
+    height: "",
+    weight: "",
   });
 
   const [isFinalSection, setIsFinalSection] = useState(false);

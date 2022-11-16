@@ -17,7 +17,6 @@ import {
   Select,
   Grid,
   GridItem,
-  FormErrorMessage,
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
 import { useAppSelector } from "../../../redux/hooks";
@@ -28,7 +27,14 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
   setAnswer,
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
-  const [demos, setDemos] = useState({ zip: "", age: "", race: "", sex: "" });
+  const [demos, setDemos] = useState({
+    zip: "",
+    age: "",
+    race: "",
+    sex: "",
+    height: "",
+    weight: "",
+  });
 
   const handleAnswerChange = (key: string, value: string) => {
     let demosCopy = { ...demos };
@@ -40,7 +46,14 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
   useEffect(() => {
     if (currentAnswer !== null) {
       setDemos(
-        currentAnswer as { zip: string; age: string; race: string; sex: string }
+        currentAnswer as {
+          zip: string;
+          age: string;
+          race: string;
+          sex: string;
+          height: string;
+          weight: string;
+        }
       );
     } else {
       setAnswer(currentAnswer);
