@@ -98,7 +98,17 @@ export const createMapData = /* GraphQL */ `
         percentHaveMedicalInsurance
         percentDifficultyCoveringExpenses
         averageWorkingSituation
-        workingSituationCounts
+        workingSituationCounts {
+          workingOutsideTheHome
+          onLeaveFromAJobWorkingOutsideHome
+          workingInsideHome
+          lookingForWorkUnemployed
+          retired
+          disabled
+          student
+          dontKnow
+          preferNotToAnswer
+        }
       }
       totalFullEntries
       createdAt
@@ -152,7 +162,17 @@ export const updateMapData = /* GraphQL */ `
         percentHaveMedicalInsurance
         percentDifficultyCoveringExpenses
         averageWorkingSituation
-        workingSituationCounts
+        workingSituationCounts {
+          workingOutsideTheHome
+          onLeaveFromAJobWorkingOutsideHome
+          workingInsideHome
+          lookingForWorkUnemployed
+          retired
+          disabled
+          student
+          dontKnow
+          preferNotToAnswer
+        }
       }
       totalFullEntries
       createdAt
@@ -206,7 +226,17 @@ export const deleteMapData = /* GraphQL */ `
         percentHaveMedicalInsurance
         percentDifficultyCoveringExpenses
         averageWorkingSituation
-        workingSituationCounts
+        workingSituationCounts {
+          workingOutsideTheHome
+          onLeaveFromAJobWorkingOutsideHome
+          workingInsideHome
+          lookingForWorkUnemployed
+          retired
+          disabled
+          student
+          dontKnow
+          preferNotToAnswer
+        }
       }
       totalFullEntries
       createdAt

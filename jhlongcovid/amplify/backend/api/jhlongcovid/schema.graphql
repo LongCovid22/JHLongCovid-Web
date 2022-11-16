@@ -19,7 +19,15 @@ type MapData
     ]
   ) {
   id: ID!
-  level: String! @primaryKey(sortKeyFields: ["lat", "long"]) # represents location level e.g. "state" | "county"
+  level: String!
+    @primaryKey(sortKeyFields: ["lat", "long"])
+    @index(
+      name: "byLevelAndNameAndState"
+      sortKeyFields: ["name", "stateAbbrev"]
+      queryField: "mapDataByLevelNameState"
+    ) # represents location level e.g. "state" | "county"
+
+    @index(name: "byState", sortKeyFields: ["stateAbbrev"], queryField : "mapDataByStateAbbrev")
   name: String!
   stateAbbrev: String!
   lat: Float!
@@ -615,16 +623,46 @@ type CovidSummary {
   avgPositiveCasesPerPerson: AWSJSON
   percentSymptomatic: AWSJSON
   percentTookMedication: AWSJSON
+  
+  #TODO!
   # { med1: testAWSJSON, med2: testAWSJSON}
   medicationCounts: AWSJSON
   #From recovery result?
   percentRecovered: AWSJSON
 }
 
+#TODO!
 type SymptomSummary {
   mostCommonSymptom: AWSJSON
   #{}
   symptomCounts: AWSJSON
+}
+
+#TODO!
+type GeneralHealthSummary {
+  #tot score?
+  avgTotalScore: AWSJSON
+  #same idea of sympotoms
+  avgHealthCounts: AWSJSON
+}
+
+type SocialSummary {
+  percentHaveMedicalInsurance: AWSJSON
+  percentDifficultyCoveringExpenses: AWSJSON
+  averageWorkingSituation: AWSJSON
+  workingSituationCounts: WorkingSituation
+}
+
+type WorkingSituation {
+  workingOutsideTheHome: AWSJSON
+  onLeaveFromAJobWorkingOutsideHome: AWSJSON
+  workingInsideHome : AWSJSON
+  lookingForWorkUnemployed : AWSJSON
+  retired: AWSJSON
+  disabled : AWSJSON
+  student : AWSJSON
+  dontKnow : AWSJSON
+  preferNotToAnswer: AWSJSON
 }
 
 type VaccinationSummary {
@@ -642,19 +680,7 @@ type RecoverySummary {
   avgRecoveryLength: AWSJSON
 }
 
-type GeneralHealthSummary {
-  #tot score?
-  avgTotalScore: AWSJSON
-  #same idea of sympotoms
-  avgHealthCounts: AWSJSON
-}
 
-type SocialSummary {
-  percentHaveMedicalInsurance: AWSJSON
-  percentDifficultyCoveringExpenses: AWSJSON
-  averageWorkingSituation: AWSJSON
-  workingSituationCounts: AWSJSON
-}
 # -------------------------------
 # LAMBDA RESOLVERS
 

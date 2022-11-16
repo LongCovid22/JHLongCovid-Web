@@ -74,7 +74,17 @@ export const getMapData = /* GraphQL */ `
         percentHaveMedicalInsurance
         percentDifficultyCoveringExpenses
         averageWorkingSituation
-        workingSituationCounts
+        workingSituationCounts {
+          workingOutsideTheHome
+          onLeaveFromAJobWorkingOutsideHome
+          workingInsideHome
+          lookingForWorkUnemployed
+          retired
+          disabled
+          student
+          dontKnow
+          preferNotToAnswer
+        }
       }
       totalFullEntries
       createdAt
@@ -140,7 +150,173 @@ export const listMapData = /* GraphQL */ `
           percentHaveMedicalInsurance
           percentDifficultyCoveringExpenses
           averageWorkingSituation
-          workingSituationCounts
+          workingSituationCounts {
+            workingOutsideTheHome
+            onLeaveFromAJobWorkingOutsideHome
+            workingInsideHome
+            lookingForWorkUnemployed
+            retired
+            disabled
+            student
+            dontKnow
+            preferNotToAnswer
+          }
+        }
+        totalFullEntries
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const mapDataByLevelNameState = /* GraphQL */ `
+  query MapDataByLevelNameState(
+    $level: String!
+    $nameStateAbbrev: ModelMapDataByLevelAndNameAndStateCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMapDataFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    mapDataByLevelNameState(
+      level: $level
+      nameStateAbbrev: $nameStateAbbrev
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        level
+        name
+        stateAbbrev
+        lat
+        long
+        covidSummary {
+          covidCount
+          percentHospitalizedDueToCovid
+          avgPositiveCasesPerPerson
+          percentSymptomatic
+          percentTookMedication
+          medicationCounts
+          percentRecovered
+        }
+        symptomSummary {
+          mostCommonSymptom
+          symptomCounts
+        }
+        vaccinationSummary {
+          percentVaccinated
+          avgNumOfVaccPerPerson
+          pfizerCount
+          modernaCount
+          jjCount
+          azCount
+        }
+        generealHealthSummary {
+          avgTotalScore
+          avgHealthCounts
+        }
+        recoverySummary {
+          longCovidCount
+          percentLongCovid
+          avgRecoveryLength
+        }
+        socialSummary {
+          percentHaveMedicalInsurance
+          percentDifficultyCoveringExpenses
+          averageWorkingSituation
+          workingSituationCounts {
+            workingOutsideTheHome
+            onLeaveFromAJobWorkingOutsideHome
+            workingInsideHome
+            lookingForWorkUnemployed
+            retired
+            disabled
+            student
+            dontKnow
+            preferNotToAnswer
+          }
+        }
+        totalFullEntries
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const mapDataByStateAbbrev = /* GraphQL */ `
+  query MapDataByStateAbbrev(
+    $level: String!
+    $stateAbbrev: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMapDataFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    mapDataByStateAbbrev(
+      level: $level
+      stateAbbrev: $stateAbbrev
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        level
+        name
+        stateAbbrev
+        lat
+        long
+        covidSummary {
+          covidCount
+          percentHospitalizedDueToCovid
+          avgPositiveCasesPerPerson
+          percentSymptomatic
+          percentTookMedication
+          medicationCounts
+          percentRecovered
+        }
+        symptomSummary {
+          mostCommonSymptom
+          symptomCounts
+        }
+        vaccinationSummary {
+          percentVaccinated
+          avgNumOfVaccPerPerson
+          pfizerCount
+          modernaCount
+          jjCount
+          azCount
+        }
+        generealHealthSummary {
+          avgTotalScore
+          avgHealthCounts
+        }
+        recoverySummary {
+          longCovidCount
+          percentLongCovid
+          avgRecoveryLength
+        }
+        socialSummary {
+          percentHaveMedicalInsurance
+          percentDifficultyCoveringExpenses
+          averageWorkingSituation
+          workingSituationCounts {
+            workingOutsideTheHome
+            onLeaveFromAJobWorkingOutsideHome
+            workingInsideHome
+            lookingForWorkUnemployed
+            retired
+            disabled
+            student
+            dontKnow
+            preferNotToAnswer
+          }
         }
         totalFullEntries
         createdAt

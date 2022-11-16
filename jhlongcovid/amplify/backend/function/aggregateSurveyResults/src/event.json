@@ -6,19 +6,19 @@
       "surveyVersion": 1,
       "surveyType": "GUEST",
       "age": "23",
-      "race": "OTHER",
+      "race": "Other",
       "sex": "Male",
-      "county": "Sample County",
-      "state": "Sample State",
+      "county": "Webster",
+      "state": "Nebraska",
       "covidResults": {
         "timesPositive": 3,
         "lastPositive": "12/23/22",
         "tested": true,
         "testMethod": "Sample test method",
-        "hospitalized": 1,
+        "hospitalized": true,
         "symptomatic": true,
         "symptomsPreventScale": "Sample prevent",
-        "MedicationsTaken": ["Sample med 1", "Sample med 2"]
+        "MedicationsTaken": ["Antiviral", "Monoclonal antibodies"]
       },
       "vaccinationResults": {
         "totalVaccineShots": 3,
@@ -27,7 +27,7 @@
         "dateOfLastVaccine": "12/01/22"
       },
       "recoveryResults": {
-        "recovered": "Sample answer",
+        "recovered": "No",
         "lengthOfRecovery": {
           "months": 1,
           "days": 2
