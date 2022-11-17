@@ -55,8 +55,8 @@
         },
         "schemaInfo": {
           "tableName": "CovidEntry",
-          "field": "timesPositive",
-          "type": "Int"
+          "field": "beenInfected",
+          "type": "Boolean"
         }
       },
       {
@@ -92,11 +92,17 @@
         "options": ["Yes", "No"],
         "answerFormat": ["choice", "choice"],
         "answer": null,
-        "branching": null,
+        "branching": {
+          "predicate": "No",
+          "goto": {
+            "section": 1,
+            "question": 4
+          }
+        },
         "schemaInfo": {
           "tableName": "CovidEntry",
-          "field": "timesPositive",
-          "type": "Int"
+          "field": "hospitalized",
+          "type": "Boolean"
         }
       },
       {
@@ -122,7 +128,7 @@
         "branching": null,
         "schemaInfo": {
           "tableName": "CovidEntry",
-          "field": "hospitalized",
+          "field": "timesHospitalized",
           "type": "Int"
         }
       },
@@ -154,7 +160,7 @@
           "predicate": "No",
           "goto": {
             "section": 1,
-            "question": 4
+            "question": 7
           }
         },
         "schemaInfo": {
@@ -172,8 +178,8 @@
         "branching": null,
         "schemaInfo": {
           "tableName": "CovidEntry",
-          "field": "testMethod",
-          "type": "String"
+          "field": "positiveTest",
+          "type": "Boolean"
         }
       },
       {
@@ -186,7 +192,7 @@
           "predicate": "No",
           "goto": {
             "section": 1,
-            "question": 6
+            "question": 9
           }
         },
         "schemaInfo": {
@@ -220,11 +226,17 @@
         "options": ["Yes", "No", "Do not know"],
         "answerFormat": ["choice", "choice", "choice"],
         "answer": null,
-        "branching": null,
+        "branching": {
+          "predicate": ["No", "Do not know"],
+          "goto": {
+            "section": 2,
+            "question": 0
+          }
+        },
         "schemaInfo": {
           "tableName": "CovidEntry",
-          "field": "medicationsTaken",
-          "type": "[String]"
+          "field": "medicationsPrescribed",
+          "type": "Boolean"
         }
       },
       {
@@ -271,14 +283,14 @@
         "branching": {
           "predicate": "No",
           "goto": {
-            "section": 2,
-            "question": 2
+            "section": 3,
+            "question": 0
           }
         },
         "schemaInfo": {
           "tableName": "RecoveryEntry",
           "field": "recovered",
-          "type": "String"
+          "type": "Boolean"
         }
       },
       {
@@ -299,7 +311,7 @@
         "schemaInfo": {
           "tableName": "RecoveryEntry",
           "field": "lengthOfRecovery",
-          "type": "RecoveryLength"
+          "type": "Int"
         }
       }
     ],
@@ -311,16 +323,16 @@
         "answerFormat": ["choice", "choice", "choice"],
         "answer": null,
         "branching": {
-          "predicate": "0",
+          "predicate": "No",
           "goto": {
-            "section": 4,
+            "section": 5,
             "question": 0
           }
         },
         "schemaInfo": {
           "tableName": "VaccinationEntry",
-          "field": "totalVaccineShots",
-          "type": "Int"
+          "field": "vaccinated",
+          "type": "Boolean"
         }
       },
       {
@@ -340,13 +352,7 @@
         ],
         "answerFormat": ["input", "choice"],
         "answer": null,
-        "branching": {
-          "predicate": "0",
-          "goto": {
-            "section": 4,
-            "question": 0
-          }
-        },
+        "branching": null,
         "schemaInfo": {
           "tableName": "VaccinationEntry",
           "field": "totalVaccineShots",
@@ -401,8 +407,8 @@
         "branching": null,
         "schemaInfo": {
           "tableName": "VaccinationEntry",
-          "field": "vaccineType",
-          "type": "String"
+          "field": "dateOfLastVaccine",
+          "type": "AWSDateTime"
         }
       }
     ],
@@ -415,9 +421,9 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "GeneralHealthEntry",
-          "field": "generalHealthResults",
-          "type": "AWSJSON"
+          "tableName": "GlobalHealthEntry",
+          "field": "healthRank",
+          "type": "String"
         }
       },
       {
@@ -428,9 +434,9 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "GeneralHealthEntry",
-          "field": "generalHealthResults",
-          "type": "AWSJSON"
+          "tableName": "GlobalHealthEntry",
+          "field": "physicalHealthRank",
+          "type": "String"
         }
       },
       {
@@ -447,9 +453,9 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "GeneralHealthEntry",
-          "field": "generalHealthResults",
-          "type": "AWSJSON"
+          "tableName": "GlobalHealthEntry",
+          "field": "carryPhysicalActivities",
+          "type": "String"
         }
       },
       {
@@ -460,9 +466,9 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "GeneralHealthEntry",
-          "field": "generalHealthResults",
-          "type": "AWSJSON"
+          "tableName": "GlobalHealthEntry",
+          "field": "fatigueRank",
+          "type": "String"
         }
       },
       {
@@ -481,9 +487,9 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "GeneralHealthEntry",
-          "field": "generalHealthResults",
-          "type": "AWSJSON"
+          "tableName": "GlobalHealthEntry",
+          "field": "painLevel",
+          "type": "Int"
         }
       }
     ],
@@ -538,9 +544,9 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "GeneralHealthEntry",
-          "field": "generalHealthResults",
-          "type": "AWSJSON"
+          "tableName": "SymptomsEntry",
+          "field": "mentalHealthRank",
+          "type": "String"
         }
       },
       {
@@ -551,9 +557,9 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "GeneralHealthEntry",
-          "field": "generalHealthResults",
-          "type": "AWSJSON"
+          "tableName": "SymptomsEntry",
+          "field": "socialSatisfactionRank",
+          "type": "String"
         }
       },
       {
@@ -564,9 +570,9 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "GeneralHealthEntry",
-          "field": "generalHealthResults",
-          "type": "AWSJSON"
+          "tableName": "SymptomsEntry",
+          "field": "carryOutSocialActivitiesRank",
+          "type": "String"
         }
       },
       {
@@ -577,9 +583,9 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "GeneralHealthEntry",
-          "field": "generalHealthResults",
-          "type": "AWSJSON"
+          "tableName": "SymptomsEntry",
+          "field": "anxietyInPastWeekRank",
+          "type": "String"
         }
       }
     ],
@@ -607,8 +613,8 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "SymptomsEntry",
-          "field": "symptoms",
+          "tableName": "PatientHealthEntry",
+          "field": "generalHealthResults",
           "type": "AWSJSON"
         }
       }
@@ -675,9 +681,9 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "VaccinationEntry",
-          "field": "totalVaccineShots",
-          "type": "Int"
+          "tableName": "SymptomsEntry",
+          "field": "hasLongCovid",
+          "type": "Boolean"
         }
       }
     ],
@@ -692,7 +698,7 @@
         "schemaInfo": {
           "tableName": "SocialDeterminantsEntry",
           "field": "hasMedicalInsurance",
-          "type": "String"
+          "type": "Boolean"
         }
       },
       {
@@ -764,7 +770,7 @@
         "branching": {
           "predicate": "skip",
           "goto": {
-            "section": 8,
+            "section": 9,
             "question": 1
           }
         }

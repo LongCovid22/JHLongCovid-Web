@@ -2,35 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTodo = /* GraphQL */ `
-  query GetTodo($id: ID!) {
-    getTodo(id: $id) {
-      name
-      description
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listTodos = /* GraphQL */ `
-  query ListTodos(
-    $filter: ModelTodoFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        name
-        description
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
 export const getMapData = /* GraphQL */ `
   query GetMapData($level: String!, $lat: Float!, $long: Float!) {
     getMapData(level: $level, lat: $lat, long: $long) {
@@ -61,7 +32,14 @@ export const getMapData = /* GraphQL */ `
         jjCount
         azCount
       }
-      generealHealthSummary {
+      globalHealthSummary {
+        healthRankCount
+        physicalHealthRankCount
+        carryOutPhysicalActivitiesRankCount
+        fatigueRankCount
+        painLevelCount
+      }
+      patientHealthSummary {
         avgTotalScore
         avgHealthCounts
       }
@@ -137,7 +115,14 @@ export const listMapData = /* GraphQL */ `
           jjCount
           azCount
         }
-        generealHealthSummary {
+        globalHealthSummary {
+          healthRankCount
+          physicalHealthRankCount
+          carryOutPhysicalActivitiesRankCount
+          fatigueRankCount
+          painLevelCount
+        }
+        patientHealthSummary {
           avgTotalScore
           avgHealthCounts
         }
@@ -215,7 +200,14 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           jjCount
           azCount
         }
-        generealHealthSummary {
+        globalHealthSummary {
+          healthRankCount
+          physicalHealthRankCount
+          carryOutPhysicalActivitiesRankCount
+          fatigueRankCount
+          painLevelCount
+        }
+        patientHealthSummary {
           avgTotalScore
           avgHealthCounts
         }
@@ -293,7 +285,14 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           jjCount
           azCount
         }
-        generealHealthSummary {
+        globalHealthSummary {
+          healthRankCount
+          physicalHealthRankCount
+          carryOutPhysicalActivitiesRankCount
+          fatigueRankCount
+          painLevelCount
+        }
+        patientHealthSummary {
           avgTotalScore
           avgHealthCounts
         }
@@ -334,6 +333,8 @@ export const getUser = /* GraphQL */ `
       age
       race
       sex
+      height
+      weight
       lastSubmission
       lastSignIn
       notificationFreq
@@ -357,6 +358,8 @@ export const listUsers = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         lastSubmission
         lastSignIn
         notificationFreq
@@ -392,6 +395,8 @@ export const usersByEmail = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         lastSubmission
         lastSignIn
         notificationFreq
@@ -415,6 +420,8 @@ export const getSurveyEntry = /* GraphQL */ `
       age
       race
       sex
+      height
+      weight
       timeElapsed
       covidEntry {
         id
@@ -429,6 +436,8 @@ export const getSurveyEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -437,15 +446,20 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -457,6 +471,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -472,6 +488,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -486,25 +504,46 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -513,9 +552,16 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -526,6 +572,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -536,22 +584,28 @@ export const getSurveyEntry = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
+        beenInfected
         timesPositive
         lastPositive
         tested
+        positiveTest
         testMethod
         hospitalized
+        timesHospitalized
         symptomatic
         symptomsPreventScale
+        medicationsPrescribed
         medicationsTaken
-        returnedToHealth
         createdAt
         updatedAt
         covidEntrySurveyEntryId
@@ -563,6 +617,8 @@ export const getSurveyEntry = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         surveyEntry {
           id
           email
@@ -572,6 +628,8 @@ export const getSurveyEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -580,15 +638,20 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -600,6 +663,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -615,6 +680,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -629,25 +696,46 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -656,9 +744,16 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -669,6 +764,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -679,7 +776,8 @@ export const getSurveyEntry = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
@@ -704,6 +802,8 @@ export const getSurveyEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -712,15 +812,20 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -732,6 +837,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -747,6 +854,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -761,25 +870,46 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -788,9 +918,16 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -801,6 +938,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -811,13 +950,16 @@ export const getSurveyEntry = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         hasMedicalInsurance
         difficultCoveringExpenses
         currentWorkSituation
@@ -838,6 +980,8 @@ export const getSurveyEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -846,15 +990,20 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -866,6 +1015,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -881,6 +1032,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -895,25 +1048,46 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -922,9 +1096,16 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -935,6 +1116,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -945,24 +1128,203 @@ export const getSurveyEntry = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         recovered
-        lengthOfRecovery {
-          months
-          days
-        }
-        hasLongCovid
+        lengthOfRecovery
         createdAt
         updatedAt
         recoveryEntrySurveyEntryId
       }
-      generalHealthEntry {
+      globalHealthEntry {
+        id
+        state
+        countyState
+        age
+        race
+        sex
+        height
+        weight
+        surveyEntry {
+          id
+          email
+          createdAt
+          surveyVersion
+          surveyType
+          age
+          race
+          sex
+          height
+          weight
+          timeElapsed
+          covidEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            beenInfected
+            timesPositive
+            lastPositive
+            tested
+            positiveTest
+            testMethod
+            hospitalized
+            timesHospitalized
+            symptomatic
+            symptomsPreventScale
+            medicationsPrescribed
+            medicationsTaken
+            createdAt
+            updatedAt
+            covidEntrySurveyEntryId
+          }
+          vaccinationEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            totalVaccineShots
+            vaccinated
+            vaccineType
+            dateOfLastVaccine
+            createdAt
+            updatedAt
+            vaccinationEntrySurveyEntryId
+          }
+          socialDeterminantsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            hasMedicalInsurance
+            difficultCoveringExpenses
+            currentWorkSituation
+            createdAt
+            updatedAt
+            socialDeterminantsEntrySurveyEntryId
+          }
+          recoveryEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            recovered
+            lengthOfRecovery
+            createdAt
+            updatedAt
+            recoveryEntrySurveyEntryId
+          }
+          globalHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            generalHealthResults
+            totalScore
+            createdAt
+            updatedAt
+            patientHealthEntrySurveyEntryId
+          }
+          symptomsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            createdAt
+            symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
+            medicalConditions
+            hasLongCovid
+            updatedAt
+            symptomEntrySurveyEntryId
+          }
+          monthlyEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            results
+            createdAt
+            updatedAt
+            monthlyEntrySurveyEntryId
+          }
+          updatedAt
+          surveyEntryCovidEntryId
+          surveyEntryVaccinationEntryId
+          surveyEntrySocialDeterminantsEntryId
+          surveyEntryRecoveryEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
+          surveyEntrySymptomsEntryId
+          surveyEntryMonthlyEntryId
+        }
+        healthRank
+        physicalHealthRank
+        carryPhysicalActivities
+        fatigueRank
+        painLevel
+        createdAt
+        updatedAt
+        globalHealthEntrySurveyEntryId
+      }
+      PatientHealthEntry {
         id
         state
         countyState
@@ -975,6 +1337,8 @@ export const getSurveyEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -983,15 +1347,20 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -1003,6 +1372,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -1018,6 +1389,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -1032,25 +1405,46 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -1059,9 +1453,16 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -1072,6 +1473,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -1082,19 +1485,21 @@ export const getSurveyEntry = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
-        health
+        height
+        weight
         generalHealthResults
         totalScore
         createdAt
         updatedAt
-        generalHealthEntrySurveyEntryId
+        patientHealthEntrySurveyEntryId
       }
       symptomsEntry {
         id
@@ -1109,6 +1514,8 @@ export const getSurveyEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -1117,15 +1524,20 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -1137,6 +1549,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -1152,6 +1566,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -1166,25 +1582,46 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -1193,9 +1630,16 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -1206,6 +1650,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -1216,16 +1662,24 @@ export const getSurveyEntry = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         createdAt
         symptoms
+        mentalHealthRank
+        socialSatisfactionRank
+        carryOutSocialActivitiesRank
+        anxietyInPastWeekRank
         medicalConditions
+        hasLongCovid
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -1242,6 +1696,8 @@ export const getSurveyEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -1250,15 +1706,20 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -1270,6 +1731,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -1285,6 +1748,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -1299,25 +1764,46 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -1326,9 +1812,16 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -1339,6 +1832,8 @@ export const getSurveyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -1349,13 +1844,16 @@ export const getSurveyEntry = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         results
         createdAt
         updatedAt
@@ -1366,7 +1864,8 @@ export const getSurveyEntry = /* GraphQL */ `
       surveyEntryVaccinationEntryId
       surveyEntrySocialDeterminantsEntryId
       surveyEntryRecoveryEntryId
-      surveyEntryGeneralHealthEntryId
+      surveyEntryGlobalHealthEntryId
+      surveyEntryPatientHealthEntryId
       surveyEntrySymptomsEntryId
       surveyEntryMonthlyEntryId
     }
@@ -1388,6 +1887,8 @@ export const listSurveyEntries = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         timeElapsed
         covidEntry {
           id
@@ -1402,28 +1903,36 @@ export const listSurveyEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
+          beenInfected
           timesPositive
           lastPositive
           tested
+          positiveTest
           testMethod
           hospitalized
+          timesHospitalized
           symptomatic
           symptomsPreventScale
+          medicationsPrescribed
           medicationsTaken
-          returnedToHealth
           createdAt
           updatedAt
           covidEntrySurveyEntryId
@@ -1435,6 +1944,8 @@ export const listSurveyEntries = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           surveyEntry {
             id
             email
@@ -1444,13 +1955,16 @@ export const listSurveyEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
@@ -1475,19 +1989,24 @@ export const listSurveyEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -1508,30 +2027,71 @@ export const listSurveyEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           recovered
-          lengthOfRecovery {
-            months
-            days
-          }
-          hasLongCovid
+          lengthOfRecovery
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
         }
-        generalHealthEntry {
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
           id
           state
           countyState
@@ -1544,25 +2104,29 @@ export const listSurveyEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
-          health
+          height
+          weight
           generalHealthResults
           totalScore
           createdAt
           updatedAt
-          generalHealthEntrySurveyEntryId
+          patientHealthEntrySurveyEntryId
         }
         symptomsEntry {
           id
@@ -1577,22 +2141,32 @@ export const listSurveyEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           createdAt
           symptoms
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
           medicalConditions
+          hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -1609,19 +2183,24 @@ export const listSurveyEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           results
           createdAt
           updatedAt
@@ -1632,7 +2211,8 @@ export const listSurveyEntries = /* GraphQL */ `
         surveyEntryVaccinationEntryId
         surveyEntrySocialDeterminantsEntryId
         surveyEntryRecoveryEntryId
-        surveyEntryGeneralHealthEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
       }
@@ -1666,6 +2246,8 @@ export const surveysByEmail = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         timeElapsed
         covidEntry {
           id
@@ -1680,28 +2262,36 @@ export const surveysByEmail = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
+          beenInfected
           timesPositive
           lastPositive
           tested
+          positiveTest
           testMethod
           hospitalized
+          timesHospitalized
           symptomatic
           symptomsPreventScale
+          medicationsPrescribed
           medicationsTaken
-          returnedToHealth
           createdAt
           updatedAt
           covidEntrySurveyEntryId
@@ -1713,6 +2303,8 @@ export const surveysByEmail = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           surveyEntry {
             id
             email
@@ -1722,13 +2314,16 @@ export const surveysByEmail = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
@@ -1753,19 +2348,24 @@ export const surveysByEmail = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -1786,30 +2386,71 @@ export const surveysByEmail = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           recovered
-          lengthOfRecovery {
-            months
-            days
-          }
-          hasLongCovid
+          lengthOfRecovery
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
         }
-        generalHealthEntry {
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
           id
           state
           countyState
@@ -1822,25 +2463,29 @@ export const surveysByEmail = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
-          health
+          height
+          weight
           generalHealthResults
           totalScore
           createdAt
           updatedAt
-          generalHealthEntrySurveyEntryId
+          patientHealthEntrySurveyEntryId
         }
         symptomsEntry {
           id
@@ -1855,22 +2500,32 @@ export const surveysByEmail = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           createdAt
           symptoms
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
           medicalConditions
+          hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -1887,19 +2542,24 @@ export const surveysByEmail = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           results
           createdAt
           updatedAt
@@ -1910,7 +2570,8 @@ export const surveysByEmail = /* GraphQL */ `
         surveyEntryVaccinationEntryId
         surveyEntrySocialDeterminantsEntryId
         surveyEntryRecoveryEntryId
-        surveyEntryGeneralHealthEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
       }
@@ -1944,6 +2605,8 @@ export const surveysByType = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         timeElapsed
         covidEntry {
           id
@@ -1958,28 +2621,36 @@ export const surveysByType = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
+          beenInfected
           timesPositive
           lastPositive
           tested
+          positiveTest
           testMethod
           hospitalized
+          timesHospitalized
           symptomatic
           symptomsPreventScale
+          medicationsPrescribed
           medicationsTaken
-          returnedToHealth
           createdAt
           updatedAt
           covidEntrySurveyEntryId
@@ -1991,6 +2662,8 @@ export const surveysByType = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           surveyEntry {
             id
             email
@@ -2000,13 +2673,16 @@ export const surveysByType = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
@@ -2031,19 +2707,24 @@ export const surveysByType = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -2064,30 +2745,71 @@ export const surveysByType = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           recovered
-          lengthOfRecovery {
-            months
-            days
-          }
-          hasLongCovid
+          lengthOfRecovery
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
         }
-        generalHealthEntry {
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
           id
           state
           countyState
@@ -2100,25 +2822,29 @@ export const surveysByType = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
-          health
+          height
+          weight
           generalHealthResults
           totalScore
           createdAt
           updatedAt
-          generalHealthEntrySurveyEntryId
+          patientHealthEntrySurveyEntryId
         }
         symptomsEntry {
           id
@@ -2133,22 +2859,32 @@ export const surveysByType = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           createdAt
           symptoms
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
           medicalConditions
+          hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -2165,19 +2901,24 @@ export const surveysByType = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           results
           createdAt
           updatedAt
@@ -2188,7 +2929,8 @@ export const surveysByType = /* GraphQL */ `
         surveyEntryVaccinationEntryId
         surveyEntrySocialDeterminantsEntryId
         surveyEntryRecoveryEntryId
-        surveyEntryGeneralHealthEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
       }
@@ -2205,6 +2947,8 @@ export const getVaccinationEntry = /* GraphQL */ `
       age
       race
       sex
+      height
+      weight
       surveyEntry {
         id
         email
@@ -2214,6 +2958,8 @@ export const getVaccinationEntry = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         timeElapsed
         covidEntry {
           id
@@ -2228,28 +2974,36 @@ export const getVaccinationEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
+          beenInfected
           timesPositive
           lastPositive
           tested
+          positiveTest
           testMethod
           hospitalized
+          timesHospitalized
           symptomatic
           symptomsPreventScale
+          medicationsPrescribed
           medicationsTaken
-          returnedToHealth
           createdAt
           updatedAt
           covidEntrySurveyEntryId
@@ -2261,6 +3015,8 @@ export const getVaccinationEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           surveyEntry {
             id
             email
@@ -2270,13 +3026,16 @@ export const getVaccinationEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
@@ -2301,19 +3060,24 @@ export const getVaccinationEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -2334,30 +3098,71 @@ export const getVaccinationEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           recovered
-          lengthOfRecovery {
-            months
-            days
-          }
-          hasLongCovid
+          lengthOfRecovery
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
         }
-        generalHealthEntry {
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
           id
           state
           countyState
@@ -2370,25 +3175,29 @@ export const getVaccinationEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
-          health
+          height
+          weight
           generalHealthResults
           totalScore
           createdAt
           updatedAt
-          generalHealthEntrySurveyEntryId
+          patientHealthEntrySurveyEntryId
         }
         symptomsEntry {
           id
@@ -2403,22 +3212,32 @@ export const getVaccinationEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           createdAt
           symptoms
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
           medicalConditions
+          hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -2435,19 +3254,24 @@ export const getVaccinationEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           results
           createdAt
           updatedAt
@@ -2458,7 +3282,8 @@ export const getVaccinationEntry = /* GraphQL */ `
         surveyEntryVaccinationEntryId
         surveyEntrySocialDeterminantsEntryId
         surveyEntryRecoveryEntryId
-        surveyEntryGeneralHealthEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
       }
@@ -2490,6 +3315,8 @@ export const listVaccinationEntries = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         surveyEntry {
           id
           email
@@ -2499,6 +3326,8 @@ export const listVaccinationEntries = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -2507,15 +3336,20 @@ export const listVaccinationEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -2527,6 +3361,8 @@ export const listVaccinationEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -2542,6 +3378,8 @@ export const listVaccinationEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -2556,25 +3394,46 @@ export const listVaccinationEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -2583,9 +3442,16 @@ export const listVaccinationEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -2596,6 +3462,8 @@ export const listVaccinationEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -2606,7 +3474,8 @@ export const listVaccinationEntries = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
@@ -2646,6 +3515,8 @@ export const stateVaccEntryByDate = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         surveyEntry {
           id
           email
@@ -2655,6 +3526,8 @@ export const stateVaccEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -2663,15 +3536,20 @@ export const stateVaccEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -2683,6 +3561,8 @@ export const stateVaccEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -2698,6 +3578,8 @@ export const stateVaccEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -2712,25 +3594,46 @@ export const stateVaccEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -2739,9 +3642,16 @@ export const stateVaccEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -2752,6 +3662,8 @@ export const stateVaccEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -2762,7 +3674,8 @@ export const stateVaccEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
@@ -2802,6 +3715,8 @@ export const stateVaccEntryByAge = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         surveyEntry {
           id
           email
@@ -2811,6 +3726,8 @@ export const stateVaccEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -2819,15 +3736,20 @@ export const stateVaccEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -2839,6 +3761,8 @@ export const stateVaccEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -2854,6 +3778,8 @@ export const stateVaccEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -2868,25 +3794,46 @@ export const stateVaccEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -2895,9 +3842,16 @@ export const stateVaccEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -2908,6 +3862,8 @@ export const stateVaccEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -2918,7 +3874,8 @@ export const stateVaccEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
@@ -2958,6 +3915,8 @@ export const stateVaccEntryByRace = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         surveyEntry {
           id
           email
@@ -2967,6 +3926,8 @@ export const stateVaccEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -2975,15 +3936,20 @@ export const stateVaccEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -2995,6 +3961,8 @@ export const stateVaccEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -3010,6 +3978,8 @@ export const stateVaccEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -3024,25 +3994,46 @@ export const stateVaccEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -3051,9 +4042,16 @@ export const stateVaccEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -3064,6 +4062,8 @@ export const stateVaccEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -3074,7 +4074,8 @@ export const stateVaccEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
@@ -3114,6 +4115,8 @@ export const stateVaccEntryBySex = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         surveyEntry {
           id
           email
@@ -3123,6 +4126,8 @@ export const stateVaccEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -3131,15 +4136,20 @@ export const stateVaccEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -3151,6 +4161,8 @@ export const stateVaccEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -3166,6 +4178,8 @@ export const stateVaccEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -3180,25 +4194,46 @@ export const stateVaccEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -3207,9 +4242,16 @@ export const stateVaccEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -3220,6 +4262,8 @@ export const stateVaccEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -3230,7 +4274,8 @@ export const stateVaccEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
@@ -3270,6 +4315,8 @@ export const countyVaccEntryByDate = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         surveyEntry {
           id
           email
@@ -3279,6 +4326,8 @@ export const countyVaccEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -3287,15 +4336,20 @@ export const countyVaccEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -3307,6 +4361,8 @@ export const countyVaccEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -3322,6 +4378,8 @@ export const countyVaccEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -3336,25 +4394,46 @@ export const countyVaccEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -3363,9 +4442,16 @@ export const countyVaccEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -3376,6 +4462,8 @@ export const countyVaccEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -3386,7 +4474,8 @@ export const countyVaccEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
@@ -3426,6 +4515,8 @@ export const countyVaccEntryByAge = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         surveyEntry {
           id
           email
@@ -3435,6 +4526,8 @@ export const countyVaccEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -3443,15 +4536,20 @@ export const countyVaccEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -3463,6 +4561,8 @@ export const countyVaccEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -3478,6 +4578,8 @@ export const countyVaccEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -3492,25 +4594,46 @@ export const countyVaccEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -3519,9 +4642,16 @@ export const countyVaccEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -3532,6 +4662,8 @@ export const countyVaccEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -3542,7 +4674,8 @@ export const countyVaccEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
@@ -3582,6 +4715,8 @@ export const countyVaccEntryByRace = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         surveyEntry {
           id
           email
@@ -3591,6 +4726,8 @@ export const countyVaccEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -3599,15 +4736,20 @@ export const countyVaccEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -3619,6 +4761,8 @@ export const countyVaccEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -3634,6 +4778,8 @@ export const countyVaccEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -3648,25 +4794,46 @@ export const countyVaccEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -3675,9 +4842,16 @@ export const countyVaccEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -3688,6 +4862,8 @@ export const countyVaccEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -3698,7 +4874,8 @@ export const countyVaccEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
@@ -3738,6 +4915,8 @@ export const countyVaccEntryBySex = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         surveyEntry {
           id
           email
@@ -3747,6 +4926,8 @@ export const countyVaccEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -3755,15 +4936,20 @@ export const countyVaccEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -3775,6 +4961,8 @@ export const countyVaccEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -3790,6 +4978,8 @@ export const countyVaccEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -3804,25 +4994,46 @@ export const countyVaccEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -3831,9 +5042,16 @@ export const countyVaccEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -3844,6 +5062,8 @@ export const countyVaccEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -3854,7 +5074,8 @@ export const countyVaccEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
@@ -3870,12 +5091,17 @@ export const countyVaccEntryBySex = /* GraphQL */ `
     }
   }
 `;
-export const getCovidEntry = /* GraphQL */ `
-  query GetCovidEntry($id: ID!) {
-    getCovidEntry(id: $id) {
+export const getGlobalHealthEntry = /* GraphQL */ `
+  query GetGlobalHealthEntry($id: ID!) {
+    getGlobalHealthEntry(id: $id) {
       id
       state
       countyState
+      age
+      race
+      sex
+      height
+      weight
       surveyEntry {
         id
         email
@@ -3885,6 +5111,8 @@ export const getCovidEntry = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         timeElapsed
         covidEntry {
           id
@@ -3899,28 +5127,36 @@ export const getCovidEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
+          beenInfected
           timesPositive
           lastPositive
           tested
+          positiveTest
           testMethod
           hospitalized
+          timesHospitalized
           symptomatic
           symptomsPreventScale
+          medicationsPrescribed
           medicationsTaken
-          returnedToHealth
           createdAt
           updatedAt
           covidEntrySurveyEntryId
@@ -3932,6 +5168,8 @@ export const getCovidEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           surveyEntry {
             id
             email
@@ -3941,13 +5179,16 @@ export const getCovidEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
@@ -3972,19 +5213,24 @@ export const getCovidEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -4005,30 +5251,71 @@ export const getCovidEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           recovered
-          lengthOfRecovery {
-            months
-            days
-          }
-          hasLongCovid
+          lengthOfRecovery
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
         }
-        generalHealthEntry {
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
           id
           state
           countyState
@@ -4041,25 +5328,29 @@ export const getCovidEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
-          health
+          height
+          weight
           generalHealthResults
           totalScore
           createdAt
           updatedAt
-          generalHealthEntrySurveyEntryId
+          patientHealthEntrySurveyEntryId
         }
         symptomsEntry {
           id
@@ -4074,22 +5365,32 @@ export const getCovidEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           createdAt
           symptoms
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
           medicalConditions
+          hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -4106,19 +5407,24 @@ export const getCovidEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           results
           createdAt
           updatedAt
@@ -4129,22 +5435,2186 @@ export const getCovidEntry = /* GraphQL */ `
         surveyEntryVaccinationEntryId
         surveyEntrySocialDeterminantsEntryId
         surveyEntryRecoveryEntryId
-        surveyEntryGeneralHealthEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
+        surveyEntrySymptomsEntryId
+        surveyEntryMonthlyEntryId
+      }
+      healthRank
+      physicalHealthRank
+      carryPhysicalActivities
+      fatigueRank
+      painLevel
+      createdAt
+      updatedAt
+      globalHealthEntrySurveyEntryId
+    }
+  }
+`;
+export const listGlobalHealthEntries = /* GraphQL */ `
+  query ListGlobalHealthEntries(
+    $filter: ModelGlobalHealthEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listGlobalHealthEntries(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        state
+        countyState
+        age
+        race
+        sex
+        height
+        weight
+        surveyEntry {
+          id
+          email
+          createdAt
+          surveyVersion
+          surveyType
+          age
+          race
+          sex
+          height
+          weight
+          timeElapsed
+          covidEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            beenInfected
+            timesPositive
+            lastPositive
+            tested
+            positiveTest
+            testMethod
+            hospitalized
+            timesHospitalized
+            symptomatic
+            symptomsPreventScale
+            medicationsPrescribed
+            medicationsTaken
+            createdAt
+            updatedAt
+            covidEntrySurveyEntryId
+          }
+          vaccinationEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            totalVaccineShots
+            vaccinated
+            vaccineType
+            dateOfLastVaccine
+            createdAt
+            updatedAt
+            vaccinationEntrySurveyEntryId
+          }
+          socialDeterminantsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            hasMedicalInsurance
+            difficultCoveringExpenses
+            currentWorkSituation
+            createdAt
+            updatedAt
+            socialDeterminantsEntrySurveyEntryId
+          }
+          recoveryEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            recovered
+            lengthOfRecovery
+            createdAt
+            updatedAt
+            recoveryEntrySurveyEntryId
+          }
+          globalHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            generalHealthResults
+            totalScore
+            createdAt
+            updatedAt
+            patientHealthEntrySurveyEntryId
+          }
+          symptomsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            createdAt
+            symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
+            medicalConditions
+            hasLongCovid
+            updatedAt
+            symptomEntrySurveyEntryId
+          }
+          monthlyEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            results
+            createdAt
+            updatedAt
+            monthlyEntrySurveyEntryId
+          }
+          updatedAt
+          surveyEntryCovidEntryId
+          surveyEntryVaccinationEntryId
+          surveyEntrySocialDeterminantsEntryId
+          surveyEntryRecoveryEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
+          surveyEntrySymptomsEntryId
+          surveyEntryMonthlyEntryId
+        }
+        healthRank
+        physicalHealthRank
+        carryPhysicalActivities
+        fatigueRank
+        painLevel
+        createdAt
+        updatedAt
+        globalHealthEntrySurveyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const stateGHEntryByDate = /* GraphQL */ `
+  query StateGHEntryByDate(
+    $state: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGlobalHealthEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    stateGHEntryByDate(
+      state: $state
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        state
+        countyState
+        age
+        race
+        sex
+        height
+        weight
+        surveyEntry {
+          id
+          email
+          createdAt
+          surveyVersion
+          surveyType
+          age
+          race
+          sex
+          height
+          weight
+          timeElapsed
+          covidEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            beenInfected
+            timesPositive
+            lastPositive
+            tested
+            positiveTest
+            testMethod
+            hospitalized
+            timesHospitalized
+            symptomatic
+            symptomsPreventScale
+            medicationsPrescribed
+            medicationsTaken
+            createdAt
+            updatedAt
+            covidEntrySurveyEntryId
+          }
+          vaccinationEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            totalVaccineShots
+            vaccinated
+            vaccineType
+            dateOfLastVaccine
+            createdAt
+            updatedAt
+            vaccinationEntrySurveyEntryId
+          }
+          socialDeterminantsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            hasMedicalInsurance
+            difficultCoveringExpenses
+            currentWorkSituation
+            createdAt
+            updatedAt
+            socialDeterminantsEntrySurveyEntryId
+          }
+          recoveryEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            recovered
+            lengthOfRecovery
+            createdAt
+            updatedAt
+            recoveryEntrySurveyEntryId
+          }
+          globalHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            generalHealthResults
+            totalScore
+            createdAt
+            updatedAt
+            patientHealthEntrySurveyEntryId
+          }
+          symptomsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            createdAt
+            symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
+            medicalConditions
+            hasLongCovid
+            updatedAt
+            symptomEntrySurveyEntryId
+          }
+          monthlyEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            results
+            createdAt
+            updatedAt
+            monthlyEntrySurveyEntryId
+          }
+          updatedAt
+          surveyEntryCovidEntryId
+          surveyEntryVaccinationEntryId
+          surveyEntrySocialDeterminantsEntryId
+          surveyEntryRecoveryEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
+          surveyEntrySymptomsEntryId
+          surveyEntryMonthlyEntryId
+        }
+        healthRank
+        physicalHealthRank
+        carryPhysicalActivities
+        fatigueRank
+        painLevel
+        createdAt
+        updatedAt
+        globalHealthEntrySurveyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const stateGHEntryByAge = /* GraphQL */ `
+  query StateGHEntryByAge(
+    $state: String!
+    $age: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGlobalHealthEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    stateGHEntryByAge(
+      state: $state
+      age: $age
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        state
+        countyState
+        age
+        race
+        sex
+        height
+        weight
+        surveyEntry {
+          id
+          email
+          createdAt
+          surveyVersion
+          surveyType
+          age
+          race
+          sex
+          height
+          weight
+          timeElapsed
+          covidEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            beenInfected
+            timesPositive
+            lastPositive
+            tested
+            positiveTest
+            testMethod
+            hospitalized
+            timesHospitalized
+            symptomatic
+            symptomsPreventScale
+            medicationsPrescribed
+            medicationsTaken
+            createdAt
+            updatedAt
+            covidEntrySurveyEntryId
+          }
+          vaccinationEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            totalVaccineShots
+            vaccinated
+            vaccineType
+            dateOfLastVaccine
+            createdAt
+            updatedAt
+            vaccinationEntrySurveyEntryId
+          }
+          socialDeterminantsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            hasMedicalInsurance
+            difficultCoveringExpenses
+            currentWorkSituation
+            createdAt
+            updatedAt
+            socialDeterminantsEntrySurveyEntryId
+          }
+          recoveryEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            recovered
+            lengthOfRecovery
+            createdAt
+            updatedAt
+            recoveryEntrySurveyEntryId
+          }
+          globalHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            generalHealthResults
+            totalScore
+            createdAt
+            updatedAt
+            patientHealthEntrySurveyEntryId
+          }
+          symptomsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            createdAt
+            symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
+            medicalConditions
+            hasLongCovid
+            updatedAt
+            symptomEntrySurveyEntryId
+          }
+          monthlyEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            results
+            createdAt
+            updatedAt
+            monthlyEntrySurveyEntryId
+          }
+          updatedAt
+          surveyEntryCovidEntryId
+          surveyEntryVaccinationEntryId
+          surveyEntrySocialDeterminantsEntryId
+          surveyEntryRecoveryEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
+          surveyEntrySymptomsEntryId
+          surveyEntryMonthlyEntryId
+        }
+        healthRank
+        physicalHealthRank
+        carryPhysicalActivities
+        fatigueRank
+        painLevel
+        createdAt
+        updatedAt
+        globalHealthEntrySurveyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const stateGHEntryByRace = /* GraphQL */ `
+  query StateGHEntryByRace(
+    $state: String!
+    $race: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGlobalHealthEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    stateGHEntryByRace(
+      state: $state
+      race: $race
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        state
+        countyState
+        age
+        race
+        sex
+        height
+        weight
+        surveyEntry {
+          id
+          email
+          createdAt
+          surveyVersion
+          surveyType
+          age
+          race
+          sex
+          height
+          weight
+          timeElapsed
+          covidEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            beenInfected
+            timesPositive
+            lastPositive
+            tested
+            positiveTest
+            testMethod
+            hospitalized
+            timesHospitalized
+            symptomatic
+            symptomsPreventScale
+            medicationsPrescribed
+            medicationsTaken
+            createdAt
+            updatedAt
+            covidEntrySurveyEntryId
+          }
+          vaccinationEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            totalVaccineShots
+            vaccinated
+            vaccineType
+            dateOfLastVaccine
+            createdAt
+            updatedAt
+            vaccinationEntrySurveyEntryId
+          }
+          socialDeterminantsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            hasMedicalInsurance
+            difficultCoveringExpenses
+            currentWorkSituation
+            createdAt
+            updatedAt
+            socialDeterminantsEntrySurveyEntryId
+          }
+          recoveryEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            recovered
+            lengthOfRecovery
+            createdAt
+            updatedAt
+            recoveryEntrySurveyEntryId
+          }
+          globalHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            generalHealthResults
+            totalScore
+            createdAt
+            updatedAt
+            patientHealthEntrySurveyEntryId
+          }
+          symptomsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            createdAt
+            symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
+            medicalConditions
+            hasLongCovid
+            updatedAt
+            symptomEntrySurveyEntryId
+          }
+          monthlyEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            results
+            createdAt
+            updatedAt
+            monthlyEntrySurveyEntryId
+          }
+          updatedAt
+          surveyEntryCovidEntryId
+          surveyEntryVaccinationEntryId
+          surveyEntrySocialDeterminantsEntryId
+          surveyEntryRecoveryEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
+          surveyEntrySymptomsEntryId
+          surveyEntryMonthlyEntryId
+        }
+        healthRank
+        physicalHealthRank
+        carryPhysicalActivities
+        fatigueRank
+        painLevel
+        createdAt
+        updatedAt
+        globalHealthEntrySurveyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const stateGHEntryBySex = /* GraphQL */ `
+  query StateGHEntryBySex(
+    $state: String!
+    $sex: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGlobalHealthEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    stateGHEntryBySex(
+      state: $state
+      sex: $sex
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        state
+        countyState
+        age
+        race
+        sex
+        height
+        weight
+        surveyEntry {
+          id
+          email
+          createdAt
+          surveyVersion
+          surveyType
+          age
+          race
+          sex
+          height
+          weight
+          timeElapsed
+          covidEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            beenInfected
+            timesPositive
+            lastPositive
+            tested
+            positiveTest
+            testMethod
+            hospitalized
+            timesHospitalized
+            symptomatic
+            symptomsPreventScale
+            medicationsPrescribed
+            medicationsTaken
+            createdAt
+            updatedAt
+            covidEntrySurveyEntryId
+          }
+          vaccinationEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            totalVaccineShots
+            vaccinated
+            vaccineType
+            dateOfLastVaccine
+            createdAt
+            updatedAt
+            vaccinationEntrySurveyEntryId
+          }
+          socialDeterminantsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            hasMedicalInsurance
+            difficultCoveringExpenses
+            currentWorkSituation
+            createdAt
+            updatedAt
+            socialDeterminantsEntrySurveyEntryId
+          }
+          recoveryEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            recovered
+            lengthOfRecovery
+            createdAt
+            updatedAt
+            recoveryEntrySurveyEntryId
+          }
+          globalHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            generalHealthResults
+            totalScore
+            createdAt
+            updatedAt
+            patientHealthEntrySurveyEntryId
+          }
+          symptomsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            createdAt
+            symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
+            medicalConditions
+            hasLongCovid
+            updatedAt
+            symptomEntrySurveyEntryId
+          }
+          monthlyEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            results
+            createdAt
+            updatedAt
+            monthlyEntrySurveyEntryId
+          }
+          updatedAt
+          surveyEntryCovidEntryId
+          surveyEntryVaccinationEntryId
+          surveyEntrySocialDeterminantsEntryId
+          surveyEntryRecoveryEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
+          surveyEntrySymptomsEntryId
+          surveyEntryMonthlyEntryId
+        }
+        healthRank
+        physicalHealthRank
+        carryPhysicalActivities
+        fatigueRank
+        painLevel
+        createdAt
+        updatedAt
+        globalHealthEntrySurveyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const countyGHEntryByDate = /* GraphQL */ `
+  query CountyGHEntryByDate(
+    $countyState: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGlobalHealthEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    countyGHEntryByDate(
+      countyState: $countyState
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        state
+        countyState
+        age
+        race
+        sex
+        height
+        weight
+        surveyEntry {
+          id
+          email
+          createdAt
+          surveyVersion
+          surveyType
+          age
+          race
+          sex
+          height
+          weight
+          timeElapsed
+          covidEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            beenInfected
+            timesPositive
+            lastPositive
+            tested
+            positiveTest
+            testMethod
+            hospitalized
+            timesHospitalized
+            symptomatic
+            symptomsPreventScale
+            medicationsPrescribed
+            medicationsTaken
+            createdAt
+            updatedAt
+            covidEntrySurveyEntryId
+          }
+          vaccinationEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            totalVaccineShots
+            vaccinated
+            vaccineType
+            dateOfLastVaccine
+            createdAt
+            updatedAt
+            vaccinationEntrySurveyEntryId
+          }
+          socialDeterminantsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            hasMedicalInsurance
+            difficultCoveringExpenses
+            currentWorkSituation
+            createdAt
+            updatedAt
+            socialDeterminantsEntrySurveyEntryId
+          }
+          recoveryEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            recovered
+            lengthOfRecovery
+            createdAt
+            updatedAt
+            recoveryEntrySurveyEntryId
+          }
+          globalHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            generalHealthResults
+            totalScore
+            createdAt
+            updatedAt
+            patientHealthEntrySurveyEntryId
+          }
+          symptomsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            createdAt
+            symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
+            medicalConditions
+            hasLongCovid
+            updatedAt
+            symptomEntrySurveyEntryId
+          }
+          monthlyEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            results
+            createdAt
+            updatedAt
+            monthlyEntrySurveyEntryId
+          }
+          updatedAt
+          surveyEntryCovidEntryId
+          surveyEntryVaccinationEntryId
+          surveyEntrySocialDeterminantsEntryId
+          surveyEntryRecoveryEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
+          surveyEntrySymptomsEntryId
+          surveyEntryMonthlyEntryId
+        }
+        healthRank
+        physicalHealthRank
+        carryPhysicalActivities
+        fatigueRank
+        painLevel
+        createdAt
+        updatedAt
+        globalHealthEntrySurveyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const countyGHEntryByAge = /* GraphQL */ `
+  query CountyGHEntryByAge(
+    $countyState: String!
+    $age: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGlobalHealthEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    countyGHEntryByAge(
+      countyState: $countyState
+      age: $age
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        state
+        countyState
+        age
+        race
+        sex
+        height
+        weight
+        surveyEntry {
+          id
+          email
+          createdAt
+          surveyVersion
+          surveyType
+          age
+          race
+          sex
+          height
+          weight
+          timeElapsed
+          covidEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            beenInfected
+            timesPositive
+            lastPositive
+            tested
+            positiveTest
+            testMethod
+            hospitalized
+            timesHospitalized
+            symptomatic
+            symptomsPreventScale
+            medicationsPrescribed
+            medicationsTaken
+            createdAt
+            updatedAt
+            covidEntrySurveyEntryId
+          }
+          vaccinationEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            totalVaccineShots
+            vaccinated
+            vaccineType
+            dateOfLastVaccine
+            createdAt
+            updatedAt
+            vaccinationEntrySurveyEntryId
+          }
+          socialDeterminantsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            hasMedicalInsurance
+            difficultCoveringExpenses
+            currentWorkSituation
+            createdAt
+            updatedAt
+            socialDeterminantsEntrySurveyEntryId
+          }
+          recoveryEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            recovered
+            lengthOfRecovery
+            createdAt
+            updatedAt
+            recoveryEntrySurveyEntryId
+          }
+          globalHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            generalHealthResults
+            totalScore
+            createdAt
+            updatedAt
+            patientHealthEntrySurveyEntryId
+          }
+          symptomsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            createdAt
+            symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
+            medicalConditions
+            hasLongCovid
+            updatedAt
+            symptomEntrySurveyEntryId
+          }
+          monthlyEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            results
+            createdAt
+            updatedAt
+            monthlyEntrySurveyEntryId
+          }
+          updatedAt
+          surveyEntryCovidEntryId
+          surveyEntryVaccinationEntryId
+          surveyEntrySocialDeterminantsEntryId
+          surveyEntryRecoveryEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
+          surveyEntrySymptomsEntryId
+          surveyEntryMonthlyEntryId
+        }
+        healthRank
+        physicalHealthRank
+        carryPhysicalActivities
+        fatigueRank
+        painLevel
+        createdAt
+        updatedAt
+        globalHealthEntrySurveyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const countyGHEntryByRace = /* GraphQL */ `
+  query CountyGHEntryByRace(
+    $countyState: String!
+    $race: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGlobalHealthEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    countyGHEntryByRace(
+      countyState: $countyState
+      race: $race
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        state
+        countyState
+        age
+        race
+        sex
+        height
+        weight
+        surveyEntry {
+          id
+          email
+          createdAt
+          surveyVersion
+          surveyType
+          age
+          race
+          sex
+          height
+          weight
+          timeElapsed
+          covidEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            beenInfected
+            timesPositive
+            lastPositive
+            tested
+            positiveTest
+            testMethod
+            hospitalized
+            timesHospitalized
+            symptomatic
+            symptomsPreventScale
+            medicationsPrescribed
+            medicationsTaken
+            createdAt
+            updatedAt
+            covidEntrySurveyEntryId
+          }
+          vaccinationEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            totalVaccineShots
+            vaccinated
+            vaccineType
+            dateOfLastVaccine
+            createdAt
+            updatedAt
+            vaccinationEntrySurveyEntryId
+          }
+          socialDeterminantsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            hasMedicalInsurance
+            difficultCoveringExpenses
+            currentWorkSituation
+            createdAt
+            updatedAt
+            socialDeterminantsEntrySurveyEntryId
+          }
+          recoveryEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            recovered
+            lengthOfRecovery
+            createdAt
+            updatedAt
+            recoveryEntrySurveyEntryId
+          }
+          globalHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            generalHealthResults
+            totalScore
+            createdAt
+            updatedAt
+            patientHealthEntrySurveyEntryId
+          }
+          symptomsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            createdAt
+            symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
+            medicalConditions
+            hasLongCovid
+            updatedAt
+            symptomEntrySurveyEntryId
+          }
+          monthlyEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            results
+            createdAt
+            updatedAt
+            monthlyEntrySurveyEntryId
+          }
+          updatedAt
+          surveyEntryCovidEntryId
+          surveyEntryVaccinationEntryId
+          surveyEntrySocialDeterminantsEntryId
+          surveyEntryRecoveryEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
+          surveyEntrySymptomsEntryId
+          surveyEntryMonthlyEntryId
+        }
+        healthRank
+        physicalHealthRank
+        carryPhysicalActivities
+        fatigueRank
+        painLevel
+        createdAt
+        updatedAt
+        globalHealthEntrySurveyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const countyGHEntryBySex = /* GraphQL */ `
+  query CountyGHEntryBySex(
+    $countyState: String!
+    $sex: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelGlobalHealthEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    countyGHEntryBySex(
+      countyState: $countyState
+      sex: $sex
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        state
+        countyState
+        age
+        race
+        sex
+        height
+        weight
+        surveyEntry {
+          id
+          email
+          createdAt
+          surveyVersion
+          surveyType
+          age
+          race
+          sex
+          height
+          weight
+          timeElapsed
+          covidEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            beenInfected
+            timesPositive
+            lastPositive
+            tested
+            positiveTest
+            testMethod
+            hospitalized
+            timesHospitalized
+            symptomatic
+            symptomsPreventScale
+            medicationsPrescribed
+            medicationsTaken
+            createdAt
+            updatedAt
+            covidEntrySurveyEntryId
+          }
+          vaccinationEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            totalVaccineShots
+            vaccinated
+            vaccineType
+            dateOfLastVaccine
+            createdAt
+            updatedAt
+            vaccinationEntrySurveyEntryId
+          }
+          socialDeterminantsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            hasMedicalInsurance
+            difficultCoveringExpenses
+            currentWorkSituation
+            createdAt
+            updatedAt
+            socialDeterminantsEntrySurveyEntryId
+          }
+          recoveryEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            recovered
+            lengthOfRecovery
+            createdAt
+            updatedAt
+            recoveryEntrySurveyEntryId
+          }
+          globalHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            generalHealthResults
+            totalScore
+            createdAt
+            updatedAt
+            patientHealthEntrySurveyEntryId
+          }
+          symptomsEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            createdAt
+            symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
+            medicalConditions
+            hasLongCovid
+            updatedAt
+            symptomEntrySurveyEntryId
+          }
+          monthlyEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
+            results
+            createdAt
+            updatedAt
+            monthlyEntrySurveyEntryId
+          }
+          updatedAt
+          surveyEntryCovidEntryId
+          surveyEntryVaccinationEntryId
+          surveyEntrySocialDeterminantsEntryId
+          surveyEntryRecoveryEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
+          surveyEntrySymptomsEntryId
+          surveyEntryMonthlyEntryId
+        }
+        healthRank
+        physicalHealthRank
+        carryPhysicalActivities
+        fatigueRank
+        painLevel
+        createdAt
+        updatedAt
+        globalHealthEntrySurveyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const getCovidEntry = /* GraphQL */ `
+  query GetCovidEntry($id: ID!) {
+    getCovidEntry(id: $id) {
+      id
+      state
+      countyState
+      surveyEntry {
+        id
+        email
+        createdAt
+        surveyVersion
+        surveyType
+        age
+        race
+        sex
+        height
+        weight
+        timeElapsed
+        covidEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          beenInfected
+          timesPositive
+          lastPositive
+          tested
+          positiveTest
+          testMethod
+          hospitalized
+          timesHospitalized
+          symptomatic
+          symptomsPreventScale
+          medicationsPrescribed
+          medicationsTaken
+          createdAt
+          updatedAt
+          covidEntrySurveyEntryId
+        }
+        vaccinationEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          totalVaccineShots
+          vaccinated
+          vaccineType
+          dateOfLastVaccine
+          createdAt
+          updatedAt
+          vaccinationEntrySurveyEntryId
+        }
+        socialDeterminantsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          hasMedicalInsurance
+          difficultCoveringExpenses
+          currentWorkSituation
+          createdAt
+          updatedAt
+          socialDeterminantsEntrySurveyEntryId
+        }
+        recoveryEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          recovered
+          lengthOfRecovery
+          createdAt
+          updatedAt
+          recoveryEntrySurveyEntryId
+        }
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          generalHealthResults
+          totalScore
+          createdAt
+          updatedAt
+          patientHealthEntrySurveyEntryId
+        }
+        symptomsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          createdAt
+          symptoms
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
+          medicalConditions
+          hasLongCovid
+          updatedAt
+          symptomEntrySurveyEntryId
+        }
+        monthlyEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          results
+          createdAt
+          updatedAt
+          monthlyEntrySurveyEntryId
+        }
+        updatedAt
+        surveyEntryCovidEntryId
+        surveyEntryVaccinationEntryId
+        surveyEntrySocialDeterminantsEntryId
+        surveyEntryRecoveryEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
       }
       age
       race
       sex
+      height
+      weight
+      beenInfected
       timesPositive
       lastPositive
       tested
+      positiveTest
       testMethod
       hospitalized
+      timesHospitalized
       symptomatic
       symptomsPreventScale
+      medicationsPrescribed
       medicationsTaken
-      returnedToHealth
       createdAt
       updatedAt
       covidEntrySurveyEntryId
@@ -4171,6 +7641,8 @@ export const listCovidEntries = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -4179,15 +7651,20 @@ export const listCovidEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -4199,6 +7676,8 @@ export const listCovidEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -4214,6 +7693,8 @@ export const listCovidEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -4228,25 +7709,46 @@ export const listCovidEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -4255,9 +7757,16 @@ export const listCovidEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -4268,6 +7777,8 @@ export const listCovidEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -4278,22 +7789,28 @@ export const listCovidEntries = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
+        beenInfected
         timesPositive
         lastPositive
         tested
+        positiveTest
         testMethod
         hospitalized
+        timesHospitalized
         symptomatic
         symptomsPreventScale
+        medicationsPrescribed
         medicationsTaken
-        returnedToHealth
         createdAt
         updatedAt
         covidEntrySurveyEntryId
@@ -4332,6 +7849,8 @@ export const stateCovidEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -4340,15 +7859,20 @@ export const stateCovidEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -4360,6 +7884,8 @@ export const stateCovidEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -4375,6 +7901,8 @@ export const stateCovidEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -4389,25 +7917,46 @@ export const stateCovidEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -4416,9 +7965,16 @@ export const stateCovidEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -4429,6 +7985,8 @@ export const stateCovidEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -4439,22 +7997,28 @@ export const stateCovidEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
+        beenInfected
         timesPositive
         lastPositive
         tested
+        positiveTest
         testMethod
         hospitalized
+        timesHospitalized
         symptomatic
         symptomsPreventScale
+        medicationsPrescribed
         medicationsTaken
-        returnedToHealth
         createdAt
         updatedAt
         covidEntrySurveyEntryId
@@ -4493,6 +8057,8 @@ export const stateCovidEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -4501,15 +8067,20 @@ export const stateCovidEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -4521,6 +8092,8 @@ export const stateCovidEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -4536,6 +8109,8 @@ export const stateCovidEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -4550,25 +8125,46 @@ export const stateCovidEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -4577,9 +8173,16 @@ export const stateCovidEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -4590,6 +8193,8 @@ export const stateCovidEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -4600,22 +8205,28 @@ export const stateCovidEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
+        beenInfected
         timesPositive
         lastPositive
         tested
+        positiveTest
         testMethod
         hospitalized
+        timesHospitalized
         symptomatic
         symptomsPreventScale
+        medicationsPrescribed
         medicationsTaken
-        returnedToHealth
         createdAt
         updatedAt
         covidEntrySurveyEntryId
@@ -4654,6 +8265,8 @@ export const stateCovidEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -4662,15 +8275,20 @@ export const stateCovidEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -4682,6 +8300,8 @@ export const stateCovidEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -4697,6 +8317,8 @@ export const stateCovidEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -4711,25 +8333,46 @@ export const stateCovidEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -4738,9 +8381,16 @@ export const stateCovidEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -4751,6 +8401,8 @@ export const stateCovidEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -4761,22 +8413,28 @@ export const stateCovidEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
+        beenInfected
         timesPositive
         lastPositive
         tested
+        positiveTest
         testMethod
         hospitalized
+        timesHospitalized
         symptomatic
         symptomsPreventScale
+        medicationsPrescribed
         medicationsTaken
-        returnedToHealth
         createdAt
         updatedAt
         covidEntrySurveyEntryId
@@ -4815,6 +8473,8 @@ export const stateCovidEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -4823,15 +8483,20 @@ export const stateCovidEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -4843,6 +8508,8 @@ export const stateCovidEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -4858,6 +8525,8 @@ export const stateCovidEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -4872,25 +8541,46 @@ export const stateCovidEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -4899,9 +8589,16 @@ export const stateCovidEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -4912,6 +8609,8 @@ export const stateCovidEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -4922,22 +8621,28 @@ export const stateCovidEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
+        beenInfected
         timesPositive
         lastPositive
         tested
+        positiveTest
         testMethod
         hospitalized
+        timesHospitalized
         symptomatic
         symptomsPreventScale
+        medicationsPrescribed
         medicationsTaken
-        returnedToHealth
         createdAt
         updatedAt
         covidEntrySurveyEntryId
@@ -4976,6 +8681,8 @@ export const countyCovidEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -4984,15 +8691,20 @@ export const countyCovidEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -5004,6 +8716,8 @@ export const countyCovidEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -5019,6 +8733,8 @@ export const countyCovidEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -5033,25 +8749,46 @@ export const countyCovidEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -5060,9 +8797,16 @@ export const countyCovidEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -5073,6 +8817,8 @@ export const countyCovidEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -5083,22 +8829,28 @@ export const countyCovidEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
+        beenInfected
         timesPositive
         lastPositive
         tested
+        positiveTest
         testMethod
         hospitalized
+        timesHospitalized
         symptomatic
         symptomsPreventScale
+        medicationsPrescribed
         medicationsTaken
-        returnedToHealth
         createdAt
         updatedAt
         covidEntrySurveyEntryId
@@ -5137,6 +8889,8 @@ export const countyCovidEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -5145,15 +8899,20 @@ export const countyCovidEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -5165,6 +8924,8 @@ export const countyCovidEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -5180,6 +8941,8 @@ export const countyCovidEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -5194,25 +8957,46 @@ export const countyCovidEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -5221,9 +9005,16 @@ export const countyCovidEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -5234,6 +9025,8 @@ export const countyCovidEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -5244,22 +9037,28 @@ export const countyCovidEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
+        beenInfected
         timesPositive
         lastPositive
         tested
+        positiveTest
         testMethod
         hospitalized
+        timesHospitalized
         symptomatic
         symptomsPreventScale
+        medicationsPrescribed
         medicationsTaken
-        returnedToHealth
         createdAt
         updatedAt
         covidEntrySurveyEntryId
@@ -5298,6 +9097,8 @@ export const countyCovidEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -5306,15 +9107,20 @@ export const countyCovidEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -5326,6 +9132,8 @@ export const countyCovidEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -5341,6 +9149,8 @@ export const countyCovidEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -5355,25 +9165,46 @@ export const countyCovidEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -5382,9 +9213,16 @@ export const countyCovidEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -5395,6 +9233,8 @@ export const countyCovidEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -5405,22 +9245,28 @@ export const countyCovidEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
+        beenInfected
         timesPositive
         lastPositive
         tested
+        positiveTest
         testMethod
         hospitalized
+        timesHospitalized
         symptomatic
         symptomsPreventScale
+        medicationsPrescribed
         medicationsTaken
-        returnedToHealth
         createdAt
         updatedAt
         covidEntrySurveyEntryId
@@ -5459,6 +9305,8 @@ export const countyCovidEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -5467,15 +9315,20 @@ export const countyCovidEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -5487,6 +9340,8 @@ export const countyCovidEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -5502,6 +9357,8 @@ export const countyCovidEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -5516,25 +9373,46 @@ export const countyCovidEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -5543,9 +9421,16 @@ export const countyCovidEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -5556,6 +9441,8 @@ export const countyCovidEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -5566,22 +9453,28 @@ export const countyCovidEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
+        beenInfected
         timesPositive
         lastPositive
         tested
+        positiveTest
         testMethod
         hospitalized
+        timesHospitalized
         symptomatic
         symptomsPreventScale
+        medicationsPrescribed
         medicationsTaken
-        returnedToHealth
         createdAt
         updatedAt
         covidEntrySurveyEntryId
@@ -5605,6 +9498,8 @@ export const getRecoveryEntry = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         timeElapsed
         covidEntry {
           id
@@ -5619,28 +9514,36 @@ export const getRecoveryEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
+          beenInfected
           timesPositive
           lastPositive
           tested
+          positiveTest
           testMethod
           hospitalized
+          timesHospitalized
           symptomatic
           symptomsPreventScale
+          medicationsPrescribed
           medicationsTaken
-          returnedToHealth
           createdAt
           updatedAt
           covidEntrySurveyEntryId
@@ -5652,6 +9555,8 @@ export const getRecoveryEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           surveyEntry {
             id
             email
@@ -5661,13 +9566,16 @@ export const getRecoveryEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
@@ -5692,19 +9600,24 @@ export const getRecoveryEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -5725,30 +9638,71 @@ export const getRecoveryEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           recovered
-          lengthOfRecovery {
-            months
-            days
-          }
-          hasLongCovid
+          lengthOfRecovery
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
         }
-        generalHealthEntry {
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
           id
           state
           countyState
@@ -5761,25 +9715,29 @@ export const getRecoveryEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
-          health
+          height
+          weight
           generalHealthResults
           totalScore
           createdAt
           updatedAt
-          generalHealthEntrySurveyEntryId
+          patientHealthEntrySurveyEntryId
         }
         symptomsEntry {
           id
@@ -5794,22 +9752,32 @@ export const getRecoveryEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           createdAt
           symptoms
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
           medicalConditions
+          hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -5826,19 +9794,24 @@ export const getRecoveryEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           results
           createdAt
           updatedAt
@@ -5849,19 +9822,18 @@ export const getRecoveryEntry = /* GraphQL */ `
         surveyEntryVaccinationEntryId
         surveyEntrySocialDeterminantsEntryId
         surveyEntryRecoveryEntryId
-        surveyEntryGeneralHealthEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
       }
       age
       race
       sex
+      height
+      weight
       recovered
-      lengthOfRecovery {
-        months
-        days
-      }
-      hasLongCovid
+      lengthOfRecovery
       createdAt
       updatedAt
       recoveryEntrySurveyEntryId
@@ -5888,6 +9860,8 @@ export const listRecoveryEntries = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -5896,15 +9870,20 @@ export const listRecoveryEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -5916,6 +9895,8 @@ export const listRecoveryEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -5931,6 +9912,8 @@ export const listRecoveryEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -5945,25 +9928,46 @@ export const listRecoveryEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -5972,9 +9976,16 @@ export const listRecoveryEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -5985,6 +9996,8 @@ export const listRecoveryEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -5995,19 +10008,18 @@ export const listRecoveryEntries = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         recovered
-        lengthOfRecovery {
-          months
-          days
-        }
-        hasLongCovid
+        lengthOfRecovery
         createdAt
         updatedAt
         recoveryEntrySurveyEntryId
@@ -6046,6 +10058,8 @@ export const stateRecovEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -6054,15 +10068,20 @@ export const stateRecovEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -6074,6 +10093,8 @@ export const stateRecovEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -6089,6 +10110,8 @@ export const stateRecovEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -6103,25 +10126,46 @@ export const stateRecovEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -6130,9 +10174,16 @@ export const stateRecovEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -6143,6 +10194,8 @@ export const stateRecovEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -6153,19 +10206,18 @@ export const stateRecovEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         recovered
-        lengthOfRecovery {
-          months
-          days
-        }
-        hasLongCovid
+        lengthOfRecovery
         createdAt
         updatedAt
         recoveryEntrySurveyEntryId
@@ -6204,6 +10256,8 @@ export const stateRecovEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -6212,15 +10266,20 @@ export const stateRecovEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -6232,6 +10291,8 @@ export const stateRecovEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -6247,6 +10308,8 @@ export const stateRecovEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -6261,25 +10324,46 @@ export const stateRecovEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -6288,9 +10372,16 @@ export const stateRecovEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -6301,6 +10392,8 @@ export const stateRecovEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -6311,19 +10404,18 @@ export const stateRecovEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         recovered
-        lengthOfRecovery {
-          months
-          days
-        }
-        hasLongCovid
+        lengthOfRecovery
         createdAt
         updatedAt
         recoveryEntrySurveyEntryId
@@ -6362,6 +10454,8 @@ export const stateRecovEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -6370,15 +10464,20 @@ export const stateRecovEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -6390,6 +10489,8 @@ export const stateRecovEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -6405,6 +10506,8 @@ export const stateRecovEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -6419,25 +10522,46 @@ export const stateRecovEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -6446,9 +10570,16 @@ export const stateRecovEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -6459,6 +10590,8 @@ export const stateRecovEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -6469,19 +10602,18 @@ export const stateRecovEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         recovered
-        lengthOfRecovery {
-          months
-          days
-        }
-        hasLongCovid
+        lengthOfRecovery
         createdAt
         updatedAt
         recoveryEntrySurveyEntryId
@@ -6520,6 +10652,8 @@ export const stateRecovEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -6528,15 +10662,20 @@ export const stateRecovEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -6548,6 +10687,8 @@ export const stateRecovEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -6563,6 +10704,8 @@ export const stateRecovEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -6577,25 +10720,46 @@ export const stateRecovEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -6604,9 +10768,16 @@ export const stateRecovEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -6617,6 +10788,8 @@ export const stateRecovEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -6627,19 +10800,18 @@ export const stateRecovEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         recovered
-        lengthOfRecovery {
-          months
-          days
-        }
-        hasLongCovid
+        lengthOfRecovery
         createdAt
         updatedAt
         recoveryEntrySurveyEntryId
@@ -6678,6 +10850,8 @@ export const countyRecovEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -6686,15 +10860,20 @@ export const countyRecovEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -6706,6 +10885,8 @@ export const countyRecovEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -6721,6 +10902,8 @@ export const countyRecovEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -6735,25 +10918,46 @@ export const countyRecovEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -6762,9 +10966,16 @@ export const countyRecovEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -6775,6 +10986,8 @@ export const countyRecovEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -6785,19 +10998,18 @@ export const countyRecovEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         recovered
-        lengthOfRecovery {
-          months
-          days
-        }
-        hasLongCovid
+        lengthOfRecovery
         createdAt
         updatedAt
         recoveryEntrySurveyEntryId
@@ -6836,6 +11048,8 @@ export const countyRecovEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -6844,15 +11058,20 @@ export const countyRecovEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -6864,6 +11083,8 @@ export const countyRecovEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -6879,6 +11100,8 @@ export const countyRecovEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -6893,25 +11116,46 @@ export const countyRecovEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -6920,9 +11164,16 @@ export const countyRecovEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -6933,6 +11184,8 @@ export const countyRecovEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -6943,19 +11196,18 @@ export const countyRecovEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         recovered
-        lengthOfRecovery {
-          months
-          days
-        }
-        hasLongCovid
+        lengthOfRecovery
         createdAt
         updatedAt
         recoveryEntrySurveyEntryId
@@ -6994,6 +11246,8 @@ export const countyRecovEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -7002,15 +11256,20 @@ export const countyRecovEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -7022,6 +11281,8 @@ export const countyRecovEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -7037,6 +11298,8 @@ export const countyRecovEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -7051,25 +11314,46 @@ export const countyRecovEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -7078,9 +11362,16 @@ export const countyRecovEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -7091,6 +11382,8 @@ export const countyRecovEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -7101,19 +11394,18 @@ export const countyRecovEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         recovered
-        lengthOfRecovery {
-          months
-          days
-        }
-        hasLongCovid
+        lengthOfRecovery
         createdAt
         updatedAt
         recoveryEntrySurveyEntryId
@@ -7152,6 +11444,8 @@ export const countyRecovEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -7160,15 +11454,20 @@ export const countyRecovEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -7180,6 +11479,8 @@ export const countyRecovEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -7195,6 +11496,8 @@ export const countyRecovEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -7209,25 +11512,46 @@ export const countyRecovEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -7236,9 +11560,16 @@ export const countyRecovEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -7249,6 +11580,8 @@ export const countyRecovEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -7259,19 +11592,18 @@ export const countyRecovEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         recovered
-        lengthOfRecovery {
-          months
-          days
-        }
-        hasLongCovid
+        lengthOfRecovery
         createdAt
         updatedAt
         recoveryEntrySurveyEntryId
@@ -7280,9 +11612,9 @@ export const countyRecovEntryBySex = /* GraphQL */ `
     }
   }
 `;
-export const getGeneralHealthEntry = /* GraphQL */ `
-  query GetGeneralHealthEntry($id: ID!) {
-    getGeneralHealthEntry(id: $id) {
+export const getPatientHealthEntry = /* GraphQL */ `
+  query GetPatientHealthEntry($id: ID!) {
+    getPatientHealthEntry(id: $id) {
       id
       state
       countyState
@@ -7295,6 +11627,8 @@ export const getGeneralHealthEntry = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         timeElapsed
         covidEntry {
           id
@@ -7309,28 +11643,36 @@ export const getGeneralHealthEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
+          beenInfected
           timesPositive
           lastPositive
           tested
+          positiveTest
           testMethod
           hospitalized
+          timesHospitalized
           symptomatic
           symptomsPreventScale
+          medicationsPrescribed
           medicationsTaken
-          returnedToHealth
           createdAt
           updatedAt
           covidEntrySurveyEntryId
@@ -7342,6 +11684,8 @@ export const getGeneralHealthEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           surveyEntry {
             id
             email
@@ -7351,13 +11695,16 @@ export const getGeneralHealthEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
@@ -7382,19 +11729,24 @@ export const getGeneralHealthEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -7415,30 +11767,71 @@ export const getGeneralHealthEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           recovered
-          lengthOfRecovery {
-            months
-            days
-          }
-          hasLongCovid
+          lengthOfRecovery
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
         }
-        generalHealthEntry {
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
           id
           state
           countyState
@@ -7451,25 +11844,29 @@ export const getGeneralHealthEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
-          health
+          height
+          weight
           generalHealthResults
           totalScore
           createdAt
           updatedAt
-          generalHealthEntrySurveyEntryId
+          patientHealthEntrySurveyEntryId
         }
         symptomsEntry {
           id
@@ -7484,22 +11881,32 @@ export const getGeneralHealthEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           createdAt
           symptoms
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
           medicalConditions
+          hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -7516,19 +11923,24 @@ export const getGeneralHealthEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           results
           createdAt
           updatedAt
@@ -7539,29 +11951,31 @@ export const getGeneralHealthEntry = /* GraphQL */ `
         surveyEntryVaccinationEntryId
         surveyEntrySocialDeterminantsEntryId
         surveyEntryRecoveryEntryId
-        surveyEntryGeneralHealthEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
       }
       age
       race
       sex
-      health
+      height
+      weight
       generalHealthResults
       totalScore
       createdAt
       updatedAt
-      generalHealthEntrySurveyEntryId
+      patientHealthEntrySurveyEntryId
     }
   }
 `;
-export const listGeneralHealthEntries = /* GraphQL */ `
-  query ListGeneralHealthEntries(
-    $filter: ModelGeneralHealthEntryFilterInput
+export const listPatientHealthEntries = /* GraphQL */ `
+  query ListPatientHealthEntries(
+    $filter: ModelPatientHealthEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listGeneralHealthEntries(
+    listPatientHealthEntries(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -7579,6 +11993,8 @@ export const listGeneralHealthEntries = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -7587,15 +12003,20 @@ export const listGeneralHealthEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -7607,6 +12028,8 @@ export const listGeneralHealthEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -7622,6 +12045,8 @@ export const listGeneralHealthEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -7636,25 +12061,46 @@ export const listGeneralHealthEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -7663,9 +12109,16 @@ export const listGeneralHealthEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -7676,6 +12129,8 @@ export const listGeneralHealthEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -7686,34 +12141,36 @@ export const listGeneralHealthEntries = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
-        health
+        height
+        weight
         generalHealthResults
         totalScore
         createdAt
         updatedAt
-        generalHealthEntrySurveyEntryId
+        patientHealthEntrySurveyEntryId
       }
       nextToken
     }
   }
 `;
-export const stateGenHealthEntryByDate = /* GraphQL */ `
-  query StateGenHealthEntryByDate(
+export const statePatientHealthEntryByDate = /* GraphQL */ `
+  query StatePatientHealthEntryByDate(
     $state: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelGeneralHealthEntryFilterInput
+    $filter: ModelPatientHealthEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    stateGenHealthEntryByDate(
+    statePatientHealthEntryByDate(
       state: $state
       createdAt: $createdAt
       sortDirection: $sortDirection
@@ -7734,6 +12191,8 @@ export const stateGenHealthEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -7742,15 +12201,20 @@ export const stateGenHealthEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -7762,6 +12226,8 @@ export const stateGenHealthEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -7777,6 +12243,8 @@ export const stateGenHealthEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -7791,25 +12259,46 @@ export const stateGenHealthEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -7818,9 +12307,16 @@ export const stateGenHealthEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -7831,6 +12327,8 @@ export const stateGenHealthEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -7841,34 +12339,36 @@ export const stateGenHealthEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
-        health
+        height
+        weight
         generalHealthResults
         totalScore
         createdAt
         updatedAt
-        generalHealthEntrySurveyEntryId
+        patientHealthEntrySurveyEntryId
       }
       nextToken
     }
   }
 `;
-export const stateGenHealthEntryByAge = /* GraphQL */ `
-  query StateGenHealthEntryByAge(
+export const statePatientHealthEntryByAge = /* GraphQL */ `
+  query StatePatientHealthEntryByAge(
     $state: String!
     $age: ModelIntKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelGeneralHealthEntryFilterInput
+    $filter: ModelPatientHealthEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    stateGenHealthEntryByAge(
+    statePatientHealthEntryByAge(
       state: $state
       age: $age
       sortDirection: $sortDirection
@@ -7889,6 +12389,8 @@ export const stateGenHealthEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -7897,15 +12399,20 @@ export const stateGenHealthEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -7917,6 +12424,8 @@ export const stateGenHealthEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -7932,6 +12441,8 @@ export const stateGenHealthEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -7946,25 +12457,46 @@ export const stateGenHealthEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -7973,9 +12505,16 @@ export const stateGenHealthEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -7986,6 +12525,8 @@ export const stateGenHealthEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -7996,34 +12537,36 @@ export const stateGenHealthEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
-        health
+        height
+        weight
         generalHealthResults
         totalScore
         createdAt
         updatedAt
-        generalHealthEntrySurveyEntryId
+        patientHealthEntrySurveyEntryId
       }
       nextToken
     }
   }
 `;
-export const stateGenHealthEntryByRace = /* GraphQL */ `
-  query StateGenHealthEntryByRace(
+export const statePatientHealthEntryByRace = /* GraphQL */ `
+  query StatePatientHealthEntryByRace(
     $state: String!
     $race: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelGeneralHealthEntryFilterInput
+    $filter: ModelPatientHealthEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    stateGenHealthEntryByRace(
+    statePatientHealthEntryByRace(
       state: $state
       race: $race
       sortDirection: $sortDirection
@@ -8044,6 +12587,8 @@ export const stateGenHealthEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -8052,15 +12597,20 @@ export const stateGenHealthEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -8072,6 +12622,8 @@ export const stateGenHealthEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -8087,6 +12639,8 @@ export const stateGenHealthEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -8101,25 +12655,46 @@ export const stateGenHealthEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -8128,9 +12703,16 @@ export const stateGenHealthEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -8141,6 +12723,8 @@ export const stateGenHealthEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -8151,34 +12735,36 @@ export const stateGenHealthEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
-        health
+        height
+        weight
         generalHealthResults
         totalScore
         createdAt
         updatedAt
-        generalHealthEntrySurveyEntryId
+        patientHealthEntrySurveyEntryId
       }
       nextToken
     }
   }
 `;
-export const stateGenHealthEntryBySex = /* GraphQL */ `
-  query StateGenHealthEntryBySex(
+export const statePatientHealthEntryBySex = /* GraphQL */ `
+  query StatePatientHealthEntryBySex(
     $state: String!
     $sex: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelGeneralHealthEntryFilterInput
+    $filter: ModelPatientHealthEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    stateGenHealthEntryBySex(
+    statePatientHealthEntryBySex(
       state: $state
       sex: $sex
       sortDirection: $sortDirection
@@ -8199,6 +12785,8 @@ export const stateGenHealthEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -8207,15 +12795,20 @@ export const stateGenHealthEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -8227,6 +12820,8 @@ export const stateGenHealthEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -8242,6 +12837,8 @@ export const stateGenHealthEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -8256,25 +12853,46 @@ export const stateGenHealthEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -8283,9 +12901,16 @@ export const stateGenHealthEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -8296,6 +12921,8 @@ export const stateGenHealthEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -8306,34 +12933,36 @@ export const stateGenHealthEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
-        health
+        height
+        weight
         generalHealthResults
         totalScore
         createdAt
         updatedAt
-        generalHealthEntrySurveyEntryId
+        patientHealthEntrySurveyEntryId
       }
       nextToken
     }
   }
 `;
-export const countyGenHealthEntryByDate = /* GraphQL */ `
-  query CountyGenHealthEntryByDate(
+export const countyPatientHealthEntryByDate = /* GraphQL */ `
+  query CountyPatientHealthEntryByDate(
     $countyState: String!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelGeneralHealthEntryFilterInput
+    $filter: ModelPatientHealthEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    countyGenHealthEntryByDate(
+    countyPatientHealthEntryByDate(
       countyState: $countyState
       createdAt: $createdAt
       sortDirection: $sortDirection
@@ -8354,6 +12983,8 @@ export const countyGenHealthEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -8362,15 +12993,20 @@ export const countyGenHealthEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -8382,6 +13018,8 @@ export const countyGenHealthEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -8397,6 +13035,8 @@ export const countyGenHealthEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -8411,25 +13051,46 @@ export const countyGenHealthEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -8438,9 +13099,16 @@ export const countyGenHealthEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -8451,6 +13119,8 @@ export const countyGenHealthEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -8461,34 +13131,36 @@ export const countyGenHealthEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
-        health
+        height
+        weight
         generalHealthResults
         totalScore
         createdAt
         updatedAt
-        generalHealthEntrySurveyEntryId
+        patientHealthEntrySurveyEntryId
       }
       nextToken
     }
   }
 `;
-export const countyGenHealthEntryByAge = /* GraphQL */ `
-  query CountyGenHealthEntryByAge(
+export const countyPatientHealthEntryByAge = /* GraphQL */ `
+  query CountyPatientHealthEntryByAge(
     $countyState: String!
     $age: ModelIntKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelGeneralHealthEntryFilterInput
+    $filter: ModelPatientHealthEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    countyGenHealthEntryByAge(
+    countyPatientHealthEntryByAge(
       countyState: $countyState
       age: $age
       sortDirection: $sortDirection
@@ -8509,6 +13181,8 @@ export const countyGenHealthEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -8517,15 +13191,20 @@ export const countyGenHealthEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -8537,6 +13216,8 @@ export const countyGenHealthEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -8552,6 +13233,8 @@ export const countyGenHealthEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -8566,25 +13249,46 @@ export const countyGenHealthEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -8593,9 +13297,16 @@ export const countyGenHealthEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -8606,6 +13317,8 @@ export const countyGenHealthEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -8616,34 +13329,36 @@ export const countyGenHealthEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
-        health
+        height
+        weight
         generalHealthResults
         totalScore
         createdAt
         updatedAt
-        generalHealthEntrySurveyEntryId
+        patientHealthEntrySurveyEntryId
       }
       nextToken
     }
   }
 `;
-export const countyGenHealthEntryByRace = /* GraphQL */ `
-  query CountyGenHealthEntryByRace(
+export const countyPatientHealthEntryByRace = /* GraphQL */ `
+  query CountyPatientHealthEntryByRace(
     $countyState: String!
     $race: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelGeneralHealthEntryFilterInput
+    $filter: ModelPatientHealthEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    countyGenHealthEntryByRace(
+    countyPatientHealthEntryByRace(
       countyState: $countyState
       race: $race
       sortDirection: $sortDirection
@@ -8664,6 +13379,8 @@ export const countyGenHealthEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -8672,15 +13389,20 @@ export const countyGenHealthEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -8692,6 +13414,8 @@ export const countyGenHealthEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -8707,6 +13431,8 @@ export const countyGenHealthEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -8721,25 +13447,46 @@ export const countyGenHealthEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -8748,9 +13495,16 @@ export const countyGenHealthEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -8761,6 +13515,8 @@ export const countyGenHealthEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -8771,34 +13527,36 @@ export const countyGenHealthEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
-        health
+        height
+        weight
         generalHealthResults
         totalScore
         createdAt
         updatedAt
-        generalHealthEntrySurveyEntryId
+        patientHealthEntrySurveyEntryId
       }
       nextToken
     }
   }
 `;
-export const countyGenHealthEntryBySex = /* GraphQL */ `
-  query CountyGenHealthEntryBySex(
+export const countyPatientHealthEntryBySex = /* GraphQL */ `
+  query CountyPatientHealthEntryBySex(
     $countyState: String!
     $sex: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
-    $filter: ModelGeneralHealthEntryFilterInput
+    $filter: ModelPatientHealthEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    countyGenHealthEntryBySex(
+    countyPatientHealthEntryBySex(
       countyState: $countyState
       sex: $sex
       sortDirection: $sortDirection
@@ -8819,6 +13577,8 @@ export const countyGenHealthEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -8827,15 +13587,20 @@ export const countyGenHealthEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -8847,6 +13612,8 @@ export const countyGenHealthEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -8862,6 +13629,8 @@ export const countyGenHealthEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -8876,25 +13645,46 @@ export const countyGenHealthEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -8903,9 +13693,16 @@ export const countyGenHealthEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -8916,6 +13713,8 @@ export const countyGenHealthEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -8926,19 +13725,21 @@ export const countyGenHealthEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
-        health
+        height
+        weight
         generalHealthResults
         totalScore
         createdAt
         updatedAt
-        generalHealthEntrySurveyEntryId
+        patientHealthEntrySurveyEntryId
       }
       nextToken
     }
@@ -8959,6 +13760,8 @@ export const getSymptomEntry = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         timeElapsed
         covidEntry {
           id
@@ -8973,28 +13776,36 @@ export const getSymptomEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
+          beenInfected
           timesPositive
           lastPositive
           tested
+          positiveTest
           testMethod
           hospitalized
+          timesHospitalized
           symptomatic
           symptomsPreventScale
+          medicationsPrescribed
           medicationsTaken
-          returnedToHealth
           createdAt
           updatedAt
           covidEntrySurveyEntryId
@@ -9006,6 +13817,8 @@ export const getSymptomEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           surveyEntry {
             id
             email
@@ -9015,13 +13828,16 @@ export const getSymptomEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
@@ -9046,19 +13862,24 @@ export const getSymptomEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -9079,30 +13900,71 @@ export const getSymptomEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           recovered
-          lengthOfRecovery {
-            months
-            days
-          }
-          hasLongCovid
+          lengthOfRecovery
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
         }
-        generalHealthEntry {
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
           id
           state
           countyState
@@ -9115,25 +13977,29 @@ export const getSymptomEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
-          health
+          height
+          weight
           generalHealthResults
           totalScore
           createdAt
           updatedAt
-          generalHealthEntrySurveyEntryId
+          patientHealthEntrySurveyEntryId
         }
         symptomsEntry {
           id
@@ -9148,22 +14014,32 @@ export const getSymptomEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           createdAt
           symptoms
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
           medicalConditions
+          hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -9180,19 +14056,24 @@ export const getSymptomEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           results
           createdAt
           updatedAt
@@ -9203,16 +14084,24 @@ export const getSymptomEntry = /* GraphQL */ `
         surveyEntryVaccinationEntryId
         surveyEntrySocialDeterminantsEntryId
         surveyEntryRecoveryEntryId
-        surveyEntryGeneralHealthEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
       }
       age
       race
       sex
+      height
+      weight
       createdAt
       symptoms
+      mentalHealthRank
+      socialSatisfactionRank
+      carryOutSocialActivitiesRank
+      anxietyInPastWeekRank
       medicalConditions
+      hasLongCovid
       updatedAt
       symptomEntrySurveyEntryId
     }
@@ -9238,6 +14127,8 @@ export const listSymptomEntries = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -9246,15 +14137,20 @@ export const listSymptomEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -9266,6 +14162,8 @@ export const listSymptomEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -9281,6 +14179,8 @@ export const listSymptomEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -9295,25 +14195,46 @@ export const listSymptomEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -9322,9 +14243,16 @@ export const listSymptomEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -9335,6 +14263,8 @@ export const listSymptomEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -9345,16 +14275,24 @@ export const listSymptomEntries = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         createdAt
         symptoms
+        mentalHealthRank
+        socialSatisfactionRank
+        carryOutSocialActivitiesRank
+        anxietyInPastWeekRank
         medicalConditions
+        hasLongCovid
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -9392,6 +14330,8 @@ export const stateSymptomEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -9400,15 +14340,20 @@ export const stateSymptomEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -9420,6 +14365,8 @@ export const stateSymptomEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -9435,6 +14382,8 @@ export const stateSymptomEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -9449,25 +14398,46 @@ export const stateSymptomEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -9476,9 +14446,16 @@ export const stateSymptomEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -9489,6 +14466,8 @@ export const stateSymptomEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -9499,16 +14478,24 @@ export const stateSymptomEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         createdAt
         symptoms
+        mentalHealthRank
+        socialSatisfactionRank
+        carryOutSocialActivitiesRank
+        anxietyInPastWeekRank
         medicalConditions
+        hasLongCovid
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -9546,6 +14533,8 @@ export const stateSymptomEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -9554,15 +14543,20 @@ export const stateSymptomEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -9574,6 +14568,8 @@ export const stateSymptomEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -9589,6 +14585,8 @@ export const stateSymptomEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -9603,25 +14601,46 @@ export const stateSymptomEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -9630,9 +14649,16 @@ export const stateSymptomEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -9643,6 +14669,8 @@ export const stateSymptomEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -9653,16 +14681,24 @@ export const stateSymptomEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         createdAt
         symptoms
+        mentalHealthRank
+        socialSatisfactionRank
+        carryOutSocialActivitiesRank
+        anxietyInPastWeekRank
         medicalConditions
+        hasLongCovid
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -9700,6 +14736,8 @@ export const stateSymptomEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -9708,15 +14746,20 @@ export const stateSymptomEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -9728,6 +14771,8 @@ export const stateSymptomEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -9743,6 +14788,8 @@ export const stateSymptomEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -9757,25 +14804,46 @@ export const stateSymptomEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -9784,9 +14852,16 @@ export const stateSymptomEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -9797,6 +14872,8 @@ export const stateSymptomEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -9807,16 +14884,24 @@ export const stateSymptomEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         createdAt
         symptoms
+        mentalHealthRank
+        socialSatisfactionRank
+        carryOutSocialActivitiesRank
+        anxietyInPastWeekRank
         medicalConditions
+        hasLongCovid
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -9854,6 +14939,8 @@ export const stateSymptomEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -9862,15 +14949,20 @@ export const stateSymptomEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -9882,6 +14974,8 @@ export const stateSymptomEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -9897,6 +14991,8 @@ export const stateSymptomEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -9911,25 +15007,46 @@ export const stateSymptomEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -9938,9 +15055,16 @@ export const stateSymptomEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -9951,6 +15075,8 @@ export const stateSymptomEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -9961,16 +15087,24 @@ export const stateSymptomEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         createdAt
         symptoms
+        mentalHealthRank
+        socialSatisfactionRank
+        carryOutSocialActivitiesRank
+        anxietyInPastWeekRank
         medicalConditions
+        hasLongCovid
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -10008,6 +15142,8 @@ export const countySymptomEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -10016,15 +15152,20 @@ export const countySymptomEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -10036,6 +15177,8 @@ export const countySymptomEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -10051,6 +15194,8 @@ export const countySymptomEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -10065,25 +15210,46 @@ export const countySymptomEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -10092,9 +15258,16 @@ export const countySymptomEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -10105,6 +15278,8 @@ export const countySymptomEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -10115,16 +15290,24 @@ export const countySymptomEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         createdAt
         symptoms
+        mentalHealthRank
+        socialSatisfactionRank
+        carryOutSocialActivitiesRank
+        anxietyInPastWeekRank
         medicalConditions
+        hasLongCovid
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -10162,6 +15345,8 @@ export const countySymptomEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -10170,15 +15355,20 @@ export const countySymptomEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -10190,6 +15380,8 @@ export const countySymptomEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -10205,6 +15397,8 @@ export const countySymptomEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -10219,25 +15413,46 @@ export const countySymptomEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -10246,9 +15461,16 @@ export const countySymptomEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -10259,6 +15481,8 @@ export const countySymptomEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -10269,16 +15493,24 @@ export const countySymptomEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         createdAt
         symptoms
+        mentalHealthRank
+        socialSatisfactionRank
+        carryOutSocialActivitiesRank
+        anxietyInPastWeekRank
         medicalConditions
+        hasLongCovid
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -10316,6 +15548,8 @@ export const countySymptomEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -10324,15 +15558,20 @@ export const countySymptomEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -10344,6 +15583,8 @@ export const countySymptomEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -10359,6 +15600,8 @@ export const countySymptomEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -10373,25 +15616,46 @@ export const countySymptomEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -10400,9 +15664,16 @@ export const countySymptomEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -10413,6 +15684,8 @@ export const countySymptomEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -10423,16 +15696,24 @@ export const countySymptomEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         createdAt
         symptoms
+        mentalHealthRank
+        socialSatisfactionRank
+        carryOutSocialActivitiesRank
+        anxietyInPastWeekRank
         medicalConditions
+        hasLongCovid
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -10470,6 +15751,8 @@ export const countySymptomEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -10478,15 +15761,20 @@ export const countySymptomEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -10498,6 +15786,8 @@ export const countySymptomEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -10513,6 +15803,8 @@ export const countySymptomEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -10527,25 +15819,46 @@ export const countySymptomEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -10554,9 +15867,16 @@ export const countySymptomEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -10567,6 +15887,8 @@ export const countySymptomEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -10577,16 +15899,24 @@ export const countySymptomEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         createdAt
         symptoms
+        mentalHealthRank
+        socialSatisfactionRank
+        carryOutSocialActivitiesRank
+        anxietyInPastWeekRank
         medicalConditions
+        hasLongCovid
         updatedAt
         symptomEntrySurveyEntryId
       }
@@ -10609,6 +15939,8 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         timeElapsed
         covidEntry {
           id
@@ -10623,28 +15955,36 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
+          beenInfected
           timesPositive
           lastPositive
           tested
+          positiveTest
           testMethod
           hospitalized
+          timesHospitalized
           symptomatic
           symptomsPreventScale
+          medicationsPrescribed
           medicationsTaken
-          returnedToHealth
           createdAt
           updatedAt
           covidEntrySurveyEntryId
@@ -10656,6 +15996,8 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           surveyEntry {
             id
             email
@@ -10665,13 +16007,16 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
@@ -10696,19 +16041,24 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -10729,30 +16079,71 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           recovered
-          lengthOfRecovery {
-            months
-            days
-          }
-          hasLongCovid
+          lengthOfRecovery
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
         }
-        generalHealthEntry {
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
           id
           state
           countyState
@@ -10765,25 +16156,29 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
-          health
+          height
+          weight
           generalHealthResults
           totalScore
           createdAt
           updatedAt
-          generalHealthEntrySurveyEntryId
+          patientHealthEntrySurveyEntryId
         }
         symptomsEntry {
           id
@@ -10798,22 +16193,32 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           createdAt
           symptoms
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
           medicalConditions
+          hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -10830,19 +16235,24 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           results
           createdAt
           updatedAt
@@ -10853,13 +16263,16 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
         surveyEntryVaccinationEntryId
         surveyEntrySocialDeterminantsEntryId
         surveyEntryRecoveryEntryId
-        surveyEntryGeneralHealthEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
       }
       age
       race
       sex
+      height
+      weight
       hasMedicalInsurance
       difficultCoveringExpenses
       currentWorkSituation
@@ -10893,6 +16306,8 @@ export const listSocialDeterminantsEntries = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -10901,15 +16316,20 @@ export const listSocialDeterminantsEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -10921,6 +16341,8 @@ export const listSocialDeterminantsEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -10936,6 +16358,8 @@ export const listSocialDeterminantsEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -10950,25 +16374,46 @@ export const listSocialDeterminantsEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -10977,9 +16422,16 @@ export const listSocialDeterminantsEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -10990,6 +16442,8 @@ export const listSocialDeterminantsEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -11000,13 +16454,16 @@ export const listSocialDeterminantsEntries = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         hasMedicalInsurance
         difficultCoveringExpenses
         currentWorkSituation
@@ -11048,6 +16505,8 @@ export const stateSocialDetEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -11056,15 +16515,20 @@ export const stateSocialDetEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -11076,6 +16540,8 @@ export const stateSocialDetEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -11091,6 +16557,8 @@ export const stateSocialDetEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -11105,25 +16573,46 @@ export const stateSocialDetEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -11132,9 +16621,16 @@ export const stateSocialDetEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -11145,6 +16641,8 @@ export const stateSocialDetEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -11155,13 +16653,16 @@ export const stateSocialDetEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         hasMedicalInsurance
         difficultCoveringExpenses
         currentWorkSituation
@@ -11203,6 +16704,8 @@ export const stateSocialDetEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -11211,15 +16714,20 @@ export const stateSocialDetEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -11231,6 +16739,8 @@ export const stateSocialDetEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -11246,6 +16756,8 @@ export const stateSocialDetEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -11260,25 +16772,46 @@ export const stateSocialDetEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -11287,9 +16820,16 @@ export const stateSocialDetEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -11300,6 +16840,8 @@ export const stateSocialDetEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -11310,13 +16852,16 @@ export const stateSocialDetEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         hasMedicalInsurance
         difficultCoveringExpenses
         currentWorkSituation
@@ -11358,6 +16903,8 @@ export const stateSocialDetEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -11366,15 +16913,20 @@ export const stateSocialDetEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -11386,6 +16938,8 @@ export const stateSocialDetEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -11401,6 +16955,8 @@ export const stateSocialDetEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -11415,25 +16971,46 @@ export const stateSocialDetEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -11442,9 +17019,16 @@ export const stateSocialDetEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -11455,6 +17039,8 @@ export const stateSocialDetEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -11465,13 +17051,16 @@ export const stateSocialDetEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         hasMedicalInsurance
         difficultCoveringExpenses
         currentWorkSituation
@@ -11513,6 +17102,8 @@ export const stateSocialDetEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -11521,15 +17112,20 @@ export const stateSocialDetEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -11541,6 +17137,8 @@ export const stateSocialDetEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -11556,6 +17154,8 @@ export const stateSocialDetEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -11570,25 +17170,46 @@ export const stateSocialDetEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -11597,9 +17218,16 @@ export const stateSocialDetEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -11610,6 +17238,8 @@ export const stateSocialDetEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -11620,13 +17250,16 @@ export const stateSocialDetEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         hasMedicalInsurance
         difficultCoveringExpenses
         currentWorkSituation
@@ -11668,6 +17301,8 @@ export const countySocialDetEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -11676,15 +17311,20 @@ export const countySocialDetEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -11696,6 +17336,8 @@ export const countySocialDetEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -11711,6 +17353,8 @@ export const countySocialDetEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -11725,25 +17369,46 @@ export const countySocialDetEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -11752,9 +17417,16 @@ export const countySocialDetEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -11765,6 +17437,8 @@ export const countySocialDetEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -11775,13 +17449,16 @@ export const countySocialDetEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         hasMedicalInsurance
         difficultCoveringExpenses
         currentWorkSituation
@@ -11823,6 +17500,8 @@ export const countySocialDetEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -11831,15 +17510,20 @@ export const countySocialDetEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -11851,6 +17535,8 @@ export const countySocialDetEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -11866,6 +17552,8 @@ export const countySocialDetEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -11880,25 +17568,46 @@ export const countySocialDetEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -11907,9 +17616,16 @@ export const countySocialDetEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -11920,6 +17636,8 @@ export const countySocialDetEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -11930,13 +17648,16 @@ export const countySocialDetEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         hasMedicalInsurance
         difficultCoveringExpenses
         currentWorkSituation
@@ -11978,6 +17699,8 @@ export const countySocialDetEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -11986,15 +17709,20 @@ export const countySocialDetEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -12006,6 +17734,8 @@ export const countySocialDetEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -12021,6 +17751,8 @@ export const countySocialDetEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -12035,25 +17767,46 @@ export const countySocialDetEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -12062,9 +17815,16 @@ export const countySocialDetEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -12075,6 +17835,8 @@ export const countySocialDetEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -12085,13 +17847,16 @@ export const countySocialDetEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         hasMedicalInsurance
         difficultCoveringExpenses
         currentWorkSituation
@@ -12133,6 +17898,8 @@ export const countySocialDetEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -12141,15 +17908,20 @@ export const countySocialDetEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -12161,6 +17933,8 @@ export const countySocialDetEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -12176,6 +17950,8 @@ export const countySocialDetEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -12190,25 +17966,46 @@ export const countySocialDetEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -12217,9 +18014,16 @@ export const countySocialDetEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -12230,6 +18034,8 @@ export const countySocialDetEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -12240,13 +18046,16 @@ export const countySocialDetEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         hasMedicalInsurance
         difficultCoveringExpenses
         currentWorkSituation
@@ -12273,6 +18082,8 @@ export const getMonthlyEntry = /* GraphQL */ `
         age
         race
         sex
+        height
+        weight
         timeElapsed
         covidEntry {
           id
@@ -12287,28 +18098,36 @@ export const getMonthlyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
+          beenInfected
           timesPositive
           lastPositive
           tested
+          positiveTest
           testMethod
           hospitalized
+          timesHospitalized
           symptomatic
           symptomsPreventScale
+          medicationsPrescribed
           medicationsTaken
-          returnedToHealth
           createdAt
           updatedAt
           covidEntrySurveyEntryId
@@ -12320,6 +18139,8 @@ export const getMonthlyEntry = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           surveyEntry {
             id
             email
@@ -12329,13 +18150,16 @@ export const getMonthlyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
@@ -12360,19 +18184,24 @@ export const getMonthlyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           hasMedicalInsurance
           difficultCoveringExpenses
           currentWorkSituation
@@ -12393,30 +18222,71 @@ export const getMonthlyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           recovered
-          lengthOfRecovery {
-            months
-            days
-          }
-          hasLongCovid
+          lengthOfRecovery
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
         }
-        generalHealthEntry {
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            timeElapsed
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
           id
           state
           countyState
@@ -12429,25 +18299,29 @@ export const getMonthlyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
-          health
+          height
+          weight
           generalHealthResults
           totalScore
           createdAt
           updatedAt
-          generalHealthEntrySurveyEntryId
+          patientHealthEntrySurveyEntryId
         }
         symptomsEntry {
           id
@@ -12462,22 +18336,32 @@ export const getMonthlyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           createdAt
           symptoms
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
           medicalConditions
+          hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
         }
@@ -12494,19 +18378,24 @@ export const getMonthlyEntry = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
             surveyEntrySocialDeterminantsEntryId
             surveyEntryRecoveryEntryId
-            surveyEntryGeneralHealthEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
           }
           age
           race
           sex
+          height
+          weight
           results
           createdAt
           updatedAt
@@ -12517,13 +18406,16 @@ export const getMonthlyEntry = /* GraphQL */ `
         surveyEntryVaccinationEntryId
         surveyEntrySocialDeterminantsEntryId
         surveyEntryRecoveryEntryId
-        surveyEntryGeneralHealthEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
       }
       age
       race
       sex
+      height
+      weight
       results
       createdAt
       updatedAt
@@ -12551,6 +18443,8 @@ export const listMonthlyEntries = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -12559,15 +18453,20 @@ export const listMonthlyEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -12579,6 +18478,8 @@ export const listMonthlyEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -12594,6 +18495,8 @@ export const listMonthlyEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -12608,25 +18511,46 @@ export const listMonthlyEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -12635,9 +18559,16 @@ export const listMonthlyEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -12648,6 +18579,8 @@ export const listMonthlyEntries = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -12658,13 +18591,16 @@ export const listMonthlyEntries = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         results
         createdAt
         updatedAt
@@ -12704,6 +18640,8 @@ export const stateMonthlyEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -12712,15 +18650,20 @@ export const stateMonthlyEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -12732,6 +18675,8 @@ export const stateMonthlyEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -12747,6 +18692,8 @@ export const stateMonthlyEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -12761,25 +18708,46 @@ export const stateMonthlyEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -12788,9 +18756,16 @@ export const stateMonthlyEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -12801,6 +18776,8 @@ export const stateMonthlyEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -12811,13 +18788,16 @@ export const stateMonthlyEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         results
         createdAt
         updatedAt
@@ -12857,6 +18837,8 @@ export const stateMonthlyEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -12865,15 +18847,20 @@ export const stateMonthlyEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -12885,6 +18872,8 @@ export const stateMonthlyEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -12900,6 +18889,8 @@ export const stateMonthlyEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -12914,25 +18905,46 @@ export const stateMonthlyEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -12941,9 +18953,16 @@ export const stateMonthlyEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -12954,6 +18973,8 @@ export const stateMonthlyEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -12964,13 +18985,16 @@ export const stateMonthlyEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         results
         createdAt
         updatedAt
@@ -13010,6 +19034,8 @@ export const stateMonthlyEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -13018,15 +19044,20 @@ export const stateMonthlyEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -13038,6 +19069,8 @@ export const stateMonthlyEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -13053,6 +19086,8 @@ export const stateMonthlyEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -13067,25 +19102,46 @@ export const stateMonthlyEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -13094,9 +19150,16 @@ export const stateMonthlyEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -13107,6 +19170,8 @@ export const stateMonthlyEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -13117,13 +19182,16 @@ export const stateMonthlyEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         results
         createdAt
         updatedAt
@@ -13163,6 +19231,8 @@ export const stateMonthlyEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -13171,15 +19241,20 @@ export const stateMonthlyEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -13191,6 +19266,8 @@ export const stateMonthlyEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -13206,6 +19283,8 @@ export const stateMonthlyEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -13220,25 +19299,46 @@ export const stateMonthlyEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -13247,9 +19347,16 @@ export const stateMonthlyEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -13260,6 +19367,8 @@ export const stateMonthlyEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -13270,13 +19379,16 @@ export const stateMonthlyEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         results
         createdAt
         updatedAt
@@ -13316,6 +19428,8 @@ export const countyMonthlyEntryByDate = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -13324,15 +19438,20 @@ export const countyMonthlyEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -13344,6 +19463,8 @@ export const countyMonthlyEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -13359,6 +19480,8 @@ export const countyMonthlyEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -13373,25 +19496,46 @@ export const countyMonthlyEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -13400,9 +19544,16 @@ export const countyMonthlyEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -13413,6 +19564,8 @@ export const countyMonthlyEntryByDate = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -13423,13 +19576,16 @@ export const countyMonthlyEntryByDate = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         results
         createdAt
         updatedAt
@@ -13469,6 +19625,8 @@ export const countyMonthlyEntryByAge = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -13477,15 +19635,20 @@ export const countyMonthlyEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -13497,6 +19660,8 @@ export const countyMonthlyEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -13512,6 +19677,8 @@ export const countyMonthlyEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -13526,25 +19693,46 @@ export const countyMonthlyEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -13553,9 +19741,16 @@ export const countyMonthlyEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -13566,6 +19761,8 @@ export const countyMonthlyEntryByAge = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -13576,13 +19773,16 @@ export const countyMonthlyEntryByAge = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         results
         createdAt
         updatedAt
@@ -13622,6 +19822,8 @@ export const countyMonthlyEntryByRace = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -13630,15 +19832,20 @@ export const countyMonthlyEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -13650,6 +19857,8 @@ export const countyMonthlyEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -13665,6 +19874,8 @@ export const countyMonthlyEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -13679,25 +19890,46 @@ export const countyMonthlyEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -13706,9 +19938,16 @@ export const countyMonthlyEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -13719,6 +19958,8 @@ export const countyMonthlyEntryByRace = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -13729,13 +19970,16 @@ export const countyMonthlyEntryByRace = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         results
         createdAt
         updatedAt
@@ -13775,6 +20019,8 @@ export const countyMonthlyEntryBySex = /* GraphQL */ `
           age
           race
           sex
+          height
+          weight
           timeElapsed
           covidEntry {
             id
@@ -13783,15 +20029,20 @@ export const countyMonthlyEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
+            beenInfected
             timesPositive
             lastPositive
             tested
+            positiveTest
             testMethod
             hospitalized
+            timesHospitalized
             symptomatic
             symptomsPreventScale
+            medicationsPrescribed
             medicationsTaken
-            returnedToHealth
             createdAt
             updatedAt
             covidEntrySurveyEntryId
@@ -13803,6 +20054,8 @@ export const countyMonthlyEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             totalVaccineShots
             vaccinated
             vaccineType
@@ -13818,6 +20071,8 @@ export const countyMonthlyEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             hasMedicalInsurance
             difficultCoveringExpenses
             currentWorkSituation
@@ -13832,25 +20087,46 @@ export const countyMonthlyEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             recovered
-            hasLongCovid
+            lengthOfRecovery
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
           }
-          generalHealthEntry {
+          globalHealthEntry {
             id
             state
             countyState
             age
             race
             sex
-            health
+            height
+            weight
+            healthRank
+            physicalHealthRank
+            carryPhysicalActivities
+            fatigueRank
+            painLevel
+            createdAt
+            updatedAt
+            globalHealthEntrySurveyEntryId
+          }
+          PatientHealthEntry {
+            id
+            state
+            countyState
+            age
+            race
+            sex
+            height
+            weight
             generalHealthResults
             totalScore
             createdAt
             updatedAt
-            generalHealthEntrySurveyEntryId
+            patientHealthEntrySurveyEntryId
           }
           symptomsEntry {
             id
@@ -13859,9 +20135,16 @@ export const countyMonthlyEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             createdAt
             symptoms
+            mentalHealthRank
+            socialSatisfactionRank
+            carryOutSocialActivitiesRank
+            anxietyInPastWeekRank
             medicalConditions
+            hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
           }
@@ -13872,6 +20155,8 @@ export const countyMonthlyEntryBySex = /* GraphQL */ `
             age
             race
             sex
+            height
+            weight
             results
             createdAt
             updatedAt
@@ -13882,13 +20167,16 @@ export const countyMonthlyEntryBySex = /* GraphQL */ `
           surveyEntryVaccinationEntryId
           surveyEntrySocialDeterminantsEntryId
           surveyEntryRecoveryEntryId
-          surveyEntryGeneralHealthEntryId
+          surveyEntryGlobalHealthEntryId
+          surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
         }
         age
         race
         sex
+        height
+        weight
         results
         createdAt
         updatedAt
