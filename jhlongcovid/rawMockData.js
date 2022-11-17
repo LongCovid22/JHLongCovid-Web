@@ -12994,30 +12994,33 @@ const getData = function () {
 
   let result = [];
   finalCoords.forEach((coord) => {
-    let obj = {
-        lat: coord.lat,
-        long: coord.long,
-        name: coord.county,
-        stateAbbrev: coord.stateAbbrev,
-        level : "county"
-    };
-
-    result.push(obj);
+    if (coord.stateAbbrev === "NE") {
+        let obj = {
+            lat: coord.lat,
+            long: coord.long,
+            name: coord.county,
+            stateAbbrev: coord.stateAbbrev,
+            level : "county"
+        };
+        result.push(obj);
+    }
   })
 
   for (const state in dict) {
-    let obj = {
-        lat : dict[state].lat,
-        long: dict[state].long,
-        name : dict[state].name,
-        stateAbbrev: dict[state].stateAbbrev,
-        level : 'state'
+    if (dict[state].stateAbbrev === "NE") {
+        let obj = {
+            lat : dict[state].lat,
+            long: dict[state].long,
+            name : dict[state].name,
+            stateAbbrev: dict[state].stateAbbrev,
+            level : 'state'
+        }
+        result.push(obj);
     }
-    result.push(obj);
 }
   return result;
 };
-getData();
+// console.log(getData());
 // console.log(getData());
 
 module.exports = {
