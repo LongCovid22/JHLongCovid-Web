@@ -1,4 +1,9 @@
+import { UserInfo } from "./SurveyWrapper";
+import * as mutations from "../../src/graphql/mutations";
+import { API } from "aws-amplify";
+
 export const checkEmptyDemoFields = (answer: any) => {
+  console.log("answer: ", answer);
   let emptyFields = [];
   let demographics = answer as {
     zip: string;
@@ -28,4 +33,46 @@ export const checkEmptyDemoFields = (answer: any) => {
   }
 
   return emptyFields;
+};
+
+export const updateUserWithInfoFromSurvey = async (
+  userInfo: UserInfo,
+  user: any
+) => {
+  // Update user with new info
+  let userDetails = {};
+  if (userInfo) {
+    userDetails = {
+      id: user.id,
+      age: userInfo.age,
+      race: userInfo.race.toUpperCase(),
+      sex: userInfo.sex,
+      height: userInfo.height,
+      weight: userInfo.weight,
+      lastSubmission: new Date(),
+    };
+
+    try {
+      API.graphql({
+        query: mutations.updateUser,
+        variables: { input: userDetails },
+        authMode: "AMAZON_COGNITO_USER_POOLS",
+      });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }
+};
+
+export const userInfoIsEmpty = (userInfo: UserInfo) => {
+  if (
+    userInfo.age === "" &&
+    userInfo.height === "" &&
+    userInfo.weight === "" &&
+    userInfo.race === "" &&
+    userInfo.sex === ""
+  ) {
+    return true;
+  }
+  return false;
 };

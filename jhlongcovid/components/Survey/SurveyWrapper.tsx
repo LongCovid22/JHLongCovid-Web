@@ -38,9 +38,11 @@ import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
 import { PreSurvey } from "./SurveyBody/PreSurvey";
 import { selectUser } from "../../redux/slices/userSlice";
-import * as mutations from "../../src/graphql/mutations";
-import { API } from "aws-amplify";
-import { checkEmptyDemoFields } from "./SurveyFunctions";
+import {
+  checkEmptyDemoFields,
+  updateUserWithInfoFromSurvey,
+  userInfoIsEmpty,
+} from "./SurveyFunctions";
 
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
@@ -177,27 +179,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           return;
         }
 
+        // Update the info of the user signed in when on the account
+        // stage at the end of the survey
         if (currentQuestion.answerFormat === "account" && user) {
-          // Update user with new info
-          let userDetails = {};
-          if (userInfo) {
-            userDetails = {
-              id: user.id,
-              age: userInfo.age,
-              race: userInfo.race.toUpperCase(),
-              sex: userInfo.sex,
-              lastSubmission: new Date(),
-            };
-
-            try {
-              API.graphql({
-                query: mutations.updateUser,
-                variables: { input: userDetails },
-                authMode: "AMAZON_COGNITO_USER_POOLS",
-              });
-            } catch (error) {
-              console.log("Error: ", error);
-            }
+          if (!userInfoIsEmpty) {
+            await updateUserWithInfoFromSurvey(userInfo, user);
           }
           dispatch(nextQuestion({ answer: answer }));
           return;
@@ -209,6 +195,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           dispatch(initQuestions({ authId: null }));
         }
 
+        // Check for empty fields during the demographics stage
         if (currentQuestion.answerFormat === "demographics") {
           if (answer !== null) {
             const emptyFields = checkEmptyDemoFields(answer);
@@ -220,6 +207,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           }
         }
 
+        // Check for empty fields in any stage of the survey
         if (
           answer === "" ||
           answer === null ||
@@ -249,11 +237,15 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             age: string;
             race: string;
             sex: string;
+            height: string;
+            weight: string;
           };
           userInfoUpdate.age = a.age;
           userInfoUpdate.zip = a.zip;
           userInfoUpdate.race = a.race;
           userInfoUpdate.sex = a.sex;
+          userInfoUpdate.weight = a.weight;
+          userInfoUpdate.height = a.height;
           setUserInfo(userInfoUpdate);
         }
 

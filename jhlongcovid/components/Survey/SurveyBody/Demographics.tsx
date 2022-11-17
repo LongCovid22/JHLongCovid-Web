@@ -17,6 +17,9 @@ import {
   Select,
   Grid,
   GridItem,
+  HStack,
+  PinInput,
+  PinInputField,
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
 import { useAppSelector } from "../../../redux/hooks";
@@ -41,6 +44,8 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
     demosCopy[key as keyof typeof demosCopy] = value;
     setDemos(demosCopy);
     setAnswer(demosCopy);
+    console.log("Pin input change value: ", value);
+    console.log("demos: ", demosCopy);
   };
 
   useEffect(() => {
@@ -81,37 +86,70 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
           county and state
         </FormHelperText>
       </FormControl>
-      <FormControl>
-        <FormLabel>Age</FormLabel>
-        <NumberInput
-          defaultValue={18}
-          min={1}
-          max={110}
-          value={demos.age}
-          onChange={(val) => {
-            handleAnswerChange("age", val);
-          }}
-        >
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-      </FormControl>
-      <FormControl>
-        <FormLabel>Sex</FormLabel>
-        <Select
-          value={demos.sex}
-          onChange={(event) => {
-            handleAnswerChange("sex", event.target.value);
-          }}
-        >
-          <option value={""}></option>
-          <option value={"Male"}>Male</option>
-          <option value={"Female"}>Female</option>
-        </Select>
-      </FormControl>
+      <HStack w="100% ">
+        <FormControl>
+          <FormLabel>Age</FormLabel>
+          <NumberInput
+            defaultValue={18}
+            min={1}
+            max={110}
+            value={demos.age}
+            onChange={(val) => {
+              handleAnswerChange("age", val);
+            }}
+          >
+            <NumberInputField />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Sex</FormLabel>
+          <Select
+            value={demos.sex}
+            onChange={(event) => {
+              handleAnswerChange("sex", event.target.value);
+            }}
+          >
+            <option value={""}></option>
+            <option value={"Male"}>Male</option>
+            <option value={"Female"}>Female</option>
+          </Select>
+        </FormControl>
+      </HStack>
+      <HStack w="100%">
+        <FormControl>
+          <FormLabel>Height</FormLabel>
+          <HStack>
+            <PinInput
+              value={demos.height}
+              onChange={(value) => {
+                handleAnswerChange("height", value);
+              }}
+            >
+              <PinInputField />
+              <Text>ft</Text>
+              <PinInputField />
+              <Text>in</Text>
+            </PinInput>
+          </HStack>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Weight</FormLabel>
+          <HStack>
+            <Input
+              placeholder="Enter weight"
+              value={demos.weight}
+              onChange={(event) => {
+                handleAnswerChange("weight", event.target.value);
+              }}
+            />
+            <Text>lbs</Text>
+          </HStack>
+        </FormControl>
+      </HStack>
       <FormControl>
         <FormLabel>Race</FormLabel>
         <RadioGroup

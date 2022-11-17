@@ -39,6 +39,8 @@ export const createUser = async (
       race: userInfo.race.toUpperCase(),
       lastSignIn: new Date(),
       sex: userInfo.sex,
+      height: userInfo.height,
+      weight: userInfo.weight,
       lastSubmission: midSurvey ? new Date() : null,
     };
   } else {
