@@ -218,6 +218,22 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           setErrorText("Please provide an answer to the missing fields");
           setMissingAnswer(true);
           return;
+        } else if (
+          Array.isArray(currentQuestion.answerFormat) &&
+          currentQuestion.answerFormat.includes("multichoice")
+        ) {
+          let multiChoiceAnswer = answer as {
+            choices: string[];
+            other: string;
+          };
+          if (
+            multiChoiceAnswer.choices.length === 0 &&
+            multiChoiceAnswer.other === ""
+          ) {
+            setErrorText("Please provide an answer to the missing fields");
+            setMissingAnswer(true);
+            return;
+          }
         } else {
           setMissingAnswer(false);
         }

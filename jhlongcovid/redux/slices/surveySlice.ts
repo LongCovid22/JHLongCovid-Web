@@ -63,7 +63,7 @@ const getNextQuestionAnswerDefault = (
     if (question.answerFormat.includes("choice")) {
       return "";
     } else if (question.answerFormat.includes("multichoice")) {
-      return [];
+      return { choices: [], other: "" };
     } else {
       return "";
     }

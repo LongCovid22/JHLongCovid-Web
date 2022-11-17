@@ -3,7 +3,6 @@ import * as mutations from "../../src/graphql/mutations";
 import { API } from "aws-amplify";
 
 export const checkEmptyDemoFields = (answer: any) => {
-  console.log("answer: ", answer);
   let emptyFields = [];
   let demographics = answer as {
     zip: string;

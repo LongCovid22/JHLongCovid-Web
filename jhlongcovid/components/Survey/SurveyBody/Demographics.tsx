@@ -44,8 +44,6 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
     demosCopy[key as keyof typeof demosCopy] = value;
     setDemos(demosCopy);
     setAnswer(demosCopy);
-    console.log("Pin input change value: ", value);
-    console.log("demos: ", demosCopy);
   };
 
   useEffect(() => {
