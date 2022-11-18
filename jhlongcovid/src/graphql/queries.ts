@@ -46,12 +46,47 @@ export const getMapData = /* GraphQL */ `
         avgPositiveCasesPerPerson
         percentSymptomatic
         percentTookMedication
-        medicationCounts
+        medicationCounts {
+          antiViral
+          oralSteroids
+          antiBiotics
+          other
+          dontKnow
+        }
         percentRecovered
       }
       symptomSummary {
         mostCommonSymptom
-        symptomCounts
+        symptomCounts {
+          headache
+          bodyMuscleAche
+          feverChillsSweatsFlushing
+          faintDizzyGoofy
+          postExertionalMalaise
+          weaknessInArmsLegs
+          shortnessOfBreath
+          cough
+          palpitations
+          swellingOfLegs
+          indigestionNausea
+          bladderProblem
+          nerveProblems
+          brainFog
+          anxietyDepressionNightmares
+          problemsThinkingConcentrating
+          problemsAnxietyDepressionStress
+          difficultyFallingAsleep
+          sleepyDuringDaytime
+          loudSnoring
+          uncomfortableFeelingsInLegs
+          skinRash
+          lossOfChangeInSmell
+          excessiveThirst
+          excessiveDryMouth
+          visionProblems
+          hearingProblems
+          fertilityProblemsForWomen
+        }
       }
       vaccinationSummary {
         percentVaccinated
@@ -61,9 +96,16 @@ export const getMapData = /* GraphQL */ `
         jjCount
         azCount
       }
-      generealHealthSummary {
+      generalHealthSummary {
         avgTotalScore
-        avgHealthCounts
+        avgHealthCounts {
+          generalHealth
+          qualityOfLife
+          physicalHealth
+          mentalHealth
+          socialActivitiesRelationships
+          socialActivitiesRoles
+        }
       }
       recoverySummary {
         longCovidCount
@@ -122,12 +164,47 @@ export const listMapData = /* GraphQL */ `
           avgPositiveCasesPerPerson
           percentSymptomatic
           percentTookMedication
-          medicationCounts
+          medicationCounts {
+            antiViral
+            oralSteroids
+            antiBiotics
+            other
+            dontKnow
+          }
           percentRecovered
         }
         symptomSummary {
           mostCommonSymptom
-          symptomCounts
+          symptomCounts {
+            headache
+            bodyMuscleAche
+            feverChillsSweatsFlushing
+            faintDizzyGoofy
+            postExertionalMalaise
+            weaknessInArmsLegs
+            shortnessOfBreath
+            cough
+            palpitations
+            swellingOfLegs
+            indigestionNausea
+            bladderProblem
+            nerveProblems
+            brainFog
+            anxietyDepressionNightmares
+            problemsThinkingConcentrating
+            problemsAnxietyDepressionStress
+            difficultyFallingAsleep
+            sleepyDuringDaytime
+            loudSnoring
+            uncomfortableFeelingsInLegs
+            skinRash
+            lossOfChangeInSmell
+            excessiveThirst
+            excessiveDryMouth
+            visionProblems
+            hearingProblems
+            fertilityProblemsForWomen
+          }
         }
         vaccinationSummary {
           percentVaccinated
@@ -137,9 +214,16 @@ export const listMapData = /* GraphQL */ `
           jjCount
           azCount
         }
-        generealHealthSummary {
+        generalHealthSummary {
           avgTotalScore
-          avgHealthCounts
+          avgHealthCounts {
+            generalHealth
+            qualityOfLife
+            physicalHealth
+            mentalHealth
+            socialActivitiesRelationships
+            socialActivitiesRoles
+          }
         }
         recoverySummary {
           longCovidCount
@@ -200,12 +284,47 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           avgPositiveCasesPerPerson
           percentSymptomatic
           percentTookMedication
-          medicationCounts
+          medicationCounts {
+            antiViral
+            oralSteroids
+            antiBiotics
+            other
+            dontKnow
+          }
           percentRecovered
         }
         symptomSummary {
           mostCommonSymptom
-          symptomCounts
+          symptomCounts {
+            headache
+            bodyMuscleAche
+            feverChillsSweatsFlushing
+            faintDizzyGoofy
+            postExertionalMalaise
+            weaknessInArmsLegs
+            shortnessOfBreath
+            cough
+            palpitations
+            swellingOfLegs
+            indigestionNausea
+            bladderProblem
+            nerveProblems
+            brainFog
+            anxietyDepressionNightmares
+            problemsThinkingConcentrating
+            problemsAnxietyDepressionStress
+            difficultyFallingAsleep
+            sleepyDuringDaytime
+            loudSnoring
+            uncomfortableFeelingsInLegs
+            skinRash
+            lossOfChangeInSmell
+            excessiveThirst
+            excessiveDryMouth
+            visionProblems
+            hearingProblems
+            fertilityProblemsForWomen
+          }
         }
         vaccinationSummary {
           percentVaccinated
@@ -215,9 +334,16 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           jjCount
           azCount
         }
-        generealHealthSummary {
+        generalHealthSummary {
           avgTotalScore
-          avgHealthCounts
+          avgHealthCounts {
+            generalHealth
+            qualityOfLife
+            physicalHealth
+            mentalHealth
+            socialActivitiesRelationships
+            socialActivitiesRoles
+          }
         }
         recoverySummary {
           longCovidCount
@@ -278,12 +404,47 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           avgPositiveCasesPerPerson
           percentSymptomatic
           percentTookMedication
-          medicationCounts
+          medicationCounts {
+            antiViral
+            oralSteroids
+            antiBiotics
+            other
+            dontKnow
+          }
           percentRecovered
         }
         symptomSummary {
           mostCommonSymptom
-          symptomCounts
+          symptomCounts {
+            headache
+            bodyMuscleAche
+            feverChillsSweatsFlushing
+            faintDizzyGoofy
+            postExertionalMalaise
+            weaknessInArmsLegs
+            shortnessOfBreath
+            cough
+            palpitations
+            swellingOfLegs
+            indigestionNausea
+            bladderProblem
+            nerveProblems
+            brainFog
+            anxietyDepressionNightmares
+            problemsThinkingConcentrating
+            problemsAnxietyDepressionStress
+            difficultyFallingAsleep
+            sleepyDuringDaytime
+            loudSnoring
+            uncomfortableFeelingsInLegs
+            skinRash
+            lossOfChangeInSmell
+            excessiveThirst
+            excessiveDryMouth
+            visionProblems
+            hearingProblems
+            fertilityProblemsForWomen
+          }
         }
         vaccinationSummary {
           percentVaccinated
@@ -293,9 +454,16 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           jjCount
           azCount
         }
-        generealHealthSummary {
+        generalHealthSummary {
           avgTotalScore
-          avgHealthCounts
+          avgHealthCounts {
+            generalHealth
+            qualityOfLife
+            physicalHealth
+            mentalHealth
+            socialActivitiesRelationships
+            socialActivitiesRoles
+          }
         }
         recoverySummary {
           longCovidCount

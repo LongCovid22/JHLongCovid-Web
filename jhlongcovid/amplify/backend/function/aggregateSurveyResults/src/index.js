@@ -36,12 +36,48 @@ const query = /* GraphQL */ `
         avgPositiveCasesPerPerson
         percentSymptomatic
         percentTookMedication
-        medicationCounts
+        medicationCounts {
+          antiViral
+          oralSteroids
+          antiBiotics
+          other
+          dontKnow
+        }
         percentRecovered
       }
       symptomSummary {
         mostCommonSymptom
-        symptomCounts
+        symptomCounts {
+          headache
+          bodyMuscleAche
+          feverChillsSweatsFlushing
+          faintDizzyGoofy
+          postExertionalMalaise
+          weaknessInArmsLegs
+          shortnessOfBreath
+          cough
+          palpitations
+          swellingOfLegs
+          indigestionNausea
+          bladderProblem
+          nerveProblems
+          brainFog
+          anxietyDepressionNightmares
+          problemsThinkingConcentrating
+          problemsAnxietyDepressionStress
+          difficultyFallingAsleep
+          sleepyDuringDaytime
+          loudSnoring
+          uncomfortableFeelingsInLegs
+          skinRash
+          lossOfChangeInSmell
+          excessiveThirst
+          excessiveDryMouth
+          visionProblems
+          hearingProblems
+          #add to the statistic only for women
+          fertilityProblemsForWomen
+        }
       }
       vaccinationSummary {
         percentVaccinated
@@ -51,9 +87,16 @@ const query = /* GraphQL */ `
         jjCount
         azCount
       }
-      generealHealthSummary {
+      generalHealthSummary {
         avgTotalScore
-        avgHealthCounts
+        avgHealthCounts {
+          generalHealth
+          qualityOfLife
+          physicalHealth
+          mentalHealth
+          socialActivitiesRelationships
+          socialActivitiesRoles
+        }
       }
       recoverySummary {
         longCovidCount
@@ -76,6 +119,7 @@ const query = /* GraphQL */ `
           preferNotToAnswer
         }
       }
+
       totalFullEntries
     }
   }
@@ -125,12 +169,47 @@ let variables = {
       avgPositiveCasesPerPerson: JSON.stringify(NullJSONData),
       percentSymptomatic: JSON.stringify(NullJSONData),
       percentTookMedication: JSON.stringify(NullJSONData),
-      medicationCounts: JSON.stringify({}),
+      medicationCounts: {
+        antiViral: JSON.stringify(NullJSONData),
+        oralSteroids: JSON.stringify(NullJSONData),
+        antiBiotics: JSON.stringify(NullJSONData),
+        other: JSON.stringify(NullJSONData),
+        dontKnow: JSON.stringify(NullJSONData),
+      },
       percentRecovered: JSON.stringify(NullJSONData),
     },
     symptomSummary: {
       mostCommonSymptom: JSON.stringify(NullJSONData),
-      symptomCounts: JSON.stringify(NullJSONData),
+      symptomCounts: {
+        headache: JSON.stringify(NullJSONData),
+        bodyMuscleAche: JSON.stringify(NullJSONData),
+        feverChillsSweatsFlushing: JSON.stringify(NullJSONData),
+        faintDizzyGoofy: JSON.stringify(NullJSONData),
+        postExertionalMalaise: JSON.stringify(NullJSONData),
+        weaknessInArmsLegs: JSON.stringify(NullJSONData),
+        shortnessOfBreath: JSON.stringify(NullJSONData),
+        cough: JSON.stringify(NullJSONData),
+        palpitations: JSON.stringify(NullJSONData),
+        swellingOfLegs: JSON.stringify(NullJSONData),
+        indigestionNausea: JSON.stringify(NullJSONData),
+        bladderProblem: JSON.stringify(NullJSONData),
+        nerveProblems: JSON.stringify(NullJSONData),
+        brainFog: JSON.stringify(NullJSONData),
+        anxietyDepressionNightmares: JSON.stringify(NullJSONData),
+        problemsThinkingConcentrating: JSON.stringify(NullJSONData),
+        problemsAnxietyDepressionStress: JSON.stringify(NullJSONData),
+        difficultyFallingAsleep: JSON.stringify(NullJSONData),
+        sleepyDuringDaytime: JSON.stringify(NullJSONData),
+        loudSnoring: JSON.stringify(NullJSONData),
+        uncomfortableFeelingsInLegs: JSON.stringify(NullJSONData),
+        skinRash: JSON.stringify(NullJSONData),
+        lossOfChangeInSmell: JSON.stringify(NullJSONData),
+        excessiveThirst: JSON.stringify(NullJSONData),
+        excessiveDryMouth: JSON.stringify(NullJSONData),
+        visionProblems: JSON.stringify(NullJSONData),
+        hearingProblems: JSON.stringify(NullJSONData),
+        fertilityProblemsForWomen: JSON.stringify(NullJSONData),
+      },
     },
     vaccinationSummary: {
       percentVaccinated: JSON.stringify(NullJSONData),
@@ -140,9 +219,16 @@ let variables = {
       jjCount: JSON.stringify(NullJSONData),
       azCount: JSON.stringify(NullJSONData),
     },
-    generealHealthSummary: {
+    generalHealthSummary: {
       avgTotalScore: JSON.stringify(NullJSONData),
-      avgHealthCounts: JSON.stringify(NullJSONData),
+      avgHealthCounts: {
+        generalHealth: JSON.stringify(NullJSONData),
+        qualityOfLife: JSON.stringify(NullJSONData),
+        physicalHealth: JSON.stringify(NullJSONData),
+        mentalHealth: JSON.stringify(NullJSONData),
+        socialActivitiesRelationships: JSON.stringify(NullJSONData),
+        socialActivitiesRoles: JSON.stringify(NullJSONData),
+      },
     },
     recoverySummary: {
       longCovidCount: JSON.stringify(NullJSONData),
@@ -275,16 +361,67 @@ const getID = async (level, name, stateAbbrev) => {
             avgPositiveCasesPerPerson
             percentSymptomatic
             percentTookMedication
-            medicationCounts
+            medicationCounts {
+              antiViral
+              oralSteroids
+              antiBiotics
+              other
+              dontKnow
+            }
             percentRecovered
           }
+          symptomSummary {
+            mostCommonSymptom
+            symptomCounts {
+              headache
+              bodyMuscleAche
+              feverChillsSweatsFlushing
+              faintDizzyGoofy
+              postExertionalMalaise
+              weaknessInArmsLegs
+              shortnessOfBreath
+              cough
+              palpitations
+              swellingOfLegs
+              indigestionNausea
+              bladderProblem
+              nerveProblems
+              brainFog
+              anxietyDepressionNightmares
+              problemsThinkingConcentrating
+              problemsAnxietyDepressionStress
+              difficultyFallingAsleep
+              sleepyDuringDaytime
+              loudSnoring
+              uncomfortableFeelingsInLegs
+              skinRash
+              lossOfChangeInSmell
+              excessiveThirst
+              excessiveDryMouth
+              visionProblems
+              hearingProblems
+              #add to the statistic only for women
+              fertilityProblemsForWomen
+            }
+          }
           vaccinationSummary {
-            avgNumOfVaccPerPerson
-            azCount
-            jjCount
-            modernaCount
             percentVaccinated
+            avgNumOfVaccPerPerson
             pfizerCount
+            modernaCount
+            jjCount
+            azCount
+          }
+          generalHealthSummary {
+            avgTotalScore
+            avgHealthCounts {
+              generalHealth
+              qualityOfLife
+              physicalHealth
+              mentalHealth
+              socialActivitiesRelationships
+              socialActivitiesRoles
+            }
           }
           recoverySummary {
             longCovidCount
@@ -327,16 +464,67 @@ const getID = async (level, name, stateAbbrev) => {
           avgPositiveCasesPerPerson
           percentSymptomatic
           percentTookMedication
-          medicationCounts
+          medicationCounts {
+            antiViral
+            oralSteroids
+            antiBiotics
+            other
+            dontKnow
+          }
           percentRecovered
         }
+        symptomSummary {
+          mostCommonSymptom
+          symptomCounts {
+            headache
+            bodyMuscleAche
+            feverChillsSweatsFlushing
+            faintDizzyGoofy
+            postExertionalMalaise
+            weaknessInArmsLegs
+            shortnessOfBreath
+            cough
+            palpitations
+            swellingOfLegs
+            indigestionNausea
+            bladderProblem
+            nerveProblems
+            brainFog
+            anxietyDepressionNightmares
+            problemsThinkingConcentrating
+            problemsAnxietyDepressionStress
+            difficultyFallingAsleep
+            sleepyDuringDaytime
+            loudSnoring
+            uncomfortableFeelingsInLegs
+            skinRash
+            lossOfChangeInSmell
+            excessiveThirst
+            excessiveDryMouth
+            visionProblems
+            hearingProblems
+            #add to the statistic only for women
+            fertilityProblemsForWomen
+          }
+        }
         vaccinationSummary {
-          avgNumOfVaccPerPerson
-          azCount
-          jjCount
-          modernaCount
           percentVaccinated
+          avgNumOfVaccPerPerson
           pfizerCount
+          modernaCount
+          jjCount
+          azCount
+        }
+        generalHealthSummary {
+          avgTotalScore
+          avgHealthCounts {
+            generalHealth
+            qualityOfLife
+            physicalHealth
+            mentalHealth
+            socialActivitiesRelationships
+            socialActivitiesRoles
+          }
         }
         recoverySummary {
           longCovidCount
@@ -566,7 +754,17 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
     percentHospitalizedDueToCovid,
     avgPositiveCasesPerPerson,
     covidCount,
+    medicationCounts,
   } = county.covidSummary;
+
+  let {
+    antiViral,
+    oralSteroids,
+    antiBiotics,
+    other,
+    dontKnow
+  } = medicationCounts;
+
 
   addCustomToTallyBasedOnCondition(
     raceIndex,
@@ -576,6 +774,7 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
     covidResults.timesPositive > 0,
     1
   );
+
 
   // Formula for percentHospitalizedDueToCovid
   // if(covidResults.hospitalized) {
@@ -629,6 +828,14 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
     covidResults.MedicationsTaken.length > 0,
     1
   );
+
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, antiViral, covidResults.MedicationsTaken.includes("Antiviral"), 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, oralSteroids, covidResults.MedicationsTaken.includes("Oral Steroids"), 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, antiBiotics, covidResults.MedicationsTaken.includes("Antiviral"), 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, other, covidResults.MedicationsTaken.includes("Other"), 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, dontKnow, covidResults.MedicationsTaken.includes("Don't Know"), 1);
+
+
   //percentRecoveredFormula :
   // new =(old * county.totalFullEntries) + ((covidResults.symptomatic) ? 1 : 0) / (county.totalFullEntries + 1)
   aggregatePercentageCustomBasedOnCondition(
@@ -648,7 +855,16 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
     percentHospitalizedDueToCovid,
     avgPositiveCasesPerPerson,
     covidCount,
+    medicationCounts,
   } = state.covidSummary);
+
+  ({
+    antiViral,
+    oralSteroids,
+    antiBiotics,
+    other,
+    dontKnow
+  } = medicationCounts);
 
   addCustomToTallyBasedOnCondition(
     raceIndex,
@@ -723,7 +939,11 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
     1
   );
 
-  //TODO : update medicationCounts
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, antiViral, covidResults.MedicationsTaken.includes("Antiviral"), 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, oralSteroids, covidResults.MedicationsTaken.includes("Oral Steroids"), 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, antiBiotics, covidResults.MedicationsTaken.includes("Antiviral"), 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, other, covidResults.MedicationsTaken.includes("Other"), 1);
+  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, dontKnow, covidResults.MedicationsTaken.includes("Don't Know"), 1);
 };
 
 const updateVaccinationSummary = (eventInput, county, state, indexes) => {
@@ -971,10 +1191,10 @@ const updateSocialSummary = (eventInput, county, state, indexes) => {
     county.totalFullEntries,
     percentDifficultyCoveringExpenses,
     socialDeterminantsResults.difficultCoveringExpenses === "Very difficult" ||
-    socialDeterminantsResults.difficultCoveringExpenses === "Somewhat difficult",
+      socialDeterminantsResults.difficultCoveringExpenses ===
+        "Somewhat difficult",
     1
   );
-
 
   /*
 Working outside the home 
@@ -988,37 +1208,118 @@ Don't know
 Prefer not to answer 
 */
 
-if (socialDeterminantsResults.currentWorkSituation === "Working outside the home") { 
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, workingOutsideTheHome,true,  1);
-} else if (socialDeterminantsResults.currentWorkSituation === "On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave)") { 
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, onLeaveFromAJobWorkingOutsideHome,true,  1);
-} else if (socialDeterminantsResults.currentWorkSituation === "Working inside the home") { 
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, workingInsideHome,true,  1);
-} else if (socialDeterminantsResults.currentWorkSituation === "Looking for work, unemployed") { 
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, lookingForWorkUnemployed,true,  1);
-} else if (socialDeterminantsResults.currentWorkSituation === "Retired") { 
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, retired,true,  1);
-} else if (socialDeterminantsResults.currentWorkSituation === "Disabled, permanently or temporarily") { 
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, disabled,true,  1);
-} else if (socialDeterminantsResults.currentWorkSituation === "Student") { 
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, student,true,  1);
-} else if (socialDeterminantsResults.currentWorkSituation === "Don't know") { 
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, dontKnow,true,  1);
-} else if (socialDeterminantsResults.currentWorkSituation === "Prefer not to answer") { 
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, preferNotToAnswer,true,  1);
-} 
-
-
-
-
-  else if (socialDeterminantsResults.currentWorkSituation === "Looking for work, unemployed") { 
-    addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, lookingForWorkUnemployed,true,  1);
+  if (
+    socialDeterminantsResults.currentWorkSituation ===
+    "Working outside the home"
+  ) {
+    addCustomToTallyBasedOnCondition(
+      raceIndex,
+      ageIndex,
+      sexIndex,
+      workingOutsideTheHome,
+      true,
+      1
+    );
+  } else if (
+    socialDeterminantsResults.currentWorkSituation ===
+    "On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave)"
+  ) {
+    addCustomToTallyBasedOnCondition(
+      raceIndex,
+      ageIndex,
+      sexIndex,
+      onLeaveFromAJobWorkingOutsideHome,
+      true,
+      1
+    );
+  } else if (
+    socialDeterminantsResults.currentWorkSituation === "Working inside the home"
+  ) {
+    addCustomToTallyBasedOnCondition(
+      raceIndex,
+      ageIndex,
+      sexIndex,
+      workingInsideHome,
+      true,
+      1
+    );
+  } else if (
+    socialDeterminantsResults.currentWorkSituation ===
+    "Looking for work, unemployed"
+  ) {
+    addCustomToTallyBasedOnCondition(
+      raceIndex,
+      ageIndex,
+      sexIndex,
+      lookingForWorkUnemployed,
+      true,
+      1
+    );
+  } else if (socialDeterminantsResults.currentWorkSituation === "Retired") {
+    addCustomToTallyBasedOnCondition(
+      raceIndex,
+      ageIndex,
+      sexIndex,
+      retired,
+      true,
+      1
+    );
+  } else if (
+    socialDeterminantsResults.currentWorkSituation ===
+    "Disabled, permanently or temporarily"
+  ) {
+    addCustomToTallyBasedOnCondition(
+      raceIndex,
+      ageIndex,
+      sexIndex,
+      disabled,
+      true,
+      1
+    );
+  } else if (socialDeterminantsResults.currentWorkSituation === "Student") {
+    addCustomToTallyBasedOnCondition(
+      raceIndex,
+      ageIndex,
+      sexIndex,
+      student,
+      true,
+      1
+    );
+  } else if (socialDeterminantsResults.currentWorkSituation === "Don't know") {
+    addCustomToTallyBasedOnCondition(
+      raceIndex,
+      ageIndex,
+      sexIndex,
+      dontKnow,
+      true,
+      1
+    );
+  } else if (
+    socialDeterminantsResults.currentWorkSituation === "Prefer not to answer"
+  ) {
+    addCustomToTallyBasedOnCondition(
+      raceIndex,
+      ageIndex,
+      sexIndex,
+      preferNotToAnswer,
+      true,
+      1
+    );
+  } else if (
+    socialDeterminantsResults.currentWorkSituation ===
+    "Looking for work, unemployed"
+  ) {
+    addCustomToTallyBasedOnCondition(
+      raceIndex,
+      ageIndex,
+      sexIndex,
+      lookingForWorkUnemployed,
+      true,
+      1
+    );
   }
 
-  
-
-
-    //get rid of average!
+  //get rid of average!
   // averageWorkingSituation(
   //   raceIndex
 
@@ -1042,6 +1343,126 @@ if (socialDeterminantsResults.currentWorkSituation === "Working outside the home
     preferNotToAnswer,
   } = workingSituationCounts);
 };
+
+const convertQualitativetoQuantitative = (object) => {
+  for (const key in object) {
+    if (object[key] === "No") {
+      object[key] = 1;
+    } else if (object[key] === "Mild") {
+      object[key] = 2;
+    } else if (object[key] === "Moderate") {
+      object[key] = 3;
+    } else if (object[key] === "Severe") {
+      object[key] = 4;
+    }
+  }
+}
+
+const updateSymptomSummary = (eventInput, county, state, indexes) => {
+  let { symptomResults } = eventInput;
+  let { raceIndex, ageIndex, sexIndex } = indexes;
+
+  let {
+    headache,
+    bodyMuscleAche,
+    feverChillsSweatsFlushing,
+    faintDizzyGoofy,
+    postExertionalMalaise,
+    weaknessInArmsLegs,
+    shortnessOfBreath,
+    cough,
+    palpitations,
+    swellingOfLegs,
+    indigestionNausea,
+    bladderProblem,
+    nerveProblems,
+    brainFog,
+    anxietyDepressionNightmares,
+    problemsThinkingConcentrating,
+    problemsAnxietyDepressionStress,
+    difficultyFallingAsleep,
+    sleepyDuringDaytime,
+    loudSnoring,
+    uncomfortableFeelingsInLegs,
+    skinRash,
+    lossOfChangeInSmell,
+    excessiveThirst,
+    excessiveDryMouth,
+    visionProblems,
+    hearingProblems,
+    fertilityProblemsForWomen
+  } = county.symptomSummary.symptomCounts;
+
+  convertQualitativetoQuantitative(symptomResults.symptoms);
+  // console.log(headache);
+
+  for(const symptom in symptomResults.symptoms) {
+    // console.log(symptomResults.symptoms[symptom])
+    if (symptom === "Headache") {
+      aggregatePercentageCustomBasedOnCondition(raceIndex,ageIndex, sexIndex, county.totalFullEntries, headache, true, symptomResults.symptoms[symptom])
+      // console.log(symptom)
+    } else if (symptom === "Cough") {
+      aggregatePercentageCustomBasedOnCondition(raceIndex,ageIndex, sexIndex, county.totalFullEntries, cough, true, symptomResults.symptoms[symptom])
+      // console.log(symptom);
+    }
+  }
+
+ ( {
+    headache,
+    bodyMuscleAche,
+    feverChillsSweatsFlushing,
+    faintDizzyGoofy,
+    postExertionalMalaise,
+    weaknessInArmsLegs,
+    shortnessOfBreath,
+    cough,
+    palpitations,
+    swellingOfLegs,
+    indigestionNausea,
+    bladderProblem,
+    nerveProblems,
+    brainFog,
+    anxietyDepressionNightmares,
+    problemsThinkingConcentrating,
+    problemsAnxietyDepressionStress,
+    difficultyFallingAsleep,
+    sleepyDuringDaytime,
+    loudSnoring,
+    uncomfortableFeelingsInLegs,
+    skinRash,
+    lossOfChangeInSmell,
+    excessiveThirst,
+    excessiveDryMouth,
+    visionProblems,
+    hearingProblems,
+    fertilityProblemsForWomen
+  } = state.symptomSummary.symptomCounts);
+
+  for(const symptom in symptomResults.symptoms) {
+    // console.log(symptomResults.symptoms[symptom])
+    if (symptom === "Headache") {
+      aggregatePercentageCustomBasedOnCondition(raceIndex,ageIndex, sexIndex, county.totalFullEntries, headache, true, symptomResults.symptoms[symptom])
+      // console.log(symptom)
+    } else if (symptom === "Cough") {
+      aggregatePercentageCustomBasedOnCondition(raceIndex,ageIndex, sexIndex, county.totalFullEntries, cough, true, symptomResults.symptoms[symptom])
+      // console.log(symptom);
+    }
+  }
+
+
+
+
+
+
+
+}
+
+const updateGeneralHealthSummary = (eventInput, county, state, indexes) => {
+  let {generalHealthResults} = eventInput;
+  let { raceIndex, ageIndex, sexIndex } = indexes;
+
+
+}
 
 const incrementTotalFullEntries = (county, state) => {
   county.totalFullEntries += 1;
@@ -1086,6 +1507,10 @@ const aggregateSurveyResults = async (eventInput) => {
     sexIndex,
   });
 
+  updateSymptomSummary(eventInput, county, state, {
+    raceIndex, ageIndex, sexIndex,
+  })
+
   //Upload "county" and "state"
 
   //increment at the last. updates require OLD count
@@ -1094,8 +1519,8 @@ const aggregateSurveyResults = async (eventInput) => {
   stringify(county);
   stringify(state);
 
-  console.log(county);
-  // console.log(state);
+  console.log(county.symptomSummary);
+  console.log(state.symptomSummary);
 };
 
 /**

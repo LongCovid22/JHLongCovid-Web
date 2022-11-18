@@ -35,7 +35,7 @@ type MapData
   covidSummary: CovidSummary!
   symptomSummary: SymptomSummary!
   vaccinationSummary: VaccinationSummary!
-  generealHealthSummary: GeneralHealthSummary!
+  generalHealthSummary: GeneralHealthSummary!
   recoverySummary: RecoverySummary!
   socialSummary: SocialSummary!
   totalFullEntries: Int! # total survey entries at that given state or county.
@@ -616,6 +616,13 @@ type MonthlyEntry
 # They represent information that could be displayed on click or hover of a map marker.
 # The aim of having these types is to avoid extra queries as a user navigates throughout the map.
 
+type MedicationsAvailable {
+  antiViral: AWSJSON
+  oralSteroids: AWSJSON
+  antiBiotics: AWSJSON
+  other: AWSJSON
+  dontKnow: AWSJSON
+}
 type CovidSummary {
   #one person, one count (as long as infected in past before?)
   covidCount: AWSJSON
@@ -623,29 +630,72 @@ type CovidSummary {
   avgPositiveCasesPerPerson: AWSJSON
   percentSymptomatic: AWSJSON
   percentTookMedication: AWSJSON
-  
   #TODO!
-  # { med1: testAWSJSON, med2: testAWSJSON}
-  medicationCounts: AWSJSON
+  medicationCounts: MedicationsAvailable
   #From recovery result?
   percentRecovered: AWSJSON
 }
 
+
+
 #TODO!
 type SymptomSummary {
   mostCommonSymptom: AWSJSON
-  #{}
-  symptomCounts: AWSJSON
+  symptomCounts: SymptomsAvailabLe
 }
+
+type SymptomsAvailabLe {
+  headache: AWSJSON
+  bodyMuscleAche: AWSJSON
+  feverChillsSweatsFlushing: AWSJSON
+  faintDizzyGoofy: AWSJSON
+  postExertionalMalaise: AWSJSON
+  weaknessInArmsLegs: AWSJSON
+  shortnessOfBreath: AWSJSON
+  cough: AWSJSON
+  palpitations: AWSJSON
+  swellingOfLegs: AWSJSON
+  indigestionNausea: AWSJSON
+  bladderProblem: AWSJSON
+  nerveProblems: AWSJSON
+  brainFog: AWSJSON
+  anxietyDepressionNightmares: AWSJSON
+  problemsThinkingConcentrating: AWSJSON
+  problemsAnxietyDepressionStress: AWSJSON
+  difficultyFallingAsleep: AWSJSON
+  sleepyDuringDaytime: AWSJSON
+  loudSnoring: AWSJSON
+  uncomfortableFeelingsInLegs: AWSJSON
+  skinRash: AWSJSON
+  lossOfChangeInSmell: AWSJSON
+  excessiveThirst: AWSJSON
+  excessiveDryMouth: AWSJSON
+  visionProblems: AWSJSON
+  hearingProblems: AWSJSON
+  #add to the statistic only for women
+  fertilityProblemsForWomen: AWSJSON
+}
+
 
 #TODO!
 type GeneralHealthSummary {
   #tot score?
   avgTotalScore: AWSJSON
   #same idea of sympotoms
-  avgHealthCounts: AWSJSON
+  avgHealthCounts: GeneralHealthQuestions
 }
 
+#Excellent = 5, ...., Poor = 1
+type GeneralHealthQuestions {
+  generalHealth: AWSJSON
+  qualityOfLife: AWSJSON
+  physicalHealth: AWSJSON
+  mentalHealth: AWSJSON
+  socialActivitiesRelationships: AWSJSON
+  socialActivitiesRoles: AWSJSON
+}
+
+#DONE
 type SocialSummary {
   percentHaveMedicalInsurance: AWSJSON
   percentDifficultyCoveringExpenses: AWSJSON
@@ -665,6 +715,7 @@ type WorkingSituation {
   preferNotToAnswer: AWSJSON
 }
 
+#DONE
 type VaccinationSummary {
   percentVaccinated: AWSJSON
   avgNumOfVaccPerPerson: AWSJSON
@@ -674,12 +725,12 @@ type VaccinationSummary {
   azCount: AWSJSON
 }
 
+#DONE
 type RecoverySummary {
   longCovidCount: AWSJSON
   percentLongCovid: AWSJSON
   avgRecoveryLength: AWSJSON
 }
-
 
 # -------------------------------
 # LAMBDA RESOLVERS
@@ -697,3 +748,4 @@ type Response {
   statusCode: Int
   body: String
 }
+
