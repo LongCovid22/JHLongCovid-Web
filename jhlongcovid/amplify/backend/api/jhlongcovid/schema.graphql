@@ -561,7 +561,7 @@ type SymptomEntry
   height: String!
   weight: String!
   createdAt: AWSDateTime!
-  symptoms: AWSJSON!
+  symptoms: [String]!
   mentalHealthRank: String
   socialSatisfactionRank: String
   carryOutSocialActivitiesRank: String

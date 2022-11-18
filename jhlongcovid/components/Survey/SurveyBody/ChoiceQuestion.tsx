@@ -12,7 +12,7 @@ import {
   FormLabel,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { selectCurrentAnswer } from "../../../redux/slices/surveySlice";
+import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { validate } from "graphql";
 

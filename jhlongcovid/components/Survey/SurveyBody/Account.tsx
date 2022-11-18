@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
 import { useAppSelector } from "../../../redux/hooks";
-import { selectCurrentAnswer } from "../../../redux/slices/surveySlice";
+import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
 import {
   AuthenticationForm,
   AuthState,

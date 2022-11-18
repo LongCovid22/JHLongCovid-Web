@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../store";
-import surveyLogic from "../../surveyLogic.json";
+import type { RootState } from "../../store";
+import surveyLogic from "../../../surveyLogic.json";
 import { Auth } from "aws-amplify";
 import { setUncaughtExceptionCaptureCallback } from "process";
 
@@ -179,7 +179,23 @@ export const surveySlice = createSlice({
     },
 
     // Reset survey and send query to API
-    finishSurvey: (state) => {},
+    finishSurvey: (state) => {
+      console.log("finish survey");
+      const stateCopy = { ...state };
+      let entries: any = {};
+      stateCopy.questionStack.map(
+        (value: { section: number; question: number }, index: number) => {
+          const schemaInfo: { tableName: string; field: string; type: string } =
+            stateCopy.questions[value.section][value.question].schemaInfo;
+          const surveyAnswer = stateCopy.answerStack[index];
+          console.log("Answer returned: ", surveyAnswer);
+          // if (schemaInfo.type === "AWSJSON") {
+          // }
+
+          // entries[schemaInfo.tableName];
+        }
+      );
+    },
 
     /**
      * Initializes questions on startup. The payload coming in will
@@ -210,7 +226,7 @@ export const surveySlice = createSlice({
   },
 });
 
-export const { nextQuestion, prevQuestion, initQuestions } =
+export const { nextQuestion, prevQuestion, initQuestions, finishSurvey } =
   surveySlice.actions;
 
 export const selectCurrentQuestion = (state: RootState) => {

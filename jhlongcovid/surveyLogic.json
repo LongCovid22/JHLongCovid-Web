@@ -407,8 +407,8 @@
         "branching": null,
         "schemaInfo": {
           "tableName": "VaccinationEntry",
-          "field": "dateOfLastVaccine",
-          "type": "AWSDateTime"
+          "field": "vaccineType",
+          "type": "String"
         }
       }
     ],
@@ -533,7 +533,7 @@
         "schemaInfo": {
           "tableName": "SymptomsEntry",
           "field": "symptoms",
-          "type": "AWSJSON"
+          "type": "[String]"
         }
       },
       {

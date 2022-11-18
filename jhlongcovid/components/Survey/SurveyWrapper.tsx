@@ -16,6 +16,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
 import {
+  finishSurvey,
   initQuestions,
   nextQuestion,
   prevQuestion,
@@ -23,7 +24,7 @@ import {
   selectCurrentQuestion,
   selectIsFirstQuestion,
   selectIslastQuestion,
-} from "../../redux/slices/surveySlice";
+} from "../../redux/slices/surveySlice/surveySlice";
 
 //survey component templates
 import { Welcome } from "./SurveyBody/Welcome";
@@ -169,7 +170,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [errorPresent, setErrorPresent] = useState(false);
   const [preSurvey, setPreSurvey] = useState(true);
 
-  const handleQuestionChange = async (direction: "next" | "prev" | "skip") => {
+  const handleQuestionChange = async (
+    direction: "next" | "prev" | "skip" | "finish"
+  ) => {
     if (direction === "next") {
       if (currentQuestion.answerFormat !== "welcome") {
         // User hit continue as guest and needs to move in to
@@ -269,6 +272,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       }
     } else if (direction === "skip") {
       dispatch(nextQuestion({ answer: "skip" }));
+    } else if (direction === "finish") {
+      dispatch(finishSurvey());
     } else {
       dispatch(prevQuestion({ answer: answer }));
     }
@@ -392,7 +397,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             <Button
               colorScheme="hopkinsBlue"
               borderRadius={500}
-              onClick={() => handleQuestionChange("next")}
+              onClick={() =>
+                isLastQuestion
+                  ? handleQuestionChange("finish")
+                  : handleQuestionChange("next")
+              }
             >
               {isLastQuestion ? "Finish" : "Next"}
             </Button>
