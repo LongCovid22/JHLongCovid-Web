@@ -35,6 +35,7 @@ export const PreSurvey: React.FC<{ dismissPreSurvey: () => void }> = ({
         <Image src="/jhu_logo.jpg" maxW="45%" />
         <AuthenticationForm
           initialAuthState={AuthState.SignIn}
+          midSurvey={false}
           onVerify={() => {
             dismissPreSurvey();
           }}

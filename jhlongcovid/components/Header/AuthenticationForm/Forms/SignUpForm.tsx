@@ -20,7 +20,9 @@ interface SignUpFormProps {
   email: string;
   password: string;
   confirmPass: string;
+  midSurvey: boolean;
   userInfo?: UserInfo;
+  showTitle?: boolean;
   setEmail: (val: string) => void;
   setPassword: (val: string) => void;
   setVerifType: (val: "SignUp" | "SignIn" | "VerifyTotp") => void;
@@ -32,7 +34,9 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   email,
   password,
   confirmPass,
+  midSurvey,
   userInfo,
+  showTitle,
   setEmail,
   setPassword,
   setVerifType,
@@ -77,7 +81,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
     }
 
     try {
-      const { user } = await Auth.signUp({
+      await Auth.signUp({
         username: email,
         password: confirmPass,
         attributes: attributes,
@@ -129,9 +133,11 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   return (
     <VStack width="75%" maxW="450px" minW="325px" spacing="25px">
       <VStack w="100%">
-        <Heading size={"md"} mb="5px">
-          Sign Up
-        </Heading>
+        {showTitle && (
+          <Heading size={"md"} mb="5px">
+            Sign Up
+          </Heading>
+        )}
         <FormControl isInvalid={!validEmail}>
           <FormLabel>Email Address</FormLabel>
           <Input
@@ -185,16 +191,18 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
 
       <HStack spacing={3} width="100%">
         <Spacer />
-        <Button
-          background={"hopkinsBlue.100"}
-          color={"hopkinsBlue.500"}
-          borderRadius={500}
-          onClick={() => {
-            changeAuthState(AuthState.SignIn);
-          }}
-        >
-          Sign In
-        </Button>
+        {!midSurvey && (
+          <Button
+            background={"hopkinsBlue.100"}
+            color={"hopkinsBlue.500"}
+            borderRadius={500}
+            onClick={() => {
+              changeAuthState(AuthState.SignIn);
+            }}
+          >
+            Sign In
+          </Button>
+        )}
         <Button
           colorScheme="hopkinsBlue"
           borderRadius={500}

@@ -1,22 +1,10 @@
-import React, { useEffect, useCallback, useState } from "react";
-import {
-  VStack,
-  FormControl,
-  FormLabel,
-  Input,
-  HStack,
-  Spacer,
-  Button,
-  Text,
-  Heading,
-} from "@chakra-ui/react";
+import React, { useCallback, useState } from "react";
 import { SignInForm } from "./Forms/SignInForm";
 import { SignUpForm } from "./Forms/SignUpForm";
 import { TotpForm } from "./Forms/TotpForm";
 import { VerificationForm } from "./Forms/VerificationForm";
 import { CognitoUser } from "@aws-amplify/auth";
 import { UserInfo } from "../../Survey/SurveyWrapper";
-import { Auth } from "@aws-amplify/auth";
 
 export enum AuthState {
   SignIn,
@@ -28,8 +16,16 @@ export enum AuthState {
 export const AuthenticationForm: React.FC<{
   initialAuthState: AuthState;
   userInfo?: UserInfo;
+  showTitle?: boolean;
+  midSurvey: boolean;
   onVerify: () => void;
-}> = ({ initialAuthState, userInfo, onVerify }) => {
+}> = ({
+  initialAuthState,
+  userInfo,
+  midSurvey,
+  onVerify,
+  showTitle = false,
+}) => {
   const [authState, setAuthState] = useState<AuthState>(initialAuthState);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,14 +35,6 @@ export const AuthenticationForm: React.FC<{
   >("SignIn");
   const [qrString, setQRString] = useState("");
   const [user, setUser] = useState<undefined | CognitoUser>(undefined);
-
-  useEffect(() => {
-    const signOut = async () => {
-      await Auth.signOut();
-    };
-
-    signOut();
-  }, []);
 
   const renderFormBasedOnAuthState = useCallback(() => {
     switch (authState) {
@@ -68,6 +56,7 @@ export const AuthenticationForm: React.FC<{
             email={email}
             password={password}
             confirmPass={confirmPassword}
+            midSurvey={midSurvey}
             userInfo={userInfo}
             setEmail={setEmail}
             setPassword={setPassword}
@@ -91,9 +80,10 @@ export const AuthenticationForm: React.FC<{
             password={password}
             user={user}
             verifType={verifType}
+            midSurvey={midSurvey}
             userInfo={userInfo}
             onVerify={onVerify}
-            setUser={setUser}
+            setUserInfo={setUser}
             setQRString={setQRString}
             changeAuthState={setAuthState}
           />

@@ -119,13 +119,15 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
     return true;
   };
 
+  // Check if there is an already existing answer to provide as a default value
   useEffect(() => {
-    if (currentAnswer !== null) {
-      handleAnswerChange(currentAnswer as string);
-    } else {
-      setAnswer(currentAnswer);
-    }
-  }, [currentAnswer]);
+    handleAnswerChange(currentAnswer as string);
+    // if (currentAnswer !== "") {
+    //   handleAnswerChange(currentAnswer as string);
+    // } else {
+    //   setAnswer(currentAnswer);
+    // }
+  }, [currentAnswer, currentQuestion]);
 
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>

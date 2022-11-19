@@ -36,10 +36,13 @@ import { ThankYou } from "./SurveyBody/ThankYou";
 import { MFA } from "./SurveyBody/MFA";
 import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
-import { confirmSignUp, signUp } from "../../authFunctions";
-import { AuthErrorTypes } from "@aws-amplify/auth/lib-esm/types";
 import { PreSurvey } from "./SurveyBody/PreSurvey";
 import { selectUser } from "../../redux/slices/userSlice";
+import {
+  checkEmptyDemoFields,
+  updateUserWithInfoFromSurvey,
+  userInfoIsEmpty,
+} from "./SurveyFunctions";
 
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
@@ -51,6 +54,9 @@ export type UserInfo = {
   age: string;
   zip: string;
   race: string;
+  sex: string;
+  height: string;
+  weight: string;
 };
 
 export interface SurveyQuestionProps {
@@ -59,6 +65,7 @@ export interface SurveyQuestionProps {
   userInfo?: UserInfo;
   setErrorPresent?: (error: boolean) => void;
   setErrorText?: (text: string) => void;
+  onVerify?: () => void;
 }
 
 const Body: React.FC<SurveyQuestionProps> = ({
@@ -67,6 +74,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
   setAnswer,
   setErrorPresent,
   setErrorText,
+  onVerify,
 }) => {
   let answerFormat = currentQuestion.answerFormat;
   if (Array.isArray(answerFormat)) {
@@ -115,7 +123,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
         currentQuestion={currentQuestion}
         userInfo={userInfo}
         setAnswer={setAnswer}
-        setErrorPresent={setErrorPresent}
+        onVerify={onVerify}
       />
     );
   } else if (answerFormat === "thankYou") {
@@ -150,6 +158,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     age: "",
     zip: "",
     race: "",
+    sex: "",
+    height: "",
+    weight: "",
   });
 
   const [isFinalSection, setIsFinalSection] = useState(false);
@@ -165,9 +176,16 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         // the guest survey
         if (preSurvey) {
           setPreSurvey(false);
-          // dispatch the creation of the survey so that current question
-          // kicks off state change
+          return;
+        }
 
+        // Update the info of the user signed in when on the account
+        // stage at the end of the survey
+        if (currentQuestion.answerFormat === "account" && user) {
+          if (!userInfoIsEmpty) {
+            await updateUserWithInfoFromSurvey(userInfo, user);
+          }
+          dispatch(nextQuestion({ answer: answer }));
           return;
         }
 
@@ -177,24 +195,10 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           dispatch(initQuestions({ authId: null }));
         }
 
+        // Check for empty fields during the demographics stage
         if (currentQuestion.answerFormat === "demographics") {
-          let emptyFields = [];
           if (answer !== null) {
-            let demographics = answer as {
-              zip: string;
-              age: string;
-              race: string;
-            };
-            if (demographics.zip === "") {
-              emptyFields.push("zip code");
-            }
-            if (demographics.age === "") {
-              emptyFields.push("age");
-            }
-            if (demographics.race === "") {
-              emptyFields.push("race");
-            }
-
+            const emptyFields = checkEmptyDemoFields(answer);
             if (emptyFields.length > 0) {
               setErrorText(`Please provide ${emptyFields.join(", ")}`);
               setMissingAnswer(true);
@@ -203,6 +207,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           }
         }
 
+        // Check for empty fields in any stage of the survey
         if (
           answer === "" ||
           answer === null ||
@@ -213,42 +218,52 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           setErrorText("Please provide an answer to the missing fields");
           setMissingAnswer(true);
           return;
+        } else if (
+          Array.isArray(currentQuestion.answerFormat) &&
+          currentQuestion.answerFormat.includes("multichoice")
+        ) {
+          let multiChoiceAnswer = answer as {
+            choices: string[];
+            other: string;
+          };
+          if (
+            multiChoiceAnswer.choices.length === 0 &&
+            multiChoiceAnswer.other === ""
+          ) {
+            setErrorText("Please provide an answer to the missing fields");
+            setMissingAnswer(true);
+            return;
+          }
         } else {
           setMissingAnswer(false);
         }
       }
 
       if (!errorPresent && direction === "next") {
-        // perform action on next button
-        // TODO: abstract out in to different function
-
+        // Perform action on next button
         // Update user info depending on the page
         const userInfoUpdate = { ...userInfo };
 
         if (currentQuestion.answerFormat === "consent") {
-          console.log("VALUE OF CONSENT SCREEN: ", answer);
           userInfoUpdate.name = answer as string;
           setUserInfo(userInfoUpdate);
         } else if (currentQuestion.answerFormat === "demographics") {
-          const a = answer as { zip: string; age: string; race: string };
+          const a = answer as {
+            zip: string;
+            age: string;
+            race: string;
+            sex: string;
+            height: string;
+            weight: string;
+          };
           userInfoUpdate.age = a.age;
           userInfoUpdate.zip = a.zip;
           userInfoUpdate.race = a.race;
+          userInfoUpdate.sex = a.sex;
+          userInfoUpdate.weight = a.weight;
+          userInfoUpdate.height = a.height;
           setUserInfo(userInfoUpdate);
         }
-
-        // try {
-        //   if (currentQuestion.answerFormat === "account") {
-        //     await signUp(userInfoUpdate);
-        //   } else if (currentQuestion.answerFormat === "mfa") {
-        //     await confirmSignUp(userInfoUpdate, answer as string);
-        //   }
-        // } catch (error) {
-        //   const e = error as { __type: string; message: string };
-        //   setErrorPresent(true);
-        //   setErrorText(e.message);
-        //   return;
-        // }
 
         dispatch(nextQuestion({ answer: answer }));
       }
@@ -262,6 +277,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
   // Mark final section
   useEffect(() => {
+    if (currentQuestion.answerFormat === "account" && user) {
+      handleQuestionChange("next");
+    }
     setIsFinalSection(
       currentQuestion.answerFormat === "mfa" ||
         currentQuestion.answerFormat === "thankYou" ||
@@ -329,6 +347,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             setAnswer={setAnswer}
             setErrorPresent={setErrorPresent}
             setErrorText={setErrorText}
+            onVerify={() => handleQuestionChange("next")}
           />
         ) : (
           <PreSurvey

@@ -1,0 +1,44 @@
+Documentation for what types/answers event.json
+should be structured as.
+
+#IMPORTANT: If a question is unanswered, then it will be NULL.
+NULL should not represent anything else but that question is unaswered!
+
+Covid Results
+1) previousInfection: boolean (initial format: Yes/No Question)
+2) infectionFreqEst: integer (initial format: 1/2/3/3+ infection, do not know (place 0 for do not know))
+3) hospitalized: boolean (initial format: Yes / No Question)
+4) timesHospitalized: integer (initial format: 1/2/3+ times, do not know - use 0 for do not know)
+5) lastPositiveEst: string (MM-YY)
+6) tested: boolean (intial format: Yes/No Question)
+7) positiveTest: integer (1 - Yes, 2 - No, 3 - I don't know)
+8) symptomatic: boolean (Yes/ No question)
+9) symptomsPrevent: integer (0 - Not at all, 1 - A Little bit, .... , 5 - Very Much)
+10) doctorPrescribeMedicine: integer (0 - Do not know, 1 - Yes, 2 - No)
+11) professionalPrescriptions: string array (options: "Antiviral Pill", "Oral Steroids", "Antibiotics", "Other", "Do not know")
+
+Recovery Results
+12) recovered : boolean (Yes/ No Question)
+13) daysToRecoverEst : Integer (How many days to recover from most recent infection)
+
+Vaccination Results :
+14) vaccinated : integer (0 - Do not know, 1 - Yes, 2 - No)
+15) totalVaccineShots : Integer (0 - Do not know)
+16) dateOfLastVaccine : String (MM/YY)
+17) vaccineType : String (Options: "Pfizer", "Moderna", "Janssen", "Novavax", "Other", "Do not know")
+
+General Health Results:
+18) generalHealth: Integer (0 - Poor, 1 - Fair, ..., 5 - Excellent)
+19) physicalHealth: Integer (0 - Poor, 1 - Fair, ..., 5 - Excellent)
+20) everydayPhysicalCompetency: Integer (0 - Not at all, 1 - A little, ..., 5 - Completely)
+21) averageFatigue: Integer (0 - None, 1 - Mild, 2 - Moderate, ... , 5 - Very Severe)
+22) averagePain: Integer (1 (no pain) - 10 (worst Pain))
+
+Symptom Survey :
+23 - 48 are booleans because are Yes/No questions (do you have this symptom)
+
+23) headache
+24) bodyMuscleAches
+25) feverChillsSweats
+26) faintDizzyGoofy
+

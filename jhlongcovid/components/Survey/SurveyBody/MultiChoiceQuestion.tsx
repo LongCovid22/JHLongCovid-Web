@@ -22,20 +22,29 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const [checked, setChecked] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState("");
   // const [inputValue, setInputValue] = useState<string>("");
 
-  const handleAnswerChange = (val: string[]) => {
-    setChecked(val);
+  const handleAnswerInit = (val: { choices: string[]; other: string }) => {
+    setChecked(val.choices);
+    setInputValue(val.other);
     setAnswer(val);
   };
 
+  const handleChoiceInput = (checkedChoices: string[]) => {
+    setChecked(checkedChoices);
+    setAnswer({ choices: checked, other: inputValue });
+  };
+
+  const handleInputOther = (input: string) => {
+    setInputValue(input);
+    setAnswer({ choices: checked, other: input });
+  };
+
+  // Check if there is an already existing answer to provide as a default value
   useEffect(() => {
-    if (currentAnswer !== null) {
-      handleAnswerChange(currentAnswer as string[]);
-    } else {
-      setAnswer(currentAnswer);
-    }
-  }, [currentAnswer]);
+    handleAnswerInit(currentAnswer as { choices: string[]; other: string });
+  }, [currentAnswer, currentQuestion]);
 
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>
@@ -45,16 +54,32 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
       <VStack spacing={"15px"} width={"100%"} align="start">
         <CheckboxGroup
           colorScheme="hopkinsBlue"
-          onChange={handleAnswerChange}
+          onChange={handleChoiceInput}
           value={checked}
         >
           {Array.isArray(currentQuestion.options) &&
             currentQuestion.options.map((option: any, key: number) => {
-              return (
-                <Checkbox key={key} value={option}>
-                  {option}
-                </Checkbox>
-              );
+              if (option instanceof Object) {
+                return (
+                  <FormControl key={key}>
+                    <FormLabel>{option.title}</FormLabel>
+                    <Input
+                      value={inputValue}
+                      width={"50%"}
+                      type={option.type}
+                      placeholder={option.placeholder}
+                      focusBorderColor="clear"
+                      onChange={(event) => handleInputOther(event.target.value)}
+                    />
+                  </FormControl>
+                );
+              } else {
+                return (
+                  <Checkbox key={key} value={option}>
+                    {option}
+                  </Checkbox>
+                );
+              }
             })}
         </CheckboxGroup>
       </VStack>

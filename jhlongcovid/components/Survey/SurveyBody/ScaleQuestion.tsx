@@ -38,10 +38,8 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
   };
 
   useEffect(() => {
-    if (currentAnswer !== null) {
-      setScaleValues(currentAnswer as string[]);
-    }
-  }, [currentQuestion]);
+    setScaleValues(currentAnswer as string[]);
+  }, [currentQuestion, currentAnswer]);
 
   const ScaleQuestionGridItems = (currentQuestion: any): any[] => {
     let gridItems: any[] = [];
