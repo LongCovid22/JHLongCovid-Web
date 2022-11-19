@@ -35,10 +35,103 @@ General Health Results:
 22) averagePain: Integer (1 (no pain) - 10 (worst Pain))
 
 Symptom Survey :
-23 - 48 are booleans because are Yes/No questions (do you have this symptom)
+Note : 23 - 48 are are Yes/No questions (do you have this symptom)
+23 - 48) symptoms : string array (include symptom in string if they have it),
+only the following symptom strings are recognized):
 
-23) headache
-24) bodyMuscleAches
-25) feverChillsSweats
-26) faintDizzyGoofy
+headache
+bodyMuscleAche
+feverChillsSweatsFlushing
+faintDizzyGoofy
+postExertionalMalaise
+weaknessInArmsLegs
+shortnessOfBreath
+cough
+palpitations
+swellingOfLegs
+indigestionNausea
+bladderProblem
+nerveProblems
+brainFog
+anxietyDepressionNightmares
+difficultyFallingAsleep
+sleepyDuringDaytime
+loudSnoring
+uncomfortableFeelingsInLegs
+skinRash
+lossOfChangeInSmell
+excessiveThirst
+excessiveDryMouth
+visionProblems
+hearingProblems
+#will be automatically null for non-applicable folks
+fertilityProblemsIfApp
+
+
+49) qualityOfLife : Integer (0 - Poor, ..., 5 - Excellent)
+50) mentalHealth : Integer (0 - Poor, ... , 5 - Excellent)
+51) socialActivitiesRelationships : Integer (0 - Poor, ... , 5 - Excellent)
+52) socialActivitiesCapacity: Integer (0 - Poor, ..., 5 - Excellent)
+53) emotionalProblems : Integer (0 - Never, ... , 5 - Always)
+
+patientHealthQuestionnaireResults
+
+54) littleInterestThings : Integer (0 - Not at all, ..., 3 - Nearly Every day)
+55) downDepressedHopeless : Integer (0 - Not at all, ..., 3 - Nearly Every day)
+56) sleepProblems : Integer (0 - Not at all, ..., 3 - Nearly Every day)
+57) tiredNoEnergy : Integer (0 - Not at all, ..., 3 - Nearly Every day)
+58) dietProblems : Integer (0 - Not at all, ..., 3 - Nearly Every day)
+59) badAboutSelf : Integer (0 - Not at all, ..., 3 - Nearly Every day)
+60) concentrationProblems : Integer (0 - Not at all, ..., 3 - Nearly Every day)
+61) slowOrRestless : Integer (0 - Not at all, ..., 3 - Nearly Every day)
+
+(skip suicide questions)
+
+medicalConditionsChanges 
+64) newDiagnosis : string array (of diagnosis). Only recognize the following:
+    "No new diagnoses"
+    "Heart problems"
+    "Lung problems"
+    "Blood clot in lung"
+    "Sleep apnea"
+    "Memory"
+    "Migraine"
+    "Stroke"
+    "Seizure"
+    "Kidney Problems"
+    "Stomach Problems"
+    "Psychological Problems"
+    "Diabetes"
+    "Autoimmune diseases"
+    "ME-CFS"
+    "Other"
+    "Not sure"
+
+65) longCovid : integer (1 - Yes, 2 - No, 0 - Do not know)
+
+
+socialDeterminantsResults
+66) hasMedicalInsurance : boolean (Yes / NO question)
+67) difficultCoveringExpenses : integer (5 - Very difficult, ...., 3 - Not at all difficult, 2 - Don't Know, 1 - Prefer not to ansewr)
+68) currentWorkSituation : Integer (look below for the mapping)
+0 - Working outside the home
+1 - Working outside the home as well as working remotely from home (“hybrid” work)
+2 - Working remotely from home
+3 - Working at home to provide childcare, eldercare and/or to maintain the home 
+4 - On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave) 
+5 - Working inside the home
+6 - Looking for work, unemployed
+7 - Retired
+8 - Disabled, permanently or temporarily 
+9 - Student
+10 - Don't know
+11 - Prefer not to answer
+
+
+healthRelatedResults
+77) weight : Integer (in pounds)
+78) height : Integer (in inches) -> convert feet, inches, to just inches!
+
+
+
 
