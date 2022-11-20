@@ -714,15 +714,15 @@ type MedicationsAvailable {
 type CovidSummary {
   #one person, one count (as long as infected in past before?)
   covidCount: AWSJSON
-  percentHospitalizedDueToCovid: AWSJSON
   avgPositiveCasesPerPerson: AWSJSON
+  percentHospitalizedDueToCovid: AWSJSON
+  avgHospitalizationsPerPerson: AWSJSON
   percentSymptomatic: AWSJSON
+  avgSymptomPreventDailyTasks: AWSJSON
   percentTookMedication: AWSJSON
-
-  #TODO!
   medicationCounts: MedicationsAvailable
   #From recovery result?
-  percentRecovered: AWSJSON
+  # percentRecovered: AWSJSON
 }
 
 type RecoverySummary {
