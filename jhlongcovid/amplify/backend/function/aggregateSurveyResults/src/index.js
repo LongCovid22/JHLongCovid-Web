@@ -1528,7 +1528,8 @@ const aggregateSurveyResults = async (eventInput) => {
  */
 exports.handler = async (event) => {
   let input = event.arguments.surveyResults;
-  await aggregateSurveyResults(input);
+  console.log(input);
+  // await aggregateSurveyResults(input);
 
   // await testGetByID();
   // await populate();

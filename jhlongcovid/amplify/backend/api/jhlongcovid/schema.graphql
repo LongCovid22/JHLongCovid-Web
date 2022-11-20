@@ -32,14 +32,15 @@ type MapData
   lat: Float!
   long: Float!
   covidSummary: CovidSummary!
-  symptomSummary: SymptomSummary!
+  recoverySummary: RecoverySummary!
   vaccinationSummary: VaccinationSummary!
   globalHealthSummary: GlobalHealthSummary!
-  patientHealthSummary: PatientHealthSummary!
-  recoverySummary: RecoverySummary!
+  symptomSummary: SymptomSummary!
+  medicalConditionsSummary: MedicalConditionsSummary!
   socialSummary: SocialSummary!
-  totalFullEntries: Int! # total survey entries at that given state or county.
-  # Could be used to give percentages using numbers from the summary objects
+  totalFullEntries: Int!
+
+  # patientHealthSummary: PatientHealthSummary
 }
 
 """
@@ -724,14 +725,35 @@ type CovidSummary {
   percentRecovered: AWSJSON
 }
 
+type RecoverySummary {
+  longCovidCount: AWSJSON
+  percentLongCovid: AWSJSON
+  avgRecoveryLength: AWSJSON
+}
 
+#DONE
+type VaccinationSummary {
+  percentVaccinated: AWSJSON
+  avgNumOfVaccPerPerson: AWSJSON
+  pfizerCount: AWSJSON
+  modernaCount: AWSJSON
+  jjCount: AWSJSON
+  azCount: AWSJSON
+}
+
+type GlobalHealthSummary {
+  healthRankCount: AWSJSON
+  physicalHealthRankCount: AWSJSON
+  carryOutPhysicalActivitiesRankCount: AWSJSON
+  fatigueRankCount: AWSJSON
+  painLevelCount: AWSJSON
+}
 
 #TODO!
 type SymptomSummary {
   mostCommonSymptom: AWSJSON
   symptomCounts: SymptomsAvailabLe
 }
-
 type SymptomsAvailabLe {
   headache: AWSJSON
   bodyMuscleAche: AWSJSON
@@ -764,32 +786,56 @@ type SymptomsAvailabLe {
   fertilityProblemsForWomen: AWSJSON
 }
 
-
-#TODO!
-type PatientHealthSummary {
-  #tot score?
-  avgTotalScore: AWSJSON
-  #same idea of sympotoms
-  avgHealthCounts: GeneralHealthQuestions
+type MedicalConditionsSummary {
+  percentHaveLongCovid: AWSJSON
+  newDiagnosisCounts: DiagnosisTypes
 }
 
-#Excellent = 5, ...., Poor = 1
-type GeneralHealthQuestions {
-  generalHealth: AWSJSON
-  qualityOfLife: AWSJSON
-  physicalHealth: AWSJSON
-  mentalHealth: AWSJSON
-  socialActivitiesRelationships: AWSJSON
-  socialActivitiesRoles: AWSJSON
+type DiagnosisTypes {
+  noNewDiagnosis: AWSJSON
+  heartProblems: AWSJSON
+  lungProblems: AWSJSON
+  bloodClotLung: AWSJSON
+  sleepApnea: AWSJSON
+  memory: AWSJSON
+  migraine: AWSJSON
+  stroke: AWSJSON
+  seizure: AWSJSON
+  kidneyProblems: AWSJSON
+  stomachProblems: AWSJSON
+  psychologicalProblems: AWSJSON
+  diabetes: AWSJSON
+  autoImmuneDiseases: AWSJSON
+  other: AWSJSON
+  notSure: AWSJSON
 }
 
-#DONE
 type SocialSummary {
   percentHaveMedicalInsurance: AWSJSON
   percentDifficultyCoveringExpenses: AWSJSON
   averageWorkingSituation: AWSJSON
   workingSituationCounts: WorkingSituation
 }
+
+# #GeneralHealthResults
+# type PatientHealthSummary {
+#   #tot score?
+#   avgTotalScore: AWSJSON
+#   #same idea of sympotoms
+#   avgHealthCounts: GeneralHealthQuestions
+# }
+
+# #Excellent = 5, ...., Poor = 1
+# type GeneralHealthQuestions {
+#   generalHealth: AWSJSON
+#   qualityOfLife: AWSJSON
+#   physicalHealth: AWSJSON
+#   mentalHealth: AWSJSON
+#   socialActivitiesRelationships: AWSJSON
+#   socialActivitiesRoles: AWSJSON
+# }
+
+#DONE
 
 type WorkingSituation {
   workingOutsideTheHome: AWSJSON
@@ -804,29 +850,6 @@ type WorkingSituation {
 }
 
 #DONE
-type VaccinationSummary {
-  percentVaccinated: AWSJSON
-  avgNumOfVaccPerPerson: AWSJSON
-  pfizerCount: AWSJSON
-  modernaCount: AWSJSON
-  jjCount: AWSJSON
-  azCount: AWSJSON
-}
-
-#DONE
-type RecoverySummary {
-  longCovidCount: AWSJSON
-  percentLongCovid: AWSJSON
-  avgRecoveryLength: AWSJSON
-}
-
-type GlobalHealthSummary {
-  healthRankCount: AWSJSON
-  physicalHealthRankCount: AWSJSON
-  carryOutPhysicalActivitiesRankCount: AWSJSON
-  fatigueRankCount: AWSJSON
-  painLevelCount: AWSJSON
-}
 
 # -------------------------------
 # LAMBDA RESOLVERS
@@ -844,4 +867,3 @@ type Response {
   statusCode: Int
   body: String
 }
-
