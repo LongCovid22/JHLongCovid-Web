@@ -562,12 +562,12 @@ type SymptomEntry
   height: String!
   weight: String!
   createdAt: AWSDateTime!
-  symptoms: [String]!
+  symptoms: [String]
   mentalHealthRank: String
   socialSatisfactionRank: String
   carryOutSocialActivitiesRank: String
   anxietyInPastWeekRank: String
-  medicalConditions: [String]!
+  medicalConditions: [String]
   hasLongCovid: Boolean
 }
 
