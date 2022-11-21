@@ -2,7 +2,7 @@
   "arguments": {
     "surveyResults": {
       "id": "Sample unique id",
-      "email": "test@gmail.com",
+      "email": "leo.hubert3@gmail.com",
       "surveyVersion": 1,
       "surveyType": "GUEST",
       "age": "23",
@@ -11,81 +11,58 @@
       "county": "Webster",
       "state": "Nebraska",
       "covidResults": {
-        "timesPositive": 3,
-        "lastPositive": "12/23/22",
-        "tested": true,
-        "testMethod": "Sample test method",
+        "previousInfection": true,
+        "infectionFreqEst" : 3,
         "hospitalized": true,
+        "timesHospitalized": 1,
+        "lastPositiveEst": "12/22",
+        "tested": true,
+        "positiveTest": 1,
         "symptomatic": true,
-        "symptomsPreventScale": "Sample prevent",
-        "MedicationsTaken": ["Antiviral", "Monoclonal antibodies"]
-      },
-      "vaccinationResults": {
-        "totalVaccineShots": 3,
-        "vaccinated": true,
-        "vaccineType": "Moderna",
-        "dateOfLastVaccine": "12/01/22"
+        "symptomsPrevent": 3,
+        "doctorPrescribeMedicine": 1,
+        "professionalPrescriptions": ["Antiviral Pill", "Oral Steroids"]
       },
       "recoveryResults": {
         "recovered": "No",
-        "lengthOfRecovery": {
-          "months": 1,
-          "days": 2
-        },
-        "hasLongCovid": "Yes"
+        "daysToRecoverEst": 13
       },
-      "symptomResults": {
-        "symptoms": {
-          "Weakness or fatigue": "Poor",
-          "Feeling sick after you exert yourself physically or mentally": "Poor",
-          "Fever, chills, sweats or flushing": "Poor",
-          "Loss of or change in smell or taste": "Poor",
-          "Headache": "Poor",
-          "Body or muscle aches": "Poor",
-          "Shortness of breath (trouble breathing)": "Poor",
-          "Cough": "Poor",
-          "Palpitations or racing heart beat": "Poor",
-          "Swelling of your legs": "Poor",
-          "Nausea": "Poor",
-          "Vomiting": "Poor",
-          "Diarrhea": "Poor",
-          "Constipation": "Poor",
-          "Bladder problems including incontinence, trouble passing urine or emptying bladder": "Poor",
-          "Nerve problems including tremor, shaking, numbness, tingling, or burning sensation": "Poor",
-          "Anxiety, depression, or stress": "Poor",
-          "Problems thinking or concentrating": "Poor",
-          "Trouble sleeping": "Poor",
-          "Feeling faint, lightheaded or dizzy after standing up": "Poor",
-          "Skin color changes or rash": "Poor",
-          "Excessively dry mouth or excessive thirst": "Poor",
-          "Vision problems": "Poor",
-          "Problems with hearing (hearing loss, ringing in ears)": "Poor",
-          "Hair loss": "Poor",
-          "Problems with teeth": "Poor",
-          "Changes to menstrual cycle or menopause symptoms (such as hot flashes)": "Poor",
-          "Changes in desire for, comfort with or capacity for sex": "Poor"
-        },
-        "medicalConditions": [
-          "Migraine or other headache disorder",
-          "Thyroid problems"
-        ]
-      },
-      "socialDeterminantsResults": {
-        "hasMedicalInsurance": "Yes",
-        "difficultCoveringExpenses": "Very difficult",
-        "currentWorkSituation": "Looking for work, unemployed"
+      "vaccinationResults": {
+        "vaccinated": true,
+        "totalVaccineShots": 3,
+        "dateOfLastVaccine": "01/22",
+        "vaccineType": "Moderna"
       },
       "generalHealthResults": {
-        "totalScore": 12,
-        "results": {
-          "In general, would you say your health is": "Poor",
-          "In general, would you say your quality of life is": "Poor",
-          "In general, how would you rate your physical health": "Poor",
-          "In general, how would you rate your mental health, including your mood and your ability to think?": "Poor",
-          "In general, how would you rate your satisfaction with your social activities and relationships?": "Poor",
-          "In general, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in your community, and responsibilities as a parent, child, spouse, employee, friend, etc.)?": "Poor"
-        }
+        "generalHealth": 4,
+        "physicalHealth": 4,
+        "everdayPhysicalCompetency": 4,
+        "averageFatigue" : 3,
+        "averagePain" : 1
+      },
+      
+      "symptomResults": {
+        "symptoms": ["skinRash", "lossOfChangeInSmell"],
+        "qualityOfLife": 4,
+        "mentalHealth": 4,
+        "socialActivitiesRelationships": 4,
+        "socialActivitiesCapacity": 3,
+        "emotionalProblems": 2
+      },
+      "medicalConditionsChanges" : {
+        "newDiagnosis" : ["No new diagnoses", "Heart problems", "Lung problems"],
+        "longCovid" : 0
+      },
+      "socialDeterminantsResults": {
+        "hasMedicalInsurance": true,
+        "difficultCoveringExpenses": 5,
+        "currentWorkSituation": 3
+      },
+      "healthRelatedResults" : {
+        "weight": 34,
+        "height": 56
       }
+      
     }
   }
 }

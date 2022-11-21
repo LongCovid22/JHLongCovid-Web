@@ -35,13 +35,52 @@ export type CovidSummaryInput = {
   avgPositiveCasesPerPerson?: string | null,
   percentSymptomatic?: string | null,
   percentTookMedication?: string | null,
-  medicationCounts?: string | null,
+  medicationCounts?: MedicationsAvailableInput | null,
   percentRecovered?: string | null,
+};
+
+export type MedicationsAvailableInput = {
+  antiViral?: string | null,
+  oralSteroids?: string | null,
+  antiBiotics?: string | null,
+  other?: string | null,
+  dontKnow?: string | null,
 };
 
 export type SymptomSummaryInput = {
   mostCommonSymptom?: string | null,
-  symptomCounts?: string | null,
+  symptomCounts?: SymptomsAvailabLeInput | null,
+};
+
+export type SymptomsAvailabLeInput = {
+  headache?: string | null,
+  bodyMuscleAche?: string | null,
+  feverChillsSweatsFlushing?: string | null,
+  faintDizzyGoofy?: string | null,
+  postExertionalMalaise?: string | null,
+  weaknessInArmsLegs?: string | null,
+  shortnessOfBreath?: string | null,
+  cough?: string | null,
+  palpitations?: string | null,
+  swellingOfLegs?: string | null,
+  indigestionNausea?: string | null,
+  bladderProblem?: string | null,
+  nerveProblems?: string | null,
+  brainFog?: string | null,
+  anxietyDepressionNightmares?: string | null,
+  problemsThinkingConcentrating?: string | null,
+  problemsAnxietyDepressionStress?: string | null,
+  difficultyFallingAsleep?: string | null,
+  sleepyDuringDaytime?: string | null,
+  loudSnoring?: string | null,
+  uncomfortableFeelingsInLegs?: string | null,
+  skinRash?: string | null,
+  lossOfChangeInSmell?: string | null,
+  excessiveThirst?: string | null,
+  excessiveDryMouth?: string | null,
+  visionProblems?: string | null,
+  hearingProblems?: string | null,
+  fertilityProblemsForWomen?: string | null,
 };
 
 export type VaccinationSummaryInput = {
@@ -63,7 +102,16 @@ export type GlobalHealthSummaryInput = {
 
 export type PatientHealthSummaryInput = {
   avgTotalScore?: string | null,
-  avgHealthCounts?: string | null,
+  avgHealthCounts?: GeneralHealthQuestionsInput | null,
+};
+
+export type GeneralHealthQuestionsInput = {
+  generalHealth?: string | null,
+  qualityOfLife?: string | null,
+  physicalHealth?: string | null,
+  mentalHealth?: string | null,
+  socialActivitiesRelationships?: string | null,
+  socialActivitiesRoles?: string | null,
 };
 
 export type RecoverySummaryInput = {
@@ -179,14 +227,55 @@ export type CovidSummary = {
   avgPositiveCasesPerPerson?: string | null,
   percentSymptomatic?: string | null,
   percentTookMedication?: string | null,
-  medicationCounts?: string | null,
+  medicationCounts?: MedicationsAvailable | null,
   percentRecovered?: string | null,
+};
+
+export type MedicationsAvailable = {
+  __typename: "MedicationsAvailable",
+  antiViral?: string | null,
+  oralSteroids?: string | null,
+  antiBiotics?: string | null,
+  other?: string | null,
+  dontKnow?: string | null,
 };
 
 export type SymptomSummary = {
   __typename: "SymptomSummary",
   mostCommonSymptom?: string | null,
-  symptomCounts?: string | null,
+  symptomCounts?: SymptomsAvailabLe | null,
+};
+
+export type SymptomsAvailabLe = {
+  __typename: "SymptomsAvailabLe",
+  headache?: string | null,
+  bodyMuscleAche?: string | null,
+  feverChillsSweatsFlushing?: string | null,
+  faintDizzyGoofy?: string | null,
+  postExertionalMalaise?: string | null,
+  weaknessInArmsLegs?: string | null,
+  shortnessOfBreath?: string | null,
+  cough?: string | null,
+  palpitations?: string | null,
+  swellingOfLegs?: string | null,
+  indigestionNausea?: string | null,
+  bladderProblem?: string | null,
+  nerveProblems?: string | null,
+  brainFog?: string | null,
+  anxietyDepressionNightmares?: string | null,
+  problemsThinkingConcentrating?: string | null,
+  problemsAnxietyDepressionStress?: string | null,
+  difficultyFallingAsleep?: string | null,
+  sleepyDuringDaytime?: string | null,
+  loudSnoring?: string | null,
+  uncomfortableFeelingsInLegs?: string | null,
+  skinRash?: string | null,
+  lossOfChangeInSmell?: string | null,
+  excessiveThirst?: string | null,
+  excessiveDryMouth?: string | null,
+  visionProblems?: string | null,
+  hearingProblems?: string | null,
+  fertilityProblemsForWomen?: string | null,
 };
 
 export type VaccinationSummary = {
@@ -211,7 +300,17 @@ export type GlobalHealthSummary = {
 export type PatientHealthSummary = {
   __typename: "PatientHealthSummary",
   avgTotalScore?: string | null,
-  avgHealthCounts?: string | null,
+  avgHealthCounts?: GeneralHealthQuestions | null,
+};
+
+export type GeneralHealthQuestions = {
+  __typename: "GeneralHealthQuestions",
+  generalHealth?: string | null,
+  qualityOfLife?: string | null,
+  physicalHealth?: string | null,
+  mentalHealth?: string | null,
+  socialActivitiesRelationships?: string | null,
+  socialActivitiesRoles?: string | null,
 };
 
 export type RecoverySummary = {
@@ -1498,258 +1597,6 @@ export type ModelMonthlyEntryConnection = {
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionMapDataFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  level?: ModelSubscriptionStringInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  stateAbbrev?: ModelSubscriptionStringInput | null,
-  lat?: ModelSubscriptionFloatInput | null,
-  long?: ModelSubscriptionFloatInput | null,
-  totalFullEntries?: ModelSubscriptionIntInput | null,
-  and?: Array< ModelSubscriptionMapDataFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMapDataFilterInput | null > | null,
-};
-
-export type ModelSubscriptionIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
-};
-
-export type ModelSubscriptionStringInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
-};
-
-export type ModelSubscriptionFloatInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  in?: Array< number | null > | null,
-  notIn?: Array< number | null > | null,
-};
-
-export type ModelSubscriptionIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  in?: Array< number | null > | null,
-  notIn?: Array< number | null > | null,
-};
-
-export type ModelSubscriptionUserFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  email?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  lastSubmission?: ModelSubscriptionStringInput | null,
-  lastSignIn?: ModelSubscriptionStringInput | null,
-  notificationFreq?: ModelSubscriptionStringInput | null,
-  notificaitonMethod?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
-  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
-};
-
-export type ModelSubscriptionSurveyEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  email?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  surveyVersion?: ModelSubscriptionIntInput | null,
-  surveyType?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  timeElapsed?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionSurveyEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionSurveyEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionVaccinationEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  totalVaccineShots?: ModelSubscriptionIntInput | null,
-  vaccinated?: ModelSubscriptionBooleanInput | null,
-  vaccineType?: ModelSubscriptionStringInput | null,
-  dateOfLastVaccine?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionVaccinationEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionVaccinationEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-};
-
-export type ModelSubscriptionGlobalHealthEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  healthRank?: ModelSubscriptionStringInput | null,
-  physicalHealthRank?: ModelSubscriptionStringInput | null,
-  carryPhysicalActivities?: ModelSubscriptionStringInput | null,
-  fatigueRank?: ModelSubscriptionStringInput | null,
-  painLevel?: ModelSubscriptionIntInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionGlobalHealthEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionGlobalHealthEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionCovidEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  beenInfected?: ModelSubscriptionBooleanInput | null,
-  timesPositive?: ModelSubscriptionIntInput | null,
-  lastPositive?: ModelSubscriptionStringInput | null,
-  tested?: ModelSubscriptionBooleanInput | null,
-  positiveTest?: ModelSubscriptionBooleanInput | null,
-  testMethod?: ModelSubscriptionStringInput | null,
-  hospitalized?: ModelSubscriptionBooleanInput | null,
-  timesHospitalized?: ModelSubscriptionIntInput | null,
-  symptomatic?: ModelSubscriptionBooleanInput | null,
-  symptomsPreventScale?: ModelSubscriptionStringInput | null,
-  medicationsPrescribed?: ModelSubscriptionBooleanInput | null,
-  medicationsTaken?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionCovidEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCovidEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionRecoveryEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  recovered?: ModelSubscriptionBooleanInput | null,
-  lengthOfRecovery?: ModelSubscriptionIntInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionRecoveryEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionRecoveryEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionPatientHealthEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  generalHealthResults?: ModelSubscriptionStringInput | null,
-  totalScore?: ModelSubscriptionIntInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionPatientHealthEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionPatientHealthEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionSymptomEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  symptoms?: ModelSubscriptionStringInput | null,
-  mentalHealthRank?: ModelSubscriptionStringInput | null,
-  socialSatisfactionRank?: ModelSubscriptionStringInput | null,
-  carryOutSocialActivitiesRank?: ModelSubscriptionStringInput | null,
-  anxietyInPastWeekRank?: ModelSubscriptionStringInput | null,
-  medicalConditions?: ModelSubscriptionStringInput | null,
-  hasLongCovid?: ModelSubscriptionBooleanInput | null,
-  and?: Array< ModelSubscriptionSymptomEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionSymptomEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionSocialDeterminantsEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  hasMedicalInsurance?: ModelSubscriptionBooleanInput | null,
-  difficultCoveringExpenses?: ModelSubscriptionStringInput | null,
-  currentWorkSituation?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionSocialDeterminantsEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionSocialDeterminantsEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionMonthlyEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  results?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionMonthlyEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMonthlyEntryFilterInput | null > | null,
-};
-
 export type AggregateSurveyResultsMutationVariables = {
   results: SurveyResults,
 };
@@ -1783,13 +1630,50 @@ export type CreateMapDataMutation = {
       avgPositiveCasesPerPerson?: string | null,
       percentSymptomatic?: string | null,
       percentTookMedication?: string | null,
-      medicationCounts?: string | null,
+      medicationCounts?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?: string | null,
+        oralSteroids?: string | null,
+        antiBiotics?: string | null,
+        other?: string | null,
+        dontKnow?: string | null,
+      } | null,
       percentRecovered?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
       mostCommonSymptom?: string | null,
-      symptomCounts?: string | null,
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?: string | null,
+        bodyMuscleAche?: string | null,
+        feverChillsSweatsFlushing?: string | null,
+        faintDizzyGoofy?: string | null,
+        postExertionalMalaise?: string | null,
+        weaknessInArmsLegs?: string | null,
+        shortnessOfBreath?: string | null,
+        cough?: string | null,
+        palpitations?: string | null,
+        swellingOfLegs?: string | null,
+        indigestionNausea?: string | null,
+        bladderProblem?: string | null,
+        nerveProblems?: string | null,
+        brainFog?: string | null,
+        anxietyDepressionNightmares?: string | null,
+        problemsThinkingConcentrating?: string | null,
+        problemsAnxietyDepressionStress?: string | null,
+        difficultyFallingAsleep?: string | null,
+        sleepyDuringDaytime?: string | null,
+        loudSnoring?: string | null,
+        uncomfortableFeelingsInLegs?: string | null,
+        skinRash?: string | null,
+        lossOfChangeInSmell?: string | null,
+        excessiveThirst?: string | null,
+        excessiveDryMouth?: string | null,
+        visionProblems?: string | null,
+        hearingProblems?: string | null,
+        fertilityProblemsForWomen?: string | null,
+      } | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
@@ -1811,7 +1695,15 @@ export type CreateMapDataMutation = {
     patientHealthSummary:  {
       __typename: "PatientHealthSummary",
       avgTotalScore?: string | null,
-      avgHealthCounts?: string | null,
+      avgHealthCounts?:  {
+        __typename: "GeneralHealthQuestions",
+        generalHealth?: string | null,
+        qualityOfLife?: string | null,
+        physicalHealth?: string | null,
+        mentalHealth?: string | null,
+        socialActivitiesRelationships?: string | null,
+        socialActivitiesRoles?: string | null,
+      } | null,
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
@@ -1864,13 +1756,50 @@ export type UpdateMapDataMutation = {
       avgPositiveCasesPerPerson?: string | null,
       percentSymptomatic?: string | null,
       percentTookMedication?: string | null,
-      medicationCounts?: string | null,
+      medicationCounts?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?: string | null,
+        oralSteroids?: string | null,
+        antiBiotics?: string | null,
+        other?: string | null,
+        dontKnow?: string | null,
+      } | null,
       percentRecovered?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
       mostCommonSymptom?: string | null,
-      symptomCounts?: string | null,
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?: string | null,
+        bodyMuscleAche?: string | null,
+        feverChillsSweatsFlushing?: string | null,
+        faintDizzyGoofy?: string | null,
+        postExertionalMalaise?: string | null,
+        weaknessInArmsLegs?: string | null,
+        shortnessOfBreath?: string | null,
+        cough?: string | null,
+        palpitations?: string | null,
+        swellingOfLegs?: string | null,
+        indigestionNausea?: string | null,
+        bladderProblem?: string | null,
+        nerveProblems?: string | null,
+        brainFog?: string | null,
+        anxietyDepressionNightmares?: string | null,
+        problemsThinkingConcentrating?: string | null,
+        problemsAnxietyDepressionStress?: string | null,
+        difficultyFallingAsleep?: string | null,
+        sleepyDuringDaytime?: string | null,
+        loudSnoring?: string | null,
+        uncomfortableFeelingsInLegs?: string | null,
+        skinRash?: string | null,
+        lossOfChangeInSmell?: string | null,
+        excessiveThirst?: string | null,
+        excessiveDryMouth?: string | null,
+        visionProblems?: string | null,
+        hearingProblems?: string | null,
+        fertilityProblemsForWomen?: string | null,
+      } | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
@@ -1892,7 +1821,15 @@ export type UpdateMapDataMutation = {
     patientHealthSummary:  {
       __typename: "PatientHealthSummary",
       avgTotalScore?: string | null,
-      avgHealthCounts?: string | null,
+      avgHealthCounts?:  {
+        __typename: "GeneralHealthQuestions",
+        generalHealth?: string | null,
+        qualityOfLife?: string | null,
+        physicalHealth?: string | null,
+        mentalHealth?: string | null,
+        socialActivitiesRelationships?: string | null,
+        socialActivitiesRoles?: string | null,
+      } | null,
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
@@ -1945,13 +1882,50 @@ export type DeleteMapDataMutation = {
       avgPositiveCasesPerPerson?: string | null,
       percentSymptomatic?: string | null,
       percentTookMedication?: string | null,
-      medicationCounts?: string | null,
+      medicationCounts?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?: string | null,
+        oralSteroids?: string | null,
+        antiBiotics?: string | null,
+        other?: string | null,
+        dontKnow?: string | null,
+      } | null,
       percentRecovered?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
       mostCommonSymptom?: string | null,
-      symptomCounts?: string | null,
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?: string | null,
+        bodyMuscleAche?: string | null,
+        feverChillsSweatsFlushing?: string | null,
+        faintDizzyGoofy?: string | null,
+        postExertionalMalaise?: string | null,
+        weaknessInArmsLegs?: string | null,
+        shortnessOfBreath?: string | null,
+        cough?: string | null,
+        palpitations?: string | null,
+        swellingOfLegs?: string | null,
+        indigestionNausea?: string | null,
+        bladderProblem?: string | null,
+        nerveProblems?: string | null,
+        brainFog?: string | null,
+        anxietyDepressionNightmares?: string | null,
+        problemsThinkingConcentrating?: string | null,
+        problemsAnxietyDepressionStress?: string | null,
+        difficultyFallingAsleep?: string | null,
+        sleepyDuringDaytime?: string | null,
+        loudSnoring?: string | null,
+        uncomfortableFeelingsInLegs?: string | null,
+        skinRash?: string | null,
+        lossOfChangeInSmell?: string | null,
+        excessiveThirst?: string | null,
+        excessiveDryMouth?: string | null,
+        visionProblems?: string | null,
+        hearingProblems?: string | null,
+        fertilityProblemsForWomen?: string | null,
+      } | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
@@ -1973,7 +1947,15 @@ export type DeleteMapDataMutation = {
     patientHealthSummary:  {
       __typename: "PatientHealthSummary",
       avgTotalScore?: string | null,
-      avgHealthCounts?: string | null,
+      avgHealthCounts?:  {
+        __typename: "GeneralHealthQuestions",
+        generalHealth?: string | null,
+        qualityOfLife?: string | null,
+        physicalHealth?: string | null,
+        mentalHealth?: string | null,
+        socialActivitiesRelationships?: string | null,
+        socialActivitiesRoles?: string | null,
+      } | null,
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
@@ -15899,13 +15881,50 @@ export type GetMapDataQuery = {
       avgPositiveCasesPerPerson?: string | null,
       percentSymptomatic?: string | null,
       percentTookMedication?: string | null,
-      medicationCounts?: string | null,
+      medicationCounts?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?: string | null,
+        oralSteroids?: string | null,
+        antiBiotics?: string | null,
+        other?: string | null,
+        dontKnow?: string | null,
+      } | null,
       percentRecovered?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
       mostCommonSymptom?: string | null,
-      symptomCounts?: string | null,
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?: string | null,
+        bodyMuscleAche?: string | null,
+        feverChillsSweatsFlushing?: string | null,
+        faintDizzyGoofy?: string | null,
+        postExertionalMalaise?: string | null,
+        weaknessInArmsLegs?: string | null,
+        shortnessOfBreath?: string | null,
+        cough?: string | null,
+        palpitations?: string | null,
+        swellingOfLegs?: string | null,
+        indigestionNausea?: string | null,
+        bladderProblem?: string | null,
+        nerveProblems?: string | null,
+        brainFog?: string | null,
+        anxietyDepressionNightmares?: string | null,
+        problemsThinkingConcentrating?: string | null,
+        problemsAnxietyDepressionStress?: string | null,
+        difficultyFallingAsleep?: string | null,
+        sleepyDuringDaytime?: string | null,
+        loudSnoring?: string | null,
+        uncomfortableFeelingsInLegs?: string | null,
+        skinRash?: string | null,
+        lossOfChangeInSmell?: string | null,
+        excessiveThirst?: string | null,
+        excessiveDryMouth?: string | null,
+        visionProblems?: string | null,
+        hearingProblems?: string | null,
+        fertilityProblemsForWomen?: string | null,
+      } | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
@@ -15927,7 +15946,15 @@ export type GetMapDataQuery = {
     patientHealthSummary:  {
       __typename: "PatientHealthSummary",
       avgTotalScore?: string | null,
-      avgHealthCounts?: string | null,
+      avgHealthCounts?:  {
+        __typename: "GeneralHealthQuestions",
+        generalHealth?: string | null,
+        qualityOfLife?: string | null,
+        physicalHealth?: string | null,
+        mentalHealth?: string | null,
+        socialActivitiesRelationships?: string | null,
+        socialActivitiesRoles?: string | null,
+      } | null,
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
@@ -15986,13 +16013,50 @@ export type ListMapDataQuery = {
         avgPositiveCasesPerPerson?: string | null,
         percentSymptomatic?: string | null,
         percentTookMedication?: string | null,
-        medicationCounts?: string | null,
+        medicationCounts?:  {
+          __typename: "MedicationsAvailable",
+          antiViral?: string | null,
+          oralSteroids?: string | null,
+          antiBiotics?: string | null,
+          other?: string | null,
+          dontKnow?: string | null,
+        } | null,
         percentRecovered?: string | null,
       },
       symptomSummary:  {
         __typename: "SymptomSummary",
         mostCommonSymptom?: string | null,
-        symptomCounts?: string | null,
+        symptomCounts?:  {
+          __typename: "SymptomsAvailabLe",
+          headache?: string | null,
+          bodyMuscleAche?: string | null,
+          feverChillsSweatsFlushing?: string | null,
+          faintDizzyGoofy?: string | null,
+          postExertionalMalaise?: string | null,
+          weaknessInArmsLegs?: string | null,
+          shortnessOfBreath?: string | null,
+          cough?: string | null,
+          palpitations?: string | null,
+          swellingOfLegs?: string | null,
+          indigestionNausea?: string | null,
+          bladderProblem?: string | null,
+          nerveProblems?: string | null,
+          brainFog?: string | null,
+          anxietyDepressionNightmares?: string | null,
+          problemsThinkingConcentrating?: string | null,
+          problemsAnxietyDepressionStress?: string | null,
+          difficultyFallingAsleep?: string | null,
+          sleepyDuringDaytime?: string | null,
+          loudSnoring?: string | null,
+          uncomfortableFeelingsInLegs?: string | null,
+          skinRash?: string | null,
+          lossOfChangeInSmell?: string | null,
+          excessiveThirst?: string | null,
+          excessiveDryMouth?: string | null,
+          visionProblems?: string | null,
+          hearingProblems?: string | null,
+          fertilityProblemsForWomen?: string | null,
+        } | null,
       },
       vaccinationSummary:  {
         __typename: "VaccinationSummary",
@@ -16014,7 +16078,15 @@ export type ListMapDataQuery = {
       patientHealthSummary:  {
         __typename: "PatientHealthSummary",
         avgTotalScore?: string | null,
-        avgHealthCounts?: string | null,
+        avgHealthCounts?:  {
+          __typename: "GeneralHealthQuestions",
+          generalHealth?: string | null,
+          qualityOfLife?: string | null,
+          physicalHealth?: string | null,
+          mentalHealth?: string | null,
+          socialActivitiesRelationships?: string | null,
+          socialActivitiesRoles?: string | null,
+        } | null,
       },
       recoverySummary:  {
         __typename: "RecoverySummary",
@@ -16075,13 +16147,50 @@ export type MapDataByLevelNameStateQuery = {
         avgPositiveCasesPerPerson?: string | null,
         percentSymptomatic?: string | null,
         percentTookMedication?: string | null,
-        medicationCounts?: string | null,
+        medicationCounts?:  {
+          __typename: "MedicationsAvailable",
+          antiViral?: string | null,
+          oralSteroids?: string | null,
+          antiBiotics?: string | null,
+          other?: string | null,
+          dontKnow?: string | null,
+        } | null,
         percentRecovered?: string | null,
       },
       symptomSummary:  {
         __typename: "SymptomSummary",
         mostCommonSymptom?: string | null,
-        symptomCounts?: string | null,
+        symptomCounts?:  {
+          __typename: "SymptomsAvailabLe",
+          headache?: string | null,
+          bodyMuscleAche?: string | null,
+          feverChillsSweatsFlushing?: string | null,
+          faintDizzyGoofy?: string | null,
+          postExertionalMalaise?: string | null,
+          weaknessInArmsLegs?: string | null,
+          shortnessOfBreath?: string | null,
+          cough?: string | null,
+          palpitations?: string | null,
+          swellingOfLegs?: string | null,
+          indigestionNausea?: string | null,
+          bladderProblem?: string | null,
+          nerveProblems?: string | null,
+          brainFog?: string | null,
+          anxietyDepressionNightmares?: string | null,
+          problemsThinkingConcentrating?: string | null,
+          problemsAnxietyDepressionStress?: string | null,
+          difficultyFallingAsleep?: string | null,
+          sleepyDuringDaytime?: string | null,
+          loudSnoring?: string | null,
+          uncomfortableFeelingsInLegs?: string | null,
+          skinRash?: string | null,
+          lossOfChangeInSmell?: string | null,
+          excessiveThirst?: string | null,
+          excessiveDryMouth?: string | null,
+          visionProblems?: string | null,
+          hearingProblems?: string | null,
+          fertilityProblemsForWomen?: string | null,
+        } | null,
       },
       vaccinationSummary:  {
         __typename: "VaccinationSummary",
@@ -16103,7 +16212,15 @@ export type MapDataByLevelNameStateQuery = {
       patientHealthSummary:  {
         __typename: "PatientHealthSummary",
         avgTotalScore?: string | null,
-        avgHealthCounts?: string | null,
+        avgHealthCounts?:  {
+          __typename: "GeneralHealthQuestions",
+          generalHealth?: string | null,
+          qualityOfLife?: string | null,
+          physicalHealth?: string | null,
+          mentalHealth?: string | null,
+          socialActivitiesRelationships?: string | null,
+          socialActivitiesRoles?: string | null,
+        } | null,
       },
       recoverySummary:  {
         __typename: "RecoverySummary",
@@ -16164,13 +16281,50 @@ export type MapDataByStateAbbrevQuery = {
         avgPositiveCasesPerPerson?: string | null,
         percentSymptomatic?: string | null,
         percentTookMedication?: string | null,
-        medicationCounts?: string | null,
+        medicationCounts?:  {
+          __typename: "MedicationsAvailable",
+          antiViral?: string | null,
+          oralSteroids?: string | null,
+          antiBiotics?: string | null,
+          other?: string | null,
+          dontKnow?: string | null,
+        } | null,
         percentRecovered?: string | null,
       },
       symptomSummary:  {
         __typename: "SymptomSummary",
         mostCommonSymptom?: string | null,
-        symptomCounts?: string | null,
+        symptomCounts?:  {
+          __typename: "SymptomsAvailabLe",
+          headache?: string | null,
+          bodyMuscleAche?: string | null,
+          feverChillsSweatsFlushing?: string | null,
+          faintDizzyGoofy?: string | null,
+          postExertionalMalaise?: string | null,
+          weaknessInArmsLegs?: string | null,
+          shortnessOfBreath?: string | null,
+          cough?: string | null,
+          palpitations?: string | null,
+          swellingOfLegs?: string | null,
+          indigestionNausea?: string | null,
+          bladderProblem?: string | null,
+          nerveProblems?: string | null,
+          brainFog?: string | null,
+          anxietyDepressionNightmares?: string | null,
+          problemsThinkingConcentrating?: string | null,
+          problemsAnxietyDepressionStress?: string | null,
+          difficultyFallingAsleep?: string | null,
+          sleepyDuringDaytime?: string | null,
+          loudSnoring?: string | null,
+          uncomfortableFeelingsInLegs?: string | null,
+          skinRash?: string | null,
+          lossOfChangeInSmell?: string | null,
+          excessiveThirst?: string | null,
+          excessiveDryMouth?: string | null,
+          visionProblems?: string | null,
+          hearingProblems?: string | null,
+          fertilityProblemsForWomen?: string | null,
+        } | null,
       },
       vaccinationSummary:  {
         __typename: "VaccinationSummary",
@@ -16192,7 +16346,15 @@ export type MapDataByStateAbbrevQuery = {
       patientHealthSummary:  {
         __typename: "PatientHealthSummary",
         avgTotalScore?: string | null,
-        avgHealthCounts?: string | null,
+        avgHealthCounts?:  {
+          __typename: "GeneralHealthQuestions",
+          generalHealth?: string | null,
+          qualityOfLife?: string | null,
+          physicalHealth?: string | null,
+          mentalHealth?: string | null,
+          socialActivitiesRelationships?: string | null,
+          socialActivitiesRoles?: string | null,
+        } | null,
       },
       recoverySummary:  {
         __typename: "RecoverySummary",
@@ -36785,10 +36947,6 @@ export type CountyMonthlyEntryBySexQuery = {
   } | null,
 };
 
-export type OnCreateMapDataSubscriptionVariables = {
-  filter?: ModelSubscriptionMapDataFilterInput | null,
-};
-
 export type OnCreateMapDataSubscription = {
   onCreateMapData?:  {
     __typename: "MapData",
@@ -36805,13 +36963,50 @@ export type OnCreateMapDataSubscription = {
       avgPositiveCasesPerPerson?: string | null,
       percentSymptomatic?: string | null,
       percentTookMedication?: string | null,
-      medicationCounts?: string | null,
+      medicationCounts?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?: string | null,
+        oralSteroids?: string | null,
+        antiBiotics?: string | null,
+        other?: string | null,
+        dontKnow?: string | null,
+      } | null,
       percentRecovered?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
       mostCommonSymptom?: string | null,
-      symptomCounts?: string | null,
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?: string | null,
+        bodyMuscleAche?: string | null,
+        feverChillsSweatsFlushing?: string | null,
+        faintDizzyGoofy?: string | null,
+        postExertionalMalaise?: string | null,
+        weaknessInArmsLegs?: string | null,
+        shortnessOfBreath?: string | null,
+        cough?: string | null,
+        palpitations?: string | null,
+        swellingOfLegs?: string | null,
+        indigestionNausea?: string | null,
+        bladderProblem?: string | null,
+        nerveProblems?: string | null,
+        brainFog?: string | null,
+        anxietyDepressionNightmares?: string | null,
+        problemsThinkingConcentrating?: string | null,
+        problemsAnxietyDepressionStress?: string | null,
+        difficultyFallingAsleep?: string | null,
+        sleepyDuringDaytime?: string | null,
+        loudSnoring?: string | null,
+        uncomfortableFeelingsInLegs?: string | null,
+        skinRash?: string | null,
+        lossOfChangeInSmell?: string | null,
+        excessiveThirst?: string | null,
+        excessiveDryMouth?: string | null,
+        visionProblems?: string | null,
+        hearingProblems?: string | null,
+        fertilityProblemsForWomen?: string | null,
+      } | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
@@ -36833,7 +37028,15 @@ export type OnCreateMapDataSubscription = {
     patientHealthSummary:  {
       __typename: "PatientHealthSummary",
       avgTotalScore?: string | null,
-      avgHealthCounts?: string | null,
+      avgHealthCounts?:  {
+        __typename: "GeneralHealthQuestions",
+        generalHealth?: string | null,
+        qualityOfLife?: string | null,
+        physicalHealth?: string | null,
+        mentalHealth?: string | null,
+        socialActivitiesRelationships?: string | null,
+        socialActivitiesRoles?: string | null,
+      } | null,
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
@@ -36863,10 +37066,6 @@ export type OnCreateMapDataSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
-};
-
-export type OnUpdateMapDataSubscriptionVariables = {
-  filter?: ModelSubscriptionMapDataFilterInput | null,
 };
 
 export type OnUpdateMapDataSubscription = {
@@ -36885,13 +37084,50 @@ export type OnUpdateMapDataSubscription = {
       avgPositiveCasesPerPerson?: string | null,
       percentSymptomatic?: string | null,
       percentTookMedication?: string | null,
-      medicationCounts?: string | null,
+      medicationCounts?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?: string | null,
+        oralSteroids?: string | null,
+        antiBiotics?: string | null,
+        other?: string | null,
+        dontKnow?: string | null,
+      } | null,
       percentRecovered?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
       mostCommonSymptom?: string | null,
-      symptomCounts?: string | null,
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?: string | null,
+        bodyMuscleAche?: string | null,
+        feverChillsSweatsFlushing?: string | null,
+        faintDizzyGoofy?: string | null,
+        postExertionalMalaise?: string | null,
+        weaknessInArmsLegs?: string | null,
+        shortnessOfBreath?: string | null,
+        cough?: string | null,
+        palpitations?: string | null,
+        swellingOfLegs?: string | null,
+        indigestionNausea?: string | null,
+        bladderProblem?: string | null,
+        nerveProblems?: string | null,
+        brainFog?: string | null,
+        anxietyDepressionNightmares?: string | null,
+        problemsThinkingConcentrating?: string | null,
+        problemsAnxietyDepressionStress?: string | null,
+        difficultyFallingAsleep?: string | null,
+        sleepyDuringDaytime?: string | null,
+        loudSnoring?: string | null,
+        uncomfortableFeelingsInLegs?: string | null,
+        skinRash?: string | null,
+        lossOfChangeInSmell?: string | null,
+        excessiveThirst?: string | null,
+        excessiveDryMouth?: string | null,
+        visionProblems?: string | null,
+        hearingProblems?: string | null,
+        fertilityProblemsForWomen?: string | null,
+      } | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
@@ -36913,7 +37149,15 @@ export type OnUpdateMapDataSubscription = {
     patientHealthSummary:  {
       __typename: "PatientHealthSummary",
       avgTotalScore?: string | null,
-      avgHealthCounts?: string | null,
+      avgHealthCounts?:  {
+        __typename: "GeneralHealthQuestions",
+        generalHealth?: string | null,
+        qualityOfLife?: string | null,
+        physicalHealth?: string | null,
+        mentalHealth?: string | null,
+        socialActivitiesRelationships?: string | null,
+        socialActivitiesRoles?: string | null,
+      } | null,
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
@@ -36945,10 +37189,6 @@ export type OnUpdateMapDataSubscription = {
   } | null,
 };
 
-export type OnDeleteMapDataSubscriptionVariables = {
-  filter?: ModelSubscriptionMapDataFilterInput | null,
-};
-
 export type OnDeleteMapDataSubscription = {
   onDeleteMapData?:  {
     __typename: "MapData",
@@ -36965,13 +37205,50 @@ export type OnDeleteMapDataSubscription = {
       avgPositiveCasesPerPerson?: string | null,
       percentSymptomatic?: string | null,
       percentTookMedication?: string | null,
-      medicationCounts?: string | null,
+      medicationCounts?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?: string | null,
+        oralSteroids?: string | null,
+        antiBiotics?: string | null,
+        other?: string | null,
+        dontKnow?: string | null,
+      } | null,
       percentRecovered?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
       mostCommonSymptom?: string | null,
-      symptomCounts?: string | null,
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?: string | null,
+        bodyMuscleAche?: string | null,
+        feverChillsSweatsFlushing?: string | null,
+        faintDizzyGoofy?: string | null,
+        postExertionalMalaise?: string | null,
+        weaknessInArmsLegs?: string | null,
+        shortnessOfBreath?: string | null,
+        cough?: string | null,
+        palpitations?: string | null,
+        swellingOfLegs?: string | null,
+        indigestionNausea?: string | null,
+        bladderProblem?: string | null,
+        nerveProblems?: string | null,
+        brainFog?: string | null,
+        anxietyDepressionNightmares?: string | null,
+        problemsThinkingConcentrating?: string | null,
+        problemsAnxietyDepressionStress?: string | null,
+        difficultyFallingAsleep?: string | null,
+        sleepyDuringDaytime?: string | null,
+        loudSnoring?: string | null,
+        uncomfortableFeelingsInLegs?: string | null,
+        skinRash?: string | null,
+        lossOfChangeInSmell?: string | null,
+        excessiveThirst?: string | null,
+        excessiveDryMouth?: string | null,
+        visionProblems?: string | null,
+        hearingProblems?: string | null,
+        fertilityProblemsForWomen?: string | null,
+      } | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
@@ -36993,7 +37270,15 @@ export type OnDeleteMapDataSubscription = {
     patientHealthSummary:  {
       __typename: "PatientHealthSummary",
       avgTotalScore?: string | null,
-      avgHealthCounts?: string | null,
+      avgHealthCounts?:  {
+        __typename: "GeneralHealthQuestions",
+        generalHealth?: string | null,
+        qualityOfLife?: string | null,
+        physicalHealth?: string | null,
+        mentalHealth?: string | null,
+        socialActivitiesRelationships?: string | null,
+        socialActivitiesRoles?: string | null,
+      } | null,
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
@@ -37026,7 +37311,6 @@ export type OnDeleteMapDataSubscription = {
 };
 
 export type OnCreateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
   owner?: string | null,
 };
 
@@ -37051,7 +37335,6 @@ export type OnCreateUserSubscription = {
 };
 
 export type OnUpdateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
   owner?: string | null,
 };
 
@@ -37076,7 +37359,6 @@ export type OnUpdateUserSubscription = {
 };
 
 export type OnDeleteUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
   owner?: string | null,
 };
 
@@ -37098,10 +37380,6 @@ export type OnDeleteUserSubscription = {
     updatedAt: string,
     owner?: string | null,
   } | null,
-};
-
-export type OnCreateSurveyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSurveyEntryFilterInput | null,
 };
 
 export type OnCreateSurveyEntrySubscription = {
@@ -38646,10 +38924,6 @@ export type OnCreateSurveyEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateSurveyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSurveyEntryFilterInput | null,
-};
-
 export type OnUpdateSurveyEntrySubscription = {
   onUpdateSurveyEntry?:  {
     __typename: "SurveyEntry",
@@ -40190,10 +40464,6 @@ export type OnUpdateSurveyEntrySubscription = {
     surveyEntrySymptomsEntryId?: string | null,
     surveyEntryMonthlyEntryId?: string | null,
   } | null,
-};
-
-export type OnDeleteSurveyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSurveyEntryFilterInput | null,
 };
 
 export type OnDeleteSurveyEntrySubscription = {
@@ -41738,10 +42008,6 @@ export type OnDeleteSurveyEntrySubscription = {
   } | null,
 };
 
-export type OnCreateVaccinationEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionVaccinationEntryFilterInput | null,
-};
-
 export type OnCreateVaccinationEntrySubscription = {
   onCreateVaccinationEntry?:  {
     __typename: "VaccinationEntry",
@@ -42116,10 +42382,6 @@ export type OnCreateVaccinationEntrySubscription = {
     updatedAt: string,
     vaccinationEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnUpdateVaccinationEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionVaccinationEntryFilterInput | null,
 };
 
 export type OnUpdateVaccinationEntrySubscription = {
@@ -42498,10 +42760,6 @@ export type OnUpdateVaccinationEntrySubscription = {
   } | null,
 };
 
-export type OnDeleteVaccinationEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionVaccinationEntryFilterInput | null,
-};
-
 export type OnDeleteVaccinationEntrySubscription = {
   onDeleteVaccinationEntry?:  {
     __typename: "VaccinationEntry",
@@ -42876,10 +43134,6 @@ export type OnDeleteVaccinationEntrySubscription = {
     updatedAt: string,
     vaccinationEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnCreateGlobalHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionGlobalHealthEntryFilterInput | null,
 };
 
 export type OnCreateGlobalHealthEntrySubscription = {
@@ -43259,10 +43513,6 @@ export type OnCreateGlobalHealthEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateGlobalHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionGlobalHealthEntryFilterInput | null,
-};
-
 export type OnUpdateGlobalHealthEntrySubscription = {
   onUpdateGlobalHealthEntry?:  {
     __typename: "GlobalHealthEntry",
@@ -43640,10 +43890,6 @@ export type OnUpdateGlobalHealthEntrySubscription = {
   } | null,
 };
 
-export type OnDeleteGlobalHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionGlobalHealthEntryFilterInput | null,
-};
-
 export type OnDeleteGlobalHealthEntrySubscription = {
   onDeleteGlobalHealthEntry?:  {
     __typename: "GlobalHealthEntry",
@@ -44019,10 +44265,6 @@ export type OnDeleteGlobalHealthEntrySubscription = {
     updatedAt: string,
     globalHealthEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnCreateCovidEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionCovidEntryFilterInput | null,
 };
 
 export type OnCreateCovidEntrySubscription = {
@@ -44409,10 +44651,6 @@ export type OnCreateCovidEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateCovidEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionCovidEntryFilterInput | null,
-};
-
 export type OnUpdateCovidEntrySubscription = {
   onUpdateCovidEntry?:  {
     __typename: "CovidEntry",
@@ -44795,10 +45033,6 @@ export type OnUpdateCovidEntrySubscription = {
     updatedAt: string,
     covidEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnDeleteCovidEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionCovidEntryFilterInput | null,
 };
 
 export type OnDeleteCovidEntrySubscription = {
@@ -45185,10 +45419,6 @@ export type OnDeleteCovidEntrySubscription = {
   } | null,
 };
 
-export type OnCreateRecoveryEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionRecoveryEntryFilterInput | null,
-};
-
 export type OnCreateRecoveryEntrySubscription = {
   onCreateRecoveryEntry?:  {
     __typename: "RecoveryEntry",
@@ -45561,10 +45791,6 @@ export type OnCreateRecoveryEntrySubscription = {
     updatedAt: string,
     recoveryEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnUpdateRecoveryEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionRecoveryEntryFilterInput | null,
 };
 
 export type OnUpdateRecoveryEntrySubscription = {
@@ -45941,10 +46167,6 @@ export type OnUpdateRecoveryEntrySubscription = {
   } | null,
 };
 
-export type OnDeleteRecoveryEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionRecoveryEntryFilterInput | null,
-};
-
 export type OnDeleteRecoveryEntrySubscription = {
   onDeleteRecoveryEntry?:  {
     __typename: "RecoveryEntry",
@@ -46317,10 +46539,6 @@ export type OnDeleteRecoveryEntrySubscription = {
     updatedAt: string,
     recoveryEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnCreatePatientHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionPatientHealthEntryFilterInput | null,
 };
 
 export type OnCreatePatientHealthEntrySubscription = {
@@ -46697,10 +46915,6 @@ export type OnCreatePatientHealthEntrySubscription = {
   } | null,
 };
 
-export type OnUpdatePatientHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionPatientHealthEntryFilterInput | null,
-};
-
 export type OnUpdatePatientHealthEntrySubscription = {
   onUpdatePatientHealthEntry?:  {
     __typename: "PatientHealthEntry",
@@ -47075,10 +47289,6 @@ export type OnUpdatePatientHealthEntrySubscription = {
   } | null,
 };
 
-export type OnDeletePatientHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionPatientHealthEntryFilterInput | null,
-};
-
 export type OnDeletePatientHealthEntrySubscription = {
   onDeletePatientHealthEntry?:  {
     __typename: "PatientHealthEntry",
@@ -47451,10 +47661,6 @@ export type OnDeletePatientHealthEntrySubscription = {
     updatedAt: string,
     patientHealthEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnCreateSymptomEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSymptomEntryFilterInput | null,
 };
 
 export type OnCreateSymptomEntrySubscription = {
@@ -47836,10 +48042,6 @@ export type OnCreateSymptomEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateSymptomEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSymptomEntryFilterInput | null,
-};
-
 export type OnUpdateSymptomEntrySubscription = {
   onUpdateSymptomEntry?:  {
     __typename: "SymptomEntry",
@@ -48217,10 +48419,6 @@ export type OnUpdateSymptomEntrySubscription = {
     updatedAt: string,
     symptomEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnDeleteSymptomEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSymptomEntryFilterInput | null,
 };
 
 export type OnDeleteSymptomEntrySubscription = {
@@ -48602,10 +48800,6 @@ export type OnDeleteSymptomEntrySubscription = {
   } | null,
 };
 
-export type OnCreateSocialDeterminantsEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSocialDeterminantsEntryFilterInput | null,
-};
-
 export type OnCreateSocialDeterminantsEntrySubscription = {
   onCreateSocialDeterminantsEntry?:  {
     __typename: "SocialDeterminantsEntry",
@@ -48979,10 +49173,6 @@ export type OnCreateSocialDeterminantsEntrySubscription = {
     updatedAt: string,
     socialDeterminantsEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnUpdateSocialDeterminantsEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSocialDeterminantsEntryFilterInput | null,
 };
 
 export type OnUpdateSocialDeterminantsEntrySubscription = {
@@ -49360,10 +49550,6 @@ export type OnUpdateSocialDeterminantsEntrySubscription = {
   } | null,
 };
 
-export type OnDeleteSocialDeterminantsEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSocialDeterminantsEntryFilterInput | null,
-};
-
 export type OnDeleteSocialDeterminantsEntrySubscription = {
   onDeleteSocialDeterminantsEntry?:  {
     __typename: "SocialDeterminantsEntry",
@@ -49739,10 +49925,6 @@ export type OnDeleteSocialDeterminantsEntrySubscription = {
   } | null,
 };
 
-export type OnCreateMonthlyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionMonthlyEntryFilterInput | null,
-};
-
 export type OnCreateMonthlyEntrySubscription = {
   onCreateMonthlyEntry?:  {
     __typename: "MonthlyEntry",
@@ -50116,10 +50298,6 @@ export type OnCreateMonthlyEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateMonthlyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionMonthlyEntryFilterInput | null,
-};
-
 export type OnUpdateMonthlyEntrySubscription = {
   onUpdateMonthlyEntry?:  {
     __typename: "MonthlyEntry",
@@ -50491,10 +50669,6 @@ export type OnUpdateMonthlyEntrySubscription = {
     updatedAt: string,
     monthlyEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnDeleteMonthlyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionMonthlyEntryFilterInput | null,
 };
 
 export type OnDeleteMonthlyEntrySubscription = {
