@@ -20,12 +20,15 @@ import {
   initQuestions,
   nextQuestion,
   prevQuestion,
+  selectAnswerStack,
   selectCurrentAnswer,
   selectCurrentQuestion,
   selectIsFirstQuestion,
   selectIslastQuestion,
+  selectQuestions,
+  selectQuestionStack,
 } from "../../redux/slices/surveySlice/surveySlice";
-
+import { processEntries } from "../../redux/slices/surveySlice/surveySliceFunctions";
 //survey component templates
 import { Welcome } from "./SurveyBody/Welcome";
 import { Consent } from "./SurveyBody/Consent";
@@ -148,6 +151,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const isFirstQuestion = useAppSelector(selectIsFirstQuestion);
   const isLastQuestion = useAppSelector(selectIslastQuestion);
+  const questionStack = useAppSelector(selectQuestionStack);
+  const answerStack = useAppSelector(selectAnswerStack);
+  const questions = useAppSelector(selectQuestions);
   const dispatch = useAppDispatch();
   const [answer, setAnswer] = useState<string | string[] | object | null>(
     currentQuestion.answer
@@ -273,7 +279,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     } else if (direction === "skip") {
       dispatch(nextQuestion({ answer: "skip" }));
     } else if (direction === "finish") {
-      dispatch(finishSurvey());
+      const entries = processEntries(questionStack, answerStack, questions);
+      console.log("User info: ", userInfo);
     } else {
       dispatch(prevQuestion({ answer: answer }));
     }

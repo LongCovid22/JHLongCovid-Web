@@ -40,13 +40,11 @@ describe("Create global health entry from survey answers", () => {
     );
 
     const correctGlobalHealthEntry = {
-      GlobalHealthEntry: {
-        healthRank: "Excellent",
-        physicalHealthRank: "Excellent",
-        carryPhysicalActivities: "Completely",
-        fatigueRank: "Moderate",
-        painLevel: 7,
-      },
+      healthRank: "Excellent",
+      physicalHealthRank: "Excellent",
+      carryPhysicalActivities: "Completely",
+      fatigueRank: "Moderate",
+      painLevel: 7,
     };
 
     expect(entry).toStrictEqual(correctGlobalHealthEntry);

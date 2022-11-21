@@ -3,6 +3,7 @@ import type { RootState } from "../../store";
 import surveyLogic from "../../../surveyLogic.json";
 import { Auth } from "aws-amplify";
 import { setUncaughtExceptionCaptureCallback } from "process";
+import { processEntries } from "./surveySliceFunctions";
 
 // this slice can be used for presentation throughout the app. When there is state that
 // controls somethings display, it should go in here
@@ -182,19 +183,13 @@ export const surveySlice = createSlice({
     finishSurvey: (state) => {
       console.log("finish survey");
       const stateCopy = { ...state };
-      let entries: any = {};
-      stateCopy.questionStack.map(
-        (value: { section: number; question: number }, index: number) => {
-          const schemaInfo: { tableName: string; field: string; type: string } =
-            stateCopy.questions[value.section][value.question].schemaInfo;
-          const surveyAnswer = stateCopy.answerStack[index];
-          console.log("Answer returned: ", surveyAnswer);
-          // if (schemaInfo.type === "AWSJSON") {
-          // }
-
-          // entries[schemaInfo.tableName];
-        }
+      const entries = processEntries(
+        stateCopy.questionStack,
+        stateCopy.answerStack,
+        stateCopy.questions
       );
+
+      console.log("Survey Answers: ", entries);
     },
 
     /**
@@ -240,6 +235,15 @@ export const selectIslastQuestion = (state: RootState) => {
 };
 export const selectCurrentAnswer = (state: RootState) => {
   return state.survey.currentAnswer;
+};
+export const selectQuestionStack = (state: RootState) => {
+  return state.survey.questionStack;
+};
+export const selectAnswerStack = (state: RootState) => {
+  return state.survey.answerStack;
+};
+export const selectQuestions = (state: RootState) => {
+  return state.survey.questions;
 };
 
 export default surveySlice.reducer;

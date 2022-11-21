@@ -22,10 +22,8 @@ describe("Create Recovery entry from survey answers", () => {
     );
 
     const correctRecoveryEntry = {
-      RecoveryEntry: {
-        recovered: true,
-        lengthOfRecovery: 12,
-      },
+      recovered: true,
+      lengthOfRecovery: 12,
     };
 
     expect(entry).toStrictEqual(correctRecoveryEntry);
@@ -47,9 +45,7 @@ describe("Create Recovery entry from survey answers", () => {
     );
 
     const correctRecoveryEntry = {
-      RecoveryEntry: {
-        recovered: false,
-      },
+      recovered: false,
     };
 
     expect(entry).toStrictEqual(correctRecoveryEntry);

@@ -1,6 +1,7 @@
 import { UserInfo } from "./SurveyWrapper";
 import * as mutations from "../../src/graphql/mutations";
-import { API } from "aws-amplify";
+import { API, input } from "aws-amplify";
+import { CreateCovidEntryInput, CreateCovidEntryMutation } from "../../src/API";
 
 export const checkEmptyDemoFields = (answer: any) => {
   let emptyFields = [];
@@ -74,4 +75,17 @@ export const userInfoIsEmpty = (userInfo: UserInfo) => {
     return true;
   }
   return false;
+};
+
+export const createCovidEntry = async (entryDetails: CreateCovidEntryInput) => {
+  try {
+    const newCovidEntry: CreateCovidEntryMutation = await API.graphql({
+      query: mutations.createCovidEntry,
+      variables: { input: entryDetails },
+    });
+    if (newCovidEntry.createCovidEntry) {
+    }
+  } catch (error) {
+    console.log("Error creating COVID Entry: ", error);
+  }
 };

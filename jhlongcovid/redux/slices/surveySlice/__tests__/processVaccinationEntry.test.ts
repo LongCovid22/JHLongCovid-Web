@@ -30,12 +30,10 @@ describe("Create vaccination entry from survey answers", () => {
     );
 
     const correctVaccinationEntry = {
-      VaccinationEntry: {
-        vaccinated: true,
-        totalVaccineShots: 5,
-        dateOfLastVaccine: new Date("2022-11-05"),
-        vaccineType: "Novavax",
-      },
+      vaccinated: true,
+      totalVaccineShots: 5,
+      dateOfLastVaccine: new Date("2022-11-05"),
+      vaccineType: "Novavax",
     };
 
     expect(entry).toStrictEqual(correctVaccinationEntry);
@@ -57,9 +55,7 @@ describe("Create vaccination entry from survey answers", () => {
     );
 
     const correctVaccinationEntry = {
-      VaccinationEntry: {
-        vaccinated: false,
-      },
+      vaccinated: false,
     };
 
     expect(entry).toStrictEqual(correctVaccinationEntry);
