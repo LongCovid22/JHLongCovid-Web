@@ -33,7 +33,7 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
 
   const handleChoiceInput = (checkedChoices: string[]) => {
     setChecked(checkedChoices);
-    setAnswer({ choices: checked, other: inputValue });
+    setAnswer({ choices: checkedChoices, other: inputValue });
   };
 
   const handleInputOther = (input: string) => {

@@ -12,10 +12,15 @@ import {
   CreateRecoveryEntryMutation,
   CreateSocialDeterminantsEntryInput,
   CreateSocialDeterminantsEntryMutation,
+  CreateSurveyEntryInput,
+  CreateSurveyEntryMutation,
   CreateSymptomEntryInput,
   CreateSymptomEntryMutation,
   CreateVaccinationEntryInput,
   CreateVaccinationEntryMutation,
+  Race,
+  SurveyType,
+  User,
 } from "../../src/API";
 import axios from "axios";
 
@@ -178,13 +183,13 @@ export const getCountyAndStateWithZip = async (
 
 export const saveEntries = async (
   locationData: LocationData,
-  surveyData: any
+  surveyData: any,
+  userInfo: UserInfo,
+  user?: User
 ) => {
   try {
     let ids: any = {};
     for await (const value of Object.keys(surveyData)) {
-      console.log("VALUE: ", value);
-      console.log("DATA: ", surveyData[value]);
       switch (value) {
         case "CovidEntry":
           const covidEntryid = await createCovidEntry(
@@ -240,9 +245,63 @@ export const saveEntries = async (
       }
     }
 
-    console.log("IDS: ", ids);
+    let race;
+    if (userInfo.race.toUpperCase() === "WHITE") {
+      race = Race.WHITE;
+    } else if (userInfo.race.toUpperCase() === "BLACK") {
+      race = Race.BLACK;
+    } else if (userInfo.race.toUpperCase() === "ASIAN") {
+      race = Race.ASIAN;
+    } else if (userInfo.race.toUpperCase() === "HISPANIC") {
+      race = Race.HISPANIC;
+    } else if (userInfo.race.toUpperCase() === "NATIVE") {
+      race = Race.NATIVE;
+    } else if (userInfo.race.toUpperCase() === "OTHER") {
+      race = Race.OTHER;
+    } else {
+      race = Race.NONE;
+    }
+
+    const surveyDetails: CreateSurveyEntryInput = {
+      surveyVersion: 1,
+      surveyType: SurveyType.GUEST,
+      email: user ? user.email : null,
+      age: parseInt(userInfo.age),
+      race: race,
+      sex: userInfo.sex,
+      height: userInfo.height,
+      weight: userInfo.weight,
+      surveyEntryCovidEntryId: ids.CovidEntry ? ids.CovidEntry : null,
+      surveyEntryVaccinationEntryId: ids.VaccinationEntry
+        ? ids.VaccinationEntry
+        : null,
+      surveyEntrySocialDeterminantsEntryId: ids.SocialDeterminantsEntry
+        ? ids.SocialDeterminantsEntry
+        : null,
+      surveyEntryRecoveryEntryId: ids.RecoveryEntry ? ids.RecoveryEntry : null,
+      surveyEntryGlobalHealthEntryId: ids.GlobalHealthEntry
+        ? ids.GlobalHealthEntry
+        : null,
+      surveyEntryPatientHealthEntryId: ids.PatientHealthEntry
+        ? ids.PatientHealthEntry
+        : null,
+      surveyEntrySymptomsEntryId: ids.SymptomEntry ? ids.SymptomEntry : null,
+    };
+
+    const cEntry = (await API.graphql({
+      query: mutations.createSurveyEntry,
+      variables: { input: surveyDetails },
+    })) as { data: CreateSurveyEntryMutation; errors: any[] };
+    if (cEntry.data.createSurveyEntry) {
+      return cEntry.data.createSurveyEntry.id;
+    }
   } catch (error) {
-    console.log("Error saving survey subsection", error);
+    let mutation = error as { data: CreateSurveyEntryMutation; errors: any[] };
+    if (mutation.data.createSurveyEntry) {
+      return mutation.data.createSurveyEntry.id;
+    } else {
+      console.log("Error creating Survey Entry: ", mutation.errors);
+    }
   }
 };
 
@@ -278,7 +337,6 @@ export const createCovidEntry = async (
       query: mutations.createCovidEntry,
       variables: { input: details },
     })) as { data: CreateCovidEntryMutation; errors: any[] };
-    console.log("Got past this thing");
     if (cEntry.data.createCovidEntry) {
       return cEntry.data.createCovidEntry.id;
     }
@@ -296,7 +354,7 @@ export const createRecoveryEntry = async (
   surveyData: any,
   locationData: LocationData
 ) => {
-  let details = {
+  let details: CreateRecoveryEntryInput = {
     state: locationData.state,
     countyState:
       locationData.county !== ""

@@ -16,7 +16,7 @@ type SectionInfo = {
   VaccinationEntry: QuestionInfo;
   GlobalHealthEntry: QuestionInfo;
   PatientHealthEntry: QuestionInfo;
-  SymptomsEntry: QuestionInfo;
+  SymptomEntry: QuestionInfo;
   SocialDeterminantsEntry: QuestionInfo;
 };
 
@@ -58,9 +58,9 @@ export const processEntries = (
       if (sectionQuestionInfo.PatientHealthEntry.questions.length > 0) {
         entries[value] = processPatientHealthEntry(sectionInfo, demographics);
       }
-    } else if (value === "SymptomsEntry") {
-      const sectionInfo = sectionQuestionInfo.SymptomsEntry;
-      if (sectionQuestionInfo.SymptomsEntry.questions.length > 0) {
+    } else if (value === "SymptomEntry") {
+      const sectionInfo = sectionQuestionInfo.SymptomEntry;
+      if (sectionQuestionInfo.SymptomEntry.questions.length > 0) {
         entries[value] = processSymptomEntry(sectionInfo, demographics);
       }
     } else if (value === "SocialDeterminantsEntry") {
@@ -125,7 +125,7 @@ export const separatedSectionInfo = (
       answerFormats: [],
       options: [],
     },
-    SymptomsEntry: {
+    SymptomEntry: {
       questions: [],
       answers: [],
       schemas: [],
@@ -197,15 +197,15 @@ export const separatedSectionInfo = (
         questions[questionInfo.section][questionInfo.question].options
       );
     } else if (questionInfo.section === 5) {
-      sectionQuestionInfo.SymptomsEntry.questions.push(questionInfo);
-      sectionQuestionInfo.SymptomsEntry.answers.push(answer);
-      sectionQuestionInfo.SymptomsEntry.schemas.push(
+      sectionQuestionInfo.SymptomEntry.questions.push(questionInfo);
+      sectionQuestionInfo.SymptomEntry.answers.push(answer);
+      sectionQuestionInfo.SymptomEntry.schemas.push(
         questions[questionInfo.section][questionInfo.question].schemaInfo
       );
-      sectionQuestionInfo.SymptomsEntry.answerFormats.push(
+      sectionQuestionInfo.SymptomEntry.answerFormats.push(
         questions[questionInfo.section][questionInfo.question].answerFormat
       );
-      sectionQuestionInfo.SymptomsEntry.options.push(
+      sectionQuestionInfo.SymptomEntry.options.push(
         questions[questionInfo.section][questionInfo.question].options
       );
     } else if (questionInfo.section === 6) {
@@ -221,15 +221,15 @@ export const separatedSectionInfo = (
         questions[questionInfo.section][questionInfo.question].options
       );
     } else if (questionInfo.section === 7) {
-      sectionQuestionInfo.SymptomsEntry.questions.push(questionInfo);
-      sectionQuestionInfo.SymptomsEntry.answers.push(answer);
-      sectionQuestionInfo.SymptomsEntry.schemas.push(
+      sectionQuestionInfo.SymptomEntry.questions.push(questionInfo);
+      sectionQuestionInfo.SymptomEntry.answers.push(answer);
+      sectionQuestionInfo.SymptomEntry.schemas.push(
         questions[questionInfo.section][questionInfo.question].schemaInfo
       );
-      sectionQuestionInfo.SymptomsEntry.answerFormats.push(
+      sectionQuestionInfo.SymptomEntry.answerFormats.push(
         questions[questionInfo.section][questionInfo.question].answerFormat
       );
-      sectionQuestionInfo.SymptomsEntry.options.push(
+      sectionQuestionInfo.SymptomEntry.options.push(
         questions[questionInfo.section][questionInfo.question].options
       );
     } else if (questionInfo.section === 8) {

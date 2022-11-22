@@ -10,6 +10,7 @@ import {
   ModalHeader,
   Text,
   Spacer,
+  useToast,
 } from "@chakra-ui/react";
 
 //redux imports
@@ -148,6 +149,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
 };
 
 export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
+  const toast = useToast();
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
   const user = useAppSelector(selectUser);
@@ -159,6 +161,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const answerStack = useAppSelector(selectAnswerStack);
   const questions = useAppSelector(selectQuestions);
   const dispatch = useAppDispatch();
+  const [performingQueries, setPerformingQueries] = useState(false);
   const [answer, setAnswer] = useState<string | string[] | object | null>(
     currentQuestion.answer
   );
@@ -239,6 +242,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             choices: string[];
             other: string;
           };
+          console.log("Multi choice answer: ", answer);
           if (
             multiChoiceAnswer.choices.length === 0 &&
             multiChoiceAnswer.other === ""
@@ -283,13 +287,39 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     } else if (direction === "skip") {
       dispatch(nextQuestion({ answer: "skip" }));
     } else if (direction === "finish") {
+      setPerformingQueries(true);
       const entries = processEntries(questionStack, answerStack, questions);
-      console.log("zip passing in", userInfo.zip);
       const locationData: LocationData = await getCountyAndStateWithZip(
         userInfo.zip,
         process.env.GOOGLEMAPS_API_KEY ?? ""
       );
-      await saveEntries(locationData, entries);
+      const surveyEntryId = await saveEntries(
+        locationData,
+        entries,
+        userInfo,
+        user
+      );
+      if (surveyEntryId) {
+        toast({
+          title: "Survey submition",
+          description: "Successfully submitted survey",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top-right",
+        });
+      } else {
+        toast({
+          title: "Survey submition",
+          description: "Failed to submit survey",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top-right",
+        });
+      }
+      setPerformingQueries(false);
+      onClose();
     } else {
       dispatch(prevQuestion({ answer: answer }));
     }
@@ -413,6 +443,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             <Button
               colorScheme="hopkinsBlue"
               borderRadius={500}
+              isLoading={performingQueries}
               onClick={() =>
                 isLastQuestion
                   ? handleQuestionChange("finish")
