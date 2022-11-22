@@ -181,15 +181,12 @@ export const surveySlice = createSlice({
 
     // Reset survey and send query to API
     finishSurvey: (state) => {
-      console.log("finish survey");
       const stateCopy = { ...state };
       const entries = processEntries(
         stateCopy.questionStack,
         stateCopy.answerStack,
         stateCopy.questions
       );
-
-      console.log("Survey Answers: ", entries);
     },
 
     /**
@@ -225,25 +222,32 @@ export const { nextQuestion, prevQuestion, initQuestions, finishSurvey } =
   surveySlice.actions;
 
 export const selectCurrentQuestion = (state: RootState) => {
-  return state.survey.currentQuestion;
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.currentQuestion;
 };
 export const selectIsFirstQuestion = (state: RootState) => {
-  return state.survey.firstQuestion;
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.firstQuestion;
 };
 export const selectIslastQuestion = (state: RootState) => {
-  return state.survey.lastQuestion;
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.lastQuestion;
 };
 export const selectCurrentAnswer = (state: RootState) => {
-  return state.survey.currentAnswer;
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.currentAnswer;
 };
 export const selectQuestionStack = (state: RootState) => {
-  return state.survey.questionStack;
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.questionStack;
 };
 export const selectAnswerStack = (state: RootState) => {
-  return state.survey.answerStack;
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.answerStack;
 };
 export const selectQuestions = (state: RootState) => {
-  return state.survey.questions;
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.questions;
 };
 
 export default surveySlice.reducer;

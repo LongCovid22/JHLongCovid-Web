@@ -1,5 +1,6 @@
-import { processVaccinationEntry } from "../surveySliceFunctions";
+import { processVaccinationEntry, QuestionInfo } from "../surveySliceFunctions";
 import surveyLogic from "../../../../surveyLogic.json";
+import { UserInfo } from "../../../../components/Survey/SurveyWrapper";
 
 describe("Create vaccination entry from survey answers", () => {
   it("Testing full vaccination section", () => {
@@ -22,14 +23,54 @@ describe("Create vaccination entry from survey answers", () => {
       },
     ];
     const mockAnswerStack = ["Yes", "5", "2022-11-05", "Novavax"];
+    const mockSchemas = [
+      {
+        tableName: "VaccinationEntry",
+        field: "vaccinated",
+        type: "Boolean",
+      },
+      {
+        tableName: "VaccinationEntry",
+        field: "totalVaccineShots",
+        type: "Int",
+      },
+      {
+        tableName: "VaccinationEntry",
+        field: "dateOfLastVaccine",
+        type: "AWSDateTime",
+      },
+      {
+        tableName: "VaccinationEntry",
+        field: "vaccineType",
+        type: "String",
+      },
+    ];
+    const sectionInfo: QuestionInfo = {
+      questions: mockQuestionStack,
+      answers: mockAnswerStack,
+      schemas: mockSchemas,
+      answerFormats: [],
+      options: [],
+    };
 
-    const entry = processVaccinationEntry(
-      mockQuestionStack,
-      mockAnswerStack,
-      surveyLogic.questions
-    );
+    const demographics: UserInfo = {
+      age: "23",
+      weight: "123",
+      height: "55",
+      race: "white",
+      sex: "male",
+      name: "jeff",
+      zip: "123492",
+    };
+
+    const entry = processVaccinationEntry(sectionInfo, demographics);
 
     const correctVaccinationEntry = {
+      age: "23",
+      weight: "123",
+      height: "55",
+      race: "white",
+      sex: "male",
       vaccinated: true,
       totalVaccineShots: 5,
       dateOfLastVaccine: new Date("2022-11-05"),
@@ -47,14 +88,39 @@ describe("Create vaccination entry from survey answers", () => {
       },
     ];
     const mockAnswerStack = ["No"];
+    const mockSchemas = [
+      {
+        tableName: "VaccinationEntry",
+        field: "vaccinated",
+        type: "Boolean",
+      },
+    ];
+    const sectionInfo: QuestionInfo = {
+      questions: mockQuestionStack,
+      answers: mockAnswerStack,
+      schemas: mockSchemas,
+      answerFormats: [],
+      options: [],
+    };
 
-    const entry = processVaccinationEntry(
-      mockQuestionStack,
-      mockAnswerStack,
-      surveyLogic.questions
-    );
+    const demographics: UserInfo = {
+      age: "23",
+      weight: "123",
+      height: "55",
+      race: "white",
+      sex: "male",
+      name: "jeff",
+      zip: "123492",
+    };
+
+    const entry = processVaccinationEntry(sectionInfo, demographics);
 
     const correctVaccinationEntry = {
+      age: "23",
+      weight: "123",
+      height: "55",
+      race: "white",
+      sex: "male",
       vaccinated: false,
     };
 

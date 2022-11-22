@@ -402,15 +402,15 @@ const createEntries = (
     } else {
       if (s.field === "medicalConditions") {
         if (a.other !== "") {
-          a.choices.push(a.other);
-          entries[s.field] = a.choices;
+          // a.choices.push(a.other);
+          entries[s.field] = [...a.choices, a.other];
         } else {
           entries[s.field] = a.choices;
         }
       } else if (s.field === "medicationsTaken") {
         if (a.other !== "") {
-          a.choices.push(a.other);
-          entries[s.field] = a.choices;
+          // a.choices.push(a.other);
+          entries[s.field] = [...a.choices, a.other];
         } else {
           entries[s.field] = a.choices;
         }

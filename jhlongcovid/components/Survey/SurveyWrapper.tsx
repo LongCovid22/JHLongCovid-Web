@@ -44,6 +44,10 @@ import { PreSurvey } from "./SurveyBody/PreSurvey";
 import { selectUser } from "../../redux/slices/userSlice";
 import {
   checkEmptyDemoFields,
+  createCovidEntry,
+  getCountyAndStateWithZip,
+  LocationData,
+  saveEntries,
   updateUserWithInfoFromSurvey,
   userInfoIsEmpty,
 } from "./SurveyFunctions";
@@ -280,7 +284,12 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       dispatch(nextQuestion({ answer: "skip" }));
     } else if (direction === "finish") {
       const entries = processEntries(questionStack, answerStack, questions);
-      console.log("User info: ", userInfo);
+      console.log("zip passing in", userInfo.zip);
+      const locationData: LocationData = await getCountyAndStateWithZip(
+        userInfo.zip,
+        process.env.GOOGLEMAPS_API_KEY ?? ""
+      );
+      await saveEntries(locationData, entries);
     } else {
       dispatch(prevQuestion({ answer: answer }));
     }

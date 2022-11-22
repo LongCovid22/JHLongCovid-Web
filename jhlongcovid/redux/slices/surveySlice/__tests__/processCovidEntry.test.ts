@@ -1,5 +1,6 @@
 import { processCovidEntry, QuestionInfo } from "../surveySliceFunctions";
 import surveyLogic from "../../../../surveyLogic.json";
+import { UserInfo } from "../../../../components/Survey/SurveyWrapper";
 
 describe("Create Covid entry from survey answers", () => {
   it("Testing full covid section", () => {
@@ -128,11 +129,28 @@ describe("Create Covid entry from survey answers", () => {
       questions: mockQuestionStack,
       answers: mockAnswerStack,
       schemas: mockSchemas,
+      answerFormats: [],
+      options: [],
     };
 
-    const entry = processCovidEntry(sectionInfo);
+    const demographics: UserInfo = {
+      age: "23",
+      weight: "123",
+      height: "55",
+      race: "white",
+      sex: "male",
+      name: "jeff",
+      zip: "123492",
+    };
+
+    const entry = processCovidEntry(sectionInfo, demographics);
 
     const correctCovidEntry = {
+      age: "23",
+      weight: "123",
+      height: "55",
+      race: "white",
+      sex: "male",
       beenInfected: true,
       timesPositive: 1,
       hospitalized: true,

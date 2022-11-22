@@ -208,8 +208,97 @@ describe("Create entries from full survey answers", () => {
       mockFullSurveyAnswers,
       surveyLogic.questions
     );
-    console.log("ENTRIES: ", entries);
+    const expectedResult = {
+      CovidEntry: {
+        age: "23",
+        race: "white",
+        sex: "Female",
+        height: "33",
+        weight: "3232",
+        beenInfected: true,
+        timesPositive: 1,
+        hospitalized: true,
+        timesHospitalized: 1,
+        lastPositive: new Date("2022-11-08"),
+        tested: true,
+        positiveTest: true,
+        symptomatic: true,
+        symptomsPreventScale: "Not at all",
+        medicationsPrescribed: true,
+        medicationsTaken: ["Antiviral pill, such as Paxlovid", "fre"],
+      },
+      RecoveryEntry: {
+        age: "23",
+        race: "white",
+        sex: "Female",
+        height: "33",
+        weight: "3232",
+        recovered: true,
+        lengthOfRecovery: 5,
+      },
+      VaccinationEntry: {
+        age: "23",
+        race: "white",
+        sex: "Female",
+        height: "33",
+        weight: "3232",
+        vaccinated: false,
+      },
+      PatientHealthEntry: {
+        age: "23",
+        race: "white",
+        sex: "Female",
+        height: "33",
+        weight: "3232",
+        generalHealthResults: {
+          "Little interest or pleasure in doing things?": "Not at all",
+          "Feeling down, depressed, or hopeless?": "Not at all",
+          "Trouble falling or staying asleep, or sleeping too much?":
+            "Not at all",
+          "Feeling tired or having little energy?": "Not at all",
+          "Poor appetite or overeating?": "Several days",
+          "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?":
+            "More than half the days",
+          "Trouble concentrating on things, such as reading the newspaper or watching television?":
+            "Not at all",
+          "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?":
+            "Not at all",
+        },
+        totalScore: 3,
+      },
+      SymptomsEntry: {
+        age: "23",
+        race: "white",
+        sex: "Female",
+        height: "33",
+        weight: "3232",
+        symptoms: [
+          "Swelling of your legs",
+          "Loud snoring, stopping breathing, or gasping during sleep, 3 or more times per week",
+        ],
+        mentalHealthRank: "Excellent",
+        socialSatisfactionRank: "Excellent",
+        carryOutSocialActivitiesRank: "Excellent",
+        anxietyInPastWeekRank: "Never",
+        medicalConditions: [
+          "Memory or cognitive impairment or dementia ",
+          "kop",
+        ],
+        hasLongCovid: true,
+      },
+      SocialDeterminantsEntry: {
+        age: "23",
+        race: "white",
+        sex: "Female",
+        height: "33",
+        weight: "3232",
+        hasMedicalInsurance: true,
+        difficultCoveringExpenses: "Very difficult",
+        currentWorkSituation:
+          "Working outside the home as well as working remotely from home (“hybrid” work)",
+      },
+    };
 
-    expect(true).toStrictEqual(true);
+    expect(entries).toStrictEqual(expectedResult);
   });
 });

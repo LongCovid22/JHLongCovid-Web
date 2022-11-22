@@ -13,9 +13,11 @@ export const getMapData = /* GraphQL */ `
       long
       covidSummary {
         covidCount
-        percentHospitalizedDueToCovid
         avgPositiveCasesPerPerson
+        percentHospitalizedDueToCovid
+        avgHospitalizationsPerPerson
         percentSymptomatic
+        avgSymptomPreventDailyTasks
         percentTookMedication
         medicationCounts {
           antiViral
@@ -24,7 +26,26 @@ export const getMapData = /* GraphQL */ `
           other
           dontKnow
         }
-        percentRecovered
+      }
+      recoverySummary {
+        longCovidCount
+        percentLongCovid
+        avgRecoveryLength
+      }
+      vaccinationSummary {
+        percentVaccinated
+        avgNumOfVaccPerPerson
+        pfizerCount
+        modernaCount
+        jjCount
+        azCount
+      }
+      globalHealthSummary {
+        healthRankCount
+        physicalHealthRankCount
+        carryOutPhysicalActivitiesRankCount
+        fatigueRankCount
+        painLevelCount
       }
       symptomSummary {
         mostCommonSymptom
@@ -59,36 +80,26 @@ export const getMapData = /* GraphQL */ `
           fertilityProblemsForWomen
         }
       }
-      vaccinationSummary {
-        percentVaccinated
-        avgNumOfVaccPerPerson
-        pfizerCount
-        modernaCount
-        jjCount
-        azCount
-      }
-      globalHealthSummary {
-        healthRankCount
-        physicalHealthRankCount
-        carryOutPhysicalActivitiesRankCount
-        fatigueRankCount
-        painLevelCount
-      }
-      patientHealthSummary {
-        avgTotalScore
-        avgHealthCounts {
-          generalHealth
-          qualityOfLife
-          physicalHealth
-          mentalHealth
-          socialActivitiesRelationships
-          socialActivitiesRoles
+      medicalConditionsSummary {
+        percentHaveLongCovid
+        newDiagnosisCounts {
+          noNewDiagnosis
+          heartProblems
+          lungProblems
+          bloodClotLung
+          sleepApnea
+          memory
+          migraine
+          stroke
+          seizure
+          kidneyProblems
+          stomachProblems
+          psychologicalProblems
+          diabetes
+          autoImmuneDiseases
+          other
+          notSure
         }
-      }
-      recoverySummary {
-        longCovidCount
-        percentLongCovid
-        avgRecoveryLength
       }
       socialSummary {
         percentHaveMedicalInsurance
@@ -138,9 +149,11 @@ export const listMapData = /* GraphQL */ `
         long
         covidSummary {
           covidCount
-          percentHospitalizedDueToCovid
           avgPositiveCasesPerPerson
+          percentHospitalizedDueToCovid
+          avgHospitalizationsPerPerson
           percentSymptomatic
+          avgSymptomPreventDailyTasks
           percentTookMedication
           medicationCounts {
             antiViral
@@ -149,7 +162,26 @@ export const listMapData = /* GraphQL */ `
             other
             dontKnow
           }
-          percentRecovered
+        }
+        recoverySummary {
+          longCovidCount
+          percentLongCovid
+          avgRecoveryLength
+        }
+        vaccinationSummary {
+          percentVaccinated
+          avgNumOfVaccPerPerson
+          pfizerCount
+          modernaCount
+          jjCount
+          azCount
+        }
+        globalHealthSummary {
+          healthRankCount
+          physicalHealthRankCount
+          carryOutPhysicalActivitiesRankCount
+          fatigueRankCount
+          painLevelCount
         }
         symptomSummary {
           mostCommonSymptom
@@ -184,36 +216,26 @@ export const listMapData = /* GraphQL */ `
             fertilityProblemsForWomen
           }
         }
-        vaccinationSummary {
-          percentVaccinated
-          avgNumOfVaccPerPerson
-          pfizerCount
-          modernaCount
-          jjCount
-          azCount
-        }
-        globalHealthSummary {
-          healthRankCount
-          physicalHealthRankCount
-          carryOutPhysicalActivitiesRankCount
-          fatigueRankCount
-          painLevelCount
-        }
-        patientHealthSummary {
-          avgTotalScore
-          avgHealthCounts {
-            generalHealth
-            qualityOfLife
-            physicalHealth
-            mentalHealth
-            socialActivitiesRelationships
-            socialActivitiesRoles
+        medicalConditionsSummary {
+          percentHaveLongCovid
+          newDiagnosisCounts {
+            noNewDiagnosis
+            heartProblems
+            lungProblems
+            bloodClotLung
+            sleepApnea
+            memory
+            migraine
+            stroke
+            seizure
+            kidneyProblems
+            stomachProblems
+            psychologicalProblems
+            diabetes
+            autoImmuneDiseases
+            other
+            notSure
           }
-        }
-        recoverySummary {
-          longCovidCount
-          percentLongCovid
-          avgRecoveryLength
         }
         socialSummary {
           percentHaveMedicalInsurance
@@ -265,9 +287,11 @@ export const mapDataByLevelNameState = /* GraphQL */ `
         long
         covidSummary {
           covidCount
-          percentHospitalizedDueToCovid
           avgPositiveCasesPerPerson
+          percentHospitalizedDueToCovid
+          avgHospitalizationsPerPerson
           percentSymptomatic
+          avgSymptomPreventDailyTasks
           percentTookMedication
           medicationCounts {
             antiViral
@@ -276,7 +300,26 @@ export const mapDataByLevelNameState = /* GraphQL */ `
             other
             dontKnow
           }
-          percentRecovered
+        }
+        recoverySummary {
+          longCovidCount
+          percentLongCovid
+          avgRecoveryLength
+        }
+        vaccinationSummary {
+          percentVaccinated
+          avgNumOfVaccPerPerson
+          pfizerCount
+          modernaCount
+          jjCount
+          azCount
+        }
+        globalHealthSummary {
+          healthRankCount
+          physicalHealthRankCount
+          carryOutPhysicalActivitiesRankCount
+          fatigueRankCount
+          painLevelCount
         }
         symptomSummary {
           mostCommonSymptom
@@ -311,36 +354,26 @@ export const mapDataByLevelNameState = /* GraphQL */ `
             fertilityProblemsForWomen
           }
         }
-        vaccinationSummary {
-          percentVaccinated
-          avgNumOfVaccPerPerson
-          pfizerCount
-          modernaCount
-          jjCount
-          azCount
-        }
-        globalHealthSummary {
-          healthRankCount
-          physicalHealthRankCount
-          carryOutPhysicalActivitiesRankCount
-          fatigueRankCount
-          painLevelCount
-        }
-        patientHealthSummary {
-          avgTotalScore
-          avgHealthCounts {
-            generalHealth
-            qualityOfLife
-            physicalHealth
-            mentalHealth
-            socialActivitiesRelationships
-            socialActivitiesRoles
+        medicalConditionsSummary {
+          percentHaveLongCovid
+          newDiagnosisCounts {
+            noNewDiagnosis
+            heartProblems
+            lungProblems
+            bloodClotLung
+            sleepApnea
+            memory
+            migraine
+            stroke
+            seizure
+            kidneyProblems
+            stomachProblems
+            psychologicalProblems
+            diabetes
+            autoImmuneDiseases
+            other
+            notSure
           }
-        }
-        recoverySummary {
-          longCovidCount
-          percentLongCovid
-          avgRecoveryLength
         }
         socialSummary {
           percentHaveMedicalInsurance
@@ -392,9 +425,11 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
         long
         covidSummary {
           covidCount
-          percentHospitalizedDueToCovid
           avgPositiveCasesPerPerson
+          percentHospitalizedDueToCovid
+          avgHospitalizationsPerPerson
           percentSymptomatic
+          avgSymptomPreventDailyTasks
           percentTookMedication
           medicationCounts {
             antiViral
@@ -403,7 +438,26 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
             other
             dontKnow
           }
-          percentRecovered
+        }
+        recoverySummary {
+          longCovidCount
+          percentLongCovid
+          avgRecoveryLength
+        }
+        vaccinationSummary {
+          percentVaccinated
+          avgNumOfVaccPerPerson
+          pfizerCount
+          modernaCount
+          jjCount
+          azCount
+        }
+        globalHealthSummary {
+          healthRankCount
+          physicalHealthRankCount
+          carryOutPhysicalActivitiesRankCount
+          fatigueRankCount
+          painLevelCount
         }
         symptomSummary {
           mostCommonSymptom
@@ -438,36 +492,26 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
             fertilityProblemsForWomen
           }
         }
-        vaccinationSummary {
-          percentVaccinated
-          avgNumOfVaccPerPerson
-          pfizerCount
-          modernaCount
-          jjCount
-          azCount
-        }
-        globalHealthSummary {
-          healthRankCount
-          physicalHealthRankCount
-          carryOutPhysicalActivitiesRankCount
-          fatigueRankCount
-          painLevelCount
-        }
-        patientHealthSummary {
-          avgTotalScore
-          avgHealthCounts {
-            generalHealth
-            qualityOfLife
-            physicalHealth
-            mentalHealth
-            socialActivitiesRelationships
-            socialActivitiesRoles
+        medicalConditionsSummary {
+          percentHaveLongCovid
+          newDiagnosisCounts {
+            noNewDiagnosis
+            heartProblems
+            lungProblems
+            bloodClotLung
+            sleepApnea
+            memory
+            migraine
+            stroke
+            seizure
+            kidneyProblems
+            stomachProblems
+            psychologicalProblems
+            diabetes
+            autoImmuneDiseases
+            other
+            notSure
           }
-        }
-        recoverySummary {
-          longCovidCount
-          percentLongCovid
-          avgRecoveryLength
         }
         socialSummary {
           percentHaveMedicalInsurance
