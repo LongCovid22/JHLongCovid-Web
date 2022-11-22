@@ -125,7 +125,6 @@ type SurveyEntry
   sex: String!
   height: String!
   weight: String!
-  timeElapsed: AWSDateTime
   covidEntry: CovidEntry @hasOne
   vaccinationEntry: VaccinationEntry @hasOne
   socialDeterminantsEntry: SocialDeterminantsEntry @hasOne
