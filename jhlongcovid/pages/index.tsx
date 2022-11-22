@@ -112,11 +112,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    console.log(
-      "Dates are equal",
-      +new Date("2022-11-02") == +new Date("2022-11-02")
-    );
-
     if (user) {
       dispatch(initQuestions({ authId: user.id }));
     } else {
@@ -195,29 +190,6 @@ const Home = () => {
   useEffect(() => {
     toggleAggregateDataOnZoom();
   }, [zoomNum, latLow, latHigh, longLow, longHigh, state_data, county_data]);
-
-  // // Upon user sign in & component mount
-  // useEffect(() => {
-  //   // Get current auth session
-  //   // If exists query for User
-  //   const getCurrentSession = async () => {
-  //     let user: User | undefined = undefined;
-
-  //     try {
-  //       const session = await Auth.currentAuthenticatedUser();
-  //       const user = await API.graphql({
-  //         query: queries.getUser,
-  //         variables: { id: session.authId },
-  //       });
-  //     } catch (error) {
-  //       if (error === "The user is not authenticated") {
-  //         dispatch(initQuestions({ authId: null }));
-  //       }
-  //     }
-  //   };
-
-  //   getCurrentSession().catch(console.error);
-  // }, []);
 
   return (
     <>
