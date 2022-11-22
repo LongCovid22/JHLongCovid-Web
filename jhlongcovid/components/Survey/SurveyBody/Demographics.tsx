@@ -17,18 +17,27 @@ import {
   Select,
   Grid,
   GridItem,
-  FormErrorMessage,
+  HStack,
+  PinInput,
+  PinInputField,
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
 import { useAppSelector } from "../../../redux/hooks";
-import { selectCurrentAnswer } from "../../../redux/slices/surveySlice";
+import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
 
 export const Demographics: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
-  const [demos, setDemos] = useState({ zip: "", age: "", race: "", sex: "" });
+  const [demos, setDemos] = useState({
+    zip: "",
+    age: "",
+    race: "",
+    sex: "",
+    height: "",
+    weight: "",
+  });
 
   const handleAnswerChange = (key: string, value: string) => {
     let demosCopy = { ...demos };
@@ -40,7 +49,14 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
   useEffect(() => {
     if (currentAnswer !== null) {
       setDemos(
-        currentAnswer as { zip: string; age: string; race: string; sex: string }
+        currentAnswer as {
+          zip: string;
+          age: string;
+          race: string;
+          sex: string;
+          height: string;
+          weight: string;
+        }
       );
     } else {
       setAnswer(currentAnswer);
@@ -68,37 +84,70 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
           county and state
         </FormHelperText>
       </FormControl>
-      <FormControl>
-        <FormLabel>Age</FormLabel>
-        <NumberInput
-          defaultValue={18}
-          min={1}
-          max={110}
-          value={demos.age}
-          onChange={(val) => {
-            handleAnswerChange("age", val);
-          }}
-        >
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-      </FormControl>
-      <FormControl>
-        <FormLabel>Sex</FormLabel>
-        <Select
-          value={demos.sex}
-          onChange={(event) => {
-            handleAnswerChange("sex", event.target.value);
-          }}
-        >
-          <option value={""}></option>
-          <option value={"Male"}>Male</option>
-          <option value={"Female"}>Female</option>
-        </Select>
-      </FormControl>
+      <HStack w="100% ">
+        <FormControl>
+          <FormLabel>Age</FormLabel>
+          <NumberInput
+            defaultValue={18}
+            min={1}
+            max={110}
+            value={demos.age}
+            onChange={(val) => {
+              handleAnswerChange("age", val);
+            }}
+          >
+            <NumberInputField />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Sex</FormLabel>
+          <Select
+            value={demos.sex}
+            onChange={(event) => {
+              handleAnswerChange("sex", event.target.value);
+            }}
+          >
+            <option value={""}></option>
+            <option value={"Male"}>Male</option>
+            <option value={"Female"}>Female</option>
+          </Select>
+        </FormControl>
+      </HStack>
+      <HStack w="100%">
+        <FormControl>
+          <FormLabel>Height</FormLabel>
+          <HStack>
+            <PinInput
+              value={demos.height}
+              onChange={(value) => {
+                handleAnswerChange("height", value);
+              }}
+            >
+              <PinInputField />
+              <Text>ft</Text>
+              <PinInputField />
+              <Text>in</Text>
+            </PinInput>
+          </HStack>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Weight</FormLabel>
+          <HStack>
+            <Input
+              placeholder="Enter weight"
+              value={demos.weight}
+              onChange={(event) => {
+                handleAnswerChange("weight", event.target.value);
+              }}
+            />
+            <Text>lbs</Text>
+          </HStack>
+        </FormControl>
+      </HStack>
       <FormControl>
         <FormLabel>Race</FormLabel>
         <RadioGroup

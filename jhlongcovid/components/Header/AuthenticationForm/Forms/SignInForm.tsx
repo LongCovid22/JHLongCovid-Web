@@ -36,10 +36,13 @@ export const SignInForm: React.FC<SignInFormProps> = ({
 }) => {
   const [signInError, setSignInError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [performingQueries, setPerformingQueries] = useState(false);
 
   const handleSignIn = async () => {
+    setPerformingQueries(true);
     try {
       const user = await Auth.signIn(email, password);
+      setPerformingQueries(false);
       setSignInError(false);
       setErrorMessage("");
       setUser(user);
@@ -51,6 +54,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
       // setEmail("");
       // setPassword("");
     } catch (error) {
+      setPerformingQueries(false);
       if (error instanceof Error) {
         if (error.message === "User is not confirmed.") {
           console.log("User not yet confirmed");
@@ -125,6 +129,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
 
         <Button
           colorScheme="hopkinsBlue"
+          isLoading={performingQueries}
           borderRadius={500}
           onClick={() => handleSignIn()}
         >

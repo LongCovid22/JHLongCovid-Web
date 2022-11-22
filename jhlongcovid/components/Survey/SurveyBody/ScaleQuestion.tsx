@@ -20,7 +20,7 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
-import { selectCurrentAnswer } from "../../../redux/slices/surveySlice";
+import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
 import { useAppSelector } from "../../../redux/hooks";
 
 export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
@@ -38,10 +38,8 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
   };
 
   useEffect(() => {
-    if (currentAnswer !== null) {
-      setScaleValues(currentAnswer as string[]);
-    }
-  }, [currentQuestion]);
+    setScaleValues(currentAnswer as string[]);
+  }, [currentQuestion, currentAnswer]);
 
   const ScaleQuestionGridItems = (currentQuestion: any): any[] => {
     let gridItems: any[] = [];

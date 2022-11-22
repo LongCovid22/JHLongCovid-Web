@@ -2,7 +2,7 @@ import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import zoomReducer from "./slices/zoomSlice";
 import presentationReducer from "./slices/presentationSlice";
 import viewportReducer from "./slices/viewportSlice";
-import surveyReducer from "./slices/surveySlice";
+import surveyReducer from "./slices/surveySlice/surveySlice";
 import userReducer from "./slices/userSlice";
 import mapReducer from "./slices/mapSlice";
 

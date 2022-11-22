@@ -18,7 +18,7 @@ import { sumUpCases } from "../preprocess";
 import React from "react";
 import { Amplify, API, Auth, Hub } from "aws-amplify";
 import awsExports from "../src/aws-exports";
-import { initQuestions } from "../redux/slices/surveySlice";
+import { initQuestions } from "../redux/slices/surveySlice/surveySlice";
 import awsconfig from "../src/aws-exports";
 import { GetUserQuery, User } from "../src/API";
 import * as queries from "../src/graphql/queries";
@@ -112,6 +112,11 @@ const Home = () => {
   };
 
   useEffect(() => {
+    console.log(
+      "Dates are equal",
+      +new Date("2022-11-02") == +new Date("2022-11-02")
+    );
+
     if (user) {
       dispatch(initQuestions({ authId: user.id }));
     } else {

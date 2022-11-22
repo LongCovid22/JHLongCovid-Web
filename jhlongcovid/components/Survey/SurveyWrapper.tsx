@@ -10,21 +10,26 @@ import {
   ModalHeader,
   Text,
   Spacer,
+  useToast,
 } from "@chakra-ui/react";
 
 //redux imports
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
 import {
+  finishSurvey,
   initQuestions,
   nextQuestion,
   prevQuestion,
+  selectAnswerStack,
   selectCurrentAnswer,
   selectCurrentQuestion,
   selectIsFirstQuestion,
   selectIslastQuestion,
-} from "../../redux/slices/surveySlice";
-
+  selectQuestions,
+  selectQuestionStack,
+} from "../../redux/slices/surveySlice/surveySlice";
+import { processEntries } from "../../redux/slices/surveySlice/surveySliceFunctions";
 //survey component templates
 import { Welcome } from "./SurveyBody/Welcome";
 import { Consent } from "./SurveyBody/Consent";
@@ -38,9 +43,15 @@ import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
 import { PreSurvey } from "./SurveyBody/PreSurvey";
 import { selectUser } from "../../redux/slices/userSlice";
-import * as mutations from "../../src/graphql/mutations";
-import { API } from "aws-amplify";
-import { checkEmptyDemoFields } from "./SurveyFunctions";
+import {
+  checkEmptyDemoFields,
+  createCovidEntry,
+  getCountyAndStateWithZip,
+  LocationData,
+  saveEntries,
+  updateUserWithInfoFromSurvey,
+  userInfoIsEmpty,
+} from "./SurveyFunctions";
 
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
@@ -53,6 +64,8 @@ export type UserInfo = {
   zip: string;
   race: string;
   sex: string;
+  height: string;
+  weight: string;
 };
 
 export interface SurveyQuestionProps {
@@ -136,6 +149,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
 };
 
 export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
+  const toast = useToast();
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
   const user = useAppSelector(selectUser);
@@ -143,7 +157,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const isFirstQuestion = useAppSelector(selectIsFirstQuestion);
   const isLastQuestion = useAppSelector(selectIslastQuestion);
+  const questionStack = useAppSelector(selectQuestionStack);
+  const answerStack = useAppSelector(selectAnswerStack);
+  const questions = useAppSelector(selectQuestions);
   const dispatch = useAppDispatch();
+  const [performingQueries, setPerformingQueries] = useState(false);
   const [answer, setAnswer] = useState<string | string[] | object | null>(
     currentQuestion.answer
   );
@@ -155,6 +173,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     zip: "",
     race: "",
     sex: "",
+    height: "",
+    weight: "",
   });
 
   const [isFinalSection, setIsFinalSection] = useState(false);
@@ -163,7 +183,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [errorPresent, setErrorPresent] = useState(false);
   const [preSurvey, setPreSurvey] = useState(true);
 
-  const handleQuestionChange = async (direction: "next" | "prev" | "skip") => {
+  const handleQuestionChange = async (
+    direction: "next" | "prev" | "skip" | "finish"
+  ) => {
     if (direction === "next") {
       if (currentQuestion.answerFormat !== "welcome") {
         // User hit continue as guest and needs to move in to
@@ -173,27 +195,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           return;
         }
 
+        // Update the info of the user signed in when on the account
+        // stage at the end of the survey
         if (currentQuestion.answerFormat === "account" && user) {
-          // Update user with new info
-          let userDetails = {};
-          if (userInfo) {
-            userDetails = {
-              id: user.id,
-              age: userInfo.age,
-              race: userInfo.race.toUpperCase(),
-              sex: userInfo.sex,
-              lastSubmission: new Date(),
-            };
-
-            try {
-              API.graphql({
-                query: mutations.updateUser,
-                variables: { input: userDetails },
-                authMode: "AMAZON_COGNITO_USER_POOLS",
-              });
-            } catch (error) {
-              console.log("Error: ", error);
-            }
+          if (!userInfoIsEmpty) {
+            await updateUserWithInfoFromSurvey(userInfo, user);
           }
           dispatch(nextQuestion({ answer: answer }));
           return;
@@ -205,6 +211,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           dispatch(initQuestions({ authId: null }));
         }
 
+        // Check for empty fields during the demographics stage
         if (currentQuestion.answerFormat === "demographics") {
           if (answer !== null) {
             const emptyFields = checkEmptyDemoFields(answer);
@@ -216,6 +223,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           }
         }
 
+        // Check for empty fields in any stage of the survey
         if (
           answer === "" ||
           answer === null ||
@@ -226,6 +234,23 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           setErrorText("Please provide an answer to the missing fields");
           setMissingAnswer(true);
           return;
+        } else if (
+          Array.isArray(currentQuestion.answerFormat) &&
+          currentQuestion.answerFormat.includes("multichoice")
+        ) {
+          let multiChoiceAnswer = answer as {
+            choices: string[];
+            other: string;
+          };
+          console.log("Multi choice answer: ", answer);
+          if (
+            multiChoiceAnswer.choices.length === 0 &&
+            multiChoiceAnswer.other === ""
+          ) {
+            setErrorText("Please provide an answer to the missing fields");
+            setMissingAnswer(true);
+            return;
+          }
         } else {
           setMissingAnswer(false);
         }
@@ -245,11 +270,15 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             age: string;
             race: string;
             sex: string;
+            height: string;
+            weight: string;
           };
           userInfoUpdate.age = a.age;
           userInfoUpdate.zip = a.zip;
           userInfoUpdate.race = a.race;
           userInfoUpdate.sex = a.sex;
+          userInfoUpdate.weight = a.weight;
+          userInfoUpdate.height = a.height;
           setUserInfo(userInfoUpdate);
         }
 
@@ -257,6 +286,40 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       }
     } else if (direction === "skip") {
       dispatch(nextQuestion({ answer: "skip" }));
+    } else if (direction === "finish") {
+      setPerformingQueries(true);
+      const entries = processEntries(questionStack, answerStack, questions);
+      const locationData: LocationData = await getCountyAndStateWithZip(
+        userInfo.zip,
+        process.env.GOOGLEMAPS_API_KEY ?? ""
+      );
+      const surveyEntryId = await saveEntries(
+        locationData,
+        entries,
+        userInfo,
+        user
+      );
+      if (surveyEntryId) {
+        toast({
+          title: "Survey submition",
+          description: "Successfully submitted survey",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top-right",
+        });
+      } else {
+        toast({
+          title: "Survey submition",
+          description: "Failed to submit survey",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top-right",
+        });
+      }
+      setPerformingQueries(false);
+      onClose();
     } else {
       dispatch(prevQuestion({ answer: answer }));
     }
@@ -380,7 +443,12 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             <Button
               colorScheme="hopkinsBlue"
               borderRadius={500}
-              onClick={() => handleQuestionChange("next")}
+              isLoading={performingQueries}
+              onClick={() =>
+                isLastQuestion
+                  ? handleQuestionChange("finish")
+                  : handleQuestionChange("next")
+              }
             >
               {isLastQuestion ? "Finish" : "Next"}
             </Button>

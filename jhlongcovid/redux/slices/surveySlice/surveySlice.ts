@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../store";
-import surveyLogic from "../../surveyLogic.json";
+import type { RootState } from "../../store";
+import surveyLogic from "../../../surveyLogic.json";
 import { Auth } from "aws-amplify";
 import { setUncaughtExceptionCaptureCallback } from "process";
+import { processEntries } from "./surveySliceFunctions";
 
 // this slice can be used for presentation throughout the app. When there is state that
 // controls somethings display, it should go in here
@@ -63,14 +64,14 @@ const getNextQuestionAnswerDefault = (
     if (question.answerFormat.includes("choice")) {
       return "";
     } else if (question.answerFormat.includes("multichoice")) {
-      return [];
+      return { choices: [], other: "" };
     } else {
       return "";
     }
   } else if (question.answerFormat === "scale") {
     return Array.from({ length: question.options.length }, () => "");
   } else if (question.answerFormat === "demographics") {
-    return { zip: "", age: "", race: "", sex: "" };
+    return { zip: "", age: "", race: "", sex: "", height: "", weight: "" };
   } else if (question.answerFormat === "account") {
     return { email: "", password: "" };
   } else {
@@ -179,7 +180,14 @@ export const surveySlice = createSlice({
     },
 
     // Reset survey and send query to API
-    finishSurvey: (state) => {},
+    finishSurvey: (state) => {
+      const stateCopy = { ...state };
+      const entries = processEntries(
+        stateCopy.questionStack,
+        stateCopy.answerStack,
+        stateCopy.questions
+      );
+    },
 
     /**
      * Initializes questions on startup. The payload coming in will
@@ -210,20 +218,36 @@ export const surveySlice = createSlice({
   },
 });
 
-export const { nextQuestion, prevQuestion, initQuestions } =
+export const { nextQuestion, prevQuestion, initQuestions, finishSurvey } =
   surveySlice.actions;
 
 export const selectCurrentQuestion = (state: RootState) => {
-  return state.survey.currentQuestion;
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.currentQuestion;
 };
 export const selectIsFirstQuestion = (state: RootState) => {
-  return state.survey.firstQuestion;
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.firstQuestion;
 };
 export const selectIslastQuestion = (state: RootState) => {
-  return state.survey.lastQuestion;
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.lastQuestion;
 };
 export const selectCurrentAnswer = (state: RootState) => {
-  return state.survey.currentAnswer;
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.currentAnswer;
+};
+export const selectQuestionStack = (state: RootState) => {
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.questionStack;
+};
+export const selectAnswerStack = (state: RootState) => {
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.answerStack;
+};
+export const selectQuestions = (state: RootState) => {
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.questions;
 };
 
 export default surveySlice.reducer;
