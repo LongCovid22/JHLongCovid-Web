@@ -94,7 +94,7 @@ export const Search: React.FC<SearchProps> = ({ markerData }) => {
         gap={3}
         boxShadow={"xl"}
       >
-        <Menu closeOnBlur={false} closeOnSelect={false}>
+        <Menu>
           <MenuButton
             as={IconButton}
             aria-label="Options"
