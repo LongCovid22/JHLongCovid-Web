@@ -47,28 +47,31 @@ export const VerificationForm: React.FC<TotpProps> = ({
   const [verifCode, setVerifCode] = useState("");
   const [codeIncorrect, setCodeIncorrect] = useState(false);
   const [codeErrorMessage, setCodeErrorMessage] = useState("");
+  const [performingQueries, setPerformingQueries] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleCodeSubmit = async () => {
     try {
       if (verifType === "SignUp") {
+        setPerformingQueries(true);
         // Confirm Sign up
         await Auth.confirmSignUp(email, verifCode);
 
         // Sign in user immediately after sign up to start MFA setup
         const returnedUser = await Auth.signIn(email, password);
+        setPerformingQueries(false);
         if (returnedUser.challengeName === "MFA_SETUP") {
           setUserInfo(returnedUser);
           changeAuthState(AuthState.TotpSetup);
         }
-
-        console.log("userInfo in sign up verification view: ", userInfo);
       } else if (verifType === "VerifyTotp") {
+        setPerformingQueries(true);
         // Verify totp
         await verifyTotp(user, verifCode);
 
         // Create new user after totp code verified
         const newUser = await createUser(user, email, midSurvey, userInfo);
+        setPerformingQueries(false);
         if (newUser) {
           dispatch(setUser(newUser));
         }
@@ -76,6 +79,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
         // Perform finishing authform tasks on verify
         onVerify();
       } else {
+        setPerformingQueries(true);
         // Confirm Sign In
         const returnedUser = await Auth.confirmSignIn(
           user,
@@ -88,7 +92,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
         if (updatedUser) {
           dispatch(setUser(updatedUser));
         }
-
+        setPerformingQueries(false);
         // Perform finishing authform tasks on verify
         onVerify();
       }
@@ -166,6 +170,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
         <Button
           colorScheme="hopkinsBlue"
           borderRadius={500}
+          isLoading={performingQueries}
           onClick={() => {
             handleCodeSubmit();
           }}

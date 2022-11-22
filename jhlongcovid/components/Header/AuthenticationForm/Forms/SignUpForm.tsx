@@ -48,6 +48,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [signUpError, setSignUpError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [performingQueries, setPerformingQueries] = useState(false);
 
   const handleFirstPassword = (val: string) => {
     checkPassword(val);
@@ -80,15 +81,18 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
       attributes.name = userInfo.name;
     }
 
+    setPerformingQueries(true);
     try {
       await Auth.signUp({
         username: email,
         password: confirmPass,
         attributes: attributes,
       });
+      setPerformingQueries(false);
       setVerifType("SignUp");
       changeAuthState(AuthState.VerifyCode);
     } catch (error) {
+      setPerformingQueries(false);
       if (error instanceof Error) {
         setErrorMessage(error.message);
       }
@@ -206,6 +210,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         <Button
           colorScheme="hopkinsBlue"
           borderRadius={500}
+          isLoading={performingQueries}
           onClick={(event) => {
             handleSignUp();
           }}
