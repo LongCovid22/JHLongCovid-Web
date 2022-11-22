@@ -14,6 +14,78 @@
     "categories": {
       "auth": {
         "jhlongcovid": {}
+      },
+      "function": {
+        "aggregateSurveyResults": {},
+        "jhlongcovid": {}
+      }
+    }
+  },
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-jhlongcovid-staging-100445-authRole",
+      "UnauthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-staging-100445-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-staging-100445-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
+      "UnauthRoleName": "amplify-jhlongcovid-staging-100445-unauthRole",
+      "StackName": "amplify-jhlongcovid-staging-100445",
+      "StackId": "arn:aws:cloudformation:us-east-1:317973408936:stack/amplify-jhlongcovid-staging-100445/822fada0-3f36-11ed-928b-0a3b4282c6bf",
+      "AmplifyAppId": "d304vc3h5b8tce"
+    },
+    "categories": {
+      "auth": {
+        "jhlongcovid": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d304vc3h5b8tce",
+          "type": "cicd"
+        }
+      },
+      "api": {
+        "jhlongcovid": {}
+      },
+      "function": {
+        "aggregateSurveyResults": {
+          "deploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
+          "s3Key": "amplify-builds/aggregateSurveyResults-6646586f6f62496a6847-build.zip"
+        }
+      }
+    }
+  },
+  "develop": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-jhlongcovid-develop-113748-authRole",
+      "UnauthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-develop-113748-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-develop-113748-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-jhlongcovid-develop-113748-deployment",
+      "UnauthRoleName": "amplify-jhlongcovid-develop-113748-unauthRole",
+      "StackName": "amplify-jhlongcovid-develop-113748",
+      "StackId": "arn:aws:cloudformation:us-east-1:317973408936:stack/amplify-jhlongcovid-develop-113748/7a74d2e0-56d6-11ed-9844-0e1f31908ecd",
+      "AmplifyAppId": "d304vc3h5b8tce",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-jhlongcovid-develop-113748-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "jhlongcovid": {}
+      },
+      "function": {
+        "aggregateSurveyResults": {
+          "deploymentBucketName": "amplify-jhlongcovid-develop-113748-deployment",
+          "s3Key": "amplify-builds/aggregateSurveyResults-41714d3949514e637432-build.zip"
+        },
+        "jhlongcovid": {}
+      },
+      "api": {
+        "jhlongcovid": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d304vc3h5b8tce",
+          "type": "cicd"
+        }
       }
     }
   }

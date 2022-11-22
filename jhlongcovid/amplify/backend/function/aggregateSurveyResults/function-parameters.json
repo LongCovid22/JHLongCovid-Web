@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "api": {
+      "jhlongcovid": [
+        "Query",
+        "Mutation"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

@@ -1,0 +1,68 @@
+{
+  "arguments": {
+    "surveyResults": {
+      "id": "Sample unique id",
+      "email": "leo.hubert3@gmail.com",
+      "surveyVersion": 1,
+      "surveyType": "GUEST",
+      "age": "23",
+      "race": "Other",
+      "sex": "Male",
+      "county": "Webster",
+      "state": "Nebraska",
+      "covidResults": {
+        "previousInfection": true,
+        "infectionFreqEst" : 3,
+        "hospitalized": true,
+        "timesHospitalized": 1,
+        "lastPositiveEst": "12/22",
+        "tested": true,
+        "positiveTest": 1,
+        "symptomatic": true,
+        "symptomsPrevent": 3,
+        "doctorPrescribeMedicine": 1,
+        "professionalPrescriptions": ["Antiviral Pill", "Oral Steroids"]
+      },
+      "recoveryResults": {
+        "recovered": "No",
+        "daysToRecoverEst": 13
+      },
+      "vaccinationResults": {
+        "vaccinated": true,
+        "totalVaccineShots": 3,
+        "dateOfLastVaccine": "01/22",
+        "vaccineType": "Moderna"
+      },
+      "generalHealthResults": {
+        "generalHealth": 4,
+        "physicalHealth": 4,
+        "everdayPhysicalCompetency": 4,
+        "averageFatigue" : 3,
+        "averagePain" : 1
+      },
+      
+      "symptomResults": {
+        "symptoms": ["skinRash", "lossOfChangeInSmell"],
+        "qualityOfLife": 4,
+        "mentalHealth": 4,
+        "socialActivitiesRelationships": 4,
+        "socialActivitiesCapacity": 3,
+        "emotionalProblems": 2
+      },
+      "medicalConditionsChanges" : {
+        "newDiagnosis" : ["No new diagnoses", "Heart problems", "Lung problems"],
+        "longCovid" : 0
+      },
+      "socialDeterminantsResults": {
+        "hasMedicalInsurance": true,
+        "difficultCoveringExpenses": 5,
+        "currentWorkSituation": 3
+      },
+      "healthRelatedResults" : {
+        "weight": 34,
+        "height": 56
+      }
+      
+    }
+  }
+}

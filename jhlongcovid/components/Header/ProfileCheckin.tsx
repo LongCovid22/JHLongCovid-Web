@@ -1,54 +1,62 @@
 import {
+  HStack,
+  Text,
   Button,
   Flex,
   Avatar,
+  keyframes,
   Modal,
   ModalOverlay,
-  ModalContent,
   useDisclosure,
-  IconButton,
-  Checkbox,
+  Menu,
+  MenuButton,
+  MenuList,
+  VStack,
+  Spacer,
 } from "@chakra-ui/react";
-
-import React, { useEffect, useState } from "react";
 import styles from "../../styles/Header.module.css";
-
-import { Intro } from "../Survey/Intro";
-
-import { Demographics } from "../Survey/Demographics";
-
-import { Identifiers } from "../Survey/Identifiers";
-
-import { CovidHistory } from "../Survey/covidHistory";
-
-import { Recovery } from "../Survey/Recovery";
-
-import { PostCovid } from "../Survey/postCovid";
-
-import { VaccinationHistory } from "../Survey/VaccinationHistory";
-
-import { ThankYou } from "../Survey/ThankYou";
-
-import { EmailRegister } from "../Survey/EmailRegister";
-
-import { MultiFactor } from "../Survey/MultiFactor";
-
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-
-
-import {
-  incrementProgress,
-  selectProgress,
-} from "../../redux/slices/surveySlice";
 import { selectWidth } from "../../redux/slices/viewportSlice";
+import { SurveyWrapper } from "../Survey/SurveyWrapper";
+
+import { PreSurvey } from "../Survey/SurveyBody/PreSurvey";
+import React, { useState } from "react";
+import {
+  AuthenticationForm,
+  AuthState,
+} from "./AuthenticationForm/AuthenticationForm";
+import { resetUser, selectUser } from "../../redux/slices/userSlice";
+import { Auth } from "aws-amplify";
+
+interface ProfileCheckinProps {}
+
+const animationKeyframes = keyframes`
+0% {
+  transform: scale(0.95);
+  box-shadow: 0 0 0 0 rgba(0, 101, 255, 0.7);
+}
+
+70% {
+  transform: scale(1);
+  box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+}
+
+100% {
+  transform: scale(0.95);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+`;
+
+const animation = `${animationKeyframes} 1.5s infinite`;
 
 interface ProfileCheckinProps {}
 
 function Survey() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const [showSurvey, setShowSurvey] = useState(false);
+
   const dispatch = useAppDispatch();
-  const number = useAppSelector(selectProgress);
   return (
     <>
       <Button
@@ -57,51 +65,17 @@ function Survey() {
         textColor="white"
         colorScheme="hopkinsBlue"
         onClick={onOpen}
+        animation={!isOpen ? animation : undefined}
       >
         Contribute
       </Button>
-
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
         <ModalOverlay />
-        {/* provide email */}
-        <div style={{ display: number === -2 ? "inline" : "none" }}>
-          <EmailRegister />
-        </div>
-        {/* verify email through MFA */}
-        <div style={{ display: number === -1 ? "inline" : "none" }}>
-          <MultiFactor />
-        </div>
-
-
-        <div style={{ display: number === 0 ? "inline" : "none" }}>
-          <Intro />
-        </div>
-        <div style={{ display: number === 1 ? "inline" : "none" }}>
-          <Identifiers />
-        </div>
-
-        <div style={{ display: number === 2 ? "inline" : "none" }}>
-          <Demographics />
-        </div>
-
-        <div style={{ display: number === 3 ? "inline" : "none" }}>
-          <CovidHistory />
-        </div>
-
-        <div style={{ display: number === 4 ? "inline" : "none" }}>
-          <PostCovid />
-        </div>
-        <div style={{ display: number === 5 ? "inline" : "none" }}>
-          <Recovery />
-        </div>
-
-        <div style={{ display: number === 6 ? "inline" : "none" }}>
-          <VaccinationHistory />
-        </div>
-
-        <div style={{ display: number === 7 ? "inline" : "none" }}>
-          <ThankYou />
-        </div>
+        <SurveyWrapper onClose={onClose} />
+        {/* {showSurvey && <SurveyWrapper onClose={onClose} />} */}
+        {/* {showSurvey === false && (
+          <PreSurvey onClose={onClose} setShowSurvey={setShowSurvey} />
+        )} */}
       </Modal>
     </>
   );
@@ -110,12 +84,19 @@ function Survey() {
 export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
   // return(<BasicUsage />)
   const width = useAppSelector(selectWidth);
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+
+  const signOut = async () => {
+    await Auth.signOut();
+    dispatch(resetUser());
+  };
 
   return (
     <Flex
       className={styles.rightHeaderStack}
       align="center"
-      gap={3}
+      gap={2}
       boxShadow={"xl"}
       style={{
         minWidth: width < 700 ? "410px" : "250px",
@@ -123,7 +104,39 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
       }}
     >
       <Survey />
-      <Avatar></Avatar>
+      <Menu isLazy>
+        <MenuButton>
+          <Avatar></Avatar>
+        </MenuButton>
+        <MenuList p={"15px"} borderRadius={"15px"}>
+          {user ? (
+            <VStack spacing="15px" marginY={"5px"}>
+              <HStack>
+                <Text fontWeight={"600"}>Signed in as: </Text>
+                <Spacer />
+                <Text color={"gray"}>{user.email}</Text>
+              </HStack>
+              <Button
+                bg={"red"}
+                w={"100%"}
+                borderRadius="500px"
+                color={"white"}
+                onClick={() => {
+                  signOut();
+                }}
+              >
+                Sign Out
+              </Button>
+            </VStack>
+          ) : (
+            <AuthenticationForm
+              initialAuthState={AuthState.SignIn}
+              midSurvey={false}
+              onVerify={() => {}}
+            />
+          )}
+        </MenuList>
+      </Menu>
     </Flex>
   );
 };

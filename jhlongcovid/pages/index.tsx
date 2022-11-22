@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import styles from "../styles/Home.module.css";
 import Map from "../components/Map/Map";
 import { Header } from "../components/Header/Header";
@@ -6,21 +6,29 @@ import { Marker } from "../components/Marker";
 import { LeftSidePanel } from "../components/LeftSidePanel/LeftSidePanel";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { selectWidth, setDimensions } from "../redux/slices/viewportSlice";
-import { selectZoom, selectLoLat, selectHighLat, selectLoLong, selectHighLong } from "../redux/slices/zoomSlice";
+import {
+  selectZoom,
+  selectLoLat,
+  selectHighLat,
+  selectLoLong,
+  selectHighLong,
+} from "../redux/slices/zoomSlice";
 import { read } from "../util/mockDataTwo";
-import { sumUpCases } from "./preprocess";
-import Script from "next/script";
+import { sumUpCases } from "../preprocess";
 import React from "react";
-import { Button } from "@chakra-ui/react";
+import { Amplify, API, Auth, Hub } from "aws-amplify";
+import awsExports from "../src/aws-exports";
+import { initQuestions } from "../redux/slices/surveySlice/surveySlice";
+import awsconfig from "../src/aws-exports";
+import { GetUserQuery, User } from "../src/API";
+import * as queries from "../src/graphql/queries";
+import { resetUser, selectUser, setUser } from "../redux/slices/userSlice";
 
-import { Amplify } from 'aws-amplify';
-import awsExports from '../src/aws-exports';
-import { ComponentPropsToStylePropsMap } from "@aws-amplify/ui-react";
-import { count } from "console";
+Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
 
 interface IHash {
-  [name: string] : google.maps.Circle
+  [name: string]: google.maps.Circle;
 }
 
 const Home = () => {
@@ -31,7 +39,6 @@ const Home = () => {
   const [aggregateData, setAggregateData] = useState<any[]>([]);
   const [selectedData, setSelectedData] = useState<any[]>([]);
 
-
   const [map, setMap] = useState<google.maps.Map>();
 
   const [markerData, setMarkerData] = useState<IHash>({});
@@ -41,66 +48,58 @@ const Home = () => {
   const latHigh = useAppSelector(selectHighLat);
   const longLow = useAppSelector(selectLoLong);
   const longHigh = useAppSelector(selectHighLong);
+  const user = useAppSelector(selectUser);
 
-  // let lat = {
-  //   lo : useAppSelector(selectLoLat),
-  //   high: useAppSelector(selectHighLat),
-  // }
-
-  // let long = {
-  //   lo: useAppSelector(selectLoLong),
-  //   high: useAppSelector(selectHighLong)
-  // } 
-
-  //preprocess county vs state data
-  //assumption: total of state data = total of county data
   const totalLongCovidCases = sumUpCases(state_data);
   const toggleAggregateDataOnZoom = () => {
     let markers = [];
     if (zoomNum >= 8) {
       let array = [];
-      for(let i = 0; i < county_data.length; i++) {
+      for (let i = 0; i < county_data.length; i++) {
         let county = county_data[i];
-        if(latLow <= county.lat && county.lat <= latHigh 
-          && longLow  <= county.long && county.long <= longHigh ) {
+        if (
+          latLow <= county.lat &&
+          county.lat <= latHigh &&
+          longLow <= county.long &&
+          county.long <= longHigh
+        ) {
           array.push(county);
         }
       }
-      // markers = array;
-
       setAggregateData(array);
-
-
-
-      
-
-      
-      
-
-
-      // setTimeout(() => {
-
-      //   console.log('third');
-
-    
-      //   for(let i = 0; i < county_data.length; i++) {
-      //     let county = county_data[i];
-      //     if((latLow * 0.90 <= county.lat && county.lat <= latHigh *1.1
-      //       && longLow * 1.1 <= county.long && county.long <= longHigh *0.95) 
-            
-      //       && !(latLow <= county.lat && county.lat <= latHigh
-      //         && longLow <= county.long && county.long <= longHigh)) {
-      //       array.push(county);
-      //     }
-      //   }
-      //   setAggregateData(array);
-        
-      // }, 5000);
     } else if (zoomNum < 8) {
       markers = state_data;
       setAggregateData(markers);
     }
-    
+  };
+
+  const listenToAuthEvents = async (data: any) => {
+    switch (data.payload.event) {
+      case "signIn":
+        try {
+          const userSession = await Auth.currentAuthenticatedUser();
+          const user = (await API.graphql({
+            query: queries.getUser,
+            variables: { id: userSession.username },
+            authMode: "AMAZON_COGNITO_USER_POOLS",
+          })) as { data: GetUserQuery; errors: any[] };
+          if (user.data.getUser === null) {
+            console.log("User is null in DynamoDB");
+          } else {
+            dispatch(setUser(user.data.getUser as User));
+          }
+          break;
+        } catch (error) {
+          console.log("Error querying for user: ", error);
+          break;
+        }
+      case "signOut":
+        dispatch(resetUser());
+        break;
+      default:
+        break;
+      // dispatch(setUser(null));
+    }
   };
 
   const setViewport = () => {
@@ -112,12 +111,25 @@ const Home = () => {
     );
   };
 
+  useEffect(() => {
+    console.log(
+      "Dates are equal",
+      +new Date("2022-11-02") == +new Date("2022-11-02")
+    );
+
+    if (user) {
+      dispatch(initQuestions({ authId: user.id }));
+    } else {
+      dispatch(initQuestions({ authId: null }));
+    }
+  }, [user]);
+
   // Memoize map to only re-render when data changes
   const MapMemo = useMemo(() => {
     // console.log("re-render map");
-    
+
     return (
-      <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }} setMapFunc = {setMap} >
+      <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
         {aggregateData.map((data) => (
           <Marker
             key={`marker-${data.lat}-${data.long}`}
@@ -133,10 +145,8 @@ const Home = () => {
             }
             data={data}
             setSelectedData={setSelectedData}
-
-            markerData = {markerData}
-
-            setMarkerData = {setMarkerData}
+            markerData={markerData}
+            setMarkerData={setMarkerData}
           />
         ))}
       </Map>
@@ -144,28 +154,76 @@ const Home = () => {
   }, [aggregateData]);
 
   useEffect(() => {
-    // set vp height and width and bind the set of the vp height and with on resize
-    setViewport();
-    window.addEventListener("resize", setViewport);
+    const initApp = async () => {
+      // set vp height and width and bind the set of the vp height and with on resize
+      setViewport();
+      window.addEventListener("resize", setViewport);
 
-    const [county_data, state_data] = read();
-    setStateData(state_data);
-    setCountyData(county_data);
-    return () => removeEventListener("resize", setViewport);
+      try {
+        const userSession = await Auth.currentAuthenticatedUser();
+        const user = (await API.graphql({
+          query: queries.getUser,
+          variables: { id: userSession.username },
+          authMode: "AMAZON_COGNITO_USER_POOLS",
+        })) as { data: GetUserQuery; errors: any[] };
+        if (user.data.getUser === null) {
+          console.log("User is null in DynamoDB");
+        } else {
+          dispatch(setUser(user.data.getUser as User));
+        }
+      } catch (error) {
+        console.log("Could not get authentication session: ", error);
+      }
+
+      // console.log("INIT USER: ", user);
+
+      // Hub listener for auth events
+      Hub.listen("auth", listenToAuthEvents);
+
+      const [county_data, state_data] = read();
+      setStateData(state_data);
+      setCountyData(county_data);
+    };
+
+    initApp();
+    return () => {
+      removeEventListener("resize", setViewport);
+      Hub.remove("auth", listenToAuthEvents);
+    };
   }, []);
 
   useEffect(() => {
     toggleAggregateDataOnZoom();
   }, [zoomNum, latLow, latHigh, longLow, longHigh, state_data, county_data]);
 
+  // // Upon user sign in & component mount
+  // useEffect(() => {
+  //   // Get current auth session
+  //   // If exists query for User
+  //   const getCurrentSession = async () => {
+  //     let user: User | undefined = undefined;
+
+  //     try {
+  //       const session = await Auth.currentAuthenticatedUser();
+  //       const user = await API.graphql({
+  //         query: queries.getUser,
+  //         variables: { id: session.authId },
+  //       });
+  //     } catch (error) {
+  //       if (error === "The user is not authenticated") {
+  //         dispatch(initQuestions({ authId: null }));
+  //       }
+  //     }
+  //   };
+
+  //   getCurrentSession().catch(console.error);
+  // }, []);
+
   return (
     <>
-      <Script src="https://cdn.jsdelivr.net/npm/apexcharts" />
-      <Script src="https://cdn.jsdelivr.net/npm/react-apexcharts" />
-
       <div className={styles.main}>
         {MapMemo}
-        <Header map = {map} markerData = {markerData} />
+        <Header markerData={markerData} />
         <LeftSidePanel data={selectedData} />
       </div>
     </>

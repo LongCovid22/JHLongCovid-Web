@@ -24,6 +24,21 @@ export const mapStyle = [
     ],
   },
   {
+    featureType: "administrative.country",
+    elementType: "geometry",
+    stylers: [
+      {
+        visibility: "on",
+      },
+      {
+        color: "#bdbdbd",
+      },
+      {
+        weight: 1.5,
+      },
+    ],
+  },
+  {
     elementType: "labels.text.stroke",
     stylers: [
       {

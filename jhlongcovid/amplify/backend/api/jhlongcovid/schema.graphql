@@ -15,40 +15,58 @@ type MapData
     ]
   ) {
   id: ID!
-  level: String! @primaryKey(sortKeyFields: ["lat", "long"]) # represents location level e.g. "state" | "county"
+  level: String!
+    @primaryKey(sortKeyFields: ["lat", "long"])
+    @index(
+      name: "byLevelAndNameAndState"
+      sortKeyFields: ["name", "stateAbbrev"]
+      queryField: "mapDataByLevelNameState"
+    ) # represents location level e.g. "state" | "county"
+    @index(
+      name: "byState"
+      sortKeyFields: ["stateAbbrev"]
+      queryField: "mapDataByStateAbbrev"
+    )
   name: String!
   stateAbbrev: String!
   lat: Float!
   long: Float!
   covidSummary: CovidSummary!
-  symptomSummary: SymptomSummary!
-  vaccinationSummary: VaccinationSummary!
-  generealHealthSummary: GeneralHealthSummary!
   recoverySummary: RecoverySummary!
+  vaccinationSummary: VaccinationSummary!
+  globalHealthSummary: GlobalHealthSummary!
+  symptomSummary: SymptomSummary!
+  medicalConditionsSummary: MedicalConditionsSummary!
   socialSummary: SocialSummary!
-  totalFullEntries: Int! # total survey entries at that given state or county.
-  # Could be used to give percentages using numbers from the summary objects
+  totalFullEntries: Int!
+
+  # patientHealthSummary: PatientHealthSummary
 }
 
 """
 User - Store User specific information. Will store notification preferences along with other
   activity metrics
 """
-type User @model @auth(rules: [{ allow: owner }]) {
-  id: ID!
-  email: String!
+type User
+  @model
+  @auth(rules: [{ allow: owner }, { allow: private, provider: iam }]) {
+  id: ID! # Cognito ID
+  email: String!  # Email associated with account
     @index(
       name: "byEmail"
       sortKeyFields: ["createdAt"]
       queryField: "usersByEmail"
     )
-  age: Int!
-  race: Race!
-  lastSubmission: AWSDateTime!
-  lastSignIn: AWSDateTime!
-  notificationFreq: NotificationFrequency
-  notificaitonMethod: NotificationMethod
-  createdAt: AWSDateTime!
+  age: Int # null if signed up aside from survey
+  race: Race # null if signed up aside from survey
+  sex: String # null if signed up aside from survey
+  height: String
+  weight: String
+  lastSubmission: AWSDateTime # null if signed up aside from survey
+  lastSignIn: AWSDateTime # Current DateTime at time of sign up after "autosignin"
+  notificationFreq: NotificationFrequency # Daily
+  notificaitonMethod: NotificationMethod # Email
+  createdAt: AWSDateTime! # Will automatically be populated
 }
 
 enum Race {
@@ -88,13 +106,13 @@ type SurveyEntry
     ]
   ) {
   id: ID!
-  email: String!
+  email: String
     @index(
       name: "byEmail"
       sortKeyFields: ["createdAt"]
       queryField: "surveysByEmail"
     )
-  createdAt: AWSTime!
+  createdAt: AWSDateTime!
   surveyVersion: Int!
   surveyType: SurveyType!
     @index(
@@ -104,12 +122,15 @@ type SurveyEntry
     )
   age: Int!
   race: Race!
-  timeElapsed: AWSDateTime
+  sex: String!
+  height: String!
+  weight: String!
   covidEntry: CovidEntry @hasOne
   vaccinationEntry: VaccinationEntry @hasOne
   socialDeterminantsEntry: SocialDeterminantsEntry @hasOne
   recoveryEntry: RecoveryEntry @hasOne
-  generalHealthEntry: GeneralHealthEntry @hasOne
+  globalHealthEntry: GlobalHealthEntry @hasOne
+  PatientHealthEntry: PatientHealthEntry @hasOne
   symptomsEntry: SymptomEntry @hasOne
   monthlyEntry: MonthlyEntry @hasOne
 }
@@ -118,7 +139,7 @@ enum SurveyType {
   DAILY
   WEEKLY
   MONTHLY
-  FULL
+  GUEST
 }
 
 """
@@ -154,7 +175,12 @@ type VaccinationEntry
       sortKeyFields: ["race"]
       queryField: "stateVaccEntryByRace"
     )
-  countyState: String!
+    @index(
+      name: "byStateSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "stateVaccEntryBySex"
+    )
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
@@ -170,8 +196,16 @@ type VaccinationEntry
       sortKeyFields: ["race"]
       queryField: "countyVaccEntryByRace"
     )
+    @index(
+      name: "byCountSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "countyVaccEntryBySex"
+    )
   age: Int!
   race: Race!
+  sex: String!
+  height: String!
+  weight: String!
   surveyEntry: SurveyEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
@@ -179,6 +213,73 @@ type VaccinationEntry
   vaccinated: Boolean
   vaccineType: String
   dateOfLastVaccine: AWSDateTime
+  createdAt: AWSDateTime!
+}
+
+type GlobalHealthEntry
+  @model
+  @auth(
+    rules: [
+      { allow: private, provider: iam }
+      { allow: public, operations: [create, read] }
+    ]
+  ) {
+  id: ID!
+  state: String!
+    @index(
+      name: "byStateSortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "stateGHEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateGHEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateGHEntryByRace"
+    )
+    @index(
+      name: "byStateSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "stateGHEntryBySex"
+    )
+  countyState: String
+    @index(
+      name: "byCountySortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "countyGHEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countyGHEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countyGHEntryByRace"
+    )
+    @index(
+      name: "byCountSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "countyGHEntryBySex"
+    )
+  age: Int!
+  race: Race!
+  sex: String!
+  height: String!
+  weight: String!
+  surveyEntry: SurveyEntry
+    @belongsTo
+    @auth(rules: [{ allow: private, provider: iam }])
+  healthRank: String
+  physicalHealthRank: String
+  carryPhysicalActivities: String
+  fatigueRank: String
+  painLevel: Int
   createdAt: AWSDateTime!
 }
 
@@ -215,7 +316,12 @@ type CovidEntry
       sortKeyFields: ["race"]
       queryField: "stateCovidEntryByRace"
     )
-  countyState: String!
+    @index(
+      name: "byStateSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "stateCovidEntryBySex"
+    )
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
@@ -231,20 +337,36 @@ type CovidEntry
       sortKeyFields: ["race"]
       queryField: "countyCovidEntryByRace"
     )
+    @index(
+      name: "byCountSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "countyCovidEntryBySex"
+    )
   surveyEntry: SurveyEntry
     @belongsTo
-    @auth(rules: [{ allow: private, provider: iam }])
+    @auth(
+      rules: [
+        { allow: private, provider: iam }
+        { allow: public, operations: [create] }
+      ]
+    )
   age: Int!
   race: Race!
-  timesPositive: Int # -1 == Unsure, null == decline
+  sex: String!
+  height: String!
+  weight: String!
+  beenInfected: Boolean
+  timesPositive: Int
   lastPositive: AWSDateTime
   tested: Boolean
-  testMethod: Int
-  hospitalized: Int
+  positiveTest: Boolean
+  testMethod: String
+  hospitalized: Boolean
+  timesHospitalized: Int
   symptomatic: Boolean
-  symptomsPreventScale: Int
+  symptomsPreventScale: String
+  medicationsPrescribed: Boolean
   medicationsTaken: [String]
-  returnedToHealth: Int
   createdAt: AWSDateTime!
 }
 
@@ -273,7 +395,12 @@ type RecoveryEntry
       sortKeyFields: ["race"]
       queryField: "stateRecovEntryByRace"
     )
-  countyState: String!
+    @index(
+      name: "byStateSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "stateRecovEntryBySex"
+    )
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
@@ -289,23 +416,25 @@ type RecoveryEntry
       sortKeyFields: ["race"]
       queryField: "countyRecovEntryByRace"
     )
+    @index(
+      name: "byCountSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "countyRecovEntryBySex"
+    )
   surveyEntry: SurveyEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
   age: Int!
   race: Race!
-  recovered: Int
-  lengthOfRecovery: RecoveryLength
-  hasLongCovid: Int
+  sex: String!
+  height: String!
+  weight: String!
+  recovered: Boolean
+  lengthOfRecovery: Int # num of days
   createdAt: AWSDateTime!
 }
 
-type RecoveryLength {
-  months: Int
-  days: Int
-}
-
-type GeneralHealthEntry
+type PatientHealthEntry
   @model
   @auth(
     rules: [
@@ -318,40 +447,52 @@ type GeneralHealthEntry
     @index(
       name: "byStateSortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "stateGenHealthEntryByDate"
+      queryField: "statePatientHealthEntryByDate"
     )
     @index(
       name: "byStateSortByAge"
       sortKeyFields: ["age"]
-      queryField: "stateGenHealthEntryByAge"
+      queryField: "statePatientHealthEntryByAge"
     )
     @index(
       name: "byStateSortByRace"
       sortKeyFields: ["race"]
-      queryField: "stateGenHealthEntryByRace"
+      queryField: "statePatientHealthEntryByRace"
     )
-  countyState: String!
+    @index(
+      name: "byStateSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "statePatientHealthEntryBySex"
+    )
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
-      queryField: "countyGenHealthEntryByDate"
+      queryField: "countyPatientHealthEntryByDate"
     )
     @index(
       name: "byCountySortByAge"
       sortKeyFields: ["age"]
-      queryField: "countyGenHealthEntryByAge"
+      queryField: "countyPatientHealthEntryByAge"
     )
     @index(
       name: "byCountSortByRace"
       sortKeyFields: ["race"]
-      queryField: "countyGenHealthEntryByRace"
+      queryField: "countyPatientHealthEntryByRace"
+    )
+    @index(
+      name: "byCountSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "countyPatientHealthEntryBySex"
     )
   surveyEntry: SurveyEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
   age: Int!
   race: Race!
-  health: Int!
+  sex: String!
+  height: String!
+  weight: String!
   generalHealthResults: AWSJSON!
   totalScore: Int!
   createdAt: AWSDateTime!
@@ -390,7 +531,12 @@ type SymptomEntry
       sortKeyFields: ["race"]
       queryField: "stateSymptomEntryByRace"
     )
-  countyState: String!
+    @index(
+      name: "byStateSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "stateSymptomEntryBySex"
+    )
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
@@ -406,14 +552,27 @@ type SymptomEntry
       sortKeyFields: ["race"]
       queryField: "countySymptomEntryByRace"
     )
+    @index(
+      name: "byCountSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "countySymptomEntryBySex"
+    )
   surveyEntry: SurveyEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
   age: Int!
   race: Race!
+  sex: String!
+  height: String!
+  weight: String!
   createdAt: AWSDateTime!
-  symptoms: AWSJSON!
-  medicalConditions: [String]!
+  symptoms: [String]
+  mentalHealthRank: String
+  socialSatisfactionRank: String
+  carryOutSocialActivitiesRank: String
+  anxietyInPastWeekRank: String
+  medicalConditions: [String]
+  hasLongCovid: Boolean
 }
 
 type SocialDeterminantsEntry
@@ -441,7 +600,12 @@ type SocialDeterminantsEntry
       sortKeyFields: ["race"]
       queryField: "stateSocialDetEntryByRace"
     )
-  countyState: String!
+    @index(
+      name: "byStateSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "stateSocialDetEntryBySex"
+    )
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
@@ -457,14 +621,22 @@ type SocialDeterminantsEntry
       sortKeyFields: ["race"]
       queryField: "countySocialDetEntryByRace"
     )
+    @index(
+      name: "byCountSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "countySocialDetEntryBySex"
+    )
   surveyEntry: SurveyEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
   age: Int!
   race: Race!
-  hasMedicalInsurance: Int
-  difficultCoveringExpenses: Int
-  currentWorkSituation: Int
+  sex: String!
+  height: String!
+  weight: String!
+  hasMedicalInsurance: Boolean
+  difficultCoveringExpenses: String
+  currentWorkSituation: String
   createdAt: AWSDateTime!
 }
 
@@ -493,7 +665,12 @@ type MonthlyEntry
       sortKeyFields: ["race"]
       queryField: "stateMonthlyEntryByRace"
     )
-  countyState: String!
+    @index(
+      name: "byStateSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "stateMonthlyEntryBySex"
+    )
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
@@ -509,11 +686,19 @@ type MonthlyEntry
       sortKeyFields: ["race"]
       queryField: "countyMonthlyEntryByRace"
     )
+    @index(
+      name: "byCountSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "countyMonthlyEntryBySex"
+    )
   surveyEntry: SurveyEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
   age: Int!
   race: Race!
+  sex: String!
+  height: String!
+  weight: String!
   results: AWSJSON
   createdAt: AWSDateTime!
 }
@@ -523,45 +708,166 @@ type MonthlyEntry
 # They represent information that could be displayed on click or hover of a map marker.
 # The aim of having these types is to avoid extra queries as a user navigates throughout the map.
 
+type MedicationsAvailable {
+  antiViral: AWSJSON
+  oralSteroids: AWSJSON
+  antiBiotics: AWSJSON
+  other: AWSJSON
+  dontKnow: AWSJSON
+}
 type CovidSummary {
-  covidCount: Int
-  percentHospitalizedDueToCovid: Int
-  avgPositiveCasesPerPerson: Int
-  percentSymptomatic: Int
-  percentTookMedication: Int
-  medicationCounts: AWSJSON
-  percentRecovered: Int
-}
-
-type SymptomSummary {
-  mostCommonSymptom: String
-  symptomCounts: AWSJSON
-}
-
-type VaccinationSummary {
-  percentVaccinated: Int
-  avgNumOfVaccPerPerson: Int
-  pfizerCount: Int
-  modernaCount: Int
-  jjCount: Int
-  azCount: Int
+  #one person, one count (as long as infected in past before?)
+  covidCount: AWSJSON
+  avgPositiveCasesPerPerson: AWSJSON
+  percentHospitalizedDueToCovid: AWSJSON
+  avgHospitalizationsPerPerson: AWSJSON
+  percentSymptomatic: AWSJSON
+  avgSymptomPreventDailyTasks: AWSJSON
+  percentTookMedication: AWSJSON
+  medicationCounts: MedicationsAvailable
+  #From recovery result?
+  # percentRecovered: AWSJSON
 }
 
 type RecoverySummary {
-  longCovidCount: Int
-  percentLongCovid: Int
-  avgRecoveryLength: RecoveryLength
+  longCovidCount: AWSJSON
+  percentLongCovid: AWSJSON
+  avgRecoveryLength: AWSJSON
 }
 
-type GeneralHealthSummary {
-  avgTotalScore: Int
-  avgHealthCounts: AWSJSON
+#DONE
+type VaccinationSummary {
+  percentVaccinated: AWSJSON
+  avgNumOfVaccPerPerson: AWSJSON
+  pfizerCount: AWSJSON
+  modernaCount: AWSJSON
+  jjCount: AWSJSON
+  azCount: AWSJSON
+}
+
+type GlobalHealthSummary {
+  healthRankCount: AWSJSON
+  physicalHealthRankCount: AWSJSON
+  carryOutPhysicalActivitiesRankCount: AWSJSON
+  fatigueRankCount: AWSJSON
+  painLevelCount: AWSJSON
+}
+
+#TODO!
+type SymptomSummary {
+  mostCommonSymptom: AWSJSON
+  symptomCounts: SymptomsAvailabLe
+}
+type SymptomsAvailabLe {
+  headache: AWSJSON
+  bodyMuscleAche: AWSJSON
+  feverChillsSweatsFlushing: AWSJSON
+  faintDizzyGoofy: AWSJSON
+  postExertionalMalaise: AWSJSON
+  weaknessInArmsLegs: AWSJSON
+  shortnessOfBreath: AWSJSON
+  cough: AWSJSON
+  palpitations: AWSJSON
+  swellingOfLegs: AWSJSON
+  indigestionNausea: AWSJSON
+  bladderProblem: AWSJSON
+  nerveProblems: AWSJSON
+  brainFog: AWSJSON
+  anxietyDepressionNightmares: AWSJSON
+  problemsThinkingConcentrating: AWSJSON
+  problemsAnxietyDepressionStress: AWSJSON
+  difficultyFallingAsleep: AWSJSON
+  sleepyDuringDaytime: AWSJSON
+  loudSnoring: AWSJSON
+  uncomfortableFeelingsInLegs: AWSJSON
+  skinRash: AWSJSON
+  lossOfChangeInSmell: AWSJSON
+  excessiveThirst: AWSJSON
+  excessiveDryMouth: AWSJSON
+  visionProblems: AWSJSON
+  hearingProblems: AWSJSON
+  #add to the statistic only for women
+  fertilityProblemsForWomen: AWSJSON
+}
+
+type MedicalConditionsSummary {
+  percentHaveLongCovid: AWSJSON
+  newDiagnosisCounts: DiagnosisTypes
+}
+
+type DiagnosisTypes {
+  noNewDiagnosis: AWSJSON
+  heartProblems: AWSJSON
+  lungProblems: AWSJSON
+  bloodClotLung: AWSJSON
+  sleepApnea: AWSJSON
+  memory: AWSJSON
+  migraine: AWSJSON
+  stroke: AWSJSON
+  seizure: AWSJSON
+  kidneyProblems: AWSJSON
+  stomachProblems: AWSJSON
+  psychologicalProblems: AWSJSON
+  diabetes: AWSJSON
+  autoImmuneDiseases: AWSJSON
+  other: AWSJSON
+  notSure: AWSJSON
 }
 
 type SocialSummary {
-  percentHaveMedicalInsurance: Int
-  percentDifficultyCoveringExpenses: Int
-  averageWorkingSituation: String
-  workingSituationCounts: AWSJSON
+  percentHaveMedicalInsurance: AWSJSON
+  percentDifficultyCoveringExpenses: AWSJSON
+  averageWorkingSituation: AWSJSON
+  workingSituationCounts: WorkingSituation
 }
+
+# #GeneralHealthResults
+# type PatientHealthSummary {
+#   #tot score?
+#   avgTotalScore: AWSJSON
+#   #same idea of sympotoms
+#   avgHealthCounts: GeneralHealthQuestions
+# }
+
+# #Excellent = 5, ...., Poor = 1
+# type GeneralHealthQuestions {
+#   generalHealth: AWSJSON
+#   qualityOfLife: AWSJSON
+#   physicalHealth: AWSJSON
+#   mentalHealth: AWSJSON
+#   socialActivitiesRelationships: AWSJSON
+#   socialActivitiesRoles: AWSJSON
+# }
+
+#DONE
+
+type WorkingSituation {
+  workingOutsideTheHome: AWSJSON
+  onLeaveFromAJobWorkingOutsideHome: AWSJSON
+  workingInsideHome: AWSJSON
+  lookingForWorkUnemployed: AWSJSON
+  retired: AWSJSON
+  disabled: AWSJSON
+  student: AWSJSON
+  dontKnow: AWSJSON
+  preferNotToAnswer: AWSJSON
+}
+
+#DONE
+
 # -------------------------------
+# LAMBDA RESOLVERS
+
+type Mutation {
+  aggregateSurveyResults(results: SurveyResults!): Response
+    @function(name: "aggregateSurveyResults-${env}")
+}
+
+input SurveyResults {
+  surveyResults: AWSJSON!
+}
+
+type Response {
+  statusCode: Int
+  body: String
+}

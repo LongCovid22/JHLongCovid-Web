@@ -1,11 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 
-export type MarkersState = {
-  markers: object;
+type MarkerRefs = {
+  [ref: string]: google.maps.Circle;
 };
 
-const initialState: MarkersState = {
+export type MarkerRefsState = {
+  markers: MarkerRefs;
+};
+
+const initialState: MarkerRefsState = {
   markers: {},
 };
 
