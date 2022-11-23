@@ -24,7 +24,7 @@
         "professionalPrescriptions": ["Antiviral Pill", "Oral Steroids"]
       },
       "recoveryResults": {
-        "recovered": "No",
+        "recovered": true,
         "daysToRecoverEst": 13
       },
       "vaccinationResults": {
@@ -50,7 +50,7 @@
         "emotionalProblems": 2
       },
       "medicalConditionsChanges" : {
-        "newDiagnosis" : ["No new diagnoses", "Heart problems", "Lung problems"],
+        "newDiagnosis" : ["noNewDiagnosis", "bloodClotLung"],
         "longCovid" : 0
       },
       "socialDeterminantsResults": {

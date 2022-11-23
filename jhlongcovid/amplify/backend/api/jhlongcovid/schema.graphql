@@ -39,9 +39,9 @@ type MapData
   medicalConditionsSummary: MedicalConditionsSummary!
   socialSummary: SocialSummary!
   totalFullEntries: Int!
-
-  # patientHealthSummary: PatientHealthSummary
+  totalDemoCount: AWSJSON!
 }
+
 
 """
 User - Store User specific information. Will store notification preferences along with other
@@ -704,13 +704,6 @@ type MonthlyEntry
 # They represent information that could be displayed on click or hover of a map marker.
 # The aim of having these types is to avoid extra queries as a user navigates throughout the map.
 
-type MedicationsAvailable {
-  antiViral: AWSJSON
-  oralSteroids: AWSJSON
-  antiBiotics: AWSJSON
-  other: AWSJSON
-  dontKnow: AWSJSON
-}
 type CovidSummary {
   #one person, one count (as long as infected in past before?)
   covidCount: AWSJSON
@@ -725,13 +718,20 @@ type CovidSummary {
   # percentRecovered: AWSJSON
 }
 
+type MedicationsAvailable {
+  antiViral: AWSJSON
+  oralSteroids: AWSJSON
+  antiBiotics: AWSJSON
+  other: AWSJSON
+  dontKnow: AWSJSON
+}
+
 type RecoverySummary {
-  longCovidCount: AWSJSON
-  percentLongCovid: AWSJSON
+  recoveryCount: AWSJSON
   avgRecoveryLength: AWSJSON
 }
 
-#DONE
+#change types to "Pfizer", "Moderna", "Janssen", "Novavax", "Other", "Do not know"
 type VaccinationSummary {
   percentVaccinated: AWSJSON
   avgNumOfVaccPerPerson: AWSJSON
@@ -742,16 +742,20 @@ type VaccinationSummary {
 }
 
 type GlobalHealthSummary {
-  healthRankCount: AWSJSON
-  physicalHealthRankCount: AWSJSON
-  carryOutPhysicalActivitiesRankCount: AWSJSON
-  fatigueRankCount: AWSJSON
-  painLevelCount: AWSJSON
+  avgGeneralHealth: AWSJSON
+  avgPhysicalHealth: AWSJSON
+  avgEverydayPhysicalCompetency: AWSJSON
+  avgFatigue: AWSJSON
+  avgPain: AWSJSON
 }
 
 #TODO!
 type SymptomSummary {
-  mostCommonSymptom: AWSJSON
+  avgQualityOfLife: AWSJSON
+  avgMentalHealth: AWSJSON
+  avgSocialActivitesRelationships: AWSJSON
+  avgSocialActivitiesCapacity: AWSJSON
+  avgEmotionalProblems: AWSJSON
   symptomCounts: SymptomsAvailabLe
 }
 type SymptomsAvailabLe {
@@ -817,6 +821,18 @@ type SocialSummary {
   workingSituationCounts: WorkingSituation
 }
 
+type WorkingSituation {
+  workingOutsideTheHome: AWSJSON
+  onLeaveFromAJobWorkingOutsideHome: AWSJSON
+  workingInsideHome: AWSJSON
+  lookingForWorkUnemployed: AWSJSON
+  retired: AWSJSON
+  disabled: AWSJSON
+  student: AWSJSON
+  dontKnow: AWSJSON
+  preferNotToAnswer: AWSJSON
+}
+
 # #GeneralHealthResults
 # type PatientHealthSummary {
 #   #tot score?
@@ -837,17 +853,7 @@ type SocialSummary {
 
 #DONE
 
-type WorkingSituation {
-  workingOutsideTheHome: AWSJSON
-  onLeaveFromAJobWorkingOutsideHome: AWSJSON
-  workingInsideHome: AWSJSON
-  lookingForWorkUnemployed: AWSJSON
-  retired: AWSJSON
-  disabled: AWSJSON
-  student: AWSJSON
-  dontKnow: AWSJSON
-  preferNotToAnswer: AWSJSON
-}
+
 
 #DONE
 

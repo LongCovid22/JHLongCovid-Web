@@ -30,11 +30,14 @@ const query = /* GraphQL */ `
       stateAbbrev
       lat
       long
+
       covidSummary {
         covidCount
-        percentHospitalizedDueToCovid
         avgPositiveCasesPerPerson
+        percentHospitalizedDueToCovid
+        avgHospitalizationsPerPerson
         percentSymptomatic
+        avgSymptomPreventDailyTasks
         percentTookMedication
         medicationCounts {
           antiViral
@@ -43,10 +46,34 @@ const query = /* GraphQL */ `
           other
           dontKnow
         }
-        percentRecovered
       }
+      recoverySummary {
+        recoveryCount
+        avgRecoveryLength
+      }
+      vaccinationSummary {
+        percentVaccinated
+        avgNumOfVaccPerPerson
+        pfizerCount
+        modernaCount
+        jjCount
+        azCount
+      }
+
+      globalHealthSummary {
+        avgGeneralHealth
+        avgPhysicalHealth
+        avgEverydayPhysicalCompetency
+        avgFatigue
+        avgPain
+      }
+
       symptomSummary {
-        mostCommonSymptom
+        avgQualityOfLife
+        avgMentalHealth
+        avgSocialActivitesRelationships
+        avgSocialActivitiesCapacity
+        avgEmotionalProblems
         symptomCounts {
           headache
           bodyMuscleAche
@@ -79,29 +106,27 @@ const query = /* GraphQL */ `
           fertilityProblemsForWomen
         }
       }
-      vaccinationSummary {
-        percentVaccinated
-        avgNumOfVaccPerPerson
-        pfizerCount
-        modernaCount
-        jjCount
-        azCount
-      }
-      generalHealthSummary {
-        avgTotalScore
-        avgHealthCounts {
-          generalHealth
-          qualityOfLife
-          physicalHealth
-          mentalHealth
-          socialActivitiesRelationships
-          socialActivitiesRoles
+
+      medicalConditionsSummary {
+        percentHaveLongCovid
+        newDiagnosisCounts {
+          noNewDiagnosis
+          heartProblems
+          lungProblems
+          bloodClotLung
+          sleepApnea
+          memory
+          migraine
+          stroke
+          seizure
+          kidneyProblems
+          stomachProblems
+          psychologicalProblems
+          diabetes
+          autoImmuneDiseases
+          other
+          notSure
         }
-      }
-      recoverySummary {
-        longCovidCount
-        percentLongCovid
-        avgRecoveryLength
       }
       socialSummary {
         percentHaveMedicalInsurance
@@ -119,8 +144,8 @@ const query = /* GraphQL */ `
           preferNotToAnswer
         }
       }
-
       totalFullEntries
+      totalDemoCount
     }
   }
 `;
@@ -165,9 +190,11 @@ let variables = {
     long: -54.345353535635,
     covidSummary: {
       covidCount: JSON.stringify(NullJSONData),
-      percentHospitalizedDueToCovid: JSON.stringify(NullJSONData),
       avgPositiveCasesPerPerson: JSON.stringify(NullJSONData),
+      percentHospitalizedDueToCovid: JSON.stringify(NullJSONData),
+      avgHospitalizationsPerPerson: JSON.stringify(NullJSONData),
       percentSymptomatic: JSON.stringify(NullJSONData),
+      avgSymptomPreventDailyTasks: JSON.stringify(NullJSONData),
       percentTookMedication: JSON.stringify(NullJSONData),
       medicationCounts: {
         antiViral: JSON.stringify(NullJSONData),
@@ -176,10 +203,35 @@ let variables = {
         other: JSON.stringify(NullJSONData),
         dontKnow: JSON.stringify(NullJSONData),
       },
-      percentRecovered: JSON.stringify(NullJSONData),
     },
+    recoverySummary: {
+      recoveryCount: JSON.stringify(NullJSONData),
+      avgRecoveryLength: JSON.stringify(NullJSONData),
+    },
+
+    vaccinationSummary: {
+      percentVaccinated: JSON.stringify(NullJSONData),
+      avgNumOfVaccPerPerson: JSON.stringify(NullJSONData),
+      pfizerCount: JSON.stringify(NullJSONData),
+      modernaCount: JSON.stringify(NullJSONData),
+      jjCount: JSON.stringify(NullJSONData),
+      azCount: JSON.stringify(NullJSONData),
+    },
+
+    globalHealthSummary: {
+      avgGeneralHealth: JSON.stringify(NullJSONData),
+      avgPhysicalHealth: JSON.stringify(NullJSONData),
+      avgEverydayPhysicalCompetency: JSON.stringify(NullJSONData),
+      avgFatigue: JSON.stringify(NullJSONData),
+      avgPain: JSON.stringify(NullJSONData),
+    },
+
     symptomSummary: {
-      mostCommonSymptom: JSON.stringify(NullJSONData),
+      avgQualityOfLife: JSON.stringify(NullJSONData),
+      avgMentalHealth: JSON.stringify(NullJSONData),
+      avgSocialActivitesRelationships: JSON.stringify(NullJSONData),
+      avgSocialActivitiesCapacity: JSON.stringify(NullJSONData),
+      avgEmotionalProblems: JSON.stringify(NullJSONData),
       symptomCounts: {
         headache: JSON.stringify(NullJSONData),
         bodyMuscleAche: JSON.stringify(NullJSONData),
@@ -211,30 +263,29 @@ let variables = {
         fertilityProblemsForWomen: JSON.stringify(NullJSONData),
       },
     },
-    vaccinationSummary: {
-      percentVaccinated: JSON.stringify(NullJSONData),
-      avgNumOfVaccPerPerson: JSON.stringify(NullJSONData),
-      pfizerCount: JSON.stringify(NullJSONData),
-      modernaCount: JSON.stringify(NullJSONData),
-      jjCount: JSON.stringify(NullJSONData),
-      azCount: JSON.stringify(NullJSONData),
-    },
-    generalHealthSummary: {
-      avgTotalScore: JSON.stringify(NullJSONData),
-      avgHealthCounts: {
-        generalHealth: JSON.stringify(NullJSONData),
-        qualityOfLife: JSON.stringify(NullJSONData),
-        physicalHealth: JSON.stringify(NullJSONData),
-        mentalHealth: JSON.stringify(NullJSONData),
-        socialActivitiesRelationships: JSON.stringify(NullJSONData),
-        socialActivitiesRoles: JSON.stringify(NullJSONData),
+
+    medicalConditionsSummary: {
+      percentHaveLongCovid: JSON.stringify(NullJSONData),
+      newDiagnosisCounts: {
+        noNewDiagnosis: JSON.stringify(NullJSONData),
+        heartProblems: JSON.stringify(NullJSONData),
+        lungProblems: JSON.stringify(NullJSONData),
+        bloodClotLung: JSON.stringify(NullJSONData),
+        sleepApnea: JSON.stringify(NullJSONData),
+        memory: JSON.stringify(NullJSONData),
+        migraine: JSON.stringify(NullJSONData),
+        stroke: JSON.stringify(NullJSONData),
+        seizure: JSON.stringify(NullJSONData),
+        kidneyProblems: JSON.stringify(NullJSONData),
+        stomachProblems: JSON.stringify(NullJSONData),
+        psychologicalProblems: JSON.stringify(NullJSONData),
+        diabetes: JSON.stringify(NullJSONData),
+        autoImmuneDiseases: JSON.stringify(NullJSONData),
+        other: JSON.stringify(NullJSONData),
+        notSure: JSON.stringify(NullJSONData),
       },
     },
-    recoverySummary: {
-      longCovidCount: JSON.stringify(NullJSONData),
-      percentLongCovid: JSON.stringify(NullJSONData),
-      avgRecoveryLength: JSON.stringify(NullJSONData),
-    },
+
     socialSummary: {
       percentHaveMedicalInsurance: JSON.stringify(NullJSONData),
       percentDifficultyCoveringExpenses: JSON.stringify(NullJSONData),
@@ -252,6 +303,7 @@ let variables = {
       },
     },
     totalFullEntries: 0,
+    totalDemoCount: JSON.stringify(NullJSONData),
   },
 };
 
@@ -341,239 +393,9 @@ const deleteAllMapData = async () => {
   }
 };
 
-const getID = async (level, name, stateAbbrev) => {
-  let query = null;
-
-  if (level === "county") {
-    query = `
-    query MyQuery {
-      mapDataByLevelNameState(
-        level: "${level}"
-        nameStateAbbrev: {eq: {name: "${name}", stateAbbrev: "${stateAbbrev}"}}
-      ) {
-        items {
-          id
-          name
-          stateAbbrev
-          covidSummary {
-            covidCount
-            percentHospitalizedDueToCovid
-            avgPositiveCasesPerPerson
-            percentSymptomatic
-            percentTookMedication
-            medicationCounts {
-              antiViral
-              oralSteroids
-              antiBiotics
-              other
-              dontKnow
-            }
-            percentRecovered
-          }
-          symptomSummary {
-            mostCommonSymptom
-            symptomCounts {
-              headache
-              bodyMuscleAche
-              feverChillsSweatsFlushing
-              faintDizzyGoofy
-              postExertionalMalaise
-              weaknessInArmsLegs
-              shortnessOfBreath
-              cough
-              palpitations
-              swellingOfLegs
-              indigestionNausea
-              bladderProblem
-              nerveProblems
-              brainFog
-              anxietyDepressionNightmares
-              problemsThinkingConcentrating
-              problemsAnxietyDepressionStress
-              difficultyFallingAsleep
-              sleepyDuringDaytime
-              loudSnoring
-              uncomfortableFeelingsInLegs
-              skinRash
-              lossOfChangeInSmell
-              excessiveThirst
-              excessiveDryMouth
-              visionProblems
-              hearingProblems
-              #add to the statistic only for women
-              fertilityProblemsForWomen
-            }
-          }
-          vaccinationSummary {
-            percentVaccinated
-            avgNumOfVaccPerPerson
-            pfizerCount
-            modernaCount
-            jjCount
-            azCount
-          }
-          generalHealthSummary {
-            avgTotalScore
-            avgHealthCounts {
-              generalHealth
-              qualityOfLife
-              physicalHealth
-              mentalHealth
-              socialActivitiesRelationships
-              socialActivitiesRoles
-            }
-          }
-          recoverySummary {
-            longCovidCount
-            percentLongCovid
-            avgRecoveryLength
-          }
-          socialSummary {
-            percentHaveMedicalInsurance
-            percentDifficultyCoveringExpenses
-            averageWorkingSituation
-            workingSituationCounts {
-              workingOutsideTheHome
-              onLeaveFromAJobWorkingOutsideHome
-              workingInsideHome
-              lookingForWorkUnemployed
-              retired
-              disabled
-              student
-              dontKnow
-              preferNotToAnswer
-            }
-          }
-          totalFullEntries
-        }
-
-      }
-    }
-    `;
-  } else if (level === "state") {
-    query = `
-  query MyQuery {
-    mapDataByStateAbbrev(level: "state", filter: {name: {eq: "${name}"}}) {
-      items {
-        id
-        name
-        stateAbbrev
-        covidSummary {
-          covidCount
-          percentHospitalizedDueToCovid
-          avgPositiveCasesPerPerson
-          percentSymptomatic
-          percentTookMedication
-          medicationCounts {
-            antiViral
-            oralSteroids
-            antiBiotics
-            other
-            dontKnow
-          }
-          percentRecovered
-        }
-        symptomSummary {
-          mostCommonSymptom
-          symptomCounts {
-            headache
-            bodyMuscleAche
-            feverChillsSweatsFlushing
-            faintDizzyGoofy
-            postExertionalMalaise
-            weaknessInArmsLegs
-            shortnessOfBreath
-            cough
-            palpitations
-            swellingOfLegs
-            indigestionNausea
-            bladderProblem
-            nerveProblems
-            brainFog
-            anxietyDepressionNightmares
-            problemsThinkingConcentrating
-            problemsAnxietyDepressionStress
-            difficultyFallingAsleep
-            sleepyDuringDaytime
-            loudSnoring
-            uncomfortableFeelingsInLegs
-            skinRash
-            lossOfChangeInSmell
-            excessiveThirst
-            excessiveDryMouth
-            visionProblems
-            hearingProblems
-            #add to the statistic only for women
-            fertilityProblemsForWomen
-          }
-        }
-        vaccinationSummary {
-          percentVaccinated
-          avgNumOfVaccPerPerson
-          pfizerCount
-          modernaCount
-          jjCount
-          azCount
-        }
-        generalHealthSummary {
-          avgTotalScore
-          avgHealthCounts {
-            generalHealth
-            qualityOfLife
-            physicalHealth
-            mentalHealth
-            socialActivitiesRelationships
-            socialActivitiesRoles
-          }
-        }
-        recoverySummary {
-          longCovidCount
-          percentLongCovid
-          avgRecoveryLength
-        }
-        socialSummary {
-          percentHaveMedicalInsurance
-          percentDifficultyCoveringExpenses
-          averageWorkingSituation
-          workingSituationCounts {
-            workingOutsideTheHome
-            onLeaveFromAJobWorkingOutsideHome
-            workingInsideHome
-            lookingForWorkUnemployed
-            retired
-            disabled
-            student
-            dontKnow
-            preferNotToAnswer
-          }
-        }
-        totalFullEntries
-      }
-    }
-  }
-  `;
-  }
-  let request = await makeRequest(query);
-
-  try {
-    let response = await fetch(request);
-    let load = await response.json();
-    if (level === "county") {
-      return load.data.mapDataByLevelNameState.items;
-    } else if (level === "state") {
-      // return load.data.mapDataByStateAbbrev.items
-      return load.data.mapDataByStateAbbrev.items;
-    }
-  } catch (error) {
-    console.log(error.message);
-    return "error";
-  }
-};
-
 const populate = async () => {
   await deleteAllMapData();
   for (const county of data.getData()) {
-    console.log(county);
     variables.input.level = county.level;
     variables.input.name = county.name;
     variables.input.stateAbbrev = county.stateAbbrev;
@@ -631,8 +453,176 @@ const testGetByID = async () => {
   console.log(await getID("state", "Florida", null));
 };
 
+const queryString = `
+covidSummary {
+  covidCount
+  avgPositiveCasesPerPerson
+  percentHospitalizedDueToCovid
+  avgHospitalizationsPerPerson
+  percentSymptomatic
+  avgSymptomPreventDailyTasks
+  percentTookMedication
+  medicationCounts {
+    antiViral
+    oralSteroids
+    antiBiotics
+    other
+    dontKnow
+  }
+}
+recoverySummary {
+  recoveryCount
+  avgRecoveryLength
+}
+vaccinationSummary {
+  percentVaccinated
+  avgNumOfVaccPerPerson
+  pfizerCount
+  modernaCount
+  jjCount
+  azCount
+}
+globalHealthSummary {
+  avgGeneralHealth
+  avgPhysicalHealth
+  avgEverydayPhysicalCompetency
+  avgFatigue
+  avgPain
+}
+symptomSummary {
+  avgQualityOfLife
+  avgMentalHealth
+  avgSocialActivitesRelationships
+  avgSocialActivitiesCapacity
+  avgEmotionalProblems
+  symptomCounts {
+    headache
+    bodyMuscleAche
+    feverChillsSweatsFlushing
+    faintDizzyGoofy
+    postExertionalMalaise
+    weaknessInArmsLegs
+    shortnessOfBreath
+    cough
+    palpitations
+    swellingOfLegs
+    indigestionNausea
+    bladderProblem
+    nerveProblems
+    brainFog
+    anxietyDepressionNightmares
+    problemsThinkingConcentrating
+    problemsAnxietyDepressionStress
+    difficultyFallingAsleep
+    sleepyDuringDaytime
+    loudSnoring
+    uncomfortableFeelingsInLegs
+    skinRash
+    lossOfChangeInSmell
+    excessiveThirst
+    excessiveDryMouth
+    visionProblems
+    hearingProblems
+    #add to the statistic only for women
+    fertilityProblemsForWomen
+  }
+}
+medicalConditionsSummary {
+  percentHaveLongCovid
+  newDiagnosisCounts {
+    noNewDiagnosis
+    heartProblems
+    lungProblems
+    bloodClotLung
+    sleepApnea
+    memory
+    migraine
+    stroke
+    seizure
+    kidneyProblems
+    stomachProblems
+    psychologicalProblems
+    diabetes
+    autoImmuneDiseases
+    other
+    notSure
+  }
+}
+socialSummary {
+  percentHaveMedicalInsurance
+  percentDifficultyCoveringExpenses
+  averageWorkingSituation
+  workingSituationCounts {
+    workingOutsideTheHome
+    onLeaveFromAJobWorkingOutsideHome
+    workingInsideHome
+    lookingForWorkUnemployed
+    retired
+    disabled
+    student
+    dontKnow
+    preferNotToAnswer
+  }
+}
+totalFullEntries
+totalDemoCount
+`;
+
+const getID = async (level, name, stateAbbrev) => {
+  let query = null;
+
+  if (level === "county") {
+    query = `
+    query MyQuery {
+      mapDataByLevelNameState(
+        level: "${level}"
+        nameStateAbbrev: {eq: {name: "${name}", stateAbbrev: "${stateAbbrev}"}}
+      ) {
+        items {
+          id
+          name
+          stateAbbrev
+          ${queryString}
+        }
+
+      }
+    }
+    `;
+  } else if (level === "state") {
+    query = `
+  query MyQuery {
+    mapDataByStateAbbrev(level: "state", filter: {name: {eq: "${name}"}}) {
+      items {
+        id
+        name
+        stateAbbrev
+        ${queryString}
+      }
+    }
+  }
+  `;
+  }
+  let request = await makeRequest(query);
+
+  try {
+    let response = await fetch(request);
+    let load = await response.json();
+    if (level === "county") {
+      return load.data.mapDataByLevelNameState.items;
+    } else if (level === "state") {
+      // return load.data.mapDataByStateAbbrev.items
+      return load.data.mapDataByStateAbbrev.items;
+    }
+  } catch (error) {
+    console.log(error.message);
+    return "error";
+  }
+};
+
 const getStateAndCountyInfo = async (eventInput) => {
   const { county, state } = eventInput;
+
+  console.log(state);
 
   const stateInfo = await getID("state", state, null);
   // console.log(stateInfo[0]);
@@ -656,6 +646,12 @@ const isObject = (variable) => {
 
 const parse = (object) => {
   for (let property in object) {
+    if (property === "totalDemoCount") {
+      object[property] = JSON.parse(object[property]);
+      // console.log(typeof JSON.parse(object[property]))
+      continue;
+    }
+
     if (isObject(object[property])) {
       for (prop in object[property]) {
         if (isObject(object[property][prop])) {
@@ -672,6 +668,10 @@ const parse = (object) => {
 
 const stringify = (object) => {
   for (let property in object) {
+    // if (property === 'totalDemoCount') {
+    //   object[property] = JSON.stringify(object[property]);
+    // }
+
     if (isObject(object[property])) {
       for (prop in object[property]) {
         if (isObject(object[property][prop])) {
@@ -710,447 +710,505 @@ const findHardCodedAgeRangeIndex = (age) => {
 };
 
 const aggregatePercentageCustomBasedOnCondition = (
-  raceIndex,
-  ageIndex,
-  sexIndex,
+  indexes,
   total,
   property,
   condition,
   customAdd
 ) => {
   let addOne = condition ? customAdd : 0;
+
+  let { raceIndex, ageIndex, sexIndex } = indexes;
+
+  let { raceTotal, ageTotal, sexTotal } = total;
+
   property.race.values[raceIndex] = parseFloat(
-    (property.race.values[raceIndex] * total + addOne) / (total + 1)
+    (property.race.values[raceIndex] * raceTotal + addOne) / (raceTotal + 1)
   );
   property.age.values[ageIndex] = parseFloat(
-    (property.age.values[ageIndex] * total + addOne) / (total + 1)
+    (property.age.values[ageIndex] * ageTotal + addOne) / (ageTotal + 1)
   );
   property.sex.values[sexIndex] = parseFloat(
-    (property.age.values[sexIndex] * total + addOne) / (total + 1)
+    (property.age.values[sexIndex] * sexTotal + addOne) / (sexTotal + 1)
   );
 };
 
 const addCustomToTallyBasedOnCondition = (
-  raceIndex,
-  ageIndex,
-  sexIndex,
+  indexes,
   property,
   condition,
   customAdd
 ) => {
+  let { raceIndex, ageIndex, sexIndex } = indexes;
   let addOne = condition ? customAdd : 0;
   property.race.values[raceIndex] += addOne;
   property.age.values[ageIndex] += addOne;
   property.sex.values[sexIndex] += addOne;
 };
 
-const updateCovidSummary = (eventInput, county, state, indexes) => {
-  let { covidResults, recoveryResults } = eventInput;
-  let { raceIndex, ageIndex, sexIndex } = indexes;
-  let {
-    percentSymptomatic,
-    percentTookMedication,
-    percentRecovered,
-    percentHospitalizedDueToCovid,
-    avgPositiveCasesPerPerson,
-    covidCount,
-    medicationCounts,
-  } = county.covidSummary;
+const updateCovidSummary = (eventInput, popObject, county, state, indexes) => {
+  let { covidResults } = eventInput;
+  let data = {
+    county: {
+      covidSummary: county.covidSummary,
+      pop: popObject.countyPop,
+    },
+    state: {
+      covidSummary: state.covidSummary,
+      pop: popObject.statePop,
+    },
+  };
 
-  let {
-    antiViral,
-    oralSteroids,
-    antiBiotics,
-    other,
-    dontKnow
-  } = medicationCounts;
+  for (const dat in data) {
+    let {
+      covidCount,
+      avgPositiveCasesPerPerson,
+      percentHospitalizedDueToCovid,
+      avgHospitalizationsPerPerson,
+      percentSymptomatic,
+      avgSymptomPreventDailyTasks,
+      percentTookMedication,
+      medicationCounts,
+    } = data[dat].covidSummary;
+    let { antiViral, oralSteroids, antiBiotics, other, dontKnow } =
+      medicationCounts;
+    let pop = data[dat].pop;
 
+    // covidCount : previousInfection, +1
+    if (covidResults.previousInfection != null) {
+      addCustomToTallyBasedOnCondition(
+        indexes,
+        covidCount,
+        covidResults.previousInfection,
+        1
+      );
+    }
+    // avgPositiveCasesPerPerson: only applicable if got covid AND infectionFreqEst is not a DNK (do not know)
+    if (
+      covidResults.infectionFreqEst != null &&
+      covidResults.infectionFreqEst > 0
+    ) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgPositiveCasesPerPerson,
+        true,
+        covidResults.infectionFreqEst
+      );
+    }
 
-  addCustomToTallyBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    covidCount,
-    covidResults.timesPositive > 0,
-    1
-  );
+    //percentHospitalizedDueToCovid
+    if (covidResults.hospitalized != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        percentHospitalizedDueToCovid,
+        covidResults.hospitalized,
+        1
+      );
+    }
 
+    //avgHospitalizationsPerPerson
+    if (
+      covidResults.timesHospitalized != null &&
+      covidResults.timesHospitalized > 0
+    ) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgHospitalizationsPerPerson,
+        true,
+        covidResults.timesHospitalized
+      );
+    }
 
-  // Formula for percentHospitalizedDueToCovid
-  // if(covidResults.hospitalized) {
-  //   newPercent = ((oldPercent * county.totalFullEntries) + 1) / (county.totalFullEntries + 1)
-  // } else {
-  //   newPercent = (oldPercent * county.totalFullEntries) / (county.totalFullEntries + 1)
-  // }
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentHospitalizedDueToCovid,
-    covidResults.hospitalized,
-    1
-  );
-  //averagePositiveCasesPerPerson Formula :
-  //new = (old * county.totalFullEntries) + timesPositive / (county.totalFullEntries + 1)
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    avgPositiveCasesPerPerson,
-    true,
-    covidResults.timesPositive
-  );
-  // let average = county.covidSummary.avgPositiveCasesPerPerson;
-  // average.race.values[raceIndex] = parseFloat((average.race.values[raceIndex] * county.totalFullEntries + covidResults.timesPositive) / (county.totalFullEntries + 1));
-  // average.age.values[ageIndex] = parseFloat((average.age.values[ageIndex] * county.totalFullEntries + covidResults.timesPositive) / (county.totalFullEntries + 1));
-  // average.sex.values[sexIndex] = parseFloat((average.sex.values[sexIndex] * county.totalFullEntries + covidResults.timesPositive) / (county.totalFullEntries + 1));
-  //percentSymptomaticFormula :
-  // new =(old * county.totalFullEntries) + ((covidResults.symptomatic) ? 1 : 0) / (county.totalFullEntries + 1)
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentSymptomatic,
-    covidResults.symptomatic,
-    1
-  );
-  //percentTookMedicationFormula :
-  // new =(old * county.totalFullEntries) + ((covidResults.MedicationsTaken.length > 0) ? 1 : 0) / (county.totalFullEntries + 1)
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentTookMedication,
-    covidResults.MedicationsTaken.length > 0,
-    1
-  );
+    //percentSymptomatic
+    if (covidResults.symptomatic != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        percentSymptomatic,
+        covidResults.symptomatic,
+        1
+      );
+    }
 
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, antiViral, covidResults.MedicationsTaken.includes("Antiviral"), 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, oralSteroids, covidResults.MedicationsTaken.includes("Oral Steroids"), 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, antiBiotics, covidResults.MedicationsTaken.includes("Antiviral"), 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, other, covidResults.MedicationsTaken.includes("Other"), 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, dontKnow, covidResults.MedicationsTaken.includes("Don't Know"), 1);
+    //avgSymptomPreventDailyTasks
+    if (covidResults.symptomsPrevent != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgSymptomPreventDailyTasks,
+        true,
+        covidResults.symptomsPrevent
+      );
+    }
 
+    //percentTookMedication
+    if (
+      covidResults.doctorPrescribeMedicine != null &&
+      covidResults.doctorPrescribeMedicine != 0
+    ) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        percentTookMedication,
+        covidResults.doctorPrescribeMedicine === 1,
+        1
+      );
+    }
 
-  //percentRecoveredFormula :
-  // new =(old * county.totalFullEntries) + ((covidResults.symptomatic) ? 1 : 0) / (county.totalFullEntries + 1)
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentRecovered,
-    recoveryResults.recovered === "Yes",
-    1
-  );
+    addCustomToTallyBasedOnCondition(
+      indexes,
+      antiViral,
+      covidResults.professionalPrescriptions.includes("Antiviral Pill"),
+      1
+    );
 
-  ({
-    percentSymptomatic,
-    percentTookMedication,
-    percentRecovered,
-    percentHospitalizedDueToCovid,
-    avgPositiveCasesPerPerson,
-    covidCount,
-    medicationCounts,
-  } = state.covidSummary);
+    addCustomToTallyBasedOnCondition(
+      indexes,
+      oralSteroids,
+      covidResults.professionalPrescriptions.includes("Oral Steroids"),
+      1
+    );
+    addCustomToTallyBasedOnCondition(
+      indexes,
+      antiBiotics,
+      covidResults.professionalPrescriptions.includes("Antibiotics"),
+      1
+    );
 
-  ({
-    antiViral,
-    oralSteroids,
-    antiBiotics,
-    other,
-    dontKnow
-  } = medicationCounts);
+    addCustomToTallyBasedOnCondition(
+      indexes,
+      other,
+      covidResults.professionalPrescriptions.includes("Other"),
+      1
+    );
 
-  addCustomToTallyBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    covidCount,
-    covidResults.timesPositive > 0,
-    1
-  );
-
-  // Formula for percentHospitalizedDueToCovid
-  // if(covidResults.hospitalized) {
-  //   newPercent = ((oldPercent * county.totalFullEntries) + 1) / (county.totalFullEntries + 1)
-  // } else {
-  //   newPercent = (oldPercent * county.totalFullEntries) / (county.totalFullEntries + 1)
-  // }
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentHospitalizedDueToCovid,
-    covidResults.hospitalized,
-    1
-  );
-  //averagePositiveCasesPerPerson Formula :
-  //new = (old * county.totalFullEntries) + timesPositive / (county.totalFullEntries + 1)
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    avgPositiveCasesPerPerson,
-    true,
-    covidResults.timesPositive
-  );
-  // let average = county.covidSummary.avgPositiveCasesPerPerson;
-  // average.race.values[raceIndex] = parseFloat((average.race.values[raceIndex] * county.totalFullEntries + covidResults.timesPositive) / (county.totalFullEntries + 1));
-  // average.age.values[ageIndex] = parseFloat((average.age.values[ageIndex] * county.totalFullEntries + covidResults.timesPositive) / (county.totalFullEntries + 1));
-  // average.sex.values[sexIndex] = parseFloat((average.sex.values[sexIndex] * county.totalFullEntries + covidResults.timesPositive) / (county.totalFullEntries + 1));
-  //percentSymptomaticFormula :
-  // new =(old * county.totalFullEntries) + ((covidResults.symptomatic) ? 1 : 0) / (county.totalFullEntries + 1)
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentSymptomatic,
-    covidResults.symptomatic,
-    1
-  );
-  //percentTookMedicationFormula :
-  // new =(old * county.totalFullEntries) + ((covidResults.MedicationsTaken.length > 0) ? 1 : 0) / (county.totalFullEntries + 1)
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentTookMedication,
-    covidResults.MedicationsTaken.length > 0,
-    1
-  );
-  //percentRecoveredFormula :
-  // new =(old * county.totalFullEntries) + ((covidResults.symptomatic) ? 1 : 0) / (county.totalFullEntries + 1)
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentRecovered,
-    recoveryResults.recovered === "Yes",
-    1
-  );
-
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, antiViral, covidResults.MedicationsTaken.includes("Antiviral"), 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, oralSteroids, covidResults.MedicationsTaken.includes("Oral Steroids"), 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, antiBiotics, covidResults.MedicationsTaken.includes("Antiviral"), 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, other, covidResults.MedicationsTaken.includes("Other"), 1);
-  addCustomToTallyBasedOnCondition(raceIndex, ageIndex, sexIndex, dontKnow, covidResults.MedicationsTaken.includes("Don't Know"), 1);
+    addCustomToTallyBasedOnCondition(
+      indexes,
+      dontKnow,
+      covidResults.professionalPrescriptions.includes("Do not know"),
+      1
+    );
+  }
 };
 
-const updateVaccinationSummary = (eventInput, county, state, indexes) => {
-  let { vaccinationResults } = eventInput;
-  let { raceIndex, ageIndex, sexIndex } = indexes;
-
-  //update county
-  let {
-    percentVaccinated,
-    avgNumOfVaccPerPerson,
-    pfizerCount,
-    modernaCount,
-    jjCount,
-    azCount,
-  } = county.vaccinationSummary;
-
-  //percentVaccinated formula
-  //new = (old * total + (vaccinated) ? 1 : 0) / (total + 1)
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentVaccinated,
-    vaccinationResults.vaccinated,
-    1
-  );
-
-  //avgNumOfVaccPerPerson = (old * total) + vaccinationResults.totalVacccineShots / (total + 1)
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    avgNumOfVaccPerPerson,
-    true,
-    vaccinationResults.totalVaccineShots
-  );
-
-  addCustomToTallyBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    pfizerCount,
-    vaccinationResults.vaccineType === "Pfizer",
-    1
-  );
-  addCustomToTallyBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    modernaCount,
-    vaccinationResults.vaccineType === "Moderna",
-    1
-  );
-  addCustomToTallyBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    jjCount,
-    vaccinationResults.vaccineType === "J&J",
-    1
-  );
-  addCustomToTallyBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    azCount,
-    vaccinationResults.vaccineType === "AstraZeneca",
-    1
-  );
-
-  //update state
-  ({
-    percentVaccinated,
-    avgNumOfVaccPerPerson,
-    pfizerCount,
-    modernaCount,
-    jjCount,
-    azCount,
-  } = state.vaccinationSummary);
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentVaccinated,
-    vaccinationResults.vaccinated,
-    1
-  );
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    avgNumOfVaccPerPerson,
-    true,
-    vaccinationResults.totalVaccineShots
-  );
-  addCustomToTallyBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    pfizerCount,
-    vaccinationResults.vaccineType === "Pfizer",
-    1
-  );
-  addCustomToTallyBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    modernaCount,
-    vaccinationResults.vaccineType === "Moderna",
-    1
-  );
-  addCustomToTallyBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    jjCount,
-    vaccinationResults.vaccineType === "J&J",
-    1
-  );
-  addCustomToTallyBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    azCount,
-    vaccinationResults.vaccineType === "AstraZeneca",
-    1
-  );
-};
-
-const updateRecoverySummary = (eventInput, county, state, indexes) => {
+const updateRecoverySummary = (
+  eventInput,
+  popObject,
+  county,
+  state,
+  indexes
+) => {
   let { recoveryResults } = eventInput;
-  let { raceIndex, ageIndex, sexIndex } = indexes;
-  let { longCovidCount, percentLongCovid, avgRecoveryLength } =
-    county.recoverySummary;
+  let data = {
+    county: {
+      recoverySummary: county.recoverySummary,
+      pop: popObject.countyPop,
+    },
+    state: {
+      recoverySummary: state.recoverySummary,
+      pop: popObject.statePop,
+    },
+  };
 
-  //longCovidCount
-  addCustomToTallyBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    longCovidCount,
-    recoveryResults.hasLongCovid === "Yes",
-    1
-  );
+  for (const dat in data) {
+    let { recoveryCount, avgRecoveryLength } = data[dat].recoverySummary;
+    let pop = data[dat].pop;
 
-  //percentLongCovid
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentLongCovid,
-    recoveryResults.hasLongCovid === "Yes",
-    1
-  );
+    if (recoveryResults.recovered != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        recoveryCount,
+        recoveryResults.recovered,
+        1
+      );
+    }
 
-  //avgRecoveryLength
-  let recoveryLength =
-    recoveryResults.lengthOfRecovery.months * 31 +
-    recoveryResults.lengthOfRecovery.days;
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    avgRecoveryLength,
-    true,
-    recoveryLength
-  );
-
-  //state data
-  ({ longCovidCount, percentLongCovid, avgRecoveryLength } =
-    state.recoverySummary);
-  //longCovidCount
-  addCustomToTallyBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    longCovidCount,
-    recoveryResults.hasLongCovid === "Yes",
-    1
-  );
-  //percentLongCovid
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentLongCovid,
-    recoveryResults.hasLongCovid === "Yes",
-    1
-  );
-  //avgRecoveryLength
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    avgRecoveryLength,
-    true,
-    recoveryLength
-  );
+    if (recoveryResults.daysToRecoverEst != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgRecoveryLength,
+        true,
+        recoveryResults.daysToRecoverEst
+      );
+    }
+  }
 };
+
+const updateVaccinationSummary = (
+  eventInput,
+  popObject,
+  county,
+  state,
+  indexes
+) => {
+  let { vaccinationResults } = eventInput;
+  let data = {
+    county: {
+      vaccinationSummary: county.vaccinationSummary,
+      pop: popObject.countyPop,
+    },
+    state: {
+      vaccinationSummary: state.vaccinationSummary,
+      pop: popObject.statePop,
+    },
+  };
+
+  for (const dat in data) {
+    let {
+      percentVaccinated,
+      avgNumOfVaccPerPerson,
+      pfizerCount,
+      modernaCount,
+      jjCount,
+      azCount,
+    } = data[dat].vaccinationSummary;
+    let pop = data[dat].pop;
+
+    if (
+      vaccinationResults.vaccinated != null &&
+      vaccinationResults.vaccinated != 0
+    ) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        percentVaccinated,
+        vaccinationResults.vaccinated == 1,
+        1
+      );
+    }
+
+    if (
+      vaccinationResults.totalVaccineShots != null &&
+      vaccinationResults.totalVaccineShots != 0
+    ) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgNumOfVaccPerPerson,
+        true,
+        vaccinationResults.totalVaccineShots
+      );
+    }
+
+    addCustomToTallyBasedOnCondition(
+      indexes,
+      pfizerCount,
+      vaccinationResults.vaccineType === "Pfizer",
+      1
+    );
+    addCustomToTallyBasedOnCondition(
+      indexes,
+      modernaCount,
+      vaccinationResults.vaccineType === "Moderna",
+      1
+    );
+    // addCustomToTallyBasedOnCondition(indexes, jjCount, vaccinationResults.vaccineType === "Janssen",1);
+    // addCustomToTallyBasedOnCondition(indexes, azCount, vaccinationResults.vaccineType === "Moderna",1);
+  }
+};
+
+const updateGlobalHealthSummary = (
+  eventInput,
+  popObject,
+  county,
+  state,
+  indexes
+) => {
+  let { generalHealthResults } = eventInput;
+  let data = {
+    county: {
+      globalHealthSummary: county.globalHealthSummary,
+      pop: popObject.countyPop,
+    },
+    state: {
+      globalHealthSummary: state.globalHealthSummary,
+      pop: popObject.statePop,
+    },
+  };
+
+  for (const dat in data) {
+    let {
+      avgGeneralHealth,
+      avgPhysicalHealth,
+      avgEverydayPhysicalCompetency,
+      avgFatigue,
+      avgPain,
+    } = data[dat].globalHealthSummary;
+    let pop = data[dat].pop;
+    if (generalHealthResults.generalHealth != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgGeneralHealth,
+        true,
+        generalHealthResults.generalHealth
+      );
+    }
+
+    if (generalHealthResults.physicalHealth != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgPhysicalHealth,
+        true,
+        generalHealthResults.physicalHealth
+      );
+    }
+
+    if (generalHealthResults.everdayPhysicalCompetency != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgEverydayPhysicalCompetency,
+        true,
+        generalHealthResults.everdayPhysicalCompetency
+      );
+    }
+
+    if (generalHealthResults.averageFatigue != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgFatigue,
+        true,
+        generalHealthResults.averageFatigue
+      );
+    }
+
+    if (generalHealthResults.averagePain != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgPain,
+        true,
+        generalHealthResults.averagePain
+      );
+    }
+  }
+};
+
+const updateSymptomSummary = (
+  eventInput,
+  popObject,
+  county,
+  state,
+  indexes
+) => {
+  let { symptomResults } = eventInput;
+
+  let data = {
+    county: {
+      symptomSummary: county.symptomSummary,
+      pop: popObject.countyPop,
+    },
+    state: {
+      symptomSummary: state.symptomSummary,
+      pop: popObject.statePop,
+    },
+  };
+
+  for (const dat in data) {
+    let {
+     symptomCounts
+    } = data[dat].symptomSummary;
+    let pop = data[dat].pop;
+
+
+    symptomResults.symptoms.forEach(symp => {
+      addCustomToTallyBasedOnCondition(indexes, symptomCounts[symp], true, 1);
+    });
+
+    let {
+      avgQualityOfLife,
+      avgMentalHealth,
+      avgSocialActivitesRelationships,
+      avgSocialActivitiesCapacity,
+      avgEmotionalProblems,
+    } = data[dat].symptomSummary;
+
+    if (symptomResults.qualityOfLife != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgQualityOfLife,
+        true,
+        symptomResults.qualityOfLife
+      );
+    }
+
+    if (symptomResults.mentalHealth != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgMentalHealth,
+        true,
+        symptomResults.mentalHealth
+      );
+    }
+
+    if (symptomResults.socialActivitiesRelationships != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgSocialActivitesRelationships,
+        true,
+        symptomResults.socialActivitiesRelationships
+      );
+    }
+
+    if (symptomResults.socialActivitiesCapacity != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgSocialActivitiesCapacity,
+        true,
+        symptomResults.socialActivitiesCapacity
+      );
+    }
+
+    if (symptomResults.emotionalProblems != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        avgEmotionalProblems,
+        true,
+        symptomResults.emotionalProblems
+      );
+    }
+  }
+};
+
+const updateMedicalConditionsSummary = (eventInput, popObject, county, state, indexes) => {
+  let { medicalConditionsChanges } = eventInput;
+  let data = {
+    county : {
+      medicalConditionsSummary : county.medicalConditionsSummary,
+      pop : popObject.countyPop
+    }, 
+    state : {
+      medicalConditionsSummary : state.medicalConditionsSummary,
+      pop : popObject.statePop
+    }
+  }
+
+  for(const dat in data) {
+    let { percentHaveLongCovid, newDiagnosisCounts} = data[dat].medicalConditionsSummary;
+    let pop = data[dat].pop;
+
+    medicalConditionsChanges.newDiagnosis.forEach(diag => {
+      addCustomToTallyBasedOnCondition(indexes, newDiagnosisCounts[diag], true, 1);
+    })
+
+    if(medicalConditionsChanges.longCovid != null && medicalConditionsChanges.longCovid != 0) {
+      aggregatePercentageCustomBasedOnCondition(indexes, pop, percentHaveLongCovid, medicalConditionsChanges.longCovid === 1, 1);
+    }
+  }
+}
 
 const updateSocialSummary = (eventInput, county, state, indexes) => {
   let { socialDeterminantsResults } = eventInput;
@@ -1344,129 +1402,52 @@ Prefer not to answer
   } = workingSituationCounts);
 };
 
-const convertQualitativetoQuantitative = (object) => {
-  for (const key in object) {
-    if (object[key] === "No") {
-      object[key] = 1;
-    } else if (object[key] === "Mild") {
-      object[key] = 2;
-    } else if (object[key] === "Moderate") {
-      object[key] = 3;
-    } else if (object[key] === "Severe") {
-      object[key] = 4;
-    }
-  }
-}
-
-const updateSymptomSummary = (eventInput, county, state, indexes) => {
-  let { symptomResults } = eventInput;
-  let { raceIndex, ageIndex, sexIndex } = indexes;
-
-  let {
-    headache,
-    bodyMuscleAche,
-    feverChillsSweatsFlushing,
-    faintDizzyGoofy,
-    postExertionalMalaise,
-    weaknessInArmsLegs,
-    shortnessOfBreath,
-    cough,
-    palpitations,
-    swellingOfLegs,
-    indigestionNausea,
-    bladderProblem,
-    nerveProblems,
-    brainFog,
-    anxietyDepressionNightmares,
-    problemsThinkingConcentrating,
-    problemsAnxietyDepressionStress,
-    difficultyFallingAsleep,
-    sleepyDuringDaytime,
-    loudSnoring,
-    uncomfortableFeelingsInLegs,
-    skinRash,
-    lossOfChangeInSmell,
-    excessiveThirst,
-    excessiveDryMouth,
-    visionProblems,
-    hearingProblems,
-    fertilityProblemsForWomen
-  } = county.symptomSummary.symptomCounts;
-
-  convertQualitativetoQuantitative(symptomResults.symptoms);
-  // console.log(headache);
-
-  for(const symptom in symptomResults.symptoms) {
-    // console.log(symptomResults.symptoms[symptom])
-    if (symptom === "Headache") {
-      aggregatePercentageCustomBasedOnCondition(raceIndex,ageIndex, sexIndex, county.totalFullEntries, headache, true, symptomResults.symptoms[symptom])
-      // console.log(symptom)
-    } else if (symptom === "Cough") {
-      aggregatePercentageCustomBasedOnCondition(raceIndex,ageIndex, sexIndex, county.totalFullEntries, cough, true, symptomResults.symptoms[symptom])
-      // console.log(symptom);
-    }
-  }
-
- ( {
-    headache,
-    bodyMuscleAche,
-    feverChillsSweatsFlushing,
-    faintDizzyGoofy,
-    postExertionalMalaise,
-    weaknessInArmsLegs,
-    shortnessOfBreath,
-    cough,
-    palpitations,
-    swellingOfLegs,
-    indigestionNausea,
-    bladderProblem,
-    nerveProblems,
-    brainFog,
-    anxietyDepressionNightmares,
-    problemsThinkingConcentrating,
-    problemsAnxietyDepressionStress,
-    difficultyFallingAsleep,
-    sleepyDuringDaytime,
-    loudSnoring,
-    uncomfortableFeelingsInLegs,
-    skinRash,
-    lossOfChangeInSmell,
-    excessiveThirst,
-    excessiveDryMouth,
-    visionProblems,
-    hearingProblems,
-    fertilityProblemsForWomen
-  } = state.symptomSummary.symptomCounts);
-
-  for(const symptom in symptomResults.symptoms) {
-    // console.log(symptomResults.symptoms[symptom])
-    if (symptom === "Headache") {
-      aggregatePercentageCustomBasedOnCondition(raceIndex,ageIndex, sexIndex, county.totalFullEntries, headache, true, symptomResults.symptoms[symptom])
-      // console.log(symptom)
-    } else if (symptom === "Cough") {
-      aggregatePercentageCustomBasedOnCondition(raceIndex,ageIndex, sexIndex, county.totalFullEntries, cough, true, symptomResults.symptoms[symptom])
-      // console.log(symptom);
-    }
-  }
-
-
-
-
-
-
-
-}
-
 const updateGeneralHealthSummary = (eventInput, county, state, indexes) => {
-  let {generalHealthResults} = eventInput;
+  let { generalHealthResults } = eventInput;
   let { raceIndex, ageIndex, sexIndex } = indexes;
-
-
-}
+};
 
 const incrementTotalFullEntries = (county, state) => {
   county.totalFullEntries += 1;
   state.totalFullEntries += 1;
+};
+
+const incrementDemographics = (eventInput, county, state, indexes) => {
+  const { ageIndex, raceIndex, sexIndex } = indexes;
+
+  let { totalDemoCount } = county;
+  // console.log(county);
+  // const { totalDemoCount } = county;
+
+  addCustomToTallyBasedOnCondition(indexes, totalDemoCount, true, 1);
+
+  ({ totalDemoCount } = state);
+
+  addCustomToTallyBasedOnCondition(indexes, totalDemoCount, true, 1);
+};
+
+const getDemoCount = (countyDemoCount, stateDemoCount, indexes) => {
+  let { raceIndex, ageIndex, sexIndex } = indexes;
+  let countyRacePop = countyDemoCount.race.values[raceIndex];
+  let countyAgePop = countyDemoCount.race.values[ageIndex];
+  let countySexPop = countyDemoCount.race.values[sexIndex];
+
+  let stateRacePop = stateDemoCount.race.values[raceIndex];
+  let stateAgePop = stateDemoCount.race.values[ageIndex];
+  let stateSexPop = stateDemoCount.race.values[sexIndex];
+
+  return {
+    countyPop: {
+      raceTotal: countyRacePop,
+      ageTotal: countyAgePop,
+      sexTotal: countySexPop,
+    },
+    statePop: {
+      raceTotal: stateRacePop,
+      ageTotal: stateAgePop,
+      sexTotal: stateSexPop,
+    },
+  };
 };
 
 const aggregateSurveyResults = async (eventInput) => {
@@ -1485,42 +1466,42 @@ const aggregateSurveyResults = async (eventInput) => {
     eventInput.sex,
     county.covidSummary.covidCount.sex.ranges
   );
-  updateCovidSummary(eventInput, county, state, {
+
+  let indexes = {
     raceIndex,
     ageIndex,
     sexIndex,
-  });
-  updateVaccinationSummary(eventInput, county, state, {
-    raceIndex,
-    ageIndex,
-    sexIndex,
-  });
-  updateRecoverySummary(eventInput, county, state, {
-    raceIndex,
-    ageIndex,
-    sexIndex,
-  });
+  };
 
-  updateSocialSummary(eventInput, county, state, {
-    raceIndex,
-    ageIndex,
-    sexIndex,
-  });
+  const popObject = getDemoCount(
+    county.totalDemoCount,
+    state.totalDemoCount,
+    indexes
+  );
 
-  updateSymptomSummary(eventInput, county, state, {
-    raceIndex, ageIndex, sexIndex,
-  })
+  updateCovidSummary(eventInput, popObject, county, state, indexes);
+  updateRecoverySummary(eventInput, popObject, county, state, indexes);
+  updateVaccinationSummary(eventInput, popObject, county, state, indexes);
+  updateGlobalHealthSummary(eventInput, popObject, county, state, indexes);
 
-  //Upload "county" and "state"
+  updateSymptomSummary(eventInput, popObject, county, state, indexes);
+  updateMedicalConditionsSummary(eventInput, popObject, county, state, indexes);
+  // updateSocialSummary(eventInput, popObject, county, state, indexes);
 
-  //increment at the last. updates require OLD count
-  incrementTotalFullEntries(county, state);
+  // //Upload "county" and "state"
+
+  // //increment at the last. updates require OLD count
+  // incrementTotalFullEntries(county, state);
+
+  incrementDemographics(eventInput, county, state, indexes);
 
   stringify(county);
   stringify(state);
 
-  console.log(county.symptomSummary);
-  console.log(state.symptomSummary);
+  console.log("county");
+  console.log(county.medicalConditionsSummary);
+  console.log("state");
+  console.log(state.medicalConditionsSummary);
 };
 
 /**
@@ -1528,9 +1509,7 @@ const aggregateSurveyResults = async (eventInput) => {
  */
 exports.handler = async (event) => {
   let input = event.arguments.surveyResults;
-  console.log(input);
-  // await aggregateSurveyResults(input);
+  await aggregateSurveyResults(input);
 
-  // await testGetByID();
   // await populate();
 };

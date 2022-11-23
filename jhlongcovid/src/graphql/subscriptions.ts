@@ -13,9 +13,11 @@ export const onCreateMapData = /* GraphQL */ `
       long
       covidSummary {
         covidCount
-        percentHospitalizedDueToCovid
         avgPositiveCasesPerPerson
+        percentHospitalizedDueToCovid
+        avgHospitalizationsPerPerson
         percentSymptomatic
+        avgSymptomPreventDailyTasks
         percentTookMedication
         medicationCounts {
           antiViral
@@ -24,10 +26,32 @@ export const onCreateMapData = /* GraphQL */ `
           other
           dontKnow
         }
-        percentRecovered
+      }
+      recoverySummary {
+        recoveryCount
+        avgRecoveryLength
+      }
+      vaccinationSummary {
+        percentVaccinated
+        avgNumOfVaccPerPerson
+        pfizerCount
+        modernaCount
+        jjCount
+        azCount
+      }
+      globalHealthSummary {
+        avgGeneralHealth
+        avgPhysicalHealth
+        avgEverydayPhysicalCompetency
+        avgFatigue
+        avgPain
       }
       symptomSummary {
-        mostCommonSymptom
+        avgQualityOfLife
+        avgMentalHealth
+        avgSocialActivitesRelationships
+        avgSocialActivitiesCapacity
+        avgEmotionalProblems
         symptomCounts {
           headache
           bodyMuscleAche
@@ -59,36 +83,26 @@ export const onCreateMapData = /* GraphQL */ `
           fertilityProblemsForWomen
         }
       }
-      vaccinationSummary {
-        percentVaccinated
-        avgNumOfVaccPerPerson
-        pfizerCount
-        modernaCount
-        jjCount
-        azCount
-      }
-      globalHealthSummary {
-        healthRankCount
-        physicalHealthRankCount
-        carryOutPhysicalActivitiesRankCount
-        fatigueRankCount
-        painLevelCount
-      }
-      patientHealthSummary {
-        avgTotalScore
-        avgHealthCounts {
-          generalHealth
-          qualityOfLife
-          physicalHealth
-          mentalHealth
-          socialActivitiesRelationships
-          socialActivitiesRoles
+      medicalConditionsSummary {
+        percentHaveLongCovid
+        newDiagnosisCounts {
+          noNewDiagnosis
+          heartProblems
+          lungProblems
+          bloodClotLung
+          sleepApnea
+          memory
+          migraine
+          stroke
+          seizure
+          kidneyProblems
+          stomachProblems
+          psychologicalProblems
+          diabetes
+          autoImmuneDiseases
+          other
+          notSure
         }
-      }
-      recoverySummary {
-        longCovidCount
-        percentLongCovid
-        avgRecoveryLength
       }
       socialSummary {
         percentHaveMedicalInsurance
@@ -107,6 +121,7 @@ export const onCreateMapData = /* GraphQL */ `
         }
       }
       totalFullEntries
+      totalDemoCount
       createdAt
       updatedAt
     }
@@ -123,9 +138,11 @@ export const onUpdateMapData = /* GraphQL */ `
       long
       covidSummary {
         covidCount
-        percentHospitalizedDueToCovid
         avgPositiveCasesPerPerson
+        percentHospitalizedDueToCovid
+        avgHospitalizationsPerPerson
         percentSymptomatic
+        avgSymptomPreventDailyTasks
         percentTookMedication
         medicationCounts {
           antiViral
@@ -134,10 +151,32 @@ export const onUpdateMapData = /* GraphQL */ `
           other
           dontKnow
         }
-        percentRecovered
+      }
+      recoverySummary {
+        recoveryCount
+        avgRecoveryLength
+      }
+      vaccinationSummary {
+        percentVaccinated
+        avgNumOfVaccPerPerson
+        pfizerCount
+        modernaCount
+        jjCount
+        azCount
+      }
+      globalHealthSummary {
+        avgGeneralHealth
+        avgPhysicalHealth
+        avgEverydayPhysicalCompetency
+        avgFatigue
+        avgPain
       }
       symptomSummary {
-        mostCommonSymptom
+        avgQualityOfLife
+        avgMentalHealth
+        avgSocialActivitesRelationships
+        avgSocialActivitiesCapacity
+        avgEmotionalProblems
         symptomCounts {
           headache
           bodyMuscleAche
@@ -169,36 +208,26 @@ export const onUpdateMapData = /* GraphQL */ `
           fertilityProblemsForWomen
         }
       }
-      vaccinationSummary {
-        percentVaccinated
-        avgNumOfVaccPerPerson
-        pfizerCount
-        modernaCount
-        jjCount
-        azCount
-      }
-      globalHealthSummary {
-        healthRankCount
-        physicalHealthRankCount
-        carryOutPhysicalActivitiesRankCount
-        fatigueRankCount
-        painLevelCount
-      }
-      patientHealthSummary {
-        avgTotalScore
-        avgHealthCounts {
-          generalHealth
-          qualityOfLife
-          physicalHealth
-          mentalHealth
-          socialActivitiesRelationships
-          socialActivitiesRoles
+      medicalConditionsSummary {
+        percentHaveLongCovid
+        newDiagnosisCounts {
+          noNewDiagnosis
+          heartProblems
+          lungProblems
+          bloodClotLung
+          sleepApnea
+          memory
+          migraine
+          stroke
+          seizure
+          kidneyProblems
+          stomachProblems
+          psychologicalProblems
+          diabetes
+          autoImmuneDiseases
+          other
+          notSure
         }
-      }
-      recoverySummary {
-        longCovidCount
-        percentLongCovid
-        avgRecoveryLength
       }
       socialSummary {
         percentHaveMedicalInsurance
@@ -217,6 +246,7 @@ export const onUpdateMapData = /* GraphQL */ `
         }
       }
       totalFullEntries
+      totalDemoCount
       createdAt
       updatedAt
     }
@@ -233,9 +263,11 @@ export const onDeleteMapData = /* GraphQL */ `
       long
       covidSummary {
         covidCount
-        percentHospitalizedDueToCovid
         avgPositiveCasesPerPerson
+        percentHospitalizedDueToCovid
+        avgHospitalizationsPerPerson
         percentSymptomatic
+        avgSymptomPreventDailyTasks
         percentTookMedication
         medicationCounts {
           antiViral
@@ -244,10 +276,32 @@ export const onDeleteMapData = /* GraphQL */ `
           other
           dontKnow
         }
-        percentRecovered
+      }
+      recoverySummary {
+        recoveryCount
+        avgRecoveryLength
+      }
+      vaccinationSummary {
+        percentVaccinated
+        avgNumOfVaccPerPerson
+        pfizerCount
+        modernaCount
+        jjCount
+        azCount
+      }
+      globalHealthSummary {
+        avgGeneralHealth
+        avgPhysicalHealth
+        avgEverydayPhysicalCompetency
+        avgFatigue
+        avgPain
       }
       symptomSummary {
-        mostCommonSymptom
+        avgQualityOfLife
+        avgMentalHealth
+        avgSocialActivitesRelationships
+        avgSocialActivitiesCapacity
+        avgEmotionalProblems
         symptomCounts {
           headache
           bodyMuscleAche
@@ -279,36 +333,26 @@ export const onDeleteMapData = /* GraphQL */ `
           fertilityProblemsForWomen
         }
       }
-      vaccinationSummary {
-        percentVaccinated
-        avgNumOfVaccPerPerson
-        pfizerCount
-        modernaCount
-        jjCount
-        azCount
-      }
-      globalHealthSummary {
-        healthRankCount
-        physicalHealthRankCount
-        carryOutPhysicalActivitiesRankCount
-        fatigueRankCount
-        painLevelCount
-      }
-      patientHealthSummary {
-        avgTotalScore
-        avgHealthCounts {
-          generalHealth
-          qualityOfLife
-          physicalHealth
-          mentalHealth
-          socialActivitiesRelationships
-          socialActivitiesRoles
+      medicalConditionsSummary {
+        percentHaveLongCovid
+        newDiagnosisCounts {
+          noNewDiagnosis
+          heartProblems
+          lungProblems
+          bloodClotLung
+          sleepApnea
+          memory
+          migraine
+          stroke
+          seizure
+          kidneyProblems
+          stomachProblems
+          psychologicalProblems
+          diabetes
+          autoImmuneDiseases
+          other
+          notSure
         }
-      }
-      recoverySummary {
-        longCovidCount
-        percentLongCovid
-        avgRecoveryLength
       }
       socialSummary {
         percentHaveMedicalInsurance
@@ -327,6 +371,7 @@ export const onDeleteMapData = /* GraphQL */ `
         }
       }
       totalFullEntries
+      totalDemoCount
       createdAt
       updatedAt
     }
