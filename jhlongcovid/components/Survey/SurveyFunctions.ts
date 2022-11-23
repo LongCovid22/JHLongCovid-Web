@@ -23,7 +23,6 @@ import {
   User,
 } from "../../src/API";
 import axios from "axios";
-import { Console } from "console";
 
 export type LocationData = {
   county: string;
@@ -632,34 +631,48 @@ export const aggregateResults = async (
       race: userInfo.race,
       sex: userInfo.sex,
       location: location,
-      covidResults: {
-        id: ids["CovidEntry"],
-        ...entries["CovidEntry"],
-      },
-      recoveryResults: {
-        id: ids["RecoveryEntry"],
-        ...entries["RecoveryEntry"],
-      },
-      vaccinationResults: {
-        id: ids["VaccinationEntry"],
-        ...entries["VaccinationEntry"],
-      },
-      globalHealthResults: {
-        id: ids["GlobalHealthEntry"],
-        ...entries["GlobalHealthEntry"],
-      },
-      patientHealthResults: {
-        id: ids["PatientHealthEntry"],
-        ...entries["PatientHealthEntry"],
-      },
-      symptomResults: {
-        id: ids["SymptomEntry"],
-        ...entries,
-      },
-      socialDeterminantsResults: {
-        id: ids["SocialDeterminantsEntry"],
-        ...entries["SocialDeterminantsEntry"],
-      },
+      covidResults: ids["CovidEntry"]
+        ? {
+            id: ids["CovidEntry"],
+            ...entries["CovidEntry"],
+          }
+        : null,
+      recoveryResults: ids["RecoveryEntry"]
+        ? {
+            id: ids["RecoveryEntry"],
+            ...entries["RecoveryEntry"],
+          }
+        : null,
+      vaccinationResults: ids["VaccinationEntry"]
+        ? {
+            id: ids["VaccinationEntry"],
+            ...entries["VaccinationEntry"],
+          }
+        : null,
+      globalHealthResults: ids["GlobalHealthEntry"]
+        ? {
+            id: ids["GlobalHealthEntry"],
+            ...entries["GlobalHealthEntry"],
+          }
+        : null,
+      patientHealthResults: ids["PatientHealthEntry"]
+        ? {
+            id: ids["PatientHealthEntry"],
+            ...entries["PatientHealthEntry"],
+          }
+        : null,
+      symptomResults: ids["SymptomEntry"]
+        ? {
+            id: ids["SymptomEntry"],
+            ...entries,
+          }
+        : null,
+      socialDeterminantsResults: ids["SocialDeterminantsEntry"]
+        ? {
+            id: ids["SocialDeterminantsEntry"],
+            ...entries["SocialDeterminantsEntry"],
+          }
+        : null,
       healthRelatedResults: {
         weight: userInfo.weight,
         height: userInfo.height,
