@@ -13,7 +13,7 @@ import {
   Checkbox,
   CheckboxGroup,
 } from "@chakra-ui/react";
-import { selectCurrentAnswer } from "../../../redux/slices/surveySlice";
+import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 
 export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
@@ -33,7 +33,7 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
 
   const handleChoiceInput = (checkedChoices: string[]) => {
     setChecked(checkedChoices);
-    setAnswer({ choices: checked, other: inputValue });
+    setAnswer({ choices: checkedChoices, other: inputValue });
   };
 
   const handleInputOther = (input: string) => {

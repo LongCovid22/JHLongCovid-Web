@@ -125,7 +125,6 @@ type SurveyEntry
   sex: String!
   height: String!
   weight: String!
-  timeElapsed: AWSDateTime
   covidEntry: CovidEntry @hasOne
   vaccinationEntry: VaccinationEntry @hasOne
   socialDeterminantsEntry: SocialDeterminantsEntry @hasOne
@@ -181,7 +180,7 @@ type VaccinationEntry
       sortKeyFields: ["sex"]
       queryField: "stateVaccEntryBySex"
     )
-  countyState: String!
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
@@ -247,7 +246,7 @@ type GlobalHealthEntry
       sortKeyFields: ["sex"]
       queryField: "stateGHEntryBySex"
     )
-  countyState: String!
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
@@ -322,7 +321,7 @@ type CovidEntry
       sortKeyFields: ["sex"]
       queryField: "stateCovidEntryBySex"
     )
-  countyState: String!
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
@@ -345,7 +344,12 @@ type CovidEntry
     )
   surveyEntry: SurveyEntry
     @belongsTo
-    @auth(rules: [{ allow: private, provider: iam }])
+    @auth(
+      rules: [
+        { allow: private, provider: iam }
+        { allow: public, operations: [create] }
+      ]
+    )
   age: Int!
   race: Race!
   sex: String!
@@ -396,7 +400,7 @@ type RecoveryEntry
       sortKeyFields: ["sex"]
       queryField: "stateRecovEntryBySex"
     )
-  countyState: String!
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
@@ -460,7 +464,7 @@ type PatientHealthEntry
       sortKeyFields: ["sex"]
       queryField: "statePatientHealthEntryBySex"
     )
-  countyState: String!
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
@@ -532,7 +536,7 @@ type SymptomEntry
       sortKeyFields: ["sex"]
       queryField: "stateSymptomEntryBySex"
     )
-  countyState: String!
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
@@ -562,12 +566,12 @@ type SymptomEntry
   height: String!
   weight: String!
   createdAt: AWSDateTime!
-  symptoms: AWSJSON!
+  symptoms: [String]
   mentalHealthRank: String
   socialSatisfactionRank: String
   carryOutSocialActivitiesRank: String
   anxietyInPastWeekRank: String
-  medicalConditions: [String]!
+  medicalConditions: [String]
   hasLongCovid: Boolean
 }
 
@@ -601,7 +605,7 @@ type SocialDeterminantsEntry
       sortKeyFields: ["sex"]
       queryField: "stateSocialDetEntryBySex"
     )
-  countyState: String!
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]
@@ -666,7 +670,7 @@ type MonthlyEntry
       sortKeyFields: ["sex"]
       queryField: "stateMonthlyEntryBySex"
     )
-  countyState: String!
+  countyState: String
     @index(
       name: "byCountySortByDate"
       sortKeyFields: ["createdAt"]

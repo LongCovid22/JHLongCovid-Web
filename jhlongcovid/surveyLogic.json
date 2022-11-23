@@ -407,8 +407,8 @@
         "branching": null,
         "schemaInfo": {
           "tableName": "VaccinationEntry",
-          "field": "dateOfLastVaccine",
-          "type": "AWSDateTime"
+          "field": "vaccineType",
+          "type": "String"
         }
       }
     ],
@@ -531,9 +531,9 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "SymptomsEntry",
+          "tableName": "SymptomEntry",
           "field": "symptoms",
-          "type": "AWSJSON"
+          "type": "[String]"
         }
       },
       {
@@ -544,7 +544,7 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "SymptomsEntry",
+          "tableName": "SymptomEntry",
           "field": "mentalHealthRank",
           "type": "String"
         }
@@ -557,7 +557,7 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "SymptomsEntry",
+          "tableName": "SymptomEntry",
           "field": "socialSatisfactionRank",
           "type": "String"
         }
@@ -570,7 +570,7 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "SymptomsEntry",
+          "tableName": "SymptomEntry",
           "field": "carryOutSocialActivitiesRank",
           "type": "String"
         }
@@ -583,7 +583,7 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "SymptomsEntry",
+          "tableName": "SymptomEntry",
           "field": "anxietyInPastWeekRank",
           "type": "String"
         }
@@ -668,7 +668,7 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "SymptomsEntry",
+          "tableName": "SymptomEntry",
           "field": "medicalConditions",
           "type": "[String]"
         }
@@ -681,7 +681,7 @@
         "answer": null,
         "branching": null,
         "schemaInfo": {
-          "tableName": "SymptomsEntry",
+          "tableName": "SymptomEntry",
           "field": "hasLongCovid",
           "type": "Boolean"
         }
