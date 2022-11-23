@@ -23,6 +23,7 @@ import {
   User,
 } from "../../src/API";
 import axios from "axios";
+import { Console } from "console";
 
 export type LocationData = {
   county: string;
@@ -179,130 +180,6 @@ export const getCountyAndStateWithZip = async (
   }
 
   return locationData;
-};
-
-export const saveEntries = async (
-  locationData: LocationData,
-  surveyData: any,
-  userInfo: UserInfo,
-  user?: User
-) => {
-  try {
-    let ids: any = {};
-    for await (const value of Object.keys(surveyData)) {
-      switch (value) {
-        case "CovidEntry":
-          const covidEntryid = await createCovidEntry(
-            surveyData[value],
-            locationData
-          );
-          ids[value] = covidEntryid;
-          break;
-        case "RecoveryEntry":
-          const recoveryEntryId = await createRecoveryEntry(
-            surveyData[value],
-            locationData
-          );
-          ids[value] = recoveryEntryId;
-          break;
-        case "VaccinationEntry":
-          const vaccinationEntryId = await createVaccinationEntry(
-            surveyData[value],
-            locationData
-          );
-          ids[value] = vaccinationEntryId;
-          break;
-        case "PatientHealthEntry":
-          const patientHealthEntryId = await createPatientHealthEntry(
-            surveyData[value],
-            locationData
-          );
-          ids[value] = patientHealthEntryId;
-          break;
-        case "GlobalHealthEntry":
-          const globalHealthEntryId = await createGlobalHealthEntry(
-            surveyData[value],
-            locationData
-          );
-          ids[value] = globalHealthEntryId;
-          break;
-        case "SymptomEntry":
-          const SymptomEntryId = await createSymptomEntry(
-            surveyData[value],
-            locationData
-          );
-          ids[value] = SymptomEntryId;
-          break;
-        case "SocialDeterminantsEntry":
-          const socialDeterminantsEntryId = await createSocialDeterminantsEntry(
-            surveyData[value],
-            locationData
-          );
-          ids[value] = socialDeterminantsEntryId;
-          break;
-        default:
-          break;
-      }
-    }
-
-    let race;
-    if (userInfo.race.toUpperCase() === "WHITE") {
-      race = Race.WHITE;
-    } else if (userInfo.race.toUpperCase() === "BLACK") {
-      race = Race.BLACK;
-    } else if (userInfo.race.toUpperCase() === "ASIAN") {
-      race = Race.ASIAN;
-    } else if (userInfo.race.toUpperCase() === "HISPANIC") {
-      race = Race.HISPANIC;
-    } else if (userInfo.race.toUpperCase() === "NATIVE") {
-      race = Race.NATIVE;
-    } else if (userInfo.race.toUpperCase() === "OTHER") {
-      race = Race.OTHER;
-    } else {
-      race = Race.NONE;
-    }
-
-    const surveyDetails: CreateSurveyEntryInput = {
-      surveyVersion: 1,
-      surveyType: SurveyType.GUEST,
-      email: user ? user.email : null,
-      age: parseInt(userInfo.age),
-      race: race,
-      sex: userInfo.sex,
-      height: userInfo.height,
-      weight: userInfo.weight,
-      surveyEntryCovidEntryId: ids.CovidEntry ? ids.CovidEntry : null,
-      surveyEntryVaccinationEntryId: ids.VaccinationEntry
-        ? ids.VaccinationEntry
-        : null,
-      surveyEntrySocialDeterminantsEntryId: ids.SocialDeterminantsEntry
-        ? ids.SocialDeterminantsEntry
-        : null,
-      surveyEntryRecoveryEntryId: ids.RecoveryEntry ? ids.RecoveryEntry : null,
-      surveyEntryGlobalHealthEntryId: ids.GlobalHealthEntry
-        ? ids.GlobalHealthEntry
-        : null,
-      surveyEntryPatientHealthEntryId: ids.PatientHealthEntry
-        ? ids.PatientHealthEntry
-        : null,
-      surveyEntrySymptomsEntryId: ids.SymptomEntry ? ids.SymptomEntry : null,
-    };
-
-    const sEntry = (await API.graphql({
-      query: mutations.createSurveyEntry,
-      variables: { input: surveyDetails },
-    })) as { data: CreateSurveyEntryMutation; errors: any[] };
-    if (sEntry.data.createSurveyEntry) {
-      return sEntry.data.createSurveyEntry.id;
-    }
-  } catch (error) {
-    let mutation = error as { data: CreateSurveyEntryMutation; errors: any[] };
-    if (mutation.data.createSurveyEntry) {
-      return mutation.data.createSurveyEntry.id;
-    } else {
-      console.log("Error creating Survey Entry: ", mutation.errors);
-    }
-  }
 };
 
 export const createCovidEntry = async (
@@ -599,4 +476,195 @@ export const createSocialDeterminantsEntry = async (
       console.log("Error creating Symptom Entry: ", mutation.errors);
     }
   }
+};
+
+export const createSurveyEntry = async (
+  ids: any,
+  userInfo: UserInfo,
+  user?: User
+) => {
+  try {
+    let race;
+    if (userInfo.race.toUpperCase() === "WHITE") {
+      race = Race.WHITE;
+    } else if (userInfo.race.toUpperCase() === "BLACK") {
+      race = Race.BLACK;
+    } else if (userInfo.race.toUpperCase() === "ASIAN") {
+      race = Race.ASIAN;
+    } else if (userInfo.race.toUpperCase() === "HISPANIC") {
+      race = Race.HISPANIC;
+    } else if (userInfo.race.toUpperCase() === "NATIVE") {
+      race = Race.NATIVE;
+    } else if (userInfo.race.toUpperCase() === "OTHER") {
+      race = Race.OTHER;
+    } else {
+      race = Race.NONE;
+    }
+
+    const surveyDetails: CreateSurveyEntryInput = {
+      surveyVersion: 1,
+      surveyType: SurveyType.GUEST,
+      email: user ? user.email : null,
+      age: parseInt(userInfo.age),
+      race: race,
+      sex: userInfo.sex,
+      height: userInfo.height,
+      weight: userInfo.weight,
+      surveyEntryCovidEntryId: ids.CovidEntry ? ids.CovidEntry : null,
+      surveyEntryVaccinationEntryId: ids.VaccinationEntry
+        ? ids.VaccinationEntry
+        : null,
+      surveyEntrySocialDeterminantsEntryId: ids.SocialDeterminantsEntry
+        ? ids.SocialDeterminantsEntry
+        : null,
+      surveyEntryRecoveryEntryId: ids.RecoveryEntry ? ids.RecoveryEntry : null,
+      surveyEntryGlobalHealthEntryId: ids.GlobalHealthEntry
+        ? ids.GlobalHealthEntry
+        : null,
+      surveyEntryPatientHealthEntryId: ids.PatientHealthEntry
+        ? ids.PatientHealthEntry
+        : null,
+      surveyEntrySymptomsEntryId: ids.SymptomEntry ? ids.SymptomEntry : null,
+    };
+
+    const sEntry = (await API.graphql({
+      query: mutations.createSurveyEntry,
+      variables: { input: surveyDetails },
+    })) as { data: CreateSurveyEntryMutation; errors: any[] };
+    if (sEntry.data.createSurveyEntry) {
+      return sEntry.data.createSurveyEntry.id;
+    }
+  } catch (error) {
+    let mutation = error as { data: CreateSurveyEntryMutation; errors: any[] };
+    if (mutation.data.createSurveyEntry) {
+      return mutation.data.createSurveyEntry.id;
+    } else {
+      console.log("Error creating Survey Entry: ", mutation.errors);
+    }
+  }
+};
+
+export const saveEntries = async (
+  locationData: LocationData,
+  surveyData: any,
+  userInfo: UserInfo,
+  user?: User
+) => {
+  try {
+    let ids: any = {};
+    for await (const value of Object.keys(surveyData)) {
+      switch (value) {
+        case "CovidEntry":
+          const covidEntryid = await createCovidEntry(
+            surveyData[value],
+            locationData
+          );
+          ids[value] = covidEntryid;
+          break;
+        case "RecoveryEntry":
+          const recoveryEntryId = await createRecoveryEntry(
+            surveyData[value],
+            locationData
+          );
+          ids[value] = recoveryEntryId;
+          break;
+        case "VaccinationEntry":
+          const vaccinationEntryId = await createVaccinationEntry(
+            surveyData[value],
+            locationData
+          );
+          ids[value] = vaccinationEntryId;
+          break;
+        case "PatientHealthEntry":
+          const patientHealthEntryId = await createPatientHealthEntry(
+            surveyData[value],
+            locationData
+          );
+          ids[value] = patientHealthEntryId;
+          break;
+        case "GlobalHealthEntry":
+          const globalHealthEntryId = await createGlobalHealthEntry(
+            surveyData[value],
+            locationData
+          );
+          ids[value] = globalHealthEntryId;
+          break;
+        case "SymptomEntry":
+          const SymptomEntryId = await createSymptomEntry(
+            surveyData[value],
+            locationData
+          );
+          ids[value] = SymptomEntryId;
+          break;
+        case "SocialDeterminantsEntry":
+          const socialDeterminantsEntryId = await createSocialDeterminantsEntry(
+            surveyData[value],
+            locationData
+          );
+          ids[value] = socialDeterminantsEntryId;
+          break;
+        default:
+          break;
+      }
+    }
+
+    ids["SurveyEntry"] = await createSurveyEntry(ids, userInfo, user);
+    return ids;
+  } catch (error) {
+    console.log("Saving entries: ", error);
+  }
+};
+
+export const aggregateResults = async (
+  entries: any,
+  ids: any,
+  userInfo: UserInfo,
+  location: LocationData,
+  user?: User
+) => {
+  const aggregateDetails: any = {
+    surveyResults: {
+      id: ids["SurveyEntry"],
+      email: user ? user.email : "",
+      surveyVersion: 1,
+      surveyType: SurveyType.GUEST,
+      age: userInfo.age,
+      race: userInfo.race,
+      sex: userInfo.sex,
+      location: location,
+      covidResults: {
+        id: ids["CovidEntry"],
+        ...entries["CovidEntry"],
+      },
+      recoveryResults: {
+        id: ids["RecoveryEntry"],
+        ...entries["RecoveryEntry"],
+      },
+      vaccinationResults: {
+        id: ids["VaccinationEntry"],
+        ...entries["VaccinationEntry"],
+      },
+      globalHealthResults: {
+        id: ids["GlobalHealthEntry"],
+        ...entries["GlobalHealthEntry"],
+      },
+      patientHealthResults: {
+        id: ids["PatientHealthEntry"],
+        ...entries["PatientHealthEntry"],
+      },
+      symptomResults: {
+        id: ids["SymptomEntry"],
+        ...entries,
+      },
+      socialDeterminantsResults: {
+        id: ids["SocialDeterminantsEntry"],
+        ...entries["SocialDeterminantsEntry"],
+      },
+      healthRelatedResults: {
+        weight: userInfo.weight,
+        height: userInfo.height,
+      },
+    },
+  };
+  console.log("Aggregate details: ", JSON.stringify(aggregateDetails));
 };
