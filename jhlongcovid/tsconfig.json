@@ -22,7 +22,8 @@
     "mockData2.js",
     "countyStateAggregator.js",
     "components/Header/AwsAuth.js",
-    "components/Header/SearchLocationInput.jsx"
+    "components/Header/SearchLocationInput.jsx",
+    "jest.config.js"
   ],
   "exclude": ["node_modules"]
 }

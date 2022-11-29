@@ -4,7 +4,7 @@ $util.qr($ctx.stash.put("hasAuth", true))
 #set( $isAuthorized = false )
 #set( $allowedFields = [] )
 #if( $util.authType() == "API Key Authorization" )
-  #set( $allowedFields = ["id","state","countyState","age","race","sex","createdAt","symptoms","medicalConditions","symptomEntrySurveyEntryId"] )
+  #set( $allowedFields = ["id","state","countyState","age","race","sex","height","weight","createdAt","symptoms","mentalHealthRank","socialSatisfactionRank","carryOutSocialActivitiesRank","anxietyInPastWeekRank","medicalConditions","hasLongCovid","symptomEntrySurveyEntryId"] )
 #end
 #if( $util.authType() == "IAM Authorization" )
   #set( $adminRoles = ["aggregateSurveyResults-develop","arn:aws:iam::317973408936:user/nate-amplify-cli","arn:aws:iam::317973408936:role/amplify-jhlongcovid-devel-AggregateSurveyResultsLa-1EZRW3ZDYI4O","arn:aws:iam::317973408936:role/jhlongcovidLambdaRolec85f25a7-develop"] )

@@ -447,7 +447,6 @@ export const onCreateSurveyEntry = /* GraphQL */ `
       sex
       height
       weight
-      timeElapsed
       covidEntry {
         id
         state
@@ -463,7 +462,6 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -655,7 +653,6 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -829,7 +826,6 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -1007,7 +1003,6 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -1189,7 +1184,6 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -1364,7 +1358,6 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -1541,7 +1534,6 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -1723,7 +1715,6 @@ export const onCreateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -1909,7 +1900,6 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
       sex
       height
       weight
-      timeElapsed
       covidEntry {
         id
         state
@@ -1925,7 +1915,6 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -2117,7 +2106,6 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -2291,7 +2279,6 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -2469,7 +2456,6 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -2651,7 +2637,6 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -2826,7 +2811,6 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -3003,7 +2987,6 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -3185,7 +3168,6 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -3371,7 +3353,6 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
       sex
       height
       weight
-      timeElapsed
       covidEntry {
         id
         state
@@ -3387,7 +3368,6 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -3579,7 +3559,6 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -3753,7 +3732,6 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -3931,7 +3909,6 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -4113,7 +4090,6 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -4288,7 +4264,6 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -4465,7 +4440,6 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -4647,7 +4621,6 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
           sex
           height
           weight
-          timeElapsed
           covidEntry {
             id
             state
@@ -4842,7 +4815,6 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -4858,7 +4830,6 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -4910,7 +4881,6 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -4944,7 +4914,6 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -4982,7 +4951,6 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5024,7 +4992,6 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5059,7 +5026,6 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5096,7 +5062,6 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5138,7 +5103,6 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5201,7 +5165,6 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -5217,7 +5180,6 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5269,7 +5231,6 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5303,7 +5264,6 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5341,7 +5301,6 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5383,7 +5342,6 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5418,7 +5376,6 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5455,7 +5412,6 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5497,7 +5453,6 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5560,7 +5515,6 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -5576,7 +5530,6 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5628,7 +5581,6 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5662,7 +5614,6 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5700,7 +5651,6 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5742,7 +5692,6 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5777,7 +5726,6 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5814,7 +5762,6 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5856,7 +5803,6 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5919,7 +5865,6 @@ export const onCreateGlobalHealthEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -5935,7 +5880,6 @@ export const onCreateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -5987,7 +5931,6 @@ export const onCreateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6021,7 +5964,6 @@ export const onCreateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6059,7 +6001,6 @@ export const onCreateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6101,7 +6042,6 @@ export const onCreateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6136,7 +6076,6 @@ export const onCreateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6173,7 +6112,6 @@ export const onCreateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6215,7 +6153,6 @@ export const onCreateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6279,7 +6216,6 @@ export const onUpdateGlobalHealthEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -6295,7 +6231,6 @@ export const onUpdateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6347,7 +6282,6 @@ export const onUpdateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6381,7 +6315,6 @@ export const onUpdateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6419,7 +6352,6 @@ export const onUpdateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6461,7 +6393,6 @@ export const onUpdateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6496,7 +6427,6 @@ export const onUpdateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6533,7 +6463,6 @@ export const onUpdateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6575,7 +6504,6 @@ export const onUpdateGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6639,7 +6567,6 @@ export const onDeleteGlobalHealthEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -6655,7 +6582,6 @@ export const onDeleteGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6707,7 +6633,6 @@ export const onDeleteGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6741,7 +6666,6 @@ export const onDeleteGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6779,7 +6703,6 @@ export const onDeleteGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6821,7 +6744,6 @@ export const onDeleteGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6856,7 +6778,6 @@ export const onDeleteGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6893,7 +6814,6 @@ export const onDeleteGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6935,7 +6855,6 @@ export const onDeleteGlobalHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -6994,7 +6913,6 @@ export const onCreateCovidEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -7010,7 +6928,6 @@ export const onCreateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7062,7 +6979,6 @@ export const onCreateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7096,7 +7012,6 @@ export const onCreateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7134,7 +7049,6 @@ export const onCreateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7176,7 +7090,6 @@ export const onCreateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7211,7 +7124,6 @@ export const onCreateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7248,7 +7160,6 @@ export const onCreateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7290,7 +7201,6 @@ export const onCreateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7361,7 +7271,6 @@ export const onUpdateCovidEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -7377,7 +7286,6 @@ export const onUpdateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7429,7 +7337,6 @@ export const onUpdateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7463,7 +7370,6 @@ export const onUpdateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7501,7 +7407,6 @@ export const onUpdateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7543,7 +7448,6 @@ export const onUpdateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7578,7 +7482,6 @@ export const onUpdateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7615,7 +7518,6 @@ export const onUpdateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7657,7 +7559,6 @@ export const onUpdateCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7728,7 +7629,6 @@ export const onDeleteCovidEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -7744,7 +7644,6 @@ export const onDeleteCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7796,7 +7695,6 @@ export const onDeleteCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7830,7 +7728,6 @@ export const onDeleteCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7868,7 +7765,6 @@ export const onDeleteCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7910,7 +7806,6 @@ export const onDeleteCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7945,7 +7840,6 @@ export const onDeleteCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -7982,7 +7876,6 @@ export const onDeleteCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8024,7 +7917,6 @@ export const onDeleteCovidEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8095,7 +7987,6 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -8111,7 +8002,6 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8163,7 +8053,6 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8197,7 +8086,6 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8235,7 +8123,6 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8277,7 +8164,6 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8312,7 +8198,6 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8349,7 +8234,6 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8391,7 +8275,6 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8452,7 +8335,6 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -8468,7 +8350,6 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8520,7 +8401,6 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8554,7 +8434,6 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8592,7 +8471,6 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8634,7 +8512,6 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8669,7 +8546,6 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8706,7 +8582,6 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8748,7 +8623,6 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8809,7 +8683,6 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -8825,7 +8698,6 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8877,7 +8749,6 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8911,7 +8782,6 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8949,7 +8819,6 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -8991,7 +8860,6 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9026,7 +8894,6 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9063,7 +8930,6 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9105,7 +8971,6 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9166,7 +9031,6 @@ export const onCreatePatientHealthEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -9182,7 +9046,6 @@ export const onCreatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9234,7 +9097,6 @@ export const onCreatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9268,7 +9130,6 @@ export const onCreatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9306,7 +9167,6 @@ export const onCreatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9348,7 +9208,6 @@ export const onCreatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9383,7 +9242,6 @@ export const onCreatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9420,7 +9278,6 @@ export const onCreatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9462,7 +9319,6 @@ export const onCreatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9523,7 +9379,6 @@ export const onUpdatePatientHealthEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -9539,7 +9394,6 @@ export const onUpdatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9591,7 +9445,6 @@ export const onUpdatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9625,7 +9478,6 @@ export const onUpdatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9663,7 +9515,6 @@ export const onUpdatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9705,7 +9556,6 @@ export const onUpdatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9740,7 +9590,6 @@ export const onUpdatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9777,7 +9626,6 @@ export const onUpdatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9819,7 +9667,6 @@ export const onUpdatePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9880,7 +9727,6 @@ export const onDeletePatientHealthEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -9896,7 +9742,6 @@ export const onDeletePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9948,7 +9793,6 @@ export const onDeletePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -9982,7 +9826,6 @@ export const onDeletePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10020,7 +9863,6 @@ export const onDeletePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10062,7 +9904,6 @@ export const onDeletePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10097,7 +9938,6 @@ export const onDeletePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10134,7 +9974,6 @@ export const onDeletePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10176,7 +10015,6 @@ export const onDeletePatientHealthEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10237,7 +10075,6 @@ export const onCreateSymptomEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -10253,7 +10090,6 @@ export const onCreateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10305,7 +10141,6 @@ export const onCreateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10339,7 +10174,6 @@ export const onCreateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10377,7 +10211,6 @@ export const onCreateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10419,7 +10252,6 @@ export const onCreateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10454,7 +10286,6 @@ export const onCreateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10491,7 +10322,6 @@ export const onCreateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10533,7 +10363,6 @@ export const onCreateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10599,7 +10428,6 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -10615,7 +10443,6 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10667,7 +10494,6 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10701,7 +10527,6 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10739,7 +10564,6 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10781,7 +10605,6 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10816,7 +10639,6 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10853,7 +10675,6 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10895,7 +10716,6 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -10961,7 +10781,6 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -10977,7 +10796,6 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11029,7 +10847,6 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11063,7 +10880,6 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11101,7 +10917,6 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11143,7 +10958,6 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11178,7 +10992,6 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11215,7 +11028,6 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11257,7 +11069,6 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11323,7 +11134,6 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -11339,7 +11149,6 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11391,7 +11200,6 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11425,7 +11233,6 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11463,7 +11270,6 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11505,7 +11311,6 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11540,7 +11345,6 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11577,7 +11381,6 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11619,7 +11422,6 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11681,7 +11483,6 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -11697,7 +11498,6 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11749,7 +11549,6 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11783,7 +11582,6 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11821,7 +11619,6 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11863,7 +11660,6 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11898,7 +11694,6 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11935,7 +11730,6 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -11977,7 +11771,6 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12039,7 +11832,6 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -12055,7 +11847,6 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12107,7 +11898,6 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12141,7 +11931,6 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12179,7 +11968,6 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12221,7 +12009,6 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12256,7 +12043,6 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12293,7 +12079,6 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12335,7 +12120,6 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12397,7 +12181,6 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -12413,7 +12196,6 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12465,7 +12247,6 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12499,7 +12280,6 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12537,7 +12317,6 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12579,7 +12358,6 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12614,7 +12392,6 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12651,7 +12428,6 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12693,7 +12469,6 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12753,7 +12528,6 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -12769,7 +12543,6 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12821,7 +12594,6 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12855,7 +12627,6 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12893,7 +12664,6 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12935,7 +12705,6 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -12970,7 +12739,6 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -13007,7 +12775,6 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -13049,7 +12816,6 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -13109,7 +12875,6 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
         sex
         height
         weight
-        timeElapsed
         covidEntry {
           id
           state
@@ -13125,7 +12890,6 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -13177,7 +12941,6 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -13211,7 +12974,6 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -13249,7 +13011,6 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -13291,7 +13052,6 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -13326,7 +13086,6 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -13363,7 +13122,6 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
@@ -13405,7 +13163,6 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
             sex
             height
             weight
-            timeElapsed
             updatedAt
             surveyEntryCovidEntryId
             surveyEntryVaccinationEntryId
