@@ -38,6 +38,10 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     setScaleValues(currentAnswer as string[]);
   }, [currentQuestion, currentAnswer]);
 

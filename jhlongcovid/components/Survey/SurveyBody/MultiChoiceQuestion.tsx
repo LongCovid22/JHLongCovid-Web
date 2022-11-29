@@ -46,6 +46,10 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
     handleAnswerInit(currentAnswer as { choices: string[]; other: string });
   }, [currentAnswer, currentQuestion]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>
       <Text fontSize={"md"} fontWeight={"regular"} width={"100%"}>
