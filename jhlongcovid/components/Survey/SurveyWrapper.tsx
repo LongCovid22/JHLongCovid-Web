@@ -389,6 +389,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       <ModalBody
         style={{
           overflowY: "auto",
+          paddingTop: "0px",
         }}
       >
         {!preSurvey ? (
