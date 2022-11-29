@@ -137,8 +137,7 @@ export type DiagnosisTypesInput = {
 
 export type SocialSummaryInput = {
   percentHaveMedicalInsurance?: string | null,
-  percentDifficultyCoveringExpenses?: string | null,
-  averageWorkingSituation?: string | null,
+  averageDifficultyCoveringExpenses?: string | null,
   workingSituationCounts?: WorkingSituationInput | null,
 };
 
@@ -354,8 +353,7 @@ export type DiagnosisTypes = {
 export type SocialSummary = {
   __typename: "SocialSummary",
   percentHaveMedicalInsurance?: string | null,
-  percentDifficultyCoveringExpenses?: string | null,
-  averageWorkingSituation?: string | null,
+  averageDifficultyCoveringExpenses?: string | null,
   workingSituationCounts?: WorkingSituation | null,
 };
 
@@ -1761,8 +1759,7 @@ export type CreateMapDataMutation = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,
@@ -1902,8 +1899,7 @@ export type UpdateMapDataMutation = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,
@@ -2043,8 +2039,7 @@ export type DeleteMapDataMutation = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,
@@ -16057,8 +16052,7 @@ export type GetMapDataQuery = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,
@@ -16204,8 +16198,7 @@ export type ListMapDataQuery = {
       socialSummary:  {
         __typename: "SocialSummary",
         percentHaveMedicalInsurance?: string | null,
-        percentDifficultyCoveringExpenses?: string | null,
-        averageWorkingSituation?: string | null,
+        averageDifficultyCoveringExpenses?: string | null,
         workingSituationCounts?:  {
           __typename: "WorkingSituation",
           workingOutsideTheHome?: string | null,
@@ -16353,8 +16346,7 @@ export type MapDataByLevelNameStateQuery = {
       socialSummary:  {
         __typename: "SocialSummary",
         percentHaveMedicalInsurance?: string | null,
-        percentDifficultyCoveringExpenses?: string | null,
-        averageWorkingSituation?: string | null,
+        averageDifficultyCoveringExpenses?: string | null,
         workingSituationCounts?:  {
           __typename: "WorkingSituation",
           workingOutsideTheHome?: string | null,
@@ -16502,8 +16494,7 @@ export type MapDataByStateAbbrevQuery = {
       socialSummary:  {
         __typename: "SocialSummary",
         percentHaveMedicalInsurance?: string | null,
-        percentDifficultyCoveringExpenses?: string | null,
-        averageWorkingSituation?: string | null,
+        averageDifficultyCoveringExpenses?: string | null,
         workingSituationCounts?:  {
           __typename: "WorkingSituation",
           workingOutsideTheHome?: string | null,
@@ -37199,8 +37190,7 @@ export type OnCreateMapDataSubscription = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,
@@ -37335,8 +37325,7 @@ export type OnUpdateMapDataSubscription = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,
@@ -37471,8 +37460,7 @@ export type OnDeleteMapDataSubscription = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,

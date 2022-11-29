@@ -113,19 +113,17 @@ medicalConditionsChanges
 socialDeterminantsResults
 66) hasMedicalInsurance : boolean (Yes / NO question)
 67) difficultCoveringExpenses : integer (5 - Very difficult, ...., 3 - Not at all difficult, 2 - Don't Know, 1 - Prefer not to ansewr)
-68) currentWorkSituation : Integer (look below for the mapping)
-0 - Working outside the home
-1 - Working outside the home as well as working remotely from home (“hybrid” work)
-2 - Working remotely from home
-3 - Working at home to provide childcare, eldercare and/or to maintain the home 
-4 - On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave) 
-5 - Working inside the home
-6 - Looking for work, unemployed
-7 - Retired
-8 - Disabled, permanently or temporarily 
-9 - Student
-10 - Don't know
-11 - Prefer not to answer
+68) currentWorkSituation : String (only the following is recognized)
+
+workingOutsideTheHome
+onLeaveFromAJobWorkingOutsideHome
+workingInsideHome
+lookingForWorkUnemployed
+retired
+disabled
+student
+dontKnow
+preferNotToAnswer
 
 
 healthRelatedResults

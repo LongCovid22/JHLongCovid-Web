@@ -816,8 +816,7 @@ type DiagnosisTypes {
 
 type SocialSummary {
   percentHaveMedicalInsurance: AWSJSON
-  percentDifficultyCoveringExpenses: AWSJSON
-  averageWorkingSituation: AWSJSON
+  averageDifficultyCoveringExpenses: AWSJSON
   workingSituationCounts: WorkingSituation
 }
 

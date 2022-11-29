@@ -56,7 +56,7 @@
       "socialDeterminantsResults": {
         "hasMedicalInsurance": true,
         "difficultCoveringExpenses": 5,
-        "currentWorkSituation": 3
+        "currentWorkSituation": "onLeaveFromAJobWorkingOutsideHome"
       },
       "healthRelatedResults" : {
         "weight": 34,

@@ -130,8 +130,7 @@ const query = /* GraphQL */ `
       }
       socialSummary {
         percentHaveMedicalInsurance
-        percentDifficultyCoveringExpenses
-        averageWorkingSituation
+        averageDifficultyCoveringExpenses
         workingSituationCounts {
           workingOutsideTheHome
           onLeaveFromAJobWorkingOutsideHome
@@ -288,8 +287,7 @@ let variables = {
 
     socialSummary: {
       percentHaveMedicalInsurance: JSON.stringify(NullJSONData),
-      percentDifficultyCoveringExpenses: JSON.stringify(NullJSONData),
-      averageWorkingSituation: JSON.stringify(NullJSONData),
+      averageDifficultyCoveringExpenses: JSON.stringify(NullJSONData),
       workingSituationCounts: {
         workingOutsideTheHome: JSON.stringify(NullJSONData),
         onLeaveFromAJobWorkingOutsideHome: JSON.stringify(NullJSONData),
@@ -550,8 +548,7 @@ medicalConditionsSummary {
 }
 socialSummary {
   percentHaveMedicalInsurance
-  percentDifficultyCoveringExpenses
-  averageWorkingSituation
+  averageDifficultyCoveringExpenses
   workingSituationCounts {
     workingOutsideTheHome
     onLeaveFromAJobWorkingOutsideHome
@@ -1210,196 +1207,39 @@ const updateMedicalConditionsSummary = (eventInput, popObject, county, state, in
   }
 }
 
-const updateSocialSummary = (eventInput, county, state, indexes) => {
+const updateSocialSummary = (eventInput, popObject, county, state, indexes) => {
   let { socialDeterminantsResults } = eventInput;
   let { raceIndex, ageIndex, sexIndex } = indexes;
-  let {
-    percentHaveMedicalInsurance,
-    percentDifficultyCoveringExpenses,
-    averageWorkingSituation,
-    workingSituationCounts,
-  } = county.socialSummary;
 
-  let {
-    workingOutsideTheHome,
-    onLeaveFromAJobWorkingOutsideHome,
-    workingInsideHome,
-    lookingForWorkUnemployed,
-    retired,
-    disabled,
-    student,
-    dontKnow,
-    preferNotToAnswer,
-  } = workingSituationCounts;
-
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentHaveMedicalInsurance,
-    socialDeterminantsResults.hasMedicalInsurance === "Yes",
-    1
-  );
-
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentDifficultyCoveringExpenses,
-    socialDeterminantsResults.difficultCoveringExpenses === "Very difficult" ||
-      socialDeterminantsResults.difficultCoveringExpenses ===
-        "Somewhat difficult",
-    1
-  );
-
-  /*
-Working outside the home 
-On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave)  
-Working inside the home 
-Looking for work, unemployed 
-Retired 
-Disabled, permanently or temporarily  
-Student 
-Don't know 
-Prefer not to answer 
-*/
-
-  if (
-    socialDeterminantsResults.currentWorkSituation ===
-    "Working outside the home"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      workingOutsideTheHome,
-      true,
-      1
-    );
-  } else if (
-    socialDeterminantsResults.currentWorkSituation ===
-    "On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave)"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      onLeaveFromAJobWorkingOutsideHome,
-      true,
-      1
-    );
-  } else if (
-    socialDeterminantsResults.currentWorkSituation === "Working inside the home"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      workingInsideHome,
-      true,
-      1
-    );
-  } else if (
-    socialDeterminantsResults.currentWorkSituation ===
-    "Looking for work, unemployed"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      lookingForWorkUnemployed,
-      true,
-      1
-    );
-  } else if (socialDeterminantsResults.currentWorkSituation === "Retired") {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      retired,
-      true,
-      1
-    );
-  } else if (
-    socialDeterminantsResults.currentWorkSituation ===
-    "Disabled, permanently or temporarily"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      disabled,
-      true,
-      1
-    );
-  } else if (socialDeterminantsResults.currentWorkSituation === "Student") {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      student,
-      true,
-      1
-    );
-  } else if (socialDeterminantsResults.currentWorkSituation === "Don't know") {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      dontKnow,
-      true,
-      1
-    );
-  } else if (
-    socialDeterminantsResults.currentWorkSituation === "Prefer not to answer"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      preferNotToAnswer,
-      true,
-      1
-    );
-  } else if (
-    socialDeterminantsResults.currentWorkSituation ===
-    "Looking for work, unemployed"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      lookingForWorkUnemployed,
-      true,
-      1
-    );
+  let data = {
+    county : {
+      socialSummary : county.socialSummary,
+      pop : popObject.countyPop
+    },
+    state : {
+      socialSummary : state.socialSummary,
+      pop : popObject.statePop
+    }
   }
 
-  //get rid of average!
-  // averageWorkingSituation(
-  //   raceIndex
+  for (const dat in data) {
+    let { percentHaveMedicalInsurance, 
+      averageDifficultyCoveringExpenses, workingSituationCounts} = data[dat].socialSummary;
+    let pop = data[dat].pop;
 
-  // )
+    if(socialDeterminantsResults.hasMedicalInsurance != null) {
+      aggregatePercentageCustomBasedOnCondition(indexes, pop, percentHaveMedicalInsurance, socialDeterminantsResults.hasMedicalInsurance, 1);
+    }
 
-  ({
-    percentHaveMedicalInsurance,
-    percentDifficultyCoveringExpenses,
-    averageWorkingSituation,
-    workingSituationCounts,
-  } = state.socialSummary);
-  ({
-    workingOutsideTheHome,
-    onLeaveFromAJobWorkingOutsideHome,
-    workingInsideHome,
-    lookingForWorkUnemployed,
-    retired,
-    disabled,
-    student,
-    dontKnow,
-    preferNotToAnswer,
-  } = workingSituationCounts);
+    if(socialDeterminantsResults.difficultCoveringExpenses != null) {
+      aggregatePercentageCustomBasedOnCondition(indexes, pop, averageDifficultyCoveringExpenses, true, socialDeterminantsResults.difficultCoveringExpenses);
+    }
+
+    if(socialDeterminantsResults.currentWorkSituation != null) {
+      let curr = workingSituationCounts[socialDeterminantsResults.currentWorkSituation];
+      addCustomToTallyBasedOnCondition(indexes, curr, true, 1);
+    }
+  }
 };
 
 const updateGeneralHealthSummary = (eventInput, county, state, indexes) => {
@@ -1486,22 +1326,21 @@ const aggregateSurveyResults = async (eventInput) => {
 
   updateSymptomSummary(eventInput, popObject, county, state, indexes);
   updateMedicalConditionsSummary(eventInput, popObject, county, state, indexes);
-  // updateSocialSummary(eventInput, popObject, county, state, indexes);
+  updateSocialSummary(eventInput, popObject, county, state, indexes);
 
   // //Upload "county" and "state"
 
   // //increment at the last. updates require OLD count
-  // incrementTotalFullEntries(county, state);
-
+  incrementTotalFullEntries(county, state);
   incrementDemographics(eventInput, county, state, indexes);
 
   stringify(county);
   stringify(state);
 
   console.log("county");
-  console.log(county.medicalConditionsSummary);
+  console.log(county.socialSummary);
   console.log("state");
-  console.log(state.medicalConditionsSummary);
+  console.log(state.socialSummary);
 };
 
 /**

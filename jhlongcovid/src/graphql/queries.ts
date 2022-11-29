@@ -106,8 +106,7 @@ export const getMapData = /* GraphQL */ `
       }
       socialSummary {
         percentHaveMedicalInsurance
-        percentDifficultyCoveringExpenses
-        averageWorkingSituation
+        averageDifficultyCoveringExpenses
         workingSituationCounts {
           workingOutsideTheHome
           onLeaveFromAJobWorkingOutsideHome
@@ -246,8 +245,7 @@ export const listMapData = /* GraphQL */ `
         }
         socialSummary {
           percentHaveMedicalInsurance
-          percentDifficultyCoveringExpenses
-          averageWorkingSituation
+          averageDifficultyCoveringExpenses
           workingSituationCounts {
             workingOutsideTheHome
             onLeaveFromAJobWorkingOutsideHome
@@ -388,8 +386,7 @@ export const mapDataByLevelNameState = /* GraphQL */ `
         }
         socialSummary {
           percentHaveMedicalInsurance
-          percentDifficultyCoveringExpenses
-          averageWorkingSituation
+          averageDifficultyCoveringExpenses
           workingSituationCounts {
             workingOutsideTheHome
             onLeaveFromAJobWorkingOutsideHome
@@ -530,8 +527,7 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
         }
         socialSummary {
           percentHaveMedicalInsurance
-          percentDifficultyCoveringExpenses
-          averageWorkingSituation
+          averageDifficultyCoveringExpenses
           workingSituationCounts {
             workingOutsideTheHome
             onLeaveFromAJobWorkingOutsideHome
