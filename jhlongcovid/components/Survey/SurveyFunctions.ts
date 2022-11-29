@@ -288,12 +288,12 @@ export const saveEntries = async (
       surveyEntrySymptomsEntryId: ids.SymptomEntry ? ids.SymptomEntry : null,
     };
 
-    const cEntry = (await API.graphql({
+    const sEntry = (await API.graphql({
       query: mutations.createSurveyEntry,
       variables: { input: surveyDetails },
     })) as { data: CreateSurveyEntryMutation; errors: any[] };
-    if (cEntry.data.createSurveyEntry) {
-      return cEntry.data.createSurveyEntry.id;
+    if (sEntry.data.createSurveyEntry) {
+      return sEntry.data.createSurveyEntry.id;
     }
   } catch (error) {
     let mutation = error as { data: CreateSurveyEntryMutation; errors: any[] };
