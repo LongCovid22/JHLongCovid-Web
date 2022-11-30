@@ -25,7 +25,7 @@ Vaccination Results :
 14) vaccinated : integer (0 - Do not know, 1 - Yes, 2 - No)
 15) totalVaccineShots : Integer (0 - Do not know)
 16) dateOfLastVaccine : String (MM/YY)
-17) vaccineType : String (Options: "Pfizer", "Moderna", "Janssen", "Novavax", "Other", "Do not know")
+17) vaccineType : String (Options: "pfizer", "moderna", "janssen", "novavax", "other", "doNotKnow")
 
 General Health Results:
 18) generalHealth: Integer (0 - Poor, 1 - Fair, ..., 5 - Excellent)
@@ -103,8 +103,8 @@ medicalConditionsChanges
     "psychologicalProblems"
     "diabetes"
     "autoImmuneDiseases"
-    "other"
     "mecfs"
+    "other"
     "notSure"
 
 65) longCovid : integer (1 - Yes, 2 - No, 0 - Do not know)

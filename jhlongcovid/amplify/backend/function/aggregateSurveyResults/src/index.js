@@ -54,10 +54,14 @@ const query = /* GraphQL */ `
       vaccinationSummary {
         percentVaccinated
         avgNumOfVaccPerPerson
-        pfizerCount
-        modernaCount
-        jjCount
-        azCount
+        vaccineCount {
+          pfizer
+          moderna
+          janssen
+          novavax
+          other
+          doNotKnow
+        }
       }
 
       globalHealthSummary {
@@ -124,6 +128,7 @@ const query = /* GraphQL */ `
           psychologicalProblems
           diabetes
           autoImmuneDiseases
+          mecfs
           other
           notSure
         }
@@ -211,10 +216,14 @@ let variables = {
     vaccinationSummary: {
       percentVaccinated: JSON.stringify(NullJSONData),
       avgNumOfVaccPerPerson: JSON.stringify(NullJSONData),
-      pfizerCount: JSON.stringify(NullJSONData),
-      modernaCount: JSON.stringify(NullJSONData),
-      jjCount: JSON.stringify(NullJSONData),
-      azCount: JSON.stringify(NullJSONData),
+      vaccineCount: {
+        pfizer: JSON.stringify(NullJSONData),
+        moderna: JSON.stringify(NullJSONData),
+        janssen: JSON.stringify(NullJSONData),
+        novavax: JSON.stringify(NullJSONData),
+        other: JSON.stringify(NullJSONData),
+        doNotKnow: JSON.stringify(NullJSONData)
+      }
     },
 
     globalHealthSummary: {
@@ -280,6 +289,7 @@ let variables = {
         psychologicalProblems: JSON.stringify(NullJSONData),
         diabetes: JSON.stringify(NullJSONData),
         autoImmuneDiseases: JSON.stringify(NullJSONData),
+        mecfs: JSON.stringify(NullJSONData),
         other: JSON.stringify(NullJSONData),
         notSure: JSON.stringify(NullJSONData),
       },
@@ -475,10 +485,14 @@ recoverySummary {
 vaccinationSummary {
   percentVaccinated
   avgNumOfVaccPerPerson
-  pfizerCount
-  modernaCount
-  jjCount
-  azCount
+  vaccineCount {
+    pfizer
+    moderna
+    janssen
+    novavax
+    other
+    doNotKnow
+  }
 }
 globalHealthSummary {
   avgGeneralHealth
@@ -542,6 +556,7 @@ medicalConditionsSummary {
     psychologicalProblems
     diabetes
     autoImmuneDiseases
+    mecfs
     other
     notSure
   }
@@ -959,10 +974,7 @@ const updateVaccinationSummary = (
     let {
       percentVaccinated,
       avgNumOfVaccPerPerson,
-      pfizerCount,
-      modernaCount,
-      jjCount,
-      azCount,
+      vaccineCount
     } = data[dat].vaccinationSummary;
     let pop = data[dat].pop;
 
@@ -992,22 +1004,14 @@ const updateVaccinationSummary = (
       );
     }
 
-    addCustomToTallyBasedOnCondition(
-      indexes,
-      pfizerCount,
-      vaccinationResults.vaccineType === "Pfizer",
-      1
-    );
-    addCustomToTallyBasedOnCondition(
-      indexes,
-      modernaCount,
-      vaccinationResults.vaccineType === "Moderna",
-      1
-    );
-    // addCustomToTallyBasedOnCondition(indexes, jjCount, vaccinationResults.vaccineType === "Janssen",1);
-    // addCustomToTallyBasedOnCondition(indexes, azCount, vaccinationResults.vaccineType === "Moderna",1);
+    if(vaccinationResults.vaccineType != null) {
+      addCustomToTallyBasedOnCondition(indexes,
+        vaccineCount[vaccinationResults.vaccineType],
+        true, 1
+        )
+    }
   }
-};
+ };
 
 const updateGlobalHealthSummary = (
   eventInput,
@@ -1110,13 +1114,10 @@ const updateSymptomSummary = (
   };
 
   for (const dat in data) {
-    let {
-     symptomCounts
-    } = data[dat].symptomSummary;
+    let { symptomCounts } = data[dat].symptomSummary;
     let pop = data[dat].pop;
 
-
-    symptomResults.symptoms.forEach(symp => {
+    symptomResults.symptoms.forEach((symp) => {
       addCustomToTallyBasedOnCondition(indexes, symptomCounts[symp], true, 1);
     });
 
@@ -1180,63 +1181,100 @@ const updateSymptomSummary = (
   }
 };
 
-const updateMedicalConditionsSummary = (eventInput, popObject, county, state, indexes) => {
+const updateMedicalConditionsSummary = (
+  eventInput,
+  popObject,
+  county,
+  state,
+  indexes
+) => {
   let { medicalConditionsChanges } = eventInput;
   let data = {
-    county : {
-      medicalConditionsSummary : county.medicalConditionsSummary,
-      pop : popObject.countyPop
-    }, 
-    state : {
-      medicalConditionsSummary : state.medicalConditionsSummary,
-      pop : popObject.statePop
-    }
-  }
+    county: {
+      medicalConditionsSummary: county.medicalConditionsSummary,
+      pop: popObject.countyPop,
+    },
+    state: {
+      medicalConditionsSummary: state.medicalConditionsSummary,
+      pop: popObject.statePop,
+    },
+  };
 
-  for(const dat in data) {
-    let { percentHaveLongCovid, newDiagnosisCounts} = data[dat].medicalConditionsSummary;
+  for (const dat in data) {
+    let { percentHaveLongCovid, newDiagnosisCounts } =
+      data[dat].medicalConditionsSummary;
     let pop = data[dat].pop;
 
-    medicalConditionsChanges.newDiagnosis.forEach(diag => {
-      addCustomToTallyBasedOnCondition(indexes, newDiagnosisCounts[diag], true, 1);
-    })
+    medicalConditionsChanges.newDiagnosis.forEach((diag) => {
+      addCustomToTallyBasedOnCondition(
+        indexes,
+        newDiagnosisCounts[diag],
+        true,
+        1
+      );
+    });
 
-    if(medicalConditionsChanges.longCovid != null && medicalConditionsChanges.longCovid != 0) {
-      aggregatePercentageCustomBasedOnCondition(indexes, pop, percentHaveLongCovid, medicalConditionsChanges.longCovid === 1, 1);
+    if (
+      medicalConditionsChanges.longCovid != null &&
+      medicalConditionsChanges.longCovid != 0
+    ) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        percentHaveLongCovid,
+        medicalConditionsChanges.longCovid === 1,
+        1
+      );
     }
   }
-}
+};
 
 const updateSocialSummary = (eventInput, popObject, county, state, indexes) => {
   let { socialDeterminantsResults } = eventInput;
   let { raceIndex, ageIndex, sexIndex } = indexes;
 
   let data = {
-    county : {
-      socialSummary : county.socialSummary,
-      pop : popObject.countyPop
+    county: {
+      socialSummary: county.socialSummary,
+      pop: popObject.countyPop,
     },
-    state : {
-      socialSummary : state.socialSummary,
-      pop : popObject.statePop
-    }
-  }
+    state: {
+      socialSummary: state.socialSummary,
+      pop: popObject.statePop,
+    },
+  };
 
   for (const dat in data) {
-    let { percentHaveMedicalInsurance, 
-      averageDifficultyCoveringExpenses, workingSituationCounts} = data[dat].socialSummary;
+    let {
+      percentHaveMedicalInsurance,
+      averageDifficultyCoveringExpenses,
+      workingSituationCounts,
+    } = data[dat].socialSummary;
     let pop = data[dat].pop;
 
-    if(socialDeterminantsResults.hasMedicalInsurance != null) {
-      aggregatePercentageCustomBasedOnCondition(indexes, pop, percentHaveMedicalInsurance, socialDeterminantsResults.hasMedicalInsurance, 1);
+    if (socialDeterminantsResults.hasMedicalInsurance != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        percentHaveMedicalInsurance,
+        socialDeterminantsResults.hasMedicalInsurance,
+        1
+      );
     }
 
-    if(socialDeterminantsResults.difficultCoveringExpenses != null) {
-      aggregatePercentageCustomBasedOnCondition(indexes, pop, averageDifficultyCoveringExpenses, true, socialDeterminantsResults.difficultCoveringExpenses);
+    if (socialDeterminantsResults.difficultCoveringExpenses != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        averageDifficultyCoveringExpenses,
+        true,
+        socialDeterminantsResults.difficultCoveringExpenses
+      );
     }
 
-    if(socialDeterminantsResults.currentWorkSituation != null) {
-      let curr = workingSituationCounts[socialDeterminantsResults.currentWorkSituation];
+    if (socialDeterminantsResults.currentWorkSituation != null) {
+      let curr =
+        workingSituationCounts[socialDeterminantsResults.currentWorkSituation];
       addCustomToTallyBasedOnCondition(indexes, curr, true, 1);
     }
   }
@@ -1328,7 +1366,7 @@ const aggregateSurveyResults = async (eventInput) => {
   updateMedicalConditionsSummary(eventInput, popObject, county, state, indexes);
   updateSocialSummary(eventInput, popObject, county, state, indexes);
 
-  // //Upload "county" and "state"
+
 
   // //increment at the last. updates require OLD count
   incrementTotalFullEntries(county, state);
@@ -1337,10 +1375,7 @@ const aggregateSurveyResults = async (eventInput) => {
   stringify(county);
   stringify(state);
 
-  console.log("county");
-  console.log(county.socialSummary);
-  console.log("state");
-  console.log(state.socialSummary);
+  //Upload "county" and "state"
 };
 
 /**

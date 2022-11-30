@@ -31,7 +31,7 @@
         "vaccinated": true,
         "totalVaccineShots": 3,
         "dateOfLastVaccine": "01/22",
-        "vaccineType": "Moderna"
+        "vaccineType": "pfizer"
       },
       "generalHealthResults": {
         "generalHealth": 4,
@@ -50,8 +50,8 @@
         "emotionalProblems": 2
       },
       "medicalConditionsChanges" : {
-        "newDiagnosis" : ["noNewDiagnosis", "bloodClotLung"],
-        "longCovid" : 0
+        "newDiagnosis" : ["noNewDiagnosis", "bloodClotLung", "mecfs"],
+        "longCovid" : 1
       },
       "socialDeterminantsResults": {
         "hasMedicalInsurance": true,

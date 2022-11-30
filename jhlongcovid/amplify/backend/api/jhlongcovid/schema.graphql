@@ -739,10 +739,16 @@ type RecoverySummary {
 type VaccinationSummary {
   percentVaccinated: AWSJSON
   avgNumOfVaccPerPerson: AWSJSON
-  pfizerCount: AWSJSON
-  modernaCount: AWSJSON
-  jjCount: AWSJSON
-  azCount: AWSJSON
+  vaccineCount: VaccineTypes
+}
+
+type VaccineTypes {
+  pfizer: AWSJSON
+  moderna: AWSJSON
+  janssen: AWSJSON
+  novavax: AWSJSON
+  other: AWSJSON
+  doNotKnow: AWSJSON
 }
 
 type GlobalHealthSummary {
@@ -814,6 +820,7 @@ type DiagnosisTypes {
   psychologicalProblems: AWSJSON
   diabetes: AWSJSON
   autoImmuneDiseases: AWSJSON
+  mecfs: AWSJSON
   other: AWSJSON
   notSure: AWSJSON
 }

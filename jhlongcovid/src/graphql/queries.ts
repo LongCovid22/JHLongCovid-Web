@@ -34,10 +34,14 @@ export const getMapData = /* GraphQL */ `
       vaccinationSummary {
         percentVaccinated
         avgNumOfVaccPerPerson
-        pfizerCount
-        modernaCount
-        jjCount
-        azCount
+        vaccineCount {
+          pfizer
+          moderna
+          janssen
+          novavax
+          other
+          doNotKnow
+        }
       }
       globalHealthSummary {
         avgGeneralHealth
@@ -100,6 +104,7 @@ export const getMapData = /* GraphQL */ `
           psychologicalProblems
           diabetes
           autoImmuneDiseases
+          mecfs
           other
           notSure
         }
@@ -173,10 +178,14 @@ export const listMapData = /* GraphQL */ `
         vaccinationSummary {
           percentVaccinated
           avgNumOfVaccPerPerson
-          pfizerCount
-          modernaCount
-          jjCount
-          azCount
+          vaccineCount {
+            pfizer
+            moderna
+            janssen
+            novavax
+            other
+            doNotKnow
+          }
         }
         globalHealthSummary {
           avgGeneralHealth
@@ -239,6 +248,7 @@ export const listMapData = /* GraphQL */ `
             psychologicalProblems
             diabetes
             autoImmuneDiseases
+            mecfs
             other
             notSure
           }
@@ -314,10 +324,14 @@ export const mapDataByLevelNameState = /* GraphQL */ `
         vaccinationSummary {
           percentVaccinated
           avgNumOfVaccPerPerson
-          pfizerCount
-          modernaCount
-          jjCount
-          azCount
+          vaccineCount {
+            pfizer
+            moderna
+            janssen
+            novavax
+            other
+            doNotKnow
+          }
         }
         globalHealthSummary {
           avgGeneralHealth
@@ -380,6 +394,7 @@ export const mapDataByLevelNameState = /* GraphQL */ `
             psychologicalProblems
             diabetes
             autoImmuneDiseases
+            mecfs
             other
             notSure
           }
@@ -455,10 +470,14 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
         vaccinationSummary {
           percentVaccinated
           avgNumOfVaccPerPerson
-          pfizerCount
-          modernaCount
-          jjCount
-          azCount
+          vaccineCount {
+            pfizer
+            moderna
+            janssen
+            novavax
+            other
+            doNotKnow
+          }
         }
         globalHealthSummary {
           avgGeneralHealth
@@ -521,6 +540,7 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
             psychologicalProblems
             diabetes
             autoImmuneDiseases
+            mecfs
             other
             notSure
           }
