@@ -871,3 +871,14 @@ type Response {
   statusCode: Int
   body: String
 }
+
+type SummaryResultsByDemo {
+  race: SummaryValues
+  sex: SummaryValues
+  age: SummaryValues
+}
+
+type SummaryValues {
+  ranges: [String]
+  values: [Int]
+}

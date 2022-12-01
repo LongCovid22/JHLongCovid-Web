@@ -6,15 +6,24 @@ import {
   Slide,
   Spacer,
   VStack,
+  Wrap,
+  WrapItem,
+  Tabs,
+  Tab,
+  TabList,
+  Heading,
+  TabPanels,
+  TabPanel,
+  Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import {
   selectLeftSidePanelPres,
   setLeftSidePanelPres,
 } from "../../redux/slices/presentationSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "../../styles/LeftSidePanel.module.css";
-import { InfoPanelMetrics } from "../Metrics/InfoPanelMetrics";
+import { InfoPanelMetrics } from "./InfoPanelMetrics";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
 import {
   Chart as ChartJS,
@@ -30,6 +39,8 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import faker from "faker";
+import { MapData } from "../../src/API";
+import { mapDataByLevelNameState } from "../../src/graphql/queries";
 
 ChartJS.register(
   CategoryScale,
@@ -47,11 +58,42 @@ interface LeftSidePanelProps {
   data: any;
 }
 
+export enum SurveySection {
+  COVID = "COVID",
+  VACCINATION = "Vaccination",
+  HEALTH = "Health",
+  SOCIAL = "Social",
+}
+
+export type LeftSidePanelBodyProps = {
+  section: SurveySection;
+  data: MapData;
+};
+
+const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
+  section,
+  data,
+}) => {
+  switch (section) {
+    case SurveySection.COVID:
+      return <Text>COVID</Text>;
+    case SurveySection.HEALTH:
+      return <Text>Health</Text>;
+    case SurveySection.VACCINATION:
+      return <Text>Vaccination</Text>;
+    case SurveySection.SOCIAL:
+      return <Text>Social</Text>;
+    default:
+      return <Text>Default</Text>;
+  }
+};
+
 export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
   const dispatch = useAppDispatch();
   const presentLeftSidePanel = useAppSelector(selectLeftSidePanelPres);
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
+  const [section, setSection] = useState(SurveySection.COVID);
 
   const labels = [
     "January",
@@ -158,7 +200,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
         in={presentLeftSidePanel}
         style={{
           minWidth: "410px",
-          width: "35%",
+          width: "45%",
           position: "absolute",
           maxWidth: 1000,
           top: width < 700 ? "160px" : "90px",
@@ -190,9 +232,60 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
             overflowY={"auto"}
             overflowX="hidden"
           >
-            <InfoPanelMetrics data={data} />
-            <Bar options={options_1} data={data_1} height={200} />;
-            <Bar options={options_3} data={data_3} height={200} />;
+            {/* <InfoPanelMetrics
+              data={data}
+              section={section}
+              setSection={setSection}
+            /> */}
+            <Flex width={"100%"}>
+              <Wrap>
+                <WrapItem>
+                  <Heading as="h3" size="lg" mr={"15px"}>
+                    {data.level === "state"
+                      ? data.name
+                      : data.name + ", " + data.stateAbbrev}
+                  </Heading>
+                </WrapItem>
+                <WrapItem>
+                  <Tabs
+                    colorScheme={"hopkinsBlue"}
+                    variant={"soft-rounded"}
+                    w="100%"
+                    h="100%"
+                  >
+                    <TabList>
+                      <Tab
+                        onClick={() => setSection(SurveySection.COVID)}
+                        fontSize={"13px"}
+                      >
+                        COVID
+                      </Tab>
+                      <Tab
+                        onClick={() => setSection(SurveySection.VACCINATION)}
+                        fontSize={"13px"}
+                      >
+                        Vaccination
+                      </Tab>
+                      <Tab
+                        onClick={() => setSection(SurveySection.HEALTH)}
+                        fontSize={"13px"}
+                      >
+                        Health
+                      </Tab>
+                      <Tab
+                        onClick={() => setSection(SurveySection.SOCIAL)}
+                        fontSize={"13px"}
+                      >
+                        Social
+                      </Tab>
+                    </TabList>
+                  </Tabs>
+                </WrapItem>
+              </Wrap>
+            </Flex>
+            <VStack w="100%" align={"start"}>
+              <LeftSidePanelBody section={section} data={data} />
+            </VStack>
             <Spacer />
           </VStack>
         </Box>
