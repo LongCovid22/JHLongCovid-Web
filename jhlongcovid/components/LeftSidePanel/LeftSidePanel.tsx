@@ -41,6 +41,7 @@ import { Bar } from "react-chartjs-2";
 import faker from "faker";
 import { MapData } from "../../src/API";
 import { mapDataByLevelNameState } from "../../src/graphql/queries";
+import { COVIDVisualizations } from "./Visualizations/COVID/COVIDVisualizations";
 
 ChartJS.register(
   CategoryScale,
@@ -76,7 +77,7 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
 }) => {
   switch (section) {
     case SurveySection.COVID:
-      return <Text>COVID</Text>;
+      return <COVIDVisualizations section={section} data={data} />;
     case SurveySection.HEALTH:
       return <Text>Health</Text>;
     case SurveySection.VACCINATION:
