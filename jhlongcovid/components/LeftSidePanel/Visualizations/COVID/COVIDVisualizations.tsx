@@ -48,7 +48,10 @@ const labels = [
 ];
 
 const options_3 = {
-  responsive: true,
+  options: {
+    responsive: true,
+    maintainsAspectRation: false,
+  },
   plugins: {
     legend: {
       position: "top" as const,
@@ -134,13 +137,28 @@ export const COVIDVisualizations: React.FC<LeftSidePanelBodyProps> = ({
           </Stat>
         </WrapItem>
         <WrapItem height="350px" width="350px">
-          <Bar options={options_3} data={data_3} />
+          <Bar
+            options={options_3}
+            data={data_3}
+            height={"300px"}
+            width={"450px"}
+          />
         </WrapItem>
         <WrapItem height="350px" width="350px">
-          <Bar options={options_3} data={data_3} />
+          <Bar
+            options={options_3}
+            data={data_3}
+            height={"300px"}
+            width={"300px"}
+          />
         </WrapItem>
         <WrapItem height="350px" width="350px">
-          <Bar options={options_3} data={data_3} />
+          <Bar
+            options={options_3}
+            data={data_3}
+            height={"300px"}
+            width={"300px"}
+          />
         </WrapItem>
       </Wrap>
       {/* <Wrap spacing="30px">
