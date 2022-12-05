@@ -5,34 +5,52 @@ should be structured as.
 NULL should not represent anything else but that question is unaswered!
 
 Covid Results
-1) previousInfection: boolean (initial format: Yes/No Question)
-2) infectionFreqEst: integer (initial format: 1/2/3/3+ infection, do not know (place 0 for do not know))
+1) beenInfected: boolean (initial format: Yes/No Question)
+2) timesPositive: integer (initial format: 1/2/3/3+ infection, do not know (place 0 for do not know))
 3) hospitalized: boolean (initial format: Yes / No Question)
 4) timesHospitalized: integer (initial format: 1/2/3+ times, do not know - use 0 for do not know)
-5) lastPositiveEst: string (MM-YY)
+5) lastPositive: string (date time format)
 6) tested: boolean (intial format: Yes/No Question)
-7) positiveTest: integer (1 - Yes, 2 - No, 3 - I don't know)
+7) positiveTest: String ("yes", "no", "doNotKnow")
 8) symptomatic: boolean (Yes/ No question)
-9) symptomsPrevent: integer (0 - Not at all, 1 - A Little bit, .... , 5 - Very Much)
-10) doctorPrescribeMedicine: integer (0 - Do not know, 1 - Yes, 2 - No)
-11) professionalPrescriptions: string array (options: "Antiviral Pill", "Oral Steroids", "Antibiotics", "Other", "Do not know")
+9) symptomsPreventScale: String (following options only) :
+notAtAll   
+littleBit     
+somewhat     
+quiteABit     
+veryMuch
+10) medicationsPrescribed: String ("yes", "no", "doNotKnow")
+11) medicationsTaken: string array (options: 
+"antiViral", 
+"oralSteroids",
+"antiBiotics",
+"other",
+"dontKnow")
+
+
 
 Recovery Results
 12) recovered : boolean (Yes/ No Question)
-13) daysToRecoverEst : Integer (How many days to recover from most recent infection)
+13) lengthOfRecovery : Integer (How many days to recover from most recent infection)
 
 Vaccination Results :
-14) vaccinated : integer (0 - Do not know, 1 - Yes, 2 - No)
+14) vaccinated : String ("yes", "no", "doNotKnow")
 15) totalVaccineShots : Integer (0 - Do not know)
-16) dateOfLastVaccine : String (MM/YY)
-17) vaccineType : String (Options: "Pfizer", "Moderna", "Janssen", "Novavax", "Other", "Do not know")
+16) dateOfLastVaccine : String (date time format)
+17) vaccineType : String (Options: "pfizer", "moderna", "janssen", "novavax", "other", "doNotKnow")
 
-General Health Results:
-18) generalHealth: Integer (0 - Poor, 1 - Fair, ..., 5 - Excellent)
-19) physicalHealth: Integer (0 - Poor, 1 - Fair, ..., 5 - Excellent)
-20) everydayPhysicalCompetency: Integer (0 - Not at all, 1 - A little, ..., 5 - Completely)
-21) averageFatigue: Integer (0 - None, 1 - Mild, 2 - Moderate, ... , 5 - Very Severe)
-22) averagePain: Integer (1 (no pain) - 10 (worst Pain))
+Excellent 
+ Very good
+ Good 
+ Fair 
+ Poor 
+
+Global Health Results:
+18) healthRank: String ("excellent", "veryGood", "good", "fair", "poor")
+19) physicalHealthRank: String ("excellent", "veryGood", "good", "fair", "poor")
+20) carryPhysicalActivities: String ("completely", "mostly", "moderately", "aLittle", "notAtAll")
+21) fatigueRank: Integer ("none", "mild", "moderate", "severe", "verySevere")
+22) painLevel: Integer (1 (no pain) - 10 (worst Pain))
 
 Symptom Survey :
 Note : 23 - 48 are are Yes/No questions (do you have this symptom)
@@ -64,31 +82,29 @@ excessiveThirst
 excessiveDryMouth
 visionProblems
 hearingProblems
-#will be automatically null for non-applicable folks
-fertilityProblemsIfApp
+fertilityProblemsForWomen
 
-
-49) qualityOfLife : Integer (0 - Poor, ..., 5 - Excellent)
-50) mentalHealth : Integer (0 - Poor, ... , 5 - Excellent)
-51) socialActivitiesRelationships : Integer (0 - Poor, ... , 5 - Excellent)
-52) socialActivitiesCapacity: Integer (0 - Poor, ..., 5 - Excellent)
-53) emotionalProblems : Integer (0 - Never, ... , 5 - Always)
+49) qualityOfLife : String ("excellent", "veryGood", "good", "fair", "poor")
+50) mentalHealthRank : String ("excellent", "veryGood", "good", "fair", "poor")
+51) socialSatisfactionRank : String ("excellent", "veryGood", "good", "fair", "poor")
+52) carryOutSocialActivitiesRank: String ("excellent", "veryGood", "good", "fair", "poor")
+53) anxietyInPastWeekRank : String ("excellent", "veryGood", "good", "fair", "poor")
 
 patientHealthQuestionnaireResults
-
-54) littleInterestThings : Integer (0 - Not at all, ..., 3 - Nearly Every day)
-55) downDepressedHopeless : Integer (0 - Not at all, ..., 3 - Nearly Every day)
-56) sleepProblems : Integer (0 - Not at all, ..., 3 - Nearly Every day)
-57) tiredNoEnergy : Integer (0 - Not at all, ..., 3 - Nearly Every day)
-58) dietProblems : Integer (0 - Not at all, ..., 3 - Nearly Every day)
-59) badAboutSelf : Integer (0 - Not at all, ..., 3 - Nearly Every day)
-60) concentrationProblems : Integer (0 - Not at all, ..., 3 - Nearly Every day)
-61) slowOrRestless : Integer (0 - Not at all, ..., 3 - Nearly Every day)
+	Not at all	Several days	More than half the days	Nearly every day
+54) littleInterestThings : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
+55) downDepressedHopeless : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
+56) sleepProblems : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
+57) tiredNoEnergy : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
+58) dietProblems : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
+59) badAboutSelf : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
+60) concentrationProblems : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
+61) slowOrRestless : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
 
 (skip suicide questions)
 
 medicalConditionsChanges 
-64) newDiagnosis : string array (of diagnosis). Only recognize the following:
+64) medicalConditions : string array (of diagnosis). Only recognize the following:
     "noNewDiagnosis"
     "heartProblems"
     "lungProblems"
@@ -103,29 +119,33 @@ medicalConditionsChanges
     "psychologicalProblems"
     "diabetes"
     "autoImmuneDiseases"
-    "other"
     "mecfs"
+    "other"
     "notSure"
 
-65) longCovid : integer (1 - Yes, 2 - No, 0 - Do not know)
+65) longCovid : String ("yes", "no", "doNotKnow")
 
 
 socialDeterminantsResults
 66) hasMedicalInsurance : boolean (Yes / NO question)
-67) difficultCoveringExpenses : integer (5 - Very difficult, ...., 3 - Not at all difficult, 2 - Don't Know, 1 - Prefer not to ansewr)
-68) currentWorkSituation : Integer (look below for the mapping)
-0 - Working outside the home
-1 - Working outside the home as well as working remotely from home (“hybrid” work)
-2 - Working remotely from home
-3 - Working at home to provide childcare, eldercare and/or to maintain the home 
-4 - On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave) 
-5 - Working inside the home
-6 - Looking for work, unemployed
-7 - Retired
-8 - Disabled, permanently or temporarily 
-9 - Student
-10 - Don't know
-11 - Prefer not to answer
+67) difficultCoveringExpenses : string (Only the following are allowed)
+veryDifficult
+somewhatDifficult
+notAtAllDifficult
+dontKnow
+preferNotToAnswer
+
+68) currentWorkSituation : String (only the following is recognized)
+
+workingOutsideTheHome
+onLeaveFromAJobWorkingOutsideHome
+workingInsideHome
+lookingForWorkUnemployed
+retired
+disabled
+student
+dontKnow
+preferNotToAnswer
 
 
 healthRelatedResults

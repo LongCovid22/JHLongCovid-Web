@@ -22,15 +22,14 @@ const AWS_REGION = process.env.AWS_REGION || "us-east-1";
 
 // amplify mock function aggregateSurveyResults --event ./src/event.json
 
-const query = /* GraphQL */ `
-  mutation CREATE_MAP_DATA($input: CreateMapDataInput!) {
-    createMapData(input: $input) {
+const updateQuery = /* GraphQL */ `
+  mutation UPDATE_MAP_DATA($input: UpdateMapDataInput!) {
+    updateMapData(input: $input) {
       level
       name
       stateAbbrev
       lat
       long
-
       covidSummary {
         covidCount
         avgPositiveCasesPerPerson
@@ -54,10 +53,14 @@ const query = /* GraphQL */ `
       vaccinationSummary {
         percentVaccinated
         avgNumOfVaccPerPerson
-        pfizerCount
-        modernaCount
-        jjCount
-        azCount
+        vaccineCount {
+          pfizer
+          moderna
+          janssen
+          novavax
+          other
+          doNotKnow
+        }
       }
 
       globalHealthSummary {
@@ -124,14 +127,145 @@ const query = /* GraphQL */ `
           psychologicalProblems
           diabetes
           autoImmuneDiseases
+          mecfs
           other
           notSure
         }
       }
       socialSummary {
         percentHaveMedicalInsurance
-        percentDifficultyCoveringExpenses
-        averageWorkingSituation
+        averageDifficultyCoveringExpenses
+        workingSituationCounts {
+          workingOutsideTheHome
+          onLeaveFromAJobWorkingOutsideHome
+          workingInsideHome
+          lookingForWorkUnemployed
+          retired
+          disabled
+          student
+          dontKnow
+          preferNotToAnswer
+        }
+      }
+      totalFullEntries
+      totalDemoCount
+    }
+  }
+`;
+
+const query = /* GraphQL */ `
+  mutation CREATE_MAP_DATA($input: CreateMapDataInput!) {
+    createMapData(input: $input) {
+      level
+      name
+      stateAbbrev
+      lat
+      long
+      covidSummary {
+        covidCount
+        avgPositiveCasesPerPerson
+        percentHospitalizedDueToCovid
+        avgHospitalizationsPerPerson
+        percentSymptomatic
+        avgSymptomPreventDailyTasks
+        percentTookMedication
+        medicationCounts {
+          antiViral
+          oralSteroids
+          antiBiotics
+          other
+          dontKnow
+        }
+      }
+      recoverySummary {
+        recoveryCount
+        avgRecoveryLength
+      }
+      vaccinationSummary {
+        percentVaccinated
+        avgNumOfVaccPerPerson
+        vaccineCount {
+          pfizer
+          moderna
+          janssen
+          novavax
+          other
+          doNotKnow
+        }
+      }
+
+      globalHealthSummary {
+        avgGeneralHealth
+        avgPhysicalHealth
+        avgEverydayPhysicalCompetency
+        avgFatigue
+        avgPain
+      }
+
+      symptomSummary {
+        avgQualityOfLife
+        avgMentalHealth
+        avgSocialActivitesRelationships
+        avgSocialActivitiesCapacity
+        avgEmotionalProblems
+        symptomCounts {
+          headache
+          bodyMuscleAche
+          feverChillsSweatsFlushing
+          faintDizzyGoofy
+          postExertionalMalaise
+          weaknessInArmsLegs
+          shortnessOfBreath
+          cough
+          palpitations
+          swellingOfLegs
+          indigestionNausea
+          bladderProblem
+          nerveProblems
+          brainFog
+          anxietyDepressionNightmares
+          problemsThinkingConcentrating
+          problemsAnxietyDepressionStress
+          difficultyFallingAsleep
+          sleepyDuringDaytime
+          loudSnoring
+          uncomfortableFeelingsInLegs
+          skinRash
+          lossOfChangeInSmell
+          excessiveThirst
+          excessiveDryMouth
+          visionProblems
+          hearingProblems
+          #add to the statistic only for women
+          fertilityProblemsForWomen
+        }
+      }
+
+      medicalConditionsSummary {
+        percentHaveLongCovid
+        newDiagnosisCounts {
+          noNewDiagnosis
+          heartProblems
+          lungProblems
+          bloodClotLung
+          sleepApnea
+          memory
+          migraine
+          stroke
+          seizure
+          kidneyProblems
+          stomachProblems
+          psychologicalProblems
+          diabetes
+          autoImmuneDiseases
+          mecfs
+          other
+          notSure
+        }
+      }
+      socialSummary {
+        percentHaveMedicalInsurance
+        averageDifficultyCoveringExpenses
         workingSituationCounts {
           workingOutsideTheHome
           onLeaveFromAJobWorkingOutsideHome
@@ -212,10 +346,14 @@ let variables = {
     vaccinationSummary: {
       percentVaccinated: JSON.stringify(NullJSONData),
       avgNumOfVaccPerPerson: JSON.stringify(NullJSONData),
-      pfizerCount: JSON.stringify(NullJSONData),
-      modernaCount: JSON.stringify(NullJSONData),
-      jjCount: JSON.stringify(NullJSONData),
-      azCount: JSON.stringify(NullJSONData),
+      vaccineCount: {
+        pfizer: JSON.stringify(NullJSONData),
+        moderna: JSON.stringify(NullJSONData),
+        janssen: JSON.stringify(NullJSONData),
+        novavax: JSON.stringify(NullJSONData),
+        other: JSON.stringify(NullJSONData),
+        doNotKnow: JSON.stringify(NullJSONData),
+      },
     },
 
     globalHealthSummary: {
@@ -281,6 +419,7 @@ let variables = {
         psychologicalProblems: JSON.stringify(NullJSONData),
         diabetes: JSON.stringify(NullJSONData),
         autoImmuneDiseases: JSON.stringify(NullJSONData),
+        mecfs: JSON.stringify(NullJSONData),
         other: JSON.stringify(NullJSONData),
         notSure: JSON.stringify(NullJSONData),
       },
@@ -288,8 +427,7 @@ let variables = {
 
     socialSummary: {
       percentHaveMedicalInsurance: JSON.stringify(NullJSONData),
-      percentDifficultyCoveringExpenses: JSON.stringify(NullJSONData),
-      averageWorkingSituation: JSON.stringify(NullJSONData),
+      averageDifficultyCoveringExpenses: JSON.stringify(NullJSONData),
       workingSituationCounts: {
         workingOutsideTheHome: JSON.stringify(NullJSONData),
         onLeaveFromAJobWorkingOutsideHome: JSON.stringify(NullJSONData),
@@ -454,6 +592,9 @@ const testGetByID = async () => {
 };
 
 const queryString = `
+lat
+level
+long
 covidSummary {
   covidCount
   avgPositiveCasesPerPerson
@@ -477,10 +618,14 @@ recoverySummary {
 vaccinationSummary {
   percentVaccinated
   avgNumOfVaccPerPerson
-  pfizerCount
-  modernaCount
-  jjCount
-  azCount
+  vaccineCount {
+    pfizer
+    moderna
+    janssen
+    novavax
+    other
+    doNotKnow
+  }
 }
 globalHealthSummary {
   avgGeneralHealth
@@ -544,14 +689,14 @@ medicalConditionsSummary {
     psychologicalProblems
     diabetes
     autoImmuneDiseases
+    mecfs
     other
     notSure
   }
 }
 socialSummary {
   percentHaveMedicalInsurance
-  percentDifficultyCoveringExpenses
-  averageWorkingSituation
+  averageDifficultyCoveringExpenses
   workingSituationCounts {
     workingOutsideTheHome
     onLeaveFromAJobWorkingOutsideHome
@@ -607,6 +752,10 @@ const getID = async (level, name, stateAbbrev) => {
   try {
     let response = await fetch(request);
     let load = await response.json();
+
+    console.log(load);
+    
+    
     if (level === "county") {
       return load.data.mapDataByLevelNameState.items;
     } else if (level === "state") {
@@ -619,15 +768,103 @@ const getID = async (level, name, stateAbbrev) => {
   }
 };
 
-const getStateAndCountyInfo = async (eventInput) => {
-  const { county, state } = eventInput;
+const updateMapData = async (county, state) => {
+  const endpoint = new URL(GRAPHQL_ENDPOINT);
+  const signer = new SignatureV4({
+    // credentials: defaultProvider(),
+    credentials: credentials,
+    region: AWS_REGION,
+    service: "appsync",
+    sha256: Sha256,
+  });
 
-  console.log(state);
+  const query = updateQuery;
+  let variables = { input: county };
+
+  let requestToBeSigned = new HttpRequest({
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      host: endpoint.host,
+    },
+    hostname: endpoint.host,
+    body: JSON.stringify({ query, variables }),
+    path: endpoint.pathname,
+  });
+
+  let signed = await signer.sign(requestToBeSigned);
+  let request = new Request(endpoint, signed);
+
+  let body;
+  let response;
+
+  try {
+    response = await fetch(request);
+    body = await response.json();
+    console.log(body);
+
+    if (body.errors) statusCode = 400;
+  } catch (error) {
+    statusCode = 500;
+    body = {
+      errors: [
+        {
+          message: error.message,
+        },
+      ],
+    };
+    console.log(body);
+  }
+
+  variables = { input: state };
+
+  requestToBeSigned = new HttpRequest({
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      host: endpoint.host,
+    },
+    hostname: endpoint.host,
+    body: JSON.stringify({ query, variables }),
+    path: endpoint.pathname,
+  });
+
+  signed = await signer.sign(requestToBeSigned);
+  request = new Request(endpoint, signed);
+
+  body;
+  response;
+
+  try {
+    response = await fetch(request);
+    body = await response.json();
+    console.log(body);
+
+    if (body.errors) statusCode = 400;
+  } catch (error) {
+    statusCode = 500;
+    body = {
+      errors: [
+        {
+          message: error.message,
+        },
+      ],
+    };
+    console.log(body);
+  }
+};
+
+const getStateAndCountyInfo = async (eventInput) => {
+  // const { county, state } = eventInput;
+
+  const { location} = eventInput;
+
+  const { county, state, stateAbbrev} = location;
+
+  console.log(location);
 
   const stateInfo = await getID("state", state, null);
-  // console.log(stateInfo[0]);
-
-  const countyInfo = await getID("county", county, stateInfo[0].stateAbbrev);
+  const countyInfo = await getID("county", county, stateAbbrev);
 
   return {
     county: countyInfo[0],
@@ -668,24 +905,37 @@ const parse = (object) => {
 
 const stringify = (object) => {
   for (let property in object) {
-    // if (property === 'totalDemoCount') {
-    //   object[property] = JSON.stringify(object[property]);
-    // }
+    if(isObject(object[property])) {
+      if ('race' in object[property]) {
+        object[property] = JSON.stringify(object[property]);
+      } else {
+        stringify(object[property]);
 
-    if (isObject(object[property])) {
-      for (prop in object[property]) {
-        if (isObject(object[property][prop])) {
-          for (p in object[property][prop]) {
-            object[property][prop][p] = JSON.stringify(
-              object[property][prop][p]
-            );
-          }
-        } else {
-          object[property][prop] = JSON.stringify(object[property][prop]);
-        }
       }
+
     }
   }
+
+  // for (let property in object) {
+  //   if (property === "totalDemoCount") {
+  //     object[property] = JSON.parse(object[property]);
+  //     continue;
+  //   }
+
+  //   if (isObject(object[property])) {
+  //     for (prop in object[property]) {
+  //       // if (isObject(object[property][prop])) {
+  //       //   for (p in object[property][prop]) {
+  //       //     object[property][prop][p] = JSON.stringify(
+  //       //       object[property][prop][p]
+  //       //     );
+  //       //   }
+  //       // } else {
+  //       //   object[property][prop] = JSON.stringify(object[property][prop]);
+  //       // }
+  //     }
+  //   }
+  // }
 };
 
 const findMatchingIndex = (element, array) => {
@@ -959,14 +1209,8 @@ const updateVaccinationSummary = (
   };
 
   for (const dat in data) {
-    let {
-      percentVaccinated,
-      avgNumOfVaccPerPerson,
-      pfizerCount,
-      modernaCount,
-      jjCount,
-      azCount,
-    } = data[dat].vaccinationSummary;
+    let { percentVaccinated, avgNumOfVaccPerPerson, vaccineCount } =
+      data[dat].vaccinationSummary;
     let pop = data[dat].pop;
 
     if (
@@ -995,20 +1239,14 @@ const updateVaccinationSummary = (
       );
     }
 
-    addCustomToTallyBasedOnCondition(
-      indexes,
-      pfizerCount,
-      vaccinationResults.vaccineType === "Pfizer",
-      1
-    );
-    addCustomToTallyBasedOnCondition(
-      indexes,
-      modernaCount,
-      vaccinationResults.vaccineType === "Moderna",
-      1
-    );
-    // addCustomToTallyBasedOnCondition(indexes, jjCount, vaccinationResults.vaccineType === "Janssen",1);
-    // addCustomToTallyBasedOnCondition(indexes, azCount, vaccinationResults.vaccineType === "Moderna",1);
+    if (vaccinationResults.vaccineType != null) {
+      addCustomToTallyBasedOnCondition(
+        indexes,
+        vaccineCount[vaccinationResults.vaccineType],
+        true,
+        1
+      );
+    }
   }
 };
 
@@ -1113,13 +1351,10 @@ const updateSymptomSummary = (
   };
 
   for (const dat in data) {
-    let {
-     symptomCounts
-    } = data[dat].symptomSummary;
+    let { symptomCounts } = data[dat].symptomSummary;
     let pop = data[dat].pop;
 
-
-    symptomResults.symptoms.forEach(symp => {
+    symptomResults.symptoms.forEach((symp) => {
       addCustomToTallyBasedOnCondition(indexes, symptomCounts[symp], true, 1);
     });
 
@@ -1183,223 +1418,103 @@ const updateSymptomSummary = (
   }
 };
 
-const updateMedicalConditionsSummary = (eventInput, popObject, county, state, indexes) => {
+const updateMedicalConditionsSummary = (
+  eventInput,
+  popObject,
+  county,
+  state,
+  indexes
+) => {
   let { medicalConditionsChanges } = eventInput;
   let data = {
-    county : {
-      medicalConditionsSummary : county.medicalConditionsSummary,
-      pop : popObject.countyPop
-    }, 
-    state : {
-      medicalConditionsSummary : state.medicalConditionsSummary,
-      pop : popObject.statePop
-    }
-  }
+    county: {
+      medicalConditionsSummary: county.medicalConditionsSummary,
+      pop: popObject.countyPop,
+    },
+    state: {
+      medicalConditionsSummary: state.medicalConditionsSummary,
+      pop: popObject.statePop,
+    },
+  };
 
-  for(const dat in data) {
-    let { percentHaveLongCovid, newDiagnosisCounts} = data[dat].medicalConditionsSummary;
+  for (const dat in data) {
+    let { percentHaveLongCovid, newDiagnosisCounts } =
+      data[dat].medicalConditionsSummary;
     let pop = data[dat].pop;
 
-    medicalConditionsChanges.newDiagnosis.forEach(diag => {
-      addCustomToTallyBasedOnCondition(indexes, newDiagnosisCounts[diag], true, 1);
-    })
+    medicalConditionsChanges.newDiagnosis.forEach((diag) => {
+      addCustomToTallyBasedOnCondition(
+        indexes,
+        newDiagnosisCounts[diag],
+        true,
+        1
+      );
+    });
 
-    if(medicalConditionsChanges.longCovid != null && medicalConditionsChanges.longCovid != 0) {
-      aggregatePercentageCustomBasedOnCondition(indexes, pop, percentHaveLongCovid, medicalConditionsChanges.longCovid === 1, 1);
+    if (
+      medicalConditionsChanges.longCovid != null &&
+      medicalConditionsChanges.longCovid != 0
+    ) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        percentHaveLongCovid,
+        medicalConditionsChanges.longCovid === 1,
+        1
+      );
     }
   }
-}
+};
 
-const updateSocialSummary = (eventInput, county, state, indexes) => {
+const updateSocialSummary = (eventInput, popObject, county, state, indexes) => {
   let { socialDeterminantsResults } = eventInput;
   let { raceIndex, ageIndex, sexIndex } = indexes;
-  let {
-    percentHaveMedicalInsurance,
-    percentDifficultyCoveringExpenses,
-    averageWorkingSituation,
-    workingSituationCounts,
-  } = county.socialSummary;
 
-  let {
-    workingOutsideTheHome,
-    onLeaveFromAJobWorkingOutsideHome,
-    workingInsideHome,
-    lookingForWorkUnemployed,
-    retired,
-    disabled,
-    student,
-    dontKnow,
-    preferNotToAnswer,
-  } = workingSituationCounts;
+  let data = {
+    county: {
+      socialSummary: county.socialSummary,
+      pop: popObject.countyPop,
+    },
+    state: {
+      socialSummary: state.socialSummary,
+      pop: popObject.statePop,
+    },
+  };
 
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentHaveMedicalInsurance,
-    socialDeterminantsResults.hasMedicalInsurance === "Yes",
-    1
-  );
+  for (const dat in data) {
+    let {
+      percentHaveMedicalInsurance,
+      averageDifficultyCoveringExpenses,
+      workingSituationCounts,
+    } = data[dat].socialSummary;
+    let pop = data[dat].pop;
 
-  aggregatePercentageCustomBasedOnCondition(
-    raceIndex,
-    ageIndex,
-    sexIndex,
-    county.totalFullEntries,
-    percentDifficultyCoveringExpenses,
-    socialDeterminantsResults.difficultCoveringExpenses === "Very difficult" ||
-      socialDeterminantsResults.difficultCoveringExpenses ===
-        "Somewhat difficult",
-    1
-  );
+    if (socialDeterminantsResults.hasMedicalInsurance != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        percentHaveMedicalInsurance,
+        socialDeterminantsResults.hasMedicalInsurance,
+        1
+      );
+    }
 
-  /*
-Working outside the home 
-On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave)  
-Working inside the home 
-Looking for work, unemployed 
-Retired 
-Disabled, permanently or temporarily  
-Student 
-Don't know 
-Prefer not to answer 
-*/
+    if (socialDeterminantsResults.difficultCoveringExpenses != null) {
+      aggregatePercentageCustomBasedOnCondition(
+        indexes,
+        pop,
+        averageDifficultyCoveringExpenses,
+        true,
+        socialDeterminantsResults.difficultCoveringExpenses
+      );
+    }
 
-  if (
-    socialDeterminantsResults.currentWorkSituation ===
-    "Working outside the home"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      workingOutsideTheHome,
-      true,
-      1
-    );
-  } else if (
-    socialDeterminantsResults.currentWorkSituation ===
-    "On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave)"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      onLeaveFromAJobWorkingOutsideHome,
-      true,
-      1
-    );
-  } else if (
-    socialDeterminantsResults.currentWorkSituation === "Working inside the home"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      workingInsideHome,
-      true,
-      1
-    );
-  } else if (
-    socialDeterminantsResults.currentWorkSituation ===
-    "Looking for work, unemployed"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      lookingForWorkUnemployed,
-      true,
-      1
-    );
-  } else if (socialDeterminantsResults.currentWorkSituation === "Retired") {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      retired,
-      true,
-      1
-    );
-  } else if (
-    socialDeterminantsResults.currentWorkSituation ===
-    "Disabled, permanently or temporarily"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      disabled,
-      true,
-      1
-    );
-  } else if (socialDeterminantsResults.currentWorkSituation === "Student") {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      student,
-      true,
-      1
-    );
-  } else if (socialDeterminantsResults.currentWorkSituation === "Don't know") {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      dontKnow,
-      true,
-      1
-    );
-  } else if (
-    socialDeterminantsResults.currentWorkSituation === "Prefer not to answer"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      preferNotToAnswer,
-      true,
-      1
-    );
-  } else if (
-    socialDeterminantsResults.currentWorkSituation ===
-    "Looking for work, unemployed"
-  ) {
-    addCustomToTallyBasedOnCondition(
-      raceIndex,
-      ageIndex,
-      sexIndex,
-      lookingForWorkUnemployed,
-      true,
-      1
-    );
+    if (socialDeterminantsResults.currentWorkSituation != null) {
+      let curr =
+        workingSituationCounts[socialDeterminantsResults.currentWorkSituation];
+      addCustomToTallyBasedOnCondition(indexes, curr, true, 1);
+    }
   }
-
-  //get rid of average!
-  // averageWorkingSituation(
-  //   raceIndex
-
-  // )
-
-  ({
-    percentHaveMedicalInsurance,
-    percentDifficultyCoveringExpenses,
-    averageWorkingSituation,
-    workingSituationCounts,
-  } = state.socialSummary);
-  ({
-    workingOutsideTheHome,
-    onLeaveFromAJobWorkingOutsideHome,
-    workingInsideHome,
-    lookingForWorkUnemployed,
-    retired,
-    disabled,
-    student,
-    dontKnow,
-    preferNotToAnswer,
-  } = workingSituationCounts);
 };
 
 const updateGeneralHealthSummary = (eventInput, county, state, indexes) => {
@@ -1450,9 +1565,119 @@ const getDemoCount = (countyDemoCount, stateDemoCount, indexes) => {
   };
 };
 
+
 const aggregateSurveyResults = async (eventInput) => {
   eventInput.age = parseInt(eventInput.age);
+  // await deleteAllMapData();
   let { county, state } = await getStateAndCountyInfo(eventInput);
+  let { location } = eventInput;
+
+  if(!county) {
+    variables.input.level = "county";
+    variables.input.name = location.county;
+    variables.input.stateAbbrev = location.stateAbbrev;
+    variables.input.lat = location.countyLat;
+    variables.input.long = location.countyLong;
+    const endpoint = new URL(GRAPHQL_ENDPOINT);
+    const signer = new SignatureV4({
+      // credentials: defaultProvider(),
+      credentials: credentials,
+      region: AWS_REGION,
+      service: "appsync",
+      sha256: Sha256,
+    });
+
+    const requestToBeSigned = new HttpRequest({
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        host: endpoint.host,
+      },
+      hostname: endpoint.host,
+      body: JSON.stringify({ query, variables }),
+      path: endpoint.pathname,
+    });
+
+    const signed = await signer.sign(requestToBeSigned);
+    const request = new Request(endpoint, signed);
+    let body;
+    let response;
+
+    try {
+      response = await fetch(request);
+      body = await response.json();
+      console.log(body);
+
+      if (body.errors) statusCode = 400;
+    } catch (error) {
+      statusCode = 500;
+      body = {
+        errors: [
+          {
+            message: error.message,
+          },
+        ],
+      };
+      console.log(body);
+    }
+  }
+
+  if(!state) {
+    variables.input.level = "state";
+    variables.input.name = location.state;
+    variables.input.stateAbbrev = location.stateAbbrev;
+    variables.input.lat = location.stateLat;
+    variables.input.long = location.stateLong;
+
+    const endpoint = new URL(GRAPHQL_ENDPOINT);
+    const signer = new SignatureV4({
+      // credentials: defaultProvider(),
+      credentials: credentials,
+      region: AWS_REGION,
+      service: "appsync",
+      sha256: Sha256,
+    });
+
+    const requestToBeSigned = new HttpRequest({
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        host: endpoint.host,
+      },
+      hostname: endpoint.host,
+      body: JSON.stringify({ query, variables }),
+      path: endpoint.pathname,
+    });
+
+    const signed = await signer.sign(requestToBeSigned);
+    const request = new Request(endpoint, signed);
+    let body;
+    let response;
+
+    try {
+      response = await fetch(request);
+      body = await response.json();
+      console.log(body);
+
+      if (body.errors) statusCode = 400;
+    } catch (error) {
+      statusCode = 500;
+      body = {
+        errors: [
+          {
+            message: error.message,
+          },
+        ],
+      };
+      console.log(body);
+    }
+
+
+  }
+
+  if(!county || !state) {
+    ({ county, state } = await getStateAndCountyInfo(eventInput));
+  }
 
   parse(county);
   parse(state);
@@ -1479,29 +1704,28 @@ const aggregateSurveyResults = async (eventInput) => {
     indexes
   );
 
-  updateCovidSummary(eventInput, popObject, county, state, indexes);
-  updateRecoverySummary(eventInput, popObject, county, state, indexes);
-  updateVaccinationSummary(eventInput, popObject, county, state, indexes);
-  updateGlobalHealthSummary(eventInput, popObject, county, state, indexes);
+  // updateCovidSummary(eventInput, popObject, county, state, indexes);
+  // updateRecoverySummary(eventInput, popObject, county, state, indexes);
+  // updateVaccinationSummary(eventInput, popObject, county, state, indexes);
+  // updateGlobalHealthSummary(eventInput, popObject, county, state, indexes);
 
-  updateSymptomSummary(eventInput, popObject, county, state, indexes);
-  updateMedicalConditionsSummary(eventInput, popObject, county, state, indexes);
+  // updateSymptomSummary(eventInput, popObject, county, state, indexes);
+  // updateMedicalConditionsSummary(eventInput, popObject, county, state, indexes);
   // updateSocialSummary(eventInput, popObject, county, state, indexes);
 
-  // //Upload "county" and "state"
-
-  // //increment at the last. updates require OLD count
+  // // //increment at the last. updates require OLD count
   // incrementTotalFullEntries(county, state);
+  // incrementDemographics(eventInput, county, state, indexes);
 
-  incrementDemographics(eventInput, county, state, indexes);
 
-  stringify(county);
-  stringify(state);
+  // stringify(county);
+  // stringify(state);
 
-  console.log("county");
-  console.log(county.medicalConditionsSummary);
-  console.log("state");
-  console.log(state.medicalConditionsSummary);
+  // //upload back to API, updated county/state
+  // await updateMapData(county, state);
+
+  // return { county, state };
+  return { county: null, state: null};
 };
 
 /**
@@ -1509,7 +1733,12 @@ const aggregateSurveyResults = async (eventInput) => {
  */
 exports.handler = async (event) => {
   let input = event.arguments.surveyResults;
-  await aggregateSurveyResults(input);
+  const { county, state} = await aggregateSurveyResults(input);
 
   // await populate();
+  return {
+    county,
+    state
+  }
+  // return null;
 };
