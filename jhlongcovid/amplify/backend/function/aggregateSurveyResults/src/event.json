@@ -8,61 +8,128 @@
       "age": "23",
       "race": "Other",
       "sex": "Male",
-      "county": "Webster",
-      "state": "Nebraska",
+      "location": {
+        "county": "Oneida County",
+        "state": "New York",
+        "stateAbbrev": "NY",
+        "countyLat": 43.23718,
+        "countyLong": -75.434473,
+        "stateLat": 40.712775,
+        "stateLong": -74.005973
+      },
       "covidResults": {
-        "previousInfection": true,
-        "infectionFreqEst" : 3,
+        "id": "2238c61b-a547-44c9-b8fa-1d4373237932",
+        "age": "23",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "123",
+        "beenInfected": true,
+        "timesPositive": 1,
         "hospitalized": true,
-        "timesHospitalized": 1,
-        "lastPositiveEst": "12/22",
+        "timesHospitalized": 2,
+        "lastPositive": "2022-11-01T00:00:00.000Z",
         "tested": true,
         "positiveTest": 1,
         "symptomatic": true,
-        "symptomsPrevent": 3,
-        "doctorPrescribeMedicine": 1,
-        "professionalPrescriptions": ["Antiviral Pill", "Oral Steroids"]
+        "symptomsPreventScale": 3,
+        "medicationsPrescribed": 1,
+        "medicationsTaken": [
+          "oralSteroids"
+        ]
       },
       "recoveryResults": {
+        "id": "4897c703-248b-483d-81cc-4c343c7cac5d",
+        "age": "23",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "123",
         "recovered": true,
-        "daysToRecoverEst": 13
+        "lengthOfRecovery": 5
       },
       "vaccinationResults": {
+        "id": "7eb33b21-a003-45b1-b735-8d83ce33e602",
+        "age": "23",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "123",
         "vaccinated": true,
-        "totalVaccineShots": 3,
-        "dateOfLastVaccine": "01/22",
-        "vaccineType": "pfizer"
+        "totalVaccineShots": 5,
+        "dateOfLastVaccine": "2022-11-02T00:00:00.000Z",
+        "vaccineType": "Moderna"
       },
-      "generalHealthResults": {
-        "generalHealth": 4,
-        "physicalHealth": 4,
-        "everdayPhysicalCompetency": 4,
-        "averageFatigue" : 3,
-        "averagePain" : 1
+      "globalHealthResults": {
+        "id": "edd56c44-7dee-48cd-a743-2dcee1d80910",
+        "age": "23",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "123",
+        "healthRank": "veryGood",
+        "physicalHealthRank": "veryGood",
+        "carryPhysicalActivities": "completely",
+        "fatigueRank": "moderate",
+        "painLevel": 6
+      },
+      "symptomResults": {
+        "id": "fcfcf583-7665-480d-9562-3627f8c828d5",
+        "age": "23",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "123",
+        "symptoms": [
+          "headache",
+          "bodyMuscleAche"
+        ],
+        "qualityOfLife": "Excellent",
+        "mentalHealthRank": "Excellent",
+        "socialSatisfactionRank": "Excellent",
+        "carryOutSocialActivitiesRank": "Excellent",
+        "anxietyInPastWeekRank": "Rarely",
+        
+        "medicalConditions": [
+          "memory"
+        ],
+        "hasLongCovid": "yes"
+      },
+      "patientHealthResults": {
+        "id": "0da39657-e417-4222-82f3-ba93b3f89879",
+        "age": "23",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "123",
+        "generalHealthResults": {
+          "Little interest or pleasure in doing things?": "Not at all",
+          "Feeling down, depressed, or hopeless?": "Several days",
+          "Trouble falling or staying asleep, or sleeping too much?": "More than half the days",
+          "Feeling tired or having little energy?": "Nearly every day",
+          "Poor appetite or overeating?": "More than half the days",
+          "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?": "Several days",
+          "Trouble concentrating on things, such as reading the newspaper or watching television?": "Not at all",
+          "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?": "Not at all"
+        },
+        "totalScore": 9
       },
       
-      "symptomResults": {
-        "symptoms": ["skinRash", "lossOfChangeInSmell"],
-        "qualityOfLife": 4,
-        "mentalHealth": 4,
-        "socialActivitiesRelationships": 4,
-        "socialActivitiesCapacity": 3,
-        "emotionalProblems": 2
-      },
-      "medicalConditionsChanges" : {
-        "newDiagnosis" : ["noNewDiagnosis", "bloodClotLung", "mecfs"],
-        "longCovid" : 1
-      },
       "socialDeterminantsResults": {
+        "id": "28ef266e-aad2-4610-8a60-a045f36dc76b",
+        "age": "23",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "123",
         "hasMedicalInsurance": true,
-        "difficultCoveringExpenses": 5,
-        "currentWorkSituation": "onLeaveFromAJobWorkingOutsideHome"
+        "difficultCoveringExpenses": "somewhatDifficult",
+        "currentWorkSituation": "workingInsideHome"
       },
-      "healthRelatedResults" : {
+      "healthRelatedResults": {
         "weight": 34,
         "height": 56
       }
-      
     }
   }
 }

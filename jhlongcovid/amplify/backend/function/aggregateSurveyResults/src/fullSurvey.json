@@ -29,12 +29,12 @@
       "timesHospitalized": 2,
       "lastPositive": "2022-11-01T00:00:00.000Z",
       "tested": true,
-      "positiveTest": true,
+      "positiveTest": "yes",
       "symptomatic": true,
-      "symptomsPreventScale": "Not at all",
-      "medicationsPrescribed": true,
+      "symptomsPreventScale": "notAtAll",
+      "medicationsPrescribed": "yes",
       "medicationsTaken": [
-        "Oral steroids, such as dexamethasone, prednisone, or prednisolone"
+        "oralSteroids"
       ]
     },
     "recoveryResults": {
@@ -54,7 +54,7 @@
       "sex": "Male",
       "height": "55",
       "weight": "123",
-      "vaccinated": true,
+      "vaccinated": "yes",
       "totalVaccineShots": 5,
       "dateOfLastVaccine": "2022-11-02T00:00:00.000Z",
       "vaccineType": "Moderna"
@@ -66,11 +66,33 @@
       "sex": "Male",
       "height": "55",
       "weight": "123",
-      "healthRank": "Very good",
-      "physicalHealthRank": "Very good",
-      "carryPhysicalActivities": "Completely",
-      "fatigueRank": "Moderate",
+      "healthRank": "veryGood",
+      "physicalHealthRank": "veryGood",
+      "carryPhysicalActivities": "completely",
+      "fatigueRank": "moderate",
       "painLevel": 6
+    },
+    "symptomResults": {
+      "id": "fcfcf583-7665-480d-9562-3627f8c828d5",
+      "age": "23",
+      "race": "white",
+      "sex": "Male",
+      "height": "55",
+      "weight": "123",
+      "symptoms": [
+        "headache",
+        "bodyMuscleAche"
+      ],
+      "qualityOfLife": "Excellent",
+      "mentalHealthRank": "Excellent",
+      "socialSatisfactionRank": "Excellent",
+      "carryOutSocialActivitiesRank": "Excellent",
+      "anxietyInPastWeekRank": "Rarely",
+      
+      "medicalConditions": [
+        "memory"
+      ],
+      "hasLongCovid": "yes"
     },
     "patientHealthResults": {
       "id": "0da39657-e417-4222-82f3-ba93b3f89879",
@@ -91,111 +113,7 @@
       },
       "totalScore": 9
     },
-    "symptomResults": {
-      "id": "fcfcf583-7665-480d-9562-3627f8c828d5",
-      "CovidEntry": {
-        "age": "23",
-        "race": "white",
-        "sex": "Male",
-        "height": "55",
-        "weight": "123",
-        "beenInfected": true,
-        "timesPositive": 1,
-        "hospitalized": true,
-        "timesHospitalized": 2,
-        "lastPositive": "2022-11-01T00:00:00.000Z",
-        "tested": true,
-        "positiveTest": true,
-        "symptomatic": true,
-        "symptomsPreventScale": "Not at all",
-        "medicationsPrescribed": true,
-        "medicationsTaken": [
-          "Oral steroids, such as dexamethasone, prednisone, or prednisolone"
-        ]
-      },
-      "RecoveryEntry": {
-        "age": "23",
-        "race": "white",
-        "sex": "Male",
-        "height": "55",
-        "weight": "123",
-        "recovered": true,
-        "lengthOfRecovery": 5
-      },
-      "VaccinationEntry": {
-        "age": "23",
-        "race": "white",
-        "sex": "Male",
-        "height": "55",
-        "weight": "123",
-        "vaccinated": true,
-        "totalVaccineShots": 5,
-        "dateOfLastVaccine": "2022-11-02T00:00:00.000Z",
-        "vaccineType": "Moderna"
-      },
-      "GlobalHealthEntry": {
-        "age": "23",
-        "race": "white",
-        "sex": "Male",
-        "height": "55",
-        "weight": "123",
-        "healthRank": "Very good",
-        "physicalHealthRank": "Very good",
-        "carryPhysicalActivities": "Completely",
-        "fatigueRank": "Moderate",
-        "painLevel": 6
-      },
-      "PatientHealthEntry": {
-        "age": "23",
-        "race": "white",
-        "sex": "Male",
-        "height": "55",
-        "weight": "123",
-        "generalHealthResults": {
-          "Little interest or pleasure in doing things?": "Not at all",
-          "Feeling down, depressed, or hopeless?": "Several days",
-          "Trouble falling or staying asleep, or sleeping too much?": "More than half the days",
-          "Feeling tired or having little energy?": "Nearly every day",
-          "Poor appetite or overeating?": "More than half the days",
-          "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?": "Several days",
-          "Trouble concentrating on things, such as reading the newspaper or watching television?": "Not at all",
-          "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?": "Not at all"
-        },
-        "totalScore": 9
-      },
-      "SymptomEntry": {
-        "age": "23",
-        "race": "white",
-        "sex": "Male",
-        "height": "55",
-        "weight": "123",
-        "symptoms": [
-          "Fever, chills, sweats or flushing",
-          "Weakness in arms or legs",
-          "Palpitations, racing heart, arrhythmia, or skipped beats",
-          "Indigestion, nausea, feeling uncomfortably full or vomiting after eating, diarrhea, or constipation",
-          "Problems thinking or concentrating (“brain fog”)",
-          "Nerve problems including tremor, shaking, numbness, tingling, or burning sensation",
-          "Loss of or change in smell or taste"
-        ],
-        "mentalHealthRank": "Excellent",
-        "socialSatisfactionRank": "Excellent",
-        "carryOutSocialActivitiesRank": "Excellent",
-        "anxietyInPastWeekRank": "Rarely",
-        "medicalConditions": ["Memory or cognitive impairment or dementia "],
-        "hasLongCovid": true
-      },
-      "SocialDeterminantsEntry": {
-        "age": "23",
-        "race": "white",
-        "sex": "Male",
-        "height": "55",
-        "weight": "123",
-        "hasMedicalInsurance": true,
-        "difficultCoveringExpenses": "Somewhat difficult",
-        "currentWorkSituation": "Working remotely from home"
-      }
-    },
+    
     "socialDeterminantsResults": {
       "id": "28ef266e-aad2-4610-8a60-a045f36dc76b",
       "age": "23",
@@ -204,9 +122,12 @@
       "height": "55",
       "weight": "123",
       "hasMedicalInsurance": true,
-      "difficultCoveringExpenses": "Somewhat difficult",
-      "currentWorkSituation": "Working remotely from home"
+      "difficultCoveringExpenses": "somewhatDifficult",
+      "currentWorkSituation": "workingInsideHome"
     },
-    "healthRelatedResults": { "weight": "123", "height": "55" }
+    "healthRelatedResults": {
+      "weight": "123",
+      "height": "55"
+    }
   }
 }
