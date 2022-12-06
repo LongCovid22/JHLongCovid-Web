@@ -12,14 +12,54 @@ export const getMapData = /* GraphQL */ `
       lat
       long
       covidSummary {
-        covidCount
-        avgPositiveCasesPerPerson
-        percentHospitalizedDueToCovid
-        avgHospitalizationsPerPerson
-        percentSymptomatic
-        avgSymptomPreventDailyTasks
-        percentTookMedication
-        medicationCounts {
+        beenInfected {
+          yes
+          no
+        }
+        timesPositive {
+          one
+          two
+          three
+          threePlus
+          dontKnow
+        }
+        hospitalized {
+          yes
+          no
+        }
+        timesHospitalized {
+          one
+          two
+          three
+          threePlus
+          dontKnow
+        }
+        tested {
+          yes
+          no
+        }
+        positiveTest {
+          yes
+          no
+          dontKnow
+        }
+        symptomatic {
+          yes
+          no
+        }
+        symptomsPreventScale {
+          notAtAll
+          aLittleBit
+          somewhat
+          quiteABit
+          veryMuch
+        }
+        medicationsPrescribed {
+          yes
+          no
+          dontKnow
+        }
+        medicationsTakenCount {
           antiViral
           oralSteroids
           antiBiotics
@@ -28,13 +68,28 @@ export const getMapData = /* GraphQL */ `
         }
       }
       recoverySummary {
-        recoveryCount
-        avgRecoveryLength
+        recovered {
+          yes
+          no
+        }
+        avglengthOfRecovery
       }
       vaccinationSummary {
-        percentVaccinated
-        avgNumOfVaccPerPerson
-        vaccineCount {
+        vaccinated {
+          yes
+          no
+          dontKnow
+        }
+        totalVaccineShots {
+          one
+          two
+          three
+          four
+          five
+          fivePlus
+          dontKnow
+        }
+        vaccineType {
           pfizer
           moderna
           janssen
@@ -44,18 +99,88 @@ export const getMapData = /* GraphQL */ `
         }
       }
       globalHealthSummary {
-        avgGeneralHealth
-        avgPhysicalHealth
-        avgEverydayPhysicalCompetency
-        avgFatigue
-        avgPain
+        healthRank {
+          excellent
+          veryGood
+          good
+          fair
+          poor
+        }
+        physicalHealthRank {
+          excellent
+          veryGood
+          good
+          fair
+          poor
+        }
+        carryPhysicalActivities {
+          completely
+          mostly
+          moderately
+          aLittle
+          notAtAll
+        }
+        fatigueRank {
+          none
+          mild
+          moderate
+          severe
+          verySevere
+        }
+        avgpainLevel
+      }
+      patientHealthQuestionnaireSummary {
+        littleInterestThings {
+          notAtAll
+          severalDays
+          moreThanHalfOfDays
+          nearlyEveryDay
+        }
+        downDepressedHopeless {
+          notAtAll
+          severalDays
+          moreThanHalfOfDays
+          nearlyEveryDay
+        }
+        sleepProblems {
+          notAtAll
+          severalDays
+          moreThanHalfOfDays
+          nearlyEveryDay
+        }
+        tiredNoEnergy {
+          notAtAll
+          severalDays
+          moreThanHalfOfDays
+          nearlyEveryDay
+        }
+        dietProblems {
+          notAtAll
+          severalDays
+          moreThanHalfOfDays
+          nearlyEveryDay
+        }
+        badAboutSelf {
+          notAtAll
+          severalDays
+          moreThanHalfOfDays
+          nearlyEveryDay
+        }
+        concentrationProblems {
+          notAtAll
+          severalDays
+          moreThanHalfOfDays
+          nearlyEveryDay
+        }
+        slowOrRestless {
+          notAtAll
+          severalDays
+          moreThanHalfOfDays
+          nearlyEveryDay
+        }
+        avgPHQScore
       }
       symptomSummary {
-        avgQualityOfLife
-        avgMentalHealth
-        avgSocialActivitesRelationships
-        avgSocialActivitiesCapacity
-        avgEmotionalProblems
         symptomCounts {
           headache
           bodyMuscleAche
@@ -86,9 +211,48 @@ export const getMapData = /* GraphQL */ `
           hearingProblems
           fertilityProblemsForWomen
         }
+        qualityOfLife {
+          excellent
+          veryGood
+          good
+          fair
+          poor
+        }
+        mentalHealthRank {
+          excellent
+          veryGood
+          good
+          fair
+          poor
+        }
+        socialSatisfactionRank {
+          excellent
+          veryGood
+          good
+          fair
+          poor
+        }
+        carryOutSocialActivitiesRank {
+          excellent
+          veryGood
+          good
+          fair
+          poor
+        }
+        anxietyInPastWeekRank {
+          excellent
+          veryGood
+          good
+          fair
+          poor
+        }
       }
       medicalConditionsSummary {
-        percentHaveLongCovid
+        longCovid {
+          yes
+          no
+          dontKnow
+        }
         newDiagnosisCounts {
           noNewDiagnosis
           heartProblems
@@ -110,9 +274,18 @@ export const getMapData = /* GraphQL */ `
         }
       }
       socialSummary {
-        percentHaveMedicalInsurance
-        averageDifficultyCoveringExpenses
-        workingSituationCounts {
+        hasMedicalInsurance {
+          yes
+          no
+        }
+        difficultCoveringExpenses {
+          veryDifficult
+          somewhatDifficult
+          notAtAllDifficult
+          dontKnow
+          preferNotToAnswer
+        }
+        currentWorkSituation {
           workingOutsideTheHome
           onLeaveFromAJobWorkingOutsideHome
           workingInsideHome
@@ -125,7 +298,6 @@ export const getMapData = /* GraphQL */ `
         }
       }
       totalFullEntries
-      totalDemoCount
       createdAt
       updatedAt
     }
@@ -156,14 +328,54 @@ export const listMapData = /* GraphQL */ `
         lat
         long
         covidSummary {
-          covidCount
-          avgPositiveCasesPerPerson
-          percentHospitalizedDueToCovid
-          avgHospitalizationsPerPerson
-          percentSymptomatic
-          avgSymptomPreventDailyTasks
-          percentTookMedication
-          medicationCounts {
+          beenInfected {
+            yes
+            no
+          }
+          timesPositive {
+            one
+            two
+            three
+            threePlus
+            dontKnow
+          }
+          hospitalized {
+            yes
+            no
+          }
+          timesHospitalized {
+            one
+            two
+            three
+            threePlus
+            dontKnow
+          }
+          tested {
+            yes
+            no
+          }
+          positiveTest {
+            yes
+            no
+            dontKnow
+          }
+          symptomatic {
+            yes
+            no
+          }
+          symptomsPreventScale {
+            notAtAll
+            aLittleBit
+            somewhat
+            quiteABit
+            veryMuch
+          }
+          medicationsPrescribed {
+            yes
+            no
+            dontKnow
+          }
+          medicationsTakenCount {
             antiViral
             oralSteroids
             antiBiotics
@@ -172,13 +384,28 @@ export const listMapData = /* GraphQL */ `
           }
         }
         recoverySummary {
-          recoveryCount
-          avgRecoveryLength
+          recovered {
+            yes
+            no
+          }
+          avglengthOfRecovery
         }
         vaccinationSummary {
-          percentVaccinated
-          avgNumOfVaccPerPerson
-          vaccineCount {
+          vaccinated {
+            yes
+            no
+            dontKnow
+          }
+          totalVaccineShots {
+            one
+            two
+            three
+            four
+            five
+            fivePlus
+            dontKnow
+          }
+          vaccineType {
             pfizer
             moderna
             janssen
@@ -188,18 +415,88 @@ export const listMapData = /* GraphQL */ `
           }
         }
         globalHealthSummary {
-          avgGeneralHealth
-          avgPhysicalHealth
-          avgEverydayPhysicalCompetency
-          avgFatigue
-          avgPain
+          healthRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          physicalHealthRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          carryPhysicalActivities {
+            completely
+            mostly
+            moderately
+            aLittle
+            notAtAll
+          }
+          fatigueRank {
+            none
+            mild
+            moderate
+            severe
+            verySevere
+          }
+          avgpainLevel
+        }
+        patientHealthQuestionnaireSummary {
+          littleInterestThings {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          downDepressedHopeless {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          sleepProblems {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          tiredNoEnergy {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          dietProblems {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          badAboutSelf {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          concentrationProblems {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          slowOrRestless {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          avgPHQScore
         }
         symptomSummary {
-          avgQualityOfLife
-          avgMentalHealth
-          avgSocialActivitesRelationships
-          avgSocialActivitiesCapacity
-          avgEmotionalProblems
           symptomCounts {
             headache
             bodyMuscleAche
@@ -230,9 +527,48 @@ export const listMapData = /* GraphQL */ `
             hearingProblems
             fertilityProblemsForWomen
           }
+          qualityOfLife {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          mentalHealthRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          socialSatisfactionRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          carryOutSocialActivitiesRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          anxietyInPastWeekRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
         }
         medicalConditionsSummary {
-          percentHaveLongCovid
+          longCovid {
+            yes
+            no
+            dontKnow
+          }
           newDiagnosisCounts {
             noNewDiagnosis
             heartProblems
@@ -254,9 +590,18 @@ export const listMapData = /* GraphQL */ `
           }
         }
         socialSummary {
-          percentHaveMedicalInsurance
-          averageDifficultyCoveringExpenses
-          workingSituationCounts {
+          hasMedicalInsurance {
+            yes
+            no
+          }
+          difficultCoveringExpenses {
+            veryDifficult
+            somewhatDifficult
+            notAtAllDifficult
+            dontKnow
+            preferNotToAnswer
+          }
+          currentWorkSituation {
             workingOutsideTheHome
             onLeaveFromAJobWorkingOutsideHome
             workingInsideHome
@@ -269,7 +614,6 @@ export const listMapData = /* GraphQL */ `
           }
         }
         totalFullEntries
-        totalDemoCount
         createdAt
         updatedAt
       }
@@ -302,14 +646,54 @@ export const mapDataByLevelNameState = /* GraphQL */ `
         lat
         long
         covidSummary {
-          covidCount
-          avgPositiveCasesPerPerson
-          percentHospitalizedDueToCovid
-          avgHospitalizationsPerPerson
-          percentSymptomatic
-          avgSymptomPreventDailyTasks
-          percentTookMedication
-          medicationCounts {
+          beenInfected {
+            yes
+            no
+          }
+          timesPositive {
+            one
+            two
+            three
+            threePlus
+            dontKnow
+          }
+          hospitalized {
+            yes
+            no
+          }
+          timesHospitalized {
+            one
+            two
+            three
+            threePlus
+            dontKnow
+          }
+          tested {
+            yes
+            no
+          }
+          positiveTest {
+            yes
+            no
+            dontKnow
+          }
+          symptomatic {
+            yes
+            no
+          }
+          symptomsPreventScale {
+            notAtAll
+            aLittleBit
+            somewhat
+            quiteABit
+            veryMuch
+          }
+          medicationsPrescribed {
+            yes
+            no
+            dontKnow
+          }
+          medicationsTakenCount {
             antiViral
             oralSteroids
             antiBiotics
@@ -318,13 +702,28 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           }
         }
         recoverySummary {
-          recoveryCount
-          avgRecoveryLength
+          recovered {
+            yes
+            no
+          }
+          avglengthOfRecovery
         }
         vaccinationSummary {
-          percentVaccinated
-          avgNumOfVaccPerPerson
-          vaccineCount {
+          vaccinated {
+            yes
+            no
+            dontKnow
+          }
+          totalVaccineShots {
+            one
+            two
+            three
+            four
+            five
+            fivePlus
+            dontKnow
+          }
+          vaccineType {
             pfizer
             moderna
             janssen
@@ -334,18 +733,88 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           }
         }
         globalHealthSummary {
-          avgGeneralHealth
-          avgPhysicalHealth
-          avgEverydayPhysicalCompetency
-          avgFatigue
-          avgPain
+          healthRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          physicalHealthRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          carryPhysicalActivities {
+            completely
+            mostly
+            moderately
+            aLittle
+            notAtAll
+          }
+          fatigueRank {
+            none
+            mild
+            moderate
+            severe
+            verySevere
+          }
+          avgpainLevel
+        }
+        patientHealthQuestionnaireSummary {
+          littleInterestThings {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          downDepressedHopeless {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          sleepProblems {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          tiredNoEnergy {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          dietProblems {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          badAboutSelf {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          concentrationProblems {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          slowOrRestless {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          avgPHQScore
         }
         symptomSummary {
-          avgQualityOfLife
-          avgMentalHealth
-          avgSocialActivitesRelationships
-          avgSocialActivitiesCapacity
-          avgEmotionalProblems
           symptomCounts {
             headache
             bodyMuscleAche
@@ -376,9 +845,48 @@ export const mapDataByLevelNameState = /* GraphQL */ `
             hearingProblems
             fertilityProblemsForWomen
           }
+          qualityOfLife {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          mentalHealthRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          socialSatisfactionRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          carryOutSocialActivitiesRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          anxietyInPastWeekRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
         }
         medicalConditionsSummary {
-          percentHaveLongCovid
+          longCovid {
+            yes
+            no
+            dontKnow
+          }
           newDiagnosisCounts {
             noNewDiagnosis
             heartProblems
@@ -400,9 +908,18 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           }
         }
         socialSummary {
-          percentHaveMedicalInsurance
-          averageDifficultyCoveringExpenses
-          workingSituationCounts {
+          hasMedicalInsurance {
+            yes
+            no
+          }
+          difficultCoveringExpenses {
+            veryDifficult
+            somewhatDifficult
+            notAtAllDifficult
+            dontKnow
+            preferNotToAnswer
+          }
+          currentWorkSituation {
             workingOutsideTheHome
             onLeaveFromAJobWorkingOutsideHome
             workingInsideHome
@@ -415,7 +932,6 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           }
         }
         totalFullEntries
-        totalDemoCount
         createdAt
         updatedAt
       }
@@ -448,14 +964,54 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
         lat
         long
         covidSummary {
-          covidCount
-          avgPositiveCasesPerPerson
-          percentHospitalizedDueToCovid
-          avgHospitalizationsPerPerson
-          percentSymptomatic
-          avgSymptomPreventDailyTasks
-          percentTookMedication
-          medicationCounts {
+          beenInfected {
+            yes
+            no
+          }
+          timesPositive {
+            one
+            two
+            three
+            threePlus
+            dontKnow
+          }
+          hospitalized {
+            yes
+            no
+          }
+          timesHospitalized {
+            one
+            two
+            three
+            threePlus
+            dontKnow
+          }
+          tested {
+            yes
+            no
+          }
+          positiveTest {
+            yes
+            no
+            dontKnow
+          }
+          symptomatic {
+            yes
+            no
+          }
+          symptomsPreventScale {
+            notAtAll
+            aLittleBit
+            somewhat
+            quiteABit
+            veryMuch
+          }
+          medicationsPrescribed {
+            yes
+            no
+            dontKnow
+          }
+          medicationsTakenCount {
             antiViral
             oralSteroids
             antiBiotics
@@ -464,13 +1020,28 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           }
         }
         recoverySummary {
-          recoveryCount
-          avgRecoveryLength
+          recovered {
+            yes
+            no
+          }
+          avglengthOfRecovery
         }
         vaccinationSummary {
-          percentVaccinated
-          avgNumOfVaccPerPerson
-          vaccineCount {
+          vaccinated {
+            yes
+            no
+            dontKnow
+          }
+          totalVaccineShots {
+            one
+            two
+            three
+            four
+            five
+            fivePlus
+            dontKnow
+          }
+          vaccineType {
             pfizer
             moderna
             janssen
@@ -480,18 +1051,88 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           }
         }
         globalHealthSummary {
-          avgGeneralHealth
-          avgPhysicalHealth
-          avgEverydayPhysicalCompetency
-          avgFatigue
-          avgPain
+          healthRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          physicalHealthRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          carryPhysicalActivities {
+            completely
+            mostly
+            moderately
+            aLittle
+            notAtAll
+          }
+          fatigueRank {
+            none
+            mild
+            moderate
+            severe
+            verySevere
+          }
+          avgpainLevel
+        }
+        patientHealthQuestionnaireSummary {
+          littleInterestThings {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          downDepressedHopeless {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          sleepProblems {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          tiredNoEnergy {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          dietProblems {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          badAboutSelf {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          concentrationProblems {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          slowOrRestless {
+            notAtAll
+            severalDays
+            moreThanHalfOfDays
+            nearlyEveryDay
+          }
+          avgPHQScore
         }
         symptomSummary {
-          avgQualityOfLife
-          avgMentalHealth
-          avgSocialActivitesRelationships
-          avgSocialActivitiesCapacity
-          avgEmotionalProblems
           symptomCounts {
             headache
             bodyMuscleAche
@@ -522,9 +1163,48 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
             hearingProblems
             fertilityProblemsForWomen
           }
+          qualityOfLife {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          mentalHealthRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          socialSatisfactionRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          carryOutSocialActivitiesRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
+          anxietyInPastWeekRank {
+            excellent
+            veryGood
+            good
+            fair
+            poor
+          }
         }
         medicalConditionsSummary {
-          percentHaveLongCovid
+          longCovid {
+            yes
+            no
+            dontKnow
+          }
           newDiagnosisCounts {
             noNewDiagnosis
             heartProblems
@@ -546,9 +1226,18 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           }
         }
         socialSummary {
-          percentHaveMedicalInsurance
-          averageDifficultyCoveringExpenses
-          workingSituationCounts {
+          hasMedicalInsurance {
+            yes
+            no
+          }
+          difficultCoveringExpenses {
+            veryDifficult
+            somewhatDifficult
+            notAtAllDifficult
+            dontKnow
+            preferNotToAnswer
+          }
+          currentWorkSituation {
             workingOutsideTheHome
             onLeaveFromAJobWorkingOutsideHome
             workingInsideHome
@@ -561,7 +1250,6 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           }
         }
         totalFullEntries
-        totalDemoCount
         createdAt
         updatedAt
       }

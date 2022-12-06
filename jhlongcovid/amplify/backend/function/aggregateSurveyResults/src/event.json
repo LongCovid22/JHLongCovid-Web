@@ -30,7 +30,7 @@
         "timesHospitalized": 2,
         "lastPositive": "2022-11-01T00:00:00.000Z",
         "tested": true,
-        "positiveTest": 1,
+        "positiveTest": "yes",
         "symptomatic": true,
         "symptomsPreventScale": 3,
         "medicationsPrescribed": 1,

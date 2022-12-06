@@ -39,11 +39,6 @@ Vaccination Results :
 16) dateOfLastVaccine : String (date time format)
 17) vaccineType : String (Options: "pfizer", "moderna", "janssen", "novavax", "other", "doNotKnow")
 
-Excellent 
- Very good
- Good 
- Fair 
- Poor 
 
 Global Health Results:
 18) healthRank: String ("excellent", "veryGood", "good", "fair", "poor")
@@ -91,7 +86,6 @@ fertilityProblemsForWomen
 53) anxietyInPastWeekRank : String ("excellent", "veryGood", "good", "fair", "poor")
 
 patientHealthQuestionnaireResults
-	Not at all	Several days	More than half the days	Nearly every day
 54) littleInterestThings : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
 55) downDepressedHopeless : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
 56) sleepProblems : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
