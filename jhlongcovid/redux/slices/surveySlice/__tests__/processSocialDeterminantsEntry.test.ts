@@ -24,7 +24,7 @@ describe("Create Social Determinants entry from survey answers", () => {
     const mockAnswerStack = [
       "Yes",
       "Not at all difficult",
-      "Working inside the home",
+      "Working remotely from home",
     ];
 
     const mockSchemas = [
@@ -71,8 +71,8 @@ describe("Create Social Determinants entry from survey answers", () => {
       race: "white",
       sex: "male",
       hasMedicalInsurance: true,
-      difficultCoveringExpenses: "Not at all difficult",
-      currentWorkSituation: "Working inside the home",
+      difficultCoveringExpenses: "notAtAllDifficult",
+      currentWorkSituation: "remote",
     };
 
     expect(entry).toStrictEqual(correctSocialDeterminantsEntry);

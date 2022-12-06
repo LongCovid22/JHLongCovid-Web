@@ -91,10 +91,10 @@ describe("Create global health entry from survey answers", () => {
       height: "55",
       race: "white",
       sex: "male",
-      healthRank: "Excellent",
-      physicalHealthRank: "Excellent",
-      carryPhysicalActivities: "Completely",
-      fatigueRank: "Moderate",
+      healthRank: "excellent",
+      physicalHealthRank: "excellent",
+      carryPhysicalActivities: "completely",
+      fatigueRank: "moderate",
       painLevel: 7,
     };
 

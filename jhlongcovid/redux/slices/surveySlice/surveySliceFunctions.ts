@@ -370,7 +370,8 @@ const createEntries = (
         let totalScore = 0;
         for (var j = 0; j < option.length; j++) {
           let currOption = option[j];
-          genHealthResults[currOption] = phq8Options[parseInt(a[j])];
+          let phOption = patientHealthOptionsMap[currOption];
+          genHealthResults[phOption] = toCamelCase(phq8Options[parseInt(a[j])]);
           totalScore += parseInt(a[j]);
         }
 
@@ -380,7 +381,8 @@ const createEntries = (
         let reportedSymptoms = [];
         for (var j = 0; j < a.length; j++) {
           if (a[j] === "1") {
-            reportedSymptoms.push(symptoms[j]);
+            const key: string = Object.keys(symptomsMap)[j];
+            reportedSymptoms.push(symptomsMap[key] as string);
           }
         }
 
@@ -401,21 +403,30 @@ const createEntries = (
       entries[s.field] = new Date(a);
     } else {
       if (s.field === "medicalConditions") {
+        const choices = a.choices.map((value: string) => {
+          return medicalConditionsMap[value];
+        });
         if (a.other !== "") {
           // a.choices.push(a.other);
-          entries[s.field] = [...a.choices, a.other];
+          entries[s.field] = [...choices, "other"];
         } else {
-          entries[s.field] = a.choices;
+          entries[s.field] = choices;
         }
       } else if (s.field === "medicationsTaken") {
+        const choices = a.choices.map((value: string) => {
+          return medicationsMap[value];
+        });
         if (a.other !== "") {
           // a.choices.push(a.other);
-          entries[s.field] = [...a.choices, a.other];
+          // TODO: MAKE SURE AHMED IS OKAY WITH USING OTHER
+          entries[s.field] = [...choices, "other"];
         } else {
-          entries[s.field] = a.choices;
+          entries[s.field] = choices;
         }
+      } else if (s.field === "currentWorkSituation") {
+        entries[s.field] = socialDeterminantsMap[a];
       } else {
-        entries[s.field] = a;
+        entries[s.field] = toCamelCase(a);
       }
     }
   }
@@ -430,32 +441,131 @@ const phq8Options = [
   "Nearly every day",
 ];
 
-const symptoms = [
-  "Headache",
-  "Body or muscle aches",
-  "Fever, chills, sweats or flushing",
-  "Feeling faint, dizzy, “goofy”; difficulty thinking soon after standing up from a sitting or lying position",
-  "Feeling sick after you exert yourself physically or mentally (“post-exertional malaise”)",
-  "Weakness in arms or legs",
-  "Shortness of breath (trouble breathing)",
-  "Cough",
-  "Palpitations, racing heart, arrhythmia, or skipped beats",
-  "Swelling of your legs",
-  "Indigestion, nausea, feeling uncomfortably full or vomiting after eating, diarrhea, or constipation",
-  "Bladder problems including incontinence, trouble passing urine or emptying bladder",
-  "Nerve problems including tremor, shaking, numbness, tingling, or burning",
-  "Problems thinking or concentrating (“brain fog”)",
-  "Problems with anxiety, depression, stress or trauma-related symptoms like nightmares or grief",
-  "Nerve problems including tremor, shaking, numbness, tingling, or burning sensation",
-  "Difficulty falling asleep, difficulty staying asleep, or early morning awakenings, 3 or more times per week",
-  "Feeling sleepy, trouble staying awake during the daytime, or falling asleep during the day when you do not intend to, 3 or more times per week",
-  "Loud snoring, stopping breathing, or gasping during sleep, 3 or more times per week",
-  "Uncomfortable feelings in your legs (creepy, crawling feeling) that make you want to move your legs, that are worse at night and improved with movement",
-  "Skin rash",
-  "Loss of or change in smell or taste",
-  "Excessive thirst",
-  "Excessively dry mouth",
-  "Vision problems (blurry, light sensitivity, difficult reading or focusing, floaters, flashing lights, “snow”)",
-  "Problems with hearing (hearing loss, ringing in ears)",
-  "Problems with fertility, changes in your menstrual cycle, changes in menopause symptoms",
-];
+const patientHealthOptionsMap: any = {
+  "Little interest or pleasure in doing things?": "littleInterest",
+  "Feeling down, depressed, or hopeless?": "feelingDepressed",
+  "Trouble falling or staying asleep, or sleeping too much?":
+    "troubleWithSleep",
+  "Feeling tired or having little energy?": "feelingTired",
+  "Poor appetite or overeating?": "poorEatingHabits",
+  "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?":
+    "feelDownOnSelf",
+  "Trouble concentrating on things, such as reading the newspaper or watching television?":
+    "troubleConcentrating",
+  "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?":
+    "movingDifferent",
+};
+
+const socialDeterminantsMap: any = {
+  "Working outside of the home": "atOffice",
+  "Working outside the home as well as working remotely from home (“hybrid” work)":
+    "hybrid",
+  "Working remotely from home": "remote",
+  "Working at home to provide childcare, eldercare and/or to maintain the home":
+    "remoteAndParenting",
+  "On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave)":
+    "onJobLeave",
+  "Looking for work, unemployed": "unemployed",
+  Retired: "retired",
+  "Disabled, permanently or temporarily": "disability",
+  Student: "student",
+  "Do not know": "doNotKnow",
+  "Prefer not to answer": "preferNotToAnswer",
+};
+
+const medicalConditionsMap: any = {
+  "No new diagnoses since the beginning of 2020": "noNewDiagnosis",
+  "Heart problems, such as heart failure or arrhythmia (e.g., “atrial fibrillation”)":
+    "heartProblems",
+  "Lung problems, such as asthma, COPD, fibrosis or interstitial lung disease":
+    "lungProblems",
+  "Blood clots in the lung (“pulmonary embolism”), leg or arm (“deep vein thrombosis”)":
+    "bloodClotLung",
+  "Sleep apnea or insomnia": "sleepApnea",
+  "Memory or cognitive impairment or dementia": "memory",
+  "Migraine or other headache disorder": "migraine",
+  Stroke: "stroke",
+  "Seizure or epilepsy": "seizure",
+  "Kidney problems or kidney disease": "kidneyProblems",
+  "Stomach problems or gastrointestinal disease, like stomach ulcer or irritable bowel syndrome":
+    "stomachProblems",
+  "Psychological problems or psychiatric problems, like depression or anxiety or psychosis":
+    "psychologicalProblems",
+  Diabetes: "diabetes",
+  "Autoimmune diseases (such as systemic lupus, thyroid disease)":
+    "autoImmuneDiseases",
+  "Myalgic Encephalomyelitis/Chronic Fatigue Syndrome (ME-CFS), Postural Orthostatic Tachycardia Syndrome (POTS) or dysautonomia, or Ehlers Danlos Syndrome (EDS)":
+    "mecfs",
+  "Not sure": "notSure",
+};
+
+const symptomsMap: any = {
+  Headache: "headache",
+  "Body or muscle aches": "bodyMuscleAche",
+  "Fever, chills, sweats or flushing": "feverChillsSweatsFlushing",
+  "Feeling faint, dizzy, “goofy”; difficulty thinking soon after standing up from a sitting or lying position":
+    "faintDizzyGoofy",
+  "Feeling sick after you exert yourself physically or mentally (“post-exertional malaise”)":
+    "postExertionalMalaise",
+  "Weakness in arms or legs": "weaknessInArmsLegs",
+  "Shortness of breath (trouble breathing)": "shortnessOfBreath",
+  Cough: "cough",
+  "Palpitations, racing heart, arrhythmia, or skipped beats": "palpitations",
+  "Swelling of your legs": "swellingOfLegs",
+  "Indigestion, nausea, feeling uncomfortably full or vomiting after eating, diarrhea, or constipation":
+    "indigestionNausea",
+  "Bladder problems including incontinence, trouble passing urine or emptying bladder":
+    "bladderProblem",
+  "Nerve problems including tremor, shaking, numbness, tingling, or burning":
+    "nerveProblems",
+  "Problems thinking or concentrating (“brain fog”)": "brainFog",
+  "Problems with anxiety, depression, stress or trauma-related symptoms like nightmares or grief":
+    "anxietyDepressionNightmares",
+  "Difficulty falling asleep, difficulty staying asleep, or early morning awakenings, 3 or more times per week":
+    "difficultyFallingAsleep",
+  "Feeling sleepy, trouble staying awake during the daytime, or falling asleep during the day when you do not intend to, 3 or more times per week":
+    "sleepyDuringDaytime",
+  "Loud snoring, stopping breathing, or gasping during sleep, 3 or more times per week":
+    "loudSnoring",
+  "Uncomfortable feelings in your legs (creepy, crawling feeling) that make you want to move your legs, that are worse at night and improved with movement":
+    "uncomfortableFeelingsInLegs",
+  "Skin rash": "skinRash",
+  "Loss of or change in smell or taste": "lossOfChangeInSmell",
+  "Excessive thirst": "excessiveThirst",
+  "Excessively dry mouth": "excessiveDryMouth",
+  "Vision problems (blurry, light sensitivity, difficult reading or focusing, floaters, flashing lights, “snow”)":
+    "visionProblems",
+  "Problems with hearing (hearing loss, ringing in ears)": "hearingProblems",
+  "Problems with fertility, changes in your menstrual cycle, changes in menopause symptoms":
+    "fertilityProblemsForWomen",
+};
+
+const medicationsMap: any = {
+  "Antiviral pill, such as Paxlovid": "antiviral",
+  "Oral steroids, such as dexamethasone, prednisone, or prednisolone":
+    "oralSteroids",
+  'Antibiotics, such as a "Z-pak"': "antibiotics",
+  "Do not know": "doNotKnow",
+};
+
+const toCamelCase = (str: string) => {
+  // Remove any punctuation from the string
+  const cleanString = str.replace(/[^\w\s]/gi, "");
+
+  // Split the string into words
+  const words = cleanString.split(" ");
+
+  // Loop through the words and convert them to camel case
+  const camelCaseWords = words.map((word, index) => {
+    if (index === 0) {
+      // If it's the first word, just return it as-is
+      return word.toLowerCase();
+    } else {
+      // For all other words, capitalize the first letter and lowercase the rest
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    }
+  });
+
+  // Join the words back together into a single string
+  return camelCaseWords.join("");
+};
