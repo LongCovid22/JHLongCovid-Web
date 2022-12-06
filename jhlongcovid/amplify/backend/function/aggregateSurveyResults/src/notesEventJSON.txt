@@ -15,7 +15,7 @@ Covid Results
 8) symptomatic: boolean (Yes/ No question)
 9) symptomsPreventScale: String (following options only) :
 notAtAll   
-littleBit     
+alittleBit     
 somewhat     
 quiteABit     
 veryMuch
@@ -25,7 +25,7 @@ veryMuch
 "oralSteroids",
 "antiBiotics",
 "other",
-"dontKnow")
+"doNotKnow")
 
 
 
@@ -84,22 +84,22 @@ visionProblems
 hearingProblems
 fertilityProblemsForWomen
 
-49) qualityOfLife : String ("excellent", "veryGood", "good", "fair", "poor")
+49) qualityOfLifeRank : String ("excellent", "veryGood", "good", "fair", "poor")
 50) mentalHealthRank : String ("excellent", "veryGood", "good", "fair", "poor")
 51) socialSatisfactionRank : String ("excellent", "veryGood", "good", "fair", "poor")
 52) carryOutSocialActivitiesRank: String ("excellent", "veryGood", "good", "fair", "poor")
-53) anxietyInPastWeekRank : String ("excellent", "veryGood", "good", "fair", "poor")
+53) anxietyInPastWeekRank : String ("never", "rarely", "sometimes", "often", "always")
 
 patientHealthQuestionnaireResults
 	Not at all	Several days	More than half the days	Nearly every day
-54) littleInterestThings : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
-55) downDepressedHopeless : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
-56) sleepProblems : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
-57) tiredNoEnergy : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
-58) dietProblems : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
-59) badAboutSelf : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
-60) concentrationProblems : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
-61) slowOrRestless : String ("notAtAll", "severalDays", "moreThanHalfOfDays", "nearlyEveryDay")
+54) littleInterestThings : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+55) downDepressedHopeless : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+56) sleepProblems : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+57) tiredNoEnergy : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+58) dietProblems : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+59) badAboutSelf : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+60) concentrationProblems : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+61) slowOrRestless : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
 
 (skip suicide questions)
 
@@ -132,19 +132,21 @@ socialDeterminantsResults
 veryDifficult
 somewhatDifficult
 notAtAllDifficult
-dontKnow
+doNotKnow
 preferNotToAnswer
 
 68) currentWorkSituation : String (only the following is recognized)
 
-workingOutsideTheHome
-onLeaveFromAJobWorkingOutsideHome
-workingInsideHome
-lookingForWorkUnemployed
+atOffice
+hybrid
+remote
+remoteAndParenting
+onJobLeave
+unemployed
 retired
-disabled
+disability
 student
-dontKnow
+doNotKnow
 preferNotToAnswer
 
 

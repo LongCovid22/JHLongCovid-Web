@@ -224,7 +224,7 @@ const query = /* GraphQL */ `
           nerveProblems
           brainFog
           anxietyDepressionNightmares
-          problemsThinkingConcentrating
+          problemsThinkingConcentrating # SAME AS BRAIN FOG
           problemsAnxietyDepressionStress
           difficultyFallingAsleep
           sleepyDuringDaytime
@@ -754,8 +754,7 @@ const getID = async (level, name, stateAbbrev) => {
     let load = await response.json();
 
     console.log(load);
-    
-    
+
     if (level === "county") {
       return load.data.mapDataByLevelNameState.items;
     } else if (level === "state") {
@@ -857,9 +856,9 @@ const updateMapData = async (county, state) => {
 const getStateAndCountyInfo = async (eventInput) => {
   // const { county, state } = eventInput;
 
-  const { location} = eventInput;
+  const { location } = eventInput;
 
-  const { county, state, stateAbbrev} = location;
+  const { county, state, stateAbbrev } = location;
 
   console.log(location);
 
@@ -905,14 +904,12 @@ const parse = (object) => {
 
 const stringify = (object) => {
   for (let property in object) {
-    if(isObject(object[property])) {
-      if ('race' in object[property]) {
+    if (isObject(object[property])) {
+      if ("race" in object[property]) {
         object[property] = JSON.stringify(object[property]);
       } else {
         stringify(object[property]);
-
       }
-
     }
   }
 
@@ -1565,14 +1562,13 @@ const getDemoCount = (countyDemoCount, stateDemoCount, indexes) => {
   };
 };
 
-
 const aggregateSurveyResults = async (eventInput) => {
   eventInput.age = parseInt(eventInput.age);
   // await deleteAllMapData();
   let { county, state } = await getStateAndCountyInfo(eventInput);
   let { location } = eventInput;
 
-  if(!county) {
+  if (!county) {
     variables.input.level = "county";
     variables.input.name = location.county;
     variables.input.stateAbbrev = location.stateAbbrev;
@@ -1622,7 +1618,7 @@ const aggregateSurveyResults = async (eventInput) => {
     }
   }
 
-  if(!state) {
+  if (!state) {
     variables.input.level = "state";
     variables.input.name = location.state;
     variables.input.stateAbbrev = location.stateAbbrev;
@@ -1671,11 +1667,9 @@ const aggregateSurveyResults = async (eventInput) => {
       };
       console.log(body);
     }
-
-
   }
 
-  if(!county || !state) {
+  if (!county || !state) {
     ({ county, state } = await getStateAndCountyInfo(eventInput));
   }
 
@@ -1717,7 +1711,6 @@ const aggregateSurveyResults = async (eventInput) => {
   // incrementTotalFullEntries(county, state);
   // incrementDemographics(eventInput, county, state, indexes);
 
-
   // stringify(county);
   // stringify(state);
 
@@ -1725,7 +1718,7 @@ const aggregateSurveyResults = async (eventInput) => {
   // await updateMapData(county, state);
 
   // return { county, state };
-  return { county: null, state: null};
+  return { county: null, state: null };
 };
 
 /**
@@ -1733,12 +1726,12 @@ const aggregateSurveyResults = async (eventInput) => {
  */
 exports.handler = async (event) => {
   let input = event.arguments.surveyResults;
-  const { county, state} = await aggregateSurveyResults(input);
+  const { county, state } = await aggregateSurveyResults(input);
 
   // await populate();
   return {
     county,
-    state
-  }
+    state,
+  };
   // return null;
 };

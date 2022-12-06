@@ -159,9 +159,9 @@ describe("Create Covid entry from survey answers", () => {
       tested: true,
       positiveTest: true,
       symptomatic: true,
-      symptomsPreventScale: "Not at all",
+      symptomsPreventScale: "notAtAll",
       medicationsPrescribed: true,
-      medicationsTaken: ["Antiviral pill, such as Paxlovid", "dwd"],
+      medicationsTaken: ["antiviral", "other"],
     };
 
     expect(entry).toStrictEqual(correctCovidEntry);

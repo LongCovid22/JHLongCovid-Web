@@ -74,7 +74,7 @@ describe("Create vaccination entry from survey answers", () => {
       vaccinated: true,
       totalVaccineShots: 5,
       dateOfLastVaccine: new Date("2022-11-05"),
-      vaccineType: "Novavax",
+      vaccineType: "novavax",
     };
 
     expect(entry).toStrictEqual(correctVaccinationEntry);

@@ -172,7 +172,7 @@
       {
         "title": "COVID",
         "question": "Did you have a positive test result? “Positive” means the test showed COVID-19.",
-        "options": ["Yes", "No", "I don't know"],
+        "options": ["Yes", "No", "Do not know"],
         "answerFormat": ["choice", "choice", "choice"],
         "answer": null,
         "branching": null,
@@ -386,7 +386,7 @@
         "options": [
           "Pfizer",
           "Moderna",
-          "J&J",
+          "Janssen",
           "Novavax",
           {
             "type": "text",
@@ -515,7 +515,6 @@
           "Nerve problems including tremor, shaking, numbness, tingling, or burning",
           "Problems thinking or concentrating (“brain fog”)",
           "Problems with anxiety, depression, stress or trauma-related symptoms like nightmares or grief",
-          "Nerve problems including tremor, shaking, numbness, tingling, or burning sensation",
           "Difficulty falling asleep, difficulty staying asleep, or early morning awakenings, 3 or more times per week",
           "Feeling sleepy, trouble staying awake during the daytime, or falling asleep during the day when you do not intend to, 3 or more times per week",
           "Loud snoring, stopping breathing, or gasping during sleep, 3 or more times per week",
@@ -642,7 +641,7 @@
           {
             "type": "text",
             "title": "Other",
-            "placeholder": "Enter vaccine type"
+            "placeholder": "Enter condition"
           },
           "Not sure"
         ],
@@ -708,7 +707,7 @@
           "Very difficult",
           "Somewhat difficult",
           "Not at all difficult",
-          "Don't know",
+          "Do not know",
           "Prefer not to answer"
         ],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
@@ -729,7 +728,6 @@
           "Working remotely from home",
           "Working at home to provide childcare, eldercare and/or to maintain the home",
           "On leave from a job working outside the home (e.g, sick leave, family leave, maternity leave)",
-          "Working inside the home",
           "Looking for work, unemployed",
           "Retired",
           "Disabled, permanently or temporarily",

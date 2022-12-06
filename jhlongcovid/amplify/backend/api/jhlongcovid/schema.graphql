@@ -42,7 +42,6 @@ type MapData
   totalDemoCount: AWSJSON!
 }
 
-
 """
 User - Store User specific information. Will store notification preferences along with other
   activity metrics
@@ -210,7 +209,7 @@ type VaccinationEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
   totalVaccineShots: Int
-  vaccinated: Boolean
+  vaccinated: Boolean # Change
   vaccineType: String
   dateOfLastVaccine: AWSDateTime
   createdAt: AWSDateTime!
@@ -365,7 +364,7 @@ type CovidEntry
   timesHospitalized: Int
   symptomatic: Boolean
   symptomsPreventScale: String
-  medicationsPrescribed: Boolean
+  medicationsPrescribed: String # change
   medicationsTaken: [String]
   createdAt: AWSDateTime!
 }
@@ -567,12 +566,13 @@ type SymptomEntry
   weight: String!
   createdAt: AWSDateTime!
   symptoms: [String]
+  qualityOfLifeRank: String
   mentalHealthRank: String
   socialSatisfactionRank: String
   carryOutSocialActivitiesRank: String
   anxietyInPastWeekRank: String
   medicalConditions: [String]
-  hasLongCovid: Boolean
+  hasLongCovid: String #change
 }
 
 type SocialDeterminantsEntry
@@ -862,8 +862,6 @@ type WorkingSituation {
 # }
 
 #DONE
-
-
 
 #DONE
 
