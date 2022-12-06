@@ -101,7 +101,7 @@ describe("Create Covid entry from survey answers", () => {
       {
         tableName: "CovidEntry",
         field: "positiveTest",
-        type: "Boolean",
+        type: "String",
       },
       {
         tableName: "CovidEntry",
@@ -116,7 +116,7 @@ describe("Create Covid entry from survey answers", () => {
       {
         tableName: "CovidEntry",
         field: "medicationsPrescribed",
-        type: "Boolean",
+        type: "String",
       },
       {
         tableName: "CovidEntry",

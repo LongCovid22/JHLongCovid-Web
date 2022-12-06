@@ -27,7 +27,7 @@ describe("Create vaccination entry from survey answers", () => {
       {
         tableName: "VaccinationEntry",
         field: "vaccinated",
-        type: "Boolean",
+        type: "String",
       },
       {
         tableName: "VaccinationEntry",

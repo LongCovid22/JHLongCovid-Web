@@ -112,7 +112,7 @@ describe("Create Symptom entry from survey answers", () => {
       {
         tableName: "SymptomsEntry",
         field: "hasLongCovid",
-        type: "Boolean",
+        type: "String",
       },
     ];
 
