@@ -220,10 +220,10 @@ describe("Create entries from full survey answers", () => {
         timesHospitalized: 1,
         lastPositive: new Date("2022-11-08"),
         tested: true,
-        positiveTest: true,
+        positiveTest: "yes",
         symptomatic: true,
         symptomsPreventScale: "notAtAll",
-        medicationsPrescribed: true,
+        medicationsPrescribed: "yes",
         medicationsTaken: ["antiviral", "other"],
       },
       RecoveryEntry: {
@@ -241,7 +241,7 @@ describe("Create entries from full survey answers", () => {
         sex: "Female",
         height: "33",
         weight: "3232",
-        vaccinated: false,
+        vaccinated: "no",
       },
       PatientHealthEntry: {
         age: "23",
@@ -273,7 +273,7 @@ describe("Create entries from full survey answers", () => {
         carryOutSocialActivitiesRank: "excellent",
         anxietyInPastWeekRank: "never",
         medicalConditions: ["memory", "other"],
-        hasLongCovid: true,
+        hasLongCovid: "yes",
       },
       SocialDeterminantsEntry: {
         age: "23",

@@ -210,7 +210,7 @@ describe("Create Symptom entry from survey answers", () => {
       socialSatisfactionRank: "excellent",
       carryOutSocialActivitiesRank: "excellent",
       anxietyInPastWeekRank: "never",
-      hasLongCovid: true,
+      hasLongCovid: "yes",
       medicalConditions: ["stroke", "seizure", "kidneyProblems", "other"],
     };
 

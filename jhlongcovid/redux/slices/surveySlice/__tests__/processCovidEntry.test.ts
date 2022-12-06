@@ -157,10 +157,10 @@ describe("Create Covid entry from survey answers", () => {
       timesHospitalized: 1,
       lastPositive: new Date("2022-11-09"),
       tested: true,
-      positiveTest: true,
+      positiveTest: "yes",
       symptomatic: true,
       symptomsPreventScale: "notAtAll",
-      medicationsPrescribed: true,
+      medicationsPrescribed: "yes",
       medicationsTaken: ["antiviral", "other"],
     };
 

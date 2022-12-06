@@ -179,7 +179,7 @@
         "schemaInfo": {
           "tableName": "CovidEntry",
           "field": "positiveTest",
-          "type": "Boolean"
+          "type": "String"
         }
       },
       {
@@ -236,7 +236,7 @@
         "schemaInfo": {
           "tableName": "CovidEntry",
           "field": "medicationsPrescribed",
-          "type": "Boolean"
+          "type": "String"
         }
       },
       {
@@ -332,7 +332,7 @@
         "schemaInfo": {
           "tableName": "VaccinationEntry",
           "field": "vaccinated",
-          "type": "Boolean"
+          "type": "String"
         }
       },
       {
@@ -682,7 +682,7 @@
         "schemaInfo": {
           "tableName": "SymptomEntry",
           "field": "hasLongCovid",
-          "type": "Boolean"
+          "type": "String"
         }
       }
     ],
