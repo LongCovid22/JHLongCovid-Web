@@ -1058,6 +1058,68 @@ const aggregatePercentageCustomBasedOnCondition = (
   );
 };
 
+const checkNotNullNumberGreaterThanZero = (num) => {
+  return num != null && typeof num === "number" && num >= 0;
+};
+const checkNotNullAndBoolType = (num) => {
+  return num != null && typeof num === "boolean";
+};
+
+const checkNotNullAndStringType = (num) => {
+  return num != null && typeof num === "string";
+};
+
+const checkNotAtAllToVeryMuchType = (num) => {
+  return (
+    num === "notAtAll" ||
+    num === "alittleBit" ||
+    num === "somewhat" ||
+    num === "quiteABit" ||
+    num === "veryMuch"
+  );
+};
+
+const checkYesNoDoNotKnowType = (num) => {
+  return num === "yes" || num === "no" || yes === "doNotKnow";
+};
+
+const checkMedicationsTakenType = (str) => {
+  let allowed = [
+    "antiViral",
+    "oralSteroids",
+    "antiBiotics",
+    "other",
+    "doNotKnow",
+  ];
+  return allowed.includes(str);
+};
+
+const trueEqualsYes = (bool) => {
+  return bool ? "yes" : "no";
+};
+
+const resolveOneToThreePlus = (num) => {
+  let property;
+  switch (num) {
+    case 0:
+      property = "doNotKnow";
+      break;
+    case 1:
+      property = "one";
+      break;
+    case 2:
+      property = "two";
+      break;
+    case 3:
+      property = "three";
+      break;
+    default:
+      property = "threePlus";
+  }
+
+  return property;
+};
+
 const addCustomToTallyBasedOnCondition = (
   indexes,
   property,
@@ -1081,7 +1143,6 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
       covidSummary: state.covidSummary,
     },
   };
-
   for (const dat in data) {
     let {
       beenInfected,
@@ -1096,117 +1157,79 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
       medicationsTakenCount,
     } = data[dat].covidSummary;
 
-    if (covidResults.beenInfected != null) {
-      let property = covidResults.beenInfected
-        ? beenInfected.yes
-        : beenInfected.no;
-      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
+    let objectsToUpdate = [];
+
+    if (checkNotNullAndBoolType(covidResults.beenInfected)) {
+      let prop = trueEqualsYes(covidResults.beenInfected);
+      objectsToUpdate.push(beenInfected[prop]);
     }
 
-    if (covidResults.timesPositive != null) {
-      let property;
-      switch (covidResults.timesPositive) {
-        case 0:
-          property = timesPositive.dontKnow;
-          break;
-        case 1:
-          property = timesPositive.one;
-          break;
-        case 2:
-          property = timesPositive.two;
-          break;
-        case 3:
-          property = timesPositive.three;
-          break;
-        default:
-          property = timesPositive.threePlus;
-      }
-
-      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
+    if (checkNotNullNumberGreaterThanZero(covidResults.timesPositive)) {
+      let prop = resolveOneToThreePlus(covidResults.timesPositive);
+      objectsToUpdate.push(timesPositive[prop]);
     }
 
-    if (covidResults.hospitalized != null) {
-      let property = covidResults.hospitalized
-        ? hospitalized.yes
-        : hospitalized.no;
-
-      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
+    if (checkNotNullAndBoolType(covidResults.hospitalized)) {
+      let prop = trueEqualsYes(covidResults.hospitalized);
+      objectsToUpdate.push(hospitalized[prop]);
     }
 
-    if (covidResults.timesHospitalized != null) {
-      let property;
-      switch (covidResults.timesHospitalized) {
-        case 0:
-          property = timesHospitalized.dontKnow;
-          break;
-        case 1:
-          property = timesHospitalized.one;
-          break;
-        case 2:
-          property = timesHospitalized.two;
-          break;
-        case 3:
-          property = timesHospitalized.three;
-          break;
-        default:
-          property = timesHospitalized.threePlus;
-      }
-      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
+    if (checkNotNullNumberGreaterThanZero(covidResults.timesHospitalized)) {
+      let prop = resolveOneToThreePlus(covidResults.timesHospitalized);
+      objectsToUpdate.push(timesHospitalized[prop]);
     }
 
-    if (covidResults.tested != null) {
-      let property = covidResults.tested ? tested.yes : tested.no;
-
-      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
+    if (checkNotNullAndBoolType(covidResults.tested)) {
+      let prop = trueEqualsYes(covidResults.tested);
+      objectsToUpdate.push(tested[prop]);
     }
 
-    if (covidResults.positiveTest != null) {
-      let property;
-      switch (covidResults.positiveTest) {
-        case "yes":
-          property = positiveTest.yes;
-        case "no":
-          property = positiveTest.no;
-        case "doNotKnow":
-          property = positiveTest.doNotKnow;
-      }
-
-      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
+    if (
+      checkNotNullAndStringType(covidResults.positiveTest) &&
+      checkYesNoDoNotKnowType(covidResults.positiveTest)
+    ) {
+      objectsToUpdate.push(positiveTest[covidResults.positiveTest]);
     }
 
-    if (covidResults.symptomatic != null) {
-      let property = covidResults.symptomatic
-        ? symptomatic.yes
-        : symptomatic.no;
-      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
+    if (checkNotNullAndBoolType(covidResults.symptomatic)) {
+      let prop = trueEqualsYes(covidResults.symptomatic);
+      objectsToUpdate.push(symptomatic[prop]);
     }
 
-    if (covidResults.symptomsPreventScale != null) {
+    if (
+      checkNotNullAndStringType(covidResults.symptomsPreventScale) &&
+      checkNotAtAllToVeryMuchType(covidResults.symptomsPreventScale)
+    ) {
+      objectsToUpdate.push(
+        symptomsPreventScale[covidResults.symptomsPreventScale]
+      );
     }
 
-    if (covidResults.medicationsPrescribed != null) {
-      let property;
-      switch (covidResults.medicationsPrescribed) {
-        case "yes":
-          property = medicationsPrescribed.yes;
-        case "no":
-          property = medicationsPrescribed.no;
-        case "doNotKnow":
-          property = medicationsPrescribed.doNotKnow;
-      }
-      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
+    if (
+      checkNotNullAndStringType(covidResults.medicationsPrescribed) &&
+      checkYesNoDoNotKnowType(covidResults.medicationsPrescribed)
+    ) {
+      objectsToUpdate.push(
+        medicationsPrescribed[covidResults.medicationsPrescribed]
+      );
     }
 
-    if (covidResults.medicationsTaken != null) {
+    if (
+      checkNotNullAndStringType(covidResults.medicationsTaken) &&
+      checkMedicationsTakenType(covidResults.medicationsTaken)
+    ) {
+      objectsToUpdate.push(
+        medicationsTakenCount[covidResults.medicationsTaken]
+      );
+    }
+    for (const obj of objectsToUpdate) {
+      addCustomToTallyBasedOnCondition(indexes, obj, true, 1);
     }
   }
-
-  // console.log(county.covidSummary);
 };
 
 const updateRecoverySummary = (
   eventInput,
-  popObject,
   county,
   state,
   indexes
@@ -1215,36 +1238,23 @@ const updateRecoverySummary = (
   let data = {
     county: {
       recoverySummary: county.recoverySummary,
-      pop: popObject.countyPop,
     },
     state: {
       recoverySummary: state.recoverySummary,
-      pop: popObject.statePop,
     },
   };
 
   for (const dat in data) {
-    let { recoveryCount, avgRecoveryLength } = data[dat].recoverySummary;
-    let pop = data[dat].pop;
+    let { recovered, avglengthOfRecovery } = data[dat].recoverySummary;
 
-    if (recoveryResults.recovered != null) {
-      aggregatePercentageCustomBasedOnCondition(
-        indexes,
-        pop,
-        recoveryCount,
-        recoveryResults.recovered,
-        1
-      );
+    if (checkNotNullAndBoolType(recoveryResults.recovered)) {
+      let prop = trueEqualsYes(recoveryResults.recovered);
+
+      addCustomToTallyBasedOnCondition(indexes, recovered[prop], true, 1);
     }
 
-    if (recoveryResults.daysToRecoverEst != null) {
-      aggregatePercentageCustomBasedOnCondition(
-        indexes,
-        pop,
-        avgRecoveryLength,
-        true,
-        recoveryResults.daysToRecoverEst
-      );
+    if (checkNotNullNumberGreaterThanZero(recoveryResults.avglengthOfRecovery)) {
+
     }
   }
 };
@@ -1752,14 +1762,8 @@ const aggregateSurveyResults = async (eventInput) => {
     sexIndex,
   };
 
-  // const popObject = getDemoCount(
-  //   county.totalDemoCount,
-  //   state.totalDemoCount,
-  //   indexes
-  // );
-
   updateCovidSummary(eventInput, county, state, indexes);
-  // updateRecoverySummary(eventInput, popObject, county, state, indexes);
+  updateRecoverySummary(eventInput, county, state, indexes);
   // updateVaccinationSummary(eventInput, popObject, county, state, indexes);
   // updateGlobalHealthSummary(eventInput, popObject, county, state, indexes);
 
@@ -1774,24 +1778,24 @@ const aggregateSurveyResults = async (eventInput) => {
   stringify(county);
   stringify(state);
 
-  console.log(county.covidSummary);
-  console.log(state.covidSummary);
+  console.log(county.recoverySummary);
+  // console.log(state.covidSummary);
 
   // //upload back to appsync, updated county/state
   // await updateMapData(county, state);
 
   // return { county, state };
-  return { county: null, state: null };
+  return { county, state };
 };
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-  // let input = event.arguments.surveyResults;
-  // const { county, state } = await aggregateSurveyResults(input);
+  let input = event.arguments.surveyResults;
+  const { county, state } = await aggregateSurveyResults(input);
 
-  await populate();
+  // await populate();
   return {
     county,
     state,

@@ -34,9 +34,7 @@
         "symptomatic": true,
         "symptomsPreventScale": "notAtAll",
         "medicationsPrescribed": "yes",
-        "medicationsTaken": [
-          "oralSteroids"
-        ]
+        "medicationsTaken": "antiViral"
       },
       "recoveryResults": {
         "id": "4897c703-248b-483d-81cc-4c343c7cac5d",
