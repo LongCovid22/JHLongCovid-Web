@@ -705,7 +705,7 @@ type MonthlyEntry
 
 type NotAtAllToVeryMuch {
   notAtAll: AWSJSON
-  aLittleBit: AWSJSON
+  alittleBit: AWSJSON
   somewhat: AWSJSON
   quiteABit: AWSJSON
   veryMuch: AWSJSON
@@ -737,7 +737,7 @@ type YesNo {
 type YesNoDontKnow {
   yes: AWSJSON
   no: AWSJSON
-  dontKnow: AWSJSON
+  doNotKnow: AWSJSON
 }
 
 type ExcellentToPoor {
@@ -756,6 +756,14 @@ type CompletelyToNotAtAll {
   notAtAll: AWSJSON
 }
 
+type NeverToAlways {
+  never: AWSJSON
+  rarely: AWSJSON
+  sometimes: AWSJSON
+  often: AWSJSON
+  always: AWSJSON
+}
+
 type NoneToVerySevere {
   none: AWSJSON
   mild: AWSJSON
@@ -767,10 +775,9 @@ type NoneToVerySevere {
 type NotAtAllToNearlyEveryDay {
   notAtAll: AWSJSON
   severalDays: AWSJSON
-  moreThanHalfOfDays: AWSJSON
+  moreThanHalfTheDays: AWSJSON
   nearlyEveryDay: AWSJSON
 }
-
 
 type CovidSummary {
   beenInfected: YesNo
@@ -791,7 +798,7 @@ type MedicationsAvailable {
   oralSteroids: AWSJSON
   antiBiotics: AWSJSON
   other: AWSJSON
-  dontKnow: AWSJSON
+  doNotKnow: AWSJSON
 }
 
 type RecoverySummary {
@@ -828,8 +835,6 @@ type GlobalHealthSummary {
   avgpainLevel: AWSJSON
 }
 
-
-
 type SymptomsAvailabLe {
   headache: AWSJSON
   bodyMuscleAche: AWSJSON
@@ -846,8 +851,6 @@ type SymptomsAvailabLe {
   nerveProblems: AWSJSON
   brainFog: AWSJSON
   anxietyDepressionNightmares: AWSJSON
-  problemsThinkingConcentrating: AWSJSON
-  problemsAnxietyDepressionStress: AWSJSON
   difficultyFallingAsleep: AWSJSON
   sleepyDuringDaytime: AWSJSON
   loudSnoring: AWSJSON
@@ -858,7 +861,6 @@ type SymptomsAvailabLe {
   excessiveDryMouth: AWSJSON
   visionProblems: AWSJSON
   hearingProblems: AWSJSON
-  #add to the statistic only for women
   fertilityProblemsForWomen: AWSJSON
 }
 
@@ -868,7 +870,7 @@ type SymptomSummary {
   mentalHealthRank: ExcellentToPoor
   socialSatisfactionRank: ExcellentToPoor
   carryOutSocialActivitiesRank: ExcellentToPoor
-  anxietyInPastWeekRank: ExcellentToPoor
+  anxietyInPastWeekRank: NeverToAlways
 }
 
 type PatientHealthQuestionnaireSummary {
@@ -919,22 +921,23 @@ type DifficultExpenses {
   veryDifficult: AWSJSON
   somewhatDifficult: AWSJSON
   notAtAllDifficult: AWSJSON
-  dontKnow: AWSJSON
+  doNotKnow: AWSJSON
   preferNotToAnswer: AWSJSON
 }
 
 type WorkingSituation {
-  workingOutsideTheHome: AWSJSON
-  onLeaveFromAJobWorkingOutsideHome: AWSJSON
-  workingInsideHome: AWSJSON
-  lookingForWorkUnemployed: AWSJSON
+  atOffice: AWSJSON
+  hybrid: AWSJSON
+  remote: AWSJSON
+  remoteAndParenting: AWSJSON
+  onJobLeave: AWSJSON
+  unemployed: AWSJSON
   retired: AWSJSON
-  disabled: AWSJSON
+  disability: AWSJSON
   student: AWSJSON
-  dontKnow: AWSJSON
+  doNotKnow: AWSJSON
   preferNotToAnswer: AWSJSON
 }
-
 
 #DONE
 
