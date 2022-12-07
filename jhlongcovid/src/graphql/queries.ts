@@ -21,7 +21,7 @@ export const getMapData = /* GraphQL */ `
           two
           three
           threePlus
-          dontKnow
+          doNotKnow
         }
         hospitalized {
           yes
@@ -32,7 +32,7 @@ export const getMapData = /* GraphQL */ `
           two
           three
           threePlus
-          dontKnow
+          doNotKnow
         }
         tested {
           yes
@@ -41,7 +41,7 @@ export const getMapData = /* GraphQL */ `
         positiveTest {
           yes
           no
-          dontKnow
+          doNotKnow
         }
         symptomatic {
           yes
@@ -49,7 +49,7 @@ export const getMapData = /* GraphQL */ `
         }
         symptomsPreventScale {
           notAtAll
-          aLittleBit
+          alittleBit
           somewhat
           quiteABit
           veryMuch
@@ -57,14 +57,14 @@ export const getMapData = /* GraphQL */ `
         medicationsPrescribed {
           yes
           no
-          dontKnow
+          doNotKnow
         }
         medicationsTakenCount {
           antiViral
           oralSteroids
           antiBiotics
           other
-          dontKnow
+          doNotKnow
         }
       }
       recoverySummary {
@@ -78,7 +78,7 @@ export const getMapData = /* GraphQL */ `
         vaccinated {
           yes
           no
-          dontKnow
+          doNotKnow
         }
         totalVaccineShots {
           one
@@ -87,7 +87,7 @@ export const getMapData = /* GraphQL */ `
           four
           five
           fivePlus
-          dontKnow
+          doNotKnow
         }
         vaccineType {
           pfizer
@@ -133,49 +133,49 @@ export const getMapData = /* GraphQL */ `
         littleInterestThings {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         downDepressedHopeless {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         sleepProblems {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         tiredNoEnergy {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         dietProblems {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         badAboutSelf {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         concentrationProblems {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         slowOrRestless {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         avgPHQScore
@@ -197,8 +197,6 @@ export const getMapData = /* GraphQL */ `
           nerveProblems
           brainFog
           anxietyDepressionNightmares
-          problemsThinkingConcentrating
-          problemsAnxietyDepressionStress
           difficultyFallingAsleep
           sleepyDuringDaytime
           loudSnoring
@@ -240,18 +238,18 @@ export const getMapData = /* GraphQL */ `
           poor
         }
         anxietyInPastWeekRank {
-          excellent
-          veryGood
-          good
-          fair
-          poor
+          never
+          rarely
+          sometimes
+          often
+          always
         }
       }
       medicalConditionsSummary {
         longCovid {
           yes
           no
-          dontKnow
+          doNotKnow
         }
         newDiagnosisCounts {
           noNewDiagnosis
@@ -282,18 +280,20 @@ export const getMapData = /* GraphQL */ `
           veryDifficult
           somewhatDifficult
           notAtAllDifficult
-          dontKnow
+          doNotKnow
           preferNotToAnswer
         }
         currentWorkSituation {
-          workingOutsideTheHome
-          onLeaveFromAJobWorkingOutsideHome
-          workingInsideHome
-          lookingForWorkUnemployed
+          atOffice
+          hybrid
+          remote
+          remoteAndParenting
+          onJobLeave
+          unemployed
           retired
-          disabled
+          disability
           student
-          dontKnow
+          doNotKnow
           preferNotToAnswer
         }
       }
@@ -337,7 +337,7 @@ export const listMapData = /* GraphQL */ `
             two
             three
             threePlus
-            dontKnow
+            doNotKnow
           }
           hospitalized {
             yes
@@ -348,7 +348,7 @@ export const listMapData = /* GraphQL */ `
             two
             three
             threePlus
-            dontKnow
+            doNotKnow
           }
           tested {
             yes
@@ -357,7 +357,7 @@ export const listMapData = /* GraphQL */ `
           positiveTest {
             yes
             no
-            dontKnow
+            doNotKnow
           }
           symptomatic {
             yes
@@ -365,7 +365,7 @@ export const listMapData = /* GraphQL */ `
           }
           symptomsPreventScale {
             notAtAll
-            aLittleBit
+            alittleBit
             somewhat
             quiteABit
             veryMuch
@@ -373,14 +373,14 @@ export const listMapData = /* GraphQL */ `
           medicationsPrescribed {
             yes
             no
-            dontKnow
+            doNotKnow
           }
           medicationsTakenCount {
             antiViral
             oralSteroids
             antiBiotics
             other
-            dontKnow
+            doNotKnow
           }
         }
         recoverySummary {
@@ -394,7 +394,7 @@ export const listMapData = /* GraphQL */ `
           vaccinated {
             yes
             no
-            dontKnow
+            doNotKnow
           }
           totalVaccineShots {
             one
@@ -403,7 +403,7 @@ export const listMapData = /* GraphQL */ `
             four
             five
             fivePlus
-            dontKnow
+            doNotKnow
           }
           vaccineType {
             pfizer
@@ -449,49 +449,49 @@ export const listMapData = /* GraphQL */ `
           littleInterestThings {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           downDepressedHopeless {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           sleepProblems {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           tiredNoEnergy {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           dietProblems {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           badAboutSelf {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           concentrationProblems {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           slowOrRestless {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           avgPHQScore
@@ -513,8 +513,6 @@ export const listMapData = /* GraphQL */ `
             nerveProblems
             brainFog
             anxietyDepressionNightmares
-            problemsThinkingConcentrating
-            problemsAnxietyDepressionStress
             difficultyFallingAsleep
             sleepyDuringDaytime
             loudSnoring
@@ -556,18 +554,18 @@ export const listMapData = /* GraphQL */ `
             poor
           }
           anxietyInPastWeekRank {
-            excellent
-            veryGood
-            good
-            fair
-            poor
+            never
+            rarely
+            sometimes
+            often
+            always
           }
         }
         medicalConditionsSummary {
           longCovid {
             yes
             no
-            dontKnow
+            doNotKnow
           }
           newDiagnosisCounts {
             noNewDiagnosis
@@ -598,18 +596,20 @@ export const listMapData = /* GraphQL */ `
             veryDifficult
             somewhatDifficult
             notAtAllDifficult
-            dontKnow
+            doNotKnow
             preferNotToAnswer
           }
           currentWorkSituation {
-            workingOutsideTheHome
-            onLeaveFromAJobWorkingOutsideHome
-            workingInsideHome
-            lookingForWorkUnemployed
+            atOffice
+            hybrid
+            remote
+            remoteAndParenting
+            onJobLeave
+            unemployed
             retired
-            disabled
+            disability
             student
-            dontKnow
+            doNotKnow
             preferNotToAnswer
           }
         }
@@ -655,7 +655,7 @@ export const mapDataByLevelNameState = /* GraphQL */ `
             two
             three
             threePlus
-            dontKnow
+            doNotKnow
           }
           hospitalized {
             yes
@@ -666,7 +666,7 @@ export const mapDataByLevelNameState = /* GraphQL */ `
             two
             three
             threePlus
-            dontKnow
+            doNotKnow
           }
           tested {
             yes
@@ -675,7 +675,7 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           positiveTest {
             yes
             no
-            dontKnow
+            doNotKnow
           }
           symptomatic {
             yes
@@ -683,7 +683,7 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           }
           symptomsPreventScale {
             notAtAll
-            aLittleBit
+            alittleBit
             somewhat
             quiteABit
             veryMuch
@@ -691,14 +691,14 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           medicationsPrescribed {
             yes
             no
-            dontKnow
+            doNotKnow
           }
           medicationsTakenCount {
             antiViral
             oralSteroids
             antiBiotics
             other
-            dontKnow
+            doNotKnow
           }
         }
         recoverySummary {
@@ -712,7 +712,7 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           vaccinated {
             yes
             no
-            dontKnow
+            doNotKnow
           }
           totalVaccineShots {
             one
@@ -721,7 +721,7 @@ export const mapDataByLevelNameState = /* GraphQL */ `
             four
             five
             fivePlus
-            dontKnow
+            doNotKnow
           }
           vaccineType {
             pfizer
@@ -767,49 +767,49 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           littleInterestThings {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           downDepressedHopeless {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           sleepProblems {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           tiredNoEnergy {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           dietProblems {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           badAboutSelf {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           concentrationProblems {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           slowOrRestless {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           avgPHQScore
@@ -831,8 +831,6 @@ export const mapDataByLevelNameState = /* GraphQL */ `
             nerveProblems
             brainFog
             anxietyDepressionNightmares
-            problemsThinkingConcentrating
-            problemsAnxietyDepressionStress
             difficultyFallingAsleep
             sleepyDuringDaytime
             loudSnoring
@@ -874,18 +872,18 @@ export const mapDataByLevelNameState = /* GraphQL */ `
             poor
           }
           anxietyInPastWeekRank {
-            excellent
-            veryGood
-            good
-            fair
-            poor
+            never
+            rarely
+            sometimes
+            often
+            always
           }
         }
         medicalConditionsSummary {
           longCovid {
             yes
             no
-            dontKnow
+            doNotKnow
           }
           newDiagnosisCounts {
             noNewDiagnosis
@@ -916,18 +914,20 @@ export const mapDataByLevelNameState = /* GraphQL */ `
             veryDifficult
             somewhatDifficult
             notAtAllDifficult
-            dontKnow
+            doNotKnow
             preferNotToAnswer
           }
           currentWorkSituation {
-            workingOutsideTheHome
-            onLeaveFromAJobWorkingOutsideHome
-            workingInsideHome
-            lookingForWorkUnemployed
+            atOffice
+            hybrid
+            remote
+            remoteAndParenting
+            onJobLeave
+            unemployed
             retired
-            disabled
+            disability
             student
-            dontKnow
+            doNotKnow
             preferNotToAnswer
           }
         }
@@ -973,7 +973,7 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
             two
             three
             threePlus
-            dontKnow
+            doNotKnow
           }
           hospitalized {
             yes
@@ -984,7 +984,7 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
             two
             three
             threePlus
-            dontKnow
+            doNotKnow
           }
           tested {
             yes
@@ -993,7 +993,7 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           positiveTest {
             yes
             no
-            dontKnow
+            doNotKnow
           }
           symptomatic {
             yes
@@ -1001,7 +1001,7 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           }
           symptomsPreventScale {
             notAtAll
-            aLittleBit
+            alittleBit
             somewhat
             quiteABit
             veryMuch
@@ -1009,14 +1009,14 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           medicationsPrescribed {
             yes
             no
-            dontKnow
+            doNotKnow
           }
           medicationsTakenCount {
             antiViral
             oralSteroids
             antiBiotics
             other
-            dontKnow
+            doNotKnow
           }
         }
         recoverySummary {
@@ -1030,7 +1030,7 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           vaccinated {
             yes
             no
-            dontKnow
+            doNotKnow
           }
           totalVaccineShots {
             one
@@ -1039,7 +1039,7 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
             four
             five
             fivePlus
-            dontKnow
+            doNotKnow
           }
           vaccineType {
             pfizer
@@ -1085,49 +1085,49 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           littleInterestThings {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           downDepressedHopeless {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           sleepProblems {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           tiredNoEnergy {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           dietProblems {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           badAboutSelf {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           concentrationProblems {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           slowOrRestless {
             notAtAll
             severalDays
-            moreThanHalfOfDays
+            moreThanHalfTheDays
             nearlyEveryDay
           }
           avgPHQScore
@@ -1149,8 +1149,6 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
             nerveProblems
             brainFog
             anxietyDepressionNightmares
-            problemsThinkingConcentrating
-            problemsAnxietyDepressionStress
             difficultyFallingAsleep
             sleepyDuringDaytime
             loudSnoring
@@ -1192,18 +1190,18 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
             poor
           }
           anxietyInPastWeekRank {
-            excellent
-            veryGood
-            good
-            fair
-            poor
+            never
+            rarely
+            sometimes
+            often
+            always
           }
         }
         medicalConditionsSummary {
           longCovid {
             yes
             no
-            dontKnow
+            doNotKnow
           }
           newDiagnosisCounts {
             noNewDiagnosis
@@ -1234,18 +1232,20 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
             veryDifficult
             somewhatDifficult
             notAtAllDifficult
-            dontKnow
+            doNotKnow
             preferNotToAnswer
           }
           currentWorkSituation {
-            workingOutsideTheHome
-            onLeaveFromAJobWorkingOutsideHome
-            workingInsideHome
-            lookingForWorkUnemployed
+            atOffice
+            hybrid
+            remote
+            remoteAndParenting
+            onJobLeave
+            unemployed
             retired
-            disabled
+            disability
             student
-            dontKnow
+            doNotKnow
             preferNotToAnswer
           }
         }

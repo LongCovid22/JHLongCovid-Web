@@ -38,7 +38,7 @@ let properties = `
           two
           three
           threePlus
-          dontKnow
+          doNotKnow
         }
         hospitalized {
           yes
@@ -49,7 +49,7 @@ let properties = `
           two
           three
           threePlus
-          dontKnow
+          doNotKnow
         }
         tested {
           yes
@@ -58,7 +58,7 @@ let properties = `
         positiveTest {
           yes
           no
-          dontKnow
+          doNotKnow
         }
         symptomatic {
           yes
@@ -66,7 +66,7 @@ let properties = `
         }
         symptomsPreventScale {
           notAtAll
-          aLittleBit
+          alittleBit
           somewhat
           quiteABit
           veryMuch
@@ -74,14 +74,14 @@ let properties = `
         medicationsPrescribed {
           yes
           no
-          dontKnow
+          doNotKnow
         }
         medicationsTakenCount {
           antiViral
           oralSteroids
           antiBiotics
           other
-          dontKnow
+          doNotKnow
         }
       }
       recoverySummary {
@@ -95,7 +95,7 @@ let properties = `
         vaccinated {
           yes
           no
-          dontKnow
+          doNotKnow
         }
         totalVaccineShots {
           one
@@ -104,7 +104,7 @@ let properties = `
           four
           five
           fivePlus
-          dontKnow
+          doNotKnow
         }
         vaccineType {
           pfizer
@@ -165,8 +165,6 @@ let properties = `
           nerveProblems
           brainFog
           anxietyDepressionNightmares
-          problemsThinkingConcentrating # SAME AS BRAIN FOG
-          problemsAnxietyDepressionStress
           difficultyFallingAsleep
           sleepyDuringDaytime
           loudSnoring
@@ -177,7 +175,6 @@ let properties = `
           excessiveDryMouth
           visionProblems
           hearingProblems
-          #add to the statistic only for women
           fertilityProblemsForWomen
         }
         qualityOfLife {
@@ -209,60 +206,60 @@ let properties = `
           poor
         }
         anxietyInPastWeekRank {
-          excellent
-          veryGood
-          good
-          fair
-          poor
+          never
+          rarely
+          sometimes
+          often
+          always
         }
       }
       patientHealthQuestionnaireSummary {
         littleInterestThings {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         downDepressedHopeless {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         sleepProblems {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         tiredNoEnergy {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         dietProblems {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         badAboutSelf {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         concentrationProblems {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         slowOrRestless {
           notAtAll
           severalDays
-          moreThanHalfOfDays
+          moreThanHalfTheDays
           nearlyEveryDay
         }
         avgPHQScore
@@ -272,7 +269,7 @@ let properties = `
         longCovid {
           yes
           no
-          dontKnow
+          doNotKnow
         }
         newDiagnosisCounts {
           noNewDiagnosis
@@ -303,36 +300,44 @@ let properties = `
           veryDifficult
           somewhatDifficult
           notAtAllDifficult
-          dontKnow
+          doNotKnow
           preferNotToAnswer
         }
         currentWorkSituation {
-          workingOutsideTheHome
-          onLeaveFromAJobWorkingOutsideHome
-          workingInsideHome
-          lookingForWorkUnemployed
+          atOffice
+          hybrid
+          remote
+          remoteAndParenting
+          onJobLeave
+          unemployed
           retired
-          disabled
+          disability
           student
-          dontKnow
+          doNotKnow
           preferNotToAnswer
         }
       }
       totalFullEntries
 `;
 
-const updateQuery = `
+const updateQuery =
+  `
   mutation UPDATE_MAP_DATA($input: UpdateMapDataInput!) {
     updateMapData(input: $input) {
-      `+ properties + `
+      ` +
+  properties +
+  `
     }
   }
 `;
 
-const query = `
+const query =
+  `
   mutation CREATE_MAP_DATA($input: CreateMapDataInput!) {
     createMapData(input: $input) {
-      ` + properties + `
+      ` +
+  properties +
+  `
     }
   }
 `;
@@ -378,14 +383,14 @@ let variables = {
     covidSummary: {
       beenInfected: {
         yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData)
+        no: JSON.stringify(NullJSONData),
       },
       timesPositive: {
         one: JSON.stringify(NullJSONData),
         two: JSON.stringify(NullJSONData),
         three: JSON.stringify(NullJSONData),
         threePlus: JSON.stringify(NullJSONData),
-        dontKnow: JSON.stringify(NullJSONData)
+        doNotKnow: JSON.stringify(NullJSONData),
       },
       hospitalized: {
         yes: JSON.stringify(NullJSONData),
@@ -396,55 +401,54 @@ let variables = {
         two: JSON.stringify(NullJSONData),
         three: JSON.stringify(NullJSONData),
         threePlus: JSON.stringify(NullJSONData),
-        dontKnow: JSON.stringify(NullJSONData)
+        doNotKnow: JSON.stringify(NullJSONData),
       },
       tested: {
         yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData)
+        no: JSON.stringify(NullJSONData),
       },
       positiveTest: {
         yes: JSON.stringify(NullJSONData),
         no: JSON.stringify(NullJSONData),
-        dontKnow: JSON.stringify(NullJSONData)
+        doNotKnow: JSON.stringify(NullJSONData),
       },
       symptomatic: {
         yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData)
+        no: JSON.stringify(NullJSONData),
       },
       symptomsPreventScale: {
         notAtAll: JSON.stringify(NullJSONData),
-        aLittleBit: JSON.stringify(NullJSONData),
+        alittleBit: JSON.stringify(NullJSONData),
         somewhat: JSON.stringify(NullJSONData),
         quiteABit: JSON.stringify(NullJSONData),
-        veryMuch: JSON.stringify(NullJSONData)
+        veryMuch: JSON.stringify(NullJSONData),
       },
       medicationsPrescribed: {
         yes: JSON.stringify(NullJSONData),
         no: JSON.stringify(NullJSONData),
-        dontKnow: JSON.stringify(NullJSONData)
+        doNotKnow: JSON.stringify(NullJSONData),
       },
       medicationsTakenCount: {
         antiViral: JSON.stringify(NullJSONData),
         oralSteroids: JSON.stringify(NullJSONData),
         antiBiotics: JSON.stringify(NullJSONData),
         other: JSON.stringify(NullJSONData),
-        dontKnow: JSON.stringify(NullJSONData),
-      }
-    }
-    ,
+        doNotKnow: JSON.stringify(NullJSONData),
+      },
+    },
     recoverySummary: {
       recovered: {
         yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData)
+        no: JSON.stringify(NullJSONData),
       },
-      avglengthOfRecovery: JSON.stringify(NullJSONData)
+      avglengthOfRecovery: JSON.stringify(NullJSONData),
     },
 
     vaccinationSummary: {
       vaccinated: {
         yes: JSON.stringify(NullJSONData),
         no: JSON.stringify(NullJSONData),
-        dontKnow: JSON.stringify(NullJSONData)
+        doNotKnow: JSON.stringify(NullJSONData),
       },
       totalVaccineShots: {
         one: JSON.stringify(NullJSONData),
@@ -453,7 +457,7 @@ let variables = {
         four: JSON.stringify(NullJSONData),
         five: JSON.stringify(NullJSONData),
         fivePlus: JSON.stringify(NullJSONData),
-        dontKnow: JSON.stringify(NullJSONData)
+        doNotKnow: JSON.stringify(NullJSONData),
       },
       vaccineType: {
         pfizer: JSON.stringify(NullJSONData),
@@ -461,8 +465,8 @@ let variables = {
         janssen: JSON.stringify(NullJSONData),
         novavax: JSON.stringify(NullJSONData),
         other: JSON.stringify(NullJSONData),
-        doNotKnow: JSON.stringify(NullJSONData)
-      }
+        doNotKnow: JSON.stringify(NullJSONData),
+      },
     },
 
     globalHealthSummary: {
@@ -471,28 +475,28 @@ let variables = {
         veryGood: JSON.stringify(NullJSONData),
         good: JSON.stringify(NullJSONData),
         fair: JSON.stringify(NullJSONData),
-        poor: JSON.stringify(NullJSONData)
+        poor: JSON.stringify(NullJSONData),
       },
       physicalHealthRank: {
         excellent: JSON.stringify(NullJSONData),
         veryGood: JSON.stringify(NullJSONData),
         good: JSON.stringify(NullJSONData),
         fair: JSON.stringify(NullJSONData),
-        poor: JSON.stringify(NullJSONData)
+        poor: JSON.stringify(NullJSONData),
       },
       carryPhysicalActivities: {
         completely: JSON.stringify(NullJSONData),
         mostly: JSON.stringify(NullJSONData),
         moderately: JSON.stringify(NullJSONData),
         aLittle: JSON.stringify(NullJSONData),
-        notAtAll: JSON.stringify(NullJSONData)
+        notAtAll: JSON.stringify(NullJSONData),
       },
       fatigueRank: {
         none: JSON.stringify(NullJSONData),
         mild: JSON.stringify(NullJSONData),
         moderate: JSON.stringify(NullJSONData),
         severe: JSON.stringify(NullJSONData),
-        verySevere: JSON.stringify(NullJSONData)
+        verySevere: JSON.stringify(NullJSONData),
       },
       avgpainLevel: JSON.stringify(NullJSONData),
     },
@@ -514,8 +518,6 @@ let variables = {
         nerveProblems: JSON.stringify(NullJSONData),
         brainFog: JSON.stringify(NullJSONData),
         anxietyDepressionNightmares: JSON.stringify(NullJSONData),
-        problemsThinkingConcentrating: JSON.stringify(NullJSONData),
-        problemsAnxietyDepressionStress: JSON.stringify(NullJSONData),
         difficultyFallingAsleep: JSON.stringify(NullJSONData),
         sleepyDuringDaytime: JSON.stringify(NullJSONData),
         loudSnoring: JSON.stringify(NullJSONData),
@@ -533,85 +535,85 @@ let variables = {
         veryGood: JSON.stringify(NullJSONData),
         good: JSON.stringify(NullJSONData),
         fair: JSON.stringify(NullJSONData),
-        poor: JSON.stringify(NullJSONData)
+        poor: JSON.stringify(NullJSONData),
       },
       mentalHealthRank: {
         excellent: JSON.stringify(NullJSONData),
         veryGood: JSON.stringify(NullJSONData),
         good: JSON.stringify(NullJSONData),
         fair: JSON.stringify(NullJSONData),
-        poor: JSON.stringify(NullJSONData)
+        poor: JSON.stringify(NullJSONData),
       },
       socialSatisfactionRank: {
         excellent: JSON.stringify(NullJSONData),
         veryGood: JSON.stringify(NullJSONData),
         good: JSON.stringify(NullJSONData),
         fair: JSON.stringify(NullJSONData),
-        poor: JSON.stringify(NullJSONData)
+        poor: JSON.stringify(NullJSONData),
       },
       carryOutSocialActivitiesRank: {
         excellent: JSON.stringify(NullJSONData),
         veryGood: JSON.stringify(NullJSONData),
         good: JSON.stringify(NullJSONData),
         fair: JSON.stringify(NullJSONData),
-        poor: JSON.stringify(NullJSONData)
+        poor: JSON.stringify(NullJSONData),
       },
       anxietyInPastWeekRank: {
-        excellent: JSON.stringify(NullJSONData),
-        veryGood: JSON.stringify(NullJSONData),
-        good: JSON.stringify(NullJSONData),
-        fair: JSON.stringify(NullJSONData),
-        poor: JSON.stringify(NullJSONData)
-      }
+        never: JSON.stringify(NullJSONData),
+        rarely: JSON.stringify(NullJSONData),
+        sometimes: JSON.stringify(NullJSONData),
+        often: JSON.stringify(NullJSONData),
+        always: JSON.stringify(NullJSONData),
+      },
     },
 
     patientHealthQuestionnaireSummary: {
       littleInterestThings: {
         notAtAll: JSON.stringify(NullJSONData),
         severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfOfDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData)
+        moreThanHalfTheDays: JSON.stringify(NullJSONData),
+        nearlyEveryDay: JSON.stringify(NullJSONData),
       },
       downDepressedHopeless: {
         notAtAll: JSON.stringify(NullJSONData),
         severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfOfDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData)
+        moreThanHalfTheDays: JSON.stringify(NullJSONData),
+        nearlyEveryDay: JSON.stringify(NullJSONData),
       },
       sleepProblems: {
         notAtAll: JSON.stringify(NullJSONData),
         severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfOfDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData)
+        moreThanHalfTheDays: JSON.stringify(NullJSONData),
+        nearlyEveryDay: JSON.stringify(NullJSONData),
       },
       tiredNoEnergy: {
         notAtAll: JSON.stringify(NullJSONData),
         severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfOfDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData)
+        moreThanHalfTheDays: JSON.stringify(NullJSONData),
+        nearlyEveryDay: JSON.stringify(NullJSONData),
       },
       dietProblems: {
         notAtAll: JSON.stringify(NullJSONData),
         severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfOfDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData)
+        moreThanHalfTheDays: JSON.stringify(NullJSONData),
+        nearlyEveryDay: JSON.stringify(NullJSONData),
       },
       badAboutSelf: {
         notAtAll: JSON.stringify(NullJSONData),
         severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfOfDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData)
+        moreThanHalfTheDays: JSON.stringify(NullJSONData),
+        nearlyEveryDay: JSON.stringify(NullJSONData),
       },
       concentrationProblems: {
         notAtAll: JSON.stringify(NullJSONData),
         severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfOfDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData)
+        moreThanHalfTheDays: JSON.stringify(NullJSONData),
+        nearlyEveryDay: JSON.stringify(NullJSONData),
       },
       slowOrRestless: {
         notAtAll: JSON.stringify(NullJSONData),
         severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfOfDays: JSON.stringify(NullJSONData),
+        moreThanHalfTheDays: JSON.stringify(NullJSONData),
         nearlyEveryDay: JSON.stringify(NullJSONData),
       },
       avgPHQScore: JSON.stringify(NullJSONData),
@@ -620,7 +622,7 @@ let variables = {
       longCovid: {
         yes: JSON.stringify(NullJSONData),
         no: JSON.stringify(NullJSONData),
-        dontKnow: JSON.stringify(NullJSONData),
+        doNotKnow: JSON.stringify(NullJSONData),
       },
       newDiagnosisCounts: {
         noNewDiagnosis: JSON.stringify(NullJSONData),
@@ -640,33 +642,34 @@ let variables = {
         mecfs: JSON.stringify(NullJSONData),
         other: JSON.stringify(NullJSONData),
         notSure: JSON.stringify(NullJSONData),
-      }
+      },
     },
     socialSummary: {
       hasMedicalInsurance: {
         yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData)
+        no: JSON.stringify(NullJSONData),
       },
       difficultCoveringExpenses: {
         veryDifficult: JSON.stringify(NullJSONData),
         somewhatDifficult: JSON.stringify(NullJSONData),
         notAtAllDifficult: JSON.stringify(NullJSONData),
-        dontKnow: JSON.stringify(NullJSONData),
-        preferNotToAnswer: JSON.stringify(NullJSONData)
+        doNotKnow: JSON.stringify(NullJSONData),
+        preferNotToAnswer: JSON.stringify(NullJSONData),
       },
       currentWorkSituation: {
-        workingOutsideTheHome: JSON.stringify(NullJSONData),
-        onLeaveFromAJobWorkingOutsideHome: JSON.stringify(NullJSONData),
-        workingInsideHome: JSON.stringify(NullJSONData),
-        lookingForWorkUnemployed: JSON.stringify(NullJSONData),
-        retired: JSON.stringify(NullJSONData),
-        disabled: JSON.stringify(NullJSONData),
+        atOffice: JSON.stringify(NullJSONData),
+        hybrid: JSON.stringify(NullJSONData),
+        remote: JSON.stringify(NullJSONData),
+        remoteAndParenting: JSON.stringify(NullJSONData),
+        onJobLeave: JSON.stringify(NullJSONData),
+        unemployed: JSON.stringify(NullJSONData),
+        disability: JSON.stringify(NullJSONData),
         student: JSON.stringify(NullJSONData),
-        dontKnow: JSON.stringify(NullJSONData),
+        doNotKnow: JSON.stringify(NullJSONData),
         preferNotToAnswer: JSON.stringify(NullJSONData),
-      }
+      },
     },
-    totalFullEntries: 0
+    totalFullEntries: 0,
   },
 };
 
@@ -984,7 +987,6 @@ const isObject = (variable) => {
 
 const parse = (object) => {
   for (let property in object) {
-    
     if (isObject(object[property])) {
       for (prop in object[property]) {
         if (isObject(object[property][prop])) {
@@ -1091,22 +1093,19 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
       symptomatic,
       symptomsPreventScale,
       medicationsPrescribed,
-      medicationsTakenCount
+      medicationsTakenCount,
     } = data[dat].covidSummary;
 
     if (covidResults.beenInfected != null) {
-      let property = (covidResults.beenInfected) ? beenInfected.yes : beenInfected.no;
-      addCustomToTallyBasedOnCondition(
-        indexes,
-        property,
-        true,
-        1
-      );
+      let property = covidResults.beenInfected
+        ? beenInfected.yes
+        : beenInfected.no;
+      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
     }
 
     if (covidResults.timesPositive != null) {
       let property;
-      switch(covidResults.timesPositive) {
+      switch (covidResults.timesPositive) {
         case 0:
           property = timesPositive.dontKnow;
           break;
@@ -1120,34 +1119,23 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
           property = timesPositive.three;
           break;
         default:
-          property = timesPositive.threePlus
+          property = timesPositive.threePlus;
       }
 
-      addCustomToTallyBasedOnCondition(
-        indexes,
-        property,
-        true,
-        1
-      )
-
+      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
     }
 
     if (covidResults.hospitalized != null) {
+      let property = covidResults.hospitalized
+        ? hospitalized.yes
+        : hospitalized.no;
 
-      let property = (covidResults.hospitalized) ? hospitalized.yes : hospitalized.no;
-
-      addCustomToTallyBasedOnCondition(
-        indexes,
-        property,
-        true,
-        1
-      );
-
+      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
     }
 
     if (covidResults.timesHospitalized != null) {
       let property;
-      switch(covidResults.timesHospitalized) {
+      switch (covidResults.timesHospitalized) {
         case 0:
           property = timesHospitalized.dontKnow;
           break;
@@ -1161,84 +1149,56 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
           property = timesHospitalized.three;
           break;
         default:
-          property = timesHospitalized.threePlus
+          property = timesHospitalized.threePlus;
       }
-      addCustomToTallyBasedOnCondition(
-        indexes,
-        property,
-        true,
-        1
-      );
+      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
     }
 
     if (covidResults.tested != null) {
-      let property = (covidResults.tested) ? tested.yes : tested.no;
+      let property = covidResults.tested ? tested.yes : tested.no;
 
-      addCustomToTallyBasedOnCondition(
-        indexes,
-        property,
-        true,
-        1
-      );
+      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
     }
 
     if (covidResults.positiveTest != null) {
       let property;
-      switch(covidResults.positiveTest) {
-        case "yes" :
+      switch (covidResults.positiveTest) {
+        case "yes":
           property = positiveTest.yes;
-        case "no" :
+        case "no":
           property = positiveTest.no;
-        case "doNotKnow" :
+        case "doNotKnow":
           property = positiveTest.doNotKnow;
       }
 
-      addCustomToTallyBasedOnCondition(
-        indexes,
-        property,
-        true,
-        1
-      );
+      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
     }
 
     if (covidResults.symptomatic != null) {
-      let property = (covidResults.symptomatic) ? symptomatic.yes : symptomatic.no;
-      addCustomToTallyBasedOnCondition(
-        indexes,
-        property,
-        true,
-        1
-      );
+      let property = covidResults.symptomatic
+        ? symptomatic.yes
+        : symptomatic.no;
+      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
     }
 
     if (covidResults.symptomsPreventScale != null) {
-
     }
 
     if (covidResults.medicationsPrescribed != null) {
       let property;
-      switch(covidResults.medicationsPrescribed) {
-        case "yes" :
+      switch (covidResults.medicationsPrescribed) {
+        case "yes":
           property = medicationsPrescribed.yes;
-        case "no" :
+        case "no":
           property = medicationsPrescribed.no;
-        case "doNotKnow" :
+        case "doNotKnow":
           property = medicationsPrescribed.doNotKnow;
       }
-      addCustomToTallyBasedOnCondition(
-        indexes,
-        property,
-        true,
-        1
-      );
+      addCustomToTallyBasedOnCondition(indexes, property, true, 1);
     }
 
     if (covidResults.medicationsTaken != null) {
-
     }
-
-
-
   }
 
   // console.log(county.covidSummary);
@@ -1828,10 +1788,10 @@ const aggregateSurveyResults = async (eventInput) => {
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-  let input = event.arguments.surveyResults;
-  const { county, state } = await aggregateSurveyResults(input);
+  // let input = event.arguments.surveyResults;
+  // const { county, state } = await aggregateSurveyResults(input);
 
-  // await populate();
+  await populate();
   return {
     county,
     state,

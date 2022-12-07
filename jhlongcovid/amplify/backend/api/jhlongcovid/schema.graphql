@@ -716,7 +716,7 @@ type OneToThreePlus {
   two: AWSJSON
   three: AWSJSON
   threePlus: AWSJSON
-  dontKnow: AWSJSON
+  doNotKnow: AWSJSON
 }
 
 type OneToFivePlus {
@@ -726,7 +726,7 @@ type OneToFivePlus {
   four: AWSJSON
   five: AWSJSON
   fivePlus: AWSJSON
-  dontKnow: AWSJSON
+  doNotKnow: AWSJSON
 }
 
 type YesNo {

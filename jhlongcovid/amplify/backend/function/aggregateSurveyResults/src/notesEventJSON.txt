@@ -93,6 +93,8 @@ patientHealthQuestionnaireResults
 60) concentrationProblems : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
 61) slowOrRestless : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
 
+totalScore : Integer (representing the PHQ8 score)
+
 (skip suicide questions)
 
 medicalConditionsChanges 

@@ -32,8 +32,8 @@
         "tested": true,
         "positiveTest": "yes",
         "symptomatic": true,
-        "symptomsPreventScale": 3,
-        "medicationsPrescribed": 1,
+        "symptomsPreventScale": "notAtAll",
+        "medicationsPrescribed": "yes",
         "medicationsTaken": [
           "oralSteroids"
         ]
@@ -55,10 +55,10 @@
         "sex": "Male",
         "height": "55",
         "weight": "123",
-        "vaccinated": true,
+        "vaccinated": "yes",
         "totalVaccineShots": 5,
         "dateOfLastVaccine": "2022-11-02T00:00:00.000Z",
-        "vaccineType": "Moderna"
+        "vaccineType": "pfizer"
       },
       "globalHealthResults": {
         "id": "edd56c44-7dee-48cd-a743-2dcee1d80910",
@@ -84,11 +84,11 @@
           "headache",
           "bodyMuscleAche"
         ],
-        "qualityOfLife": "Excellent",
-        "mentalHealthRank": "Excellent",
-        "socialSatisfactionRank": "Excellent",
-        "carryOutSocialActivitiesRank": "Excellent",
-        "anxietyInPastWeekRank": "Rarely",
+        "qualityOfLife": "excellent",
+        "mentalHealthRank": "excellent",
+        "socialSatisfactionRank": "excellent",
+        "carryOutSocialActivitiesRank": "excellent",
+        "anxietyInPastWeekRank": "rarely",
         
         "medicalConditions": [
           "memory"
@@ -103,14 +103,14 @@
         "height": "55",
         "weight": "123",
         "generalHealthResults": {
-          "Little interest or pleasure in doing things?": "Not at all",
-          "Feeling down, depressed, or hopeless?": "Several days",
-          "Trouble falling or staying asleep, or sleeping too much?": "More than half the days",
-          "Feeling tired or having little energy?": "Nearly every day",
-          "Poor appetite or overeating?": "More than half the days",
-          "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?": "Several days",
-          "Trouble concentrating on things, such as reading the newspaper or watching television?": "Not at all",
-          "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?": "Not at all"
+          "Little interest or pleasure in doing things?": "notAtAll",
+          "Feeling down, depressed, or hopeless?": "notAtAll",
+          "Trouble falling or staying asleep, or sleeping too much?": "notAtAll",
+          "Feeling tired or having little energy?": "notAtAll",
+          "Poor appetite or overeating?": "notAtAll",
+          "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?": "notAtAll",
+          "Trouble concentrating on things, such as reading the newspaper or watching television?": "notAtAll",
+          "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?": "notAtAll"
         },
         "totalScore": 9
       },
@@ -124,7 +124,7 @@
         "weight": "123",
         "hasMedicalInsurance": true,
         "difficultCoveringExpenses": "somewhatDifficult",
-        "currentWorkSituation": "workingInsideHome"
+        "currentWorkSituation": "remoteAndParenting"
       },
       "healthRelatedResults": {
         "weight": 34,
