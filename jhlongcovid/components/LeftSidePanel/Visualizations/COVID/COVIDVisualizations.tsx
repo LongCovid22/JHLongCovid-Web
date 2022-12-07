@@ -7,7 +7,7 @@ import {
   StatNumber,
   StatHelpText,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { LeftSidePanelBodyProps } from "../../LeftSidePanel";
 import faker from "faker";
 import { Bar } from "react-chartjs-2";
@@ -23,6 +23,11 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
+import mockResult from "../../../../mockResult.json";
+import {
+  getTotalCovidCases,
+  percentOfTotalCovid,
+} from "./covidVisualizationFunctions";
 
 ChartJS.register(
   CategoryScale,
@@ -105,21 +110,37 @@ const data_3 = {
 export const COVIDVisualizations: React.FC<LeftSidePanelBodyProps> = ({
   data,
 }) => {
+  const { covidSummary, totalFullEntries, totalDemoCount } = mockResult.county;
+  const [totalCovidCases, setTotalCovidCases] = useState(0);
+  const [percentTotalCovid, setPercentTotalCovid] = useState(0);
+
+  useEffect(() => {
+    // Perform all processing on map data and populate visualizations
+    const totalCases = getTotalCovidCases(covidSummary.covidCount);
+    const percentOfCovidReported = percentOfTotalCovid(
+      totalCases,
+      totalFullEntries
+    );
+
+    setTotalCovidCases(totalCases);
+    setPercentTotalCovid(percentOfCovidReported);
+  }, [data]);
+
   return (
     <VStack>
       <Wrap spacing="30px">
         <WrapItem>
           <Stat>
-            <StatLabel>Sample Stat</StatLabel>
-            <StatNumber>100%</StatNumber>
-            <StatHelpText>percentage of stat</StatHelpText>
+            <StatLabel>Total COVID19 Cases</StatLabel>
+            <StatNumber>{totalCovidCases}</StatNumber>
+            <StatHelpText>Total # of reported cases of COVID</StatHelpText>
           </Stat>
         </WrapItem>
         <WrapItem>
           <Stat>
-            <StatLabel>Sample Stat</StatLabel>
+            <StatLabel>% of Reported COVID19</StatLabel>
             <StatNumber>100%</StatNumber>
-            <StatHelpText>percentage of stat</StatHelpText>
+            <StatHelpText>% of entries that reported COVID19</StatHelpText>
           </Stat>
         </WrapItem>
         <WrapItem>

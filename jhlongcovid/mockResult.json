@@ -140,7 +140,7 @@
         }
       }
     },
-    "totalFullEntries": 1,
+    "totalFullEntries": 75,
     "totalDemoCount": {
       "race": {
         "ranges": [
@@ -152,11 +152,11 @@
           "Other",
           "None"
         ],
-        "values": [0, 0, 0, 0, 0, 1, 0]
+        "values": [10, 5, 12, 0, 12, 36, 0]
       },
       "age": {
         "ranges": ["1-13", "13-25", "25-60", "60+"],
-        "values": [0, 1, 0, 0]
+        "values": [5, 15, 13, 42]
       },
       "sex": { "ranges": ["Male", "Female", "Other"], "values": [1, 0, 0] }
     }
