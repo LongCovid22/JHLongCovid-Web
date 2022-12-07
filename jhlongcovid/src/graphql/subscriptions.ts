@@ -1110,6 +1110,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1301,6 +1302,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1474,6 +1476,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1651,6 +1654,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1832,6 +1836,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2006,6 +2011,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2182,6 +2188,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2222,6 +2229,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
         weight
         createdAt
         symptoms
+        qualityOfLifeRank
         mentalHealthRank
         socialSatisfactionRank
         carryOutSocialActivitiesRank
@@ -2363,6 +2371,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2563,6 +2572,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2754,6 +2764,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2927,6 +2938,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3104,6 +3116,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3285,6 +3298,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3459,6 +3473,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3635,6 +3650,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3675,6 +3691,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
         weight
         createdAt
         symptoms
+        qualityOfLifeRank
         mentalHealthRank
         socialSatisfactionRank
         carryOutSocialActivitiesRank
@@ -3816,6 +3833,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4016,6 +4034,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4207,6 +4226,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4380,6 +4400,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4557,6 +4578,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4738,6 +4760,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4912,6 +4935,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -5088,6 +5112,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -5128,6 +5153,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
         weight
         createdAt
         symptoms
+        qualityOfLifeRank
         mentalHealthRank
         socialSatisfactionRank
         carryOutSocialActivitiesRank
@@ -5269,6 +5295,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -5610,6 +5637,7 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -5960,6 +5988,7 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -6310,6 +6339,7 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -6660,6 +6690,7 @@ export const onCreateGlobalHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -7011,6 +7042,7 @@ export const onUpdateGlobalHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -7362,6 +7394,7 @@ export const onDeleteGlobalHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -7708,6 +7741,7 @@ export const onCreateCovidEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -8066,6 +8100,7 @@ export const onUpdateCovidEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -8424,6 +8459,7 @@ export const onDeleteCovidEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -8782,6 +8818,7 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -9130,6 +9167,7 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -9478,6 +9516,7 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -9826,6 +9865,7 @@ export const onCreatePatientHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -10174,6 +10214,7 @@ export const onUpdatePatientHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -10522,6 +10563,7 @@ export const onDeletePatientHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -10870,6 +10912,7 @@ export const onCreateSymptomEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -10931,6 +10974,7 @@ export const onCreateSymptomEntry = /* GraphQL */ `
       weight
       createdAt
       symptoms
+      qualityOfLifeRank
       mentalHealthRank
       socialSatisfactionRank
       carryOutSocialActivitiesRank
@@ -11223,6 +11267,7 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -11284,6 +11329,7 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
       weight
       createdAt
       symptoms
+      qualityOfLifeRank
       mentalHealthRank
       socialSatisfactionRank
       carryOutSocialActivitiesRank
@@ -11576,6 +11622,7 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -11637,6 +11684,7 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
       weight
       createdAt
       symptoms
+      qualityOfLifeRank
       mentalHealthRank
       socialSatisfactionRank
       carryOutSocialActivitiesRank
@@ -11929,6 +11977,7 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -12278,6 +12327,7 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -12627,6 +12677,7 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -12976,6 +13027,7 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -13323,6 +13375,7 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -13670,6 +13723,7 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank

@@ -127,7 +127,6 @@ export const getCountyAndStateWithZip = async (
         zipCode +
         `&key=${apiKey}`
     );
-    console.log("Response: ", response);
     if (response.data.results.length > 0) {
       await Promise.all(
         response.data.results[0].address_components.map(async (value: any) => {

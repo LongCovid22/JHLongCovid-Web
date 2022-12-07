@@ -53,7 +53,6 @@ describe("Create Symptom entry from survey answers", () => {
         "0",
         "0",
         "0",
-        "0",
         "1",
         "0",
         "0",
@@ -113,7 +112,7 @@ describe("Create Symptom entry from survey answers", () => {
       {
         tableName: "SymptomsEntry",
         field: "hasLongCovid",
-        type: "Boolean",
+        type: "String",
       },
     ];
 
@@ -206,21 +205,13 @@ describe("Create Symptom entry from survey answers", () => {
       height: "55",
       race: "white",
       sex: "male",
-      symptoms: [
-        "Swelling of your legs",
-        "Loud snoring, stopping breathing, or gasping during sleep, 3 or more times per week",
-      ],
-      mentalHealthRank: "Excellent",
-      socialSatisfactionRank: "Excellent",
-      carryOutSocialActivitiesRank: "Excellent",
-      anxietyInPastWeekRank: "Never",
-      hasLongCovid: true,
-      medicalConditions: [
-        "Stroke",
-        "Seizure or epilepsy",
-        "Kidney problems or kidney disease",
-        "Test disease",
-      ],
+      symptoms: ["swellingOfLegs", "loudSnoring"],
+      mentalHealthRank: "excellent",
+      socialSatisfactionRank: "excellent",
+      carryOutSocialActivitiesRank: "excellent",
+      anxietyInPastWeekRank: "never",
+      hasLongCovid: "yes",
+      medicalConditions: ["stroke", "seizure", "kidneyProblems", "other"],
     };
 
     expect(entry).toStrictEqual(correctSymptomEntry);

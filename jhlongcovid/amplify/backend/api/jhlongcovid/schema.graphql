@@ -41,7 +41,6 @@ type MapData
   totalFullEntries: Int!
 }
 
-
 """
 User - Store User specific information. Will store notification preferences along with other
   activity metrics
@@ -207,7 +206,7 @@ type VaccinationEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
   totalVaccineShots: Int
-  vaccinated: Boolean
+  vaccinated: String # Changed
   vaccineType: String
   dateOfLastVaccine: AWSDateTime
   createdAt: AWSDateTime!
@@ -355,13 +354,13 @@ type CovidEntry
   timesPositive: Int
   lastPositive: AWSDateTime
   tested: Boolean
-  positiveTest: Boolean
+  positiveTest: String #Changed
   testMethod: String
   hospitalized: Boolean
   timesHospitalized: Int
   symptomatic: Boolean
   symptomsPreventScale: String
-  medicationsPrescribed: Boolean
+  medicationsPrescribed: String # changed
   medicationsTaken: [String]
   createdAt: AWSDateTime!
 }
@@ -562,12 +561,13 @@ type SymptomEntry
   weight: String!
   createdAt: AWSDateTime!
   symptoms: [String]
+  qualityOfLifeRank: String
   mentalHealthRank: String
   socialSatisfactionRank: String
   carryOutSocialActivitiesRank: String
   anxietyInPastWeekRank: String
   medicalConditions: [String]
-  hasLongCovid: Boolean
+  hasLongCovid: String # changed
 }
 
 type SocialDeterminantsEntry

@@ -27,7 +27,7 @@ describe("Create vaccination entry from survey answers", () => {
       {
         tableName: "VaccinationEntry",
         field: "vaccinated",
-        type: "Boolean",
+        type: "String",
       },
       {
         tableName: "VaccinationEntry",
@@ -71,10 +71,10 @@ describe("Create vaccination entry from survey answers", () => {
       height: "55",
       race: "white",
       sex: "male",
-      vaccinated: true,
+      vaccinated: "yes",
       totalVaccineShots: 5,
       dateOfLastVaccine: new Date("2022-11-05"),
-      vaccineType: "Novavax",
+      vaccineType: "novavax",
     };
 
     expect(entry).toStrictEqual(correctVaccinationEntry);

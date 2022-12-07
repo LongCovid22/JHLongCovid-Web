@@ -165,7 +165,7 @@ let properties = `
           nerveProblems
           brainFog
           anxietyDepressionNightmares
-          problemsThinkingConcentrating
+          problemsThinkingConcentrating # SAME AS BRAIN FOG
           problemsAnxietyDepressionStress
           difficultyFallingAsleep
           sleepyDuringDaytime
@@ -1829,7 +1829,7 @@ const aggregateSurveyResults = async (eventInput) => {
  */
 exports.handler = async (event) => {
   let input = event.arguments.surveyResults;
-  const { county, state} = await aggregateSurveyResults(input);
+  const { county, state } = await aggregateSurveyResults(input);
 
   // await populate();
   return {

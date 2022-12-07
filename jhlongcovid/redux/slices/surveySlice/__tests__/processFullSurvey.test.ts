@@ -170,7 +170,6 @@ const mockFullSurveyAnswers = [
     "0",
     "0",
     "0",
-    "0",
     "1",
     "0",
     "0",
@@ -187,7 +186,7 @@ const mockFullSurveyAnswers = [
   "Never",
   ["0", "0", "0", "0", "1", "2", "0", "0"],
   {
-    choices: ["Memory or cognitive impairment or dementia "],
+    choices: ["Memory or cognitive impairment or dementia"],
     other: "kop",
   },
   "Yes",
@@ -221,11 +220,11 @@ describe("Create entries from full survey answers", () => {
         timesHospitalized: 1,
         lastPositive: new Date("2022-11-08"),
         tested: true,
-        positiveTest: true,
+        positiveTest: "yes",
         symptomatic: true,
-        symptomsPreventScale: "Not at all",
-        medicationsPrescribed: true,
-        medicationsTaken: ["Antiviral pill, such as Paxlovid", "fre"],
+        symptomsPreventScale: "notAtAll",
+        medicationsPrescribed: "yes",
+        medicationsTaken: ["antiviral", "other"],
       },
       RecoveryEntry: {
         age: "23",
@@ -242,7 +241,7 @@ describe("Create entries from full survey answers", () => {
         sex: "Female",
         height: "33",
         weight: "3232",
-        vaccinated: false,
+        vaccinated: "no",
       },
       PatientHealthEntry: {
         age: "23",
@@ -251,40 +250,30 @@ describe("Create entries from full survey answers", () => {
         height: "33",
         weight: "3232",
         generalHealthResults: {
-          "Little interest or pleasure in doing things?": "Not at all",
-          "Feeling down, depressed, or hopeless?": "Not at all",
-          "Trouble falling or staying asleep, or sleeping too much?":
-            "Not at all",
-          "Feeling tired or having little energy?": "Not at all",
-          "Poor appetite or overeating?": "Several days",
-          "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?":
-            "More than half the days",
-          "Trouble concentrating on things, such as reading the newspaper or watching television?":
-            "Not at all",
-          "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?":
-            "Not at all",
+          feelDownOnSelf: "moreThanHalfTheDays",
+          feelingDepressed: "notAtAll",
+          feelingTired: "notAtAll",
+          littleInterest: "notAtAll",
+          movingDifferent: "notAtAll",
+          poorEatingHabits: "severalDays",
+          troubleConcentrating: "notAtAll",
+          troubleWithSleep: "notAtAll",
         },
         totalScore: 3,
       },
-      SymptomsEntry: {
+      SymptomEntry: {
         age: "23",
         race: "white",
         sex: "Female",
         height: "33",
         weight: "3232",
-        symptoms: [
-          "Swelling of your legs",
-          "Loud snoring, stopping breathing, or gasping during sleep, 3 or more times per week",
-        ],
-        mentalHealthRank: "Excellent",
-        socialSatisfactionRank: "Excellent",
-        carryOutSocialActivitiesRank: "Excellent",
-        anxietyInPastWeekRank: "Never",
-        medicalConditions: [
-          "Memory or cognitive impairment or dementia ",
-          "kop",
-        ],
-        hasLongCovid: true,
+        symptoms: ["swellingOfLegs", "loudSnoring"],
+        mentalHealthRank: "excellent",
+        socialSatisfactionRank: "excellent",
+        carryOutSocialActivitiesRank: "excellent",
+        anxietyInPastWeekRank: "never",
+        medicalConditions: ["memory", "other"],
+        hasLongCovid: "yes",
       },
       SocialDeterminantsEntry: {
         age: "23",
@@ -293,9 +282,8 @@ describe("Create entries from full survey answers", () => {
         height: "33",
         weight: "3232",
         hasMedicalInsurance: true,
-        difficultCoveringExpenses: "Very difficult",
-        currentWorkSituation:
-          "Working outside the home as well as working remotely from home (“hybrid” work)",
+        difficultCoveringExpenses: "veryDifficult",
+        currentWorkSituation: "hybrid",
       },
     };
 
