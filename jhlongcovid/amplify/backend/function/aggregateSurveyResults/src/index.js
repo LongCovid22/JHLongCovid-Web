@@ -373,6 +373,39 @@ const NullJSONData = {
   },
 };
 
+// each value is [count, average]
+const avgNULLJSONData = {
+  age: {
+    ranges: ["1-13", "13-25", "25-60", "60+"],
+    values: [
+      { count: 0, average: 0 },
+      { count: 0, average: 0 },
+      { count: 0, average: 0 },
+      { count: 0, average: 0 },
+    ],
+  },
+  race: {
+    ranges: ["White", "Black", "Asian", "Native", "Hispanic", "Other", "None"],
+    values: [
+      { count: 0, average: 0 },
+      { count: 0, average: 0 },
+      { count: 0, average: 0 },
+      { count: 0, average: 0 },
+      { count: 0, average: 0 },
+      { count: 0, average: 0 },
+      { count: 0, average: 0 },
+    ],
+  },
+  sex: {
+    ranges: ["Male", "Female", "Other"],
+    values: [
+      { count: 0, average: 0 },
+      { count: 0, average: 0 },
+      { count: 0, average: 0 },
+    ],
+  },
+};
+
 let variables = {
   input: {
     level: "county",
@@ -441,7 +474,7 @@ let variables = {
         yes: JSON.stringify(NullJSONData),
         no: JSON.stringify(NullJSONData),
       },
-      avglengthOfRecovery: JSON.stringify(NullJSONData),
+      avglengthOfRecovery: JSON.stringify(avgNULLJSONData),
     },
 
     vaccinationSummary: {
@@ -498,7 +531,7 @@ let variables = {
         severe: JSON.stringify(NullJSONData),
         verySevere: JSON.stringify(NullJSONData),
       },
-      avgpainLevel: JSON.stringify(NullJSONData),
+      avgpainLevel: JSON.stringify(avgNULLJSONData),
     },
 
     symptomSummary: {
@@ -616,7 +649,7 @@ let variables = {
         moreThanHalfTheDays: JSON.stringify(NullJSONData),
         nearlyEveryDay: JSON.stringify(NullJSONData),
       },
-      avgPHQScore: JSON.stringify(NullJSONData),
+      avgPHQScore: JSON.stringify(avgNULLJSONData),
     },
     medicalConditionsSummary: {
       longCovid: {
@@ -1420,11 +1453,42 @@ const updateRecoverySummary = (eventInput, county, state, indexes) => {
       addCustomToTallyBasedOnCondition(indexes, recovered[prop], true, 1);
     }
 
-    if (
-      checkNotNullNumberGreaterThanZero(recoveryResults.avglengthOfRecovery)
-    ) {
+    if (checkNotNullNumberGreaterThanZero(recoveryResults.lengthOfRecovery)) {
+      addAverage(
+        indexes,
+        avglengthOfRecovery,
+        recoveryResults.lengthOfRecovery
+      );
     }
   }
+};
+
+const addAverage = (indexes, property, numToAdd) => {
+  const { raceIndex, sexIndex, ageIndex } = indexes;
+
+  property.race.values[raceIndex].average = parseFloat(
+    (property.race.values[raceIndex].average *
+      property.race.values[raceIndex].count +
+      numToAdd) /
+      (property.race.values[raceIndex].count + 1)
+  );
+  property.race.values[raceIndex].count += 1;
+
+  property.sex.values[sexIndex].average = parseFloat(
+    (property.sex.values[sexIndex].average *
+      property.sex.values[sexIndex].count +
+      numToAdd) /
+      (property.sex.values[sexIndex].count + 1)
+  );
+  property.sex.values[sexIndex].count += 1;
+
+  property.age.values[ageIndex].average = parseFloat(
+    (property.age.values[ageIndex].average *
+      property.age.values[ageIndex].count +
+      numToAdd) /
+      (property.age.values[ageIndex].count + 1)
+  );
+  property.age.values[ageIndex].count += 1;
 };
 
 const updateVaccinationSummary = (eventInput, county, state, indexes) => {
@@ -1521,6 +1585,7 @@ const updateGlobalHealthSummary = (eventInput, county, state, indexes) => {
     }
 
     if (checkIsNumAndBetweenOneAndTen(globalHealthResults.painLevel)) {
+      addAverage(indexes, avgpainLevel, globalHealthResults.painLevel);
     }
 
     for (const obj of objects) {
@@ -1529,12 +1594,7 @@ const updateGlobalHealthSummary = (eventInput, county, state, indexes) => {
   }
 };
 
-const updateSymptomSummary = (
-  eventInput,
-  county,
-  state,
-  indexes
-) => {
+const updateSymptomSummary = (eventInput, county, state, indexes) => {
   let { symptomResults } = eventInput;
 
   let data = {
@@ -1548,7 +1608,7 @@ const updateSymptomSummary = (
 
   for (const dat in data) {
     let { symptomCounts } = data[dat].symptomSummary;
-    if(checkSymptomStringArray(symptomResults.symptoms)) {
+    if (checkSymptomStringArray(symptomResults.symptoms)) {
       symptomResults.symptoms.forEach((symp) => {
         addCustomToTallyBasedOnCondition(indexes, symptomCounts[symp], true, 1);
       });
@@ -1562,49 +1622,54 @@ const updateSymptomSummary = (
     } = data[dat].symptomSummary;
 
     let objects = [];
-    if(checkNotNullAndStringType(symptomResults.qualityOfLifeRank) && 
-    checkExcellentToPoor(symptomResults.qualityOfLifeRank)
+    if (
+      checkNotNullAndStringType(symptomResults.qualityOfLifeRank) &&
+      checkExcellentToPoor(symptomResults.qualityOfLifeRank)
     ) {
       objects.push(qualityOfLife[symptomResults.qualityOfLifeRank]);
     }
 
-    if(checkNotNullAndStringType(symptomResults.mentalHealthRank) && 
-    checkExcellentToPoor(symptomResults.mentalHealthRank)
+    if (
+      checkNotNullAndStringType(symptomResults.mentalHealthRank) &&
+      checkExcellentToPoor(symptomResults.mentalHealthRank)
     ) {
       objects.push(mentalHealthRank[symptomResults.mentalHealthRank]);
     }
 
-    if(checkNotNullAndStringType(symptomResults.socialSatisfactionRank) && 
-    checkExcellentToPoor(symptomResults.socialSatisfactionRank)
+    if (
+      checkNotNullAndStringType(symptomResults.socialSatisfactionRank) &&
+      checkExcellentToPoor(symptomResults.socialSatisfactionRank)
     ) {
-      objects.push(socialSatisfactionRank[symptomResults.socialSatisfactionRank]);
+      objects.push(
+        socialSatisfactionRank[symptomResults.socialSatisfactionRank]
+      );
     }
 
-    if(checkNotNullAndStringType(symptomResults.carryOutSocialActivitiesRank) && 
-    checkExcellentToPoor(symptomResults.carryOutSocialActivitiesRank)
+    if (
+      checkNotNullAndStringType(symptomResults.carryOutSocialActivitiesRank) &&
+      checkExcellentToPoor(symptomResults.carryOutSocialActivitiesRank)
     ) {
-      objects.push(carryOutSocialActivitiesRank[symptomResults.carryOutSocialActivitiesRank]);
+      objects.push(
+        carryOutSocialActivitiesRank[
+          symptomResults.carryOutSocialActivitiesRank
+        ]
+      );
     }
 
-    if(checkNotNullAndStringType(symptomResults.anxietyInPastWeekRank) && 
-    checkNeverToAlways(symptomResults.anxietyInPastWeekRank)
+    if (
+      checkNotNullAndStringType(symptomResults.anxietyInPastWeekRank) &&
+      checkNeverToAlways(symptomResults.anxietyInPastWeekRank)
     ) {
       objects.push(anxietyInPastWeekRank[symptomResults.anxietyInPastWeekRank]);
     }
 
-    console.log(objects.length);
     for (const obj of objects) {
       addCustomToTallyBasedOnCondition(indexes, obj, true, 1);
     }
   }
 };
 
-const updateMedicalConditionsSummary = (
-  eventInput,
-  county,
-  state,
-  indexes
-) => {
+const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
   let { symptomResults } = eventInput;
   let data = {
     county: {
@@ -1616,23 +1681,107 @@ const updateMedicalConditionsSummary = (
   };
 
   for (const dat in data) {
-    let { longCovid, newDiagnosisCounts } =
-      data[dat].medicalConditionsSummary;
+    let { longCovid, newDiagnosisCounts } = data[dat].medicalConditionsSummary;
 
-    if(checkMedicalConditionsArray(symptomResults.medicalConditions)) {
+    if (checkMedicalConditionsArray(symptomResults.medicalConditions)) {
       symptomResults.medicalConditions.forEach((cond) => {
-        addCustomToTallyBasedOnCondition(indexes, newDiagnosisCounts[cond], true, 1);
+        addCustomToTallyBasedOnCondition(
+          indexes,
+          newDiagnosisCounts[cond],
+          true,
+          1
+        );
       });
     }
 
-    if(checkNotNullAndStringType(symptomResults.hasLongCovid) &&
-    checkYesNoDoNotKnowType(symptomResults.hasLongCovid)
+    if (
+      checkNotNullAndStringType(symptomResults.hasLongCovid) &&
+      checkYesNoDoNotKnowType(symptomResults.hasLongCovid)
     ) {
-      addCustomToTallyBasedOnCondition(indexes, longCovid[symptomResults.hasLongCovid], true, 1);
+      addCustomToTallyBasedOnCondition(
+        indexes,
+        longCovid[symptomResults.hasLongCovid],
+        true,
+        1
+      );
+    }
+  }
+};
+
+const updatePatientHealthSummary = (eventInput, county, state, indexes) => {
+  let { patientHealthResults } = eventInput;
+  let { raceIndex, ageIndex, sexIndex } = indexes;
+  let data = {
+    county: {
+      patientHealthQuestionnaireSummary:
+        county.patientHealthQuestionnaireSummary,
+    },
+    state: {
+      patientHealthQuestionnaireSummary:
+        state.patientHealthQuestionnaireSummary,
+    },
+  };
+  for (const dat in data) {
+    let {
+      littleInterestThings,
+      downDepressedHopeless,
+      sleepProblems,
+      tiredNoEnergy,
+      dietProblems,
+      badAboutSelf,
+      concentrationProblems,
+      slowOrRestless,
+      avgPHQScore,
+    } = data[dat].patientHealthQuestionnaireSummary;
+
+    for (const health in patientHealthResults.generalHealthResults) {
+      let curr = patientHealthResults.generalHealthResults[health];
+      if (
+        checkNotNullAndStringType(curr) &&
+        checkNotAtAllToNearlyEveryDay(curr)
+      ) {
+        let healthQuestion;
+        switch (health) {
+          case "Little interest or pleasure in doing things?":
+            healthQuestion = littleInterestThings;
+            break;
+          case "Feeling down, depressed, or hopeless?":
+            healthQuestion = downDepressedHopeless;
+            break;
+          case "Trouble falling or staying asleep, or sleeping too much?":
+            healthQuestion = sleepProblems;
+            break;
+          case "Feeling tired or having little energy?":
+            healthQuestion = tiredNoEnergy;
+            break;
+          case "Poor appetite or overeating?":
+            healthQuestion = dietProblems;
+            break;
+          case "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?":
+            healthQuestion = badAboutSelf;
+            break;
+          case "Trouble concentrating on things, such as reading the newspaper or watching television?":
+            healthQuestion = concentrationProblems;
+            break;
+          case "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?":
+            healthQuestion = slowOrRestless;
+            break;
+        }
+        // console.log(healthQuestion[curr]);
+        // console.log(generalHealthResults[healthQuestion]);
+
+        addCustomToTallyBasedOnCondition(
+          indexes,
+          healthQuestion[curr],
+          true,
+          1
+        );
+      }
     }
 
-
-    
+    if (checkNotNullNumberGreaterThanZero(patientHealthResults.totalScore)) {
+      addAverage(indexes, avgPHQScore, patientHealthResults.totalScore);
+    }
   }
 };
 
@@ -1653,69 +1802,54 @@ const updateSocialSummary = (eventInput, county, state, indexes) => {
     let {
       hasMedicalInsurance,
       difficultCoveringExpenses,
-      currentWorkSituation
+      currentWorkSituation,
     } = data[dat].socialSummary;
 
-    if(checkNotNullAndBoolType(socialDeterminantsResults.hasMedicalInsurance)) {
-      addCustomToTallyBasedOnCondition(indexes, hasMedicalInsurance[trueEqualsYes(socialDeterminantsResults.hasMedicalInsurance)], true, 1);
+    if (
+      checkNotNullAndBoolType(socialDeterminantsResults.hasMedicalInsurance)
+    ) {
+      addCustomToTallyBasedOnCondition(
+        indexes,
+        hasMedicalInsurance[
+          trueEqualsYes(socialDeterminantsResults.hasMedicalInsurance)
+        ],
+        true,
+        1
+      );
     }
 
-    if(checkDifficultCoveringExpensesType(socialDeterminantsResults.difficultCoveringExpenses)) {
-      addCustomToTallyBasedOnCondition(indexes, difficultCoveringExpenses[socialDeterminantsResults.difficultCoveringExpenses], true, 1);
+    if (
+      checkDifficultCoveringExpensesType(
+        socialDeterminantsResults.difficultCoveringExpenses
+      )
+    ) {
+      addCustomToTallyBasedOnCondition(
+        indexes,
+        difficultCoveringExpenses[
+          socialDeterminantsResults.difficultCoveringExpenses
+        ],
+        true,
+        1
+      );
     }
 
-    if(checkCurrentWorkSituationType(socialDeterminantsResults.currentWorkSituation)) {
-      addCustomToTallyBasedOnCondition(indexes, currentWorkSituation[socialDeterminantsResults.currentWorkSituation], true, 1);
+    if (
+      checkCurrentWorkSituationType(
+        socialDeterminantsResults.currentWorkSituation
+      )
+    ) {
+      addCustomToTallyBasedOnCondition(
+        indexes,
+        currentWorkSituation[socialDeterminantsResults.currentWorkSituation],
+        true,
+        1
+      );
     }
   }
 };
-
-const updateGeneralHealthSummary = (eventInput, county, state, indexes) => {
-  let { generalHealthResults } = eventInput;
-  let { raceIndex, ageIndex, sexIndex } = indexes;
-};
-
 const incrementTotalFullEntries = (county, state) => {
   county.totalFullEntries += 1;
   state.totalFullEntries += 1;
-};
-
-const incrementDemographics = (eventInput, county, state, indexes) => {
-  const { ageIndex, raceIndex, sexIndex } = indexes;
-
-  let { totalDemoCount } = county;
-  // console.log(county);
-  // const { totalDemoCount } = county;
-
-  addCustomToTallyBasedOnCondition(indexes, totalDemoCount, true, 1);
-
-  ({ totalDemoCount } = state);
-
-  addCustomToTallyBasedOnCondition(indexes, totalDemoCount, true, 1);
-};
-
-const getDemoCount = (countyDemoCount, stateDemoCount, indexes) => {
-  let { raceIndex, ageIndex, sexIndex } = indexes;
-  let countyRacePop = countyDemoCount.race.values[raceIndex];
-  let countyAgePop = countyDemoCount.race.values[ageIndex];
-  let countySexPop = countyDemoCount.race.values[sexIndex];
-
-  let stateRacePop = stateDemoCount.race.values[raceIndex];
-  let stateAgePop = stateDemoCount.race.values[ageIndex];
-  let stateSexPop = stateDemoCount.race.values[sexIndex];
-
-  return {
-    countyPop: {
-      raceTotal: countyRacePop,
-      ageTotal: countyAgePop,
-      sexTotal: countySexPop,
-    },
-    statePop: {
-      raceTotal: stateRacePop,
-      ageTotal: stateAgePop,
-      sexTotal: stateSexPop,
-    },
-  };
 };
 
 const aggregateSurveyResults = async (eventInput) => {
@@ -1849,11 +1983,10 @@ const aggregateSurveyResults = async (eventInput) => {
   updateRecoverySummary(eventInput, county, state, indexes);
   updateVaccinationSummary(eventInput, county, state, indexes);
   updateGlobalHealthSummary(eventInput, county, state, indexes);
-
   updateSymptomSummary(eventInput, county, state, indexes);
   updateMedicalConditionsSummary(eventInput, county, state, indexes);
+  updatePatientHealthSummary(eventInput, county, state, indexes);
   updateSocialSummary(eventInput, county, state, indexes);
-
   //increment at the last. updates require OLD count
   incrementTotalFullEntries(county, state);
 
