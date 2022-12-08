@@ -16,7 +16,7 @@ import {
   TabPanel,
   Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useRef, useState, useLayoutEffect } from "react";
 import {
   selectLeftSidePanelPres,
   setLeftSidePanelPres,
@@ -42,6 +42,8 @@ import faker from "faker";
 import { MapData } from "../../src/API";
 import { mapDataByLevelNameState } from "../../src/graphql/queries";
 import { COVIDVisualizations } from "./Visualizations/COVID/COVIDVisualizations";
+import { VaccinationVisualizations } from "./Visualizations/Vaccination/VaccinationVisualization";
+import { SymptomsVisualizations } from "./Visualizations/Symptoms/SymptomsVisualization";
 
 ChartJS.register(
   CategoryScale,
@@ -64,26 +66,49 @@ export enum SurveySection {
   VACCINATION = "Vaccination",
   HEALTH = "Health",
   SOCIAL = "Social",
+  SYMPTOMS = "SYMPTOMS",
 }
 
 export type LeftSidePanelBodyProps = {
   section: SurveySection;
   data: MapData;
+  panelDimensions: { width: number; height: number };
 };
 
 const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
   section,
   data,
+  panelDimensions,
 }) => {
   switch (section) {
     case SurveySection.COVID:
-      return <COVIDVisualizations section={section} data={data} />;
+      return (
+        <COVIDVisualizations
+          section={section}
+          data={data}
+          panelDimensions={panelDimensions}
+        />
+      );
     case SurveySection.HEALTH:
       return <Text>Health</Text>;
     case SurveySection.VACCINATION:
-      return <Text>Vaccination</Text>;
+      return (
+        <VaccinationVisualizations
+          section={section}
+          data={data}
+          panelDimensions={panelDimensions}
+        />
+      );
     case SurveySection.SOCIAL:
       return <Text>Social</Text>;
+    case SurveySection.SYMPTOMS:
+      return (
+        <SymptomsVisualizations
+          section={section}
+          data={data}
+          panelDimensions={panelDimensions}
+        />
+      );
     default:
       return <Text>Default</Text>;
   }
@@ -95,104 +120,24 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
   const [section, setSection] = useState(SurveySection.COVID);
+  const [panelDimensions, setPanelDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
+  const panelRef = useRef<HTMLDivElement | null>(null);
 
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-  ];
-
-  const options_1 = {
-    labels,
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
-      },
-      title: {
-        display: true,
-        text: "Long covid count by age",
-      },
-      datalabels: {
-        anchor: "end",
-        align: "top",
-        formatter: Math.round,
-        font: {
-          weight: "bold",
-          size: 16,
-        },
-      },
-    },
+  const setDimensions = () => {
+    if (panelRef.current !== null) {
+      setPanelDimensions({
+        width: panelRef.current.offsetWidth,
+        height: panelRef.current.offsetHeight,
+      });
+    }
   };
 
-  const data_1 = {
-    labels,
-    datasets: [
-      {
-        label: "Number of cases",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 500 })),
-        backgroundColor: "rgba(0, 100, 255, 0.5)",
-      },
-    ],
-  };
-
-  const labels1 = ["January", "April", "July", "October"];
-  const options_3 = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
-      },
-      title: {
-        display: true,
-        text: "Vaccination count",
-      },
-      datalabels: {
-        anchor: "end",
-        align: "top",
-        formatter: Math.round,
-        font: {
-          weight: "bold",
-          size: 16,
-        },
-      },
-    },
-  };
-
-  const data_3 = {
-    labels,
-    datasets: [
-      {
-        label: "Pfizer",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "Moderna",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
-      },
-      {
-        label: "J&J",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(97, 230, 235, 0.5)",
-      },
-      {
-        label: "AZ",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(9, 30, 235, 0.5)",
-      },
-    ],
-  };
+  useLayoutEffect(() => {
+    setDimensions();
+  }, [width]);
 
   return (
     <>
@@ -208,6 +153,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
           left: presentLeftSidePanel ? "20px" : "0px",
           height: width < 700 ? height - 300 : height - 130,
         }}
+        ref={panelRef}
       >
         <Box
           className={styles.leftSidePanel}
@@ -255,37 +201,61 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
                     h="100%"
                   >
                     <TabList>
-                      <Tab
-                        onClick={() => setSection(SurveySection.COVID)}
-                        fontSize={"13px"}
-                      >
-                        COVID
-                      </Tab>
-                      <Tab
-                        onClick={() => setSection(SurveySection.VACCINATION)}
-                        fontSize={"13px"}
-                      >
-                        Vaccination
-                      </Tab>
-                      <Tab
-                        onClick={() => setSection(SurveySection.HEALTH)}
-                        fontSize={"13px"}
-                      >
-                        Health
-                      </Tab>
-                      <Tab
-                        onClick={() => setSection(SurveySection.SOCIAL)}
-                        fontSize={"13px"}
-                      >
-                        Social
-                      </Tab>
+                      <Wrap>
+                        <WrapItem>
+                          <Tab
+                            onClick={() => setSection(SurveySection.COVID)}
+                            fontSize={"13px"}
+                          >
+                            COVID
+                          </Tab>
+                        </WrapItem>
+                        <WrapItem>
+                          <Tab
+                            onClick={() =>
+                              setSection(SurveySection.VACCINATION)
+                            }
+                            fontSize={"13px"}
+                          >
+                            Vaccination
+                          </Tab>
+                        </WrapItem>
+                        <WrapItem>
+                          <Tab
+                            onClick={() => setSection(SurveySection.SYMPTOMS)}
+                            fontSize={"13px"}
+                          >
+                            Symptoms
+                          </Tab>
+                        </WrapItem>
+                        <WrapItem>
+                          <Tab
+                            onClick={() => setSection(SurveySection.HEALTH)}
+                            fontSize={"13px"}
+                          >
+                            Health
+                          </Tab>
+                        </WrapItem>
+                        <WrapItem>
+                          <Tab
+                            onClick={() => setSection(SurveySection.SOCIAL)}
+                            fontSize={"13px"}
+                          >
+                            Social
+                          </Tab>
+                        </WrapItem>
+                      </Wrap>
                     </TabList>
                   </Tabs>
                 </WrapItem>
               </Wrap>
             </Flex>
             <VStack w="100%" align={"start"}>
-              <LeftSidePanelBody section={section} data={data} />
+              <LeftSidePanelBody
+                section={section}
+                data={data}
+                panelDimensions={panelDimensions}
+              />
             </VStack>
             <Spacer />
           </VStack>

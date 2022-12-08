@@ -9,9 +9,9 @@ import {
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { LeftSidePanelBodyProps } from "../../LeftSidePanel";
-import { COVIDTotalVisuals } from "./COVIDTotalVisuals";
+import { SymptomsTotalVisuals } from "./SymptomsTotalVisualization";
 
-export const COVIDVisualizations: React.FC<LeftSidePanelBodyProps> = ({
+export const SymptomsVisualizations: React.FC<LeftSidePanelBodyProps> = ({
   section,
   data,
   panelDimensions,
@@ -20,16 +20,16 @@ export const COVIDVisualizations: React.FC<LeftSidePanelBodyProps> = ({
     <VStack>
       <Tabs variant="enclosed" colorScheme={"hopkinsBlue"}>
         <TabList>
-          <Tab fontSize={"14px"}>Totals</Tab>
+          <Tab fontSize={"14px"}>Total</Tab>
           <Tab fontSize={"14px"}>Age</Tab>
           <Tab fontSize={"14px"}>Race</Tab>
           <Tab fontSize={"14px"}>Sex</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <COVIDTotalVisuals
-              data={data}
+            <SymptomsTotalVisuals
               section={section}
+              data={data}
               panelDimensions={panelDimensions}
             />
           </TabPanel>
