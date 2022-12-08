@@ -19,6 +19,9 @@ export type CreateMapDataInput = {
   stateAbbrev: string,
   lat: number,
   long: number,
+  covidCount: number,
+  longCovid: number,
+  topMedicalCondition: string,
   covidSummary: CovidSummaryInput,
   recoverySummary: RecoverySummaryInput,
   vaccinationSummary: VaccinationSummaryInput,
@@ -261,6 +264,9 @@ export type WorkingSituationInput = {
 export type ModelMapDataConditionInput = {
   name?: ModelStringInput | null,
   stateAbbrev?: ModelStringInput | null,
+  covidCount?: ModelIntInput | null,
+  longCovid?: ModelIntInput | null,
+  topMedicalCondition?: ModelStringInput | null,
   totalFullEntries?: ModelIntInput | null,
   and?: Array< ModelMapDataConditionInput | null > | null,
   or?: Array< ModelMapDataConditionInput | null > | null,
@@ -327,6 +333,9 @@ export type MapData = {
   stateAbbrev: string,
   lat: number,
   long: number,
+  covidCount: number,
+  longCovid: number,
+  topMedicalCondition: string,
   covidSummary: CovidSummary,
   recoverySummary: RecoverySummary,
   vaccinationSummary: VaccinationSummary,
@@ -599,6 +608,9 @@ export type UpdateMapDataInput = {
   stateAbbrev?: string | null,
   lat: number,
   long: number,
+  covidCount?: number | null,
+  longCovid?: number | null,
+  topMedicalCondition?: string | null,
   covidSummary?: CovidSummaryInput | null,
   recoverySummary?: RecoverySummaryInput | null,
   vaccinationSummary?: VaccinationSummaryInput | null,
@@ -1518,6 +1530,9 @@ export type ModelMapDataFilterInput = {
   stateAbbrev?: ModelStringInput | null,
   lat?: ModelFloatInput | null,
   long?: ModelFloatInput | null,
+  covidCount?: ModelIntInput | null,
+  longCovid?: ModelIntInput | null,
+  topMedicalCondition?: ModelStringInput | null,
   totalFullEntries?: ModelIntInput | null,
   and?: Array< ModelMapDataFilterInput | null > | null,
   or?: Array< ModelMapDataFilterInput | null > | null,
@@ -1875,6 +1890,9 @@ export type CreateMapDataMutation = {
     stateAbbrev: string,
     lat: number,
     long: number,
+    covidCount: number,
+    longCovid: number,
+    topMedicalCondition: string,
     covidSummary:  {
       __typename: "CovidSummary",
       beenInfected?:  {
@@ -2226,6 +2244,9 @@ export type UpdateMapDataMutation = {
     stateAbbrev: string,
     lat: number,
     long: number,
+    covidCount: number,
+    longCovid: number,
+    topMedicalCondition: string,
     covidSummary:  {
       __typename: "CovidSummary",
       beenInfected?:  {
@@ -2577,6 +2598,9 @@ export type DeleteMapDataMutation = {
     stateAbbrev: string,
     lat: number,
     long: number,
+    covidCount: number,
+    longCovid: number,
+    topMedicalCondition: string,
     covidSummary:  {
       __typename: "CovidSummary",
       beenInfected?:  {
@@ -16612,6 +16636,9 @@ export type GetMapDataQuery = {
     stateAbbrev: string,
     lat: number,
     long: number,
+    covidCount: number,
+    longCovid: number,
+    topMedicalCondition: string,
     covidSummary:  {
       __typename: "CovidSummary",
       beenInfected?:  {
@@ -16969,6 +16996,9 @@ export type ListMapDataQuery = {
       stateAbbrev: string,
       lat: number,
       long: number,
+      covidCount: number,
+      longCovid: number,
+      topMedicalCondition: string,
       covidSummary:  {
         __typename: "CovidSummary",
         beenInfected?:  {
@@ -17328,6 +17358,9 @@ export type MapDataByLevelNameStateQuery = {
       stateAbbrev: string,
       lat: number,
       long: number,
+      covidCount: number,
+      longCovid: number,
+      topMedicalCondition: string,
       covidSummary:  {
         __typename: "CovidSummary",
         beenInfected?:  {
@@ -17687,6 +17720,9 @@ export type MapDataByStateAbbrevQuery = {
       stateAbbrev: string,
       lat: number,
       long: number,
+      covidCount: number,
+      longCovid: number,
+      topMedicalCondition: string,
       covidSummary:  {
         __typename: "CovidSummary",
         beenInfected?:  {
@@ -38516,6 +38552,9 @@ export type OnCreateMapDataSubscription = {
     stateAbbrev: string,
     lat: number,
     long: number,
+    covidCount: number,
+    longCovid: number,
+    topMedicalCondition: string,
     covidSummary:  {
       __typename: "CovidSummary",
       beenInfected?:  {
@@ -38862,6 +38901,9 @@ export type OnUpdateMapDataSubscription = {
     stateAbbrev: string,
     lat: number,
     long: number,
+    covidCount: number,
+    longCovid: number,
+    topMedicalCondition: string,
     covidSummary:  {
       __typename: "CovidSummary",
       beenInfected?:  {
@@ -39208,6 +39250,9 @@ export type OnDeleteMapDataSubscription = {
     stateAbbrev: string,
     lat: number,
     long: number,
+    covidCount: number,
+    longCovid: number,
+    topMedicalCondition: string,
     covidSummary:  {
       __typename: "CovidSummary",
       beenInfected?:  {

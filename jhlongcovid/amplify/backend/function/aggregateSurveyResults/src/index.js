@@ -28,6 +28,9 @@ let properties = `
       stateAbbrev
       lat
       long
+      covidCount
+      longCovid
+      topMedicalCondition
       covidSummary {
         beenInfected {
           yes
@@ -413,6 +416,9 @@ let variables = {
     stateAbbrev: "CA",
     lat: 13.54535353533555,
     long: -54.345353535635,
+    covidCount: 0,
+    longCovid: 0,
+    topMedicalCondition: "",
     covidSummary: {
       beenInfected: {
         yes: JSON.stringify(NullJSONData),
@@ -1366,6 +1372,10 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
     let objectsToUpdate = [];
 
     if (checkNotNullAndBoolType(covidResults.beenInfected)) {
+      county.covidCount += (covidResults.beenInfected) ? 1 : 0;
+      state.covidCount += (covidResults.beenInfected) ? 1 : 0;
+      
+      
       let prop = trueEqualsYes(covidResults.beenInfected);
       objectsToUpdate.push(beenInfected[prop]);
     }
@@ -1594,6 +1604,22 @@ const updateGlobalHealthSummary = (eventInput, county, state, indexes) => {
   }
 };
 
+const findMostFrequentDiagnosis = (diagnosisCounts) => {
+  let mostfreq = 'more data needed';
+  let num = 0;
+  for (const diag in diagnosisCounts) {
+    let arr = diagnosisCounts[diag].race.values;
+    const sum = arr.reduce((accumulator, value) => {
+      return accumulator + value;
+    }, 0);
+    if (sum > num) {
+      num = sum
+      mostfreq = diag;
+    }
+  }
+  return mostfreq;
+}
+
 const updateSymptomSummary = (eventInput, county, state, indexes) => {
   let { symptomResults } = eventInput;
 
@@ -1694,10 +1720,17 @@ const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
       });
     }
 
+    county.topMedicalCondition = findMostFrequentDiagnosis(newDiagnosisCounts);
+    state.topMedicalCondition = county.topMedicalCondition;
+
+
     if (
       checkNotNullAndStringType(symptomResults.hasLongCovid) &&
       checkYesNoDoNotKnowType(symptomResults.hasLongCovid)
     ) {
+      county.longCovid += (symptomResults.hasLongCovid === "yes") ? 1 : 0;
+      state.longCovid += (symptomResults.hasLongCovid === "yes") ? 1 : 0;
+
       addCustomToTallyBasedOnCondition(
         indexes,
         longCovid[symptomResults.hasLongCovid],
@@ -1992,6 +2025,7 @@ const aggregateSurveyResults = async (eventInput) => {
 
   stringify(county);
   stringify(state);
+
 
   // //upload back to appsync, updated county/state
   await updateMapData(county, state);

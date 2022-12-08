@@ -30,6 +30,9 @@ type MapData
   stateAbbrev: String!
   lat: Float!
   long: Float!
+  covidCount: Int!
+  longCovid: Int!
+  topMedicalCondition: String!
   covidSummary: CovidSummary!
   recoverySummary: RecoverySummary!
   vaccinationSummary: VaccinationSummary!

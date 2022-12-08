@@ -11,6 +11,9 @@ export const getMapData = /* GraphQL */ `
       stateAbbrev
       lat
       long
+      covidCount
+      longCovid
+      topMedicalCondition
       covidSummary {
         beenInfected {
           yes
@@ -327,6 +330,9 @@ export const listMapData = /* GraphQL */ `
         stateAbbrev
         lat
         long
+        covidCount
+        longCovid
+        topMedicalCondition
         covidSummary {
           beenInfected {
             yes
@@ -645,6 +651,9 @@ export const mapDataByLevelNameState = /* GraphQL */ `
         stateAbbrev
         lat
         long
+        covidCount
+        longCovid
+        topMedicalCondition
         covidSummary {
           beenInfected {
             yes
@@ -963,6 +972,9 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
         stateAbbrev
         lat
         long
+        covidCount
+        longCovid
+        topMedicalCondition
         covidSummary {
           beenInfected {
             yes

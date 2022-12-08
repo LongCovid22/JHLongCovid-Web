@@ -11,6 +11,9 @@ export const onCreateMapData = /* GraphQL */ `
       stateAbbrev
       lat
       long
+      covidCount
+      longCovid
+      topMedicalCondition
       covidSummary {
         beenInfected {
           yes
@@ -312,6 +315,9 @@ export const onUpdateMapData = /* GraphQL */ `
       stateAbbrev
       lat
       long
+      covidCount
+      longCovid
+      topMedicalCondition
       covidSummary {
         beenInfected {
           yes
@@ -613,6 +619,9 @@ export const onDeleteMapData = /* GraphQL */ `
       stateAbbrev
       lat
       long
+      covidCount
+      longCovid
+      topMedicalCondition
       covidSummary {
         beenInfected {
           yes
