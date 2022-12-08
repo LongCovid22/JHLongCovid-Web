@@ -42,7 +42,7 @@ Global Health Results:
 18) healthRank: String ("excellent", "veryGood", "good", "fair", "poor")
 19) physicalHealthRank: String ("excellent", "veryGood", "good", "fair", "poor")
 20) carryPhysicalActivities: String ("completely", "mostly", "moderately", "aLittle", "notAtAll")
-21) fatigueRank: Integer ("none", "mild", "moderate", "severe", "verySevere")
+21) fatigueRank: String ("none", "mild", "moderate", "severe", "verySevere")
 22) painLevel: Integer (1 (no pain) - 10 (worst Pain))
 
 Symptom Survey :
