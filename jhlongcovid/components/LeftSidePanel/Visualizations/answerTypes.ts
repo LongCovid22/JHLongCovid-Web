@@ -99,3 +99,17 @@ export type SymptomsAvailable = {
   hearingProblems: SummaryDemos;
   fertilityProblemsForWomen: SummaryDemos;
 };
+
+export type WorkingSituation = {
+  atOffice: SummaryDemos;
+  hybrid: SummaryDemos;
+  remote: SummaryDemos;
+  remoteAndParenting: SummaryDemos;
+  onJobLeave: SummaryDemos;
+  unemployed: SummaryDemos;
+  retired: SummaryDemos;
+  disability: SummaryDemos;
+  student: SummaryDemos;
+  doNotKnow: SummaryDemos;
+  preferNotToAnswer: SummaryDemos;
+};

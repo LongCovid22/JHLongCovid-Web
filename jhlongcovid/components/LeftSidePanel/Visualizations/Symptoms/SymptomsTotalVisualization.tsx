@@ -42,7 +42,9 @@ import { selectWidth } from "../../../../redux/slices/viewportSlice";
 import {
   createSymptomCountConfig,
   getSymptomsCount,
+  getMostCommonSymptom,
 } from "./symptomsVisualizationFunctions";
+import { createTotalsChartConfig } from "../visualizationFunctions";
 
 ChartJS.register(
   CategoryScale,
@@ -71,7 +73,33 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 }) => {
   const { symptomSummary, covidSummary } = mockResult.county;
   const [totalSymptomsCount, setTotalSymptomsCount] = useState(0);
+  const [mostCommonSymptom, setMostCommonSymptom] = useState("");
   const [symptomCountConfig, setSymptomCountConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [qualityOfLife, setQOLConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [mentalHealthRank, setMentalHealthConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [socialSatisfactionRank, setSocialSatisConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [carryOutSocial, setCarryOutSocialConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [anxiety, setAnxietyConfig] = useState<{
     labels: string[];
     options: any;
     data: any;
@@ -82,7 +110,43 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     // Perform all processing on map data and populate visualizations
     const summary: SymptomSummary = symptomSummary;
     setTotalSymptomsCount(getSymptomsCount(covidSummary.symptomatic));
+    setMostCommonSymptom(getMostCommonSymptom(summary.symptomCounts));
     setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
+    setQOLConfig(
+      createTotalsChartConfig(
+        summary.qualityOfLife,
+        "Quality of Life",
+        "People"
+      )
+    );
+    setMentalHealthConfig(
+      createTotalsChartConfig(
+        summary.qualityOfLife,
+        "Mental Health Rank",
+        "People"
+      )
+    );
+    setSocialSatisConfig(
+      createTotalsChartConfig(
+        summary.socialSatisfactionRank,
+        "Social Satisfaction Rank",
+        "People"
+      )
+    );
+    setCarryOutSocialConfig(
+      createTotalsChartConfig(
+        summary.socialSatisfactionRank,
+        "Carry Out Social Activities Rank",
+        "People"
+      )
+    );
+    setAnxietyConfig(
+      createTotalsChartConfig(
+        summary.socialSatisfactionRank,
+        "Anxiety In Past Week",
+        "People"
+      )
+    );
   }, [data]);
 
   return (
@@ -95,8 +159,14 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             <StatHelpText>Total people w/ symptoms</StatHelpText>
           </Stat>
         </WrapItem>
+        <WrapItem>
+          <Stat>
+            <StatLabel>Most Common Symptom</StatLabel>
+            <StatNumber>{mostCommonSymptom}</StatNumber>
+            <StatHelpText>Most common symptom reported</StatHelpText>
+          </Stat>
+        </WrapItem>
       </Wrap>
-      {/* Graph Wrap */}
       <Wrap spacing="30px">
         <WrapItem width={panelDimensions.width - 100}>
           <Bar
@@ -104,6 +174,37 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             data={symptomCountConfig.data}
             height={"300px"}
           />
+        </WrapItem>
+        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+          <Bar
+            options={qualityOfLife.options}
+            data={qualityOfLife.data}
+            height={"300px"}
+          />
+        </WrapItem>
+        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+          <Bar
+            options={mentalHealthRank.options}
+            data={mentalHealthRank.data}
+            height={"300px"}
+          />
+        </WrapItem>
+        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+          <Bar
+            options={socialSatisfactionRank.options}
+            data={socialSatisfactionRank.data}
+            height={"300px"}
+          />
+        </WrapItem>
+        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+          <Bar
+            options={carryOutSocial.options}
+            data={carryOutSocial.data}
+            height={"300px"}
+          />
+        </WrapItem>
+        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+          <Bar options={anxiety.options} data={anxiety.data} height={"300px"} />
         </WrapItem>
       </Wrap>
     </VStack>

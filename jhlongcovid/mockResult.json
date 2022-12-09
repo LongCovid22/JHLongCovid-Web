@@ -1977,6 +1977,410 @@
         }
       }
     },
+    "socialSummary": {
+      "hasMedicalInsurance": {
+        "yes": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "no": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        }
+      },
+      "difficultCoveringExpenses": {
+        "veryDifficult": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "somewhatDifficult": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "notAtAllDifficult": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "doNotKnow": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "preferNotToAnswer": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        }
+      },
+      "currentWorkSituation": {
+        "atOffice": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "hybrid": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "remote": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "remoteAndParenting": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "onJobLeave": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "unemployed": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "retired": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "disability": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "student": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "doNotKnow": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        },
+        "preferNotToAnswer": {
+          "race": {
+            "ranges": [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            "values": [0, 0, 23, 0, 0, 1, 0]
+          },
+          "age": {
+            "ranges": ["1-13", "13-25", "25-60", "60+"],
+            "values": [0, 1, 0, 10]
+          },
+          "sex": {
+            "ranges": ["Male", "Female", "Other"],
+            "values": [7, 8, 0]
+          }
+        }
+      }
+    },
     "totalFullEntries": 75,
     "totalDemoCount": {
       "race": {

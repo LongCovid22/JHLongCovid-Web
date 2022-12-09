@@ -1,11 +1,32 @@
-import { SymptomsAvailable, YesNo } from "../answerTypes";
-import { createTotalsChartData } from "../visualizationFunctions";
+import { SymptomsAvailable, SummaryDemos, YesNo } from "../answerTypes";
+import {
+  createTotalsChartData,
+  convertCamelCase,
+} from "../visualizationFunctions";
 
 export const getSymptomsCount = (symptoms: YesNo) => {
   return symptoms.yes.race.values.reduce(
     (acc: number, curr: number) => acc + curr,
     0
   );
+};
+
+export const getMostCommonSymptom = (symptoms: SymptomsAvailable) => {
+  let max = 0;
+  let symptom = "None";
+  Object.keys(symptoms).forEach((value: string) => {
+    let summariesDemo: SummaryDemos =
+      symptoms[value as keyof SymptomsAvailable];
+    let count = summariesDemo.race.values.reduce(
+      (acc: number, curr: number) => acc + curr,
+      0
+    );
+    if (count > max) {
+      max = count;
+      symptom = convertCamelCase(value);
+    }
+  });
+  return symptom;
 };
 
 export const createSymptomCountConfig = (
@@ -18,7 +39,7 @@ export const createSymptomCountConfig = (
     options: {
       options: {
         responsive: true,
-        maintainsAspectRation: false,
+        maintainsAspectRatio: false,
       },
       plugins: {
         legend: {

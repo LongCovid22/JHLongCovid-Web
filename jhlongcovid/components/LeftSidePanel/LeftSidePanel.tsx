@@ -44,6 +44,7 @@ import { mapDataByLevelNameState } from "../../src/graphql/queries";
 import { COVIDVisualizations } from "./Visualizations/COVID/COVIDVisualizations";
 import { VaccinationVisualizations } from "./Visualizations/Vaccination/VaccinationVisualization";
 import { SymptomsVisualizations } from "./Visualizations/Symptoms/SymptomsVisualization";
+import { SocialVisualizations } from "./Visualizations/Social/SocialVisualization";
 
 ChartJS.register(
   CategoryScale,
@@ -100,7 +101,13 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
         />
       );
     case SurveySection.SOCIAL:
-      return <Text>Social</Text>;
+      return (
+        <SocialVisualizations
+          section={section}
+          data={data}
+          panelDimensions={panelDimensions}
+        />
+      );
     case SurveySection.SYMPTOMS:
       return (
         <SymptomsVisualizations

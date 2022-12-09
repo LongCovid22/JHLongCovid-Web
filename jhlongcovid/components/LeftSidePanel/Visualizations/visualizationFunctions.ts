@@ -26,6 +26,70 @@ export const createTotalsChartData = (data: object) => {
   return { labels, chartData };
 };
 
+export const createTotalsChartConfig = (
+  data: object,
+  title: string,
+  label: string
+) => {
+  const { labels, chartData } = createTotalsChartData(data);
+  const config = {
+    labels: labels,
+    options: {
+      options: {
+        responsive: true,
+        maintainsAspectRatio: false,
+      },
+      plugins: {
+        legend: {
+          position: "top" as const,
+        },
+        title: {
+          display: true,
+          text: title,
+        },
+        datalabels: {
+          anchor: "end",
+          align: "top",
+          formatter: Math.round,
+          font: {
+            weight: "bold",
+            size: 16,
+          },
+        },
+      },
+    },
+    data: {
+      labels,
+      datasets: [
+        {
+          label: label,
+          data: chartData,
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(9, 30, 235, 0.5)",
+        },
+      ],
+    },
+  };
+  return config;
+};
+
+export const getMostCommonInSummary = (data: object) => {
+  let max = 0;
+  let symptom = "None";
+  Object.keys(data).forEach((value: string) => {
+    let demo: SummaryDemos = data[value as keyof object];
+    let count = demo.race.values.reduce(
+      (acc: number, curr: number) => acc + curr,
+      0
+    );
+    if (count > max) {
+      max = count;
+      symptom = convertCamelCase(value);
+    }
+  });
+  return symptom;
+};
+
 export const convertCamelCase = (input: string): string => {
   // Use a regular expression to match words with upper case letters
   const regEx = /[A-Z]/g;
