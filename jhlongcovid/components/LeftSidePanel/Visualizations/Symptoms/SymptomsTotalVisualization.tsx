@@ -21,9 +21,8 @@ import {
   StatNumber,
   StatHelpText,
   VStack,
-  Box,
 } from "@chakra-ui/react";
-import { Bar, Doughnut } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -36,7 +35,6 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import faker from "faker";
 import { useAppSelector } from "../../../../redux/hooks";
 import { selectWidth } from "../../../../redux/slices/viewportSlice";
 import {
@@ -44,7 +42,11 @@ import {
   getSymptomsCount,
   getMostCommonSymptom,
 } from "./symptomsVisualizationFunctions";
-import { createTotalsChartConfig } from "../visualizationFunctions";
+import {
+  backgroundColors,
+  createTotalsChartConfig,
+} from "../visualizationFunctions";
+import { capitalizeFirstLetters } from "../Social/socialVisualizationFunctions";
 
 ChartJS.register(
   CategoryScale,
@@ -108,43 +110,58 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
+    const colors = [
+      backgroundColors.green,
+      backgroundColors.blue,
+      backgroundColors.yellow,
+      backgroundColors.orange,
+      backgroundColors.red,
+    ];
+
     const summary: SymptomSummary = symptomSummary;
     setTotalSymptomsCount(getSymptomsCount(covidSummary.symptomatic));
-    setMostCommonSymptom(getMostCommonSymptom(summary.symptomCounts));
+    setMostCommonSymptom(
+      capitalizeFirstLetters(getMostCommonSymptom(summary.symptomCounts))
+    );
     setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
     setQOLConfig(
       createTotalsChartConfig(
         summary.qualityOfLife,
         "Quality of Life",
-        "People"
+        "People",
+        colors
       )
     );
     setMentalHealthConfig(
       createTotalsChartConfig(
         summary.qualityOfLife,
         "Mental Health Rank",
-        "People"
+        "People",
+        colors
       )
     );
     setSocialSatisConfig(
       createTotalsChartConfig(
         summary.socialSatisfactionRank,
         "Social Satisfaction Rank",
-        "People"
+        "People",
+        colors
       )
     );
     setCarryOutSocialConfig(
       createTotalsChartConfig(
         summary.socialSatisfactionRank,
         "Carry Out Social Activities Rank",
-        "People"
+        "People",
+        colors
       )
     );
     setAnxietyConfig(
       createTotalsChartConfig(
         summary.socialSatisfactionRank,
         "Anxiety In Past Week",
-        "People"
+        "People",
+        colors
       )
     );
   }, [data]);
@@ -168,11 +185,11 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         </WrapItem>
       </Wrap>
       <Wrap spacing="30px">
-        <WrapItem width={panelDimensions.width - 100}>
+        <WrapItem width={width < 1500 ? "300px" : "500px"}>
           <Bar
             options={symptomCountConfig.options}
             data={symptomCountConfig.data}
-            height={"300px"}
+            height={width < 1500 ? "400px" : "300px"}
           />
         </WrapItem>
         <WrapItem width={width < 1500 ? "300px" : "325px"}>

@@ -20,7 +20,7 @@ export const COVIDVisualizations: React.FC<LeftSidePanelBodyProps> = ({
     <VStack>
       <Tabs variant="enclosed" colorScheme={"hopkinsBlue"}>
         <TabList>
-          <Tab fontSize={"14px"}>Totals</Tab>
+          <Tab fontSize={"14px"}>Total</Tab>
           <Tab fontSize={"14px"}>Age</Tab>
           <Tab fontSize={"14px"}>Race</Tab>
           <Tab fontSize={"14px"}>Sex</Tab>

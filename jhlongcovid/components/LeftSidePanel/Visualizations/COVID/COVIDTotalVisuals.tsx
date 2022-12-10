@@ -26,6 +26,10 @@ import {
   StatNumber,
   StatHelpText,
   VStack,
+  Spinner,
+  HStack,
+  Spacer,
+  Flex,
 } from "@chakra-ui/react";
 import { Bar, Doughnut } from "react-chartjs-2";
 import {
@@ -93,96 +97,108 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     options: any;
     data: any;
   }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [loading, setLoading] = useState(true);
   const width = useAppSelector(selectWidth);
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
-    const totalCases = getTotalCovidCases(covidSummary.beenInfected);
-    const percentOfCovidReported = percentOfTotalCovid(
-      totalCases,
-      totalFullEntries
-    );
-    const totalHospitalizations = getTotalHospitalizations(
-      covidSummary.hospitalized
-    );
-    const percOfSymptomatic = getPercentSymptomatic(
-      getTotalSymptomatic(covidSummary.symptomatic),
-      totalCases
-    );
-    const percOfMedications = getPercentMedications(
-      covidSummary.medicationsPrescribed,
-      totalCases
-    );
-    const medTakenConfig = createMedicationsTakenConfig(
-      covidSummary.medicationsTakenCount
-    );
+    const createGraphVariables = () => {
+      const totalCases = getTotalCovidCases(covidSummary.beenInfected);
+      const percentOfCovidReported = percentOfTotalCovid(
+        totalCases,
+        totalFullEntries
+      );
+      const totalHospitalizations = getTotalHospitalizations(
+        covidSummary.hospitalized
+      );
+      const percOfSymptomatic = getPercentSymptomatic(
+        getTotalSymptomatic(covidSummary.symptomatic),
+        totalCases
+      );
+      const percOfMedications = getPercentMedications(
+        covidSummary.medicationsPrescribed,
+        totalCases
+      );
+      const medTakenConfig = createMedicationsTakenConfig(
+        covidSummary.medicationsTakenCount
+      );
 
-    const recoveryConfig = createRecoveryConfig(recoverySummary.recovered);
+      const recoveryConfig = createRecoveryConfig(recoverySummary.recovered);
 
-    setTotalCovidCases(totalCases);
-    setPercentTotalCovid(percentOfCovidReported);
-    setHospitalizations(totalHospitalizations);
-    setPercentSymptomatic(percOfSymptomatic);
-    setPercentMedications(percOfMedications);
-    setMedicationsTakenConfig(medTakenConfig);
-    setRecoveryConfig(recoveryConfig);
+      setTotalCovidCases(totalCases);
+      setPercentTotalCovid(percentOfCovidReported);
+      setHospitalizations(totalHospitalizations);
+      setPercentSymptomatic(percOfSymptomatic);
+      setPercentMedications(percOfMedications);
+      setMedicationsTakenConfig(medTakenConfig);
+      setRecoveryConfig(recoveryConfig);
+      setLoading(false);
+    };
+
+    createGraphVariables();
   }, [data]);
 
   return (
-    <VStack align={"start"}>
-      <Wrap spacing="30px">
-        <WrapItem>
-          <Stat>
-            <StatLabel>COVID Cases</StatLabel>
-            <StatNumber>{totalCovidCases}</StatNumber>
-            <StatHelpText>Total COVID cases</StatHelpText>
-          </Stat>
-        </WrapItem>
-        <WrapItem>
-          <Stat>
-            <StatLabel>Reported COVID %</StatLabel>
-            <StatNumber>{percentTotalCovid}%</StatNumber>
-            <StatHelpText>% of entries with COVID</StatHelpText>
-          </Stat>
-        </WrapItem>
-        <WrapItem>
-          <Stat>
-            <StatLabel>Hospitalizations</StatLabel>
-            <StatNumber>{hospitalizations}</StatNumber>
-            <StatHelpText>Hospitalizations due to COVID</StatHelpText>
-          </Stat>
-        </WrapItem>
-        <WrapItem>
-          <Stat>
-            <StatLabel>Symptomatic %</StatLabel>
-            <StatNumber>{percentSymptomatic}%</StatNumber>
-            <StatHelpText>% of cases with symptoms</StatHelpText>
-          </Stat>
-        </WrapItem>
-        <WrapItem>
-          <Stat>
-            <StatLabel>Medications %</StatLabel>
-            <StatNumber>{percentMedications}%</StatNumber>
-            <StatHelpText>% of cases medication prescribed</StatHelpText>
-          </Stat>
-        </WrapItem>
-      </Wrap>
-      <Wrap spacing="30px">
-        <WrapItem width={width < 1500 ? "300px" : "325px"}>
-          <Bar
-            options={medicationsTakenConfig.options}
-            data={medicationsTakenConfig.data}
-            height={"300px"}
-          />
-        </WrapItem>
-        <WrapItem width={width < 1500 ? "300px" : "325px"}>
-          <Doughnut
-            options={recoveryTakenConfig.options}
-            data={recoveryTakenConfig.data}
-            height={"300px"}
-          />
-        </WrapItem>
-      </Wrap>
+    <VStack align={"start"} spacing="30px">
+      {loading ? (
+        <Spinner color="hopkinsBlue.800" />
+      ) : (
+        <>
+          <Wrap spacing="30px">
+            <WrapItem>
+              <Stat>
+                <StatLabel>COVID Cases</StatLabel>
+                <StatNumber>{totalCovidCases}</StatNumber>
+                <StatHelpText>Total COVID cases</StatHelpText>
+              </Stat>
+            </WrapItem>
+            <WrapItem>
+              <Stat>
+                <StatLabel>Reported COVID %</StatLabel>
+                <StatNumber>{percentTotalCovid}%</StatNumber>
+                <StatHelpText>% of entries with COVID</StatHelpText>
+              </Stat>
+            </WrapItem>
+            <WrapItem>
+              <Stat>
+                <StatLabel>Hospitalizations</StatLabel>
+                <StatNumber>{hospitalizations}</StatNumber>
+                <StatHelpText>Hospitalizations due to COVID</StatHelpText>
+              </Stat>
+            </WrapItem>
+            <WrapItem>
+              <Stat>
+                <StatLabel>Symptomatic %</StatLabel>
+                <StatNumber>{percentSymptomatic}%</StatNumber>
+                <StatHelpText>% of cases with symptoms</StatHelpText>
+              </Stat>
+            </WrapItem>
+            <WrapItem>
+              <Stat>
+                <StatLabel>Medications %</StatLabel>
+                <StatNumber>{percentMedications}%</StatNumber>
+                <StatHelpText>% of cases medication prescribed</StatHelpText>
+              </Stat>
+            </WrapItem>
+          </Wrap>
+          <Wrap spacing="30px">
+            <WrapItem width={width < 1500 ? "300px" : "325px"}>
+              <Bar
+                options={medicationsTakenConfig.options}
+                data={medicationsTakenConfig.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            <WrapItem width={width < 1500 ? "300px" : "325px"}>
+              <Doughnut
+                options={recoveryTakenConfig.options}
+                data={recoveryTakenConfig.data}
+                height={"300px"}
+              />
+            </WrapItem>
+          </Wrap>
+        </>
+      )}
     </VStack>
   );
 };

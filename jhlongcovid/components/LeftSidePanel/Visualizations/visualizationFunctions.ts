@@ -1,5 +1,14 @@
 import { SummaryDemos } from "./answerTypes";
 
+export const backgroundColors = {
+  red: "rgba(255, 99, 132, 0.5)",
+  orange: "rgba(255, 159, 64, 0.5)",
+  yellow: "rgba(255, 205, 86, 0.5)",
+  green: "rgba(75, 192, 192, 0.5)",
+  blue: "rgba(54, 162, 235, 0.5)",
+  purple: "rgba(153, 102, 255, 0.5)",
+};
+
 /**
  * The createTotalsChartData() function takes in an object and returns an object with two properties: labels and chartData.
  * The labels property is an array of strings, and the chartData property is an array of numbers.
@@ -29,7 +38,8 @@ export const createTotalsChartData = (data: object) => {
 export const createTotalsChartConfig = (
   data: object,
   title: string,
-  label: string
+  label: string,
+  backgroundColors?: string[]
 ) => {
   const { labels, chartData } = createTotalsChartData(data);
   const config = {
@@ -37,7 +47,7 @@ export const createTotalsChartConfig = (
     options: {
       options: {
         responsive: true,
-        maintainsAspectRatio: false,
+        maintainAspectRatio: false,
       },
       plugins: {
         legend: {
@@ -65,7 +75,9 @@ export const createTotalsChartConfig = (
           label: label,
           data: chartData,
           borderColor: "rgb(255, 99, 132)",
-          backgroundColor: "rgba(9, 30, 235, 0.5)",
+          backgroundColor: backgroundColors
+            ? backgroundColors
+            : "rgba(9, 30, 235, 0.5)",
         },
       ],
     },

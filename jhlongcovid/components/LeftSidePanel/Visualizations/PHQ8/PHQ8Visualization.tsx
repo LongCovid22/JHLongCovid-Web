@@ -7,11 +7,11 @@ import {
   TabList,
   TabPanel,
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { LeftSidePanelBodyProps } from "../../LeftSidePanel";
-import { VaccinationTotalVisuals } from "./VaccinationTotalVisuals";
+import { PHQ8TotalVisuals } from "./PHQ8TotalVisualization";
 
-export const VaccinationVisualizations: React.FC<LeftSidePanelBodyProps> = ({
+export const PHQ8Visualizations: React.FC<LeftSidePanelBodyProps> = ({
   section,
   data,
   panelDimensions,
@@ -27,7 +27,7 @@ export const VaccinationVisualizations: React.FC<LeftSidePanelBodyProps> = ({
         </TabList>
         <TabPanels>
           <TabPanel>
-            <VaccinationTotalVisuals
+            <PHQ8TotalVisuals
               section={section}
               data={data}
               panelDimensions={panelDimensions}

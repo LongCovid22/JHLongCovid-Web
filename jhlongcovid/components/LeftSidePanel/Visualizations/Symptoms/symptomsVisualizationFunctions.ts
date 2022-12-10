@@ -39,7 +39,7 @@ export const createSymptomCountConfig = (
     options: {
       options: {
         responsive: true,
-        maintainsAspectRatio: false,
+        maintainAspectRatio: false,
       },
       plugins: {
         legend: {

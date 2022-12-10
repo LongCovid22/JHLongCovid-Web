@@ -101,18 +101,18 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       </Wrap>
       {/* Graph Wrap */}
       <Wrap spacing="30px">
-        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+        <WrapItem width={width < 1500 ? "300px" : "400px"}>
           <Bar
             options={vaccineCountConfig.options}
             data={vaccineCountConfig.data}
-            height={"300px"}
+            height={"400px"}
           />
         </WrapItem>
-        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+        <WrapItem width={width < 1500 ? "300px" : "400px"}>
           <Bar
             options={vaccineTypeCountConfig.options}
             data={vaccineTypeCountConfig.data}
-            height={"300px"}
+            height={"400px"}
           />
         </WrapItem>
       </Wrap>

@@ -18,7 +18,7 @@ export const createTotalVaccineShotsConfig = (
     options: {
       options: {
         responsive: true,
-        maintainsAspectRation: true,
+        maintainAspectRatio: false,
       },
       plugins: {
         legend: {
@@ -72,7 +72,7 @@ export const createVaccineTypeConfig = (
       },
       options: {
         responsive: true,
-        maintainsAspectRation: true,
+        maintainAspectRatio: false,
       },
       plugins: {
         legend: {

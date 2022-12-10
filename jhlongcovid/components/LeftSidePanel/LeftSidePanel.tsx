@@ -45,6 +45,7 @@ import { COVIDVisualizations } from "./Visualizations/COVID/COVIDVisualizations"
 import { VaccinationVisualizations } from "./Visualizations/Vaccination/VaccinationVisualization";
 import { SymptomsVisualizations } from "./Visualizations/Symptoms/SymptomsVisualization";
 import { SocialVisualizations } from "./Visualizations/Social/SocialVisualization";
+import { PHQ8Visualizations } from "./Visualizations/PHQ8/PHQ8Visualization";
 
 ChartJS.register(
   CategoryScale,
@@ -65,7 +66,8 @@ interface LeftSidePanelProps {
 export enum SurveySection {
   COVID = "COVID",
   VACCINATION = "Vaccination",
-  HEALTH = "Health",
+  PHQ8 = "PHQ8",
+  Global = "Global",
   SOCIAL = "Social",
   SYMPTOMS = "SYMPTOMS",
 }
@@ -90,8 +92,14 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
           panelDimensions={panelDimensions}
         />
       );
-    case SurveySection.HEALTH:
-      return <Text>Health</Text>;
+    case SurveySection.PHQ8:
+      return (
+        <PHQ8Visualizations
+          section={section}
+          data={data}
+          panelDimensions={panelDimensions}
+        />
+      );
     case SurveySection.VACCINATION:
       return (
         <VaccinationVisualizations
@@ -153,9 +161,9 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
         in={presentLeftSidePanel}
         style={{
           minWidth: "410px",
-          width: "45%",
+          width: "65%",
           position: "absolute",
-          maxWidth: 1000,
+          // maxWidth: 1000,
           top: width < 700 ? "160px" : "90px",
           left: presentLeftSidePanel ? "20px" : "0px",
           height: width < 700 ? height - 300 : height - 130,
@@ -237,10 +245,10 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
                         </WrapItem>
                         <WrapItem>
                           <Tab
-                            onClick={() => setSection(SurveySection.HEALTH)}
+                            onClick={() => setSection(SurveySection.PHQ8)}
                             fontSize={"13px"}
                           >
-                            Health
+                            PHQ8
                           </Tab>
                         </WrapItem>
                         <WrapItem>

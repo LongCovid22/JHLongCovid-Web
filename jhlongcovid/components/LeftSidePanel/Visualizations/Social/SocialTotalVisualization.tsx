@@ -94,28 +94,32 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
-    setMostCommonWorkSituation(
-      capitalizeFirstLetters(
-        getMostCommonInSummary(socialSummary.currentWorkSituation)
-      )
-    );
-    setHasMedicalInsuranceConfig(
-      createhasMedInsurConfig(socialSummary.hasMedicalInsurance)
-    );
-    setWorkSituationConfig(
-      createTotalsChartConfig(
-        socialSummary.currentWorkSituation,
-        "Work Situations",
-        "People"
-      )
-    );
-    setCoveringExpensesConfig(
-      createTotalsChartConfig(
-        socialSummary.difficultCoveringExpenses,
-        "Difficulty Covering Expenses",
-        "People"
-      )
-    );
+    const createGraphVariables = () => {
+      setMostCommonWorkSituation(
+        capitalizeFirstLetters(
+          getMostCommonInSummary(socialSummary.currentWorkSituation)
+        )
+      );
+      setHasMedicalInsuranceConfig(
+        createhasMedInsurConfig(socialSummary.hasMedicalInsurance)
+      );
+      setWorkSituationConfig(
+        createTotalsChartConfig(
+          socialSummary.currentWorkSituation,
+          "Work Situations",
+          "People"
+        )
+      );
+      setCoveringExpensesConfig(
+        createTotalsChartConfig(
+          socialSummary.difficultCoveringExpenses,
+          "Difficulty Covering Expenses",
+          "People"
+        )
+      );
+    };
+
+    createGraphVariables();
   }, [data]);
 
   return (
@@ -130,21 +134,21 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         </WrapItem>
       </Wrap>
       <Wrap spacing="30px">
-        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+        <WrapItem width={width < 1500 ? "300px" : "375px"}>
           <Bar
             options={hasMedicalInsuranceConfig.options}
             data={hasMedicalInsuranceConfig.data}
             height={"300px"}
           />
         </WrapItem>
-        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+        <WrapItem width={width < 1500 ? "300px" : "375px"}>
           <Bar
             options={workSituationConfig.options}
             data={workSituationConfig.data}
             height={"300px"}
           />
         </WrapItem>
-        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+        <WrapItem width={width < 1500 ? "300px" : "375px"}>
           <Bar
             options={coveringExpensesConfig.options}
             data={coveringExpensesConfig.data}
