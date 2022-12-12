@@ -101,7 +101,7 @@ describe("Create Covid entry from survey answers", () => {
       {
         tableName: "CovidEntry",
         field: "positiveTest",
-        type: "Boolean",
+        type: "String",
       },
       {
         tableName: "CovidEntry",
@@ -116,7 +116,7 @@ describe("Create Covid entry from survey answers", () => {
       {
         tableName: "CovidEntry",
         field: "medicationsPrescribed",
-        type: "Boolean",
+        type: "String",
       },
       {
         tableName: "CovidEntry",
@@ -157,11 +157,11 @@ describe("Create Covid entry from survey answers", () => {
       timesHospitalized: 1,
       lastPositive: new Date("2022-11-09"),
       tested: true,
-      positiveTest: true,
+      positiveTest: "yes",
       symptomatic: true,
-      symptomsPreventScale: "Not at all",
-      medicationsPrescribed: true,
-      medicationsTaken: ["Antiviral pill, such as Paxlovid", "dwd"],
+      symptomsPreventScale: "notAtAll",
+      medicationsPrescribed: "yes",
+      medicationsTaken: ["antiviral", "other"],
     };
 
     expect(entry).toStrictEqual(correctCovidEntry);

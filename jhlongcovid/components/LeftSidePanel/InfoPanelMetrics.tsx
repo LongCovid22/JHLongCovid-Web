@@ -8,25 +8,35 @@ import {
   Tooltip,
   Spacer,
   Flex,
+  HStack,
+  Button,
+  Tab,
+  TabList,
+  Tabs,
+  Wrap,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  WrapItem,
 } from "@chakra-ui/react";
 import React from "react";
-import { InfoOutlineIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { SurveySection } from "./LeftSidePanel";
 
 interface InfoPanelProps {
   data: any;
+  section: SurveySection;
+  setSection: (val: SurveySection) => void;
 }
 
-export const InfoPanelMetrics: React.FC<InfoPanelProps> = ({ data }) => {
+export const InfoPanelMetrics: React.FC<InfoPanelProps> = ({
+  data,
+  section,
+  setSection,
+}) => {
   return (
-    <VStack width={"100%"} spacing={3}>
-      <Flex width={"100%"}>
-        <Heading as="h3" size="lg">
-          {data.level === "state"
-            ? data.name
-            : data.name + ", " + data.stateAbbrev}
-        </Heading>
-        <Spacer />
-      </Flex>
+    <VStack width={"100%"} spacing={5}>
       <StatGroup width={"100%"}>
         <Stat>
           <StatLabel>Long COVID Cases</StatLabel>

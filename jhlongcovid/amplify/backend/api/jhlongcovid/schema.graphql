@@ -39,8 +39,7 @@ type MapData
   medicalConditionsSummary: MedicalConditionsSummary!
   socialSummary: SocialSummary!
   totalFullEntries: Int!
-
-  # patientHealthSummary: PatientHealthSummary
+  totalDemoCount: AWSJSON!
 }
 
 """
@@ -210,7 +209,7 @@ type VaccinationEntry
     @belongsTo
     @auth(rules: [{ allow: private, provider: iam }])
   totalVaccineShots: Int
-  vaccinated: Boolean
+  vaccinated: String # Changed
   vaccineType: String
   dateOfLastVaccine: AWSDateTime
   createdAt: AWSDateTime!
@@ -359,13 +358,13 @@ type CovidEntry
   timesPositive: Int
   lastPositive: AWSDateTime
   tested: Boolean
-  positiveTest: Boolean
+  positiveTest: String #Changed
   testMethod: String
   hospitalized: Boolean
   timesHospitalized: Int
   symptomatic: Boolean
   symptomsPreventScale: String
-  medicationsPrescribed: Boolean
+  medicationsPrescribed: String # changed
   medicationsTaken: [String]
   createdAt: AWSDateTime!
 }
@@ -567,12 +566,13 @@ type SymptomEntry
   weight: String!
   createdAt: AWSDateTime!
   symptoms: [String]
+  qualityOfLifeRank: String
   mentalHealthRank: String
   socialSatisfactionRank: String
   carryOutSocialActivitiesRank: String
   anxietyInPastWeekRank: String
   medicalConditions: [String]
-  hasLongCovid: Boolean
+  hasLongCovid: String # changed
 }
 
 type SocialDeterminantsEntry
@@ -708,13 +708,6 @@ type MonthlyEntry
 # They represent information that could be displayed on click or hover of a map marker.
 # The aim of having these types is to avoid extra queries as a user navigates throughout the map.
 
-type MedicationsAvailable {
-  antiViral: AWSJSON
-  oralSteroids: AWSJSON
-  antiBiotics: AWSJSON
-  other: AWSJSON
-  dontKnow: AWSJSON
-}
 type CovidSummary {
   #one person, one count (as long as infected in past before?)
   covidCount: AWSJSON
@@ -729,33 +722,50 @@ type CovidSummary {
   # percentRecovered: AWSJSON
 }
 
+type MedicationsAvailable {
+  antiViral: AWSJSON
+  oralSteroids: AWSJSON
+  antiBiotics: AWSJSON
+  other: AWSJSON
+  dontKnow: AWSJSON
+}
+
 type RecoverySummary {
-  longCovidCount: AWSJSON
-  percentLongCovid: AWSJSON
+  recoveryCount: AWSJSON
   avgRecoveryLength: AWSJSON
 }
 
-#DONE
+#change types to "Pfizer", "Moderna", "Janssen", "Novavax", "Other", "Do not know"
 type VaccinationSummary {
   percentVaccinated: AWSJSON
   avgNumOfVaccPerPerson: AWSJSON
-  pfizerCount: AWSJSON
-  modernaCount: AWSJSON
-  jjCount: AWSJSON
-  azCount: AWSJSON
+  vaccineCount: VaccineTypes
+}
+
+type VaccineTypes {
+  pfizer: AWSJSON
+  moderna: AWSJSON
+  janssen: AWSJSON
+  novavax: AWSJSON
+  other: AWSJSON
+  doNotKnow: AWSJSON
 }
 
 type GlobalHealthSummary {
-  healthRankCount: AWSJSON
-  physicalHealthRankCount: AWSJSON
-  carryOutPhysicalActivitiesRankCount: AWSJSON
-  fatigueRankCount: AWSJSON
-  painLevelCount: AWSJSON
+  avgGeneralHealth: AWSJSON
+  avgPhysicalHealth: AWSJSON
+  avgEverydayPhysicalCompetency: AWSJSON
+  avgFatigue: AWSJSON
+  avgPain: AWSJSON
 }
 
 #TODO!
 type SymptomSummary {
-  mostCommonSymptom: AWSJSON
+  avgQualityOfLife: AWSJSON
+  avgMentalHealth: AWSJSON
+  avgSocialActivitesRelationships: AWSJSON
+  avgSocialActivitiesCapacity: AWSJSON
+  avgEmotionalProblems: AWSJSON
   symptomCounts: SymptomsAvailabLe
 }
 type SymptomsAvailabLe {
@@ -810,15 +820,27 @@ type DiagnosisTypes {
   psychologicalProblems: AWSJSON
   diabetes: AWSJSON
   autoImmuneDiseases: AWSJSON
+  mecfs: AWSJSON
   other: AWSJSON
   notSure: AWSJSON
 }
 
 type SocialSummary {
   percentHaveMedicalInsurance: AWSJSON
-  percentDifficultyCoveringExpenses: AWSJSON
-  averageWorkingSituation: AWSJSON
+  averageDifficultyCoveringExpenses: AWSJSON
   workingSituationCounts: WorkingSituation
+}
+
+type WorkingSituation {
+  workingOutsideTheHome: AWSJSON
+  onLeaveFromAJobWorkingOutsideHome: AWSJSON
+  workingInsideHome: AWSJSON
+  lookingForWorkUnemployed: AWSJSON
+  retired: AWSJSON
+  disabled: AWSJSON
+  student: AWSJSON
+  dontKnow: AWSJSON
+  preferNotToAnswer: AWSJSON
 }
 
 # #GeneralHealthResults
@@ -841,18 +863,6 @@ type SocialSummary {
 
 #DONE
 
-type WorkingSituation {
-  workingOutsideTheHome: AWSJSON
-  onLeaveFromAJobWorkingOutsideHome: AWSJSON
-  workingInsideHome: AWSJSON
-  lookingForWorkUnemployed: AWSJSON
-  retired: AWSJSON
-  disabled: AWSJSON
-  student: AWSJSON
-  dontKnow: AWSJSON
-  preferNotToAnswer: AWSJSON
-}
-
 #DONE
 
 # -------------------------------
@@ -870,4 +880,15 @@ input SurveyResults {
 type Response {
   statusCode: Int
   body: String
+}
+
+type SummaryResultsByDemo {
+  race: SummaryValues
+  sex: SummaryValues
+  age: SummaryValues
+}
+
+type SummaryValues {
+  ranges: [String]
+  values: [Int]
 }

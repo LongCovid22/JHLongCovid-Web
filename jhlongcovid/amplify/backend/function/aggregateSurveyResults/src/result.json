@@ -1,0 +1,452 @@
+{
+    "county": {
+        id: '7e7c1232-4c58-4221-b3de-ccc14cc2a1ce',
+        name: 'Webster',
+        stateAbbrev: 'NE',
+        lat: 40.1764332141,
+        level: 'county',
+        long: -98.4999473753,
+        covidSummary: {
+          covidCount: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          avgPositiveCasesPerPerson: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,3,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,3,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[3,0,0]}'
+          },
+          percentHospitalizedDueToCovid: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          avgHospitalizationsPerPerson: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          percentSymptomatic: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          avgSymptomPreventDailyTasks: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,3,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,3,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[3,0,0]}'
+          },
+          percentTookMedication: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          medicationCounts: {
+            antiViral: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            oralSteroids: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            antiBiotics: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            other: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            dontKnow: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}'
+          }
+        },
+        recoverySummary: {
+          recoveryCount: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          avgRecoveryLength: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,13,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,13,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[13,0,0]}'
+          }
+        },
+        vaccinationSummary: {
+          percentVaccinated: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          avgNumOfVaccPerPerson: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,3,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,3,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[3,0,0]}'
+          },
+          vaccineCount: {
+            pfizer: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            moderna: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            janssen: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            novavax: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            other: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            doNotKnow: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}'
+          }
+        },
+        globalHealthSummary: {
+          avgGeneralHealth: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,4,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,4,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[4,0,0]}'
+          },
+          avgPhysicalHealth: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,4,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,4,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[4,0,0]}'
+          },
+          avgEverydayPhysicalCompetency: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,4,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,4,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[4,0,0]}'
+          },
+          avgFatigue: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,3,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,3,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[3,0,0]}'
+          },
+          avgPain: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          }
+        },
+        symptomSummary: {
+          avgQualityOfLife: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,4,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,4,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[4,0,0]}'
+          },
+          avgMentalHealth: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,4,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,4,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[4,0,0]}'
+          },
+          avgSocialActivitesRelationships: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,4,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,4,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[4,0,0]}'
+          },
+          avgSocialActivitiesCapacity: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,3,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,3,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[3,0,0]}'
+          },
+          avgEmotionalProblems: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,2,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,2,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[2,0,0]}'
+          },
+          symptomCounts: {
+            headache: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            bodyMuscleAche: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            feverChillsSweatsFlushing: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            faintDizzyGoofy: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',        
+            postExertionalMalaise: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',  
+            weaknessInArmsLegs: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',     
+            shortnessOfBreath: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',      
+            cough: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            palpitations: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            swellingOfLegs: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            indigestionNausea: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',      
+            bladderProblem: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            nerveProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            brainFog: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            anxietyDepressionNightmares: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            problemsThinkingConcentrating: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            problemsAnxietyDepressionStress: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            difficultyFallingAsleep: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',      sleepyDuringDaytime: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',    
+            loudSnoring: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            uncomfortableFeelingsInLegs: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            skinRash: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            lossOfChangeInSmell: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',    
+            excessiveThirst: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',        
+            excessiveDryMouth: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',      
+            visionProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            hearingProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',        
+            fertilityProblemsForWomen: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}'
+          }
+        },
+        medicalConditionsSummary: {
+          percentHaveLongCovid: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          newDiagnosisCounts: {
+            noNewDiagnosis: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            heartProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            lungProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            bloodClotLung: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            sleepApnea: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            memory: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            migraine: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            stroke: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            seizure: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            kidneyProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            stomachProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',        
+            psychologicalProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',  
+            diabetes: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            autoImmuneDiseases: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',     
+            mecfs: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            other: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            notSure: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}'
+          }
+        },
+        socialSummary: {
+          percentHaveMedicalInsurance: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          averageDifficultyCoveringExpenses: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,5,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,5,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[5,0,0]}'
+          },
+          workingSituationCounts: {
+            workingOutsideTheHome: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',  
+            onLeaveFromAJobWorkingOutsideHome: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            workingInsideHome: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',      
+            lookingForWorkUnemployed: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            retired: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            disabled: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            student: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            dontKnow: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            preferNotToAnswer: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}'       
+          }
+        },
+        totalFullEntries: 1,
+        totalDemoCount: {
+          race: {
+            ranges: '["White","Black","Asian","Native","Hispanic","Other","None"]',
+            values: '[0,0,0,0,0,1,0]'
+          },
+          age: { ranges: '["1-13","13-25","25-60","60+"]', values: '[0,1,0,0]' },
+          sex: { ranges: '["Male","Female","Other"]', values: '[1,0,0]' }
+        }
+      },
+    "state" : {
+        id: '55037c97-88a2-4676-9003-8f8f674d19d8',
+        name: 'Nebraska',
+        stateAbbrev: 'NE',
+        lat: 41.321814834037625,
+        level: 'state',
+        long: -99.03913576668384,
+        covidSummary: {
+          covidCount: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          avgPositiveCasesPerPerson: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,3,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,3,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[3,0,0]}'
+          },
+          percentHospitalizedDueToCovid: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          avgHospitalizationsPerPerson: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          percentSymptomatic: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          avgSymptomPreventDailyTasks: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,3,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,3,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[3,0,0]}'
+          },
+          percentTookMedication: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          medicationCounts: {
+            antiViral: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            oralSteroids: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            antiBiotics: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            other: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            dontKnow: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}'
+          }
+        },
+        recoverySummary: {
+          recoveryCount: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          avgRecoveryLength: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,13,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,13,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[13,0,0]}'
+          }
+        },
+        vaccinationSummary: {
+          percentVaccinated: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          avgNumOfVaccPerPerson: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,3,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,3,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[3,0,0]}'
+          },
+          vaccineCount: {
+            pfizer: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            moderna: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            janssen: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            novavax: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            other: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            doNotKnow: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}'
+          }
+        },
+        globalHealthSummary: {
+          avgGeneralHealth: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,4,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,4,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[4,0,0]}'
+          },
+          avgPhysicalHealth: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,4,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,4,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[4,0,0]}'
+          },
+          avgEverydayPhysicalCompetency: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,4,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,4,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[4,0,0]}'
+          },
+          avgFatigue: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,3,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,3,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[3,0,0]}'
+          },
+          avgPain: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          }
+        },
+        symptomSummary: {
+          avgQualityOfLife: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,4,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,4,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[4,0,0]}'
+          },
+          avgMentalHealth: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,4,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,4,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[4,0,0]}'
+          },
+          avgSocialActivitesRelationships: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,4,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,4,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[4,0,0]}'
+          },
+          avgSocialActivitiesCapacity: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,3,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,3,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[3,0,0]}'
+          },
+          avgEmotionalProblems: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,2,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,2,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[2,0,0]}'
+          },
+          symptomCounts: {
+            headache: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            bodyMuscleAche: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            feverChillsSweatsFlushing: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            faintDizzyGoofy: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',        
+            postExertionalMalaise: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',  
+            weaknessInArmsLegs: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',     
+            shortnessOfBreath: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',      
+            cough: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            palpitations: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            swellingOfLegs: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            indigestionNausea: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',      
+            bladderProblem: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            nerveProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            brainFog: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            anxietyDepressionNightmares: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            problemsThinkingConcentrating: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            problemsAnxietyDepressionStress: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            difficultyFallingAsleep: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',      sleepyDuringDaytime: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',    
+            loudSnoring: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            uncomfortableFeelingsInLegs: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            skinRash: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            lossOfChangeInSmell: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            excessiveThirst: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',        
+            excessiveDryMouth: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',      
+            visionProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            hearingProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',        
+            fertilityProblemsForWomen: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}'
+          }
+        },
+        medicalConditionsSummary: {
+          percentHaveLongCovid: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          newDiagnosisCounts: {
+            noNewDiagnosis: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            heartProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            lungProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            bloodClotLung: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            sleepApnea: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            memory: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            migraine: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            stroke: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            seizure: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            kidneyProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            stomachProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',        
+            psychologicalProblems: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',  
+            diabetes: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            autoImmuneDiseases: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',     
+            mecfs: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            other: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            notSure: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}'
+          }
+        },
+        socialSummary: {
+          percentHaveMedicalInsurance: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[1,0,0]}'
+          },
+          averageDifficultyCoveringExpenses: {
+            race: '{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,5,0]}',
+            age: '{"ranges":["1-13","13-25","25-60","60+"],"values":[0,5,0,0]}',
+            sex: '{"ranges":["Male","Female","Other"],"values":[5,0,0]}'
+          },
+          workingSituationCounts: {
+            workingOutsideTheHome: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',  
+            onLeaveFromAJobWorkingOutsideHome: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,1,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,1,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[1,0,0]}}',
+            workingInsideHome: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',      
+            lookingForWorkUnemployed: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            retired: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            disabled: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            student: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            dontKnow: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}',
+            preferNotToAnswer: '{"race":{"ranges":["White","Black","Asian","Native","Hispanic","Other","None"],"values":[0,0,0,0,0,0,0]},"age":{"ranges":["1-13","13-25","25-60","60+"],"values":[0,0,0,0]},"sex":{"ranges":["Male","Female","Other"],"values":[0,0,0]}}'       
+          }
+        },
+        totalFullEntries: 1,
+        totalDemoCount: {
+          race: {
+            ranges: '["White","Black","Asian","Native","Hispanic","Other","None"]',
+            values: '[0,0,0,0,0,1,0]'
+          },
+          age: { ranges: '["1-13","13-25","25-60","60+"]', values: '[0,1,0,0]' },
+          sex: { ranges: '["Male","Female","Other"]', values: '[1,0,0]' }
+        }
+      }
+}

@@ -27,6 +27,7 @@ export type CreateMapDataInput = {
   medicalConditionsSummary: MedicalConditionsSummaryInput,
   socialSummary: SocialSummaryInput,
   totalFullEntries: number,
+  totalDemoCount: string,
 };
 
 export type CovidSummaryInput = {
@@ -49,30 +50,39 @@ export type MedicationsAvailableInput = {
 };
 
 export type RecoverySummaryInput = {
-  longCovidCount?: string | null,
-  percentLongCovid?: string | null,
+  recoveryCount?: string | null,
   avgRecoveryLength?: string | null,
 };
 
 export type VaccinationSummaryInput = {
   percentVaccinated?: string | null,
   avgNumOfVaccPerPerson?: string | null,
-  pfizerCount?: string | null,
-  modernaCount?: string | null,
-  jjCount?: string | null,
-  azCount?: string | null,
+  vaccineCount?: VaccineTypesInput | null,
+};
+
+export type VaccineTypesInput = {
+  pfizer?: string | null,
+  moderna?: string | null,
+  janssen?: string | null,
+  novavax?: string | null,
+  other?: string | null,
+  doNotKnow?: string | null,
 };
 
 export type GlobalHealthSummaryInput = {
-  healthRankCount?: string | null,
-  physicalHealthRankCount?: string | null,
-  carryOutPhysicalActivitiesRankCount?: string | null,
-  fatigueRankCount?: string | null,
-  painLevelCount?: string | null,
+  avgGeneralHealth?: string | null,
+  avgPhysicalHealth?: string | null,
+  avgEverydayPhysicalCompetency?: string | null,
+  avgFatigue?: string | null,
+  avgPain?: string | null,
 };
 
 export type SymptomSummaryInput = {
-  mostCommonSymptom?: string | null,
+  avgQualityOfLife?: string | null,
+  avgMentalHealth?: string | null,
+  avgSocialActivitesRelationships?: string | null,
+  avgSocialActivitiesCapacity?: string | null,
+  avgEmotionalProblems?: string | null,
   symptomCounts?: SymptomsAvailabLeInput | null,
 };
 
@@ -127,14 +137,14 @@ export type DiagnosisTypesInput = {
   psychologicalProblems?: string | null,
   diabetes?: string | null,
   autoImmuneDiseases?: string | null,
+  mecfs?: string | null,
   other?: string | null,
   notSure?: string | null,
 };
 
 export type SocialSummaryInput = {
   percentHaveMedicalInsurance?: string | null,
-  percentDifficultyCoveringExpenses?: string | null,
-  averageWorkingSituation?: string | null,
+  averageDifficultyCoveringExpenses?: string | null,
   workingSituationCounts?: WorkingSituationInput | null,
 };
 
@@ -154,6 +164,7 @@ export type ModelMapDataConditionInput = {
   name?: ModelStringInput | null,
   stateAbbrev?: ModelStringInput | null,
   totalFullEntries?: ModelIntInput | null,
+  totalDemoCount?: ModelStringInput | null,
   and?: Array< ModelMapDataConditionInput | null > | null,
   or?: Array< ModelMapDataConditionInput | null > | null,
   not?: ModelMapDataConditionInput | null,
@@ -227,6 +238,7 @@ export type MapData = {
   medicalConditionsSummary: MedicalConditionsSummary,
   socialSummary: SocialSummary,
   totalFullEntries: number,
+  totalDemoCount: string,
   createdAt: string,
   updatedAt: string,
 };
@@ -254,8 +266,7 @@ export type MedicationsAvailable = {
 
 export type RecoverySummary = {
   __typename: "RecoverySummary",
-  longCovidCount?: string | null,
-  percentLongCovid?: string | null,
+  recoveryCount?: string | null,
   avgRecoveryLength?: string | null,
 };
 
@@ -263,24 +274,35 @@ export type VaccinationSummary = {
   __typename: "VaccinationSummary",
   percentVaccinated?: string | null,
   avgNumOfVaccPerPerson?: string | null,
-  pfizerCount?: string | null,
-  modernaCount?: string | null,
-  jjCount?: string | null,
-  azCount?: string | null,
+  vaccineCount?: VaccineTypes | null,
+};
+
+export type VaccineTypes = {
+  __typename: "VaccineTypes",
+  pfizer?: string | null,
+  moderna?: string | null,
+  janssen?: string | null,
+  novavax?: string | null,
+  other?: string | null,
+  doNotKnow?: string | null,
 };
 
 export type GlobalHealthSummary = {
   __typename: "GlobalHealthSummary",
-  healthRankCount?: string | null,
-  physicalHealthRankCount?: string | null,
-  carryOutPhysicalActivitiesRankCount?: string | null,
-  fatigueRankCount?: string | null,
-  painLevelCount?: string | null,
+  avgGeneralHealth?: string | null,
+  avgPhysicalHealth?: string | null,
+  avgEverydayPhysicalCompetency?: string | null,
+  avgFatigue?: string | null,
+  avgPain?: string | null,
 };
 
 export type SymptomSummary = {
   __typename: "SymptomSummary",
-  mostCommonSymptom?: string | null,
+  avgQualityOfLife?: string | null,
+  avgMentalHealth?: string | null,
+  avgSocialActivitesRelationships?: string | null,
+  avgSocialActivitiesCapacity?: string | null,
+  avgEmotionalProblems?: string | null,
   symptomCounts?: SymptomsAvailabLe | null,
 };
 
@@ -338,6 +360,7 @@ export type DiagnosisTypes = {
   psychologicalProblems?: string | null,
   diabetes?: string | null,
   autoImmuneDiseases?: string | null,
+  mecfs?: string | null,
   other?: string | null,
   notSure?: string | null,
 };
@@ -345,8 +368,7 @@ export type DiagnosisTypes = {
 export type SocialSummary = {
   __typename: "SocialSummary",
   percentHaveMedicalInsurance?: string | null,
-  percentDifficultyCoveringExpenses?: string | null,
-  averageWorkingSituation?: string | null,
+  averageDifficultyCoveringExpenses?: string | null,
   workingSituationCounts?: WorkingSituation | null,
 };
 
@@ -378,6 +400,7 @@ export type UpdateMapDataInput = {
   medicalConditionsSummary?: MedicalConditionsSummaryInput | null,
   socialSummary?: SocialSummaryInput | null,
   totalFullEntries?: number | null,
+  totalDemoCount?: string | null,
 };
 
 export type DeleteMapDataInput = {
@@ -1285,6 +1308,7 @@ export type ModelMapDataFilterInput = {
   lat?: ModelFloatInput | null,
   long?: ModelFloatInput | null,
   totalFullEntries?: ModelIntInput | null,
+  totalDemoCount?: ModelStringInput | null,
   and?: Array< ModelMapDataFilterInput | null > | null,
   or?: Array< ModelMapDataFilterInput | null > | null,
   not?: ModelMapDataFilterInput | null,
@@ -1614,257 +1638,6 @@ export type ModelMonthlyEntryConnection = {
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionMapDataFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  level?: ModelSubscriptionStringInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  stateAbbrev?: ModelSubscriptionStringInput | null,
-  lat?: ModelSubscriptionFloatInput | null,
-  long?: ModelSubscriptionFloatInput | null,
-  totalFullEntries?: ModelSubscriptionIntInput | null,
-  and?: Array< ModelSubscriptionMapDataFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMapDataFilterInput | null > | null,
-};
-
-export type ModelSubscriptionIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
-};
-
-export type ModelSubscriptionStringInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
-};
-
-export type ModelSubscriptionFloatInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  in?: Array< number | null > | null,
-  notIn?: Array< number | null > | null,
-};
-
-export type ModelSubscriptionIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  in?: Array< number | null > | null,
-  notIn?: Array< number | null > | null,
-};
-
-export type ModelSubscriptionUserFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  email?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  lastSubmission?: ModelSubscriptionStringInput | null,
-  lastSignIn?: ModelSubscriptionStringInput | null,
-  notificationFreq?: ModelSubscriptionStringInput | null,
-  notificaitonMethod?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
-  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
-};
-
-export type ModelSubscriptionSurveyEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  email?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  surveyVersion?: ModelSubscriptionIntInput | null,
-  surveyType?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionSurveyEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionSurveyEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionVaccinationEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  totalVaccineShots?: ModelSubscriptionIntInput | null,
-  vaccinated?: ModelSubscriptionBooleanInput | null,
-  vaccineType?: ModelSubscriptionStringInput | null,
-  dateOfLastVaccine?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionVaccinationEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionVaccinationEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-};
-
-export type ModelSubscriptionGlobalHealthEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  healthRank?: ModelSubscriptionStringInput | null,
-  physicalHealthRank?: ModelSubscriptionStringInput | null,
-  carryPhysicalActivities?: ModelSubscriptionStringInput | null,
-  fatigueRank?: ModelSubscriptionStringInput | null,
-  painLevel?: ModelSubscriptionIntInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionGlobalHealthEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionGlobalHealthEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionCovidEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  beenInfected?: ModelSubscriptionBooleanInput | null,
-  timesPositive?: ModelSubscriptionIntInput | null,
-  lastPositive?: ModelSubscriptionStringInput | null,
-  tested?: ModelSubscriptionBooleanInput | null,
-  positiveTest?: ModelSubscriptionBooleanInput | null,
-  testMethod?: ModelSubscriptionStringInput | null,
-  hospitalized?: ModelSubscriptionBooleanInput | null,
-  timesHospitalized?: ModelSubscriptionIntInput | null,
-  symptomatic?: ModelSubscriptionBooleanInput | null,
-  symptomsPreventScale?: ModelSubscriptionStringInput | null,
-  medicationsPrescribed?: ModelSubscriptionBooleanInput | null,
-  medicationsTaken?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionCovidEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCovidEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionRecoveryEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  recovered?: ModelSubscriptionBooleanInput | null,
-  lengthOfRecovery?: ModelSubscriptionIntInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionRecoveryEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionRecoveryEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionPatientHealthEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  generalHealthResults?: ModelSubscriptionStringInput | null,
-  totalScore?: ModelSubscriptionIntInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionPatientHealthEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionPatientHealthEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionSymptomEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  symptoms?: ModelSubscriptionStringInput | null,
-  mentalHealthRank?: ModelSubscriptionStringInput | null,
-  socialSatisfactionRank?: ModelSubscriptionStringInput | null,
-  carryOutSocialActivitiesRank?: ModelSubscriptionStringInput | null,
-  anxietyInPastWeekRank?: ModelSubscriptionStringInput | null,
-  medicalConditions?: ModelSubscriptionStringInput | null,
-  hasLongCovid?: ModelSubscriptionBooleanInput | null,
-  and?: Array< ModelSubscriptionSymptomEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionSymptomEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionSocialDeterminantsEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  hasMedicalInsurance?: ModelSubscriptionBooleanInput | null,
-  difficultCoveringExpenses?: ModelSubscriptionStringInput | null,
-  currentWorkSituation?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionSocialDeterminantsEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionSocialDeterminantsEntryFilterInput | null > | null,
-};
-
-export type ModelSubscriptionMonthlyEntryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  countyState?: ModelSubscriptionStringInput | null,
-  age?: ModelSubscriptionIntInput | null,
-  race?: ModelSubscriptionStringInput | null,
-  sex?: ModelSubscriptionStringInput | null,
-  height?: ModelSubscriptionStringInput | null,
-  weight?: ModelSubscriptionStringInput | null,
-  results?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionMonthlyEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMonthlyEntryFilterInput | null > | null,
-};
-
 export type AggregateSurveyResultsMutationVariables = {
   results: SurveyResults,
 };
@@ -1911,30 +1684,38 @@ export type CreateMapDataMutation = {
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
-      longCovidCount?: string | null,
-      percentLongCovid?: string | null,
+      recoveryCount?: string | null,
       avgRecoveryLength?: string | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
       percentVaccinated?: string | null,
       avgNumOfVaccPerPerson?: string | null,
-      pfizerCount?: string | null,
-      modernaCount?: string | null,
-      jjCount?: string | null,
-      azCount?: string | null,
+      vaccineCount?:  {
+        __typename: "VaccineTypes",
+        pfizer?: string | null,
+        moderna?: string | null,
+        janssen?: string | null,
+        novavax?: string | null,
+        other?: string | null,
+        doNotKnow?: string | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      healthRankCount?: string | null,
-      physicalHealthRankCount?: string | null,
-      carryOutPhysicalActivitiesRankCount?: string | null,
-      fatigueRankCount?: string | null,
-      painLevelCount?: string | null,
+      avgGeneralHealth?: string | null,
+      avgPhysicalHealth?: string | null,
+      avgEverydayPhysicalCompetency?: string | null,
+      avgFatigue?: string | null,
+      avgPain?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
-      mostCommonSymptom?: string | null,
+      avgQualityOfLife?: string | null,
+      avgMentalHealth?: string | null,
+      avgSocialActivitesRelationships?: string | null,
+      avgSocialActivitiesCapacity?: string | null,
+      avgEmotionalProblems?: string | null,
       symptomCounts?:  {
         __typename: "SymptomsAvailabLe",
         headache?: string | null,
@@ -1986,6 +1767,7 @@ export type CreateMapDataMutation = {
         psychologicalProblems?: string | null,
         diabetes?: string | null,
         autoImmuneDiseases?: string | null,
+        mecfs?: string | null,
         other?: string | null,
         notSure?: string | null,
       } | null,
@@ -1993,8 +1775,7 @@ export type CreateMapDataMutation = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,
@@ -2009,6 +1790,7 @@ export type CreateMapDataMutation = {
       } | null,
     },
     totalFullEntries: number,
+    totalDemoCount: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2048,30 +1830,38 @@ export type UpdateMapDataMutation = {
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
-      longCovidCount?: string | null,
-      percentLongCovid?: string | null,
+      recoveryCount?: string | null,
       avgRecoveryLength?: string | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
       percentVaccinated?: string | null,
       avgNumOfVaccPerPerson?: string | null,
-      pfizerCount?: string | null,
-      modernaCount?: string | null,
-      jjCount?: string | null,
-      azCount?: string | null,
+      vaccineCount?:  {
+        __typename: "VaccineTypes",
+        pfizer?: string | null,
+        moderna?: string | null,
+        janssen?: string | null,
+        novavax?: string | null,
+        other?: string | null,
+        doNotKnow?: string | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      healthRankCount?: string | null,
-      physicalHealthRankCount?: string | null,
-      carryOutPhysicalActivitiesRankCount?: string | null,
-      fatigueRankCount?: string | null,
-      painLevelCount?: string | null,
+      avgGeneralHealth?: string | null,
+      avgPhysicalHealth?: string | null,
+      avgEverydayPhysicalCompetency?: string | null,
+      avgFatigue?: string | null,
+      avgPain?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
-      mostCommonSymptom?: string | null,
+      avgQualityOfLife?: string | null,
+      avgMentalHealth?: string | null,
+      avgSocialActivitesRelationships?: string | null,
+      avgSocialActivitiesCapacity?: string | null,
+      avgEmotionalProblems?: string | null,
       symptomCounts?:  {
         __typename: "SymptomsAvailabLe",
         headache?: string | null,
@@ -2123,6 +1913,7 @@ export type UpdateMapDataMutation = {
         psychologicalProblems?: string | null,
         diabetes?: string | null,
         autoImmuneDiseases?: string | null,
+        mecfs?: string | null,
         other?: string | null,
         notSure?: string | null,
       } | null,
@@ -2130,8 +1921,7 @@ export type UpdateMapDataMutation = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,
@@ -2146,6 +1936,7 @@ export type UpdateMapDataMutation = {
       } | null,
     },
     totalFullEntries: number,
+    totalDemoCount: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2185,30 +1976,38 @@ export type DeleteMapDataMutation = {
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
-      longCovidCount?: string | null,
-      percentLongCovid?: string | null,
+      recoveryCount?: string | null,
       avgRecoveryLength?: string | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
       percentVaccinated?: string | null,
       avgNumOfVaccPerPerson?: string | null,
-      pfizerCount?: string | null,
-      modernaCount?: string | null,
-      jjCount?: string | null,
-      azCount?: string | null,
+      vaccineCount?:  {
+        __typename: "VaccineTypes",
+        pfizer?: string | null,
+        moderna?: string | null,
+        janssen?: string | null,
+        novavax?: string | null,
+        other?: string | null,
+        doNotKnow?: string | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      healthRankCount?: string | null,
-      physicalHealthRankCount?: string | null,
-      carryOutPhysicalActivitiesRankCount?: string | null,
-      fatigueRankCount?: string | null,
-      painLevelCount?: string | null,
+      avgGeneralHealth?: string | null,
+      avgPhysicalHealth?: string | null,
+      avgEverydayPhysicalCompetency?: string | null,
+      avgFatigue?: string | null,
+      avgPain?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
-      mostCommonSymptom?: string | null,
+      avgQualityOfLife?: string | null,
+      avgMentalHealth?: string | null,
+      avgSocialActivitesRelationships?: string | null,
+      avgSocialActivitiesCapacity?: string | null,
+      avgEmotionalProblems?: string | null,
       symptomCounts?:  {
         __typename: "SymptomsAvailabLe",
         headache?: string | null,
@@ -2260,6 +2059,7 @@ export type DeleteMapDataMutation = {
         psychologicalProblems?: string | null,
         diabetes?: string | null,
         autoImmuneDiseases?: string | null,
+        mecfs?: string | null,
         other?: string | null,
         notSure?: string | null,
       } | null,
@@ -2267,8 +2067,7 @@ export type DeleteMapDataMutation = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,
@@ -2283,6 +2082,7 @@ export type DeleteMapDataMutation = {
       } | null,
     },
     totalFullEntries: number,
+    totalDemoCount: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -15952,30 +15752,38 @@ export type GetMapDataQuery = {
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
-      longCovidCount?: string | null,
-      percentLongCovid?: string | null,
+      recoveryCount?: string | null,
       avgRecoveryLength?: string | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
       percentVaccinated?: string | null,
       avgNumOfVaccPerPerson?: string | null,
-      pfizerCount?: string | null,
-      modernaCount?: string | null,
-      jjCount?: string | null,
-      azCount?: string | null,
+      vaccineCount?:  {
+        __typename: "VaccineTypes",
+        pfizer?: string | null,
+        moderna?: string | null,
+        janssen?: string | null,
+        novavax?: string | null,
+        other?: string | null,
+        doNotKnow?: string | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      healthRankCount?: string | null,
-      physicalHealthRankCount?: string | null,
-      carryOutPhysicalActivitiesRankCount?: string | null,
-      fatigueRankCount?: string | null,
-      painLevelCount?: string | null,
+      avgGeneralHealth?: string | null,
+      avgPhysicalHealth?: string | null,
+      avgEverydayPhysicalCompetency?: string | null,
+      avgFatigue?: string | null,
+      avgPain?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
-      mostCommonSymptom?: string | null,
+      avgQualityOfLife?: string | null,
+      avgMentalHealth?: string | null,
+      avgSocialActivitesRelationships?: string | null,
+      avgSocialActivitiesCapacity?: string | null,
+      avgEmotionalProblems?: string | null,
       symptomCounts?:  {
         __typename: "SymptomsAvailabLe",
         headache?: string | null,
@@ -16027,6 +15835,7 @@ export type GetMapDataQuery = {
         psychologicalProblems?: string | null,
         diabetes?: string | null,
         autoImmuneDiseases?: string | null,
+        mecfs?: string | null,
         other?: string | null,
         notSure?: string | null,
       } | null,
@@ -16034,8 +15843,7 @@ export type GetMapDataQuery = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,
@@ -16050,6 +15858,7 @@ export type GetMapDataQuery = {
       } | null,
     },
     totalFullEntries: number,
+    totalDemoCount: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -16095,30 +15904,38 @@ export type ListMapDataQuery = {
       },
       recoverySummary:  {
         __typename: "RecoverySummary",
-        longCovidCount?: string | null,
-        percentLongCovid?: string | null,
+        recoveryCount?: string | null,
         avgRecoveryLength?: string | null,
       },
       vaccinationSummary:  {
         __typename: "VaccinationSummary",
         percentVaccinated?: string | null,
         avgNumOfVaccPerPerson?: string | null,
-        pfizerCount?: string | null,
-        modernaCount?: string | null,
-        jjCount?: string | null,
-        azCount?: string | null,
+        vaccineCount?:  {
+          __typename: "VaccineTypes",
+          pfizer?: string | null,
+          moderna?: string | null,
+          janssen?: string | null,
+          novavax?: string | null,
+          other?: string | null,
+          doNotKnow?: string | null,
+        } | null,
       },
       globalHealthSummary:  {
         __typename: "GlobalHealthSummary",
-        healthRankCount?: string | null,
-        physicalHealthRankCount?: string | null,
-        carryOutPhysicalActivitiesRankCount?: string | null,
-        fatigueRankCount?: string | null,
-        painLevelCount?: string | null,
+        avgGeneralHealth?: string | null,
+        avgPhysicalHealth?: string | null,
+        avgEverydayPhysicalCompetency?: string | null,
+        avgFatigue?: string | null,
+        avgPain?: string | null,
       },
       symptomSummary:  {
         __typename: "SymptomSummary",
-        mostCommonSymptom?: string | null,
+        avgQualityOfLife?: string | null,
+        avgMentalHealth?: string | null,
+        avgSocialActivitesRelationships?: string | null,
+        avgSocialActivitiesCapacity?: string | null,
+        avgEmotionalProblems?: string | null,
         symptomCounts?:  {
           __typename: "SymptomsAvailabLe",
           headache?: string | null,
@@ -16170,6 +15987,7 @@ export type ListMapDataQuery = {
           psychologicalProblems?: string | null,
           diabetes?: string | null,
           autoImmuneDiseases?: string | null,
+          mecfs?: string | null,
           other?: string | null,
           notSure?: string | null,
         } | null,
@@ -16177,8 +15995,7 @@ export type ListMapDataQuery = {
       socialSummary:  {
         __typename: "SocialSummary",
         percentHaveMedicalInsurance?: string | null,
-        percentDifficultyCoveringExpenses?: string | null,
-        averageWorkingSituation?: string | null,
+        averageDifficultyCoveringExpenses?: string | null,
         workingSituationCounts?:  {
           __typename: "WorkingSituation",
           workingOutsideTheHome?: string | null,
@@ -16193,6 +16010,7 @@ export type ListMapDataQuery = {
         } | null,
       },
       totalFullEntries: number,
+      totalDemoCount: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -16240,30 +16058,38 @@ export type MapDataByLevelNameStateQuery = {
       },
       recoverySummary:  {
         __typename: "RecoverySummary",
-        longCovidCount?: string | null,
-        percentLongCovid?: string | null,
+        recoveryCount?: string | null,
         avgRecoveryLength?: string | null,
       },
       vaccinationSummary:  {
         __typename: "VaccinationSummary",
         percentVaccinated?: string | null,
         avgNumOfVaccPerPerson?: string | null,
-        pfizerCount?: string | null,
-        modernaCount?: string | null,
-        jjCount?: string | null,
-        azCount?: string | null,
+        vaccineCount?:  {
+          __typename: "VaccineTypes",
+          pfizer?: string | null,
+          moderna?: string | null,
+          janssen?: string | null,
+          novavax?: string | null,
+          other?: string | null,
+          doNotKnow?: string | null,
+        } | null,
       },
       globalHealthSummary:  {
         __typename: "GlobalHealthSummary",
-        healthRankCount?: string | null,
-        physicalHealthRankCount?: string | null,
-        carryOutPhysicalActivitiesRankCount?: string | null,
-        fatigueRankCount?: string | null,
-        painLevelCount?: string | null,
+        avgGeneralHealth?: string | null,
+        avgPhysicalHealth?: string | null,
+        avgEverydayPhysicalCompetency?: string | null,
+        avgFatigue?: string | null,
+        avgPain?: string | null,
       },
       symptomSummary:  {
         __typename: "SymptomSummary",
-        mostCommonSymptom?: string | null,
+        avgQualityOfLife?: string | null,
+        avgMentalHealth?: string | null,
+        avgSocialActivitesRelationships?: string | null,
+        avgSocialActivitiesCapacity?: string | null,
+        avgEmotionalProblems?: string | null,
         symptomCounts?:  {
           __typename: "SymptomsAvailabLe",
           headache?: string | null,
@@ -16315,6 +16141,7 @@ export type MapDataByLevelNameStateQuery = {
           psychologicalProblems?: string | null,
           diabetes?: string | null,
           autoImmuneDiseases?: string | null,
+          mecfs?: string | null,
           other?: string | null,
           notSure?: string | null,
         } | null,
@@ -16322,8 +16149,7 @@ export type MapDataByLevelNameStateQuery = {
       socialSummary:  {
         __typename: "SocialSummary",
         percentHaveMedicalInsurance?: string | null,
-        percentDifficultyCoveringExpenses?: string | null,
-        averageWorkingSituation?: string | null,
+        averageDifficultyCoveringExpenses?: string | null,
         workingSituationCounts?:  {
           __typename: "WorkingSituation",
           workingOutsideTheHome?: string | null,
@@ -16338,6 +16164,7 @@ export type MapDataByLevelNameStateQuery = {
         } | null,
       },
       totalFullEntries: number,
+      totalDemoCount: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -16385,30 +16212,38 @@ export type MapDataByStateAbbrevQuery = {
       },
       recoverySummary:  {
         __typename: "RecoverySummary",
-        longCovidCount?: string | null,
-        percentLongCovid?: string | null,
+        recoveryCount?: string | null,
         avgRecoveryLength?: string | null,
       },
       vaccinationSummary:  {
         __typename: "VaccinationSummary",
         percentVaccinated?: string | null,
         avgNumOfVaccPerPerson?: string | null,
-        pfizerCount?: string | null,
-        modernaCount?: string | null,
-        jjCount?: string | null,
-        azCount?: string | null,
+        vaccineCount?:  {
+          __typename: "VaccineTypes",
+          pfizer?: string | null,
+          moderna?: string | null,
+          janssen?: string | null,
+          novavax?: string | null,
+          other?: string | null,
+          doNotKnow?: string | null,
+        } | null,
       },
       globalHealthSummary:  {
         __typename: "GlobalHealthSummary",
-        healthRankCount?: string | null,
-        physicalHealthRankCount?: string | null,
-        carryOutPhysicalActivitiesRankCount?: string | null,
-        fatigueRankCount?: string | null,
-        painLevelCount?: string | null,
+        avgGeneralHealth?: string | null,
+        avgPhysicalHealth?: string | null,
+        avgEverydayPhysicalCompetency?: string | null,
+        avgFatigue?: string | null,
+        avgPain?: string | null,
       },
       symptomSummary:  {
         __typename: "SymptomSummary",
-        mostCommonSymptom?: string | null,
+        avgQualityOfLife?: string | null,
+        avgMentalHealth?: string | null,
+        avgSocialActivitesRelationships?: string | null,
+        avgSocialActivitiesCapacity?: string | null,
+        avgEmotionalProblems?: string | null,
         symptomCounts?:  {
           __typename: "SymptomsAvailabLe",
           headache?: string | null,
@@ -16460,6 +16295,7 @@ export type MapDataByStateAbbrevQuery = {
           psychologicalProblems?: string | null,
           diabetes?: string | null,
           autoImmuneDiseases?: string | null,
+          mecfs?: string | null,
           other?: string | null,
           notSure?: string | null,
         } | null,
@@ -16467,8 +16303,7 @@ export type MapDataByStateAbbrevQuery = {
       socialSummary:  {
         __typename: "SocialSummary",
         percentHaveMedicalInsurance?: string | null,
-        percentDifficultyCoveringExpenses?: string | null,
-        averageWorkingSituation?: string | null,
+        averageDifficultyCoveringExpenses?: string | null,
         workingSituationCounts?:  {
           __typename: "WorkingSituation",
           workingOutsideTheHome?: string | null,
@@ -16483,6 +16318,7 @@ export type MapDataByStateAbbrevQuery = {
         } | null,
       },
       totalFullEntries: number,
+      totalDemoCount: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -36869,10 +36705,6 @@ export type CountyMonthlyEntryBySexQuery = {
   } | null,
 };
 
-export type OnCreateMapDataSubscriptionVariables = {
-  filter?: ModelSubscriptionMapDataFilterInput | null,
-};
-
 export type OnCreateMapDataSubscription = {
   onCreateMapData?:  {
     __typename: "MapData",
@@ -36902,30 +36734,38 @@ export type OnCreateMapDataSubscription = {
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
-      longCovidCount?: string | null,
-      percentLongCovid?: string | null,
+      recoveryCount?: string | null,
       avgRecoveryLength?: string | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
       percentVaccinated?: string | null,
       avgNumOfVaccPerPerson?: string | null,
-      pfizerCount?: string | null,
-      modernaCount?: string | null,
-      jjCount?: string | null,
-      azCount?: string | null,
+      vaccineCount?:  {
+        __typename: "VaccineTypes",
+        pfizer?: string | null,
+        moderna?: string | null,
+        janssen?: string | null,
+        novavax?: string | null,
+        other?: string | null,
+        doNotKnow?: string | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      healthRankCount?: string | null,
-      physicalHealthRankCount?: string | null,
-      carryOutPhysicalActivitiesRankCount?: string | null,
-      fatigueRankCount?: string | null,
-      painLevelCount?: string | null,
+      avgGeneralHealth?: string | null,
+      avgPhysicalHealth?: string | null,
+      avgEverydayPhysicalCompetency?: string | null,
+      avgFatigue?: string | null,
+      avgPain?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
-      mostCommonSymptom?: string | null,
+      avgQualityOfLife?: string | null,
+      avgMentalHealth?: string | null,
+      avgSocialActivitesRelationships?: string | null,
+      avgSocialActivitiesCapacity?: string | null,
+      avgEmotionalProblems?: string | null,
       symptomCounts?:  {
         __typename: "SymptomsAvailabLe",
         headache?: string | null,
@@ -36977,6 +36817,7 @@ export type OnCreateMapDataSubscription = {
         psychologicalProblems?: string | null,
         diabetes?: string | null,
         autoImmuneDiseases?: string | null,
+        mecfs?: string | null,
         other?: string | null,
         notSure?: string | null,
       } | null,
@@ -36984,8 +36825,7 @@ export type OnCreateMapDataSubscription = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,
@@ -37000,13 +36840,10 @@ export type OnCreateMapDataSubscription = {
       } | null,
     },
     totalFullEntries: number,
+    totalDemoCount: string,
     createdAt: string,
     updatedAt: string,
   } | null,
-};
-
-export type OnUpdateMapDataSubscriptionVariables = {
-  filter?: ModelSubscriptionMapDataFilterInput | null,
 };
 
 export type OnUpdateMapDataSubscription = {
@@ -37038,30 +36875,38 @@ export type OnUpdateMapDataSubscription = {
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
-      longCovidCount?: string | null,
-      percentLongCovid?: string | null,
+      recoveryCount?: string | null,
       avgRecoveryLength?: string | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
       percentVaccinated?: string | null,
       avgNumOfVaccPerPerson?: string | null,
-      pfizerCount?: string | null,
-      modernaCount?: string | null,
-      jjCount?: string | null,
-      azCount?: string | null,
+      vaccineCount?:  {
+        __typename: "VaccineTypes",
+        pfizer?: string | null,
+        moderna?: string | null,
+        janssen?: string | null,
+        novavax?: string | null,
+        other?: string | null,
+        doNotKnow?: string | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      healthRankCount?: string | null,
-      physicalHealthRankCount?: string | null,
-      carryOutPhysicalActivitiesRankCount?: string | null,
-      fatigueRankCount?: string | null,
-      painLevelCount?: string | null,
+      avgGeneralHealth?: string | null,
+      avgPhysicalHealth?: string | null,
+      avgEverydayPhysicalCompetency?: string | null,
+      avgFatigue?: string | null,
+      avgPain?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
-      mostCommonSymptom?: string | null,
+      avgQualityOfLife?: string | null,
+      avgMentalHealth?: string | null,
+      avgSocialActivitesRelationships?: string | null,
+      avgSocialActivitiesCapacity?: string | null,
+      avgEmotionalProblems?: string | null,
       symptomCounts?:  {
         __typename: "SymptomsAvailabLe",
         headache?: string | null,
@@ -37113,6 +36958,7 @@ export type OnUpdateMapDataSubscription = {
         psychologicalProblems?: string | null,
         diabetes?: string | null,
         autoImmuneDiseases?: string | null,
+        mecfs?: string | null,
         other?: string | null,
         notSure?: string | null,
       } | null,
@@ -37120,8 +36966,7 @@ export type OnUpdateMapDataSubscription = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,
@@ -37136,13 +36981,10 @@ export type OnUpdateMapDataSubscription = {
       } | null,
     },
     totalFullEntries: number,
+    totalDemoCount: string,
     createdAt: string,
     updatedAt: string,
   } | null,
-};
-
-export type OnDeleteMapDataSubscriptionVariables = {
-  filter?: ModelSubscriptionMapDataFilterInput | null,
 };
 
 export type OnDeleteMapDataSubscription = {
@@ -37174,30 +37016,38 @@ export type OnDeleteMapDataSubscription = {
     },
     recoverySummary:  {
       __typename: "RecoverySummary",
-      longCovidCount?: string | null,
-      percentLongCovid?: string | null,
+      recoveryCount?: string | null,
       avgRecoveryLength?: string | null,
     },
     vaccinationSummary:  {
       __typename: "VaccinationSummary",
       percentVaccinated?: string | null,
       avgNumOfVaccPerPerson?: string | null,
-      pfizerCount?: string | null,
-      modernaCount?: string | null,
-      jjCount?: string | null,
-      azCount?: string | null,
+      vaccineCount?:  {
+        __typename: "VaccineTypes",
+        pfizer?: string | null,
+        moderna?: string | null,
+        janssen?: string | null,
+        novavax?: string | null,
+        other?: string | null,
+        doNotKnow?: string | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      healthRankCount?: string | null,
-      physicalHealthRankCount?: string | null,
-      carryOutPhysicalActivitiesRankCount?: string | null,
-      fatigueRankCount?: string | null,
-      painLevelCount?: string | null,
+      avgGeneralHealth?: string | null,
+      avgPhysicalHealth?: string | null,
+      avgEverydayPhysicalCompetency?: string | null,
+      avgFatigue?: string | null,
+      avgPain?: string | null,
     },
     symptomSummary:  {
       __typename: "SymptomSummary",
-      mostCommonSymptom?: string | null,
+      avgQualityOfLife?: string | null,
+      avgMentalHealth?: string | null,
+      avgSocialActivitesRelationships?: string | null,
+      avgSocialActivitiesCapacity?: string | null,
+      avgEmotionalProblems?: string | null,
       symptomCounts?:  {
         __typename: "SymptomsAvailabLe",
         headache?: string | null,
@@ -37249,6 +37099,7 @@ export type OnDeleteMapDataSubscription = {
         psychologicalProblems?: string | null,
         diabetes?: string | null,
         autoImmuneDiseases?: string | null,
+        mecfs?: string | null,
         other?: string | null,
         notSure?: string | null,
       } | null,
@@ -37256,8 +37107,7 @@ export type OnDeleteMapDataSubscription = {
     socialSummary:  {
       __typename: "SocialSummary",
       percentHaveMedicalInsurance?: string | null,
-      percentDifficultyCoveringExpenses?: string | null,
-      averageWorkingSituation?: string | null,
+      averageDifficultyCoveringExpenses?: string | null,
       workingSituationCounts?:  {
         __typename: "WorkingSituation",
         workingOutsideTheHome?: string | null,
@@ -37272,13 +37122,13 @@ export type OnDeleteMapDataSubscription = {
       } | null,
     },
     totalFullEntries: number,
+    totalDemoCount: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
 export type OnCreateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
   owner?: string | null,
 };
 
@@ -37303,7 +37153,6 @@ export type OnCreateUserSubscription = {
 };
 
 export type OnUpdateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
   owner?: string | null,
 };
 
@@ -37328,7 +37177,6 @@ export type OnUpdateUserSubscription = {
 };
 
 export type OnDeleteUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
   owner?: string | null,
 };
 
@@ -37350,10 +37198,6 @@ export type OnDeleteUserSubscription = {
     updatedAt: string,
     owner?: string | null,
   } | null,
-};
-
-export type OnCreateSurveyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSurveyEntryFilterInput | null,
 };
 
 export type OnCreateSurveyEntrySubscription = {
@@ -38889,10 +38733,6 @@ export type OnCreateSurveyEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateSurveyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSurveyEntryFilterInput | null,
-};
-
 export type OnUpdateSurveyEntrySubscription = {
   onUpdateSurveyEntry?:  {
     __typename: "SurveyEntry",
@@ -40424,10 +40264,6 @@ export type OnUpdateSurveyEntrySubscription = {
     surveyEntrySymptomsEntryId?: string | null,
     surveyEntryMonthlyEntryId?: string | null,
   } | null,
-};
-
-export type OnDeleteSurveyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSurveyEntryFilterInput | null,
 };
 
 export type OnDeleteSurveyEntrySubscription = {
@@ -41963,10 +41799,6 @@ export type OnDeleteSurveyEntrySubscription = {
   } | null,
 };
 
-export type OnCreateVaccinationEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionVaccinationEntryFilterInput | null,
-};
-
 export type OnCreateVaccinationEntrySubscription = {
   onCreateVaccinationEntry?:  {
     __typename: "VaccinationEntry",
@@ -42332,10 +42164,6 @@ export type OnCreateVaccinationEntrySubscription = {
     updatedAt: string,
     vaccinationEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnUpdateVaccinationEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionVaccinationEntryFilterInput | null,
 };
 
 export type OnUpdateVaccinationEntrySubscription = {
@@ -42705,10 +42533,6 @@ export type OnUpdateVaccinationEntrySubscription = {
   } | null,
 };
 
-export type OnDeleteVaccinationEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionVaccinationEntryFilterInput | null,
-};
-
 export type OnDeleteVaccinationEntrySubscription = {
   onDeleteVaccinationEntry?:  {
     __typename: "VaccinationEntry",
@@ -43074,10 +42898,6 @@ export type OnDeleteVaccinationEntrySubscription = {
     updatedAt: string,
     vaccinationEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnCreateGlobalHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionGlobalHealthEntryFilterInput | null,
 };
 
 export type OnCreateGlobalHealthEntrySubscription = {
@@ -43448,10 +43268,6 @@ export type OnCreateGlobalHealthEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateGlobalHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionGlobalHealthEntryFilterInput | null,
-};
-
 export type OnUpdateGlobalHealthEntrySubscription = {
   onUpdateGlobalHealthEntry?:  {
     __typename: "GlobalHealthEntry",
@@ -43820,10 +43636,6 @@ export type OnUpdateGlobalHealthEntrySubscription = {
   } | null,
 };
 
-export type OnDeleteGlobalHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionGlobalHealthEntryFilterInput | null,
-};
-
 export type OnDeleteGlobalHealthEntrySubscription = {
   onDeleteGlobalHealthEntry?:  {
     __typename: "GlobalHealthEntry",
@@ -44190,10 +44002,6 @@ export type OnDeleteGlobalHealthEntrySubscription = {
     updatedAt: string,
     globalHealthEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnCreateCovidEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionCovidEntryFilterInput | null,
 };
 
 export type OnCreateCovidEntrySubscription = {
@@ -44571,10 +44379,6 @@ export type OnCreateCovidEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateCovidEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionCovidEntryFilterInput | null,
-};
-
 export type OnUpdateCovidEntrySubscription = {
   onUpdateCovidEntry?:  {
     __typename: "CovidEntry",
@@ -44948,10 +44752,6 @@ export type OnUpdateCovidEntrySubscription = {
     updatedAt: string,
     covidEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnDeleteCovidEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionCovidEntryFilterInput | null,
 };
 
 export type OnDeleteCovidEntrySubscription = {
@@ -45329,10 +45129,6 @@ export type OnDeleteCovidEntrySubscription = {
   } | null,
 };
 
-export type OnCreateRecoveryEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionRecoveryEntryFilterInput | null,
-};
-
 export type OnCreateRecoveryEntrySubscription = {
   onCreateRecoveryEntry?:  {
     __typename: "RecoveryEntry",
@@ -45696,10 +45492,6 @@ export type OnCreateRecoveryEntrySubscription = {
     updatedAt: string,
     recoveryEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnUpdateRecoveryEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionRecoveryEntryFilterInput | null,
 };
 
 export type OnUpdateRecoveryEntrySubscription = {
@@ -46067,10 +45859,6 @@ export type OnUpdateRecoveryEntrySubscription = {
   } | null,
 };
 
-export type OnDeleteRecoveryEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionRecoveryEntryFilterInput | null,
-};
-
 export type OnDeleteRecoveryEntrySubscription = {
   onDeleteRecoveryEntry?:  {
     __typename: "RecoveryEntry",
@@ -46434,10 +46222,6 @@ export type OnDeleteRecoveryEntrySubscription = {
     updatedAt: string,
     recoveryEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnCreatePatientHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionPatientHealthEntryFilterInput | null,
 };
 
 export type OnCreatePatientHealthEntrySubscription = {
@@ -46805,10 +46589,6 @@ export type OnCreatePatientHealthEntrySubscription = {
   } | null,
 };
 
-export type OnUpdatePatientHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionPatientHealthEntryFilterInput | null,
-};
-
 export type OnUpdatePatientHealthEntrySubscription = {
   onUpdatePatientHealthEntry?:  {
     __typename: "PatientHealthEntry",
@@ -47174,10 +46954,6 @@ export type OnUpdatePatientHealthEntrySubscription = {
   } | null,
 };
 
-export type OnDeletePatientHealthEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionPatientHealthEntryFilterInput | null,
-};
-
 export type OnDeletePatientHealthEntrySubscription = {
   onDeletePatientHealthEntry?:  {
     __typename: "PatientHealthEntry",
@@ -47541,10 +47317,6 @@ export type OnDeletePatientHealthEntrySubscription = {
     updatedAt: string,
     patientHealthEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnCreateSymptomEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSymptomEntryFilterInput | null,
 };
 
 export type OnCreateSymptomEntrySubscription = {
@@ -47917,10 +47689,6 @@ export type OnCreateSymptomEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateSymptomEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSymptomEntryFilterInput | null,
-};
-
 export type OnUpdateSymptomEntrySubscription = {
   onUpdateSymptomEntry?:  {
     __typename: "SymptomEntry",
@@ -48289,10 +48057,6 @@ export type OnUpdateSymptomEntrySubscription = {
     updatedAt: string,
     symptomEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnDeleteSymptomEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSymptomEntryFilterInput | null,
 };
 
 export type OnDeleteSymptomEntrySubscription = {
@@ -48665,10 +48429,6 @@ export type OnDeleteSymptomEntrySubscription = {
   } | null,
 };
 
-export type OnCreateSocialDeterminantsEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSocialDeterminantsEntryFilterInput | null,
-};
-
 export type OnCreateSocialDeterminantsEntrySubscription = {
   onCreateSocialDeterminantsEntry?:  {
     __typename: "SocialDeterminantsEntry",
@@ -49033,10 +48793,6 @@ export type OnCreateSocialDeterminantsEntrySubscription = {
     updatedAt: string,
     socialDeterminantsEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnUpdateSocialDeterminantsEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSocialDeterminantsEntryFilterInput | null,
 };
 
 export type OnUpdateSocialDeterminantsEntrySubscription = {
@@ -49405,10 +49161,6 @@ export type OnUpdateSocialDeterminantsEntrySubscription = {
   } | null,
 };
 
-export type OnDeleteSocialDeterminantsEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionSocialDeterminantsEntryFilterInput | null,
-};
-
 export type OnDeleteSocialDeterminantsEntrySubscription = {
   onDeleteSocialDeterminantsEntry?:  {
     __typename: "SocialDeterminantsEntry",
@@ -49775,10 +49527,6 @@ export type OnDeleteSocialDeterminantsEntrySubscription = {
   } | null,
 };
 
-export type OnCreateMonthlyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionMonthlyEntryFilterInput | null,
-};
-
 export type OnCreateMonthlyEntrySubscription = {
   onCreateMonthlyEntry?:  {
     __typename: "MonthlyEntry",
@@ -50143,10 +49891,6 @@ export type OnCreateMonthlyEntrySubscription = {
   } | null,
 };
 
-export type OnUpdateMonthlyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionMonthlyEntryFilterInput | null,
-};
-
 export type OnUpdateMonthlyEntrySubscription = {
   onUpdateMonthlyEntry?:  {
     __typename: "MonthlyEntry",
@@ -50509,10 +50253,6 @@ export type OnUpdateMonthlyEntrySubscription = {
     updatedAt: string,
     monthlyEntrySurveyEntryId?: string | null,
   } | null,
-};
-
-export type OnDeleteMonthlyEntrySubscriptionVariables = {
-  filter?: ModelSubscriptionMonthlyEntryFilterInput | null,
 };
 
 export type OnDeleteMonthlyEntrySubscription = {
