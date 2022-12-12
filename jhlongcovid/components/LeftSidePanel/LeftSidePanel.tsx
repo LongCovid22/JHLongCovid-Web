@@ -12,9 +12,9 @@ import {
   Tab,
   TabList,
   Heading,
-  TabPanels,
-  TabPanel,
+  IconButton,
   Text,
+  Button,
 } from "@chakra-ui/react";
 import React, { useRef, useState, useLayoutEffect } from "react";
 import {
@@ -23,6 +23,7 @@ import {
 } from "../../redux/slices/presentationSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styles from "../../styles/LeftSidePanel.module.css";
+import mockResult from "../../mockResult.json";
 import { InfoPanelMetrics } from "./InfoPanelMetrics";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
 import {
@@ -46,6 +47,7 @@ import { VaccinationVisualizations } from "./Visualizations/Vaccination/Vaccinat
 import { SymptomsVisualizations } from "./Visualizations/Symptoms/SymptomsVisualization";
 import { SocialVisualizations } from "./Visualizations/Social/SocialVisualization";
 import { PHQ8Visualizations } from "./Visualizations/PHQ8/PHQ8Visualization";
+import { DownloadIcon } from "@chakra-ui/icons";
 
 ChartJS.register(
   CategoryScale,
@@ -202,11 +204,34 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
             <Flex width={"100%"}>
               <Wrap>
                 <WrapItem>
-                  <Heading as="h3" size="lg" mr={"15px"}>
-                    {data.level === "state"
-                      ? data.name
-                      : data.name + ", " + data.stateAbbrev}
-                  </Heading>
+                  <HStack spacing="0px">
+                    <Heading as="h3" size="lg">
+                      {data.level === "state"
+                        ? data.name
+                        : data.name + ", " + data.stateAbbrev}
+                    </Heading>
+                    <IconButton
+                      aria-label="downloadButton"
+                      variant={"none"}
+                      icon={<DownloadIcon color="gray" />}
+                      onClick={() => {
+                        const blob = new Blob(
+                          [JSON.stringify(mockResult.county)],
+                          { type: "text/json" }
+                        );
+                        const a = document.createElement("a");
+                        a.download = "data.json";
+                        a.href = window.URL.createObjectURL(blob);
+                        const clickEvent = new MouseEvent("click", {
+                          view: window,
+                          bubbles: true,
+                          cancelable: true,
+                        });
+                        a.dispatchEvent(clickEvent);
+                        a.remove();
+                      }}
+                    />
+                  </HStack>
                 </WrapItem>
                 <WrapItem>
                   <Tabs
