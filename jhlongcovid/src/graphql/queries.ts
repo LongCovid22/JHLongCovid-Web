@@ -28,27 +28,34 @@ export const getMapData = /* GraphQL */ `
         }
       }
       recoverySummary {
-        longCovidCount
-        percentLongCovid
+        recoveryCount
         avgRecoveryLength
       }
       vaccinationSummary {
         percentVaccinated
         avgNumOfVaccPerPerson
-        pfizerCount
-        modernaCount
-        jjCount
-        azCount
+        vaccineCount {
+          pfizer
+          moderna
+          janssen
+          novavax
+          other
+          doNotKnow
+        }
       }
       globalHealthSummary {
-        healthRankCount
-        physicalHealthRankCount
-        carryOutPhysicalActivitiesRankCount
-        fatigueRankCount
-        painLevelCount
+        avgGeneralHealth
+        avgPhysicalHealth
+        avgEverydayPhysicalCompetency
+        avgFatigue
+        avgPain
       }
       symptomSummary {
-        mostCommonSymptom
+        avgQualityOfLife
+        avgMentalHealth
+        avgSocialActivitesRelationships
+        avgSocialActivitiesCapacity
+        avgEmotionalProblems
         symptomCounts {
           headache
           bodyMuscleAche
@@ -97,14 +104,14 @@ export const getMapData = /* GraphQL */ `
           psychologicalProblems
           diabetes
           autoImmuneDiseases
+          mecfs
           other
           notSure
         }
       }
       socialSummary {
         percentHaveMedicalInsurance
-        percentDifficultyCoveringExpenses
-        averageWorkingSituation
+        averageDifficultyCoveringExpenses
         workingSituationCounts {
           workingOutsideTheHome
           onLeaveFromAJobWorkingOutsideHome
@@ -118,6 +125,7 @@ export const getMapData = /* GraphQL */ `
         }
       }
       totalFullEntries
+      totalDemoCount
       createdAt
       updatedAt
     }
@@ -164,27 +172,34 @@ export const listMapData = /* GraphQL */ `
           }
         }
         recoverySummary {
-          longCovidCount
-          percentLongCovid
+          recoveryCount
           avgRecoveryLength
         }
         vaccinationSummary {
           percentVaccinated
           avgNumOfVaccPerPerson
-          pfizerCount
-          modernaCount
-          jjCount
-          azCount
+          vaccineCount {
+            pfizer
+            moderna
+            janssen
+            novavax
+            other
+            doNotKnow
+          }
         }
         globalHealthSummary {
-          healthRankCount
-          physicalHealthRankCount
-          carryOutPhysicalActivitiesRankCount
-          fatigueRankCount
-          painLevelCount
+          avgGeneralHealth
+          avgPhysicalHealth
+          avgEverydayPhysicalCompetency
+          avgFatigue
+          avgPain
         }
         symptomSummary {
-          mostCommonSymptom
+          avgQualityOfLife
+          avgMentalHealth
+          avgSocialActivitesRelationships
+          avgSocialActivitiesCapacity
+          avgEmotionalProblems
           symptomCounts {
             headache
             bodyMuscleAche
@@ -233,14 +248,14 @@ export const listMapData = /* GraphQL */ `
             psychologicalProblems
             diabetes
             autoImmuneDiseases
+            mecfs
             other
             notSure
           }
         }
         socialSummary {
           percentHaveMedicalInsurance
-          percentDifficultyCoveringExpenses
-          averageWorkingSituation
+          averageDifficultyCoveringExpenses
           workingSituationCounts {
             workingOutsideTheHome
             onLeaveFromAJobWorkingOutsideHome
@@ -254,6 +269,7 @@ export const listMapData = /* GraphQL */ `
           }
         }
         totalFullEntries
+        totalDemoCount
         createdAt
         updatedAt
       }
@@ -302,27 +318,34 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           }
         }
         recoverySummary {
-          longCovidCount
-          percentLongCovid
+          recoveryCount
           avgRecoveryLength
         }
         vaccinationSummary {
           percentVaccinated
           avgNumOfVaccPerPerson
-          pfizerCount
-          modernaCount
-          jjCount
-          azCount
+          vaccineCount {
+            pfizer
+            moderna
+            janssen
+            novavax
+            other
+            doNotKnow
+          }
         }
         globalHealthSummary {
-          healthRankCount
-          physicalHealthRankCount
-          carryOutPhysicalActivitiesRankCount
-          fatigueRankCount
-          painLevelCount
+          avgGeneralHealth
+          avgPhysicalHealth
+          avgEverydayPhysicalCompetency
+          avgFatigue
+          avgPain
         }
         symptomSummary {
-          mostCommonSymptom
+          avgQualityOfLife
+          avgMentalHealth
+          avgSocialActivitesRelationships
+          avgSocialActivitiesCapacity
+          avgEmotionalProblems
           symptomCounts {
             headache
             bodyMuscleAche
@@ -371,14 +394,14 @@ export const mapDataByLevelNameState = /* GraphQL */ `
             psychologicalProblems
             diabetes
             autoImmuneDiseases
+            mecfs
             other
             notSure
           }
         }
         socialSummary {
           percentHaveMedicalInsurance
-          percentDifficultyCoveringExpenses
-          averageWorkingSituation
+          averageDifficultyCoveringExpenses
           workingSituationCounts {
             workingOutsideTheHome
             onLeaveFromAJobWorkingOutsideHome
@@ -392,6 +415,7 @@ export const mapDataByLevelNameState = /* GraphQL */ `
           }
         }
         totalFullEntries
+        totalDemoCount
         createdAt
         updatedAt
       }
@@ -440,27 +464,34 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           }
         }
         recoverySummary {
-          longCovidCount
-          percentLongCovid
+          recoveryCount
           avgRecoveryLength
         }
         vaccinationSummary {
           percentVaccinated
           avgNumOfVaccPerPerson
-          pfizerCount
-          modernaCount
-          jjCount
-          azCount
+          vaccineCount {
+            pfizer
+            moderna
+            janssen
+            novavax
+            other
+            doNotKnow
+          }
         }
         globalHealthSummary {
-          healthRankCount
-          physicalHealthRankCount
-          carryOutPhysicalActivitiesRankCount
-          fatigueRankCount
-          painLevelCount
+          avgGeneralHealth
+          avgPhysicalHealth
+          avgEverydayPhysicalCompetency
+          avgFatigue
+          avgPain
         }
         symptomSummary {
-          mostCommonSymptom
+          avgQualityOfLife
+          avgMentalHealth
+          avgSocialActivitesRelationships
+          avgSocialActivitiesCapacity
+          avgEmotionalProblems
           symptomCounts {
             headache
             bodyMuscleAche
@@ -509,14 +540,14 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
             psychologicalProblems
             diabetes
             autoImmuneDiseases
+            mecfs
             other
             notSure
           }
         }
         socialSummary {
           percentHaveMedicalInsurance
-          percentDifficultyCoveringExpenses
-          averageWorkingSituation
+          averageDifficultyCoveringExpenses
           workingSituationCounts {
             workingOutsideTheHome
             onLeaveFromAJobWorkingOutsideHome
@@ -530,6 +561,7 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
           }
         }
         totalFullEntries
+        totalDemoCount
         createdAt
         updatedAt
       }

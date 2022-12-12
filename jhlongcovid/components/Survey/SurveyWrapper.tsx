@@ -44,6 +44,7 @@ import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
 import { PreSurvey } from "./SurveyBody/PreSurvey";
 import { selectUser } from "../../redux/slices/userSlice";
 import {
+  aggregateResults,
   checkEmptyDemoFields,
   createCovidEntry,
   getCountyAndStateWithZip,
@@ -52,6 +53,7 @@ import {
   updateUserWithInfoFromSurvey,
   userInfoIsEmpty,
 } from "./SurveyFunctions";
+import { aggregateSurveyResults } from "../../src/graphql/mutations";
 
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
@@ -293,13 +295,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         userInfo.zip,
         process.env.GOOGLEMAPS_API_KEY ?? ""
       );
-      const surveyEntryId = await saveEntries(
-        locationData,
-        entries,
-        userInfo,
-        user
-      );
-      if (surveyEntryId) {
+
+      const ids = await saveEntries(locationData, entries, userInfo, user);
+      await aggregateResults(entries, ids, userInfo, locationData, user);
+
+      if (ids["SurveyEntry"]) {
         toast({
           title: "Survey submition",
           description: "Successfully submitted survey",
