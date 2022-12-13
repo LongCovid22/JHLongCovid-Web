@@ -2,7 +2,6 @@
 MapData - Object that will be queried for on map pan/zoom. Will contain summary-level
   information to show within map markers and within panels that we want to display over
   the map markers.
-
   Access Patterns:
     - Based on the level ("state" | "county") give all map data sorted by latitude and longitude
 """
@@ -31,15 +30,18 @@ type MapData
   stateAbbrev: String!
   lat: Float!
   long: Float!
+  covidCount: Int!
+  longCovid: Int!
+  topMedicalCondition: String!
   covidSummary: CovidSummary!
   recoverySummary: RecoverySummary!
   vaccinationSummary: VaccinationSummary!
   globalHealthSummary: GlobalHealthSummary!
+  patientHealthQuestionnaireSummary: PatientHealthQuestionnaireSummary!
   symptomSummary: SymptomSummary!
   medicalConditionsSummary: MedicalConditionsSummary!
   socialSummary: SocialSummary!
   totalFullEntries: Int!
-  totalDemoCount: AWSJSON!
 }
 
 """
@@ -91,7 +93,6 @@ enum NotificationMethod {
 
 """
 SurveyEntry - Represents the result of an entire User's survey.
-
   Access Patterns:
     - Get all surveys performed by a user (specified by User ID)
     - Get all surveys by type (daily, weekly, monthly, guest)
@@ -143,7 +144,6 @@ enum SurveyType {
 
 """
 Vaccination Entry - Represents the results of the vaccination subsection of the survey entry.
-
   Access Patterns:
     - Get all vaccination entries for a given state, sorted by date
     - Get all vaccination entries for a given county, sorted by date
@@ -284,7 +284,6 @@ type GlobalHealthEntry
 
 """
 Covid Entry - Represents the results of the covid subsections of the survey entry.
-
   Access Patterns:
       - Get all covid entries for a given state, sorted by date
       - Get all covid entries for a given county, sorted by date
@@ -499,7 +498,6 @@ type PatientHealthEntry
 
 """
 Pre Covid Symptoms - Model for keeping track of symptoms recorded during pre covid symptom section
-
   Access Patterns:
       - Get all pre covid symptom entries for a given state, sorted by date
       - Get all pre covid symptom entries for a given county, sorted by date
@@ -708,18 +706,94 @@ type MonthlyEntry
 # They represent information that could be displayed on click or hover of a map marker.
 # The aim of having these types is to avoid extra queries as a user navigates throughout the map.
 
+type NotAtAllToVeryMuch {
+  notAtAll: AWSJSON
+  alittleBit: AWSJSON
+  somewhat: AWSJSON
+  quiteABit: AWSJSON
+  veryMuch: AWSJSON
+}
+
+type OneToThreePlus {
+  one: AWSJSON
+  two: AWSJSON
+  three: AWSJSON
+  threePlus: AWSJSON
+  doNotKnow: AWSJSON
+}
+
+type OneToFivePlus {
+  one: AWSJSON
+  two: AWSJSON
+  three: AWSJSON
+  four: AWSJSON
+  five: AWSJSON
+  fivePlus: AWSJSON
+  doNotKnow: AWSJSON
+}
+
+type YesNo {
+  yes: AWSJSON
+  no: AWSJSON
+}
+
+type YesNoDontKnow {
+  yes: AWSJSON
+  no: AWSJSON
+  doNotKnow: AWSJSON
+}
+
+type ExcellentToPoor {
+  excellent: AWSJSON
+  veryGood: AWSJSON
+  good: AWSJSON
+  fair: AWSJSON
+  poor: AWSJSON
+}
+
+type CompletelyToNotAtAll {
+  completely: AWSJSON
+  mostly: AWSJSON
+  moderately: AWSJSON
+  aLittle: AWSJSON
+  notAtAll: AWSJSON
+}
+
+type NeverToAlways {
+  never: AWSJSON
+  rarely: AWSJSON
+  sometimes: AWSJSON
+  often: AWSJSON
+  always: AWSJSON
+}
+
+type NoneToVerySevere {
+  none: AWSJSON
+  mild: AWSJSON
+  moderate: AWSJSON
+  severe: AWSJSON
+  verySevere: AWSJSON
+}
+
+type NotAtAllToNearlyEveryDay {
+  notAtAll: AWSJSON
+  severalDays: AWSJSON
+  moreThanHalfTheDays: AWSJSON
+  nearlyEveryDay: AWSJSON
+}
+
 type CovidSummary {
-  #one person, one count (as long as infected in past before?)
-  covidCount: AWSJSON
-  avgPositiveCasesPerPerson: AWSJSON
-  percentHospitalizedDueToCovid: AWSJSON
-  avgHospitalizationsPerPerson: AWSJSON
-  percentSymptomatic: AWSJSON
-  avgSymptomPreventDailyTasks: AWSJSON
-  percentTookMedication: AWSJSON
-  medicationCounts: MedicationsAvailable
-  #From recovery result?
-  # percentRecovered: AWSJSON
+  beenInfected: YesNo
+  timesPositive: OneToThreePlus
+  hospitalized: YesNo
+  timesHospitalized: OneToThreePlus
+  # lastPositive: [String]
+  tested: YesNo
+  positiveTest: YesNoDontKnow
+  symptomatic: YesNo
+  symptomsPreventScale: NotAtAllToVeryMuch
+  medicationsPrescribed: YesNoDontKnow
+  medicationsTakenCount: MedicationsAvailable
 }
 
 type MedicationsAvailable {
@@ -727,19 +801,16 @@ type MedicationsAvailable {
   oralSteroids: AWSJSON
   antiBiotics: AWSJSON
   other: AWSJSON
-  dontKnow: AWSJSON
+  doNotKnow: AWSJSON
 }
 
 type RecoverySummary {
-  recoveryCount: AWSJSON
-  avgRecoveryLength: AWSJSON
-}
-
-#change types to "Pfizer", "Moderna", "Janssen", "Novavax", "Other", "Do not know"
-type VaccinationSummary {
-  percentVaccinated: AWSJSON
-  avgNumOfVaccPerPerson: AWSJSON
-  vaccineCount: VaccineTypes
+  recovered: YesNo
+  #cannot resolve to own type (infinite range...)
+  #check for NULL
+  #for each value, have to keep track of average and totalCount
+  #i.e. [average, count] AND NOT just a average number
+  avglengthOfRecovery: AWSJSON
 }
 
 type VaccineTypes {
@@ -751,23 +822,22 @@ type VaccineTypes {
   doNotKnow: AWSJSON
 }
 
-type GlobalHealthSummary {
-  avgGeneralHealth: AWSJSON
-  avgPhysicalHealth: AWSJSON
-  avgEverydayPhysicalCompetency: AWSJSON
-  avgFatigue: AWSJSON
-  avgPain: AWSJSON
+type VaccinationSummary {
+  vaccinated: YesNoDontKnow
+  totalVaccineShots: OneToFivePlus
+  vaccineType: VaccineTypes
 }
 
-#TODO!
-type SymptomSummary {
-  avgQualityOfLife: AWSJSON
-  avgMentalHealth: AWSJSON
-  avgSocialActivitesRelationships: AWSJSON
-  avgSocialActivitiesCapacity: AWSJSON
-  avgEmotionalProblems: AWSJSON
-  symptomCounts: SymptomsAvailabLe
+type GlobalHealthSummary {
+  healthRank: ExcellentToPoor
+  physicalHealthRank: ExcellentToPoor
+  carryPhysicalActivities: CompletelyToNotAtAll
+  fatigueRank: NoneToVerySevere
+  #check for NULL
+  #each answer needs to contain [count, average]
+  avgpainLevel: AWSJSON
 }
+
 type SymptomsAvailabLe {
   headache: AWSJSON
   bodyMuscleAche: AWSJSON
@@ -784,8 +854,6 @@ type SymptomsAvailabLe {
   nerveProblems: AWSJSON
   brainFog: AWSJSON
   anxietyDepressionNightmares: AWSJSON
-  problemsThinkingConcentrating: AWSJSON
-  problemsAnxietyDepressionStress: AWSJSON
   difficultyFallingAsleep: AWSJSON
   sleepyDuringDaytime: AWSJSON
   loudSnoring: AWSJSON
@@ -796,12 +864,33 @@ type SymptomsAvailabLe {
   excessiveDryMouth: AWSJSON
   visionProblems: AWSJSON
   hearingProblems: AWSJSON
-  #add to the statistic only for women
   fertilityProblemsForWomen: AWSJSON
 }
 
+type SymptomSummary {
+  symptomCounts: SymptomsAvailabLe
+  qualityOfLife: ExcellentToPoor
+  mentalHealthRank: ExcellentToPoor
+  socialSatisfactionRank: ExcellentToPoor
+  carryOutSocialActivitiesRank: ExcellentToPoor
+  anxietyInPastWeekRank: NeverToAlways
+}
+
+type PatientHealthQuestionnaireSummary {
+  littleInterestThings: NotAtAllToNearlyEveryDay
+  downDepressedHopeless: NotAtAllToNearlyEveryDay
+  sleepProblems: NotAtAllToNearlyEveryDay
+  tiredNoEnergy: NotAtAllToNearlyEveryDay
+  dietProblems: NotAtAllToNearlyEveryDay
+  badAboutSelf: NotAtAllToNearlyEveryDay
+  concentrationProblems: NotAtAllToNearlyEveryDay
+  slowOrRestless: NotAtAllToNearlyEveryDay
+  #each answer needs to contain [count, average]
+  avgPHQScore: AWSJSON
+}
+
 type MedicalConditionsSummary {
-  percentHaveLongCovid: AWSJSON
+  longCovid: YesNoDontKnow
   newDiagnosisCounts: DiagnosisTypes
 }
 
@@ -826,42 +915,32 @@ type DiagnosisTypes {
 }
 
 type SocialSummary {
-  percentHaveMedicalInsurance: AWSJSON
-  averageDifficultyCoveringExpenses: AWSJSON
-  workingSituationCounts: WorkingSituation
+  hasMedicalInsurance: YesNo
+  difficultCoveringExpenses: DifficultExpenses
+  currentWorkSituation: WorkingSituation
 }
 
-type WorkingSituation {
-  workingOutsideTheHome: AWSJSON
-  onLeaveFromAJobWorkingOutsideHome: AWSJSON
-  workingInsideHome: AWSJSON
-  lookingForWorkUnemployed: AWSJSON
-  retired: AWSJSON
-  disabled: AWSJSON
-  student: AWSJSON
-  dontKnow: AWSJSON
+type DifficultExpenses {
+  veryDifficult: AWSJSON
+  somewhatDifficult: AWSJSON
+  notAtAllDifficult: AWSJSON
+  doNotKnow: AWSJSON
   preferNotToAnswer: AWSJSON
 }
 
-# #GeneralHealthResults
-# type PatientHealthSummary {
-#   #tot score?
-#   avgTotalScore: AWSJSON
-#   #same idea of sympotoms
-#   avgHealthCounts: GeneralHealthQuestions
-# }
-
-# #Excellent = 5, ...., Poor = 1
-# type GeneralHealthQuestions {
-#   generalHealth: AWSJSON
-#   qualityOfLife: AWSJSON
-#   physicalHealth: AWSJSON
-#   mentalHealth: AWSJSON
-#   socialActivitiesRelationships: AWSJSON
-#   socialActivitiesRoles: AWSJSON
-# }
-
-#DONE
+type WorkingSituation {
+  atOffice: AWSJSON
+  hybrid: AWSJSON
+  remote: AWSJSON
+  remoteAndParenting: AWSJSON
+  onJobLeave: AWSJSON
+  unemployed: AWSJSON
+  retired: AWSJSON
+  disability: AWSJSON
+  student: AWSJSON
+  doNotKnow: AWSJSON
+  preferNotToAnswer: AWSJSON
+}
 
 #DONE
 

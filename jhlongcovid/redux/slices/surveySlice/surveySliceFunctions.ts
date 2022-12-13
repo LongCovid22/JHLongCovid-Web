@@ -442,18 +442,17 @@ const phq8Options = [
 ];
 
 const patientHealthOptionsMap: any = {
-  "Little interest or pleasure in doing things?": "littleInterest",
-  "Feeling down, depressed, or hopeless?": "feelingDepressed",
-  "Trouble falling or staying asleep, or sleeping too much?":
-    "troubleWithSleep",
-  "Feeling tired or having little energy?": "feelingTired",
-  "Poor appetite or overeating?": "poorEatingHabits",
+  "Little interest or pleasure in doing things?": "littleInterestThings",
+  "Feeling down, depressed, or hopeless?": "downDepressedHopeless",
+  "Trouble falling or staying asleep, or sleeping too much?": "sleepProblems",
+  "Feeling tired or having little energy?": "tiredNoEnergy",
+  "Poor appetite or overeating?": "dietProblems",
   "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?":
-    "feelDownOnSelf",
+    "badAboutSelf",
   "Trouble concentrating on things, such as reading the newspaper or watching television?":
-    "troubleConcentrating",
+    "concentrationProblems",
   "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?":
-    "movingDifferent",
+    "slowOrRestless",
 };
 
 const socialDeterminantsMap: any = {
