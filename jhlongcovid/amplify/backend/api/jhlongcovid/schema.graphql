@@ -707,79 +707,79 @@ type MonthlyEntry
 # The aim of having these types is to avoid extra queries as a user navigates throughout the map.
 
 type NotAtAllToVeryMuch {
-  notAtAll: AWSJSON
-  alittleBit: AWSJSON
-  somewhat: AWSJSON
-  quiteABit: AWSJSON
-  veryMuch: AWSJSON
+  notAtAll: SummaryResultsByDemo
+  alittleBit: SummaryResultsByDemo
+  somewhat: SummaryResultsByDemo
+  quiteABit: SummaryResultsByDemo
+  veryMuch: SummaryResultsByDemo
 }
 
 type OneToThreePlus {
-  one: AWSJSON
-  two: AWSJSON
-  three: AWSJSON
-  threePlus: AWSJSON
-  doNotKnow: AWSJSON
+  one: SummaryResultsByDemo
+  two: SummaryResultsByDemo
+  three: SummaryResultsByDemo
+  threePlus: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
 }
 
 type OneToFivePlus {
-  one: AWSJSON
-  two: AWSJSON
-  three: AWSJSON
-  four: AWSJSON
-  five: AWSJSON
-  fivePlus: AWSJSON
-  doNotKnow: AWSJSON
+  one: SummaryResultsByDemo
+  two: SummaryResultsByDemo
+  three: SummaryResultsByDemo
+  four: SummaryResultsByDemo
+  five: SummaryResultsByDemo
+  fivePlus: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
 }
 
 type YesNo {
-  yes: AWSJSON
-  no: AWSJSON
+  yes: SummaryResultsByDemo
+  no: SummaryResultsByDemo
 }
 
 type YesNoDontKnow {
-  yes: AWSJSON
-  no: AWSJSON
-  doNotKnow: AWSJSON
+  yes: SummaryResultsByDemo
+  no: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
 }
 
 type ExcellentToPoor {
-  excellent: AWSJSON
-  veryGood: AWSJSON
-  good: AWSJSON
-  fair: AWSJSON
-  poor: AWSJSON
+  excellent: SummaryResultsByDemo
+  veryGood: SummaryResultsByDemo
+  good: SummaryResultsByDemo
+  fair: SummaryResultsByDemo
+  poor: SummaryResultsByDemo
 }
 
 type CompletelyToNotAtAll {
-  completely: AWSJSON
-  mostly: AWSJSON
-  moderately: AWSJSON
-  aLittle: AWSJSON
-  notAtAll: AWSJSON
+  completely: SummaryResultsByDemo
+  mostly: SummaryResultsByDemo
+  moderately: SummaryResultsByDemo
+  aLittle: SummaryResultsByDemo
+  notAtAll: SummaryResultsByDemo
 }
 
 type NeverToAlways {
-  never: AWSJSON
-  rarely: AWSJSON
-  sometimes: AWSJSON
-  often: AWSJSON
-  always: AWSJSON
+  never: SummaryResultsByDemo
+  rarely: SummaryResultsByDemo
+  sometimes: SummaryResultsByDemo
+  often: SummaryResultsByDemo
+  always: SummaryResultsByDemo
 }
 
 type NoneToVerySevere {
-  none: AWSJSON
-  mild: AWSJSON
-  moderate: AWSJSON
-  severe: AWSJSON
-  verySevere: AWSJSON
+  none: SummaryResultsByDemo
+  mild: SummaryResultsByDemo
+  moderate: SummaryResultsByDemo
+  severe: SummaryResultsByDemo
+  verySevere: SummaryResultsByDemo
 }
 
 type NotAtAllToNearlyEveryDay {
-  notAtAll: AWSJSON
-  severalDays: AWSJSON
-  moreThanHalfTheDays: AWSJSON
-  nearlyEveryDay: AWSJSON
+  notAtAll: SummaryResultsByDemo
+  severalDays: SummaryResultsByDemo
+  moreThanHalfTheDays: SummaryResultsByDemo
+  nearlyEveryDay: SummaryResultsByDemo
 }
 
 type CovidSummary {
@@ -797,11 +797,11 @@ type CovidSummary {
 }
 
 type MedicationsAvailable {
-  antiViral: AWSJSON
-  oralSteroids: AWSJSON
-  antiBiotics: AWSJSON
-  other: AWSJSON
-  doNotKnow: AWSJSON
+  antiViral: SummaryResultsByDemo
+  oralSteroids: SummaryResultsByDemo
+  antiBiotics: SummaryResultsByDemo
+  other: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
 }
 
 type RecoverySummary {
@@ -814,12 +814,12 @@ type RecoverySummary {
 }
 
 type VaccineTypes {
-  pfizer: AWSJSON
-  moderna: AWSJSON
-  janssen: AWSJSON
-  novavax: AWSJSON
-  other: AWSJSON
-  doNotKnow: AWSJSON
+  pfizer: SummaryResultsByDemo
+  moderna: SummaryResultsByDemo
+  janssen: SummaryResultsByDemo
+  novavax: SummaryResultsByDemo
+  other: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
 }
 
 type VaccinationSummary {
@@ -839,32 +839,32 @@ type GlobalHealthSummary {
 }
 
 type SymptomsAvailabLe {
-  headache: AWSJSON
-  bodyMuscleAche: AWSJSON
-  feverChillsSweatsFlushing: AWSJSON
-  faintDizzyGoofy: AWSJSON
-  postExertionalMalaise: AWSJSON
-  weaknessInArmsLegs: AWSJSON
-  shortnessOfBreath: AWSJSON
-  cough: AWSJSON
-  palpitations: AWSJSON
-  swellingOfLegs: AWSJSON
-  indigestionNausea: AWSJSON
-  bladderProblem: AWSJSON
-  nerveProblems: AWSJSON
-  brainFog: AWSJSON
-  anxietyDepressionNightmares: AWSJSON
-  difficultyFallingAsleep: AWSJSON
-  sleepyDuringDaytime: AWSJSON
-  loudSnoring: AWSJSON
-  uncomfortableFeelingsInLegs: AWSJSON
-  skinRash: AWSJSON
-  lossOfChangeInSmell: AWSJSON
-  excessiveThirst: AWSJSON
-  excessiveDryMouth: AWSJSON
-  visionProblems: AWSJSON
-  hearingProblems: AWSJSON
-  fertilityProblemsForWomen: AWSJSON
+  headache: SummaryResultsByDemo
+  bodyMuscleAche: SummaryResultsByDemo
+  feverChillsSweatsFlushing: SummaryResultsByDemo
+  faintDizzyGoofy: SummaryResultsByDemo
+  postExertionalMalaise: SummaryResultsByDemo
+  weaknessInArmsLegs: SummaryResultsByDemo
+  shortnessOfBreath: SummaryResultsByDemo
+  cough: SummaryResultsByDemo
+  palpitations: SummaryResultsByDemo
+  swellingOfLegs: SummaryResultsByDemo
+  indigestionNausea: SummaryResultsByDemo
+  bladderProblem: SummaryResultsByDemo
+  nerveProblems: SummaryResultsByDemo
+  brainFog: SummaryResultsByDemo
+  anxietyDepressionNightmares: SummaryResultsByDemo
+  difficultyFallingAsleep: SummaryResultsByDemo
+  sleepyDuringDaytime: SummaryResultsByDemo
+  loudSnoring: SummaryResultsByDemo
+  uncomfortableFeelingsInLegs: SummaryResultsByDemo
+  skinRash: SummaryResultsByDemo
+  lossOfChangeInSmell: SummaryResultsByDemo
+  excessiveThirst: SummaryResultsByDemo
+  excessiveDryMouth: SummaryResultsByDemo
+  visionProblems: SummaryResultsByDemo
+  hearingProblems: SummaryResultsByDemo
+  fertilityProblemsForWomen: SummaryResultsByDemo
 }
 
 type SymptomSummary {
@@ -895,23 +895,23 @@ type MedicalConditionsSummary {
 }
 
 type DiagnosisTypes {
-  noNewDiagnosis: AWSJSON
-  heartProblems: AWSJSON
-  lungProblems: AWSJSON
-  bloodClotLung: AWSJSON
-  sleepApnea: AWSJSON
-  memory: AWSJSON
-  migraine: AWSJSON
-  stroke: AWSJSON
-  seizure: AWSJSON
-  kidneyProblems: AWSJSON
-  stomachProblems: AWSJSON
-  psychologicalProblems: AWSJSON
-  diabetes: AWSJSON
-  autoImmuneDiseases: AWSJSON
-  mecfs: AWSJSON
-  other: AWSJSON
-  notSure: AWSJSON
+  noNewDiagnosis: SummaryResultsByDemo
+  heartProblems: SummaryResultsByDemo
+  lungProblems: SummaryResultsByDemo
+  bloodClotLung: SummaryResultsByDemo
+  sleepApnea: SummaryResultsByDemo
+  memory: SummaryResultsByDemo
+  migraine: SummaryResultsByDemo
+  stroke: SummaryResultsByDemo
+  seizure: SummaryResultsByDemo
+  kidneyProblems: SummaryResultsByDemo
+  stomachProblems: SummaryResultsByDemo
+  psychologicalProblems: SummaryResultsByDemo
+  diabetes: SummaryResultsByDemo
+  autoImmuneDiseases: SummaryResultsByDemo
+  mecfs: SummaryResultsByDemo
+  other: SummaryResultsByDemo
+  notSure: SummaryResultsByDemo
 }
 
 type SocialSummary {
@@ -921,25 +921,25 @@ type SocialSummary {
 }
 
 type DifficultExpenses {
-  veryDifficult: AWSJSON
-  somewhatDifficult: AWSJSON
-  notAtAllDifficult: AWSJSON
-  doNotKnow: AWSJSON
-  preferNotToAnswer: AWSJSON
+  veryDifficult: SummaryResultsByDemo
+  somewhatDifficult: SummaryResultsByDemo
+  notAtAllDifficult: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
+  preferNotToAnswer: SummaryResultsByDemo
 }
 
 type WorkingSituation {
-  atOffice: AWSJSON
-  hybrid: AWSJSON
-  remote: AWSJSON
-  remoteAndParenting: AWSJSON
-  onJobLeave: AWSJSON
-  unemployed: AWSJSON
-  retired: AWSJSON
-  disability: AWSJSON
-  student: AWSJSON
-  doNotKnow: AWSJSON
-  preferNotToAnswer: AWSJSON
+  atOffice: SummaryResultsByDemo
+  hybrid: SummaryResultsByDemo
+  remote: SummaryResultsByDemo
+  remoteAndParenting: SummaryResultsByDemo
+  onJobLeave: SummaryResultsByDemo
+  unemployed: SummaryResultsByDemo
+  retired: SummaryResultsByDemo
+  disability: SummaryResultsByDemo
+  student: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
+  preferNotToAnswer: SummaryResultsByDemo
 }
 
 #DONE

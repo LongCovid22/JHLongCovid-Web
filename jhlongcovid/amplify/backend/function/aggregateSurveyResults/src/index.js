@@ -11,6 +11,28 @@ const { defaultProvider } = require("@aws-sdk/credential-provider-node");
 const { SignatureV4 } = require("@aws-sdk/signature-v4");
 const { HttpRequest } = require("@aws-sdk/protocol-http");
 const { default: fetch, Request } = require("node-fetch");
+const {
+  checkIsNumAndBetweenOneAndTen,
+  checkNeverToAlways,
+  checkNotAtAllToNearlyEveryDay,
+  checkCompletelyToNotAtAll,
+  checkNoneToVerySevere,
+  checkExcellentToPoor,
+  checkSymptomStringArray,
+  checkMedicalConditionsArray,
+  checkDifficultCoveringExpensesType,
+  checkCurrentWorkSituationType,
+  checkVaccineType,
+  trueEqualsYes,
+  resolveOneToFiveType,
+  resolveOneToThreePlus,
+  checkMedicationsTakenType,
+  checkYesNoDoNotKnowType,
+  checkNotAtAllToVeryMuchType,
+  checkNotNullAndStringType,
+  checkNotNullAndBoolType,
+  checkNotNullNumberGreaterThanZero,
+} = require("./checkTypes");
 
 const GRAPHQL_ENDPOINT = process.env.API_JHLONGCOVID_GRAPHQLAPIENDPOINTOUTPUT;
 
@@ -33,12 +55,12 @@ let properties = `
       topMedicalCondition
       covidSummary {
         beenInfected {
-          yes
+          yes 
           no
         }
         timesPositive {
-          one
-          two
+          one 
+          two 
           three
           threePlus
           doNotKnow
@@ -899,9 +921,7 @@ const getID = async (level, name, stateAbbrev) => {
   try {
     let response = await fetch(request);
     let load = await response.json();
-
-    console.log(load);
-
+    console.log("RESPONSE: ", load);
     if (level === "county") {
       return load.data.mapDataByLevelNameState.items;
     } else if (level === "state") {
@@ -910,7 +930,7 @@ const getID = async (level, name, stateAbbrev) => {
     }
   } catch (error) {
     console.log(error.message);
-    return "error";
+    return null;
   }
 };
 
@@ -925,41 +945,43 @@ const updateMapData = async (county, state) => {
   });
 
   const query = updateQuery;
-  let variables = { input: county };
-
-  let requestToBeSigned = new HttpRequest({
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      host: endpoint.host,
-    },
-    hostname: endpoint.host,
-    body: JSON.stringify({ query, variables }),
-    path: endpoint.pathname,
-  });
-
-  let signed = await signer.sign(requestToBeSigned);
-  let request = new Request(endpoint, signed);
-
   let body;
   let response;
 
-  try {
-    response = await fetch(request);
-    body = await response.json();
-    console.log(body);
+  if (county !== null) {
+    let variables = { input: county };
 
-    if (body.errors) statusCode = 400;
-  } catch (error) {
-    statusCode = 500;
-    body = {
-      errors: [
-        {
-          message: error.message,
-        },
-      ],
-    };
-    console.log(body);
+    let requestToBeSigned = new HttpRequest({
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        host: endpoint.host,
+      },
+      hostname: endpoint.host,
+      body: JSON.stringify({ query, variables }),
+      path: endpoint.pathname,
+    });
+
+    let signed = await signer.sign(requestToBeSigned);
+    let request = new Request(endpoint, signed);
+
+    try {
+      response = await fetch(request);
+      body = await response.json();
+      console.log(body);
+
+      if (body.errors) statusCode = 400;
+    } catch (error) {
+      statusCode = 500;
+      body = {
+        errors: [
+          {
+            message: error.message,
+          },
+        ],
+      };
+      console.log(body);
+    }
   }
 
   variables = { input: state };
@@ -977,9 +999,6 @@ const updateMapData = async (county, state) => {
 
   signed = await signer.sign(requestToBeSigned);
   request = new Request(endpoint, signed);
-
-  body;
-  response;
 
   try {
     response = await fetch(request);
@@ -1011,7 +1030,7 @@ const getStateAndCountyInfo = async (eventInput) => {
   const countyInfo = await getID("county", county, stateAbbrev);
 
   return {
-    county: countyInfo[0],
+    county: countyInfo ? countyInfo[0] : null,
     state: stateInfo[0],
   };
 };
@@ -1053,9 +1072,11 @@ const stringify = (object) => {
   }
 };
 
+const stringifyAverages = (object) => {};
+
 const findMatchingIndex = (element, array) => {
   for (let i = 0; i < array.length; i++) {
-    if (array[i] === element) {
+    if (array[i].toLowerCase() === element.toLowerCase()) {
       return i;
     }
   }
@@ -1098,240 +1119,6 @@ const aggregatePercentageCustomBasedOnCondition = (
   );
 };
 
-const checkNotNullNumberGreaterThanZero = (num) => {
-  return num != null && typeof num === "number" && num >= 0;
-};
-const checkNotNullAndBoolType = (num) => {
-  return num != null && typeof num === "boolean";
-};
-
-const checkNotNullAndStringType = (num) => {
-  return num != null && typeof num === "string";
-};
-
-const checkNotAtAllToVeryMuchType = (num) => {
-  return (
-    num === "notAtAll" ||
-    num === "alittleBit" ||
-    num === "somewhat" ||
-    num === "quiteABit" ||
-    num === "veryMuch"
-  );
-};
-
-const checkYesNoDoNotKnowType = (num) => {
-  return num === "yes" || num === "no" || yes === "doNotKnow";
-};
-
-const checkMedicationsTakenType = (str) => {
-  let allowed = [
-    "antiViral",
-    "oralSteroids",
-    "antiBiotics",
-    "other",
-    "doNotKnow",
-  ];
-  return allowed.includes(str);
-};
-
-const checkVaccineType = (str) => {
-  let allowed = [
-    "pfizer",
-    "moderna",
-    "janssen",
-    "novavax",
-    "other",
-    "doNotKnow",
-  ];
-  return allowed.includes(str);
-};
-
-const checkExcellentToPoor = (str) => {
-  let allowed = ["excellent", "veryGood", "good", "fair", "poor"];
-  return allowed.includes(str);
-};
-
-const checkNeverToAlways = (str) => {
-  let allowed = ["never", "rarely", "sometimes", "often", "always"];
-  return allowed.includes(str);
-};
-
-const checkNotAtAllToNearlyEveryDay = (str) => {
-  let allowed = [
-    "notAtAll",
-    "severalDays",
-    "moreThanHalfTheDays",
-    "nearlyEveryDay",
-  ];
-  return allowed.includes(str);
-};
-
-const checkCompletelyToNotAtAll = (str) => {
-  let allowed = ["completely", "mostly", "moderately", "aLittle", "notAtAll"];
-  return allowed.includes(str);
-};
-
-const checkNoneToVerySevere = (str) => {
-  let allowed = ["none", "mild", "moderate", "severe", "verySevere"];
-  return allowed.includes(str);
-};
-
-const checkIsNumAndBetweenOneAndTen = (num) => {
-  return typeof num === "number" && num >= 1 && num <= 10;
-};
-
-const checkSymptomStringArray = (array) => {
-  let allowed = [
-    "headache",
-    "bodyMuscleAche",
-    "feverChillsSweatsFlushing",
-    "faintDizzyGoofy",
-    "postExertionalMalaise",
-    "weaknessInArmsLegs",
-    "shortnessOfBreath",
-    "cough",
-    "palpitations",
-    "swellingOfLegs",
-    "indigestionNausea",
-    "bladderProblem",
-    "nerveProblems",
-    "brainFog",
-    "anxietyDepressionNightmares",
-    "difficultyFallingAsleep",
-    "sleepyDuringDaytime",
-    "loudSnoring",
-    "uncomfortableFeelingsInLegs",
-    "skinRash",
-    "lossOfChangeInSmell",
-    "excessiveThirst",
-    "excessiveDryMouth",
-    "visionProblems",
-    "hearingProblems",
-    "fertilityProblemsForWomen",
-  ];
-  if (Array.isArray(array) === false) {
-    return false;
-  }
-  for (const obj of array) {
-    if (typeof obj !== "string" || allowed.includes(obj) === false) {
-      return false;
-    }
-  }
-  return true;
-};
-
-const checkMedicalConditionsArray = (array) => {
-  let allowed = [
-    "noNewDiagnosis",
-    "heartProblems",
-    "lungProblems",
-    "bloodClotLung",
-    "sleepApnea",
-    "memory",
-    "migraine",
-    "stroke",
-    "seizure",
-    "kidneyProblems",
-    "stomachProblems",
-    "psychologicalProblems",
-    "diabetes",
-    "autoImmuneDiseases",
-    "mecfs",
-    "other",
-    "notSure",
-  ];
-  if (Array.isArray(array) === false) {
-    return false;
-  }
-  for (const obj of array) {
-    if (typeof obj !== "string" || allowed.includes(obj) === false) {
-      return false;
-    }
-  }
-  return true;
-};
-
-const checkDifficultCoveringExpensesType = (str) => {
-  let allowed = [
-    "veryDifficult",
-    "somewhatDifficult",
-    "notAtAllDifficult",
-    "doNotKnow",
-    "preferNotToAnswer",
-  ];
-  return allowed.includes(str);
-};
-
-const checkCurrentWorkSituationType = (str) => {
-  let allowed = [
-    "atOffice",
-    "hybrid",
-    "remote",
-    "remoteAndParenting",
-    "onJobLeave",
-    "unemployed",
-    "retired",
-    "disability",
-    "student",
-    "doNotKnow",
-    "preferNotToAnswer",
-  ];
-  return allowed.includes(str);
-};
-
-const trueEqualsYes = (bool) => {
-  return bool ? "yes" : "no";
-};
-
-const resolveOneToFiveType = (num) => {
-  let property;
-  switch (num) {
-    case 0:
-      property = "doNotKnow";
-      break;
-    case 1:
-      property = "one";
-      break;
-    case 2:
-      property = "two";
-      break;
-    case 3:
-      property = "three";
-      break;
-    case 4:
-      property = "four";
-      break;
-    case 5:
-      property = "five";
-      break;
-    default:
-      property = "fivePlus";
-  }
-  return property;
-};
-
-const resolveOneToThreePlus = (num) => {
-  let property;
-  switch (num) {
-    case 0:
-      property = "doNotKnow";
-      break;
-    case 1:
-      property = "one";
-      break;
-    case 2:
-      property = "two";
-      break;
-    case 3:
-      property = "three";
-      break;
-    default:
-      property = "threePlus";
-  }
-
-  return property;
-};
-
 const addCustomToTallyBasedOnCondition = (
   indexes,
   property,
@@ -1347,14 +1134,24 @@ const addCustomToTallyBasedOnCondition = (
 
 const updateCovidSummary = (eventInput, county, state, indexes) => {
   let { covidResults } = eventInput;
-  let data = {
-    county: {
-      covidSummary: county.covidSummary,
-    },
-    state: {
-      covidSummary: state.covidSummary,
-    },
-  };
+  let data;
+  if (county !== null) {
+    data = {
+      county: {
+        covidSummary: county.covidSummary,
+      },
+      state: {
+        covidSummary: state.covidSummary,
+      },
+    };
+  } else {
+    data = {
+      state: {
+        covidSummary: state.covidSummary,
+      },
+    };
+  }
+
   for (const dat in data) {
     let {
       beenInfected,
@@ -1372,10 +1169,12 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
     let objectsToUpdate = [];
 
     if (checkNotNullAndBoolType(covidResults.beenInfected)) {
-      county.covidCount += (covidResults.beenInfected) ? 1 : 0;
-      state.covidCount += (covidResults.beenInfected) ? 1 : 0;
-      
-      
+      if (dat === "county") {
+        county.covidCount += covidResults.beenInfected ? 1 : 0;
+      } else {
+        state.covidCount += covidResults.beenInfected ? 1 : 0;
+      }
+
       let prop = trueEqualsYes(covidResults.beenInfected);
       objectsToUpdate.push(beenInfected[prop]);
     }
@@ -1446,14 +1245,23 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
 
 const updateRecoverySummary = (eventInput, county, state, indexes) => {
   let { recoveryResults } = eventInput;
-  let data = {
-    county: {
-      recoverySummary: county.recoverySummary,
-    },
-    state: {
-      recoverySummary: state.recoverySummary,
-    },
-  };
+  let data;
+  if (county !== null) {
+    data = {
+      county: {
+        recoverySummary: county.recoverySummary,
+      },
+      state: {
+        recoverySummary: state.recoverySummary,
+      },
+    };
+  } else {
+    data = {
+      state: {
+        recoverySummary: state.recoverySummary,
+      },
+    };
+  }
 
   for (const dat in data) {
     let { recovered, avglengthOfRecovery } = data[dat].recoverySummary;
@@ -1475,7 +1283,6 @@ const updateRecoverySummary = (eventInput, county, state, indexes) => {
 
 const addAverage = (indexes, property, numToAdd) => {
   const { raceIndex, sexIndex, ageIndex } = indexes;
-
   property.race.values[raceIndex].average = parseFloat(
     (property.race.values[raceIndex].average *
       property.race.values[raceIndex].count +
@@ -1503,14 +1310,23 @@ const addAverage = (indexes, property, numToAdd) => {
 
 const updateVaccinationSummary = (eventInput, county, state, indexes) => {
   let { vaccinationResults } = eventInput;
-  let data = {
-    county: {
-      vaccinationSummary: county.vaccinationSummary,
-    },
-    state: {
-      vaccinationSummary: state.vaccinationSummary,
-    },
-  };
+  let data;
+  if (county !== null) {
+    data = {
+      county: {
+        vaccinationSummary: county.vaccinationSummary,
+      },
+      state: {
+        vaccinationSummary: state.vaccinationSummary,
+      },
+    };
+  } else {
+    data = {
+      state: {
+        vaccinationSummary: state.vaccinationSummary,
+      },
+    };
+  }
 
   for (const dat in data) {
     let { vaccinated, totalVaccineShots, vaccineType } =
@@ -1544,14 +1360,23 @@ const updateVaccinationSummary = (eventInput, county, state, indexes) => {
 
 const updateGlobalHealthSummary = (eventInput, county, state, indexes) => {
   let { globalHealthResults } = eventInput;
-  let data = {
-    county: {
-      globalHealthSummary: county.globalHealthSummary,
-    },
-    state: {
-      globalHealthSummary: state.globalHealthSummary,
-    },
-  };
+  let data;
+  if (county !== null) {
+    data = {
+      county: {
+        globalHealthSummary: county.globalHealthSummary,
+      },
+      state: {
+        globalHealthSummary: state.globalHealthSummary,
+      },
+    };
+  } else {
+    data = {
+      state: {
+        globalHealthSummary: state.globalHealthSummary,
+      },
+    };
+  }
 
   for (const dat in data) {
     let {
@@ -1605,7 +1430,7 @@ const updateGlobalHealthSummary = (eventInput, county, state, indexes) => {
 };
 
 const findMostFrequentDiagnosis = (diagnosisCounts) => {
-  let mostfreq = 'more data needed';
+  let mostfreq = "more data needed";
   let num = 0;
   for (const diag in diagnosisCounts) {
     let arr = diagnosisCounts[diag].race.values;
@@ -1613,24 +1438,33 @@ const findMostFrequentDiagnosis = (diagnosisCounts) => {
       return accumulator + value;
     }, 0);
     if (sum > num) {
-      num = sum
+      num = sum;
       mostfreq = diag;
     }
   }
   return mostfreq;
-}
+};
 
 const updateSymptomSummary = (eventInput, county, state, indexes) => {
   let { symptomResults } = eventInput;
 
-  let data = {
-    county: {
-      symptomSummary: county.symptomSummary,
-    },
-    state: {
-      symptomSummary: state.symptomSummary,
-    },
-  };
+  let data;
+  if (county !== null) {
+    data = {
+      county: {
+        symptomSummary: county.symptomSummary,
+      },
+      state: {
+        symptomSummary: state.symptomSummary,
+      },
+    };
+  } else {
+    data = {
+      state: {
+        symptomSummary: state.symptomSummary,
+      },
+    };
+  }
 
   for (const dat in data) {
     let { symptomCounts } = data[dat].symptomSummary;
@@ -1697,14 +1531,23 @@ const updateSymptomSummary = (eventInput, county, state, indexes) => {
 
 const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
   let { symptomResults } = eventInput;
-  let data = {
-    county: {
-      medicalConditionsSummary: county.medicalConditionsSummary,
-    },
-    state: {
-      medicalConditionsSummary: state.medicalConditionsSummary,
-    },
-  };
+  let data;
+  if (county !== null) {
+    data = {
+      county: {
+        medicalConditionsSummary: county.medicalConditionsSummary,
+      },
+      state: {
+        medicalConditionsSummary: state.medicalConditionsSummary,
+      },
+    };
+  } else {
+    data = {
+      state: {
+        medicalConditionsSummary: state.medicalConditionsSummary,
+      },
+    };
+  }
 
   for (const dat in data) {
     let { longCovid, newDiagnosisCounts } = data[dat].medicalConditionsSummary;
@@ -1720,16 +1563,23 @@ const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
       });
     }
 
-    county.topMedicalCondition = findMostFrequentDiagnosis(newDiagnosisCounts);
-    state.topMedicalCondition = county.topMedicalCondition;
-
+    if (dat === "county") {
+      county.topMedicalCondition =
+        findMostFrequentDiagnosis(newDiagnosisCounts);
+    } else {
+      state.topMedicalCondition = findMostFrequentDiagnosis(newDiagnosisCounts);
+    }
 
     if (
       checkNotNullAndStringType(symptomResults.hasLongCovid) &&
       checkYesNoDoNotKnowType(symptomResults.hasLongCovid)
     ) {
-      county.longCovid += (symptomResults.hasLongCovid === "yes") ? 1 : 0;
-      state.longCovid += (symptomResults.hasLongCovid === "yes") ? 1 : 0;
+      console.log("data", dat);
+      if (dat === "county") {
+        county.longCovid += symptomResults.hasLongCovid === "yes" ? 1 : 0;
+      } else {
+        state.longCovid += symptomResults.hasLongCovid === "yes" ? 1 : 0;
+      }
 
       addCustomToTallyBasedOnCondition(
         indexes,
@@ -1744,16 +1594,26 @@ const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
 const updatePatientHealthSummary = (eventInput, county, state, indexes) => {
   let { patientHealthResults } = eventInput;
   let { raceIndex, ageIndex, sexIndex } = indexes;
-  let data = {
-    county: {
-      patientHealthQuestionnaireSummary:
-        county.patientHealthQuestionnaireSummary,
-    },
-    state: {
-      patientHealthQuestionnaireSummary:
-        state.patientHealthQuestionnaireSummary,
-    },
-  };
+  let data;
+  if (county !== null) {
+    data = {
+      county: {
+        patientHealthQuestionnaireSummary:
+          county.patientHealthQuestionnaireSummary,
+      },
+      state: {
+        patientHealthQuestionnaireSummary:
+          state.patientHealthQuestionnaireSummary,
+      },
+    };
+  } else {
+    data = {
+      state: {
+        patientHealthQuestionnaireSummary:
+          state.patientHealthQuestionnaireSummary,
+      },
+    };
+  }
   for (const dat in data) {
     let {
       littleInterestThings,
@@ -1822,14 +1682,23 @@ const updateSocialSummary = (eventInput, county, state, indexes) => {
   let { socialDeterminantsResults } = eventInput;
   let { raceIndex, ageIndex, sexIndex } = indexes;
 
-  let data = {
-    county: {
-      socialSummary: county.socialSummary,
-    },
-    state: {
-      socialSummary: state.socialSummary,
-    },
-  };
+  let data;
+  if (county !== null) {
+    data = {
+      county: {
+        socialSummary: county.socialSummary,
+      },
+      state: {
+        socialSummary: state.socialSummary,
+      },
+    };
+  } else {
+    data = {
+      state: {
+        socialSummary: state.socialSummary,
+      },
+    };
+  }
 
   for (const dat in data) {
     let {
@@ -1881,7 +1750,7 @@ const updateSocialSummary = (eventInput, county, state, indexes) => {
   }
 };
 const incrementTotalFullEntries = (county, state) => {
-  county.totalFullEntries += 1;
+  if (county !== null) county.totalFullEntries += 1;
   state.totalFullEntries += 1;
 };
 
@@ -1891,7 +1760,7 @@ const aggregateSurveyResults = async (eventInput) => {
   let { county, state } = await getStateAndCountyInfo(eventInput);
   let { location } = eventInput;
 
-  if (!county) {
+  if (county !== null) {
     variables.input.level = "county";
     variables.input.name = location.county;
     variables.input.stateAbbrev = location.stateAbbrev;
@@ -1940,7 +1809,7 @@ const aggregateSurveyResults = async (eventInput) => {
     }
   }
 
-  if (!state) {
+  if (state !== null) {
     variables.input.level = "state";
     variables.input.name = location.state;
     variables.input.stateAbbrev = location.stateAbbrev;
@@ -1993,17 +1862,18 @@ const aggregateSurveyResults = async (eventInput) => {
   if (!county || !state) {
     ({ county, state } = await getStateAndCountyInfo(eventInput));
   }
+
   parse(county);
   parse(state);
 
   let raceIndex = findMatchingIndex(
     eventInput.race,
-    county.covidSummary.beenInfected.yes.race.ranges
+    state.covidSummary.beenInfected.yes.race.ranges
   );
   let ageIndex = findHardCodedAgeRangeIndex(eventInput.age);
   let sexIndex = findMatchingIndex(
     eventInput.sex,
-    county.covidSummary.beenInfected.yes.sex.ranges
+    state.covidSummary.beenInfected.yes.sex.ranges
   );
 
   let indexes = {
@@ -2023,9 +1893,10 @@ const aggregateSurveyResults = async (eventInput) => {
   //increment at the last. updates require OLD count
   incrementTotalFullEntries(county, state);
 
+  console.log("state", state);
+
   stringify(county);
   stringify(state);
-
 
   // //upload back to appsync, updated county/state
   await updateMapData(county, state);
@@ -2041,9 +1912,14 @@ exports.handler = async (event) => {
   const { county, state } = await aggregateSurveyResults(input);
 
   // await populate();
+  const statusCode = 200;
+  const body = {
+    message: `Successfully updated map data for survey submission ${event.arguments.surveyResults.id}`,
+  };
+
   return {
-    county,
-    state,
+    statusCode,
+    body: body,
   };
   // return null;
 };
