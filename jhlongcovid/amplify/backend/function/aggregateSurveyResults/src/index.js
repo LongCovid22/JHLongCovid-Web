@@ -55,291 +55,2865 @@ let properties = `
       topMedicalCondition
       covidSummary {
         beenInfected {
-          yes 
-          no
+          yes {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          no {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         timesPositive {
-          one 
-          two 
-          three
-          threePlus
-          doNotKnow
+          one {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          } 
+          two {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          } 
+          three {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          threePlus {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          doNotKnow {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         hospitalized {
-          yes
-          no
+          yes {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          no {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         timesHospitalized {
-          one
-          two
-          three
-          threePlus
-          doNotKnow
+          one {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          two {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          three {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          threePlus {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          doNotKnow {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         tested {
-          yes
-          no
+          yes {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          no {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         positiveTest {
-          yes
-          no
-          doNotKnow
+          yes {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          } 
+          no {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          doNotKnow {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         symptomatic {
-          yes
-          no
+          yes {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          no {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         symptomsPreventScale {
-          notAtAll
-          alittleBit
-          somewhat
-          quiteABit
-          veryMuch
+          notAtAll {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          alittleBit {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          somewhat {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          quiteABit {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          veryMuch {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         medicationsPrescribed {
-          yes
-          no
-          doNotKnow
+          yes {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          no {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          doNotKnow {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         medicationsTakenCount {
-          antiViral
-          oralSteroids
-          antiBiotics
-          other
-          doNotKnow
+          antiViral {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          oralSteroids {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          antiBiotics {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          other {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          doNotKnow {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
       }
       recoverySummary {
         recovered {
-          yes
-          no
+          yes {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          no {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
-        avglengthOfRecovery
+        avglengthOfRecovery {
+          race {
+            ranges
+            values {
+              count
+              average
+            }
+          }
+          age {
+            ranges
+            values {
+              count
+              average
+            }
+          }
+          sex {
+            ranges
+            values {
+              count
+              average
+            }
+          }
+        }
       }
       vaccinationSummary {
         vaccinated {
-          yes
-          no
-          doNotKnow
+          yes {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          no {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          doNotKnow {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         totalVaccineShots {
-          one
-          two
-          three
-          four
-          five
-          fivePlus
-          doNotKnow
+          one {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          two {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          three {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          four {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          five {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          fivePlus {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          doNotKnow {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         vaccineType {
-          pfizer
-          moderna
-          janssen
-          novavax
-          other
-          doNotKnow
+          pfizer {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          moderna {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          janssen {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          novavax {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          other {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          doNotKnow {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
       }
-
       globalHealthSummary {
         healthRank {
-          excellent
-          veryGood
-          good
-          fair
-          poor
+          excellent {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          veryGood {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          good {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          fair {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          poor {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         physicalHealthRank {
-          excellent
-          veryGood
-          good
-          fair
-          poor
+          excellent {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          veryGood {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          good {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          fair {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          poor {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         carryPhysicalActivities {
-          completely
-          mostly
-          moderately
-          aLittle
-          notAtAll
+          completely {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          mostly {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          moderately {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          aLittle {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          notAtAll {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         fatigueRank {
-          none
-          mild
-          moderate
-          severe
-          verySevere
+          none {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          mild {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          moderate {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          severe {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          verySevere {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
-        avgpainLevel
+        avgpainLevel {
+          race {
+            ranges
+            values {
+              count
+              average
+            }
+          }
+          age {
+            ranges
+            values {
+              count
+              average
+            }
+          }
+          sex {
+            ranges
+            values {
+              count
+              average
+            }
+          }
+        }
       }
 
       symptomSummary {
         symptomCounts {
-          headache
-          bodyMuscleAche
-          feverChillsSweatsFlushing
-          faintDizzyGoofy
-          postExertionalMalaise
-          weaknessInArmsLegs
-          shortnessOfBreath
-          cough
-          palpitations
-          swellingOfLegs
-          indigestionNausea
-          bladderProblem
-          nerveProblems
-          brainFog
-          anxietyDepressionNightmares
-          difficultyFallingAsleep
-          sleepyDuringDaytime
-          loudSnoring
-          uncomfortableFeelingsInLegs
-          skinRash
-          lossOfChangeInSmell
-          excessiveThirst
-          excessiveDryMouth
-          visionProblems
-          hearingProblems
-          fertilityProblemsForWomen
+          headache {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          bodyMuscleAche {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          feverChillsSweatsFlushing {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          faintDizzyGoofy {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          postExertionalMalaise {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          weaknessInArmsLegs {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          shortnessOfBreath {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          cough {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          palpitations {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          swellingOfLegs {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          indigestionNausea {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          bladderProblem {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          nerveProblems {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          brainFog {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          anxietyDepressionNightmares {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          difficultyFallingAsleep {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          sleepyDuringDaytime {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          loudSnoring {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          uncomfortableFeelingsInLegs {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          skinRash {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          lossOfChangeInSmell {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          excessiveThirst {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          excessiveDryMouth {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          visionProblems {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          hearingProblems {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          fertilityProblemsForWomen {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         qualityOfLife {
-          excellent
-          veryGood
-          good
-          fair
-          poor
+          excellent {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          veryGood {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          good {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          fair {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          poor {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         mentalHealthRank {
-          excellent
-          veryGood
-          good
-          fair
-          poor
+          excellent {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          veryGood {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          good {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          fair {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          poor {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         socialSatisfactionRank {
-          excellent
-          veryGood
-          good
-          fair
-          poor
+          excellent {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          veryGood {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          good {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          fair {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          poor {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         carryOutSocialActivitiesRank {
-          excellent
-          veryGood
-          good
-          fair
-          poor
+          excellent {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          veryGood {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          good {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          fair {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          poor {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         anxietyInPastWeekRank {
-          never
-          rarely
-          sometimes
-          often
-          always
+          never {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          rarely {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          sometimes {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          often {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          always {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
       }
       patientHealthQuestionnaireSummary {
         littleInterestThings {
-          notAtAll
-          severalDays
-          moreThanHalfTheDays
-          nearlyEveryDay
+          notAtAll {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          severalDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          moreThanHalfTheDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          nearlyEveryDay {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         downDepressedHopeless {
-          notAtAll
-          severalDays
-          moreThanHalfTheDays
-          nearlyEveryDay
+          notAtAll {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          severalDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          moreThanHalfTheDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          nearlyEveryDay {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         sleepProblems {
-          notAtAll
-          severalDays
-          moreThanHalfTheDays
-          nearlyEveryDay
+          notAtAll {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          severalDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          moreThanHalfTheDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          nearlyEveryDay {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         tiredNoEnergy {
-          notAtAll
-          severalDays
-          moreThanHalfTheDays
-          nearlyEveryDay
+          notAtAll {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          severalDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          moreThanHalfTheDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          nearlyEveryDay {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         dietProblems {
-          notAtAll
-          severalDays
-          moreThanHalfTheDays
-          nearlyEveryDay
+          notAtAll {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          severalDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          moreThanHalfTheDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          nearlyEveryDay {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         badAboutSelf {
-          notAtAll
-          severalDays
-          moreThanHalfTheDays
-          nearlyEveryDay
+          notAtAll {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          severalDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          moreThanHalfTheDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          nearlyEveryDay {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         concentrationProblems {
-          notAtAll
-          severalDays
-          moreThanHalfTheDays
-          nearlyEveryDay
+          notAtAll {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          severalDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          moreThanHalfTheDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          nearlyEveryDay {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         slowOrRestless {
-          notAtAll
-          severalDays
-          moreThanHalfTheDays
-          nearlyEveryDay
+          notAtAll {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          severalDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          moreThanHalfTheDays {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          nearlyEveryDay {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
-        avgPHQScore
+        avgPHQScore {
+          race {
+            ranges
+            values {
+              count
+              average
+            }
+          }
+          age {
+            ranges
+            values {
+              count
+              average
+            }
+          }
+          sex {
+            ranges
+            values {
+              count
+              average
+            }
+          }
+        }
       }
 
       medicalConditionsSummary {
         longCovid {
-          yes
-          no
-          doNotKnow
+          yes {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          no {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          doNotKnow {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         newDiagnosisCounts {
-          noNewDiagnosis
-          heartProblems
-          lungProblems
-          bloodClotLung
-          sleepApnea
-          memory
-          migraine
-          stroke
-          seizure
-          kidneyProblems
-          stomachProblems
-          psychologicalProblems
-          diabetes
-          autoImmuneDiseases
-          mecfs
-          other
-          notSure
+          noNewDiagnosis {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          heartProblems {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          lungProblems {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          bloodClotLung {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          sleepApnea {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          memory {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          migraine {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          stroke {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          seizure {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          kidneyProblems {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          stomachProblems {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          psychologicalProblems {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          diabetes {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          autoImmuneDiseases {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          mecfs {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          other {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          notSure {
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
       }
       socialSummary {
         hasMedicalInsurance {
-          yes
-          no
+          yes{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          no{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         difficultCoveringExpenses {
-          veryDifficult
-          somewhatDifficult
-          notAtAllDifficult
-          doNotKnow
-          preferNotToAnswer
+          veryDifficult{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          somewhatDifficult{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          notAtAllDifficult{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          doNotKnow{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          preferNotToAnswer{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
         currentWorkSituation {
-          atOffice
-          hybrid
-          remote
-          remoteAndParenting
-          onJobLeave
-          unemployed
-          retired
-          disability
-          student
-          doNotKnow
-          preferNotToAnswer
+          atOffice{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          hybrid{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          remote{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          remoteAndParenting{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          onJobLeave{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          unemployed{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          retired{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          disability{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          student{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          doNotKnow{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
+          preferNotToAnswer{
+            race {
+              ranges
+              values
+            }
+            age {
+              ranges
+              values
+            }
+            sex {
+              ranges
+              values
+            }
+          }
         }
       }
       totalFullEntries
@@ -443,292 +3017,292 @@ let variables = {
     topMedicalCondition: "",
     covidSummary: {
       beenInfected: {
-        yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData),
+        yes: NullJSONData,
+        no: NullJSONData,
       },
       timesPositive: {
-        one: JSON.stringify(NullJSONData),
-        two: JSON.stringify(NullJSONData),
-        three: JSON.stringify(NullJSONData),
-        threePlus: JSON.stringify(NullJSONData),
-        doNotKnow: JSON.stringify(NullJSONData),
+        one: NullJSONData,
+        two: NullJSONData,
+        three: NullJSONData,
+        threePlus: NullJSONData,
+        doNotKnow: NullJSONData,
       },
       hospitalized: {
-        yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData),
+        yes: NullJSONData,
+        no: NullJSONData,
       },
       timesHospitalized: {
-        one: JSON.stringify(NullJSONData),
-        two: JSON.stringify(NullJSONData),
-        three: JSON.stringify(NullJSONData),
-        threePlus: JSON.stringify(NullJSONData),
-        doNotKnow: JSON.stringify(NullJSONData),
+        one: NullJSONData,
+        two: NullJSONData,
+        three: NullJSONData,
+        threePlus: NullJSONData,
+        doNotKnow: NullJSONData,
       },
       tested: {
-        yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData),
+        yes: NullJSONData,
+        no: NullJSONData,
       },
       positiveTest: {
-        yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData),
-        doNotKnow: JSON.stringify(NullJSONData),
+        yes: NullJSONData,
+        no: NullJSONData,
+        doNotKnow: NullJSONData,
       },
       symptomatic: {
-        yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData),
+        yes: NullJSONData,
+        no: NullJSONData,
       },
       symptomsPreventScale: {
-        notAtAll: JSON.stringify(NullJSONData),
-        alittleBit: JSON.stringify(NullJSONData),
-        somewhat: JSON.stringify(NullJSONData),
-        quiteABit: JSON.stringify(NullJSONData),
-        veryMuch: JSON.stringify(NullJSONData),
+        notAtAll: NullJSONData,
+        alittleBit: NullJSONData,
+        somewhat: NullJSONData,
+        quiteABit: NullJSONData,
+        veryMuch: NullJSONData,
       },
       medicationsPrescribed: {
-        yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData),
-        doNotKnow: JSON.stringify(NullJSONData),
+        yes: NullJSONData,
+        no: NullJSONData,
+        doNotKnow: NullJSONData,
       },
       medicationsTakenCount: {
-        antiViral: JSON.stringify(NullJSONData),
-        oralSteroids: JSON.stringify(NullJSONData),
-        antiBiotics: JSON.stringify(NullJSONData),
-        other: JSON.stringify(NullJSONData),
-        doNotKnow: JSON.stringify(NullJSONData),
+        antiViral: NullJSONData,
+        oralSteroids: NullJSONData,
+        antiBiotics: NullJSONData,
+        other: NullJSONData,
+        doNotKnow: NullJSONData,
       },
     },
     recoverySummary: {
       recovered: {
-        yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData),
+        yes: NullJSONData,
+        no: NullJSONData,
       },
-      avglengthOfRecovery: JSON.stringify(avgNULLJSONData),
+      avglengthOfRecovery: avgNULLJSONData,
     },
 
     vaccinationSummary: {
       vaccinated: {
-        yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData),
-        doNotKnow: JSON.stringify(NullJSONData),
+        yes: NullJSONData,
+        no: NullJSONData,
+        doNotKnow: NullJSONData,
       },
       totalVaccineShots: {
-        one: JSON.stringify(NullJSONData),
-        two: JSON.stringify(NullJSONData),
-        three: JSON.stringify(NullJSONData),
-        four: JSON.stringify(NullJSONData),
-        five: JSON.stringify(NullJSONData),
-        fivePlus: JSON.stringify(NullJSONData),
-        doNotKnow: JSON.stringify(NullJSONData),
+        one: NullJSONData,
+        two: NullJSONData,
+        three: NullJSONData,
+        four: NullJSONData,
+        five: NullJSONData,
+        fivePlus: NullJSONData,
+        doNotKnow: NullJSONData,
       },
       vaccineType: {
-        pfizer: JSON.stringify(NullJSONData),
-        moderna: JSON.stringify(NullJSONData),
-        janssen: JSON.stringify(NullJSONData),
-        novavax: JSON.stringify(NullJSONData),
-        other: JSON.stringify(NullJSONData),
-        doNotKnow: JSON.stringify(NullJSONData),
+        pfizer: NullJSONData,
+        moderna: NullJSONData,
+        janssen: NullJSONData,
+        novavax: NullJSONData,
+        other: NullJSONData,
+        doNotKnow: NullJSONData,
       },
     },
 
     globalHealthSummary: {
       healthRank: {
-        excellent: JSON.stringify(NullJSONData),
-        veryGood: JSON.stringify(NullJSONData),
-        good: JSON.stringify(NullJSONData),
-        fair: JSON.stringify(NullJSONData),
-        poor: JSON.stringify(NullJSONData),
+        excellent: NullJSONData,
+        veryGood: NullJSONData,
+        good: NullJSONData,
+        fair: NullJSONData,
+        poor: NullJSONData,
       },
       physicalHealthRank: {
-        excellent: JSON.stringify(NullJSONData),
-        veryGood: JSON.stringify(NullJSONData),
-        good: JSON.stringify(NullJSONData),
-        fair: JSON.stringify(NullJSONData),
-        poor: JSON.stringify(NullJSONData),
+        excellent: NullJSONData,
+        veryGood: NullJSONData,
+        good: NullJSONData,
+        fair: NullJSONData,
+        poor: NullJSONData,
       },
       carryPhysicalActivities: {
-        completely: JSON.stringify(NullJSONData),
-        mostly: JSON.stringify(NullJSONData),
-        moderately: JSON.stringify(NullJSONData),
-        aLittle: JSON.stringify(NullJSONData),
-        notAtAll: JSON.stringify(NullJSONData),
+        completely: NullJSONData,
+        mostly: NullJSONData,
+        moderately: NullJSONData,
+        aLittle: NullJSONData,
+        notAtAll: NullJSONData,
       },
       fatigueRank: {
-        none: JSON.stringify(NullJSONData),
-        mild: JSON.stringify(NullJSONData),
-        moderate: JSON.stringify(NullJSONData),
-        severe: JSON.stringify(NullJSONData),
-        verySevere: JSON.stringify(NullJSONData),
+        none: NullJSONData,
+        mild: NullJSONData,
+        moderate: NullJSONData,
+        severe: NullJSONData,
+        verySevere: NullJSONData,
       },
-      avgpainLevel: JSON.stringify(avgNULLJSONData),
+      avgpainLevel: avgNULLJSONData,
     },
 
     symptomSummary: {
       symptomCounts: {
-        headache: JSON.stringify(NullJSONData),
-        bodyMuscleAche: JSON.stringify(NullJSONData),
-        feverChillsSweatsFlushing: JSON.stringify(NullJSONData),
-        faintDizzyGoofy: JSON.stringify(NullJSONData),
-        postExertionalMalaise: JSON.stringify(NullJSONData),
-        weaknessInArmsLegs: JSON.stringify(NullJSONData),
-        shortnessOfBreath: JSON.stringify(NullJSONData),
-        cough: JSON.stringify(NullJSONData),
-        palpitations: JSON.stringify(NullJSONData),
-        swellingOfLegs: JSON.stringify(NullJSONData),
-        indigestionNausea: JSON.stringify(NullJSONData),
-        bladderProblem: JSON.stringify(NullJSONData),
-        nerveProblems: JSON.stringify(NullJSONData),
-        brainFog: JSON.stringify(NullJSONData),
-        anxietyDepressionNightmares: JSON.stringify(NullJSONData),
-        difficultyFallingAsleep: JSON.stringify(NullJSONData),
-        sleepyDuringDaytime: JSON.stringify(NullJSONData),
-        loudSnoring: JSON.stringify(NullJSONData),
-        uncomfortableFeelingsInLegs: JSON.stringify(NullJSONData),
-        skinRash: JSON.stringify(NullJSONData),
-        lossOfChangeInSmell: JSON.stringify(NullJSONData),
-        excessiveThirst: JSON.stringify(NullJSONData),
-        excessiveDryMouth: JSON.stringify(NullJSONData),
-        visionProblems: JSON.stringify(NullJSONData),
-        hearingProblems: JSON.stringify(NullJSONData),
-        fertilityProblemsForWomen: JSON.stringify(NullJSONData),
+        headache: NullJSONData,
+        bodyMuscleAche: NullJSONData,
+        feverChillsSweatsFlushing: NullJSONData,
+        faintDizzyGoofy: NullJSONData,
+        postExertionalMalaise: NullJSONData,
+        weaknessInArmsLegs: NullJSONData,
+        shortnessOfBreath: NullJSONData,
+        cough: NullJSONData,
+        palpitations: NullJSONData,
+        swellingOfLegs: NullJSONData,
+        indigestionNausea: NullJSONData,
+        bladderProblem: NullJSONData,
+        nerveProblems: NullJSONData,
+        brainFog: NullJSONData,
+        anxietyDepressionNightmares: NullJSONData,
+        difficultyFallingAsleep: NullJSONData,
+        sleepyDuringDaytime: NullJSONData,
+        loudSnoring: NullJSONData,
+        uncomfortableFeelingsInLegs: NullJSONData,
+        skinRash: NullJSONData,
+        lossOfChangeInSmell: NullJSONData,
+        excessiveThirst: NullJSONData,
+        excessiveDryMouth: NullJSONData,
+        visionProblems: NullJSONData,
+        hearingProblems: NullJSONData,
+        fertilityProblemsForWomen: NullJSONData,
       },
       qualityOfLife: {
-        excellent: JSON.stringify(NullJSONData),
-        veryGood: JSON.stringify(NullJSONData),
-        good: JSON.stringify(NullJSONData),
-        fair: JSON.stringify(NullJSONData),
-        poor: JSON.stringify(NullJSONData),
+        excellent: NullJSONData,
+        veryGood: NullJSONData,
+        good: NullJSONData,
+        fair: NullJSONData,
+        poor: NullJSONData,
       },
       mentalHealthRank: {
-        excellent: JSON.stringify(NullJSONData),
-        veryGood: JSON.stringify(NullJSONData),
-        good: JSON.stringify(NullJSONData),
-        fair: JSON.stringify(NullJSONData),
-        poor: JSON.stringify(NullJSONData),
+        excellent: NullJSONData,
+        veryGood: NullJSONData,
+        good: NullJSONData,
+        fair: NullJSONData,
+        poor: NullJSONData,
       },
       socialSatisfactionRank: {
-        excellent: JSON.stringify(NullJSONData),
-        veryGood: JSON.stringify(NullJSONData),
-        good: JSON.stringify(NullJSONData),
-        fair: JSON.stringify(NullJSONData),
-        poor: JSON.stringify(NullJSONData),
+        excellent: NullJSONData,
+        veryGood: NullJSONData,
+        good: NullJSONData,
+        fair: NullJSONData,
+        poor: NullJSONData,
       },
       carryOutSocialActivitiesRank: {
-        excellent: JSON.stringify(NullJSONData),
-        veryGood: JSON.stringify(NullJSONData),
-        good: JSON.stringify(NullJSONData),
-        fair: JSON.stringify(NullJSONData),
-        poor: JSON.stringify(NullJSONData),
+        excellent: NullJSONData,
+        veryGood: NullJSONData,
+        good: NullJSONData,
+        fair: NullJSONData,
+        poor: NullJSONData,
       },
       anxietyInPastWeekRank: {
-        never: JSON.stringify(NullJSONData),
-        rarely: JSON.stringify(NullJSONData),
-        sometimes: JSON.stringify(NullJSONData),
-        often: JSON.stringify(NullJSONData),
-        always: JSON.stringify(NullJSONData),
+        never: NullJSONData,
+        rarely: NullJSONData,
+        sometimes: NullJSONData,
+        often: NullJSONData,
+        always: NullJSONData,
       },
     },
 
     patientHealthQuestionnaireSummary: {
       littleInterestThings: {
-        notAtAll: JSON.stringify(NullJSONData),
-        severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfTheDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData),
+        notAtAll: NullJSONData,
+        severalDays: NullJSONData,
+        moreThanHalfTheDays: NullJSONData,
+        nearlyEveryDay: NullJSONData,
       },
       downDepressedHopeless: {
-        notAtAll: JSON.stringify(NullJSONData),
-        severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfTheDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData),
+        notAtAll: NullJSONData,
+        severalDays: NullJSONData,
+        moreThanHalfTheDays: NullJSONData,
+        nearlyEveryDay: NullJSONData,
       },
       sleepProblems: {
-        notAtAll: JSON.stringify(NullJSONData),
-        severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfTheDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData),
+        notAtAll: NullJSONData,
+        severalDays: NullJSONData,
+        moreThanHalfTheDays: NullJSONData,
+        nearlyEveryDay: NullJSONData,
       },
       tiredNoEnergy: {
-        notAtAll: JSON.stringify(NullJSONData),
-        severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfTheDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData),
+        notAtAll: NullJSONData,
+        severalDays: NullJSONData,
+        moreThanHalfTheDays: NullJSONData,
+        nearlyEveryDay: NullJSONData,
       },
       dietProblems: {
-        notAtAll: JSON.stringify(NullJSONData),
-        severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfTheDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData),
+        notAtAll: NullJSONData,
+        severalDays: NullJSONData,
+        moreThanHalfTheDays: NullJSONData,
+        nearlyEveryDay: NullJSONData,
       },
       badAboutSelf: {
-        notAtAll: JSON.stringify(NullJSONData),
-        severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfTheDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData),
+        notAtAll: NullJSONData,
+        severalDays: NullJSONData,
+        moreThanHalfTheDays: NullJSONData,
+        nearlyEveryDay: NullJSONData,
       },
       concentrationProblems: {
-        notAtAll: JSON.stringify(NullJSONData),
-        severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfTheDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData),
+        notAtAll: NullJSONData,
+        severalDays: NullJSONData,
+        moreThanHalfTheDays: NullJSONData,
+        nearlyEveryDay: NullJSONData,
       },
       slowOrRestless: {
-        notAtAll: JSON.stringify(NullJSONData),
-        severalDays: JSON.stringify(NullJSONData),
-        moreThanHalfTheDays: JSON.stringify(NullJSONData),
-        nearlyEveryDay: JSON.stringify(NullJSONData),
+        notAtAll: NullJSONData,
+        severalDays: NullJSONData,
+        moreThanHalfTheDays: NullJSONData,
+        nearlyEveryDay: NullJSONData,
       },
-      avgPHQScore: JSON.stringify(avgNULLJSONData),
+      avgPHQScore: avgNULLJSONData,
     },
     medicalConditionsSummary: {
       longCovid: {
-        yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData),
-        doNotKnow: JSON.stringify(NullJSONData),
+        yes: NullJSONData,
+        no: NullJSONData,
+        doNotKnow: NullJSONData,
       },
       newDiagnosisCounts: {
-        noNewDiagnosis: JSON.stringify(NullJSONData),
-        heartProblems: JSON.stringify(NullJSONData),
-        lungProblems: JSON.stringify(NullJSONData),
-        bloodClotLung: JSON.stringify(NullJSONData),
-        sleepApnea: JSON.stringify(NullJSONData),
-        memory: JSON.stringify(NullJSONData),
-        migraine: JSON.stringify(NullJSONData),
-        stroke: JSON.stringify(NullJSONData),
-        seizure: JSON.stringify(NullJSONData),
-        kidneyProblems: JSON.stringify(NullJSONData),
-        stomachProblems: JSON.stringify(NullJSONData),
-        psychologicalProblems: JSON.stringify(NullJSONData),
-        diabetes: JSON.stringify(NullJSONData),
-        autoImmuneDiseases: JSON.stringify(NullJSONData),
-        mecfs: JSON.stringify(NullJSONData),
-        other: JSON.stringify(NullJSONData),
-        notSure: JSON.stringify(NullJSONData),
+        noNewDiagnosis: NullJSONData,
+        heartProblems: NullJSONData,
+        lungProblems: NullJSONData,
+        bloodClotLung: NullJSONData,
+        sleepApnea: NullJSONData,
+        memory: NullJSONData,
+        migraine: NullJSONData,
+        stroke: NullJSONData,
+        seizure: NullJSONData,
+        kidneyProblems: NullJSONData,
+        stomachProblems: NullJSONData,
+        psychologicalProblems: NullJSONData,
+        diabetes: NullJSONData,
+        autoImmuneDiseases: NullJSONData,
+        mecfs: NullJSONData,
+        other: NullJSONData,
+        notSure: NullJSONData,
       },
     },
     socialSummary: {
       hasMedicalInsurance: {
-        yes: JSON.stringify(NullJSONData),
-        no: JSON.stringify(NullJSONData),
+        yes: NullJSONData,
+        no: NullJSONData,
       },
       difficultCoveringExpenses: {
-        veryDifficult: JSON.stringify(NullJSONData),
-        somewhatDifficult: JSON.stringify(NullJSONData),
-        notAtAllDifficult: JSON.stringify(NullJSONData),
-        doNotKnow: JSON.stringify(NullJSONData),
-        preferNotToAnswer: JSON.stringify(NullJSONData),
+        veryDifficult: NullJSONData,
+        somewhatDifficult: NullJSONData,
+        notAtAllDifficult: NullJSONData,
+        doNotKnow: NullJSONData,
+        preferNotToAnswer: NullJSONData,
       },
       currentWorkSituation: {
-        atOffice: JSON.stringify(NullJSONData),
-        hybrid: JSON.stringify(NullJSONData),
-        remote: JSON.stringify(NullJSONData),
-        remoteAndParenting: JSON.stringify(NullJSONData),
-        onJobLeave: JSON.stringify(NullJSONData),
-        unemployed: JSON.stringify(NullJSONData),
-        retired: JSON.stringify(NullJSONData),
-        disability: JSON.stringify(NullJSONData),
-        student: JSON.stringify(NullJSONData),
-        doNotKnow: JSON.stringify(NullJSONData),
-        preferNotToAnswer: JSON.stringify(NullJSONData),
+        atOffice: NullJSONData,
+        hybrid: NullJSONData,
+        remote: NullJSONData,
+        remoteAndParenting: NullJSONData,
+        onJobLeave: NullJSONData,
+        unemployed: NullJSONData,
+        retired: NullJSONData,
+        disability: NullJSONData,
+        student: NullJSONData,
+        doNotKnow: NullJSONData,
+        preferNotToAnswer: NullJSONData,
       },
     },
     totalFullEntries: 0,
@@ -921,7 +3495,7 @@ const getID = async (level, name, stateAbbrev) => {
   try {
     let response = await fetch(request);
     let load = await response.json();
-    console.log("RESPONSE: ", load);
+    console.log("LOAD: ", load);
     if (level === "county") {
       return load.data.mapDataByLevelNameState.items;
     } else if (level === "state") {
@@ -1760,7 +4334,7 @@ const aggregateSurveyResults = async (eventInput) => {
   let { county, state } = await getStateAndCountyInfo(eventInput);
   let { location } = eventInput;
 
-  if (county !== null) {
+  if (county === null && eventInput.location.county !== "") {
     variables.input.level = "county";
     variables.input.name = location.county;
     variables.input.stateAbbrev = location.stateAbbrev;
@@ -1809,7 +4383,7 @@ const aggregateSurveyResults = async (eventInput) => {
     }
   }
 
-  if (state !== null) {
+  if (!state) {
     variables.input.level = "state";
     variables.input.name = location.state;
     variables.input.stateAbbrev = location.stateAbbrev;
@@ -1859,12 +4433,9 @@ const aggregateSurveyResults = async (eventInput) => {
     }
   }
 
-  if (!county || !state) {
+  if ((county === null && eventInput.location.county !== "") || !state) {
     ({ county, state } = await getStateAndCountyInfo(eventInput));
   }
-
-  parse(county);
-  parse(state);
 
   let raceIndex = findMatchingIndex(
     eventInput.race,
@@ -1893,11 +4464,6 @@ const aggregateSurveyResults = async (eventInput) => {
   //increment at the last. updates require OLD count
   incrementTotalFullEntries(county, state);
 
-  console.log("state", state);
-
-  stringify(county);
-  stringify(state);
-
   // //upload back to appsync, updated county/state
   await updateMapData(county, state);
 
@@ -1908,8 +4474,9 @@ const aggregateSurveyResults = async (eventInput) => {
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
-  let input = event.arguments.surveyResults;
-  const { county, state } = await aggregateSurveyResults(input);
+  let input = event.arguments.results;
+  console.log("EVENT ARGS: ", event.arguments);
+  // const { county, state } = await aggregateSurveyResults(input);
 
   // await populate();
   const statusCode = 200;

@@ -15,13 +15,43 @@ export const onCreateMapData = /* GraphQL */ `
       longCovid
       topMedicalCondition
       recoverySummary {
-        avglengthOfRecovery
+        avglengthOfRecovery {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       globalHealthSummary {
-        avgpainLevel
+        avgpainLevel {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       patientHealthQuestionnaireSummary {
-        avgPHQScore
+        avgPHQScore {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       totalFullEntries
       createdAt
@@ -42,13 +72,43 @@ export const onUpdateMapData = /* GraphQL */ `
       longCovid
       topMedicalCondition
       recoverySummary {
-        avglengthOfRecovery
+        avglengthOfRecovery {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       globalHealthSummary {
-        avgpainLevel
+        avgpainLevel {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       patientHealthQuestionnaireSummary {
-        avgPHQScore
+        avgPHQScore {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       totalFullEntries
       createdAt
@@ -69,13 +129,43 @@ export const onDeleteMapData = /* GraphQL */ `
       longCovid
       topMedicalCondition
       recoverySummary {
-        avglengthOfRecovery
+        avglengthOfRecovery {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       globalHealthSummary {
-        avgpainLevel
+        avgpainLevel {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       patientHealthQuestionnaireSummary {
-        avgPHQScore
+        avgPHQScore {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       totalFullEntries
       createdAt

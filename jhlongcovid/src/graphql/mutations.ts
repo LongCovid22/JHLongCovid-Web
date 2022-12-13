@@ -3,7 +3,7 @@
 // this is an auto generated file. This will be overwritten
 
 export const aggregateSurveyResults = /* GraphQL */ `
-  mutation AggregateSurveyResults($results: SurveyResults!) {
+  mutation AggregateSurveyResults($results: AWSJSON!) {
     aggregateSurveyResults(results: $results) {
       statusCode
       body
@@ -26,13 +26,43 @@ export const createMapData = /* GraphQL */ `
       longCovid
       topMedicalCondition
       recoverySummary {
-        avglengthOfRecovery
+        avglengthOfRecovery {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       globalHealthSummary {
-        avgpainLevel
+        avgpainLevel {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       patientHealthQuestionnaireSummary {
-        avgPHQScore
+        avgPHQScore {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       totalFullEntries
       createdAt
@@ -56,13 +86,43 @@ export const updateMapData = /* GraphQL */ `
       longCovid
       topMedicalCondition
       recoverySummary {
-        avglengthOfRecovery
+        avglengthOfRecovery {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       globalHealthSummary {
-        avgpainLevel
+        avgpainLevel {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       patientHealthQuestionnaireSummary {
-        avgPHQScore
+        avgPHQScore {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       totalFullEntries
       createdAt
@@ -86,13 +146,43 @@ export const deleteMapData = /* GraphQL */ `
       longCovid
       topMedicalCondition
       recoverySummary {
-        avglengthOfRecovery
+        avglengthOfRecovery {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       globalHealthSummary {
-        avgpainLevel
+        avgpainLevel {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       patientHealthQuestionnaireSummary {
-        avgPHQScore
+        avgPHQScore {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       totalFullEntries
       createdAt

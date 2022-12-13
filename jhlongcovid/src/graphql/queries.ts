@@ -15,13 +15,43 @@ export const getMapData = /* GraphQL */ `
       longCovid
       topMedicalCondition
       recoverySummary {
-        avglengthOfRecovery
+        avglengthOfRecovery {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       globalHealthSummary {
-        avgpainLevel
+        avgpainLevel {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       patientHealthQuestionnaireSummary {
-        avgPHQScore
+        avgPHQScore {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
+        }
       }
       totalFullEntries
       createdAt
@@ -56,15 +86,6 @@ export const listMapData = /* GraphQL */ `
         covidCount
         longCovid
         topMedicalCondition
-        recoverySummary {
-          avglengthOfRecovery
-        }
-        globalHealthSummary {
-          avgpainLevel
-        }
-        patientHealthQuestionnaireSummary {
-          avgPHQScore
-        }
         totalFullEntries
         createdAt
         updatedAt
@@ -100,15 +121,6 @@ export const mapDataByLevelNameState = /* GraphQL */ `
         covidCount
         longCovid
         topMedicalCondition
-        recoverySummary {
-          avglengthOfRecovery
-        }
-        globalHealthSummary {
-          avgpainLevel
-        }
-        patientHealthQuestionnaireSummary {
-          avgPHQScore
-        }
         totalFullEntries
         createdAt
         updatedAt
@@ -144,15 +156,6 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
         covidCount
         longCovid
         topMedicalCondition
-        recoverySummary {
-          avglengthOfRecovery
-        }
-        globalHealthSummary {
-          avgpainLevel
-        }
-        patientHealthQuestionnaireSummary {
-          avgPHQScore
-        }
         totalFullEntries
         createdAt
         updatedAt

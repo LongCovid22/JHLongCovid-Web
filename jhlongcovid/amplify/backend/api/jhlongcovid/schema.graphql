@@ -810,7 +810,7 @@ type RecoverySummary {
   #check for NULL
   #for each value, have to keep track of average and totalCount
   #i.e. [average, count] AND NOT just a average number
-  avglengthOfRecovery: AWSJSON
+  avglengthOfRecovery: SummaryAvgByDemo
 }
 
 type VaccineTypes {
@@ -835,7 +835,7 @@ type GlobalHealthSummary {
   fatigueRank: NoneToVerySevere
   #check for NULL
   #each answer needs to contain [count, average]
-  avgpainLevel: AWSJSON
+  avgpainLevel: SummaryAvgByDemo
 }
 
 type SymptomsAvailabLe {
@@ -886,7 +886,7 @@ type PatientHealthQuestionnaireSummary {
   concentrationProblems: NotAtAllToNearlyEveryDay
   slowOrRestless: NotAtAllToNearlyEveryDay
   #each answer needs to contain [count, average]
-  avgPHQScore: AWSJSON
+  avgPHQScore: SummaryAvgByDemo
 }
 
 type MedicalConditionsSummary {
@@ -948,7 +948,7 @@ type WorkingSituation {
 # LAMBDA RESOLVERS
 
 type Mutation {
-  aggregateSurveyResults(results: SurveyResults!): Response
+  aggregateSurveyResults(results: AWSJSON!): Response
     @function(name: "aggregateSurveyResults-${env}")
 }
 
@@ -970,4 +970,20 @@ type SummaryResultsByDemo {
 type SummaryValues {
   ranges: [String]
   values: [Int]
+}
+
+type SummaryAvgByDemo {
+  race: SummaryAvgValues
+  sex: SummaryAvgValues
+  age: SummaryAvgValues
+}
+
+type SummaryAvgValues {
+  ranges: [String]
+  values: [CountAverage]
+}
+
+type CountAverage {
+  count: Int
+  average: Float
 }

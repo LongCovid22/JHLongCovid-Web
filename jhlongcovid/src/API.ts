@@ -2,10 +2,6 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type SurveyResults = {
-  surveyResults: string,
-};
-
 export type Response = {
   __typename: "Response",
   statusCode?: number | null,
@@ -94,7 +90,23 @@ export type MedicationsAvailableInput = {
 
 export type RecoverySummaryInput = {
   recovered?: YesNoInput | null,
-  avglengthOfRecovery?: string | null,
+  avglengthOfRecovery?: SummaryAvgByDemoInput | null,
+};
+
+export type SummaryAvgByDemoInput = {
+  race?: SummaryAvgValuesInput | null,
+  sex?: SummaryAvgValuesInput | null,
+  age?: SummaryAvgValuesInput | null,
+};
+
+export type SummaryAvgValuesInput = {
+  ranges?: Array< string | null > | null,
+  values?: Array< CountAverageInput | null > | null,
+};
+
+export type CountAverageInput = {
+  count?: number | null,
+  average?: number | null,
 };
 
 export type VaccinationSummaryInput = {
@@ -127,7 +139,7 @@ export type GlobalHealthSummaryInput = {
   physicalHealthRank?: ExcellentToPoorInput | null,
   carryPhysicalActivities?: CompletelyToNotAtAllInput | null,
   fatigueRank?: NoneToVerySevereInput | null,
-  avgpainLevel?: string | null,
+  avgpainLevel?: SummaryAvgByDemoInput | null,
 };
 
 export type ExcellentToPoorInput = {
@@ -163,7 +175,7 @@ export type PatientHealthQuestionnaireSummaryInput = {
   badAboutSelf?: NotAtAllToNearlyEveryDayInput | null,
   concentrationProblems?: NotAtAllToNearlyEveryDayInput | null,
   slowOrRestless?: NotAtAllToNearlyEveryDayInput | null,
-  avgPHQScore?: string | null,
+  avgPHQScore?: SummaryAvgByDemoInput | null,
 };
 
 export type NotAtAllToNearlyEveryDayInput = {
@@ -430,7 +442,26 @@ export type MedicationsAvailable = {
 export type RecoverySummary = {
   __typename: "RecoverySummary",
   recovered?: YesNo | null,
-  avglengthOfRecovery?: string | null,
+  avglengthOfRecovery?: SummaryAvgByDemo | null,
+};
+
+export type SummaryAvgByDemo = {
+  __typename: "SummaryAvgByDemo",
+  race?: SummaryAvgValues | null,
+  sex?: SummaryAvgValues | null,
+  age?: SummaryAvgValues | null,
+};
+
+export type SummaryAvgValues = {
+  __typename: "SummaryAvgValues",
+  ranges?: Array< string | null > | null,
+  values?:  Array<CountAverage | null > | null,
+};
+
+export type CountAverage = {
+  __typename: "CountAverage",
+  count?: number | null,
+  average?: number | null,
 };
 
 export type VaccinationSummary = {
@@ -467,7 +498,7 @@ export type GlobalHealthSummary = {
   physicalHealthRank?: ExcellentToPoor | null,
   carryPhysicalActivities?: CompletelyToNotAtAll | null,
   fatigueRank?: NoneToVerySevere | null,
-  avgpainLevel?: string | null,
+  avgpainLevel?: SummaryAvgByDemo | null,
 };
 
 export type ExcellentToPoor = {
@@ -507,7 +538,7 @@ export type PatientHealthQuestionnaireSummary = {
   badAboutSelf?: NotAtAllToNearlyEveryDay | null,
   concentrationProblems?: NotAtAllToNearlyEveryDay | null,
   slowOrRestless?: NotAtAllToNearlyEveryDay | null,
-  avgPHQScore?: string | null,
+  avgPHQScore?: SummaryAvgByDemo | null,
 };
 
 export type NotAtAllToNearlyEveryDay = {
@@ -2144,7 +2175,7 @@ export type ModelSubscriptionMonthlyEntryFilterInput = {
 };
 
 export type AggregateSurveyResultsMutationVariables = {
-  results: SurveyResults,
+  results: string,
 };
 
 export type AggregateSurveyResultsMutation = {
@@ -2174,15 +2205,57 @@ export type CreateMapDataMutation = {
     topMedicalCondition: string,
     recoverySummary:  {
       __typename: "RecoverySummary",
-      avglengthOfRecovery?: string | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      avgpainLevel?: string | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     patientHealthQuestionnaireSummary:  {
       __typename: "PatientHealthQuestionnaireSummary",
-      avgPHQScore?: string | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     totalFullEntries: number,
     createdAt: string,
@@ -2209,15 +2282,57 @@ export type UpdateMapDataMutation = {
     topMedicalCondition: string,
     recoverySummary:  {
       __typename: "RecoverySummary",
-      avglengthOfRecovery?: string | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      avgpainLevel?: string | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     patientHealthQuestionnaireSummary:  {
       __typename: "PatientHealthQuestionnaireSummary",
-      avgPHQScore?: string | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     totalFullEntries: number,
     createdAt: string,
@@ -2244,15 +2359,57 @@ export type DeleteMapDataMutation = {
     topMedicalCondition: string,
     recoverySummary:  {
       __typename: "RecoverySummary",
-      avglengthOfRecovery?: string | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      avgpainLevel?: string | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     patientHealthQuestionnaireSummary:  {
       __typename: "PatientHealthQuestionnaireSummary",
-      avgPHQScore?: string | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     totalFullEntries: number,
     createdAt: string,
@@ -15963,15 +16120,57 @@ export type GetMapDataQuery = {
     topMedicalCondition: string,
     recoverySummary:  {
       __typename: "RecoverySummary",
-      avglengthOfRecovery?: string | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      avgpainLevel?: string | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     patientHealthQuestionnaireSummary:  {
       __typename: "PatientHealthQuestionnaireSummary",
-      avgPHQScore?: string | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     totalFullEntries: number,
     createdAt: string,
@@ -16002,18 +16201,6 @@ export type ListMapDataQuery = {
       covidCount: number,
       longCovid: number,
       topMedicalCondition: string,
-      recoverySummary:  {
-        __typename: "RecoverySummary",
-        avglengthOfRecovery?: string | null,
-      },
-      globalHealthSummary:  {
-        __typename: "GlobalHealthSummary",
-        avgpainLevel?: string | null,
-      },
-      patientHealthQuestionnaireSummary:  {
-        __typename: "PatientHealthQuestionnaireSummary",
-        avgPHQScore?: string | null,
-      },
       totalFullEntries: number,
       createdAt: string,
       updatedAt: string,
@@ -16045,18 +16232,6 @@ export type MapDataByLevelNameStateQuery = {
       covidCount: number,
       longCovid: number,
       topMedicalCondition: string,
-      recoverySummary:  {
-        __typename: "RecoverySummary",
-        avglengthOfRecovery?: string | null,
-      },
-      globalHealthSummary:  {
-        __typename: "GlobalHealthSummary",
-        avgpainLevel?: string | null,
-      },
-      patientHealthQuestionnaireSummary:  {
-        __typename: "PatientHealthQuestionnaireSummary",
-        avgPHQScore?: string | null,
-      },
       totalFullEntries: number,
       createdAt: string,
       updatedAt: string,
@@ -16088,18 +16263,6 @@ export type MapDataByStateAbbrevQuery = {
       covidCount: number,
       longCovid: number,
       topMedicalCondition: string,
-      recoverySummary:  {
-        __typename: "RecoverySummary",
-        avglengthOfRecovery?: string | null,
-      },
-      globalHealthSummary:  {
-        __typename: "GlobalHealthSummary",
-        avgpainLevel?: string | null,
-      },
-      patientHealthQuestionnaireSummary:  {
-        __typename: "PatientHealthQuestionnaireSummary",
-        avgPHQScore?: string | null,
-      },
       totalFullEntries: number,
       createdAt: string,
       updatedAt: string,
@@ -36607,15 +36770,57 @@ export type OnCreateMapDataSubscription = {
     topMedicalCondition: string,
     recoverySummary:  {
       __typename: "RecoverySummary",
-      avglengthOfRecovery?: string | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      avgpainLevel?: string | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     patientHealthQuestionnaireSummary:  {
       __typename: "PatientHealthQuestionnaireSummary",
-      avgPHQScore?: string | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     totalFullEntries: number,
     createdAt: string,
@@ -36641,15 +36846,57 @@ export type OnUpdateMapDataSubscription = {
     topMedicalCondition: string,
     recoverySummary:  {
       __typename: "RecoverySummary",
-      avglengthOfRecovery?: string | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      avgpainLevel?: string | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     patientHealthQuestionnaireSummary:  {
       __typename: "PatientHealthQuestionnaireSummary",
-      avgPHQScore?: string | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     totalFullEntries: number,
     createdAt: string,
@@ -36675,15 +36922,57 @@ export type OnDeleteMapDataSubscription = {
     topMedicalCondition: string,
     recoverySummary:  {
       __typename: "RecoverySummary",
-      avglengthOfRecovery?: string | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     globalHealthSummary:  {
       __typename: "GlobalHealthSummary",
-      avgpainLevel?: string | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     patientHealthQuestionnaireSummary:  {
       __typename: "PatientHealthQuestionnaireSummary",
-      avgPHQScore?: string | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
     },
     totalFullEntries: number,
     createdAt: string,

@@ -678,5 +678,19 @@ export const aggregateResults = async (
       },
     },
   };
-  console.log("Aggregate details: ", JSON.stringify(aggregateDetails));
+
+  const results = JSON.stringify(aggregateDetails.surveyResults);
+  console.log("Survey results: ", results);
+  const variables = {
+    input: {
+      results,
+    },
+  };
+
+  const aggregsateResult = await API.graphql({
+    query: mutations.aggregateSurveyResults,
+    variables: variables,
+  });
+
+  console.log("AGGREGATE RESULTS: ", aggregsateResult);
 };
