@@ -2,7 +2,6 @@
 MapData - Object that will be queried for on map pan/zoom. Will contain summary-level
   information to show within map markers and within panels that we want to display over
   the map markers.
-
   Access Patterns:
     - Based on the level ("state" | "county") give all map data sorted by latitude and longitude
 """
@@ -31,15 +30,18 @@ type MapData
   stateAbbrev: String!
   lat: Float!
   long: Float!
+  covidCount: Int!
+  longCovid: Int!
+  topMedicalCondition: String!
   covidSummary: CovidSummary!
   recoverySummary: RecoverySummary!
   vaccinationSummary: VaccinationSummary!
   globalHealthSummary: GlobalHealthSummary!
+  patientHealthQuestionnaireSummary: PatientHealthQuestionnaireSummary!
   symptomSummary: SymptomSummary!
   medicalConditionsSummary: MedicalConditionsSummary!
   socialSummary: SocialSummary!
   totalFullEntries: Int!
-  totalDemoCount: AWSJSON!
 }
 
 """
@@ -91,7 +93,6 @@ enum NotificationMethod {
 
 """
 SurveyEntry - Represents the result of an entire User's survey.
-
   Access Patterns:
     - Get all surveys performed by a user (specified by User ID)
     - Get all surveys by type (daily, weekly, monthly, guest)
@@ -143,7 +144,6 @@ enum SurveyType {
 
 """
 Vaccination Entry - Represents the results of the vaccination subsection of the survey entry.
-
   Access Patterns:
     - Get all vaccination entries for a given state, sorted by date
     - Get all vaccination entries for a given county, sorted by date
@@ -284,7 +284,6 @@ type GlobalHealthEntry
 
 """
 Covid Entry - Represents the results of the covid subsections of the survey entry.
-
   Access Patterns:
       - Get all covid entries for a given state, sorted by date
       - Get all covid entries for a given county, sorted by date
@@ -499,7 +498,6 @@ type PatientHealthEntry
 
 """
 Pre Covid Symptoms - Model for keeping track of symptoms recorded during pre covid symptom section
-
   Access Patterns:
       - Get all pre covid symptom entries for a given state, sorted by date
       - Get all pre covid symptom entries for a given county, sorted by date
@@ -708,160 +706,241 @@ type MonthlyEntry
 # They represent information that could be displayed on click or hover of a map marker.
 # The aim of having these types is to avoid extra queries as a user navigates throughout the map.
 
+type NotAtAllToVeryMuch {
+  notAtAll: SummaryResultsByDemo
+  alittleBit: SummaryResultsByDemo
+  somewhat: SummaryResultsByDemo
+  quiteABit: SummaryResultsByDemo
+  veryMuch: SummaryResultsByDemo
+}
+
+type OneToThreePlus {
+  one: SummaryResultsByDemo
+  two: SummaryResultsByDemo
+  three: SummaryResultsByDemo
+  threePlus: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
+}
+
+type OneToFivePlus {
+  one: SummaryResultsByDemo
+  two: SummaryResultsByDemo
+  three: SummaryResultsByDemo
+  four: SummaryResultsByDemo
+  five: SummaryResultsByDemo
+  fivePlus: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
+}
+
+type YesNo {
+  yes: SummaryResultsByDemo
+  no: SummaryResultsByDemo
+}
+
+type YesNoDontKnow {
+  yes: SummaryResultsByDemo
+  no: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
+}
+
+type ExcellentToPoor {
+  excellent: SummaryResultsByDemo
+  veryGood: SummaryResultsByDemo
+  good: SummaryResultsByDemo
+  fair: SummaryResultsByDemo
+  poor: SummaryResultsByDemo
+}
+
+type CompletelyToNotAtAll {
+  completely: SummaryResultsByDemo
+  mostly: SummaryResultsByDemo
+  moderately: SummaryResultsByDemo
+  aLittle: SummaryResultsByDemo
+  notAtAll: SummaryResultsByDemo
+}
+
+type NeverToAlways {
+  never: SummaryResultsByDemo
+  rarely: SummaryResultsByDemo
+  sometimes: SummaryResultsByDemo
+  often: SummaryResultsByDemo
+  always: SummaryResultsByDemo
+}
+
+type NoneToVerySevere {
+  none: SummaryResultsByDemo
+  mild: SummaryResultsByDemo
+  moderate: SummaryResultsByDemo
+  severe: SummaryResultsByDemo
+  verySevere: SummaryResultsByDemo
+}
+
+type NotAtAllToNearlyEveryDay {
+  notAtAll: SummaryResultsByDemo
+  severalDays: SummaryResultsByDemo
+  moreThanHalfTheDays: SummaryResultsByDemo
+  nearlyEveryDay: SummaryResultsByDemo
+}
+
 type CovidSummary {
-  #one person, one count (as long as infected in past before?)
-  covidCount: AWSJSON
-  avgPositiveCasesPerPerson: AWSJSON
-  percentHospitalizedDueToCovid: AWSJSON
-  avgHospitalizationsPerPerson: AWSJSON
-  percentSymptomatic: AWSJSON
-  avgSymptomPreventDailyTasks: AWSJSON
-  percentTookMedication: AWSJSON
-  medicationCounts: MedicationsAvailable
-  #From recovery result?
-  # percentRecovered: AWSJSON
+  beenInfected: YesNo
+  timesPositive: OneToThreePlus
+  hospitalized: YesNo
+  timesHospitalized: OneToThreePlus
+  # lastPositive: [String]
+  tested: YesNo
+  positiveTest: YesNoDontKnow
+  symptomatic: YesNo
+  symptomsPreventScale: NotAtAllToVeryMuch
+  medicationsPrescribed: YesNoDontKnow
+  medicationsTakenCount: MedicationsAvailable
 }
 
 type MedicationsAvailable {
-  antiViral: AWSJSON
-  oralSteroids: AWSJSON
-  antiBiotics: AWSJSON
-  other: AWSJSON
-  dontKnow: AWSJSON
+  antiViral: SummaryResultsByDemo
+  oralSteroids: SummaryResultsByDemo
+  antiBiotics: SummaryResultsByDemo
+  other: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
 }
 
 type RecoverySummary {
-  recoveryCount: AWSJSON
-  avgRecoveryLength: AWSJSON
-}
-
-#change types to "Pfizer", "Moderna", "Janssen", "Novavax", "Other", "Do not know"
-type VaccinationSummary {
-  percentVaccinated: AWSJSON
-  avgNumOfVaccPerPerson: AWSJSON
-  vaccineCount: VaccineTypes
+  recovered: YesNo
+  #cannot resolve to own type (infinite range...)
+  #check for NULL
+  #for each value, have to keep track of average and totalCount
+  #i.e. [average, count] AND NOT just a average number
+  avglengthOfRecovery: SummaryAvgByDemo
 }
 
 type VaccineTypes {
-  pfizer: AWSJSON
-  moderna: AWSJSON
-  janssen: AWSJSON
-  novavax: AWSJSON
-  other: AWSJSON
-  doNotKnow: AWSJSON
+  pfizer: SummaryResultsByDemo
+  moderna: SummaryResultsByDemo
+  janssen: SummaryResultsByDemo
+  novavax: SummaryResultsByDemo
+  other: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
+}
+
+type VaccinationSummary {
+  vaccinated: YesNoDontKnow
+  totalVaccineShots: OneToFivePlus
+  vaccineType: VaccineTypes
 }
 
 type GlobalHealthSummary {
-  avgGeneralHealth: AWSJSON
-  avgPhysicalHealth: AWSJSON
-  avgEverydayPhysicalCompetency: AWSJSON
-  avgFatigue: AWSJSON
-  avgPain: AWSJSON
+  healthRank: ExcellentToPoor
+  physicalHealthRank: ExcellentToPoor
+  carryPhysicalActivities: CompletelyToNotAtAll
+  fatigueRank: NoneToVerySevere
+  #check for NULL
+  #each answer needs to contain [count, average]
+  avgpainLevel: SummaryAvgByDemo
 }
 
-#TODO!
-type SymptomSummary {
-  avgQualityOfLife: AWSJSON
-  avgMentalHealth: AWSJSON
-  avgSocialActivitesRelationships: AWSJSON
-  avgSocialActivitiesCapacity: AWSJSON
-  avgEmotionalProblems: AWSJSON
-  symptomCounts: SymptomsAvailabLe
-}
 type SymptomsAvailabLe {
-  headache: AWSJSON
-  bodyMuscleAche: AWSJSON
-  feverChillsSweatsFlushing: AWSJSON
-  faintDizzyGoofy: AWSJSON
-  postExertionalMalaise: AWSJSON
-  weaknessInArmsLegs: AWSJSON
-  shortnessOfBreath: AWSJSON
-  cough: AWSJSON
-  palpitations: AWSJSON
-  swellingOfLegs: AWSJSON
-  indigestionNausea: AWSJSON
-  bladderProblem: AWSJSON
-  nerveProblems: AWSJSON
-  brainFog: AWSJSON
-  anxietyDepressionNightmares: AWSJSON
-  problemsThinkingConcentrating: AWSJSON
-  problemsAnxietyDepressionStress: AWSJSON
-  difficultyFallingAsleep: AWSJSON
-  sleepyDuringDaytime: AWSJSON
-  loudSnoring: AWSJSON
-  uncomfortableFeelingsInLegs: AWSJSON
-  skinRash: AWSJSON
-  lossOfChangeInSmell: AWSJSON
-  excessiveThirst: AWSJSON
-  excessiveDryMouth: AWSJSON
-  visionProblems: AWSJSON
-  hearingProblems: AWSJSON
-  #add to the statistic only for women
-  fertilityProblemsForWomen: AWSJSON
+  headache: SummaryResultsByDemo
+  bodyMuscleAche: SummaryResultsByDemo
+  feverChillsSweatsFlushing: SummaryResultsByDemo
+  faintDizzyGoofy: SummaryResultsByDemo
+  postExertionalMalaise: SummaryResultsByDemo
+  weaknessInArmsLegs: SummaryResultsByDemo
+  shortnessOfBreath: SummaryResultsByDemo
+  cough: SummaryResultsByDemo
+  palpitations: SummaryResultsByDemo
+  swellingOfLegs: SummaryResultsByDemo
+  indigestionNausea: SummaryResultsByDemo
+  bladderProblem: SummaryResultsByDemo
+  nerveProblems: SummaryResultsByDemo
+  brainFog: SummaryResultsByDemo
+  anxietyDepressionNightmares: SummaryResultsByDemo
+  difficultyFallingAsleep: SummaryResultsByDemo
+  sleepyDuringDaytime: SummaryResultsByDemo
+  loudSnoring: SummaryResultsByDemo
+  uncomfortableFeelingsInLegs: SummaryResultsByDemo
+  skinRash: SummaryResultsByDemo
+  lossOfChangeInSmell: SummaryResultsByDemo
+  excessiveThirst: SummaryResultsByDemo
+  excessiveDryMouth: SummaryResultsByDemo
+  visionProblems: SummaryResultsByDemo
+  hearingProblems: SummaryResultsByDemo
+  fertilityProblemsForWomen: SummaryResultsByDemo
+}
+
+type SymptomSummary {
+  symptomCounts: SymptomsAvailabLe
+  qualityOfLife: ExcellentToPoor
+  mentalHealthRank: ExcellentToPoor
+  socialSatisfactionRank: ExcellentToPoor
+  carryOutSocialActivitiesRank: ExcellentToPoor
+  anxietyInPastWeekRank: NeverToAlways
+}
+
+type PatientHealthQuestionnaireSummary {
+  littleInterestThings: NotAtAllToNearlyEveryDay
+  downDepressedHopeless: NotAtAllToNearlyEveryDay
+  sleepProblems: NotAtAllToNearlyEveryDay
+  tiredNoEnergy: NotAtAllToNearlyEveryDay
+  dietProblems: NotAtAllToNearlyEveryDay
+  badAboutSelf: NotAtAllToNearlyEveryDay
+  concentrationProblems: NotAtAllToNearlyEveryDay
+  slowOrRestless: NotAtAllToNearlyEveryDay
+  #each answer needs to contain [count, average]
+  avgPHQScore: SummaryAvgByDemo
 }
 
 type MedicalConditionsSummary {
-  percentHaveLongCovid: AWSJSON
+  longCovid: YesNoDontKnow
   newDiagnosisCounts: DiagnosisTypes
 }
 
 type DiagnosisTypes {
-  noNewDiagnosis: AWSJSON
-  heartProblems: AWSJSON
-  lungProblems: AWSJSON
-  bloodClotLung: AWSJSON
-  sleepApnea: AWSJSON
-  memory: AWSJSON
-  migraine: AWSJSON
-  stroke: AWSJSON
-  seizure: AWSJSON
-  kidneyProblems: AWSJSON
-  stomachProblems: AWSJSON
-  psychologicalProblems: AWSJSON
-  diabetes: AWSJSON
-  autoImmuneDiseases: AWSJSON
-  mecfs: AWSJSON
-  other: AWSJSON
-  notSure: AWSJSON
+  noNewDiagnosis: SummaryResultsByDemo
+  heartProblems: SummaryResultsByDemo
+  lungProblems: SummaryResultsByDemo
+  bloodClotLung: SummaryResultsByDemo
+  sleepApnea: SummaryResultsByDemo
+  memory: SummaryResultsByDemo
+  migraine: SummaryResultsByDemo
+  stroke: SummaryResultsByDemo
+  seizure: SummaryResultsByDemo
+  kidneyProblems: SummaryResultsByDemo
+  stomachProblems: SummaryResultsByDemo
+  psychologicalProblems: SummaryResultsByDemo
+  diabetes: SummaryResultsByDemo
+  autoImmuneDiseases: SummaryResultsByDemo
+  mecfs: SummaryResultsByDemo
+  other: SummaryResultsByDemo
+  notSure: SummaryResultsByDemo
 }
 
 type SocialSummary {
-  percentHaveMedicalInsurance: AWSJSON
-  averageDifficultyCoveringExpenses: AWSJSON
-  workingSituationCounts: WorkingSituation
+  hasMedicalInsurance: YesNo
+  difficultCoveringExpenses: DifficultExpenses
+  currentWorkSituation: WorkingSituation
+}
+
+type DifficultExpenses {
+  veryDifficult: SummaryResultsByDemo
+  somewhatDifficult: SummaryResultsByDemo
+  notAtAllDifficult: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
+  preferNotToAnswer: SummaryResultsByDemo
 }
 
 type WorkingSituation {
-  workingOutsideTheHome: AWSJSON
-  onLeaveFromAJobWorkingOutsideHome: AWSJSON
-  workingInsideHome: AWSJSON
-  lookingForWorkUnemployed: AWSJSON
-  retired: AWSJSON
-  disabled: AWSJSON
-  student: AWSJSON
-  dontKnow: AWSJSON
-  preferNotToAnswer: AWSJSON
+  atOffice: SummaryResultsByDemo
+  hybrid: SummaryResultsByDemo
+  remote: SummaryResultsByDemo
+  remoteAndParenting: SummaryResultsByDemo
+  onJobLeave: SummaryResultsByDemo
+  unemployed: SummaryResultsByDemo
+  retired: SummaryResultsByDemo
+  disability: SummaryResultsByDemo
+  student: SummaryResultsByDemo
+  doNotKnow: SummaryResultsByDemo
+  preferNotToAnswer: SummaryResultsByDemo
 }
-
-# #GeneralHealthResults
-# type PatientHealthSummary {
-#   #tot score?
-#   avgTotalScore: AWSJSON
-#   #same idea of sympotoms
-#   avgHealthCounts: GeneralHealthQuestions
-# }
-
-# #Excellent = 5, ...., Poor = 1
-# type GeneralHealthQuestions {
-#   generalHealth: AWSJSON
-#   qualityOfLife: AWSJSON
-#   physicalHealth: AWSJSON
-#   mentalHealth: AWSJSON
-#   socialActivitiesRelationships: AWSJSON
-#   socialActivitiesRoles: AWSJSON
-# }
-
-#DONE
 
 #DONE
 
@@ -869,12 +948,8 @@ type WorkingSituation {
 # LAMBDA RESOLVERS
 
 type Mutation {
-  aggregateSurveyResults(results: SurveyResults!): Response
+  aggregateSurveyResults(results: AWSJSON!): Response
     @function(name: "aggregateSurveyResults-${env}")
-}
-
-input SurveyResults {
-  surveyResults: AWSJSON!
 }
 
 type Response {
@@ -891,4 +966,20 @@ type SummaryResultsByDemo {
 type SummaryValues {
   ranges: [String]
   values: [Int]
+}
+
+type SummaryAvgByDemo {
+  race: SummaryAvgValues
+  sex: SummaryAvgValues
+  age: SummaryAvgValues
+}
+
+type SummaryAvgValues {
+  ranges: [String]
+  values: [CountAverage]
+}
+
+type CountAverage {
+  count: Int
+  average: Float
 }

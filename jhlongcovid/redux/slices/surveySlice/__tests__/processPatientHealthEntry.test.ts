@@ -55,7 +55,6 @@ describe("Create Patient Health entry from survey answers", () => {
     };
 
     const entry = processPatientHealthEntry(sectionInfo, demographics);
-
     const correctPatientHealthEntry = {
       age: "23",
       weight: "123",
@@ -63,14 +62,14 @@ describe("Create Patient Health entry from survey answers", () => {
       race: "white",
       sex: "male",
       generalHealthResults: {
-        littleInterest: "severalDays",
-        feelingDepressed: "notAtAll",
-        troubleWithSleep: "moreThanHalfTheDays",
-        feelingTired: "notAtAll",
-        poorEatingHabits: "nearlyEveryDay",
-        feelDownOnSelf: "notAtAll",
-        troubleConcentrating: "nearlyEveryDay",
-        movingDifferent: "notAtAll",
+        littleInterestThings: "severalDays",
+        downDepressedHopeless: "notAtAll",
+        sleepProblems: "moreThanHalfTheDays",
+        tiredNoEnergy: "notAtAll",
+        dietProblems: "nearlyEveryDay",
+        badAboutSelf: "notAtAll",
+        concentrationProblems: "nearlyEveryDay",
+        slowOrRestless: "notAtAll",
       },
       totalScore: 9,
     };

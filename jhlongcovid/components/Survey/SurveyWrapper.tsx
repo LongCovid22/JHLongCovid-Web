@@ -296,28 +296,45 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         process.env.GOOGLEMAPS_API_KEY ?? ""
       );
 
-      const ids = await saveEntries(locationData, entries, userInfo, user);
-      await aggregateResults(entries, ids, userInfo, locationData, user);
-
-      if (ids["SurveyEntry"]) {
+      let ids;
+      // Save survey entries
+      try {
+        ids = await saveEntries(locationData, entries, userInfo, user);
         toast({
-          title: "Survey submition",
+          title: "Survey submission",
           description: "Successfully submitted survey",
           status: "success",
-          duration: 2000,
+          duration: 3000,
           isClosable: true,
           position: "top-right",
         });
-      } else {
+      } catch (error) {
+        console.log("Error saving survey entries", error);
         toast({
-          title: "Survey submition",
+          title: "Survey submission",
           description: "Failed to submit survey",
           status: "error",
-          duration: 2000,
+          duration: 3000,
           isClosable: true,
           position: "top-right",
         });
       }
+
+      // Aggregate survey results
+      try {
+        await aggregateResults(entries, ids, userInfo, locationData, user);
+      } catch (error) {
+        console.log("Error aggregating survey results", error);
+        toast({
+          title: "Error aggregating results",
+          description: `${error}`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+      }
+
       setPerformingQueries(false);
       onClose();
     } else {
