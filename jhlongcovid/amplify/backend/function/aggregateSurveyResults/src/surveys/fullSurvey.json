@@ -1,21 +1,21 @@
 {
   "arguments": {
-    "surveyResults": {
-      "id": "Sample unique id",
-      "email": "leo.hubert3@gmail.com",
+    "results": {
+      "id": "8fdb59c0-b417-45c8-85c2-f13d1c899a4f",
+      "email": "nfarrel3@jh.edu",
       "surveyVersion": 1,
       "surveyType": "GUEST",
       "age": "23",
-      "race": "Other",
+      "race": "white",
       "sex": "Male",
       "location": {
-        "county": "Oneida County",
-        "state": "New York",
-        "stateAbbrev": "NY",
-        "countyLat": 43.23718,
-        "countyLong": -75.434473,
-        "stateLat": 40.712775,
-        "stateLong": -74.005973
+        "county": "",
+        "state": "Maryland",
+        "stateAbbrev": "MD",
+        "countyLat": 0.0,
+        "countyLong": 0.0,
+        "stateLat": 45.712775,
+        "stateLong": -72.005973
       },
       "covidResults": {
         "id": "2238c61b-a547-44c9-b8fa-1d4373237932",
@@ -34,7 +34,9 @@
         "symptomatic": true,
         "symptomsPreventScale": "notAtAll",
         "medicationsPrescribed": "yes",
-        "medicationsTaken": "antiViral"
+        "medicationsTaken": [
+          "oralSteroids"
+        ]
       },
       "recoveryResults": {
         "id": "4897c703-248b-483d-81cc-4c343c7cac5d",
@@ -56,7 +58,7 @@
         "vaccinated": "yes",
         "totalVaccineShots": 5,
         "dateOfLastVaccine": "2022-11-02T00:00:00.000Z",
-        "vaccineType": "pfizer"
+        "vaccineType": "Moderna"
       },
       "globalHealthResults": {
         "id": "edd56c44-7dee-48cd-a743-2dcee1d80910",
@@ -82,11 +84,11 @@
           "headache",
           "bodyMuscleAche"
         ],
-        "qualityOfLifeRank": "excellent",
-        "mentalHealthRank": "excellent",
-        "socialSatisfactionRank": "excellent",
-        "carryOutSocialActivitiesRank": "excellent",
-        "anxietyInPastWeekRank": "rarely",
+        "qualityOfLife": "Excellent",
+        "mentalHealthRank": "Excellent",
+        "socialSatisfactionRank": "Excellent",
+        "carryOutSocialActivitiesRank": "Excellent",
+        "anxietyInPastWeekRank": "Rarely",
         
         "medicalConditions": [
           "memory"
@@ -101,14 +103,14 @@
         "height": "55",
         "weight": "123",
         "generalHealthResults": {
-          "Little interest or pleasure in doing things?": "notAtAll",
-          "Feeling down, depressed, or hopeless?": "notAtAll",
-          "Trouble falling or staying asleep, or sleeping too much?": "notAtAll",
-          "Feeling tired or having little energy?": "notAtAll",
-          "Poor appetite or overeating?": "notAtAll",
-          "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?": "notAtAll",
-          "Trouble concentrating on things, such as reading the newspaper or watching television?": "notAtAll",
-          "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?": "notAtAll"
+          "Little interest or pleasure in doing things?": "Not at all",
+          "Feeling down, depressed, or hopeless?": "Several days",
+          "Trouble falling or staying asleep, or sleeping too much?": "More than half the days",
+          "Feeling tired or having little energy?": "Nearly every day",
+          "Poor appetite or overeating?": "More than half the days",
+          "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?": "Several days",
+          "Trouble concentrating on things, such as reading the newspaper or watching television?": "Not at all",
+          "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?": "Not at all"
         },
         "totalScore": 9
       },
@@ -122,11 +124,11 @@
         "weight": "123",
         "hasMedicalInsurance": true,
         "difficultCoveringExpenses": "somewhatDifficult",
-        "currentWorkSituation": "remoteAndParenting"
+        "currentWorkSituation": "workingInsideHome"
       },
       "healthRelatedResults": {
-        "weight": 34,
-        "height": 56
+        "weight": "123",
+        "height": "55"
       }
     }
   }

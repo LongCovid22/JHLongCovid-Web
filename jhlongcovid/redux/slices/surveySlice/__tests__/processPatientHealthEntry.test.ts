@@ -55,7 +55,6 @@ describe("Create Patient Health entry from survey answers", () => {
     };
 
     const entry = processPatientHealthEntry(sectionInfo, demographics);
-
     const correctPatientHealthEntry = {
       age: "23",
       weight: "123",

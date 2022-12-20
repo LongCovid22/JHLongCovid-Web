@@ -952,10 +952,6 @@ type Mutation {
     @function(name: "aggregateSurveyResults-${env}")
 }
 
-input SurveyResults {
-  surveyResults: AWSJSON!
-}
-
 type Response {
   statusCode: Int
   body: String

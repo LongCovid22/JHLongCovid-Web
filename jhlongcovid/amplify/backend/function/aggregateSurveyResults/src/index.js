@@ -36,9 +36,6 @@ const {
 
 const GRAPHQL_ENDPOINT = process.env.API_JHLONGCOVID_GRAPHQLAPIENDPOINTOUTPUT;
 
-const data = require("../../../../../rawMockData");
-const { ConsoleLogger } = require("@aws-amplify/core");
-
 // const GRAPHQL_ENDPOINT = 'http://localhost:20002/graphql';
 const AWS_REGION = process.env.AWS_REGION || "us-east-1";
 
@@ -3395,65 +3392,6 @@ const deleteAllMapData = async () => {
   }
 };
 
-const populate = async () => {
-  await deleteAllMapData();
-  for (const county of data.getData()) {
-    variables.input.level = county.level;
-    variables.input.name = county.name;
-    variables.input.stateAbbrev = county.stateAbbrev;
-    variables.input.lat = county.lat;
-    variables.input.long = county.long;
-
-    const endpoint = new URL(GRAPHQL_ENDPOINT);
-    const signer = new SignatureV4({
-      // credentials: defaultProvider(),
-      credentials: credentials,
-      region: AWS_REGION,
-      service: "appsync",
-      sha256: Sha256,
-    });
-
-    const requestToBeSigned = new HttpRequest({
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        host: endpoint.host,
-      },
-      hostname: endpoint.host,
-      body: JSON.stringify({ query, variables }),
-      path: endpoint.pathname,
-    });
-
-    const signed = await signer.sign(requestToBeSigned);
-    const request = new Request(endpoint, signed);
-
-    let body;
-    let response;
-
-    try {
-      response = await fetch(request);
-      body = await response.json();
-      console.log(body);
-      if (body.errors) statusCode = 400;
-    } catch (error) {
-      statusCode = 500;
-      body = {
-        errors: [
-          {
-            message: error.message,
-          },
-        ],
-      };
-      console.log(body);
-    }
-  }
-};
-
-const testGetByID = async () => {
-  console.log(await getID("county", "Webster", "NE"));
-  console.log(await getID("state", "Florida", null));
-};
-
 const queryString = properties;
 
 const getID = async (level, name, stateAbbrev) => {
@@ -3495,7 +3433,7 @@ const getID = async (level, name, stateAbbrev) => {
   try {
     let response = await fetch(request);
     let load = await response.json();
-    console.log("LOAD: ", load);
+    console.log(`Fetching MapData for ${level} ${name}...`);
     if (level === "county") {
       return load.data.mapDataByLevelNameState.items;
     } else if (level === "state") {
@@ -3522,7 +3460,7 @@ const updateMapData = async (county, state) => {
   let body;
   let response;
 
-  if (county !== null) {
+  if (county) {
     let variables = { input: county };
 
     let requestToBeSigned = new HttpRequest({
@@ -3542,7 +3480,7 @@ const updateMapData = async (county, state) => {
     try {
       response = await fetch(request);
       body = await response.json();
-      console.log(body);
+      console.log(`Updating MapData for ${county.level} ${county.name}...`);
 
       if (body.errors) statusCode = 400;
     } catch (error) {
@@ -3577,7 +3515,7 @@ const updateMapData = async (county, state) => {
   try {
     response = await fetch(request);
     body = await response.json();
-    console.log(body);
+    console.log(`Updating MapData for ${state.level} ${state.name}...`);
 
     if (body.errors) statusCode = 400;
   } catch (error) {
@@ -3709,7 +3647,7 @@ const addCustomToTallyBasedOnCondition = (
 const updateCovidSummary = (eventInput, county, state, indexes) => {
   let { covidResults } = eventInput;
   let data;
-  if (county !== null) {
+  if (county) {
     data = {
       county: {
         covidSummary: county.covidSummary,
@@ -3820,7 +3758,7 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
 const updateRecoverySummary = (eventInput, county, state, indexes) => {
   let { recoveryResults } = eventInput;
   let data;
-  if (county !== null) {
+  if (county) {
     data = {
       county: {
         recoverySummary: county.recoverySummary,
@@ -3885,7 +3823,7 @@ const addAverage = (indexes, property, numToAdd) => {
 const updateVaccinationSummary = (eventInput, county, state, indexes) => {
   let { vaccinationResults } = eventInput;
   let data;
-  if (county !== null) {
+  if (county) {
     data = {
       county: {
         vaccinationSummary: county.vaccinationSummary,
@@ -3935,7 +3873,7 @@ const updateVaccinationSummary = (eventInput, county, state, indexes) => {
 const updateGlobalHealthSummary = (eventInput, county, state, indexes) => {
   let { globalHealthResults } = eventInput;
   let data;
-  if (county !== null) {
+  if (county) {
     data = {
       county: {
         globalHealthSummary: county.globalHealthSummary,
@@ -4023,7 +3961,7 @@ const updateSymptomSummary = (eventInput, county, state, indexes) => {
   let { symptomResults } = eventInput;
 
   let data;
-  if (county !== null) {
+  if (county) {
     data = {
       county: {
         symptomSummary: county.symptomSummary,
@@ -4106,7 +4044,7 @@ const updateSymptomSummary = (eventInput, county, state, indexes) => {
 const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
   let { symptomResults } = eventInput;
   let data;
-  if (county !== null) {
+  if (county) {
     data = {
       county: {
         medicalConditionsSummary: county.medicalConditionsSummary,
@@ -4148,7 +4086,6 @@ const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
       checkNotNullAndStringType(symptomResults.hasLongCovid) &&
       checkYesNoDoNotKnowType(symptomResults.hasLongCovid)
     ) {
-      console.log("data", dat);
       if (dat === "county") {
         county.longCovid += symptomResults.hasLongCovid === "yes" ? 1 : 0;
       } else {
@@ -4169,7 +4106,7 @@ const updatePatientHealthSummary = (eventInput, county, state, indexes) => {
   let { patientHealthResults } = eventInput;
   let { raceIndex, ageIndex, sexIndex } = indexes;
   let data;
-  if (county !== null) {
+  if (county) {
     data = {
       county: {
         patientHealthQuestionnaireSummary:
@@ -4209,28 +4146,28 @@ const updatePatientHealthSummary = (eventInput, county, state, indexes) => {
       ) {
         let healthQuestion;
         switch (health) {
-          case "Little interest or pleasure in doing things?":
+          case "littleInterestThings":
             healthQuestion = littleInterestThings;
             break;
-          case "Feeling down, depressed, or hopeless?":
+          case "downDepressedHopeless":
             healthQuestion = downDepressedHopeless;
             break;
-          case "Trouble falling or staying asleep, or sleeping too much?":
+          case "sleepProblems":
             healthQuestion = sleepProblems;
             break;
-          case "Feeling tired or having little energy?":
+          case "tiredNoEnergy":
             healthQuestion = tiredNoEnergy;
             break;
-          case "Poor appetite or overeating?":
+          case "dietProblems":
             healthQuestion = dietProblems;
             break;
-          case "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?":
+          case "badAboutSelf":
             healthQuestion = badAboutSelf;
             break;
-          case "Trouble concentrating on things, such as reading the newspaper or watching television?":
+          case "concentrationProblems":
             healthQuestion = concentrationProblems;
             break;
-          case "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?":
+          case "slowOrRestless":
             healthQuestion = slowOrRestless;
             break;
         }
@@ -4334,7 +4271,7 @@ const aggregateSurveyResults = async (eventInput) => {
   let { county, state } = await getStateAndCountyInfo(eventInput);
   let { location } = eventInput;
 
-  if (county === null && eventInput.location.county !== "") {
+  if (!county && location.county !== "") {
     variables.input.level = "county";
     variables.input.name = location.county;
     variables.input.stateAbbrev = location.stateAbbrev;
@@ -4366,9 +4303,12 @@ const aggregateSurveyResults = async (eventInput) => {
     let response;
 
     try {
+      console.log(`Creating MapData for ${location.county}... `);
       response = await fetch(request);
       body = await response.json();
-
+      if (body.data.createMapData !== null) {
+        county = body.data.createMapData;
+      }
       if (body.errors) statusCode = 400;
     } catch (error) {
       statusCode = 500;
@@ -4416,9 +4356,12 @@ const aggregateSurveyResults = async (eventInput) => {
     let response;
 
     try {
+      console.log(`Creating MapData for ${location.state}... `);
       response = await fetch(request);
       body = await response.json();
-
+      if (body.data.createMapData !== null) {
+        state = body.data.createMapData;
+      }
       if (body.errors) statusCode = 400;
     } catch (error) {
       statusCode = 500;
@@ -4433,7 +4376,7 @@ const aggregateSurveyResults = async (eventInput) => {
     }
   }
 
-  if ((county === null && eventInput.location.county !== "") || !state) {
+  if ((!county && eventInput.location.county !== "") || !state) {
     ({ county, state } = await getStateAndCountyInfo(eventInput));
   }
 
@@ -4475,13 +4418,15 @@ const aggregateSurveyResults = async (eventInput) => {
  */
 exports.handler = async (event) => {
   let input = event.arguments.results;
-  console.log("EVENT ARGS: ", event.arguments);
-  // const { county, state } = await aggregateSurveyResults(input);
+  // let results = JSON.parse(input);
+  // console.log("INPUT: ", input);
+  await deleteAllMapData();
+  const { county, state } = await aggregateSurveyResults(input);
 
   // await populate();
   const statusCode = 200;
   const body = {
-    message: `Successfully updated map data for survey submission ${event.arguments.surveyResults.id}`,
+    message: `Successfully updated map data for survey submission ${input.id}`,
   };
 
   return {
