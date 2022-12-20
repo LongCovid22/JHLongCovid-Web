@@ -3680,77 +3680,79 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
 
     let objectsToUpdate = [];
 
-    if (checkNotNullAndBoolType(covidResults.beenInfected)) {
-      if (dat === "county") {
-        county.covidCount += covidResults.beenInfected ? 1 : 0;
-      } else {
-        state.covidCount += covidResults.beenInfected ? 1 : 0;
+    if (covidResults !== null) {
+      if (checkNotNullAndBoolType(covidResults.beenInfected)) {
+        if (dat === "county") {
+          county.covidCount += covidResults.beenInfected ? 1 : 0;
+        } else {
+          state.covidCount += covidResults.beenInfected ? 1 : 0;
+        }
+
+        let prop = trueEqualsYes(covidResults.beenInfected);
+        objectsToUpdate.push(beenInfected[prop]);
       }
 
-      let prop = trueEqualsYes(covidResults.beenInfected);
-      objectsToUpdate.push(beenInfected[prop]);
-    }
+      if (checkNotNullNumberGreaterThanZero(covidResults.timesPositive)) {
+        let prop = resolveOneToThreePlus(covidResults.timesPositive);
+        objectsToUpdate.push(timesPositive[prop]);
+      }
 
-    if (checkNotNullNumberGreaterThanZero(covidResults.timesPositive)) {
-      let prop = resolveOneToThreePlus(covidResults.timesPositive);
-      objectsToUpdate.push(timesPositive[prop]);
-    }
+      if (checkNotNullAndBoolType(covidResults.hospitalized)) {
+        let prop = trueEqualsYes(covidResults.hospitalized);
+        objectsToUpdate.push(hospitalized[prop]);
+      }
 
-    if (checkNotNullAndBoolType(covidResults.hospitalized)) {
-      let prop = trueEqualsYes(covidResults.hospitalized);
-      objectsToUpdate.push(hospitalized[prop]);
-    }
+      if (checkNotNullNumberGreaterThanZero(covidResults.timesHospitalized)) {
+        let prop = resolveOneToThreePlus(covidResults.timesHospitalized);
+        objectsToUpdate.push(timesHospitalized[prop]);
+      }
 
-    if (checkNotNullNumberGreaterThanZero(covidResults.timesHospitalized)) {
-      let prop = resolveOneToThreePlus(covidResults.timesHospitalized);
-      objectsToUpdate.push(timesHospitalized[prop]);
-    }
+      if (checkNotNullAndBoolType(covidResults.tested)) {
+        let prop = trueEqualsYes(covidResults.tested);
+        objectsToUpdate.push(tested[prop]);
+      }
 
-    if (checkNotNullAndBoolType(covidResults.tested)) {
-      let prop = trueEqualsYes(covidResults.tested);
-      objectsToUpdate.push(tested[prop]);
-    }
+      if (
+        checkNotNullAndStringType(covidResults.positiveTest) &&
+        checkYesNoDoNotKnowType(covidResults.positiveTest)
+      ) {
+        objectsToUpdate.push(positiveTest[covidResults.positiveTest]);
+      }
 
-    if (
-      checkNotNullAndStringType(covidResults.positiveTest) &&
-      checkYesNoDoNotKnowType(covidResults.positiveTest)
-    ) {
-      objectsToUpdate.push(positiveTest[covidResults.positiveTest]);
-    }
+      if (checkNotNullAndBoolType(covidResults.symptomatic)) {
+        let prop = trueEqualsYes(covidResults.symptomatic);
+        objectsToUpdate.push(symptomatic[prop]);
+      }
 
-    if (checkNotNullAndBoolType(covidResults.symptomatic)) {
-      let prop = trueEqualsYes(covidResults.symptomatic);
-      objectsToUpdate.push(symptomatic[prop]);
-    }
+      if (
+        checkNotNullAndStringType(covidResults.symptomsPreventScale) &&
+        checkNotAtAllToVeryMuchType(covidResults.symptomsPreventScale)
+      ) {
+        objectsToUpdate.push(
+          symptomsPreventScale[covidResults.symptomsPreventScale]
+        );
+      }
 
-    if (
-      checkNotNullAndStringType(covidResults.symptomsPreventScale) &&
-      checkNotAtAllToVeryMuchType(covidResults.symptomsPreventScale)
-    ) {
-      objectsToUpdate.push(
-        symptomsPreventScale[covidResults.symptomsPreventScale]
-      );
-    }
+      if (
+        checkNotNullAndStringType(covidResults.medicationsPrescribed) &&
+        checkYesNoDoNotKnowType(covidResults.medicationsPrescribed)
+      ) {
+        objectsToUpdate.push(
+          medicationsPrescribed[covidResults.medicationsPrescribed]
+        );
+      }
 
-    if (
-      checkNotNullAndStringType(covidResults.medicationsPrescribed) &&
-      checkYesNoDoNotKnowType(covidResults.medicationsPrescribed)
-    ) {
-      objectsToUpdate.push(
-        medicationsPrescribed[covidResults.medicationsPrescribed]
-      );
-    }
-
-    if (
-      checkNotNullAndStringType(covidResults.medicationsTaken) &&
-      checkMedicationsTakenType(covidResults.medicationsTaken)
-    ) {
-      objectsToUpdate.push(
-        medicationsTakenCount[covidResults.medicationsTaken]
-      );
-    }
-    for (const obj of objectsToUpdate) {
-      addCustomToTallyBasedOnCondition(indexes, obj, true, 1);
+      if (
+        checkNotNullAndStringType(covidResults.medicationsTaken) &&
+        checkMedicationsTakenType(covidResults.medicationsTaken)
+      ) {
+        objectsToUpdate.push(
+          medicationsTakenCount[covidResults.medicationsTaken]
+        );
+      }
+      for (const obj of objectsToUpdate) {
+        addCustomToTallyBasedOnCondition(indexes, obj, true, 1);
+      }
     }
   }
 };
@@ -3773,6 +3775,10 @@ const updateRecoverySummary = (eventInput, county, state, indexes) => {
         recoverySummary: state.recoverySummary,
       },
     };
+  }
+
+  if (recoveryResults === null) {
+    return;
   }
 
   for (const dat in data) {
@@ -3840,6 +3846,10 @@ const updateVaccinationSummary = (eventInput, county, state, indexes) => {
     };
   }
 
+  if (vaccinationResults === null) {
+    return;
+  }
+
   for (const dat in data) {
     let { vaccinated, totalVaccineShots, vaccineType } =
       data[dat].vaccinationSummary;
@@ -3888,6 +3898,10 @@ const updateGlobalHealthSummary = (eventInput, county, state, indexes) => {
         globalHealthSummary: state.globalHealthSummary,
       },
     };
+  }
+
+  if (globalHealthResults === null) {
+    return;
   }
 
   for (const dat in data) {
@@ -3978,6 +3992,10 @@ const updateSymptomSummary = (eventInput, county, state, indexes) => {
     };
   }
 
+  if (symptomResults === null) {
+    return;
+  }
+
   for (const dat in data) {
     let { symptomCounts } = data[dat].symptomSummary;
     if (checkSymptomStringArray(symptomResults.symptoms)) {
@@ -4061,6 +4079,10 @@ const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
     };
   }
 
+  if (symptomResults === null) {
+    return;
+  }
+
   for (const dat in data) {
     let { longCovid, newDiagnosisCounts } = data[dat].medicalConditionsSummary;
 
@@ -4125,6 +4147,11 @@ const updatePatientHealthSummary = (eventInput, county, state, indexes) => {
       },
     };
   }
+
+  if (patientHealthResults === null) {
+    return;
+  }
+
   for (const dat in data) {
     let {
       littleInterestThings,
@@ -4209,6 +4236,10 @@ const updateSocialSummary = (eventInput, county, state, indexes) => {
         socialSummary: state.socialSummary,
       },
     };
+  }
+
+  if (socialDeterminantsResults === null) {
+    return;
   }
 
   for (const dat in data) {
@@ -4420,13 +4451,14 @@ exports.handler = async (event) => {
   let input = event.arguments.results;
   // let results = JSON.parse(input);
   // console.log("INPUT: ", input);
-  await deleteAllMapData();
   const { county, state } = await aggregateSurveyResults(input);
 
   // await populate();
   const statusCode = 200;
   const body = {
-    message: `Successfully updated map data for survey submission ${input.id}`,
+    message: `Successfully aggregated data for survey submission ${
+      input.id ? input.id : "no id"
+    }`,
   };
 
   return {
