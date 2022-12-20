@@ -79,6 +79,20 @@ const getNextQuestionAnswerDefault = (
   }
 };
 
+const shouldBranch = (answer: any, predicate: string | string[]) => {
+  if (Array.isArray(predicate)) {
+    if (predicate.includes(answer)) {
+      return true;
+    }
+  }
+
+  if (typeof answer === "string") {
+    return predicate === answer;
+  }
+
+  return false;
+};
+
 export const surveySlice = createSlice({
   name: "survey",
   initialState,
@@ -102,7 +116,10 @@ export const surveySlice = createSlice({
       if (!state.lastQuestion) {
         // If there is no branching logic or the answer does not meet the predicate, go to
         // next question in the section or to the next section
-        if (branching == null || payload.answer !== branching.predicate) {
+        if (
+          branching == null ||
+          !shouldBranch(payload.answer, branching.predicate)
+        ) {
           // Get next question info and push it on to question stack
           const nextQuestionInfo = getNextQuestionInfo(
             state.questionStack[state.currentQuestionIndex],

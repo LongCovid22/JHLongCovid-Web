@@ -27,29 +27,22 @@ veryMuch
 "other",
 "doNotKnow")
 
-
-
 Recovery Results
 12) recovered : boolean (Yes/ No Question)
 13) lengthOfRecovery : Integer (How many days to recover from most recent infection)
 
 Vaccination Results :
 14) vaccinated : String ("yes", "no", "doNotKnow")
-15) totalVaccineShots : Integer (0 - Do not know)
+15) totalVaccineShots : Integer greater than 1 (0 - Do not know)
 16) dateOfLastVaccine : String (date time format)
 17) vaccineType : String (Options: "pfizer", "moderna", "janssen", "novavax", "other", "doNotKnow")
 
-Excellent 
- Very good
- Good 
- Fair 
- Poor 
 
 Global Health Results:
 18) healthRank: String ("excellent", "veryGood", "good", "fair", "poor")
 19) physicalHealthRank: String ("excellent", "veryGood", "good", "fair", "poor")
 20) carryPhysicalActivities: String ("completely", "mostly", "moderately", "aLittle", "notAtAll")
-21) fatigueRank: Integer ("none", "mild", "moderate", "severe", "verySevere")
+21) fatigueRank: String ("none", "mild", "moderate", "severe", "verySevere")
 22) painLevel: Integer (1 (no pain) - 10 (worst Pain))
 
 Symptom Survey :
@@ -91,7 +84,6 @@ fertilityProblemsForWomen
 53) anxietyInPastWeekRank : String ("never", "rarely", "sometimes", "often", "always")
 
 patientHealthQuestionnaireResults
-	Not at all	Several days	More than half the days	Nearly every day
 54) littleInterestThings : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
 55) downDepressedHopeless : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
 56) sleepProblems : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
@@ -100,6 +92,8 @@ patientHealthQuestionnaireResults
 59) badAboutSelf : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
 60) concentrationProblems : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
 61) slowOrRestless : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+
+totalScore : Integer (representing the PHQ8 score)
 
 (skip suicide questions)
 

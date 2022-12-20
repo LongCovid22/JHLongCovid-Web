@@ -3,7 +3,7 @@
 // this is an auto generated file. This will be overwritten
 
 export const aggregateSurveyResults = /* GraphQL */ `
-  mutation AggregateSurveyResults($results: SurveyResults!) {
+  mutation AggregateSurveyResults($results: AWSJSON!) {
     aggregateSurveyResults(results: $results) {
       statusCode
       body
@@ -22,121 +22,49 @@ export const createMapData = /* GraphQL */ `
       stateAbbrev
       lat
       long
-      covidSummary {
-        covidCount
-        avgPositiveCasesPerPerson
-        percentHospitalizedDueToCovid
-        avgHospitalizationsPerPerson
-        percentSymptomatic
-        avgSymptomPreventDailyTasks
-        percentTookMedication
-        medicationCounts {
-          antiViral
-          oralSteroids
-          antiBiotics
-          other
-          dontKnow
-        }
-      }
+      covidCount
+      longCovid
+      topMedicalCondition
       recoverySummary {
-        recoveryCount
-        avgRecoveryLength
-      }
-      vaccinationSummary {
-        percentVaccinated
-        avgNumOfVaccPerPerson
-        vaccineCount {
-          pfizer
-          moderna
-          janssen
-          novavax
-          other
-          doNotKnow
+        avglengthOfRecovery {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
       globalHealthSummary {
-        avgGeneralHealth
-        avgPhysicalHealth
-        avgEverydayPhysicalCompetency
-        avgFatigue
-        avgPain
-      }
-      symptomSummary {
-        avgQualityOfLife
-        avgMentalHealth
-        avgSocialActivitesRelationships
-        avgSocialActivitiesCapacity
-        avgEmotionalProblems
-        symptomCounts {
-          headache
-          bodyMuscleAche
-          feverChillsSweatsFlushing
-          faintDizzyGoofy
-          postExertionalMalaise
-          weaknessInArmsLegs
-          shortnessOfBreath
-          cough
-          palpitations
-          swellingOfLegs
-          indigestionNausea
-          bladderProblem
-          nerveProblems
-          brainFog
-          anxietyDepressionNightmares
-          problemsThinkingConcentrating
-          problemsAnxietyDepressionStress
-          difficultyFallingAsleep
-          sleepyDuringDaytime
-          loudSnoring
-          uncomfortableFeelingsInLegs
-          skinRash
-          lossOfChangeInSmell
-          excessiveThirst
-          excessiveDryMouth
-          visionProblems
-          hearingProblems
-          fertilityProblemsForWomen
+        avgpainLevel {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
-      medicalConditionsSummary {
-        percentHaveLongCovid
-        newDiagnosisCounts {
-          noNewDiagnosis
-          heartProblems
-          lungProblems
-          bloodClotLung
-          sleepApnea
-          memory
-          migraine
-          stroke
-          seizure
-          kidneyProblems
-          stomachProblems
-          psychologicalProblems
-          diabetes
-          autoImmuneDiseases
-          mecfs
-          other
-          notSure
-        }
-      }
-      socialSummary {
-        percentHaveMedicalInsurance
-        averageDifficultyCoveringExpenses
-        workingSituationCounts {
-          workingOutsideTheHome
-          onLeaveFromAJobWorkingOutsideHome
-          workingInsideHome
-          lookingForWorkUnemployed
-          retired
-          disabled
-          student
-          dontKnow
-          preferNotToAnswer
+      patientHealthQuestionnaireSummary {
+        avgPHQScore {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
       totalFullEntries
-      totalDemoCount
       createdAt
       updatedAt
     }
@@ -154,121 +82,49 @@ export const updateMapData = /* GraphQL */ `
       stateAbbrev
       lat
       long
-      covidSummary {
-        covidCount
-        avgPositiveCasesPerPerson
-        percentHospitalizedDueToCovid
-        avgHospitalizationsPerPerson
-        percentSymptomatic
-        avgSymptomPreventDailyTasks
-        percentTookMedication
-        medicationCounts {
-          antiViral
-          oralSteroids
-          antiBiotics
-          other
-          dontKnow
-        }
-      }
+      covidCount
+      longCovid
+      topMedicalCondition
       recoverySummary {
-        recoveryCount
-        avgRecoveryLength
-      }
-      vaccinationSummary {
-        percentVaccinated
-        avgNumOfVaccPerPerson
-        vaccineCount {
-          pfizer
-          moderna
-          janssen
-          novavax
-          other
-          doNotKnow
+        avglengthOfRecovery {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
       globalHealthSummary {
-        avgGeneralHealth
-        avgPhysicalHealth
-        avgEverydayPhysicalCompetency
-        avgFatigue
-        avgPain
-      }
-      symptomSummary {
-        avgQualityOfLife
-        avgMentalHealth
-        avgSocialActivitesRelationships
-        avgSocialActivitiesCapacity
-        avgEmotionalProblems
-        symptomCounts {
-          headache
-          bodyMuscleAche
-          feverChillsSweatsFlushing
-          faintDizzyGoofy
-          postExertionalMalaise
-          weaknessInArmsLegs
-          shortnessOfBreath
-          cough
-          palpitations
-          swellingOfLegs
-          indigestionNausea
-          bladderProblem
-          nerveProblems
-          brainFog
-          anxietyDepressionNightmares
-          problemsThinkingConcentrating
-          problemsAnxietyDepressionStress
-          difficultyFallingAsleep
-          sleepyDuringDaytime
-          loudSnoring
-          uncomfortableFeelingsInLegs
-          skinRash
-          lossOfChangeInSmell
-          excessiveThirst
-          excessiveDryMouth
-          visionProblems
-          hearingProblems
-          fertilityProblemsForWomen
+        avgpainLevel {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
-      medicalConditionsSummary {
-        percentHaveLongCovid
-        newDiagnosisCounts {
-          noNewDiagnosis
-          heartProblems
-          lungProblems
-          bloodClotLung
-          sleepApnea
-          memory
-          migraine
-          stroke
-          seizure
-          kidneyProblems
-          stomachProblems
-          psychologicalProblems
-          diabetes
-          autoImmuneDiseases
-          mecfs
-          other
-          notSure
-        }
-      }
-      socialSummary {
-        percentHaveMedicalInsurance
-        averageDifficultyCoveringExpenses
-        workingSituationCounts {
-          workingOutsideTheHome
-          onLeaveFromAJobWorkingOutsideHome
-          workingInsideHome
-          lookingForWorkUnemployed
-          retired
-          disabled
-          student
-          dontKnow
-          preferNotToAnswer
+      patientHealthQuestionnaireSummary {
+        avgPHQScore {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
       totalFullEntries
-      totalDemoCount
       createdAt
       updatedAt
     }
@@ -286,121 +142,49 @@ export const deleteMapData = /* GraphQL */ `
       stateAbbrev
       lat
       long
-      covidSummary {
-        covidCount
-        avgPositiveCasesPerPerson
-        percentHospitalizedDueToCovid
-        avgHospitalizationsPerPerson
-        percentSymptomatic
-        avgSymptomPreventDailyTasks
-        percentTookMedication
-        medicationCounts {
-          antiViral
-          oralSteroids
-          antiBiotics
-          other
-          dontKnow
-        }
-      }
+      covidCount
+      longCovid
+      topMedicalCondition
       recoverySummary {
-        recoveryCount
-        avgRecoveryLength
-      }
-      vaccinationSummary {
-        percentVaccinated
-        avgNumOfVaccPerPerson
-        vaccineCount {
-          pfizer
-          moderna
-          janssen
-          novavax
-          other
-          doNotKnow
+        avglengthOfRecovery {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
       globalHealthSummary {
-        avgGeneralHealth
-        avgPhysicalHealth
-        avgEverydayPhysicalCompetency
-        avgFatigue
-        avgPain
-      }
-      symptomSummary {
-        avgQualityOfLife
-        avgMentalHealth
-        avgSocialActivitesRelationships
-        avgSocialActivitiesCapacity
-        avgEmotionalProblems
-        symptomCounts {
-          headache
-          bodyMuscleAche
-          feverChillsSweatsFlushing
-          faintDizzyGoofy
-          postExertionalMalaise
-          weaknessInArmsLegs
-          shortnessOfBreath
-          cough
-          palpitations
-          swellingOfLegs
-          indigestionNausea
-          bladderProblem
-          nerveProblems
-          brainFog
-          anxietyDepressionNightmares
-          problemsThinkingConcentrating
-          problemsAnxietyDepressionStress
-          difficultyFallingAsleep
-          sleepyDuringDaytime
-          loudSnoring
-          uncomfortableFeelingsInLegs
-          skinRash
-          lossOfChangeInSmell
-          excessiveThirst
-          excessiveDryMouth
-          visionProblems
-          hearingProblems
-          fertilityProblemsForWomen
+        avgpainLevel {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
-      medicalConditionsSummary {
-        percentHaveLongCovid
-        newDiagnosisCounts {
-          noNewDiagnosis
-          heartProblems
-          lungProblems
-          bloodClotLung
-          sleepApnea
-          memory
-          migraine
-          stroke
-          seizure
-          kidneyProblems
-          stomachProblems
-          psychologicalProblems
-          diabetes
-          autoImmuneDiseases
-          mecfs
-          other
-          notSure
-        }
-      }
-      socialSummary {
-        percentHaveMedicalInsurance
-        averageDifficultyCoveringExpenses
-        workingSituationCounts {
-          workingOutsideTheHome
-          onLeaveFromAJobWorkingOutsideHome
-          workingInsideHome
-          lookingForWorkUnemployed
-          retired
-          disabled
-          student
-          dontKnow
-          preferNotToAnswer
+      patientHealthQuestionnaireSummary {
+        avgPHQScore {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
       totalFullEntries
-      totalDemoCount
       createdAt
       updatedAt
     }
@@ -623,6 +407,7 @@ export const createSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -814,6 +599,7 @@ export const createSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -987,6 +773,7 @@ export const createSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1164,6 +951,7 @@ export const createSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1345,6 +1133,7 @@ export const createSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1519,6 +1308,7 @@ export const createSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1695,6 +1485,7 @@ export const createSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1735,6 +1526,7 @@ export const createSurveyEntry = /* GraphQL */ `
         weight
         createdAt
         symptoms
+        qualityOfLifeRank
         mentalHealthRank
         socialSatisfactionRank
         carryOutSocialActivitiesRank
@@ -1876,6 +1668,7 @@ export const createSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2079,6 +1872,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2270,6 +2064,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2443,6 +2238,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2620,6 +2416,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2801,6 +2598,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2975,6 +2773,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3151,6 +2950,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3191,6 +2991,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         weight
         createdAt
         symptoms
+        qualityOfLifeRank
         mentalHealthRank
         socialSatisfactionRank
         carryOutSocialActivitiesRank
@@ -3332,6 +3133,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3535,6 +3337,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3726,6 +3529,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3899,6 +3703,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4076,6 +3881,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4257,6 +4063,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4431,6 +4238,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4607,6 +4415,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4647,6 +4456,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         weight
         createdAt
         symptoms
+        qualityOfLifeRank
         mentalHealthRank
         socialSatisfactionRank
         carryOutSocialActivitiesRank
@@ -4788,6 +4598,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -5132,6 +4943,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -5485,6 +5297,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -5838,6 +5651,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -6191,6 +6005,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -6545,6 +6360,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -6899,6 +6715,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -7248,6 +7065,7 @@ export const createCovidEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -7609,6 +7427,7 @@ export const updateCovidEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -7970,6 +7789,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -8331,6 +8151,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -8682,6 +8503,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -9033,6 +8855,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -9384,6 +9207,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -9735,6 +9559,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -10086,6 +9911,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -10437,6 +10263,7 @@ export const createSymptomEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -10498,6 +10325,7 @@ export const createSymptomEntry = /* GraphQL */ `
       weight
       createdAt
       symptoms
+      qualityOfLifeRank
       mentalHealthRank
       socialSatisfactionRank
       carryOutSocialActivitiesRank
@@ -10793,6 +10621,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -10854,6 +10683,7 @@ export const updateSymptomEntry = /* GraphQL */ `
       weight
       createdAt
       symptoms
+      qualityOfLifeRank
       mentalHealthRank
       socialSatisfactionRank
       carryOutSocialActivitiesRank
@@ -11149,6 +10979,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -11210,6 +11041,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
       weight
       createdAt
       symptoms
+      qualityOfLifeRank
       mentalHealthRank
       socialSatisfactionRank
       carryOutSocialActivitiesRank
@@ -11505,6 +11337,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -11857,6 +11690,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -12209,6 +12043,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -12561,6 +12396,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -12911,6 +12747,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -13261,6 +13098,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank

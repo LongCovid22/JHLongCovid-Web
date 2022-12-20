@@ -3,395 +3,182 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateMapData = /* GraphQL */ `
-  subscription OnCreateMapData {
-    onCreateMapData {
+  subscription OnCreateMapData($filter: ModelSubscriptionMapDataFilterInput) {
+    onCreateMapData(filter: $filter) {
       id
       level
       name
       stateAbbrev
       lat
       long
-      covidSummary {
-        covidCount
-        avgPositiveCasesPerPerson
-        percentHospitalizedDueToCovid
-        avgHospitalizationsPerPerson
-        percentSymptomatic
-        avgSymptomPreventDailyTasks
-        percentTookMedication
-        medicationCounts {
-          antiViral
-          oralSteroids
-          antiBiotics
-          other
-          dontKnow
-        }
-      }
+      covidCount
+      longCovid
+      topMedicalCondition
       recoverySummary {
-        recoveryCount
-        avgRecoveryLength
-      }
-      vaccinationSummary {
-        percentVaccinated
-        avgNumOfVaccPerPerson
-        vaccineCount {
-          pfizer
-          moderna
-          janssen
-          novavax
-          other
-          doNotKnow
+        avglengthOfRecovery {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
       globalHealthSummary {
-        avgGeneralHealth
-        avgPhysicalHealth
-        avgEverydayPhysicalCompetency
-        avgFatigue
-        avgPain
-      }
-      symptomSummary {
-        avgQualityOfLife
-        avgMentalHealth
-        avgSocialActivitesRelationships
-        avgSocialActivitiesCapacity
-        avgEmotionalProblems
-        symptomCounts {
-          headache
-          bodyMuscleAche
-          feverChillsSweatsFlushing
-          faintDizzyGoofy
-          postExertionalMalaise
-          weaknessInArmsLegs
-          shortnessOfBreath
-          cough
-          palpitations
-          swellingOfLegs
-          indigestionNausea
-          bladderProblem
-          nerveProblems
-          brainFog
-          anxietyDepressionNightmares
-          problemsThinkingConcentrating
-          problemsAnxietyDepressionStress
-          difficultyFallingAsleep
-          sleepyDuringDaytime
-          loudSnoring
-          uncomfortableFeelingsInLegs
-          skinRash
-          lossOfChangeInSmell
-          excessiveThirst
-          excessiveDryMouth
-          visionProblems
-          hearingProblems
-          fertilityProblemsForWomen
+        avgpainLevel {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
-      medicalConditionsSummary {
-        percentHaveLongCovid
-        newDiagnosisCounts {
-          noNewDiagnosis
-          heartProblems
-          lungProblems
-          bloodClotLung
-          sleepApnea
-          memory
-          migraine
-          stroke
-          seizure
-          kidneyProblems
-          stomachProblems
-          psychologicalProblems
-          diabetes
-          autoImmuneDiseases
-          mecfs
-          other
-          notSure
-        }
-      }
-      socialSummary {
-        percentHaveMedicalInsurance
-        averageDifficultyCoveringExpenses
-        workingSituationCounts {
-          workingOutsideTheHome
-          onLeaveFromAJobWorkingOutsideHome
-          workingInsideHome
-          lookingForWorkUnemployed
-          retired
-          disabled
-          student
-          dontKnow
-          preferNotToAnswer
+      patientHealthQuestionnaireSummary {
+        avgPHQScore {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
       totalFullEntries
-      totalDemoCount
       createdAt
       updatedAt
     }
   }
 `;
 export const onUpdateMapData = /* GraphQL */ `
-  subscription OnUpdateMapData {
-    onUpdateMapData {
+  subscription OnUpdateMapData($filter: ModelSubscriptionMapDataFilterInput) {
+    onUpdateMapData(filter: $filter) {
       id
       level
       name
       stateAbbrev
       lat
       long
-      covidSummary {
-        covidCount
-        avgPositiveCasesPerPerson
-        percentHospitalizedDueToCovid
-        avgHospitalizationsPerPerson
-        percentSymptomatic
-        avgSymptomPreventDailyTasks
-        percentTookMedication
-        medicationCounts {
-          antiViral
-          oralSteroids
-          antiBiotics
-          other
-          dontKnow
-        }
-      }
+      covidCount
+      longCovid
+      topMedicalCondition
       recoverySummary {
-        recoveryCount
-        avgRecoveryLength
-      }
-      vaccinationSummary {
-        percentVaccinated
-        avgNumOfVaccPerPerson
-        vaccineCount {
-          pfizer
-          moderna
-          janssen
-          novavax
-          other
-          doNotKnow
+        avglengthOfRecovery {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
       globalHealthSummary {
-        avgGeneralHealth
-        avgPhysicalHealth
-        avgEverydayPhysicalCompetency
-        avgFatigue
-        avgPain
-      }
-      symptomSummary {
-        avgQualityOfLife
-        avgMentalHealth
-        avgSocialActivitesRelationships
-        avgSocialActivitiesCapacity
-        avgEmotionalProblems
-        symptomCounts {
-          headache
-          bodyMuscleAche
-          feverChillsSweatsFlushing
-          faintDizzyGoofy
-          postExertionalMalaise
-          weaknessInArmsLegs
-          shortnessOfBreath
-          cough
-          palpitations
-          swellingOfLegs
-          indigestionNausea
-          bladderProblem
-          nerveProblems
-          brainFog
-          anxietyDepressionNightmares
-          problemsThinkingConcentrating
-          problemsAnxietyDepressionStress
-          difficultyFallingAsleep
-          sleepyDuringDaytime
-          loudSnoring
-          uncomfortableFeelingsInLegs
-          skinRash
-          lossOfChangeInSmell
-          excessiveThirst
-          excessiveDryMouth
-          visionProblems
-          hearingProblems
-          fertilityProblemsForWomen
+        avgpainLevel {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
-      medicalConditionsSummary {
-        percentHaveLongCovid
-        newDiagnosisCounts {
-          noNewDiagnosis
-          heartProblems
-          lungProblems
-          bloodClotLung
-          sleepApnea
-          memory
-          migraine
-          stroke
-          seizure
-          kidneyProblems
-          stomachProblems
-          psychologicalProblems
-          diabetes
-          autoImmuneDiseases
-          mecfs
-          other
-          notSure
-        }
-      }
-      socialSummary {
-        percentHaveMedicalInsurance
-        averageDifficultyCoveringExpenses
-        workingSituationCounts {
-          workingOutsideTheHome
-          onLeaveFromAJobWorkingOutsideHome
-          workingInsideHome
-          lookingForWorkUnemployed
-          retired
-          disabled
-          student
-          dontKnow
-          preferNotToAnswer
+      patientHealthQuestionnaireSummary {
+        avgPHQScore {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
       totalFullEntries
-      totalDemoCount
       createdAt
       updatedAt
     }
   }
 `;
 export const onDeleteMapData = /* GraphQL */ `
-  subscription OnDeleteMapData {
-    onDeleteMapData {
+  subscription OnDeleteMapData($filter: ModelSubscriptionMapDataFilterInput) {
+    onDeleteMapData(filter: $filter) {
       id
       level
       name
       stateAbbrev
       lat
       long
-      covidSummary {
-        covidCount
-        avgPositiveCasesPerPerson
-        percentHospitalizedDueToCovid
-        avgHospitalizationsPerPerson
-        percentSymptomatic
-        avgSymptomPreventDailyTasks
-        percentTookMedication
-        medicationCounts {
-          antiViral
-          oralSteroids
-          antiBiotics
-          other
-          dontKnow
-        }
-      }
+      covidCount
+      longCovid
+      topMedicalCondition
       recoverySummary {
-        recoveryCount
-        avgRecoveryLength
-      }
-      vaccinationSummary {
-        percentVaccinated
-        avgNumOfVaccPerPerson
-        vaccineCount {
-          pfizer
-          moderna
-          janssen
-          novavax
-          other
-          doNotKnow
+        avglengthOfRecovery {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
       globalHealthSummary {
-        avgGeneralHealth
-        avgPhysicalHealth
-        avgEverydayPhysicalCompetency
-        avgFatigue
-        avgPain
-      }
-      symptomSummary {
-        avgQualityOfLife
-        avgMentalHealth
-        avgSocialActivitesRelationships
-        avgSocialActivitiesCapacity
-        avgEmotionalProblems
-        symptomCounts {
-          headache
-          bodyMuscleAche
-          feverChillsSweatsFlushing
-          faintDizzyGoofy
-          postExertionalMalaise
-          weaknessInArmsLegs
-          shortnessOfBreath
-          cough
-          palpitations
-          swellingOfLegs
-          indigestionNausea
-          bladderProblem
-          nerveProblems
-          brainFog
-          anxietyDepressionNightmares
-          problemsThinkingConcentrating
-          problemsAnxietyDepressionStress
-          difficultyFallingAsleep
-          sleepyDuringDaytime
-          loudSnoring
-          uncomfortableFeelingsInLegs
-          skinRash
-          lossOfChangeInSmell
-          excessiveThirst
-          excessiveDryMouth
-          visionProblems
-          hearingProblems
-          fertilityProblemsForWomen
+        avgpainLevel {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
-      medicalConditionsSummary {
-        percentHaveLongCovid
-        newDiagnosisCounts {
-          noNewDiagnosis
-          heartProblems
-          lungProblems
-          bloodClotLung
-          sleepApnea
-          memory
-          migraine
-          stroke
-          seizure
-          kidneyProblems
-          stomachProblems
-          psychologicalProblems
-          diabetes
-          autoImmuneDiseases
-          mecfs
-          other
-          notSure
-        }
-      }
-      socialSummary {
-        percentHaveMedicalInsurance
-        averageDifficultyCoveringExpenses
-        workingSituationCounts {
-          workingOutsideTheHome
-          onLeaveFromAJobWorkingOutsideHome
-          workingInsideHome
-          lookingForWorkUnemployed
-          retired
-          disabled
-          student
-          dontKnow
-          preferNotToAnswer
+      patientHealthQuestionnaireSummary {
+        avgPHQScore {
+          race {
+            ranges
+          }
+          sex {
+            ranges
+          }
+          age {
+            ranges
+          }
         }
       }
       totalFullEntries
-      totalDemoCount
       createdAt
       updatedAt
     }
   }
 `;
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($owner: String) {
-    onCreateUser(owner: $owner) {
+  subscription OnCreateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onCreateUser(filter: $filter, owner: $owner) {
       id
       email
       age
@@ -410,8 +197,11 @@ export const onCreateUser = /* GraphQL */ `
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($owner: String) {
-    onUpdateUser(owner: $owner) {
+  subscription OnUpdateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onUpdateUser(filter: $filter, owner: $owner) {
       id
       email
       age
@@ -430,8 +220,11 @@ export const onUpdateUser = /* GraphQL */ `
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($owner: String) {
-    onDeleteUser(owner: $owner) {
+  subscription OnDeleteUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onDeleteUser(filter: $filter, owner: $owner) {
       id
       email
       age
@@ -450,8 +243,10 @@ export const onDeleteUser = /* GraphQL */ `
   }
 `;
 export const onCreateSurveyEntry = /* GraphQL */ `
-  subscription OnCreateSurveyEntry {
-    onCreateSurveyEntry {
+  subscription OnCreateSurveyEntry(
+    $filter: ModelSubscriptionSurveyEntryFilterInput
+  ) {
+    onCreateSurveyEntry(filter: $filter) {
       id
       email
       createdAt
@@ -594,6 +389,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -785,6 +581,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -958,6 +755,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1135,6 +933,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1316,6 +1115,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1490,6 +1290,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1666,6 +1467,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1706,6 +1508,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
         weight
         createdAt
         symptoms
+        qualityOfLifeRank
         mentalHealthRank
         socialSatisfactionRank
         carryOutSocialActivitiesRank
@@ -1847,6 +1650,7 @@ export const onCreateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -1903,8 +1707,10 @@ export const onCreateSurveyEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateSurveyEntry = /* GraphQL */ `
-  subscription OnUpdateSurveyEntry {
-    onUpdateSurveyEntry {
+  subscription OnUpdateSurveyEntry(
+    $filter: ModelSubscriptionSurveyEntryFilterInput
+  ) {
+    onUpdateSurveyEntry(filter: $filter) {
       id
       email
       createdAt
@@ -2047,6 +1853,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2238,6 +2045,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2411,6 +2219,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2588,6 +2397,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2769,6 +2579,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -2943,6 +2754,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3119,6 +2931,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3159,6 +2972,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
         weight
         createdAt
         symptoms
+        qualityOfLifeRank
         mentalHealthRank
         socialSatisfactionRank
         carryOutSocialActivitiesRank
@@ -3300,6 +3114,7 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3356,8 +3171,10 @@ export const onUpdateSurveyEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteSurveyEntry = /* GraphQL */ `
-  subscription OnDeleteSurveyEntry {
-    onDeleteSurveyEntry {
+  subscription OnDeleteSurveyEntry(
+    $filter: ModelSubscriptionSurveyEntryFilterInput
+  ) {
+    onDeleteSurveyEntry(filter: $filter) {
       id
       email
       createdAt
@@ -3500,6 +3317,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3691,6 +3509,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -3864,6 +3683,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4041,6 +3861,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4222,6 +4043,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4396,6 +4218,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4572,6 +4395,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4612,6 +4436,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
         weight
         createdAt
         symptoms
+        qualityOfLifeRank
         mentalHealthRank
         socialSatisfactionRank
         carryOutSocialActivitiesRank
@@ -4753,6 +4578,7 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
             weight
             createdAt
             symptoms
+            qualityOfLifeRank
             mentalHealthRank
             socialSatisfactionRank
             carryOutSocialActivitiesRank
@@ -4809,8 +4635,10 @@ export const onDeleteSurveyEntry = /* GraphQL */ `
   }
 `;
 export const onCreateVaccinationEntry = /* GraphQL */ `
-  subscription OnCreateVaccinationEntry {
-    onCreateVaccinationEntry {
+  subscription OnCreateVaccinationEntry(
+    $filter: ModelSubscriptionVaccinationEntryFilterInput
+  ) {
+    onCreateVaccinationEntry(filter: $filter) {
       id
       state
       countyState
@@ -5094,6 +4922,7 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -5159,8 +4988,10 @@ export const onCreateVaccinationEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateVaccinationEntry = /* GraphQL */ `
-  subscription OnUpdateVaccinationEntry {
-    onUpdateVaccinationEntry {
+  subscription OnUpdateVaccinationEntry(
+    $filter: ModelSubscriptionVaccinationEntryFilterInput
+  ) {
+    onUpdateVaccinationEntry(filter: $filter) {
       id
       state
       countyState
@@ -5444,6 +5275,7 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -5509,8 +5341,10 @@ export const onUpdateVaccinationEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteVaccinationEntry = /* GraphQL */ `
-  subscription OnDeleteVaccinationEntry {
-    onDeleteVaccinationEntry {
+  subscription OnDeleteVaccinationEntry(
+    $filter: ModelSubscriptionVaccinationEntryFilterInput
+  ) {
+    onDeleteVaccinationEntry(filter: $filter) {
       id
       state
       countyState
@@ -5794,6 +5628,7 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -5859,8 +5694,10 @@ export const onDeleteVaccinationEntry = /* GraphQL */ `
   }
 `;
 export const onCreateGlobalHealthEntry = /* GraphQL */ `
-  subscription OnCreateGlobalHealthEntry {
-    onCreateGlobalHealthEntry {
+  subscription OnCreateGlobalHealthEntry(
+    $filter: ModelSubscriptionGlobalHealthEntryFilterInput
+  ) {
+    onCreateGlobalHealthEntry(filter: $filter) {
       id
       state
       countyState
@@ -6144,6 +5981,7 @@ export const onCreateGlobalHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -6210,8 +6048,10 @@ export const onCreateGlobalHealthEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateGlobalHealthEntry = /* GraphQL */ `
-  subscription OnUpdateGlobalHealthEntry {
-    onUpdateGlobalHealthEntry {
+  subscription OnUpdateGlobalHealthEntry(
+    $filter: ModelSubscriptionGlobalHealthEntryFilterInput
+  ) {
+    onUpdateGlobalHealthEntry(filter: $filter) {
       id
       state
       countyState
@@ -6495,6 +6335,7 @@ export const onUpdateGlobalHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -6561,8 +6402,10 @@ export const onUpdateGlobalHealthEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteGlobalHealthEntry = /* GraphQL */ `
-  subscription OnDeleteGlobalHealthEntry {
-    onDeleteGlobalHealthEntry {
+  subscription OnDeleteGlobalHealthEntry(
+    $filter: ModelSubscriptionGlobalHealthEntryFilterInput
+  ) {
+    onDeleteGlobalHealthEntry(filter: $filter) {
       id
       state
       countyState
@@ -6846,6 +6689,7 @@ export const onDeleteGlobalHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -6912,8 +6756,10 @@ export const onDeleteGlobalHealthEntry = /* GraphQL */ `
   }
 `;
 export const onCreateCovidEntry = /* GraphQL */ `
-  subscription OnCreateCovidEntry {
-    onCreateCovidEntry {
+  subscription OnCreateCovidEntry(
+    $filter: ModelSubscriptionCovidEntryFilterInput
+  ) {
+    onCreateCovidEntry(filter: $filter) {
       id
       state
       countyState
@@ -7192,6 +7038,7 @@ export const onCreateCovidEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -7270,8 +7117,10 @@ export const onCreateCovidEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateCovidEntry = /* GraphQL */ `
-  subscription OnUpdateCovidEntry {
-    onUpdateCovidEntry {
+  subscription OnUpdateCovidEntry(
+    $filter: ModelSubscriptionCovidEntryFilterInput
+  ) {
+    onUpdateCovidEntry(filter: $filter) {
       id
       state
       countyState
@@ -7550,6 +7399,7 @@ export const onUpdateCovidEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -7628,8 +7478,10 @@ export const onUpdateCovidEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteCovidEntry = /* GraphQL */ `
-  subscription OnDeleteCovidEntry {
-    onDeleteCovidEntry {
+  subscription OnDeleteCovidEntry(
+    $filter: ModelSubscriptionCovidEntryFilterInput
+  ) {
+    onDeleteCovidEntry(filter: $filter) {
       id
       state
       countyState
@@ -7908,6 +7760,7 @@ export const onDeleteCovidEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -7986,8 +7839,10 @@ export const onDeleteCovidEntry = /* GraphQL */ `
   }
 `;
 export const onCreateRecoveryEntry = /* GraphQL */ `
-  subscription OnCreateRecoveryEntry {
-    onCreateRecoveryEntry {
+  subscription OnCreateRecoveryEntry(
+    $filter: ModelSubscriptionRecoveryEntryFilterInput
+  ) {
+    onCreateRecoveryEntry(filter: $filter) {
       id
       state
       countyState
@@ -8266,6 +8121,7 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -8334,8 +8190,10 @@ export const onCreateRecoveryEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateRecoveryEntry = /* GraphQL */ `
-  subscription OnUpdateRecoveryEntry {
-    onUpdateRecoveryEntry {
+  subscription OnUpdateRecoveryEntry(
+    $filter: ModelSubscriptionRecoveryEntryFilterInput
+  ) {
+    onUpdateRecoveryEntry(filter: $filter) {
       id
       state
       countyState
@@ -8614,6 +8472,7 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -8682,8 +8541,10 @@ export const onUpdateRecoveryEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteRecoveryEntry = /* GraphQL */ `
-  subscription OnDeleteRecoveryEntry {
-    onDeleteRecoveryEntry {
+  subscription OnDeleteRecoveryEntry(
+    $filter: ModelSubscriptionRecoveryEntryFilterInput
+  ) {
+    onDeleteRecoveryEntry(filter: $filter) {
       id
       state
       countyState
@@ -8962,6 +8823,7 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -9030,8 +8892,10 @@ export const onDeleteRecoveryEntry = /* GraphQL */ `
   }
 `;
 export const onCreatePatientHealthEntry = /* GraphQL */ `
-  subscription OnCreatePatientHealthEntry {
-    onCreatePatientHealthEntry {
+  subscription OnCreatePatientHealthEntry(
+    $filter: ModelSubscriptionPatientHealthEntryFilterInput
+  ) {
+    onCreatePatientHealthEntry(filter: $filter) {
       id
       state
       countyState
@@ -9310,6 +9174,7 @@ export const onCreatePatientHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -9378,8 +9243,10 @@ export const onCreatePatientHealthEntry = /* GraphQL */ `
   }
 `;
 export const onUpdatePatientHealthEntry = /* GraphQL */ `
-  subscription OnUpdatePatientHealthEntry {
-    onUpdatePatientHealthEntry {
+  subscription OnUpdatePatientHealthEntry(
+    $filter: ModelSubscriptionPatientHealthEntryFilterInput
+  ) {
+    onUpdatePatientHealthEntry(filter: $filter) {
       id
       state
       countyState
@@ -9658,6 +9525,7 @@ export const onUpdatePatientHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -9726,8 +9594,10 @@ export const onUpdatePatientHealthEntry = /* GraphQL */ `
   }
 `;
 export const onDeletePatientHealthEntry = /* GraphQL */ `
-  subscription OnDeletePatientHealthEntry {
-    onDeletePatientHealthEntry {
+  subscription OnDeletePatientHealthEntry(
+    $filter: ModelSubscriptionPatientHealthEntryFilterInput
+  ) {
+    onDeletePatientHealthEntry(filter: $filter) {
       id
       state
       countyState
@@ -10006,6 +9876,7 @@ export const onDeletePatientHealthEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -10074,8 +9945,10 @@ export const onDeletePatientHealthEntry = /* GraphQL */ `
   }
 `;
 export const onCreateSymptomEntry = /* GraphQL */ `
-  subscription OnCreateSymptomEntry {
-    onCreateSymptomEntry {
+  subscription OnCreateSymptomEntry(
+    $filter: ModelSubscriptionSymptomEntryFilterInput
+  ) {
+    onCreateSymptomEntry(filter: $filter) {
       id
       state
       countyState
@@ -10354,6 +10227,7 @@ export const onCreateSymptomEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -10415,6 +10289,7 @@ export const onCreateSymptomEntry = /* GraphQL */ `
       weight
       createdAt
       symptoms
+      qualityOfLifeRank
       mentalHealthRank
       socialSatisfactionRank
       carryOutSocialActivitiesRank
@@ -10427,8 +10302,10 @@ export const onCreateSymptomEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateSymptomEntry = /* GraphQL */ `
-  subscription OnUpdateSymptomEntry {
-    onUpdateSymptomEntry {
+  subscription OnUpdateSymptomEntry(
+    $filter: ModelSubscriptionSymptomEntryFilterInput
+  ) {
+    onUpdateSymptomEntry(filter: $filter) {
       id
       state
       countyState
@@ -10707,6 +10584,7 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -10768,6 +10646,7 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
       weight
       createdAt
       symptoms
+      qualityOfLifeRank
       mentalHealthRank
       socialSatisfactionRank
       carryOutSocialActivitiesRank
@@ -10780,8 +10659,10 @@ export const onUpdateSymptomEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteSymptomEntry = /* GraphQL */ `
-  subscription OnDeleteSymptomEntry {
-    onDeleteSymptomEntry {
+  subscription OnDeleteSymptomEntry(
+    $filter: ModelSubscriptionSymptomEntryFilterInput
+  ) {
+    onDeleteSymptomEntry(filter: $filter) {
       id
       state
       countyState
@@ -11060,6 +10941,7 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -11121,6 +11003,7 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
       weight
       createdAt
       symptoms
+      qualityOfLifeRank
       mentalHealthRank
       socialSatisfactionRank
       carryOutSocialActivitiesRank
@@ -11133,8 +11016,10 @@ export const onDeleteSymptomEntry = /* GraphQL */ `
   }
 `;
 export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
-  subscription OnCreateSocialDeterminantsEntry {
-    onCreateSocialDeterminantsEntry {
+  subscription OnCreateSocialDeterminantsEntry(
+    $filter: ModelSubscriptionSocialDeterminantsEntryFilterInput
+  ) {
+    onCreateSocialDeterminantsEntry(filter: $filter) {
       id
       state
       countyState
@@ -11413,6 +11298,7 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -11482,8 +11368,10 @@ export const onCreateSocialDeterminantsEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
-  subscription OnUpdateSocialDeterminantsEntry {
-    onUpdateSocialDeterminantsEntry {
+  subscription OnUpdateSocialDeterminantsEntry(
+    $filter: ModelSubscriptionSocialDeterminantsEntryFilterInput
+  ) {
+    onUpdateSocialDeterminantsEntry(filter: $filter) {
       id
       state
       countyState
@@ -11762,6 +11650,7 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -11831,8 +11720,10 @@ export const onUpdateSocialDeterminantsEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
-  subscription OnDeleteSocialDeterminantsEntry {
-    onDeleteSocialDeterminantsEntry {
+  subscription OnDeleteSocialDeterminantsEntry(
+    $filter: ModelSubscriptionSocialDeterminantsEntryFilterInput
+  ) {
+    onDeleteSocialDeterminantsEntry(filter: $filter) {
       id
       state
       countyState
@@ -12111,6 +12002,7 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -12180,8 +12072,10 @@ export const onDeleteSocialDeterminantsEntry = /* GraphQL */ `
   }
 `;
 export const onCreateMonthlyEntry = /* GraphQL */ `
-  subscription OnCreateMonthlyEntry {
-    onCreateMonthlyEntry {
+  subscription OnCreateMonthlyEntry(
+    $filter: ModelSubscriptionMonthlyEntryFilterInput
+  ) {
+    onCreateMonthlyEntry(filter: $filter) {
       id
       state
       countyState
@@ -12460,6 +12354,7 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -12527,8 +12422,10 @@ export const onCreateMonthlyEntry = /* GraphQL */ `
   }
 `;
 export const onUpdateMonthlyEntry = /* GraphQL */ `
-  subscription OnUpdateMonthlyEntry {
-    onUpdateMonthlyEntry {
+  subscription OnUpdateMonthlyEntry(
+    $filter: ModelSubscriptionMonthlyEntryFilterInput
+  ) {
+    onUpdateMonthlyEntry(filter: $filter) {
       id
       state
       countyState
@@ -12807,6 +12704,7 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank
@@ -12874,8 +12772,10 @@ export const onUpdateMonthlyEntry = /* GraphQL */ `
   }
 `;
 export const onDeleteMonthlyEntry = /* GraphQL */ `
-  subscription OnDeleteMonthlyEntry {
-    onDeleteMonthlyEntry {
+  subscription OnDeleteMonthlyEntry(
+    $filter: ModelSubscriptionMonthlyEntryFilterInput
+  ) {
+    onDeleteMonthlyEntry(filter: $filter) {
       id
       state
       countyState
@@ -13154,6 +13054,7 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
           weight
           createdAt
           symptoms
+          qualityOfLifeRank
           mentalHealthRank
           socialSatisfactionRank
           carryOutSocialActivitiesRank

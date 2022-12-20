@@ -196,11 +196,6 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
             overflowY={"auto"}
             overflowX="hidden"
           >
-            {/* <InfoPanelMetrics
-              data={data}
-              section={section}
-              setSection={setSection}
-            /> */}
             <Flex width={"100%"}>
               <Wrap>
                 <WrapItem>

@@ -190,7 +190,7 @@ export const createCovidEntry = async (
       locationData.county !== ""
         ? locationData.county + "#" + locationData.stateAbbrev
         : null,
-    age: surveyData.age,
+    age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
     height: surveyData.height,
@@ -211,13 +211,15 @@ export const createCovidEntry = async (
     const cEntry = (await API.graphql({
       query: mutations.createCovidEntry,
       variables: { input: details },
-    })) as { data: CreateCovidEntryMutation; errors: any[] };
-    if (cEntry.data.createCovidEntry) {
+    })) as { data?: CreateCovidEntryMutation; errors: any[] };
+    if (cEntry.data && cEntry.data.createCovidEntry) {
+      console.log("Returning id: ", cEntry.data.createCovidEntry.id);
       return cEntry.data.createCovidEntry.id;
     }
   } catch (error) {
-    let mutation = error as { data: CreateCovidEntryMutation; errors: any[] };
-    if (mutation.data.createCovidEntry) {
+    console.log("Mutation result: ", error);
+    let mutation = error as { data?: CreateCovidEntryMutation; errors: any[] };
+    if (mutation.data && mutation.data.createCovidEntry) {
       return mutation.data.createCovidEntry.id;
     } else {
       console.log("Error creating COVID Entry: ", mutation.errors);
@@ -235,7 +237,7 @@ export const createRecoveryEntry = async (
       locationData.county !== ""
         ? locationData.county + "#" + locationData.stateAbbrev
         : null,
-    age: surveyData.age,
+    age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
     height: surveyData.height,
@@ -254,10 +256,10 @@ export const createRecoveryEntry = async (
     }
   } catch (error) {
     let mutation = error as {
-      data: CreateRecoveryEntryMutation;
+      data?: CreateRecoveryEntryMutation;
       errors: any[];
     };
-    if (mutation.data.createRecoveryEntry) {
+    if (mutation.data && mutation.data.createRecoveryEntry) {
       return mutation.data.createRecoveryEntry.id;
     } else {
       console.log("Error creating Recovery Entry: ", mutation.errors);
@@ -275,7 +277,7 @@ export const createVaccinationEntry = async (
       locationData.county !== ""
         ? locationData.county + "#" + locationData.stateAbbrev
         : null,
-    age: surveyData.age,
+    age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
     height: surveyData.height,
@@ -295,10 +297,10 @@ export const createVaccinationEntry = async (
     }
   } catch (error) {
     let mutation = error as {
-      data: CreateVaccinationEntryMutation;
+      data?: CreateVaccinationEntryMutation;
       errors: any[];
     };
-    if (mutation.data.createVaccinationEntry) {
+    if (mutation.data && mutation.data.createVaccinationEntry) {
       return mutation.data.createVaccinationEntry.id;
     } else {
       console.log("Error creating Vaccination Entry: ", mutation.errors);
@@ -316,7 +318,7 @@ export const createGlobalHealthEntry = async (
       locationData.county !== ""
         ? locationData.county + "#" + locationData.stateAbbrev
         : null,
-    age: surveyData.age,
+    age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
     height: surveyData.height,
@@ -338,10 +340,10 @@ export const createGlobalHealthEntry = async (
     }
   } catch (error) {
     let mutation = error as {
-      data: CreateGlobalHealthEntryMutation;
+      data?: CreateGlobalHealthEntryMutation;
       errors: any[];
     };
-    if (mutation.data.createGlobalHealthEntry) {
+    if (mutation.data && mutation.data.createGlobalHealthEntry) {
       return mutation.data.createGlobalHealthEntry.id;
     } else {
       console.log("Error creating Global Health Entry: ", mutation.errors);
@@ -359,7 +361,7 @@ export const createPatientHealthEntry = async (
       locationData.county !== ""
         ? locationData.county + "#" + locationData.stateAbbrev
         : null,
-    age: surveyData.age,
+    age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
     height: surveyData.height,
@@ -379,10 +381,10 @@ export const createPatientHealthEntry = async (
     }
   } catch (error) {
     let mutation = error as {
-      data: CreatePatientHealthEntryMutation;
+      data?: CreatePatientHealthEntryMutation;
       errors: any[];
     };
-    if (mutation.data.createPatientHealthEntry) {
+    if (mutation.data && mutation.data.createPatientHealthEntry) {
       return mutation.data.createPatientHealthEntry.id;
     } else {
       console.log("Error creating Patient Health Entry: ", mutation.errors);
@@ -400,7 +402,7 @@ export const createSymptomEntry = async (
       locationData.county !== ""
         ? locationData.county + "#" + locationData.stateAbbrev
         : null,
-    age: surveyData.age,
+    age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
     height: surveyData.height,
@@ -422,10 +424,10 @@ export const createSymptomEntry = async (
     }
   } catch (error) {
     let mutation = error as {
-      data: CreateSymptomEntryMutation;
+      data?: CreateSymptomEntryMutation;
       errors: any[];
     };
-    if (mutation.data.createSymptomEntry) {
+    if (mutation.data && mutation.data.createSymptomEntry) {
       return mutation.data.createSymptomEntry.id;
     } else {
       console.log("Error creating Symptom Entry: ", mutation.errors);
@@ -443,7 +445,7 @@ export const createSocialDeterminantsEntry = async (
       locationData.county !== ""
         ? locationData.county + "#" + locationData.stateAbbrev
         : null,
-    age: surveyData.age,
+    age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
     height: surveyData.height,
@@ -457,18 +459,18 @@ export const createSocialDeterminantsEntry = async (
       query: mutations.createSocialDeterminantsEntry,
       variables: { input: details },
     })) as {
-      data: CreateSocialDeterminantsEntryMutation;
+      data?: CreateSocialDeterminantsEntryMutation;
       errors: any[];
     };
-    if (sdEntry.data.createSocialDeterminantsEntry) {
+    if (sdEntry.data && sdEntry.data.createSocialDeterminantsEntry) {
       return sdEntry.data.createSocialDeterminantsEntry.id;
     }
   } catch (error) {
     let mutation = error as {
-      data: CreateSocialDeterminantsEntryMutation;
+      data?: CreateSocialDeterminantsEntryMutation;
       errors: any[];
     };
-    if (mutation.data.createSocialDeterminantsEntry) {
+    if (mutation.data && mutation.data.createSocialDeterminantsEntry) {
       return mutation.data.createSocialDeterminantsEntry.id;
     } else {
       console.log("Error creating Symptom Entry: ", mutation.errors);
@@ -523,18 +525,19 @@ export const createSurveyEntry = async (
         ? ids.PatientHealthEntry
         : null,
       surveyEntrySymptomsEntryId: ids.SymptomEntry ? ids.SymptomEntry : null,
+      surveyEntryMonthlyEntryId: ids.MonthlyEntry ? ids.MonthlyEntry : null,
     };
 
     const sEntry = (await API.graphql({
       query: mutations.createSurveyEntry,
       variables: { input: surveyDetails },
-    })) as { data: CreateSurveyEntryMutation; errors: any[] };
-    if (sEntry.data.createSurveyEntry) {
+    })) as { data?: CreateSurveyEntryMutation; errors: any[] };
+    if (sEntry.data && sEntry.data.createSurveyEntry) {
       return sEntry.data.createSurveyEntry.id;
     }
   } catch (error) {
-    let mutation = error as { data: CreateSurveyEntryMutation; errors: any[] };
-    if (mutation.data.createSurveyEntry) {
+    let mutation = error as { data?: CreateSurveyEntryMutation; errors: any[] };
+    if (mutation.data && mutation.data.createSurveyEntry) {
       return mutation.data.createSurveyEntry.id;
     } else {
       console.log("Error creating Survey Entry: ", mutation.errors);
@@ -621,62 +624,73 @@ export const aggregateResults = async (
   user?: User
 ) => {
   const aggregateDetails: any = {
-    surveyResults: {
-      id: ids["SurveyEntry"],
-      email: user ? user.email : "",
-      surveyVersion: 1,
-      surveyType: SurveyType.GUEST,
-      age: userInfo.age,
-      race: userInfo.race,
-      sex: userInfo.sex,
-      location: location,
-      covidResults: ids["CovidEntry"]
-        ? {
-            id: ids["CovidEntry"],
-            ...entries["CovidEntry"],
-          }
-        : null,
-      recoveryResults: ids["RecoveryEntry"]
-        ? {
-            id: ids["RecoveryEntry"],
-            ...entries["RecoveryEntry"],
-          }
-        : null,
-      vaccinationResults: ids["VaccinationEntry"]
-        ? {
-            id: ids["VaccinationEntry"],
-            ...entries["VaccinationEntry"],
-          }
-        : null,
-      globalHealthResults: ids["GlobalHealthEntry"]
-        ? {
-            id: ids["GlobalHealthEntry"],
-            ...entries["GlobalHealthEntry"],
-          }
-        : null,
-      patientHealthResults: ids["PatientHealthEntry"]
-        ? {
-            id: ids["PatientHealthEntry"],
-            ...entries["PatientHealthEntry"],
-          }
-        : null,
-      symptomResults: ids["SymptomEntry"]
-        ? {
-            id: ids["SymptomEntry"],
-            ...entries,
-          }
-        : null,
-      socialDeterminantsResults: ids["SocialDeterminantsEntry"]
-        ? {
-            id: ids["SocialDeterminantsEntry"],
-            ...entries["SocialDeterminantsEntry"],
-          }
-        : null,
-      healthRelatedResults: {
-        weight: userInfo.weight,
-        height: userInfo.height,
-      },
+    id: ids["SurveyEntry"],
+    email: user ? user.email : "",
+    surveyVersion: 1,
+    surveyType: SurveyType.GUEST,
+    age: userInfo.age,
+    race: userInfo.race,
+    sex: userInfo.sex,
+    location: location,
+    covidResults: ids["CovidEntry"]
+      ? {
+          id: ids["CovidEntry"],
+          ...entries["CovidEntry"],
+        }
+      : null,
+    recoveryResults: ids["RecoveryEntry"]
+      ? {
+          id: ids["RecoveryEntry"],
+          ...entries["RecoveryEntry"],
+        }
+      : null,
+    vaccinationResults: ids["VaccinationEntry"]
+      ? {
+          id: ids["VaccinationEntry"],
+          ...entries["VaccinationEntry"],
+        }
+      : null,
+    globalHealthResults: ids["GlobalHealthEntry"]
+      ? {
+          id: ids["GlobalHealthEntry"],
+          ...entries["GlobalHealthEntry"],
+        }
+      : null,
+    patientHealthResults: ids["PatientHealthEntry"]
+      ? {
+          id: ids["PatientHealthEntry"],
+          ...entries["PatientHealthEntry"],
+        }
+      : null,
+    symptomResults: ids["SymptomEntry"]
+      ? {
+          id: ids["SymptomEntry"],
+          ...entries["SymptomEntry"],
+        }
+      : null,
+    socialDeterminantsResults: ids["SocialDeterminantsEntry"]
+      ? {
+          id: ids["SocialDeterminantsEntry"],
+          ...entries["SocialDeterminantsEntry"],
+        }
+      : null,
+    healthRelatedResults: {
+      weight: userInfo.weight,
+      height: userInfo.height,
     },
   };
-  console.log("Aggregate details: ", JSON.stringify(aggregateDetails));
+
+  console.log("aggregateDetails: ", aggregateDetails);
+  const variables = {
+    results: JSON.stringify(aggregateDetails),
+  };
+
+  console.log("Survey results: ", variables);
+
+  const aggregateResult = await API.graphql({
+    query: mutations.aggregateSurveyResults,
+    variables: variables,
+  });
+
+  console.log("AGGREGATE RESULTS: ", aggregateResult);
 };
