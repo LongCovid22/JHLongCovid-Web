@@ -38,24 +38,24 @@ export const Marker: React.FC<CircleProps> = ({
 
       const contentString =
         '<div style="padding: 10px">' +
-        `<h1 style = "font-weight: bold; font-size: 18px;">${
+        `<h1 style = "font-weight: bold; font-size: 18px; font-family: 'Gentona'">${
           data.level === "state"
             ? data.name
             : data.name + ", " + data.stateAbbrev
         }</h1>` +
         "<span>" +
-        '<h5 style="margin-top: 10px; font-weight: 400;"> Total Long Covid Cases</h5>' +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 18px">${data.covidSummary.totalLongCovidCases}</h5>` +
+        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\"> Total Long Covid Cases</h5>" +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${data.covidSummary.totalLongCovidCases}</h5>` +
         "</span>" +
         "<span>" +
-        '<h5 style="margin-top: 10px; font-weight: 400;">Long COVID Recovery Rate</h5>' +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 18px">${Math.ceil(
+        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Long COVID Recovery Rate</h5>" +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${Math.ceil(
           data.covidSummary.perPeopleRecoveredLongCovid * 100
         )}%</h5>` +
         "</span>" +
         "<span>" +
-        '<h5 style="margin-top: 10px; font-weight: 400;">% of Reported Long Cases</h5>' +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 18px">${Math.ceil(
+        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">% of Reported Long Cases</h5>" +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${Math.ceil(
           data.covidSummary.perReportedLongCovidCase * 100
         )}%</h5>` +
         "</span>" +

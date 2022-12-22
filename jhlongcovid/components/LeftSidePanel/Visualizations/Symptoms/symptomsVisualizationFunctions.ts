@@ -41,6 +41,24 @@ export const createSymptomCountConfig = (
         responsive: true,
         maintainAspectRatio: false,
       },
+      scales: {
+        xAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
+          },
+        },
+        yAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
+          },
+        },
+      },
       plugins: {
         legend: {
           position: "top" as const,
@@ -48,6 +66,10 @@ export const createSymptomCountConfig = (
         title: {
           display: true,
           text: "Symptom Counts",
+          font: {
+            size: 18,
+            family: "Gentona",
+          },
         },
         datalabels: {
           anchor: "end",
