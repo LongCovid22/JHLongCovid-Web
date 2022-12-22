@@ -20,13 +20,35 @@ export const createTotalVaccineShotsConfig = (
         responsive: true,
         maintainAspectRatio: false,
       },
+      scales: {
+        xAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
+          },
+        },
+        yAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
+          },
+        },
+      },
       plugins: {
         legend: {
           position: "top" as const,
         },
         title: {
           display: true,
-          text: "Vaccination Counts",
+          text: "Vaccines Taken per Person",
+          font: {
+            family: "Gentona",
+            size: 18,
+          },
         },
         datalabels: {
           anchor: "end",
@@ -64,9 +86,20 @@ export const createVaccineTypeConfig = (
     labels: labels,
     options: {
       scales: {
-        y: {
-          title: {
-            text: "Sample Title",
+        xAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
+          },
+        },
+        yAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
           },
         },
       },
@@ -81,6 +114,10 @@ export const createVaccineTypeConfig = (
         title: {
           display: true,
           text: "Vaccine Types",
+          font: {
+            family: "Gentona",
+            size: 18,
+          },
         },
         datalabels: {
           anchor: "end",
@@ -89,6 +126,7 @@ export const createVaccineTypeConfig = (
           font: {
             weight: "bold",
             size: 16,
+            family: "Gentona",
           },
         },
       },

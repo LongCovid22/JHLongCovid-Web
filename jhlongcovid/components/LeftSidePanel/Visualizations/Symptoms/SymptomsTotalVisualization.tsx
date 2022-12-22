@@ -135,7 +135,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     setMentalHealthConfig(
       createTotalsChartConfig(
         summary.qualityOfLife,
-        "Mental Health Rank",
+        "Mental Health",
         "People",
         colors
       )
@@ -143,7 +143,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     setSocialSatisConfig(
       createTotalsChartConfig(
         summary.socialSatisfactionRank,
-        "Social Satisfaction Rank",
+        "Social Satisfaction",
         "People",
         colors
       )
@@ -151,7 +151,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     setCarryOutSocialConfig(
       createTotalsChartConfig(
         summary.socialSatisfactionRank,
-        "Carry Out Social Activities Rank",
+        "Carry Out Social Activities",
         "People",
         colors
       )

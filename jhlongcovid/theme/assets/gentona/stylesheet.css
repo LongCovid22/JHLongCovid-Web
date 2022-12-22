@@ -1,0 +1,216 @@
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-HeavyItalic.eot');
+    src: local('Gentona Heavy Italic'), local('Gentona-HeavyItalic'),
+        url('Gentona-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-HeavyItalic.woff2') format('woff2'),
+        url('Gentona-HeavyItalic.woff') format('woff'),
+        url('Gentona-HeavyItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-Medium.eot');
+    src: local('Gentona Medium'), local('Gentona-Medium'),
+        url('Gentona-Medium.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-Medium.woff2') format('woff2'),
+        url('Gentona-Medium.woff') format('woff'),
+        url('Gentona-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gentona Book';
+    src: url('Gentona-Bold.eot');
+    src: local('Gentona Bold'), local('Gentona-Bold'),
+        url('Gentona-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-Bold.woff2') format('woff2'),
+        url('Gentona-Bold.woff') format('woff'),
+        url('Gentona-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-ExtraLight.eot');
+    src: local('Gentona ExtraLight'), local('Gentona-ExtraLight'),
+        url('Gentona-ExtraLight.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-ExtraLight.woff2') format('woff2'),
+        url('Gentona-ExtraLight.woff') format('woff'),
+        url('Gentona-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-BoldItalic.eot');
+    src: local('Gentona Bold Italic'), local('Gentona-BoldItalic'),
+        url('Gentona-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-BoldItalic.woff2') format('woff2'),
+        url('Gentona-BoldItalic.woff') format('woff'),
+        url('Gentona-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-SemiBoldItalic.eot');
+    src: local('Gentona SemiBold Italic'), local('Gentona-SemiBoldItalic'),
+        url('Gentona-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-SemiBoldItalic.woff2') format('woff2'),
+        url('Gentona-SemiBoldItalic.woff') format('woff'),
+        url('Gentona-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-Heavy.eot');
+    src: local('Gentona Heavy'), local('Gentona-Heavy'),
+        url('Gentona-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-Heavy.woff2') format('woff2'),
+        url('Gentona-Heavy.woff') format('woff'),
+        url('Gentona-Heavy.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gentona Book';
+    src: url('Gentona-BookItalic.eot');
+    src: local('Gentona Book Italic'), local('Gentona-BookItalic'),
+        url('Gentona-BookItalic.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-BookItalic.woff2') format('woff2'),
+        url('Gentona-BookItalic.woff') format('woff'),
+        url('Gentona-BookItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-Thin.eot');
+    src: local('Gentona Thin'), local('Gentona-Thin'),
+        url('Gentona-Thin.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-Thin.woff2') format('woff2'),
+        url('Gentona-Thin.woff') format('woff'),
+        url('Gentona-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gentona Book';
+    src: url('Gentona-Book.eot');
+    src: local('Gentona Book'), local('Gentona-Book'),
+        url('Gentona-Book.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-Book.woff2') format('woff2'),
+        url('Gentona-Book.woff') format('woff'),
+        url('Gentona-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-ExtraLightItalic.eot');
+    src: local('Gentona ExtraLight Italic'), local('Gentona-ExtraLightItalic'),
+        url('Gentona-ExtraLightItalic.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-ExtraLightItalic.woff2') format('woff2'),
+        url('Gentona-ExtraLightItalic.woff') format('woff'),
+        url('Gentona-ExtraLightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-ExtraBoldItalic.eot');
+    src: local('Gentona ExtraBold Italic'), local('Gentona-ExtraBoldItalic'),
+        url('Gentona-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-ExtraBoldItalic.woff2') format('woff2'),
+        url('Gentona-ExtraBoldItalic.woff') format('woff'),
+        url('Gentona-ExtraBoldItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-MediumItalic.eot');
+    src: local('Gentona Medium Italic'), local('Gentona-MediumItalic'),
+        url('Gentona-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-MediumItalic.woff2') format('woff2'),
+        url('Gentona-MediumItalic.woff') format('woff'),
+        url('Gentona-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-ExtraBold.eot');
+    src: local('Gentona ExtraBold'), local('Gentona-ExtraBold'),
+        url('Gentona-ExtraBold.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-ExtraBold.woff2') format('woff2'),
+        url('Gentona-ExtraBold.woff') format('woff'),
+        url('Gentona-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-LightItalic.eot');
+    src: local('Gentona Light Italic'), local('Gentona-LightItalic'),
+        url('Gentona-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-LightItalic.woff2') format('woff2'),
+        url('Gentona-LightItalic.woff') format('woff'),
+        url('Gentona-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-SemiBold.eot');
+    src: local('Gentona SemiBold'), local('Gentona-SemiBold'),
+        url('Gentona-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-SemiBold.woff2') format('woff2'),
+        url('Gentona-SemiBold.woff') format('woff'),
+        url('Gentona-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-ThinItalic.eot');
+    src: local('Gentona Thin Italic'), local('Gentona-ThinItalic'),
+        url('Gentona-ThinItalic.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-ThinItalic.woff2') format('woff2'),
+        url('Gentona-ThinItalic.woff') format('woff'),
+        url('Gentona-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gentona';
+    src: url('Gentona-Light.eot');
+    src: local('Gentona Light'), local('Gentona-Light'),
+        url('Gentona-Light.eot?#iefix') format('embedded-opentype'),
+        url('Gentona-Light.woff2') format('woff2'),
+        url('Gentona-Light.woff') format('woff'),
+        url('Gentona-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
