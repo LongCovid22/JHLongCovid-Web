@@ -49,7 +49,7 @@
       "function": {
         "aggregateSurveyResults": {
           "deploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
-          "s3Key": "amplify-builds/aggregateSurveyResults-62526a4b53442f343335-build.zip"
+          "s3Key": "amplify-builds/aggregateSurveyResults-5a574d674c78476a3077-build.zip"
         }
       }
     }
