@@ -259,13 +259,6 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             </WrapItem>
             <WrapItem width={width < 1500 ? "300px" : "325px"}>
               <Bar
-                options={badSelfConfig.options}
-                data={badSelfConfig.data}
-                height={"300px"}
-              />
-            </WrapItem>
-            <WrapItem width={width < 1500 ? "300px" : "325px"}>
-              <Bar
                 options={concentrateConfig.options}
                 data={concentrateConfig.data}
                 height={"300px"}
