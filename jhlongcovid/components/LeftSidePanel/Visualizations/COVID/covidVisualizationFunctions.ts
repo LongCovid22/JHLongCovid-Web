@@ -65,6 +65,24 @@ export const createMedicationsTakenConfig = (
         responsive: true,
         maintainsAspectRation: false,
       },
+      scales: {
+        xAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
+          },
+        },
+        yAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
+          },
+        },
+      },
       plugins: {
         legend: {
           position: "top" as const,
@@ -72,6 +90,10 @@ export const createMedicationsTakenConfig = (
         title: {
           display: true,
           text: "Medications taken",
+          font: {
+            family: "Gentona",
+            size: 18,
+          },
         },
         datalabels: {
           anchor: "end",
@@ -138,13 +160,17 @@ export const createRecoveryConfig = (
         title: {
           display: true,
           text: "Recovered vs. not recovered",
+          font: {
+            family: "Gentona",
+            size: 18,
+          },
         },
         datalabels: {
           anchor: "end",
           align: "top",
           formatter: Math.round,
           font: {
-            weight: "bold",
+            weight: "Gentona",
             size: 16,
           },
         },

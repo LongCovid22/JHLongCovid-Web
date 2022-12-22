@@ -163,9 +163,9 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
         in={presentLeftSidePanel}
         style={{
           minWidth: "410px",
-          width: "65%",
+          width: "50%",
           position: "absolute",
-          // maxWidth: 1000,
+          maxWidth: 1100,
           top: width < 700 ? "160px" : "90px",
           left: presentLeftSidePanel ? "20px" : "0px",
           height: width < 700 ? height - 300 : height - 130,

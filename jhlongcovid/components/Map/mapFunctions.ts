@@ -33,8 +33,8 @@ export const calculatePanelOffset = (map: google.maps.Map): number => {
         // get left panel offset
         let panelOffset = 0.0;
         // if the 35% of the viewports width is over 410 then the panel offset width is 430
-        if (viewportWidth * 0.65 >= 410) {
-          panelOffset = viewportWidth * 0.65 + 20;
+        if (viewportWidth * 0.5 >= 410) {
+          panelOffset = viewportWidth * 0.5 + 20;
         } else {
           // even though I know this is not the panel offset, setting it to the remaining map
           // width outside the panel works.

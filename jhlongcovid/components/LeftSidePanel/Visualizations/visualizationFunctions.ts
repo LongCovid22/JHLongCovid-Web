@@ -49,6 +49,24 @@ export const createTotalsChartConfig = (
         responsive: true,
         maintainAspectRatio: false,
       },
+      scales: {
+        xAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
+          },
+        },
+        yAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
+          },
+        },
+      },
       plugins: {
         legend: {
           position: "top" as const,
@@ -56,6 +74,10 @@ export const createTotalsChartConfig = (
         title: {
           display: true,
           text: title,
+          font: {
+            size: 18,
+            family: "Gentona",
+          },
         },
         datalabels: {
           anchor: "end",
@@ -64,6 +86,7 @@ export const createTotalsChartConfig = (
           font: {
             weight: "bold",
             size: 16,
+            family: "Gentona",
           },
         },
       },

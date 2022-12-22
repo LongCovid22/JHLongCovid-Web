@@ -37,6 +37,24 @@ export const createhasMedInsurConfig = (
         responsive: true,
         maintainsAspectRation: false,
       },
+      scales: {
+        xAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
+          },
+        },
+        yAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
+          },
+        },
+      },
       plugins: {
         legend: {
           position: "top" as const,
@@ -44,6 +62,10 @@ export const createhasMedInsurConfig = (
         title: {
           display: true,
           text: "Has Medical Insurance",
+          font: {
+            family: "Gentona",
+            size: 18,
+          },
         },
         datalabels: {
           anchor: "end",
@@ -51,6 +73,7 @@ export const createhasMedInsurConfig = (
           formatter: Math.round,
           font: {
             weight: "bold",
+            family: "Gentona",
             size: 16,
           },
         },
