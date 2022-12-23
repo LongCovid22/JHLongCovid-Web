@@ -69,7 +69,7 @@ function Survey() {
       >
         Contribute
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered size={"lg"}>
         <ModalOverlay />
         <SurveyWrapper onClose={onClose} />
         {/* {showSurvey && <SurveyWrapper onClose={onClose} />} */}
