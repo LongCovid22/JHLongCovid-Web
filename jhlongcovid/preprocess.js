@@ -3,6 +3,5 @@ export function sumUpCases(data) {
   data.forEach((dat) => {
     total += dat.longCovid;
   });
-
   return total;
 }

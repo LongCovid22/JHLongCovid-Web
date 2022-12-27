@@ -13014,7 +13014,7 @@ export function read() {
       stateAbbrev: state_abbrev_data[index],
       stateName: state_name_data[index++],
       topMedicalCondition: "Weakness",
-      longCovid: Math.floor(Math.random() * 200),
+      longCovid: Math.floor(Math.random() * 10),
       covidCount: Math.floor(Math.random() * 200),
       covidSummary: {
         totalLongCovidCases: Math.floor(Math.random() * 200),

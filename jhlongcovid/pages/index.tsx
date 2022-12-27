@@ -31,7 +31,7 @@ import {
   Slide,
   Button,
 } from "@chakra-ui/react";
-import { getAllMapData } from "../components/Map/mapFunctions";
+import { getAllMapData, calculateRadius } from "../components/Map/mapFunctions";
 
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
@@ -65,6 +65,7 @@ const Home = () => {
 
   const totalLongCovidCases = sumUpCases(state_data);
   const toggleAggregateDataOnZoom = () => {
+    console.log("TOGGLING");
     let markers = [];
     if (zoomNum >= 8) {
       let array = [];
@@ -142,11 +143,12 @@ const Home = () => {
           <Marker
             key={`marker-${data.lat}-${data.long}`}
             center={{ lat: data.lat, lng: data.long }}
-            radius={
-              data.level === "state"
-                ? (data.longCovid / totalLongCovidCases) * 5000000
-                : (data.longCovid / totalLongCovidCases) * 10000000
-            }
+            // radius={
+            //   data.level === "state"
+            //     ? (data.longCovid / totalLongCovidCases) * 1000000
+            //     : (data.longCovid / totalLongCovidCases) * 1000000
+            // }
+            radius={calculateRadius(data.longCovid, totalLongCovidCases)}
             data={data}
             setSelectedData={setSelectedData}
             markerData={markerData}
@@ -200,13 +202,15 @@ const Home = () => {
 
         try {
           const mapData = await getAllMapData(null);
-          console.log("Map Data: ", mapData);
+
           const state_data = mapData.filter(
             (data: any) => data.level === "state"
           );
           const county_data = mapData.filter(
             (data: any) => data.level === "county"
           );
+          console.log("state Data: ", state_data);
+          console.log("county Data: ", county_data);
           setStateData(state_data);
           setCountyData(county_data);
           setLoadingMapData(false);

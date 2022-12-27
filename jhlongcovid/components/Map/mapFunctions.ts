@@ -82,3 +82,12 @@ export const getAllMapData = async (nextToken: string | null): Promise<any> => {
     }
   }
 };
+
+export const calculateRadius = (cases: number, totalCases: number): number => {
+  const ratio = cases / totalCases;
+  const multiplier = 100000;
+  const orderOfMag = Math.floor(Math.log10(ratio));
+  const addOne = orderOfMag < 3 ? 0 : 3;
+  const radius = ratio * multiplier * Math.pow(10, -(orderOfMag + addOne));
+  return radius;
+};
