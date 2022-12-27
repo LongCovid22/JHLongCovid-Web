@@ -1,3 +1,6 @@
+import { API, graphqlOperation } from "aws-amplify";
+import { listMapData } from "../../src/graphql/queries";
+import { ListMapDataQuery } from "../../src/API";
 /**
  * Calculates the amount of pixels needed to offset the pan from the center. On
  * display of the left side panel, the markers need to be centered within the remaining
@@ -59,4 +62,23 @@ export const calculatePanelOffset = (map: google.maps.Map): number => {
 
   // in case any optionals are null return 0.0 so that the map pans to the normal center
   return 0.0;
+};
+
+export const getAllMapData = async (nextToken: string | null): Promise<any> => {
+  const result = (await API.graphql({
+    query: listMapData,
+    variables: { limit: 1000, nextToken },
+    authMode: "API_KEY",
+  })) as { data?: ListMapDataQuery; errors: any[] };
+
+  if (result.data && result.data !== null && result.data.listMapData) {
+    let mapData = result.data.listMapData.items;
+    if (result.data.listMapData.nextToken) {
+      return mapData.concat(
+        await getAllMapData(result.data.listMapData.nextToken)
+      );
+    } else {
+      return mapData;
+    }
+  }
 };

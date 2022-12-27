@@ -13,6 +13,7 @@ import {
   MenuList,
   VStack,
   Spacer,
+  Switch,
 } from "@chakra-ui/react";
 import styles from "../../styles/Header.module.css";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";

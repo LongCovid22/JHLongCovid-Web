@@ -31,12 +31,18 @@ import {
   Slide,
   Button,
 } from "@chakra-ui/react";
+import { getAllMapData } from "../components/Map/mapFunctions";
 
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
 
 interface IHash {
   [name: string]: google.maps.Circle;
+}
+
+export enum RealOrMock {
+  REAL = "REAL",
+  MOCK = "MOCK",
 }
 
 const Home = () => {
@@ -46,9 +52,7 @@ const Home = () => {
   const [state_data, setStateData] = useState<any[]>([]);
   const [aggregateData, setAggregateData] = useState<any[]>([]);
   const [selectedData, setSelectedData] = useState<any[]>([]);
-
-  const [map, setMap] = useState<google.maps.Map>();
-
+  const [realOrMock, setRealOrMock] = useState(RealOrMock.REAL);
   const [markerData, setMarkerData] = useState<IHash>({});
   const [loadingMapData, setLoadingMapData] = useState(false);
 
@@ -140,12 +144,8 @@ const Home = () => {
             center={{ lat: data.lat, lng: data.long }}
             radius={
               data.level === "state"
-                ? (data.covidSummary.totalLongCovidCases /
-                    totalLongCovidCases) *
-                  5000000
-                : (data.covidSummary.totalLongCovidCases /
-                    totalLongCovidCases) *
-                  10000000
+                ? (data.longCovid / totalLongCovidCases) * 5000000
+                : (data.longCovid / totalLongCovidCases) * 10000000
             }
             data={data}
             setSelectedData={setSelectedData}
@@ -183,10 +183,6 @@ const Home = () => {
 
       // Hub listener for auth events
       Hub.listen("auth", listenToAuthEvents);
-
-      const [county_data, state_data] = read();
-      setStateData(state_data);
-      setCountyData(county_data);
     };
 
     initApp();
@@ -197,6 +193,42 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    const switchData = async () => {
+      if (realOrMock == RealOrMock.REAL) {
+        // Query for map Data
+        setLoadingMapData(true);
+
+        try {
+          const mapData = await getAllMapData(null);
+          console.log("Map Data: ", mapData);
+          const state_data = mapData.filter(
+            (data: any) => data.level === "state"
+          );
+          const county_data = mapData.filter(
+            (data: any) => data.level === "county"
+          );
+          setStateData(state_data);
+          setCountyData(county_data);
+          setLoadingMapData(false);
+        } catch (error) {
+          console.log("Error getting map data: ", error);
+          setStateData([]);
+          setCountyData([]);
+          setLoadingMapData(false);
+        }
+      } else {
+        setLoadingMapData(true);
+        const [county_data, state_data] = read();
+        setStateData(state_data);
+        setCountyData(county_data);
+        setLoadingMapData(false);
+      }
+    };
+
+    switchData();
+  }, [realOrMock]);
+
+  useEffect(() => {
     toggleAggregateDataOnZoom();
   }, [zoomNum, latLow, latHigh, longLow, longHigh, state_data, county_data]);
 
@@ -204,7 +236,11 @@ const Home = () => {
     <>
       <div className={styles.main}>
         {MapMemo}
-        <Header markerData={markerData} />
+        <Header
+          markerData={markerData}
+          realOrMock={realOrMock}
+          setRealOrMock={setRealOrMock}
+        />
         <LeftSidePanel data={selectedData} />
         <Slide
           direction="top"
