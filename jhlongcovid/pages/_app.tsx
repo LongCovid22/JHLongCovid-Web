@@ -1,7 +1,14 @@
 import "../styles/globals.css";
 import store from "../redux/store";
 import { Provider } from "react-redux";
-import { Center, ChakraProvider, extendTheme } from "@chakra-ui/react";
+import {
+  Center,
+  ChakraProvider,
+  extendTheme,
+  Spinner,
+  VStack,
+  Text,
+} from "@chakra-ui/react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { hopkinsBlue } from "../theme/styles";
 import "../styles.css";
@@ -25,7 +32,14 @@ const theme = extendTheme({
 
 function MyApp({ Component, pageProps }: any) {
   const render = (status: Status) => {
-    return <Center>{status}</Center>;
+    return (
+      <Center h={"100vh"}>
+        <VStack>
+          <Text>{status + "..."}</Text>
+          <Spinner color={"hopkinsBlue.500"} />
+        </VStack>
+      </Center>
+    );
   };
 
   return (
