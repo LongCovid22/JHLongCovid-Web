@@ -88,7 +88,7 @@
       },
       {
         "title": "COVID",
-        "question": "Have you every been hospitalized for COVID-19",
+        "question": "Have you every been hospitalized for COVID-19?",
         "options": ["Yes", "No"],
         "answerFormat": ["choice", "choice"],
         "answer": null,

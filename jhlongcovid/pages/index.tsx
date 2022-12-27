@@ -23,6 +23,14 @@ import awsconfig from "../src/aws-exports";
 import { GetUserQuery, User } from "../src/API";
 import * as queries from "../src/graphql/queries";
 import { resetUser, selectUser, setUser } from "../redux/slices/userSlice";
+import {
+  Spinner,
+  HStack,
+  Center,
+  Spacer,
+  Slide,
+  Button,
+} from "@chakra-ui/react";
 
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
@@ -42,6 +50,7 @@ const Home = () => {
   const [map, setMap] = useState<google.maps.Map>();
 
   const [markerData, setMarkerData] = useState<IHash>({});
+  const [loadingMapData, setLoadingMapData] = useState(false);
 
   const zoomNum = useAppSelector(selectZoom);
   const latLow = useAppSelector(selectLoLat);
@@ -197,6 +206,28 @@ const Home = () => {
         {MapMemo}
         <Header markerData={markerData} />
         <LeftSidePanel data={selectedData} />
+        <Slide
+          direction="top"
+          in={loadingMapData}
+          style={{
+            position: "absolute",
+            top: loadingMapData ? "20px" : "0px",
+          }}
+        >
+          <Center>
+            <HStack
+              background={"white"}
+              w="60px"
+              p="10px"
+              borderRadius={"500px"}
+              shadow="xl"
+            >
+              <Spacer />
+              <Spinner color="hopkinsBlue.500" />
+              <Spacer />
+            </HStack>
+          </Center>
+        </Slide>
       </div>
     </>
   );

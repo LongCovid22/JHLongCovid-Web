@@ -382,8 +382,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         minWidth: 410,
         maxWidth: 750,
         minHeight: height * 0.35,
-        height: height < 720 ? height * 0.75 : "600px",
+        height: height < 720 ? height * 0.85 : "650px",
         borderRadius: "35px",
+      }}
+      containerProps={{
+        overflow: "hidden",
       }}
     >
       <ModalHeader>
