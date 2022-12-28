@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { calculatePanelOffset } from "./Map/mapFunctions";
 import { useAppDispatch } from "../redux/hooks";
 import { setLeftSidePanelPres } from "../redux/slices/presentationSlice";
+import { medicalConditionsMap } from "./Survey/SurveyFunctions";
 
 interface CircleProps extends google.maps.CircleOptions {
   data: any;
@@ -51,7 +52,9 @@ export const Marker: React.FC<CircleProps> = ({
         "</span>" +
         "<span>" +
         "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Most Common Condition</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${data.topMedicalCondition}</h5>` +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${
+          medicalConditionsMap[data.topMedicalCondition]
+        }</h5>` +
         "</span>" +
         "</div";
 

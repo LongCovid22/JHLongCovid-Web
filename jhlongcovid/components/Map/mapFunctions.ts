@@ -1,6 +1,7 @@
 import { API, graphqlOperation } from "aws-amplify";
 import { listMapData } from "../../src/graphql/queries";
 import { ListMapDataQuery } from "../../src/API";
+import { RealOrMock } from "../../pages";
 /**
  * Calculates the amount of pixels needed to offset the pan from the center. On
  * display of the left side panel, the markers need to be centered within the remaining
@@ -83,11 +84,22 @@ export const getAllMapData = async (nextToken: string | null): Promise<any> => {
   }
 };
 
-export const calculateRadius = (cases: number, totalCases: number): number => {
+export const calculateRadius = (
+  cases: number,
+  totalCases: number,
+  stateOrCounty: string,
+  realOrMock: RealOrMock
+): number => {
   const ratio = cases / totalCases;
-  const multiplier = 100000;
-  const orderOfMag = Math.floor(Math.log10(ratio));
-  const addOne = orderOfMag < 3 ? 0 : 3;
-  const radius = ratio * multiplier * Math.pow(10, -(orderOfMag + addOne));
-  return radius;
+  if (stateOrCounty === "state") {
+    const maxRadius = 250000;
+    return realOrMock === RealOrMock.MOCK
+      ? ratio * maxRadius * 10
+      : ratio * maxRadius;
+  } else {
+    const maxRadius = 50000;
+    return realOrMock === RealOrMock.MOCK
+      ? ratio * maxRadius * 500
+      : ratio * maxRadius;
+  }
 };

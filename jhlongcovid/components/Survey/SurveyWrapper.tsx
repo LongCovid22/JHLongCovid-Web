@@ -300,14 +300,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       // Save survey entries
       try {
         ids = await saveEntries(locationData, entries, userInfo, user);
-        toast({
-          title: "Survey submission",
-          description: "Successfully submitted survey",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "top-right",
-        });
       } catch (error) {
         console.log("Error saving survey entries", error);
         toast({
@@ -323,6 +315,14 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       // Aggregate survey results
       try {
         await aggregateResults(entries, ids, userInfo, locationData, user);
+        toast({
+          title: "Survey submission",
+          description: "Successfully submitted survey",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
       } catch (error) {
         console.log("Error aggregating survey results", error);
         toast({

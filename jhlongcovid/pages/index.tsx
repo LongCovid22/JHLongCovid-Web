@@ -63,9 +63,8 @@ const Home = () => {
   const longHigh = useAppSelector(selectHighLong);
   const user = useAppSelector(selectUser);
 
-  const totalLongCovidCases = sumUpCases(state_data);
+  const [totalLongCovidCases, setTotalLongCovidCases] = useState(1);
   const toggleAggregateDataOnZoom = () => {
-    console.log("TOGGLING");
     let markers = [];
     if (zoomNum >= 8) {
       let array = [];
@@ -148,7 +147,12 @@ const Home = () => {
             //     ? (data.longCovid / totalLongCovidCases) * 1000000
             //     : (data.longCovid / totalLongCovidCases) * 1000000
             // }
-            radius={calculateRadius(data.longCovid, totalLongCovidCases)}
+            radius={calculateRadius(
+              data.longCovid,
+              totalLongCovidCases,
+              data.level,
+              realOrMock
+            )}
             data={data}
             setSelectedData={setSelectedData}
             markerData={markerData}
@@ -209,8 +213,7 @@ const Home = () => {
           const county_data = mapData.filter(
             (data: any) => data.level === "county"
           );
-          console.log("state Data: ", state_data);
-          console.log("county Data: ", county_data);
+          setTotalLongCovidCases(sumUpCases(state_data));
           setStateData(state_data);
           setCountyData(county_data);
           setLoadingMapData(false);
@@ -223,6 +226,7 @@ const Home = () => {
       } else {
         setLoadingMapData(true);
         const [county_data, state_data] = read();
+        setTotalLongCovidCases(sumUpCases(state_data));
         setStateData(state_data);
         setCountyData(county_data);
         setLoadingMapData(false);
