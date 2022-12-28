@@ -31,12 +31,18 @@ import {
   Slide,
   Button,
 } from "@chakra-ui/react";
+import { getAllMapData, calculateRadius } from "../components/Map/mapFunctions";
 
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
 
 interface IHash {
   [name: string]: google.maps.Circle;
+}
+
+export enum RealOrMock {
+  REAL = "REAL",
+  MOCK = "MOCK",
 }
 
 const Home = () => {
@@ -46,9 +52,7 @@ const Home = () => {
   const [state_data, setStateData] = useState<any[]>([]);
   const [aggregateData, setAggregateData] = useState<any[]>([]);
   const [selectedData, setSelectedData] = useState<any[]>([]);
-
-  const [map, setMap] = useState<google.maps.Map>();
-
+  const [realOrMock, setRealOrMock] = useState(RealOrMock.REAL);
   const [markerData, setMarkerData] = useState<IHash>({});
   const [loadingMapData, setLoadingMapData] = useState(false);
 
@@ -59,7 +63,7 @@ const Home = () => {
   const longHigh = useAppSelector(selectHighLong);
   const user = useAppSelector(selectUser);
 
-  const totalLongCovidCases = sumUpCases(state_data);
+  const [totalLongCovidCases, setTotalLongCovidCases] = useState(1);
   const toggleAggregateDataOnZoom = () => {
     let markers = [];
     if (zoomNum >= 8) {
@@ -138,15 +142,17 @@ const Home = () => {
           <Marker
             key={`marker-${data.lat}-${data.long}`}
             center={{ lat: data.lat, lng: data.long }}
-            radius={
-              data.level === "state"
-                ? (data.covidSummary.totalLongCovidCases /
-                    totalLongCovidCases) *
-                  5000000
-                : (data.covidSummary.totalLongCovidCases /
-                    totalLongCovidCases) *
-                  10000000
-            }
+            // radius={
+            //   data.level === "state"
+            //     ? (data.longCovid / totalLongCovidCases) * 1000000
+            //     : (data.longCovid / totalLongCovidCases) * 1000000
+            // }
+            radius={calculateRadius(
+              data.longCovid,
+              totalLongCovidCases,
+              data.level,
+              realOrMock
+            )}
             data={data}
             setSelectedData={setSelectedData}
             markerData={markerData}
@@ -183,10 +189,6 @@ const Home = () => {
 
       // Hub listener for auth events
       Hub.listen("auth", listenToAuthEvents);
-
-      const [county_data, state_data] = read();
-      setStateData(state_data);
-      setCountyData(county_data);
     };
 
     initApp();
@@ -197,6 +199,44 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    const switchData = async () => {
+      if (realOrMock == RealOrMock.REAL) {
+        // Query for map Data
+        setLoadingMapData(true);
+
+        try {
+          const mapData = await getAllMapData(null);
+
+          const state_data = mapData.filter(
+            (data: any) => data.level === "state"
+          );
+          const county_data = mapData.filter(
+            (data: any) => data.level === "county"
+          );
+          setTotalLongCovidCases(sumUpCases(state_data));
+          setStateData(state_data);
+          setCountyData(county_data);
+          setLoadingMapData(false);
+        } catch (error) {
+          console.log("Error getting map data: ", error);
+          setStateData([]);
+          setCountyData([]);
+          setLoadingMapData(false);
+        }
+      } else {
+        setLoadingMapData(true);
+        const [county_data, state_data] = read();
+        setTotalLongCovidCases(sumUpCases(state_data));
+        setStateData(state_data);
+        setCountyData(county_data);
+        setLoadingMapData(false);
+      }
+    };
+
+    switchData();
+  }, [realOrMock]);
+
+  useEffect(() => {
     toggleAggregateDataOnZoom();
   }, [zoomNum, latLow, latHigh, longLow, longHigh, state_data, county_data]);
 
@@ -204,7 +244,11 @@ const Home = () => {
     <>
       <div className={styles.main}>
         {MapMemo}
-        <Header markerData={markerData} />
+        <Header
+          markerData={markerData}
+          realOrMock={realOrMock}
+          setRealOrMock={setRealOrMock}
+        />
         <LeftSidePanel data={selectedData} />
         <Slide
           direction="top"

@@ -691,6 +691,30 @@ export const aggregateResults = async (
     query: mutations.aggregateSurveyResults,
     variables: variables,
   });
+};
 
-  console.log("AGGREGATE RESULTS: ", aggregateResult);
+export const medicalConditionsMap: any = {
+  noNewDiagnosis: "None",
+  heartProblems:
+    "Heart problems, such as heart failure or arrhythmia (e.g., “atrial fibrillation”)",
+  lungProblems:
+    "Lung problems, such as asthma, COPD, fibrosis or interstitial lung disease",
+  bloodClotLung:
+    "Blood clots in the lung (“pulmonary embolism”), leg or arm (“deep vein thrombosis”)",
+  sleepApnea: "Sleep apnea or insomnia",
+  memory: "Memory or cognitive impairment or dementia",
+  migraine: "Migraine or other headache disorder",
+  stroke: "Stroke",
+  seizure: "Seizure or epilepsy",
+  kidneyProblems: "Kidney problems or kidney disease",
+  stomachProblems:
+    "Stomach problems or gastrointestinal disease, like stomach ulcer or irritable bowel syndrome",
+  psychologicalProblems:
+    "Psychological problems or psychiatric problems, like depression or anxiety or psychosis",
+  diabetes: "Diabetes",
+  autoImmuneDiseases:
+    "Autoimmune diseases (such as systemic lupus, thyroid disease)",
+  mecfs:
+    "Myalgic Encephalomyelitis/Chronic Fatigue Syndrome (ME-CFS), Postural Orthostatic Tachycardia Syndrome (POTS) or dysautonomia, or Ehlers Danlos Syndrome (EDS)",
+  notSure: "Not Sure",
 };

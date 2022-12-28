@@ -12945,6 +12945,9 @@ function countyStateAggregator(countyInfo) {
         lat: x.lat + result[x.stateAbbrev].lat,
         level: "state",
         count: 1 + result[x.stateAbbrev].count,
+        topMedicalCondition: "Weakness",
+        longCovid: x.longCovid + result[x.stateAbbrev].longCovid,
+        covidCount: x.covidCount + result[x.stateAbbrev].covidCount,
         covidSummary: {
           totalLongCovidCases:
             x.covidSummary.totalLongCovidCases +
@@ -12967,6 +12970,9 @@ function countyStateAggregator(countyInfo) {
         count: 1,
         covidSummary: x.covidSummary,
         stateAbbrev: x.stateAbbrev,
+        topMedicalCondition: "Weakness",
+        longCovid: x.longCovid,
+        covidCount: x.covidCount,
         name: x.stateName,
       };
     }
@@ -13007,6 +13013,9 @@ export function read() {
       name: county_names_data[index],
       stateAbbrev: state_abbrev_data[index],
       stateName: state_name_data[index++],
+      topMedicalCondition: "Weakness",
+      longCovid: Math.floor(Math.random() * 10),
+      covidCount: Math.floor(Math.random() * 200),
       covidSummary: {
         totalLongCovidCases: Math.floor(Math.random() * 200),
         perReportedLongCovidCase: Math.random(),

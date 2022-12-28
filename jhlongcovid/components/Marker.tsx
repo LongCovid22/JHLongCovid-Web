@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { calculatePanelOffset } from "./Map/mapFunctions";
 import { useAppDispatch } from "../redux/hooks";
 import { setLeftSidePanelPres } from "../redux/slices/presentationSlice";
+import { medicalConditionsMap } from "./Survey/SurveyFunctions";
 
 interface CircleProps extends google.maps.CircleOptions {
   data: any;
@@ -22,8 +23,6 @@ export const Marker: React.FC<CircleProps> = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // console.log(data);
-
     if (!marker) {
       const circle = new google.maps.Circle({
         // radius: 10000,
@@ -45,19 +44,17 @@ export const Marker: React.FC<CircleProps> = ({
         }</h1>` +
         "<span>" +
         "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\"> Total Long Covid Cases</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${data.covidSummary.totalLongCovidCases}</h5>` +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${data.longCovid}</h5>` +
         "</span>" +
         "<span>" +
-        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Long COVID Recovery Rate</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${Math.ceil(
-          data.covidSummary.perPeopleRecoveredLongCovid * 100
-        )}%</h5>` +
+        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Total COVID Cases</h5>" +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${data.covidCount}</h5>` +
         "</span>" +
         "<span>" +
-        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">% of Reported Long Cases</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${Math.ceil(
-          data.covidSummary.perReportedLongCovidCase * 100
-        )}%</h5>` +
+        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Most Common Condition</h5>" +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${
+          medicalConditionsMap[data.topMedicalCondition]
+        }</h5>` +
         "</span>" +
         "</div";
 
