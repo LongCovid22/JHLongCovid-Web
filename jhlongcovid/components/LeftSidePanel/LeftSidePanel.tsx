@@ -48,6 +48,7 @@ import { SymptomsVisualizations } from "./Visualizations/Symptoms/SymptomsVisual
 import { SocialVisualizations } from "./Visualizations/Social/SocialVisualization";
 import { PHQ8Visualizations } from "./Visualizations/PHQ8/PHQ8Visualization";
 import { DownloadIcon } from "@chakra-ui/icons";
+import { RealOrMock } from "../../pages";
 
 ChartJS.register(
   CategoryScale,
@@ -63,6 +64,7 @@ ChartJS.register(
 
 interface LeftSidePanelProps {
   data: any;
+  realOrMock: RealOrMock;
 }
 
 export enum SurveySection {
@@ -78,12 +80,14 @@ export type LeftSidePanelBodyProps = {
   section: SurveySection;
   data: MapData;
   panelDimensions: { width: number; height: number };
+  realOrMock: RealOrMock;
 };
 
 const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
   section,
   data,
   panelDimensions,
+  realOrMock,
 }) => {
   switch (section) {
     case SurveySection.COVID:
@@ -92,6 +96,7 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
           section={section}
           data={data}
           panelDimensions={panelDimensions}
+          realOrMock={realOrMock}
         />
       );
     case SurveySection.PHQ8:
@@ -100,6 +105,7 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
           section={section}
           data={data}
           panelDimensions={panelDimensions}
+          realOrMock={realOrMock}
         />
       );
     case SurveySection.VACCINATION:
@@ -108,6 +114,7 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
           section={section}
           data={data}
           panelDimensions={panelDimensions}
+          realOrMock={realOrMock}
         />
       );
     case SurveySection.SOCIAL:
@@ -116,6 +123,7 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
           section={section}
           data={data}
           panelDimensions={panelDimensions}
+          realOrMock={realOrMock}
         />
       );
     case SurveySection.SYMPTOMS:
@@ -124,6 +132,7 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
           section={section}
           data={data}
           panelDimensions={panelDimensions}
+          realOrMock={realOrMock}
         />
       );
     default:
@@ -131,7 +140,10 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
   }
 };
 
-export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
+export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
+  data,
+  realOrMock,
+}) => {
   const dispatch = useAppDispatch();
   const presentLeftSidePanel = useAppSelector(selectLeftSidePanelPres);
   const width = useAppSelector(selectWidth);
@@ -290,6 +302,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({ data }) => {
                 section={section}
                 data={data}
                 panelDimensions={panelDimensions}
+                realOrMock={realOrMock}
               />
             </VStack>
             <Spacer />

@@ -1,3 +1,5 @@
+import { API } from "aws-amplify";
+import { GetMapDataQuery } from "../../../../src/API";
 import {
   MedicationsAvailable,
   SummaryDemos,
@@ -5,6 +7,582 @@ import {
   YesNoDontKnow,
 } from "../answerTypes";
 import { createTotalsChartData } from "../visualizationFunctions";
+
+export const getSummaries = async (data: any) => {
+  const { level, lat, long } = data;
+  const getCovidSummaryQuery = `
+    query GET_COVID_SUMMARY($level: String!, $lat: Float!, $long: Float!) {
+      getMapData(level: $level, lat: $lat, long: $long) {
+        covidSummary {
+          beenInfected {
+            yes {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            no {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+          }
+          timesPositive {
+            one {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            two {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            three {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            threePlus {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            doNotKnow {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+          }
+          hospitalized {
+            yes {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            no {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+          }
+          timesHospitalized {
+            one {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            two {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            three {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            threePlus {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            doNotKnow {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+          }
+          tested {
+            yes {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            no {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+          }
+          positiveTest {
+            yes {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            no {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            doNotKnow {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+          }
+          symptomatic {
+            yes {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            no {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+          }
+          symptomsPreventScale {
+            notAtAll {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            alittleBit {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            somewhat {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            quiteABit {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            veryMuch {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+          }
+          medicationsPrescribed {
+            yes {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            no {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            doNotKnow {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+          }
+          medicationsTakenCount {
+            antiViral {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            oralSteroids {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            antiBiotics {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            other {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            doNotKnow {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+          }
+        }
+        recoverySummary {
+          recovered {
+            yes {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+            no {
+              race {
+                ranges
+                values
+              }
+              sex {
+                ranges
+                values
+              }
+              age {
+                ranges
+                values
+              }
+            }
+          }
+          avglengthOfRecovery {
+            race {
+              ranges
+              values {
+                count
+                average
+              }
+            }
+            sex {
+              ranges
+              values {
+                count
+                average
+              }
+            }
+            age {
+              ranges
+              values {
+                count
+                average
+              }
+            }
+          }
+        }
+        totalFullEntries
+      }
+    }
+  `;
+
+  try {
+    const covidSummary = (await API.graphql({
+      query: getCovidSummaryQuery,
+      variables: { level: level, lat: lat, long: long },
+    })) as { data?: GetMapDataQuery; errors: any[] };
+    if (covidSummary.data) {
+      return covidSummary.data.getMapData;
+    }
+  } catch (error) {
+    console.log("error getting covid summary: ", error);
+  }
+};
 
 export const getTotalCovidCases = (beenInfected: any) => {
   return beenInfected.yes.race.values.reduce(

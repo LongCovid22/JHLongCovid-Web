@@ -10,6 +10,7 @@ import {
   getTotalSymptomatic,
   percentOfTotalCovid,
   createRecoveryConfig,
+  getCovidSummary,
 } from "./covidVisualizationFunctions";
 import {
   MedicationsAvailable,
@@ -47,6 +48,7 @@ import {
 import faker from "faker";
 import { useAppSelector } from "../../../../redux/hooks";
 import { selectWidth } from "../../../../redux/slices/viewportSlice";
+import { RealOrMock } from "../../../../pages";
 
 ChartJS.register(
   CategoryScale,
@@ -80,8 +82,8 @@ type RecoverySummary = {
 export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
   panelDimensions,
+  realOrMock,
 }) => {
-  const { covidSummary, totalFullEntries, recoverySummary } = mockResult.county;
   const [totalCovidCases, setTotalCovidCases] = useState(0);
   const [percentTotalCovid, setPercentTotalCovid] = useState(0);
   const [hospitalizations, setHospitalizations] = useState(0);
@@ -102,7 +104,20 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
-    const createGraphVariables = () => {
+    const createGraphVariables = async () => {
+      let covidSummary, recoverySummary, totalFullEntries;
+      if (realOrMock === RealOrMock.REAL) {
+        covidSummary = data.covidSummary;
+        recoverySummary = data.recoverySummary;
+        totalFullEntries = data.totalFullEntries;
+        console.log("covidSummary REAL", covidSummary);
+      } else {
+        covidSummary = mockResult.county.covidSummary;
+        recoverySummary = mockResult.county.recoverySummary;
+        totalFullEntries = mockResult.county.totalFullEntries;
+        console.log("covidSummary MOCK", covidSummary);
+      }
+
       const totalCases = getTotalCovidCases(covidSummary.beenInfected);
       const percentOfCovidReported = percentOfTotalCovid(
         totalCases,
