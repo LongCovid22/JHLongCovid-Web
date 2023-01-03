@@ -24,9 +24,6 @@ export const VaccinationVisualizations: React.FC<LeftSidePanelBodyProps> = ({
       <Tabs variant="enclosed" colorScheme={"hopkinsBlue"}>
         <TabList>
           <Tab fontSize={"14px"}>Total</Tab>
-          <Tab fontSize={"14px"}>Age</Tab>
-          <Tab fontSize={"14px"}>Race</Tab>
-          <Tab fontSize={"14px"}>Sex</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -39,9 +36,6 @@ export const VaccinationVisualizations: React.FC<LeftSidePanelBodyProps> = ({
               setLoading={setLoading}
             />
           </TabPanel>
-          <TabPanel>Age</TabPanel>
-          <TabPanel>race</TabPanel>
-          <TabPanel>sex</TabPanel>
         </TabPanels>
       </Tabs>
     </VStack>
