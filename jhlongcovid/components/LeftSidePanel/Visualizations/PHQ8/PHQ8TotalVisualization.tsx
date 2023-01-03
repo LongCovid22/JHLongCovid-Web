@@ -44,6 +44,8 @@ import {
 } from "../visualizationFunctions";
 import { getAvgPhq8Score } from "./phq8VisualizationFunctions";
 import { backgroundColors } from "../visualizationFunctions";
+import { RealOrMock } from "../../../../pages";
+import { SummaryAvgValues } from "../../../../src/API";
 
 ChartJS.register(
   CategoryScale,
@@ -69,9 +71,10 @@ type SymptomSummary = {
 export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
   panelDimensions,
+  realOrMock,
+  loading,
+  setLoading,
 }) => {
-  const { patientHealthQuestionnaireSummary, globalHealthSummary } =
-    mockResult.county;
   const [avgPhq8Score, setAvgPhq8Score] = useState(0);
   const [littleInterestConfig, setLittleInterestConfig] = useState<{
     labels: string[];
@@ -113,12 +116,23 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     options: any;
     data: any;
   }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [loading, setLoading] = useState(true);
   const width = useAppSelector(selectWidth);
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
     const createGraphVariables = () => {
+      let patientHealthQuestionnaireSummary, globalHealthSummary;
+
+      if (data && realOrMock === RealOrMock.REAL) {
+        patientHealthQuestionnaireSummary =
+          data.patientHealthQuestionnaireSummary;
+        globalHealthSummary = data.globalHealthSummary;
+      } else {
+        patientHealthQuestionnaireSummary =
+          mockResult.county.patientHealthQuestionnaireSummary;
+        globalHealthSummary = mockResult.county.globalHealthSummary;
+      }
+
       const colors = [
         backgroundColors.green,
         backgroundColors.yellow,
@@ -126,74 +140,106 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         backgroundColors.red,
       ];
 
-      setAvgPhq8Score(
-        getAvgPhq8Score(patientHealthQuestionnaireSummary.avgPHQScore.race)
-      );
-      setLittleInterestConfig(
-        createTotalsChartConfig(
-          patientHealthQuestionnaireSummary.littleInterestThings,
-          "Interest in Things",
-          "People",
-          colors
-        )
-      );
-      setDownDepressedConfig(
-        createTotalsChartConfig(
-          patientHealthQuestionnaireSummary.downDepressedHopeless,
-          "Down, Depressed, or Hopeless",
-          "People",
-          colors
-        )
-      );
-      setSleepProbConfig(
-        createTotalsChartConfig(
-          patientHealthQuestionnaireSummary.sleepProblems,
-          "Sleep Problems",
-          "People",
-          colors
-        )
-      );
-      setTiredConfig(
-        createTotalsChartConfig(
-          patientHealthQuestionnaireSummary.tiredNoEnergy,
-          "Tired or No Energy",
-          "People",
-          colors
-        )
-      );
-      setDietConfig(
-        createTotalsChartConfig(
-          patientHealthQuestionnaireSummary.dietProblems,
-          "Diet Problems",
-          "People",
-          colors
-        )
-      );
-      setBadSelfConfig(
-        createTotalsChartConfig(
-          patientHealthQuestionnaireSummary.badAboutSelf,
-          "Bad About Self",
-          "People",
-          colors
-        )
-      );
-      setConcentrateConfig(
-        createTotalsChartConfig(
-          patientHealthQuestionnaireSummary.concentrationProblems,
-          "Concentrate",
-          "People",
-          colors
-        )
-      );
-      setSlowConfig(
-        createTotalsChartConfig(
-          patientHealthQuestionnaireSummary.slowOrRestless,
-          "Slow or Restless",
-          "People",
-          colors
-        )
-      );
-      setLoading(false);
+      if (patientHealthQuestionnaireSummary.avgPHQScore) {
+        setAvgPhq8Score(
+          getAvgPhq8Score(
+            patientHealthQuestionnaireSummary.avgPHQScore
+              .race as SummaryAvgValues
+          )
+        );
+      }
+
+      if (patientHealthQuestionnaireSummary.littleInterestThings) {
+        setLittleInterestConfig(
+          createTotalsChartConfig(
+            patientHealthQuestionnaireSummary.littleInterestThings,
+            "Interest in Things",
+            "People",
+            colors
+          )
+        );
+      }
+
+      if (patientHealthQuestionnaireSummary.downDepressedHopeless) {
+        setDownDepressedConfig(
+          createTotalsChartConfig(
+            patientHealthQuestionnaireSummary.downDepressedHopeless,
+            "Down, Depressed, or Hopeless",
+            "People",
+            colors
+          )
+        );
+      }
+
+      if (patientHealthQuestionnaireSummary.sleepProblems) {
+        setSleepProbConfig(
+          createTotalsChartConfig(
+            patientHealthQuestionnaireSummary.sleepProblems,
+            "Sleep Problems",
+            "People",
+            colors
+          )
+        );
+      }
+
+      if (patientHealthQuestionnaireSummary.tiredNoEnergy) {
+        setTiredConfig(
+          createTotalsChartConfig(
+            patientHealthQuestionnaireSummary.tiredNoEnergy,
+            "Tired or No Energy",
+            "People",
+            colors
+          )
+        );
+      }
+
+      if (patientHealthQuestionnaireSummary.dietProblems) {
+        setDietConfig(
+          createTotalsChartConfig(
+            patientHealthQuestionnaireSummary.dietProblems,
+            "Diet Problems",
+            "People",
+            colors
+          )
+        );
+      }
+
+      if (patientHealthQuestionnaireSummary.badAboutSelf) {
+        setBadSelfConfig(
+          createTotalsChartConfig(
+            patientHealthQuestionnaireSummary.badAboutSelf,
+            "Bad About Self",
+            "People",
+            colors
+          )
+        );
+      }
+
+      if (patientHealthQuestionnaireSummary.concentrationProblems) {
+        setConcentrateConfig(
+          createTotalsChartConfig(
+            patientHealthQuestionnaireSummary.concentrationProblems,
+            "Concentrate",
+            "People",
+            colors
+          )
+        );
+      }
+
+      if (patientHealthQuestionnaireSummary.slowOrRestless) {
+        setSlowConfig(
+          createTotalsChartConfig(
+            patientHealthQuestionnaireSummary.slowOrRestless,
+            "Slow or Restless",
+            "People",
+            colors
+          )
+        );
+      }
+
+      if (setLoading) {
+        setLoading(false);
+      }
     };
 
     createGraphVariables();

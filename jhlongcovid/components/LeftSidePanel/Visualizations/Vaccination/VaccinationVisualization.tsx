@@ -7,7 +7,7 @@ import {
   TabList,
   TabPanel,
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { LeftSidePanelBodyProps } from "../../LeftSidePanel";
 import { VaccinationTotalVisuals } from "./VaccinationTotalVisuals";
 
@@ -15,6 +15,9 @@ export const VaccinationVisualizations: React.FC<LeftSidePanelBodyProps> = ({
   section,
   data,
   panelDimensions,
+  realOrMock,
+  loading,
+  setLoading,
 }) => {
   return (
     <VStack>
@@ -31,6 +34,9 @@ export const VaccinationVisualizations: React.FC<LeftSidePanelBodyProps> = ({
               section={section}
               data={data}
               panelDimensions={panelDimensions}
+              realOrMock={realOrMock}
+              loading={loading}
+              setLoading={setLoading}
             />
           </TabPanel>
           <TabPanel>Age</TabPanel>

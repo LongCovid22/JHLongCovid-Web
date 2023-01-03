@@ -23,7 +23,7 @@ const checkYesNoDoNotKnowType = (num) => {
   return num === "yes" || num === "no" || yes === "doNotKnow";
 };
 
-const checkMedicationsTakenType = (str) => {
+const checkMedicationsTakenType = (arr) => {
   let allowed = [
     "antiViral",
     "oralSteroids",
@@ -31,7 +31,7 @@ const checkMedicationsTakenType = (str) => {
     "other",
     "doNotKnow",
   ];
-  return allowed.includes(str);
+  return arr.some((item) => allowed.includes(item));
 };
 
 const checkVaccineType = (str) => {

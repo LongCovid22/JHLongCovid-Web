@@ -16,7 +16,7 @@ import {
   Text,
   Button,
 } from "@chakra-ui/react";
-import React, { useRef, useState, useLayoutEffect } from "react";
+import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
 import {
   selectLeftSidePanelPres,
   setLeftSidePanelPres,
@@ -49,6 +49,7 @@ import { SocialVisualizations } from "./Visualizations/Social/SocialVisualizatio
 import { PHQ8Visualizations } from "./Visualizations/PHQ8/PHQ8Visualization";
 import { DownloadIcon } from "@chakra-ui/icons";
 import { RealOrMock } from "../../pages";
+import { getSummaries } from "./Visualizations/visualizationFunctions";
 
 ChartJS.register(
   CategoryScale,
@@ -81,6 +82,8 @@ export type LeftSidePanelBodyProps = {
   data: MapData;
   panelDimensions: { width: number; height: number };
   realOrMock: RealOrMock;
+  loading?: boolean;
+  setLoading?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
@@ -88,6 +91,8 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
   data,
   panelDimensions,
   realOrMock,
+  loading,
+  setLoading,
 }) => {
   switch (section) {
     case SurveySection.COVID:
@@ -97,6 +102,8 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
           data={data}
           panelDimensions={panelDimensions}
           realOrMock={realOrMock}
+          loading={loading}
+          setLoading={setLoading}
         />
       );
     case SurveySection.PHQ8:
@@ -106,6 +113,8 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
           data={data}
           panelDimensions={panelDimensions}
           realOrMock={realOrMock}
+          loading={loading}
+          setLoading={setLoading}
         />
       );
     case SurveySection.VACCINATION:
@@ -115,6 +124,8 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
           data={data}
           panelDimensions={panelDimensions}
           realOrMock={realOrMock}
+          loading={loading}
+          setLoading={setLoading}
         />
       );
     case SurveySection.SOCIAL:
@@ -124,6 +135,8 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
           data={data}
           panelDimensions={panelDimensions}
           realOrMock={realOrMock}
+          loading={loading}
+          setLoading={setLoading}
         />
       );
     case SurveySection.SYMPTOMS:
@@ -133,6 +146,8 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
           data={data}
           panelDimensions={panelDimensions}
           realOrMock={realOrMock}
+          loading={loading}
+          setLoading={setLoading}
         />
       );
     default:
@@ -153,6 +168,8 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
     width: 0,
     height: 0,
   });
+  const [loading, setLoading] = useState(true);
+  const [summaryData, setSummaryData] = useState<any>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
 
   const setDimensions = () => {
@@ -167,6 +184,18 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
   useLayoutEffect(() => {
     setDimensions();
   }, [width]);
+
+  useEffect(() => {
+    const fetchSummaryData = async () => {
+      setLoading(true);
+      if (data && Object.keys(data).length > 0) {
+        setSummaryData(await getSummaries(data));
+      }
+      setLoading(false);
+    };
+
+    fetchSummaryData();
+  }, [data]);
 
   return (
     <>
@@ -300,9 +329,11 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
             <VStack w="100%" align={"start"}>
               <LeftSidePanelBody
                 section={section}
-                data={data}
+                data={summaryData}
                 panelDimensions={panelDimensions}
                 realOrMock={realOrMock}
+                loading={loading}
+                setLoading={setLoading}
               />
             </VStack>
             <Spacer />
