@@ -1,3 +1,4 @@
+import { VaccineTypes } from "../../../../src/API";
 import { OneToFivePlus, VaccineType, YesNo } from "../answerTypes";
 import { createTotalsChartData } from "../visualizationFunctions";
 
@@ -78,7 +79,7 @@ export const createTotalVaccineShotsConfig = (
 };
 
 export const createVaccineTypeConfig = (
-  vaccineTypes: VaccineType
+  vaccineTypes: VaccineTypes
 ): { labels: string[]; options: any; data: any } => {
   const { labels, chartData } = createTotalsChartData(vaccineTypes);
 

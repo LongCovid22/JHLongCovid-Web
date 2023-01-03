@@ -47,6 +47,7 @@ import {
   createhasMedInsurConfig,
   capitalizeFirstLetters,
 } from "./socialVisualizationFunctions";
+import { RealOrMock } from "../../../../pages";
 
 ChartJS.register(
   CategoryScale,
@@ -72,8 +73,10 @@ type SymptomSummary = {
 export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
   panelDimensions,
+  realOrMock,
+  loading,
+  setLoading,
 }) => {
-  const { socialSummary } = mockResult.county;
   const [mostCommonWorkSituation, setMostCommonWorkSituation] = useState("");
   const [hasMedicalInsuranceConfig, setHasMedicalInsuranceConfig] = useState<{
     labels: string[];
@@ -95,32 +98,50 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
     const createGraphVariables = () => {
-      setMostCommonWorkSituation(
-        capitalizeFirstLetters(
-          getMostCommonInSummary(socialSummary.currentWorkSituation)
-        )
-      );
-      setHasMedicalInsuranceConfig(
-        createhasMedInsurConfig(socialSummary.hasMedicalInsurance)
-      );
-      setWorkSituationConfig(
-        createTotalsChartConfig(
-          socialSummary.currentWorkSituation,
-          "Work Situations",
-          "People"
-        )
-      );
-      setCoveringExpensesConfig(
-        createTotalsChartConfig(
-          socialSummary.difficultCoveringExpenses,
-          "Difficulty Covering Expenses",
-          "People"
-        )
-      );
+      let socialSummary;
+
+      if (data && realOrMock === RealOrMock.REAL) {
+        socialSummary = data.socialSummary;
+      } else {
+        socialSummary = mockResult.county.socialSummary;
+      }
+
+      if (socialSummary.currentWorkSituation) {
+        setMostCommonWorkSituation(
+          capitalizeFirstLetters(
+            getMostCommonInSummary(socialSummary.currentWorkSituation)
+          )
+        );
+      }
+
+      if (socialSummary.hasMedicalInsurance) {
+        setHasMedicalInsuranceConfig(
+          createhasMedInsurConfig(socialSummary.hasMedicalInsurance as YesNo)
+        );
+      }
+      if (socialSummary.currentWorkSituation) {
+        setWorkSituationConfig(
+          createTotalsChartConfig(
+            socialSummary.currentWorkSituation,
+            "Work Situations",
+            "People"
+          )
+        );
+      }
+
+      if (socialSummary.difficultCoveringExpenses) {
+        setCoveringExpensesConfig(
+          createTotalsChartConfig(
+            socialSummary.difficultCoveringExpenses,
+            "Difficulty Covering Expenses",
+            "People"
+          )
+        );
+      }
     };
 
     createGraphVariables();
-  }, [data]);
+  }, [data, realOrMock]);
 
   return (
     <VStack align={"start"}>

@@ -27,9 +27,6 @@ import {
   StatHelpText,
   VStack,
   Spinner,
-  HStack,
-  Spacer,
-  Flex,
 } from "@chakra-ui/react";
 import { Bar, Doughnut } from "react-chartjs-2";
 import {
@@ -44,9 +41,9 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import faker from "faker";
 import { useAppSelector } from "../../../../redux/hooks";
 import { selectWidth } from "../../../../redux/slices/viewportSlice";
+import { RealOrMock } from "../../../../pages";
 
 ChartJS.register(
   CategoryScale,
@@ -80,8 +77,10 @@ type RecoverySummary = {
 export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
   panelDimensions,
+  realOrMock,
+  loading,
+  setLoading,
 }) => {
-  const { covidSummary, totalFullEntries, recoverySummary } = mockResult.county;
   const [totalCovidCases, setTotalCovidCases] = useState(0);
   const [percentTotalCovid, setPercentTotalCovid] = useState(0);
   const [hospitalizations, setHospitalizations] = useState(0);
@@ -97,33 +96,48 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     options: any;
     data: any;
   }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [loading, setLoading] = useState(true);
   const width = useAppSelector(selectWidth);
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
-    const createGraphVariables = () => {
+    const createGraphVariables = async () => {
+      let covidSummary,
+        recoverySummary,
+        totalFullEntries = undefined;
+      if (realOrMock === RealOrMock.REAL && data) {
+        covidSummary = data.covidSummary;
+        recoverySummary = data.recoverySummary;
+        totalFullEntries = data.totalFullEntries;
+      } else {
+        covidSummary = mockResult.county.covidSummary;
+        recoverySummary = mockResult.county.recoverySummary;
+        totalFullEntries = mockResult.county.totalFullEntries;
+      }
+
       const totalCases = getTotalCovidCases(covidSummary.beenInfected);
       const percentOfCovidReported = percentOfTotalCovid(
         totalCases,
         totalFullEntries
       );
       const totalHospitalizations = getTotalHospitalizations(
-        covidSummary.hospitalized
+        covidSummary.hospitalized as YesNo
       );
       const percOfSymptomatic = getPercentSymptomatic(
-        getTotalSymptomatic(covidSummary.symptomatic),
+        getTotalSymptomatic(covidSummary.symptomatic as YesNo),
         totalCases
       );
+
       const percOfMedications = getPercentMedications(
-        covidSummary.medicationsPrescribed,
+        covidSummary.medicationsPrescribed as YesNoDontKnow,
         totalCases
       );
       const medTakenConfig = createMedicationsTakenConfig(
-        covidSummary.medicationsTakenCount
+        covidSummary.medicationsTakenCount as MedicationsAvailable
       );
 
-      const recoveryConfig = createRecoveryConfig(recoverySummary.recovered);
+      const recoveryConfig = createRecoveryConfig(
+        recoverySummary.recovered as YesNo
+      );
 
       setTotalCovidCases(totalCases);
       setPercentTotalCovid(percentOfCovidReported);
@@ -132,11 +146,10 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       setPercentMedications(percOfMedications);
       setMedicationsTakenConfig(medTakenConfig);
       setRecoveryConfig(recoveryConfig);
-      setLoading(false);
     };
 
     createGraphVariables();
-  }, [data]);
+  }, [data, realOrMock]);
 
   return (
     <VStack align={"start"} spacing="30px">

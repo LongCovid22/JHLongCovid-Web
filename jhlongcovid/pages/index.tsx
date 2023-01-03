@@ -249,7 +249,7 @@ const Home = () => {
           realOrMock={realOrMock}
           setRealOrMock={setRealOrMock}
         />
-        <LeftSidePanel data={selectedData} />
+        <LeftSidePanel data={selectedData} realOrMock={realOrMock} />
         <Slide
           direction="top"
           in={loadingMapData}

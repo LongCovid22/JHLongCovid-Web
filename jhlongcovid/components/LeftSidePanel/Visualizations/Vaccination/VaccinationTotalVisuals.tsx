@@ -41,6 +41,8 @@ import {
   createVaccineTypeConfig,
   getVaccinations,
 } from "./vaccinationVisualizationFunctions";
+import { RealOrMock } from "../../../../pages";
+import { VaccineTypes } from "../../../../src/API";
 
 ChartJS.register(
   CategoryScale,
@@ -63,8 +65,10 @@ type VaccinationSummary = {
 export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
   panelDimensions,
+  realOrMock,
+  loading,
+  setLoading,
 }) => {
-  const { vaccinationSummary } = mockResult.county;
   const [totalVaccinated, setTotalVaccinated] = useState(0);
   const [vaccineCountConfig, setVaccineCountConfig] = useState<{
     labels: string[];
@@ -80,13 +84,21 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
-    const summary: VaccinationSummary = vaccinationSummary;
-    setTotalVaccinated(getVaccinations(summary.vaccinated));
+    let summary;
+    if (data && realOrMock === RealOrMock.REAL) {
+      summary = data.vaccinationSummary;
+    } else {
+      summary = mockResult.county.vaccinationSummary;
+    }
+
+    setTotalVaccinated(getVaccinations(summary.vaccinated as YesNo));
     setVaccineCountConfig(
-      createTotalVaccineShotsConfig(summary.totalVaccineShots)
+      createTotalVaccineShotsConfig(summary.totalVaccineShots as OneToFivePlus)
     );
-    setVaccineTypeCountConfig(createVaccineTypeConfig(summary.vaccineType));
-  }, [data]);
+    setVaccineTypeCountConfig(
+      createVaccineTypeConfig(summary.vaccineType as VaccineTypes)
+    );
+  }, [data, realOrMock]);
 
   return (
     <VStack align={"start"}>

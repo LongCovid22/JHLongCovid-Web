@@ -47,6 +47,7 @@ import {
   createTotalsChartConfig,
 } from "../visualizationFunctions";
 import { capitalizeFirstLetters } from "../Social/socialVisualizationFunctions";
+import { RealOrMock } from "../../../../pages";
 
 ChartJS.register(
   CategoryScale,
@@ -72,8 +73,10 @@ type SymptomSummary = {
 export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
   panelDimensions,
+  realOrMock,
+  loading,
+  setLoading,
 }) => {
-  const { symptomSummary, covidSummary } = mockResult.county;
   const [totalSymptomsCount, setTotalSymptomsCount] = useState(0);
   const [mostCommonSymptom, setMostCommonSymptom] = useState("");
   const [symptomCountConfig, setSymptomCountConfig] = useState<{
@@ -117,13 +120,28 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       backgroundColors.orange,
       backgroundColors.red,
     ];
+    let symptomSummary, covidSummary;
 
-    const summary: SymptomSummary = symptomSummary;
-    setTotalSymptomsCount(getSymptomsCount(covidSummary.symptomatic));
+    if (data && realOrMock === RealOrMock.REAL) {
+      symptomSummary = data.symptomSummary;
+      covidSummary = data.covidSummary;
+    } else {
+      symptomSummary = mockResult.county.symptomSummary;
+      covidSummary = mockResult.county.covidSummary;
+    }
+
+    if (covidSummary.symptomatic) {
+      setTotalSymptomsCount(
+        getSymptomsCount(covidSummary.symptomatic as YesNo)
+      );
+    }
+
+    const summary = symptomSummary as SymptomSummary;
     setMostCommonSymptom(
       capitalizeFirstLetters(getMostCommonSymptom(summary.symptomCounts))
     );
     setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
+    console.log(summary.qualityOfLife);
     setQOLConfig(
       createTotalsChartConfig(
         summary.qualityOfLife,
@@ -134,7 +152,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     );
     setMentalHealthConfig(
       createTotalsChartConfig(
-        summary.qualityOfLife,
+        summary.mentalHealthRank,
         "Mental Health",
         "People",
         colors
@@ -150,7 +168,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     );
     setCarryOutSocialConfig(
       createTotalsChartConfig(
-        summary.socialSatisfactionRank,
+        summary.carryOutSocialActivitiesRank,
         "Carry Out Social Activities",
         "People",
         colors
@@ -158,7 +176,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     );
     setAnxietyConfig(
       createTotalsChartConfig(
-        summary.socialSatisfactionRank,
+        summary.anxietyInPastWeekRank,
         "Anxiety In Past Week",
         "People",
         colors

@@ -3743,7 +3743,7 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
       }
 
       if (
-        checkNotNullAndStringType(covidResults.medicationsTaken) &&
+        covidResults.medicationsTaken !== null &&
         checkMedicationsTakenType(covidResults.medicationsTaken)
       ) {
         objectsToUpdate.push(
@@ -4013,10 +4013,10 @@ const updateSymptomSummary = (eventInput, county, state, indexes) => {
 
     let objects = [];
     if (
-      checkNotNullAndStringType(symptomResults.qualityOfLifeRank) &&
-      checkExcellentToPoor(symptomResults.qualityOfLifeRank)
+      checkNotNullAndStringType(symptomResults.qualityOfLife) &&
+      checkExcellentToPoor(symptomResults.qualityOfLife)
     ) {
-      objects.push(qualityOfLife[symptomResults.qualityOfLifeRank]);
+      objects.push(qualityOfLife[symptomResults.qualityOfLife]);
     }
 
     if (

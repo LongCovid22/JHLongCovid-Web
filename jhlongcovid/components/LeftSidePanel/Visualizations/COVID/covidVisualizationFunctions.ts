@@ -1,3 +1,5 @@
+import { API } from "aws-amplify";
+import { GetMapDataQuery } from "../../../../src/API";
 import {
   MedicationsAvailable,
   SummaryDemos,
@@ -38,6 +40,9 @@ export const getPercentSymptomatic = (
   totalSymptomatic: number,
   totalCovid: number
 ) => {
+  if (totalCovid === 0) {
+    return 0;
+  }
   return Math.round((totalSymptomatic / totalCovid) * 100);
 };
 
@@ -45,6 +50,9 @@ export const getPercentMedications = (
   medications: YesNoDontKnow,
   totalCovid: number
 ) => {
+  if (totalCovid === 0) {
+    return 0;
+  }
   const totalPrescribed = medications.yes.race.values.reduce(
     (acc: number, curr: number) => acc + curr,
     0
