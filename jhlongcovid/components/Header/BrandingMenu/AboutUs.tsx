@@ -58,7 +58,7 @@ export const AboutUs = () => {
             maxWidth: 750,
             borderRadius: "35px",
             minHeight: height * 0.35,
-            height: height < 720 ? height * 0.85 : "680px",
+            height: height < 720 ? height * 0.85 : "690px",
           }}
           mx="10px"
           containerProps={{
