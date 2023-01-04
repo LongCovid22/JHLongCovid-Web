@@ -233,7 +233,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
             width={"100%"}
             height={width < 700 ? height - 290 : height - 220}
             padding={"1rem"}
-            spacing={8}
+            spacing={5}
             overflowY={"auto"}
             overflowX="hidden"
           >
@@ -252,11 +252,20 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
                       icon={<DownloadIcon color="gray" />}
                       onClick={() => {
                         const blob = new Blob(
-                          [JSON.stringify(mockResult.county)],
+                          [
+                            JSON.stringify(
+                              realOrMock === RealOrMock.REAL
+                                ? data
+                                : mockResult.county
+                            ),
+                          ],
                           { type: "text/json" }
                         );
                         const a = document.createElement("a");
-                        a.download = "data.json";
+                        a.download =
+                          realOrMock === RealOrMock.REAL
+                            ? `${data.name}-data.json`
+                            : "data.json";
                         a.href = window.URL.createObjectURL(blob);
                         const clickEvent = new MouseEvent("click", {
                           view: window,
