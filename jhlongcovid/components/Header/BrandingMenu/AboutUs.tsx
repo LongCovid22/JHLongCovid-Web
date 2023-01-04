@@ -101,17 +101,17 @@ export const AboutUs = () => {
                 <Wrap spacingY={"30px"}>
                   <TeamMember
                     name={"Josef Coresh"}
-                    role={"Principal Investigator"}
+                    role={"Professor"}
                     image="./JosefCoreshHeadshot.jpg"
                   />
                   <TeamMember
                     name={"Elizabeth Oelsner"}
-                    role={"Principal Investigator"}
+                    role={"Assistant Professor"}
                     image="./ElizabethOelsnerHeadshot.jpg"
                   />
                   <TeamMember
                     name={"Ahmed Hassoon"}
-                    role={"Principal Investigator"}
+                    role={"Assistant Scientist"}
                     image="./AhmedHeadshot.jpg"
                   />
                   <TeamMember
