@@ -34,12 +34,12 @@ export const ThankYou: React.FC<SurveyQuestionProps> = ({
         <Spacer />
         <Flex direction={"column"} w={"100%"} h="100%">
           {/* <CheckCircleIcon color="green.300" w={"200px"} h={"200px"} /> */}
-          <Center w={"100%"} h="100%">
+          <Center w={"100%"} h="75%">
             <Lottie
               animationData={GreenCheck}
               style={{
-                width: "75%",
-                height: "100%",
+                width: "65%",
+                height: "90%",
               }}
               rendererSettings={{
                 imagePreserveAspectRatio: "none",
