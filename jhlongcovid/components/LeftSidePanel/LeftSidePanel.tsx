@@ -217,6 +217,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
           className={styles.leftSidePanel}
           boxShadow={"xl"}
           height={width < 700 ? height - 200 : height - 130}
+          overflow="hidden"
         >
           <Flex width={"100%"} paddingTop={2}>
             <Spacer />

@@ -30,6 +30,10 @@ import {
   Spacer,
   Slide,
   Button,
+  Box,
+  Image,
+  Flex,
+  Fade,
 } from "@chakra-ui/react";
 import { getAllMapData, calculateRadius } from "../components/Map/mapFunctions";
 
@@ -250,28 +254,44 @@ const Home = () => {
           setRealOrMock={setRealOrMock}
         />
         <LeftSidePanel data={selectedData} realOrMock={realOrMock} />
-        <Slide
-          direction="top"
+        <Flex
+          style={{
+            position: "absolute",
+            top: "20px",
+            background: "white",
+            borderRadius: "500px",
+            padding: "5px",
+            width: "220px",
+            height: "60px",
+          }}
+          shadow="xl"
+        >
+          <Spacer />
+          <Image src="./jhu_logo.jpg" alt="Hopkins Logo" w={"180px"} mt="5px" />
+          <Spacer />
+        </Flex>
+        <Fade
           in={loadingMapData}
           style={{
             position: "absolute",
-            top: loadingMapData ? "20px" : "0px",
+            bottom: "20px",
+            right: "20px",
           }}
         >
           <Center>
             <HStack
               background={"white"}
               w="60px"
-              p="10px"
+              h="60px"
               borderRadius={"500px"}
               shadow="xl"
             >
               <Spacer />
-              <Spinner color="hopkinsBlue.500" />
+              <Spinner color="hopkinsBlue.500" size="lg" thickness="3px" />
               <Spacer />
             </HStack>
           </Center>
-        </Slide>
+        </Fade>
       </div>
     </>
   );
