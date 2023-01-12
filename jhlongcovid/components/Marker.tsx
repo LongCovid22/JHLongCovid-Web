@@ -26,10 +26,10 @@ export const Marker: React.FC<CircleProps> = ({
     if (!marker) {
       const circle = new google.maps.Circle({
         // radius: 10000,
-        strokeColor: "#0065ff",
+        strokeColor: "#68ACE5",
         strokeOpacity: 0.8,
         strokeWeight: 2,
-        fillColor: "#0065ff",
+        fillColor: "#68ACE5",
         fillOpacity: 0.35,
       });
 

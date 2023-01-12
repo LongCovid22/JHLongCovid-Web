@@ -192,8 +192,8 @@ function SearchLocationInput({ markerData }) {
           aria-label="Search address"
           icon={<Search2Icon />}
           borderRadius={"50%"}
-          bg="hopkinsBlue.100"
-          color="hopkinsBlue.600"
+          bg="#68ACE5"
+          color="#002D72"
           onClick={() =>
             // Enter
             autoCompleteRef.current.dispatchEvent(

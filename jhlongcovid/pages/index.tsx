@@ -267,7 +267,12 @@ const Home = () => {
           shadow="xl"
         >
           <Spacer />
-          <Image src="./jhu_logo.jpg" alt="Hopkins Logo" w={"180px"} mt="5px" />
+          <Image
+            src="./bloomberg.logo.horizontal.blue.jpg"
+            alt="Hopkins Logo"
+            w={"180px"}
+            mt="5px"
+          />
           <Spacer />
         </Flex>
         <Fade
