@@ -141,7 +141,7 @@ export const getCountyAndStateWithZip = async (
             locationData.stateAbbrev = ac.short_name;
             const stateResponse = await axios.get(
               `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-                ac.long_name +
+                `${ac.long_name} state` +
                 `&key=${apiKey}`
             );
             locationData.stateLat =
