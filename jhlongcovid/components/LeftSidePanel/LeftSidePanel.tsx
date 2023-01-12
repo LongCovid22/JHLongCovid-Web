@@ -223,8 +223,8 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
             <Spacer />
             <CloseButton
               size={"md"}
-              bgColor="hopkinsBlue.100"
-              color={"hopkinsBlue.600"}
+              bgColor="spiritBlue.100"
+              color={"heritageBlue.600"}
               onClick={() => {
                 dispatch(setLeftSidePanelPres(false));
               }}
@@ -281,7 +281,8 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
                 </WrapItem>
                 <WrapItem>
                   <Tabs
-                    colorScheme={"hopkinsBlue"}
+                    ringColor={"spiritBlue.100"}
+                    color={"heritageBlue.500"}
                     variant={"soft-rounded"}
                     w="100%"
                     h="100%"

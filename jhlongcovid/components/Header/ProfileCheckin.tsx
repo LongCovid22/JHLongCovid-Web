@@ -34,7 +34,7 @@ interface ProfileCheckinProps {}
 const animationKeyframes = keyframes`
 0% {
   transform: scale(0.95);
-  box-shadow: 0 0 0 0 rgba(0, 101, 255, 0.7);
+  box-shadow: 0 0 0 0 rgba(0, 45, 114, 0.7);
 }
 
 70% {
@@ -64,7 +64,7 @@ function Survey() {
         flex={1}
         borderRadius={"500px"}
         textColor="white"
-        colorScheme="hopkinsBlue"
+        colorScheme="heritageBlue"
         onClick={onOpen}
         animation={!isOpen ? animation : undefined}
       >

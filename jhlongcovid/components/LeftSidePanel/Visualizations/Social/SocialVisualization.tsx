@@ -21,7 +21,7 @@ export const SocialVisualizations: React.FC<LeftSidePanelBodyProps> = ({
 }) => {
   return (
     <VStack>
-      <Tabs variant="enclosed" colorScheme={"hopkinsBlue"}>
+      <Tabs variant="enclosed" colorScheme={"heritageBlue"}>
         <TabList>
           <Tab fontSize={"14px"}>Total</Tab>
         </TabList>

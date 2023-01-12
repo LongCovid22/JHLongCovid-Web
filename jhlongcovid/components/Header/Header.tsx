@@ -30,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({
       >
         <Text>Mock</Text>
         <Switch
-          colorScheme={"hopkinsBlue"}
+          colorScheme={"heritageBlue"}
           isChecked={realOrMock === RealOrMock.REAL}
           onChange={() => {
             if (realOrMock === RealOrMock.REAL) {

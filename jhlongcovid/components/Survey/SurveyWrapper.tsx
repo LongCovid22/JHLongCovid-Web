@@ -397,8 +397,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           <Spacer />
           <CloseButton
             size={"md"}
-            bgColor="hopkinsBlue.100"
-            color={"hopkinsBlue.600"}
+            bgColor="spiritBlue.100"
+            color={"heritageBlue.600"}
             onClick={() => {
               onClose();
               dispatch(initQuestions({ authId: null }));
@@ -439,8 +439,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           )}
           {currentQuestion.answerFormat === "account" && !preSurvey && (
             <Button
-              background={"hopkinsBlue.100"}
-              color={"hopkinsBlue.500"}
+              background={"spiritBlue.100"}
+              color={"heritageBlue.500"}
               borderRadius={500}
               onClick={() => {
                 handleQuestionChange("skip");
@@ -451,7 +451,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           )}
           {!isFirstQuestion && !isFinalSection && !preSurvey && (
             <Button
-              colorScheme="hopkinsBlue"
+              colorScheme="heritageBlue"
               borderRadius={500}
               onClick={() => {
                 handleQuestionChange("prev");
@@ -462,7 +462,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           )}
           {!preSurvey ? (
             <Button
-              colorScheme="hopkinsBlue"
+              colorScheme="heritageBlue"
               borderRadius={500}
               isLoading={performingQueries}
               onClick={() =>
@@ -475,8 +475,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             </Button>
           ) : (
             <Button
-              background={"hopkinsBlue.100"}
-              color={"hopkinsBlue.500"}
+              background={"spiritBlue.100"}
+              color={"heritageBlue.500"}
               borderRadius={500}
               onClick={() => {
                 dispatch(initQuestions({ authId: null }));

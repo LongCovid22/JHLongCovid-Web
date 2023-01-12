@@ -62,8 +62,8 @@ export const TermsOfService = () => {
               <Spacer />
               <CloseButton
                 size={"md"}
-                bgColor="hopkinsBlue.100"
-                color={"hopkinsBlue.600"}
+                bgColor="spiritBlue.100"
+                color={"heritageBlue.600"}
                 onClick={() => {
                   setPresentTOS(false);
                 }}

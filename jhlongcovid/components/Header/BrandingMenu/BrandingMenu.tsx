@@ -6,6 +6,7 @@ import {
   VStack,
   Image,
   Text,
+  Icon,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
@@ -35,6 +36,10 @@ export const BrandingMenu = () => {
         }}
       >
         <VStack spacing={3} maxWidth={300}>
+          <Image
+            src="/bloomberg.logo.horizontal.blue.jpg"
+            alt="BSPH Logo Vertical"
+          />
           <Text fontSize="sm" color="black">
             <strong>
               JHU.edu Copyright © 2022 by Johns Hopkins University & Medicine.

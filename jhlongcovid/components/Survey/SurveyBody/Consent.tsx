@@ -81,7 +81,7 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
           <Input
             type="text"
             placeholder="Enter full name "
-            colorScheme="hopkinsBlue"
+            colorScheme="heritageBlue"
             value={fullName}
             focusBorderColor={"clear"}
             onChange={(event) => {

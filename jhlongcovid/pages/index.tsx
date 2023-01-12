@@ -292,7 +292,7 @@ const Home = () => {
               shadow="xl"
             >
               <Spacer />
-              <Spinner color="hopkinsBlue.500" size="lg" thickness="3px" />
+              <Spinner color="heritageBlue.500" size="lg" thickness="3px" />
               <Spacer />
             </HStack>
           </Center>
