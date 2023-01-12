@@ -244,7 +244,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             choices: string[];
             other: string;
           };
-          console.log("Multi choice answer: ", answer);
+
           if (
             multiChoiceAnswer.choices.length === 0 &&
             multiChoiceAnswer.other === ""
@@ -295,6 +295,19 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         userInfo.zip,
         process.env.GOOGLEMAPS_API_KEY ?? ""
       );
+
+      if (locationData.state === "") {
+        toast({
+          title: "Survey submission",
+          description:
+            "Unable to find location. Please enter a valid zip code at the begininng of the survey.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+        return;
+      }
 
       let ids;
       // Save survey entries

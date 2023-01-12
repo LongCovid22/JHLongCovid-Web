@@ -38,8 +38,8 @@ export const ThankYou: React.FC<SurveyQuestionProps> = ({
             <Lottie
               animationData={GreenCheck}
               style={{
-                width: "65%",
-                height: "90%",
+                width: "45%",
+                height: "95%",
               }}
               rendererSettings={{
                 imagePreserveAspectRatio: "none",
