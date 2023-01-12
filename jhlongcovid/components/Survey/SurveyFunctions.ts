@@ -680,12 +680,12 @@ export const aggregateResults = async (
     },
   };
 
-  console.log("aggregateDetails: ", aggregateDetails);
+  // console.log("aggregateDetails: ", aggregateDetails);
   const variables = {
     results: JSON.stringify(aggregateDetails),
   };
 
-  console.log("Survey results: ", variables);
+  // console.log("Survey results: ", variables);
 
   const aggregateResult = await API.graphql({
     query: mutations.aggregateSurveyResults,
