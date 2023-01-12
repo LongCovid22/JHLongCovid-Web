@@ -39,6 +39,7 @@ export const BrandingMenu = () => {
           <Image
             src="/bloomberg.logo.horizontal.blue.jpg"
             alt="BSPH Logo Vertical"
+            height={"60px"}
           />
           <Text fontSize="sm" color="black">
             <strong>
