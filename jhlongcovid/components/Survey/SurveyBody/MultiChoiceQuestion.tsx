@@ -57,7 +57,7 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
       </Text>
       <VStack spacing={"15px"} width={"100%"} align="start">
         <CheckboxGroup
-          colorScheme="hopkinsBlue"
+          colorScheme="heritageBlue"
           onChange={handleChoiceInput}
           value={checked}
         >

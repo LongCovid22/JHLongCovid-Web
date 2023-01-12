@@ -32,7 +32,11 @@ export const PreSurvey: React.FC<{ dismissPreSurvey: () => void }> = ({
   return (
     <VStack height={"100%"} width={"100%"}>
       <VStack spacing={"25px"}>
-        <Image src="/jhu_logo.jpg" maxW="45%" />
+        <Image
+          src="/bloomberg.logo.vertical.blue.jpg"
+          alt="BSPH Logo Vertical"
+          maxW="45%"
+        />
         <AuthenticationForm
           initialAuthState={AuthState.SignIn}
           midSurvey={false}

@@ -148,7 +148,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             value={email}
             type="email"
             placeholder="Enter email "
-            colorScheme="hopkinsBlue"
+            colorScheme="heritageBlue"
             onChange={(event) => handleEmail(event.target.value)}
           />
           {!validEmail && (
@@ -163,7 +163,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             value={password}
             type="password"
             placeholder="Enter password "
-            colorScheme="hopkinsBlue"
+            colorScheme="heritageBlue"
             onChange={(event) => handleFirstPassword(event.target.value)}
           />
           {!validPassword && (
@@ -179,7 +179,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             value={confirmPass}
             type="password"
             placeholder="Enter confirm password "
-            colorScheme="hopkinsBlue"
+            colorScheme="heritageBlue"
             onChange={(event) => handleSecondPassword(event.target.value)}
           />
           {!passwordsMatch && (
@@ -197,8 +197,8 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         <Spacer />
         {!midSurvey && (
           <Button
-            background={"hopkinsBlue.100"}
-            color={"hopkinsBlue.500"}
+            background={"spiritBlue.100"}
+            color={"heritageBlue.500"}
             borderRadius={500}
             onClick={() => {
               changeAuthState(AuthState.SignIn);
@@ -208,7 +208,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           </Button>
         )}
         <Button
-          colorScheme="hopkinsBlue"
+          colorScheme="heritageBlue"
           borderRadius={500}
           isLoading={performingQueries}
           onClick={(event) => {

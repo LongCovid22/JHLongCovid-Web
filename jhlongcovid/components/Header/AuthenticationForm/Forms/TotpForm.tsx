@@ -70,7 +70,7 @@ export const TotpForm: React.FC<TotpProps> = ({
       <HStack spacing={3} width="100%">
         <Spacer />
         <Button
-          colorScheme="hopkinsBlue"
+          colorScheme="heritageBlue"
           borderRadius={500}
           onClick={() => {
             handleNext();

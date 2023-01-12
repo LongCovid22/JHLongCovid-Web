@@ -71,8 +71,8 @@ export const AboutUs = () => {
               <Spacer />
               <CloseButton
                 size={"md"}
-                bgColor="hopkinsBlue.100"
-                color={"hopkinsBlue.600"}
+                bgColor="spiritBlue.100"
+                color={"heritageBlue.600"}
                 onClick={() => {
                   setPresentAboutUs(false);
                 }}
@@ -106,7 +106,7 @@ export const AboutUs = () => {
                   />
                   <TeamMember
                     name={"Elizabeth Oelsner"}
-                    role={"Assistant Professor"}
+                    role={"Associate Professor"}
                     image="./ElizabethOelsnerHeadshot.jpg"
                   />
                   <TeamMember

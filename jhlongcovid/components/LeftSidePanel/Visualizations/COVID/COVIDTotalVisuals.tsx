@@ -154,7 +154,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   return (
     <VStack align={"start"} spacing="30px">
       {loading ? (
-        <Spinner color="hopkinsBlue.800" />
+        <Spinner color="heritageBlue.800" />
       ) : (
         <>
           <Wrap spacing="30px">

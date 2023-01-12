@@ -217,13 +217,14 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
           className={styles.leftSidePanel}
           boxShadow={"xl"}
           height={width < 700 ? height - 200 : height - 130}
+          overflow="hidden"
         >
           <Flex width={"100%"} paddingTop={2}>
             <Spacer />
             <CloseButton
               size={"md"}
-              bgColor="hopkinsBlue.100"
-              color={"hopkinsBlue.600"}
+              bgColor="spiritBlue.100"
+              color={"heritageBlue.600"}
               onClick={() => {
                 dispatch(setLeftSidePanelPres(false));
               }}
@@ -280,7 +281,8 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
                 </WrapItem>
                 <WrapItem>
                   <Tabs
-                    colorScheme={"hopkinsBlue"}
+                    ringColor={"spiritBlue.100"}
+                    color={"heritageBlue.500"}
                     variant={"soft-rounded"}
                     w="100%"
                     h="100%"

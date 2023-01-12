@@ -137,7 +137,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
                 ? "Enter one-time passcode"
                 : "Enter sign-up verification code"
             }
-            colorScheme="hopkinsBlue"
+            colorScheme="heritageBlue"
             onChange={(event) => setVerifCode(event.target.value)}
           />
           {verifType === "SignIn" ||
@@ -156,8 +156,8 @@ export const VerificationForm: React.FC<TotpProps> = ({
         <Spacer />
         {verifType === "SignUp" && (
           <Button
-            background={"hopkinsBlue.100"}
-            color={"hopkinsBlue.500"}
+            background={"spiritBlue.100"}
+            color={"heritageBlue.500"}
             borderRadius={500}
             onClick={() => {
               resendSignUpCode();
@@ -168,7 +168,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
         )}
 
         <Button
-          colorScheme="hopkinsBlue"
+          colorScheme="heritageBlue"
           borderRadius={500}
           isLoading={performingQueries}
           onClick={() => {

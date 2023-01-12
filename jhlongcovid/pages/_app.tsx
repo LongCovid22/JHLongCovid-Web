@@ -10,7 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import { hopkinsBlue } from "../theme/styles";
+import { hopkinsBlue, heritageBlue, spiritBlue } from "../theme/styles";
 import "../styles.css";
 import React from "react";
 import { MapProvider } from "../components/context/MapContext";
@@ -23,6 +23,8 @@ const googleAPIKey = process.env.GOOGLEMAPS_API_KEY as string;
 const theme = extendTheme({
   colors: {
     hopkinsBlue,
+    heritageBlue,
+    spiritBlue,
   },
   fonts: {
     heading: "'Gentona', sans-serif",
@@ -36,7 +38,7 @@ function MyApp({ Component, pageProps }: any) {
       <Center h={"100vh"}>
         <VStack>
           <Text>{status + "..."}</Text>
-          <Spinner color={"hopkinsBlue.500"} />
+          <Spinner color={"heritageBlue.500"} />
         </VStack>
       </Center>
     );

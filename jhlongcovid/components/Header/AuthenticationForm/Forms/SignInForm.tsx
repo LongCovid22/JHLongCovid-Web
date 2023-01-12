@@ -117,8 +117,8 @@ export const SignInForm: React.FC<SignInFormProps> = ({
       <HStack spacing={3} width="100%">
         <Spacer />
         <Button
-          background={"hopkinsBlue.100"}
-          color={"hopkinsBlue.500"}
+          background={"spiritBlue.100"}
+          color={"heritageBlue.500"}
           borderRadius={500}
           onClick={(event) => {
             changeAuthState(AuthState.SignUp);
@@ -128,7 +128,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
         </Button>
 
         <Button
-          colorScheme="hopkinsBlue"
+          colorScheme="heritageBlue"
           isLoading={performingQueries}
           borderRadius={500}
           onClick={() => handleSignIn()}
