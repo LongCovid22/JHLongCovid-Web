@@ -257,7 +257,8 @@ const Home = () => {
         <Flex
           style={{
             position: "absolute",
-            top: "20px",
+            bottom: "20px",
+            right: "20px",
             background: "white",
             borderRadius: "500px",
             padding: "5px",
@@ -275,28 +276,28 @@ const Home = () => {
           />
           <Spacer />
         </Flex>
-        <Fade
+        <Slide
+          direction="top"
           in={loadingMapData}
           style={{
             position: "absolute",
-            bottom: "20px",
-            right: "20px",
+            top: loadingMapData ? "40px" : "0px",
           }}
         >
           <Center>
             <HStack
               background={"white"}
               w="60px"
-              h="60px"
+              p="10px"
               borderRadius={"500px"}
               shadow="xl"
             >
               <Spacer />
-              <Spinner color="heritageBlue.500" size="lg" thickness="3px" />
+              <Spinner color="heritageBlue.500" />
               <Spacer />
             </HStack>
           </Center>
-        </Fade>
+        </Slide>
       </div>
     </>
   );
