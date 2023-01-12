@@ -3692,64 +3692,68 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
         objectsToUpdate.push(beenInfected[prop]);
       }
 
-      if (checkNotNullNumberGreaterThanZero(covidResults.timesPositive)) {
-        let prop = resolveOneToThreePlus(covidResults.timesPositive);
-        objectsToUpdate.push(timesPositive[prop]);
+      // If the user has been infected, then we can update the other properties
+      if (covidResults.beenInfected) {
+        if (checkNotNullNumberGreaterThanZero(covidResults.timesPositive)) {
+          let prop = resolveOneToThreePlus(covidResults.timesPositive);
+          objectsToUpdate.push(timesPositive[prop]);
+        }
+
+        if (checkNotNullAndBoolType(covidResults.hospitalized)) {
+          let prop = trueEqualsYes(covidResults.hospitalized);
+          objectsToUpdate.push(hospitalized[prop]);
+        }
+
+        if (checkNotNullNumberGreaterThanZero(covidResults.timesHospitalized)) {
+          let prop = resolveOneToThreePlus(covidResults.timesHospitalized);
+          objectsToUpdate.push(timesHospitalized[prop]);
+        }
+
+        if (checkNotNullAndBoolType(covidResults.tested)) {
+          let prop = trueEqualsYes(covidResults.tested);
+          objectsToUpdate.push(tested[prop]);
+        }
+
+        if (
+          checkNotNullAndStringType(covidResults.positiveTest) &&
+          checkYesNoDoNotKnowType(covidResults.positiveTest)
+        ) {
+          objectsToUpdate.push(positiveTest[covidResults.positiveTest]);
+        }
+
+        if (checkNotNullAndBoolType(covidResults.symptomatic)) {
+          let prop = trueEqualsYes(covidResults.symptomatic);
+          objectsToUpdate.push(symptomatic[prop]);
+        }
+
+        if (
+          checkNotNullAndStringType(covidResults.symptomsPreventScale) &&
+          checkNotAtAllToVeryMuchType(covidResults.symptomsPreventScale)
+        ) {
+          objectsToUpdate.push(
+            symptomsPreventScale[covidResults.symptomsPreventScale]
+          );
+        }
+
+        if (
+          checkNotNullAndStringType(covidResults.medicationsPrescribed) &&
+          checkYesNoDoNotKnowType(covidResults.medicationsPrescribed)
+        ) {
+          objectsToUpdate.push(
+            medicationsPrescribed[covidResults.medicationsPrescribed]
+          );
+        }
+
+        if (
+          covidResults.medicationsTaken !== null &&
+          checkMedicationsTakenType(covidResults.medicationsTaken)
+        ) {
+          objectsToUpdate.push(
+            medicationsTakenCount[covidResults.medicationsTaken]
+          );
+        }
       }
 
-      if (checkNotNullAndBoolType(covidResults.hospitalized)) {
-        let prop = trueEqualsYes(covidResults.hospitalized);
-        objectsToUpdate.push(hospitalized[prop]);
-      }
-
-      if (checkNotNullNumberGreaterThanZero(covidResults.timesHospitalized)) {
-        let prop = resolveOneToThreePlus(covidResults.timesHospitalized);
-        objectsToUpdate.push(timesHospitalized[prop]);
-      }
-
-      if (checkNotNullAndBoolType(covidResults.tested)) {
-        let prop = trueEqualsYes(covidResults.tested);
-        objectsToUpdate.push(tested[prop]);
-      }
-
-      if (
-        checkNotNullAndStringType(covidResults.positiveTest) &&
-        checkYesNoDoNotKnowType(covidResults.positiveTest)
-      ) {
-        objectsToUpdate.push(positiveTest[covidResults.positiveTest]);
-      }
-
-      if (checkNotNullAndBoolType(covidResults.symptomatic)) {
-        let prop = trueEqualsYes(covidResults.symptomatic);
-        objectsToUpdate.push(symptomatic[prop]);
-      }
-
-      if (
-        checkNotNullAndStringType(covidResults.symptomsPreventScale) &&
-        checkNotAtAllToVeryMuchType(covidResults.symptomsPreventScale)
-      ) {
-        objectsToUpdate.push(
-          symptomsPreventScale[covidResults.symptomsPreventScale]
-        );
-      }
-
-      if (
-        checkNotNullAndStringType(covidResults.medicationsPrescribed) &&
-        checkYesNoDoNotKnowType(covidResults.medicationsPrescribed)
-      ) {
-        objectsToUpdate.push(
-          medicationsPrescribed[covidResults.medicationsPrescribed]
-        );
-      }
-
-      if (
-        covidResults.medicationsTaken !== null &&
-        checkMedicationsTakenType(covidResults.medicationsTaken)
-      ) {
-        objectsToUpdate.push(
-          medicationsTakenCount[covidResults.medicationsTaken]
-        );
-      }
       for (const obj of objectsToUpdate) {
         addCustomToTallyBasedOnCondition(indexes, obj, true, 1);
       }
@@ -3862,18 +3866,22 @@ const updateVaccinationSummary = (eventInput, county, state, indexes) => {
       objects.push(vaccinated[vaccinationResults.vaccinated]);
     }
 
-    if (
-      checkNotNullNumberGreaterThanZero(vaccinationResults.totalVaccineShots)
-    ) {
-      let prop = resolveOneToFiveType(vaccinationResults.totalVaccineShots);
-      objects.push(totalVaccineShots[prop]);
+    // If the person is vaccinated, then we can check the other properties
+    if (vaccinationResults.vaccinated) {
+      if (
+        checkNotNullNumberGreaterThanZero(vaccinationResults.totalVaccineShots)
+      ) {
+        let prop = resolveOneToFiveType(vaccinationResults.totalVaccineShots);
+        objects.push(totalVaccineShots[prop]);
+      }
+      if (
+        checkNotNullAndStringType(vaccinationResults.vaccineType) &&
+        checkVaccineType(vaccinationResults.vaccineType)
+      ) {
+        objects.push(vaccineType[vaccinationResults.vaccineType]);
+      }
     }
-    if (
-      checkNotNullAndStringType(vaccinationResults.vaccineType) &&
-      checkVaccineType(vaccinationResults.vaccineType)
-    ) {
-      objects.push(vaccineType[vaccinationResults.vaccineType]);
-    }
+
     for (const obj of objects) {
       addCustomToTallyBasedOnCondition(indexes, obj, true, 1);
     }
