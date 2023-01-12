@@ -180,6 +180,17 @@ export const getCountyAndStateWithZip = async (
   return locationData;
 };
 
+export const parseHeightIntoInches = (height: string) => {
+  if (height.length === 2) {
+    let feet = parseInt(height.split("'")[0]);
+    let inches = parseInt(height.split("'")[1]);
+    return (feet * 12 + inches).toString();
+  } else if (height.length === 1) {
+    return (parseInt(height) * 12).toString();
+  }
+  return "0";
+};
+
 export const createCovidEntry = async (
   surveyData: any,
   locationData: LocationData
@@ -193,7 +204,7 @@ export const createCovidEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: parseHeightIntoInches(surveyData.height),
     weight: surveyData.weight,
     beenInfected: surveyData.beenInfected ?? null,
     timesPositive: surveyData.timesPositive ?? null,

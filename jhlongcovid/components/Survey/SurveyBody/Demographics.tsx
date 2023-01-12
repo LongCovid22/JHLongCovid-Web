@@ -20,6 +20,7 @@ import {
   HStack,
   PinInput,
   PinInputField,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
 import { useAppSelector } from "../../../redux/hooks";
@@ -30,6 +31,8 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
   setAnswer,
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
+  const [zipError, setZipError] = useState<boolean>(false);
+
   const [demos, setDemos] = useState({
     zip: "",
     age: "",
@@ -39,11 +42,34 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
     weight: "",
   });
 
+  const isValidZip = (inputValue: string) => {
+    if (inputValue !== "") {
+      // prettier-ignore
+      let regex = /^\d{5}/g;
+      let reg = new RegExp(regex);
+      return reg.test(inputValue);
+    }
+    return true;
+  };
+
   const handleAnswerChange = (key: string, value: string) => {
     let demosCopy = { ...demos };
     demosCopy[key as keyof typeof demosCopy] = value;
-    setDemos(demosCopy);
-    setAnswer(demosCopy);
+    if (key === "zip") {
+      if (value.length <= 5) {
+        setDemos(demosCopy);
+      }
+
+      if (isValidZip(value)) {
+        setZipError(false);
+        setAnswer(demosCopy);
+      } else {
+        setZipError(true);
+      }
+    } else {
+      setDemos(demosCopy);
+      setAnswer(demosCopy);
+    }
   };
 
   useEffect(() => {
@@ -68,7 +94,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
       <Text fontSize={"md"} fontWeight={"regular"}>
         {currentQuestion.question}
       </Text>
-      <FormControl>
+      <FormControl isInvalid={zipError}>
         <FormLabel>Zip code</FormLabel>
         <Input
           type={"text"}
@@ -83,6 +109,9 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
           Your zip code will not be stored. It will only be used to locate your
           county and state
         </FormHelperText>
+        {zipError && (
+          <FormErrorMessage>Please enter a valid zip code</FormErrorMessage>
+        )}
       </FormControl>
       <HStack w="100% ">
         <FormControl>
