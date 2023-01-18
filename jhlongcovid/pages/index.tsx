@@ -35,7 +35,11 @@ import {
   Flex,
   Fade,
 } from "@chakra-ui/react";
-import { getAllMapData, calculateRadius } from "../components/Map/mapFunctions";
+import {
+  getAllMapData,
+  calculateRadius,
+  objectifyMapData,
+} from "../components/Map/mapFunctions";
 
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
@@ -210,13 +214,10 @@ const Home = () => {
 
         try {
           const mapData = await getAllMapData(null);
+          const mapDataObject = objectifyMapData(mapData);
 
-          const state_data = mapData.filter(
-            (data: any) => data.level === "state"
-          );
-          const county_data = mapData.filter(
-            (data: any) => data.level === "county"
-          );
+          const state_data = mapDataObject.state;
+          const county_data = mapDataObject.county;
           setTotalLongCovidCases(sumUpCases(state_data));
           setStateData(state_data);
           setCountyData(county_data);

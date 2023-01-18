@@ -84,6 +84,22 @@ export const getAllMapData = async (nextToken: string | null): Promise<any> => {
   }
 };
 
+export const objectifyMapData = (mapData: any[]) => {
+  const mapDataObject: { [key: string]: any } = {
+    county: {},
+    state: {},
+  };
+  mapData.forEach((data) => {
+    if (data.level === "county") {
+      mapDataObject.county[`${data.level}#${data.lat}#${data.long}`] = data;
+    } else {
+      mapDataObject.state[`${data.level}#${data.lat}#${data.long}`] = data;
+    }
+  });
+
+  return mapDataObject;
+};
+
 export const calculateRadius = (
   cases: number,
   totalCases: number,
