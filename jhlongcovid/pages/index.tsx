@@ -75,9 +75,6 @@ export enum RealOrMock {
 const Home = () => {
   const dispatch = useAppDispatch();
   const width = useAppSelector(selectWidth);
-  const [county_data, setCountyData] = useState<any>({});
-  const [state_data, setStateData] = useState<any>({});
-  const [aggregateData, setAggregateData] = useState<any[]>([]);
   const [selectedData, setSelectedData] = useState<any[]>([]);
   const [realOrMock, setRealOrMock] = useState(RealOrMock.REAL);
   const [markerData, setMarkerData] = useState<IHash>({});
@@ -229,9 +226,7 @@ const Home = () => {
             console.log("New map data is null");
           }
         },
-        error: (error) => {
-          console.log("Error creating subscription: ", error);
-        },
+        error: (error) => {},
       });
 
       const onUpdateSub = API.graphql<
@@ -251,9 +246,7 @@ const Home = () => {
             console.log("New map data is null");
           }
         },
-        error: (error) => {
-          console.log("Error creating subscription: ", error);
-        },
+        error: (error) => {},
       });
 
       Hub.listen("api", (data: any) => {
