@@ -89,7 +89,7 @@ export const objectifyMapData = (mapData: any[]) => {
     county: {},
     state: {},
   };
-  mapData.forEach((data) => {
+  mapData.map((data) => {
     if (data.level === "county") {
       mapDataObject.county[`${data.level}#${data.lat}#${data.long}`] = data;
     } else {
