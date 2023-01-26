@@ -19,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({
     <Flex>
       <Search markerData={markerData} />
       <ProfileCheckin />
-      <HStack
+      {/* <HStack
         position={"absolute"}
         top="90px"
         right="20px"
@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
           }}
         />
         <Text>Real</Text>
-      </HStack>
+      </HStack> */}
     </Flex>
   );
 };

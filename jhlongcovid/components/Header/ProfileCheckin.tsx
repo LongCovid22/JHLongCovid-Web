@@ -66,9 +66,8 @@ function Survey() {
         textColor="white"
         colorScheme="heritageBlue"
         onClick={onOpen}
-        animation={!isOpen ? animation : undefined}
       >
-        Contribute
+        Participate
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"lg"}>
         <ModalOverlay />

@@ -89,12 +89,12 @@ const Home = () => {
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
   const [selectedData, setSelectedData] = useState<any[]>([]);
-  const [realOrMock, setRealOrMock] = useState(RealOrMock.REAL);
+  const [realOrMock, setRealOrMock] = useState(RealOrMock.MOCK);
   const [markerData, setMarkerData] = useState<IHash>({});
   const [loadingMapData, setLoadingMapData] = useState(false);
   const [onCreateMapDataSub, setOnCreateMapDataSub] = useState<any>(null);
   const [onUpdateMapDataSub, setOnUpdateMapDataSub] = useState<any>(null);
-  const [showInstructions, setShowInstructions] = useState(true);
+  const [showInstructions, setShowInstructions] = useState<boolean>(false);
 
   const stateData = useAppSelector(selectStateData);
   const countyData = useAppSelector(selectCountyData);
@@ -158,6 +158,18 @@ const Home = () => {
       })
     );
   };
+
+  useEffect(() => {
+    localStorage.removeItem("showedInstructions");
+    if (showInstructions === false) {
+      // Check if instructions have been shown before
+      let showedInstructions = localStorage.getItem("showedInstructions");
+      if (showedInstructions === null) {
+        localStorage.setItem("showedInstructions", JSON.stringify(true));
+        setShowInstructions(true);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (user) {

@@ -53,6 +53,27 @@ export const InstructionStep: React.FC<InstructionStepProps> = ({
   }
 };
 
+export const HeaderText: React.FC<{ step: InstructionStep }> = ({ step }) => {
+  switch (step) {
+    case "intro":
+      return <Text fontSize={"2xl"} fontWeight={"bold"}></Text>;
+    case "survey":
+      return (
+        <Text fontSize={"2xl"} fontWeight={"bold"}>
+          Participate
+        </Text>
+      );
+    case "visualization":
+      return (
+        <Text fontSize={"2xl"} fontWeight={"bold"}>
+          Explore the Data
+        </Text>
+      );
+    case "end":
+      return <Text fontSize={"2xl"} fontWeight={"bold"}></Text>;
+  }
+};
+
 export const Instructions: React.FC<InstructionsProps> = ({
   showInstructions,
   setShowInstructions,
@@ -83,7 +104,7 @@ export const Instructions: React.FC<InstructionsProps> = ({
       case "visualization":
         return setInstructionStep("end");
       case "end":
-        return;
+        return setShowInstructions(false);
     }
   };
 
@@ -102,7 +123,8 @@ export const Instructions: React.FC<InstructionsProps> = ({
           minWidth: 410,
           maxWidth: 750,
           minHeight: height * 0.45,
-          height: height < 720 ? height * 0.9 : "700px",
+          maxHeight: height * 0.9,
+          // height: height < 720 ? height * 0.9 : "700px",
           borderRadius: "35px",
         }}
         containerProps={{
@@ -111,6 +133,7 @@ export const Instructions: React.FC<InstructionsProps> = ({
       >
         <ModalHeader>
           <Flex>
+            <HeaderText step={step} />
             <Spacer />
             <CloseButton
               size={"md"}
@@ -124,7 +147,7 @@ export const Instructions: React.FC<InstructionsProps> = ({
         </ModalHeader>
         <ModalBody
           style={{
-            overflowY: "auto",
+            overflowY: "hidden",
             paddingTop: "0px",
           }}
         >
