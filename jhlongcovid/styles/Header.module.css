@@ -27,11 +27,11 @@
 }
 
 .rightHeaderStack {
-  margin-top: 20px;
+  /* margin-top: 20px;
   margin-right: 20px;
   position: absolute;
   top: 0px;
-  right: 0px;
+  right: 0px; */
   padding: 0.25rem 1rem;
   border-radius: 500px;
   width: calc(20%);

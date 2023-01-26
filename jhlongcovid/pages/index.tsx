@@ -89,7 +89,7 @@ const Home = () => {
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
   const [selectedData, setSelectedData] = useState<any[]>([]);
-  const [realOrMock, setRealOrMock] = useState(RealOrMock.MOCK);
+  const [realOrMock, setRealOrMock] = useState(RealOrMock.REAL);
   const [markerData, setMarkerData] = useState<IHash>({});
   const [loadingMapData, setLoadingMapData] = useState(false);
   const [onCreateMapDataSub, setOnCreateMapDataSub] = useState<any>(null);
@@ -160,7 +160,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    localStorage.removeItem("showedInstructions");
     if (showInstructions === false) {
       // Check if instructions have been shown before
       let showedInstructions = localStorage.getItem("showedInstructions");
@@ -351,6 +350,8 @@ const Home = () => {
           markerData={markerData}
           realOrMock={realOrMock}
           setRealOrMock={setRealOrMock}
+          showInstructions={showInstructions}
+          setShowInstructions={setShowInstructions}
         />
         <LeftSidePanel data={selectedData} realOrMock={realOrMock} />
         <Flex
