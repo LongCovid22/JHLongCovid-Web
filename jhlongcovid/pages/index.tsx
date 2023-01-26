@@ -5,7 +5,11 @@ import { Header } from "../components/Header/Header";
 import { Marker } from "../components/Marker";
 import { LeftSidePanel } from "../components/LeftSidePanel/LeftSidePanel";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { selectWidth, setDimensions } from "../redux/slices/viewportSlice";
+import {
+  selectHeight,
+  selectWidth,
+  setDimensions,
+} from "../redux/slices/viewportSlice";
 import {
   selectZoom,
   selectLoLat,
@@ -18,11 +22,10 @@ import { sumUpCases } from "../preprocess";
 import React from "react";
 import { Amplify, API, Auth, graphqlOperation, Hub } from "aws-amplify";
 import { CONNECTION_STATE_CHANGE, ConnectionState } from "@aws-amplify/pubsub";
-import { Observable } from "../node_modules/zen-observable-ts";
 import awsExports from "../src/aws-exports";
 import { initQuestions } from "../redux/slices/surveySlice/surveySlice";
 import awsconfig from "../src/aws-exports";
-import { GraphQLResult, GraphQLSubscription } from "@aws-amplify/api";
+import { GraphQLSubscription } from "@aws-amplify/api";
 import {
   GetUserQuery,
   OnCreateMapDataSubscription,
@@ -43,6 +46,14 @@ import {
   Image,
   Flex,
   Fade,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalHeader,
+  CloseButton,
+  ModalFooter,
+  Text,
 } from "@chakra-ui/react";
 import {
   getAllMapData,
@@ -59,6 +70,7 @@ import {
   selectStateData,
   selectCountyData,
 } from "../redux/slices/mapDataSlice";
+import { Instructions } from "../components/Instructions/Instructions";
 
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
@@ -75,12 +87,14 @@ export enum RealOrMock {
 const Home = () => {
   const dispatch = useAppDispatch();
   const width = useAppSelector(selectWidth);
+  const height = useAppSelector(selectHeight);
   const [selectedData, setSelectedData] = useState<any[]>([]);
   const [realOrMock, setRealOrMock] = useState(RealOrMock.REAL);
   const [markerData, setMarkerData] = useState<IHash>({});
   const [loadingMapData, setLoadingMapData] = useState(false);
   const [onCreateMapDataSub, setOnCreateMapDataSub] = useState<any>(null);
   const [onUpdateMapDataSub, setOnUpdateMapDataSub] = useState<any>(null);
+  const [showInstructions, setShowInstructions] = useState<boolean>(false);
 
   const stateData = useAppSelector(selectStateData);
   const countyData = useAppSelector(selectCountyData);
@@ -144,6 +158,17 @@ const Home = () => {
       })
     );
   };
+
+  useEffect(() => {
+    if (showInstructions === false) {
+      // Check if instructions have been shown before
+      let showedInstructions = localStorage.getItem("showedInstructions");
+      if (showedInstructions === null) {
+        localStorage.setItem("showedInstructions", JSON.stringify(true));
+        setShowInstructions(true);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -325,6 +350,8 @@ const Home = () => {
           markerData={markerData}
           realOrMock={realOrMock}
           setRealOrMock={setRealOrMock}
+          showInstructions={showInstructions}
+          setShowInstructions={setShowInstructions}
         />
         <LeftSidePanel data={selectedData} realOrMock={realOrMock} />
         <Flex
@@ -371,6 +398,10 @@ const Home = () => {
             </HStack>
           </Center>
         </Slide>
+        <Instructions
+          showInstructions={showInstructions}
+          setShowInstructions={setShowInstructions}
+        />
       </div>
     </>
   );
