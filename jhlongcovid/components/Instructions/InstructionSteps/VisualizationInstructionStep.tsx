@@ -1,6 +1,7 @@
 import React from "react";
 import { Spacer, Flex, VStack, Text } from "@chakra-ui/react";
 import { InstructionStepProps } from "../Instructions";
+import { VideoPlayer } from "../VideoPlayer";
 
 export const VisualizationInstructionStep: React.FC<InstructionStepProps> = ({
   setInstructionStep,
@@ -19,9 +20,10 @@ export const VisualizationInstructionStep: React.FC<InstructionStepProps> = ({
         - Once an area is selected, you can view the area's statistics in more
         detail.
       </Text>
-      <video autoPlay loop>
+      {/* <video autoPlay loop>
         <source src="./DataVisualsExample.mp4" type="video/mp4" />
-      </video>
+      </video> */}
+      <VideoPlayer videoKey={"DataVisualsExample.mp4"} />
     </VStack>
   );
 };

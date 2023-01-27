@@ -1,6 +1,7 @@
 import React from "react";
 import { Spacer, Flex, VStack, Text, Image } from "@chakra-ui/react";
 import { InstructionStepProps } from "../Instructions";
+import { VideoPlayer } from "../VideoPlayer";
 
 export const SurveyInstructionStep: React.FC<InstructionStepProps> = ({
   setInstructionStep,
@@ -10,9 +11,10 @@ export const SurveyInstructionStep: React.FC<InstructionStepProps> = ({
       <Text fontWeight={"regular"} width={"100%"}>
         - To participate in our survey, just hit the participate button!
       </Text>
-      <video autoPlay loop>
+      {/* <video autoPlay loop>
         <source src="./participationInstructional.mp4" type="video/mp4" />
-      </video>
+      </video> */}
+      <VideoPlayer videoKey={"participationInstructional.mp4"} />
     </VStack>
   );
 };

@@ -1,6 +1,8 @@
 {
   "version": "1",
   "cognitoConfig": {
+    "identityPoolName": "jhlongcovid_identitypool_1ef14013",
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "jhlong6de2907c",
     "userPoolName": "jhlongcovid6de2907c_userpool_6de2907c",
     "autoVerifiedAttributes": [
@@ -33,7 +35,7 @@
     "userpoolClientSetAttributes": false,
     "sharedId": "6de2907c",
     "resourceName": "jhlongcovid",
-    "authSelections": "userPoolOnly",
+    "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
     "usernameAttributes": [
       "email"
