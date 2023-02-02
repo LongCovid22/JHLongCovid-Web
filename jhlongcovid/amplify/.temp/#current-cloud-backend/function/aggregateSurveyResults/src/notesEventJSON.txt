@@ -1,0 +1,153 @@
+Documentation for what types/answers event.json
+should be structured as.
+
+#IMPORTANT: If a question is unanswered, then it will be NULL.
+NULL should not represent anything else but that question is unaswered!
+
+Covid Results
+1) beenInfected: boolean (initial format: Yes/No Question)
+2) timesPositive: integer (initial format: 1/2/3/3+ infection, do not know (place 0 for do not know))
+3) hospitalized: boolean (initial format: Yes / No Question)
+4) timesHospitalized: integer (initial format: 1/2/3+ times, do not know - use 0 for do not know)
+5) lastPositive: string (date time format)
+6) tested: boolean (intial format: Yes/No Question)
+7) positiveTest: String ("yes", "no", "doNotKnow")
+8) symptomatic: boolean (Yes/ No question)
+9) symptomsPreventScale: String (following options only) :
+notAtAll   
+alittleBit     
+somewhat     
+quiteABit     
+veryMuch
+10) medicationsPrescribed: String ("yes", "no", "doNotKnow")
+11) medicationsTaken: string array (options: 
+"antiViral", 
+"oralSteroids",
+"antiBiotics",
+"other",
+"doNotKnow")
+
+Recovery Results
+12) recovered : boolean (Yes/ No Question)
+13) lengthOfRecovery : Integer (How many days to recover from most recent infection)
+
+Vaccination Results :
+14) vaccinated : String ("yes", "no", "doNotKnow")
+15) totalVaccineShots : Integer greater than 1 (0 - Do not know)
+16) dateOfLastVaccine : String (date time format)
+17) vaccineType : String (Options: "pfizer", "moderna", "janssen", "novavax", "other", "doNotKnow")
+
+
+Global Health Results:
+18) healthRank: String ("excellent", "veryGood", "good", "fair", "poor")
+19) physicalHealthRank: String ("excellent", "veryGood", "good", "fair", "poor")
+20) carryPhysicalActivities: String ("completely", "mostly", "moderately", "aLittle", "notAtAll")
+21) fatigueRank: String ("none", "mild", "moderate", "severe", "verySevere")
+22) painLevel: Integer (1 (no pain) - 10 (worst Pain))
+
+Symptom Survey :
+Note : 23 - 48 are are Yes/No questions (do you have this symptom)
+23 - 48) symptoms : string array (include symptom in string if they have it),
+only the following symptom strings are recognized):
+
+headache
+bodyMuscleAche
+feverChillsSweatsFlushing
+faintDizzyGoofy
+postExertionalMalaise
+weaknessInArmsLegs
+shortnessOfBreath
+cough
+palpitations
+swellingOfLegs
+indigestionNausea
+bladderProblem
+nerveProblems
+brainFog
+anxietyDepressionNightmares
+difficultyFallingAsleep
+sleepyDuringDaytime
+loudSnoring
+uncomfortableFeelingsInLegs
+skinRash
+lossOfChangeInSmell
+excessiveThirst
+excessiveDryMouth
+visionProblems
+hearingProblems
+fertilityProblemsForWomen
+
+49) qualityOfLifeRank : String ("excellent", "veryGood", "good", "fair", "poor")
+50) mentalHealthRank : String ("excellent", "veryGood", "good", "fair", "poor")
+51) socialSatisfactionRank : String ("excellent", "veryGood", "good", "fair", "poor")
+52) carryOutSocialActivitiesRank: String ("excellent", "veryGood", "good", "fair", "poor")
+53) anxietyInPastWeekRank : String ("never", "rarely", "sometimes", "often", "always")
+
+patientHealthQuestionnaireResults
+54) littleInterestThings : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+55) downDepressedHopeless : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+56) sleepProblems : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+57) tiredNoEnergy : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+58) dietProblems : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+59) badAboutSelf : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+60) concentrationProblems : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+61) slowOrRestless : String ("notAtAll", "severalDays", "moreThanHalfTheDays", "nearlyEveryDay")
+
+totalScore : Integer (representing the PHQ8 score)
+
+(skip suicide questions)
+
+medicalConditionsChanges 
+64) medicalConditions : string array (of diagnosis). Only recognize the following:
+    "noNewDiagnosis"
+    "heartProblems"
+    "lungProblems"
+    "bloodClotLung"
+    "sleepApnea"
+    "memory"
+    "migraine"
+    "stroke"
+    "seizure"
+    "kidneyProblems"
+    "stomachProblems"
+    "psychologicalProblems"
+    "diabetes"
+    "autoImmuneDiseases"
+    "mecfs"
+    "other"
+    "notSure"
+
+65) longCovid : String ("yes", "no", "doNotKnow")
+
+
+socialDeterminantsResults
+66) hasMedicalInsurance : boolean (Yes / NO question)
+67) difficultCoveringExpenses : string (Only the following are allowed)
+veryDifficult
+somewhatDifficult
+notAtAllDifficult
+doNotKnow
+preferNotToAnswer
+
+68) currentWorkSituation : String (only the following is recognized)
+
+atOffice
+hybrid
+remote
+remoteAndParenting
+onJobLeave
+unemployed
+retired
+disability
+student
+doNotKnow
+preferNotToAnswer
+
+
+healthRelatedResults
+77) weight : Integer (in pounds)
+78) height : Integer (in inches) -> convert feet, inches, to just inches!
+
+
+
+
