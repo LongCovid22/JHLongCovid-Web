@@ -91,7 +91,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
 
   return (
     <VStack width={"100%"} height={"100%"} spacing={"20px"}>
-      <Text fontSize={"md"} fontWeight={"regular"}>
+      <Text fontSize={"md"} fontWeight={"regular"} w="100%">
         {currentQuestion.question}
       </Text>
       <FormControl isInvalid={zipError}>

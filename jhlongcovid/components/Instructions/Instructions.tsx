@@ -1,4 +1,5 @@
-import React from "react";
+import { Storage } from "aws-amplify";
+import React, { useEffect, useState } from "react";
 import {
   Spacer,
   Flex,
@@ -13,6 +14,7 @@ import {
   HStack,
   Button,
   Image,
+  Spinner,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
@@ -31,25 +33,35 @@ interface InstructionsProps {
 export type InstructionStepProps = {
   setInstructionStep: React.Dispatch<React.SetStateAction<InstructionStep>>;
   step?: InstructionStep;
+  videoUrl?: string | undefined;
 };
 
 export const InstructionStep: React.FC<InstructionStepProps> = ({
   step,
   setInstructionStep,
+  videoUrl,
 }) => {
   switch (step) {
     case "intro":
       return <IntroInstructionStep setInstructionStep={setInstructionStep} />;
     case "survey":
-      return <SurveyInstructionStep setInstructionStep={setInstructionStep} />;
+      return (
+        <SurveyInstructionStep
+          setInstructionStep={setInstructionStep}
+          videoUrl={videoUrl}
+        />
+      );
     case "visualization":
       return (
-        <VisualizationInstructionStep setInstructionStep={setInstructionStep} />
+        <VisualizationInstructionStep
+          setInstructionStep={setInstructionStep}
+          videoUrl={videoUrl}
+        />
       );
     case "end":
       return <EndInstructionStep setInstructionStep={setInstructionStep} />;
     default:
-      return <Text>Default</Text>;
+      return <Spinner />;
   }
 };
 
@@ -70,7 +82,7 @@ export const HeaderText: React.FC<{ step: InstructionStep }> = ({ step }) => {
         </Text>
       );
     case "end":
-      return <Text fontSize={"2xl"} fontWeight={"bold"}></Text>;
+      return <Text></Text>;
   }
 };
 
@@ -78,7 +90,9 @@ export const Instructions: React.FC<InstructionsProps> = ({
   showInstructions,
   setShowInstructions,
 }) => {
-  const [step, setInstructionStep] = React.useState<InstructionStep>("intro");
+  const [step, setInstructionStep] = useState<InstructionStep>("intro");
+  const [surveyVidUrl, setSurveyVidUrl] = useState<string | undefined>();
+  const [dataVisVidUrl, setDataVisVidUrl] = useState<string | undefined>();
   const width = useSelector(selectWidth);
   const height = useSelector(selectHeight);
 
@@ -98,15 +112,55 @@ export const Instructions: React.FC<InstructionsProps> = ({
   const handleNextStep = () => {
     switch (step) {
       case "intro":
-        return setInstructionStep("survey");
+        setInstructionStep("survey");
+        break;
       case "survey":
-        return setInstructionStep("visualization");
+        setInstructionStep("visualization");
+        break;
       case "visualization":
-        return setInstructionStep("end");
+        setInstructionStep("end");
+        break;
       case "end":
-        return setShowInstructions(false);
+        setShowInstructions(false);
+        // setInstructionStep("intro");
+        break;
     }
   };
+
+  const getSurveyVideoUrl = async () => {
+    const url = await Storage.get("participationInstructional.mp4", {
+      level: undefined,
+    });
+    setSurveyVidUrl(url);
+  };
+
+  const getVisVideoUrl = async () => {
+    const url = await Storage.get("DataVisualsExample.mp4", {
+      level: undefined,
+    });
+    setDataVisVidUrl(url);
+  };
+
+  const urlForStep = () => {
+    if (step === "survey") {
+      return surveyVidUrl;
+    } else if (step === "visualization") {
+      return dataVisVidUrl;
+    } else {
+      return undefined;
+    }
+  };
+
+  useEffect(() => {
+    getSurveyVideoUrl();
+    getVisVideoUrl();
+  }, []);
+
+  useEffect(() => {
+    if (showInstructions) {
+      setInstructionStep("intro");
+    }
+  }, [showInstructions]);
 
   return (
     <Modal
@@ -119,10 +173,10 @@ export const Instructions: React.FC<InstructionsProps> = ({
       <ModalContent
         style={{
           background: "white",
-          width: width < 700 ? 410 : width * 0.45,
+          width: width < 700 ? 410 : width * 0.6,
           minWidth: 410,
-          maxWidth: 750,
-          minHeight: height * 0.45,
+          maxWidth: 1000,
+          minHeight: height * 0.6,
           maxHeight: height * 0.9,
           // height: height < 720 ? height * 0.9 : "700px",
           borderRadius: "35px",
@@ -154,6 +208,7 @@ export const Instructions: React.FC<InstructionsProps> = ({
           <InstructionStep
             step={step}
             setInstructionStep={setInstructionStep}
+            videoUrl={urlForStep()}
           />
         </ModalBody>
         <ModalFooter>

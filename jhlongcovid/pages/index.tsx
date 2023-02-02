@@ -160,15 +160,16 @@ const Home = () => {
   };
 
   useEffect(() => {
-    setShowInstructions(true);
-    // if (showInstructions === false) {
-    //   // Check if instructions have been shown before
-    //   let showedInstructions = localStorage.getItem("showedInstructions");
-    //   if (showedInstructions === null) {
-    //     localStorage.setItem("showedInstructions", JSON.stringify(true));
-    //     setShowInstructions(true);
-    //   }
-    // }
+    // setShowInstructions(true);
+    let showedInstructions = localStorage.getItem("showedInstructions");
+    if (showedInstructions === null) {
+      // Check if instructions have been shown before
+      let showedInstructions = localStorage.getItem("showedInstructions");
+      if (showedInstructions === null) {
+        localStorage.setItem("showedInstructions", JSON.stringify(true));
+        setShowInstructions(true);
+      }
+    }
   }, []);
 
   useEffect(() => {
