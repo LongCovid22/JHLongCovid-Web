@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Spacer, Flex, VStack, Text, Spinner } from "@chakra-ui/react";
 import { InstructionStepProps } from "../Instructions";
-import { VideoPlayer } from "../VideoPlayer";
 
 export const VisualizationInstructionStep: React.FC<InstructionStepProps> = ({
   setInstructionStep,
