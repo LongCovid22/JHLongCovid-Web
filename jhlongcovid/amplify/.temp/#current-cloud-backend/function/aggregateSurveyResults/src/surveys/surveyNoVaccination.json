@@ -1,0 +1,95 @@
+{
+  "arguments": {
+    "results": {
+      "id": "SampleID",
+      "email": "",
+      "surveyVersion": 1,
+      "surveyType": "GUEST",
+      "age": "26",
+      "race": "white",
+      "sex": "Male",
+      "location": {
+        "county": "Los Angeles County",
+        "state": "California",
+        "stateAbbrev": "CA",
+        "countyLat": 34.387182,
+        "countyLong": -118.112268,
+        "stateLat": 36.778261,
+        "stateLong": -119.417932
+      },
+      "covidResults": {
+        "id": "bc82e34f-089f-4002-a99c-3fa10fe6a139",
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "44",
+        "weight": "123",
+        "beenInfected": false
+      },
+      "recoveryResults": null,
+      "vaccinationResults": {
+        "id": "ccb8f5c0-c0b9-4f1e-80c3-5abfcc13c5d9",
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "44",
+        "weight": "123",
+        "vaccinated": "no"
+      },
+      "globalHealthResults": null,
+      "patientHealthResults": {
+        "id": "82100479-11fb-4f94-aa18-8e6ac3df3961",
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "44",
+        "weight": "123",
+        "generalHealthResults": {
+          "littleInterestThings": "notAtAll",
+          "downDepressedHopeless": "notAtAll",
+          "sleepProblems": "notAtAll",
+          "tiredNoEnergy": "notAtAll",
+          "dietProblems": "notAtAll",
+          "badAboutSelf": "notAtAll",
+          "concentrationProblems": "notAtAll",
+          "slowOrRestless": "notAtAll"
+        },
+        "totalScore": 0
+      },
+      "symptomResults": {
+        "id": "8f2411f9-98e5-452f-8291-677eaf8a3bc1",
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "44",
+        "weight": "123",
+        "symptoms": [
+          "postExertionalMalaise",
+          "swellingOfLegs",
+          "nerveProblems"
+        ],
+        "mentalHealthRank": "excellent",
+        "socialSatisfactionRank": "excellent",
+        "carryOutSocialActivitiesRank": "excellent",
+        "anxietyInPastWeekRank": "never",
+        "medicalConditions": ["migraine"],
+        "hasLongCovid": "yes"
+      },
+      "socialDeterminantsResults": {
+        "id": "b87c3f76-b209-47c8-9ce4-253535ab9389",
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "44",
+        "weight": "123",
+        "hasMedicalInsurance": true,
+        "difficultCoveringExpenses": "somewhatDifficult",
+        "currentWorkSituation": "hybrid"
+      },
+      "healthRelatedResults": {
+        "weight": "123",
+        "height": "44"
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "arguments": {
+    "results": {
+      "id": "f24061ae-e0e1-41bf-a156-7589ed993730",
+      "email": "",
+      "surveyVersion": 1,
+      "surveyType": "GUEST",
+      "age": "26",
+      "race": "white",
+      "sex": "Male",
+      "location": {
+        "county": "Oneida County",
+        "state": "New York",
+        "stateAbbrev": "NY",
+        "countyLat": 43.23718,
+        "countyLong": -75.434473,
+        "stateLat": 40.712775,
+        "stateLong": -74.005973
+      },
+      "covidResults": {
+        "id": "4496677c-d706-4d5b-bd27-01c3245ab73f",
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "210",
+        "beenInfected": false
+      },
+      "recoveryResults": null,
+      "vaccinationResults": {
+        "id": "2abae255-14b5-47be-b4d4-61c15dbabe48",
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "210",
+        "vaccinated": "no"
+      },
+      "globalHealthResults": null,
+      "patientHealthResults": {
+        "id": "159bcb26-4000-4214-a6e4-f8368ebb4453",
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "210",
+        "generalHealthResults": {
+          "littleInterestThings": "notAtAll",
+          "downDepressedHopeless": "notAtAll",
+          "sleepProblems": "notAtAll",
+          "tiredNoEnergy": "notAtAll",
+          "dietProblems": "notAtAll",
+          "badAboutSelf": "notAtAll",
+          "concentrationProblems": "notAtAll",
+          "slowOrRestless": "notAtAll"
+        },
+        "totalScore": 0
+      },
+      "symptomResults": {
+        "id": "51fb46ad-8e90-40ca-8d18-9c60bae5f65c",
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "210",
+        "symptoms": [
+          "postExertionalMalaise",
+          "brainFog",
+          "difficultyFallingAsleep"
+        ],
+        "mentalHealthRank": "veryGood",
+        "socialSatisfactionRank": "veryGood",
+        "carryOutSocialActivitiesRank": "veryGood",
+        "anxietyInPastWeekRank": "rarely",
+        "medicalConditions": [null],
+        "hasLongCovid": "no"
+      },
+      "socialDeterminantsResults": {
+        "id": "380d7c73-2c2d-4cc1-9b13-f4288d210dae",
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "210",
+        "hasMedicalInsurance": true,
+        "difficultCoveringExpenses": "somewhatDifficult",
+        "currentWorkSituation": "remote"
+      },
+      "healthRelatedResults": {
+        "weight": "210",
+        "height": "55"
+      }
+    }
+  }
+}

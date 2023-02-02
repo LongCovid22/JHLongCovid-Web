@@ -13,8 +13,9 @@ import {
   MenuList,
   VStack,
   Spacer,
-  Switch,
+  IconButton,
 } from "@chakra-ui/react";
+import { QuestionIcon } from "@chakra-ui/icons";
 import styles from "../../styles/Header.module.css";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectWidth } from "../../redux/slices/viewportSlice";
@@ -29,28 +30,10 @@ import {
 import { resetUser, selectUser } from "../../redux/slices/userSlice";
 import { Auth } from "aws-amplify";
 
-interface ProfileCheckinProps {}
-
-const animationKeyframes = keyframes`
-0% {
-  transform: scale(0.95);
-  box-shadow: 0 0 0 0 rgba(0, 45, 114, 0.7);
+interface ProfileCheckinProps {
+  showInstructions: boolean;
+  setShowInstructions: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-70% {
-  transform: scale(1);
-  box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-}
-
-100% {
-  transform: scale(0.95);
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-}
-`;
-
-const animation = `${animationKeyframes} 1.5s infinite`;
-
-interface ProfileCheckinProps {}
 
 function Survey() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -66,9 +49,8 @@ function Survey() {
         textColor="white"
         colorScheme="heritageBlue"
         onClick={onOpen}
-        animation={!isOpen ? animation : undefined}
       >
-        Contribute
+        Participate
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered size={"lg"}>
         <ModalOverlay />
@@ -82,7 +64,10 @@ function Survey() {
   );
 }
 
-export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
+export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
+  showInstructions,
+  setShowInstructions,
+}) => {
   // return(<BasicUsage />)
   const width = useAppSelector(selectWidth);
   const user = useAppSelector(selectUser);
@@ -94,50 +79,68 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = () => {
   };
 
   return (
-    <Flex
-      className={styles.rightHeaderStack}
-      align="center"
-      gap={2}
-      boxShadow={"xl"}
-      style={{
-        minWidth: width < 700 ? "410px" : "250px",
-        top: width < 700 ? "70px" : "0px",
-      }}
+    <HStack
+      position={"absolute"}
+      top={width < 700 ? "90px" : "20px"}
+      right={width < 700 ? "30px" : "20px"}
+      maxW={"400px"}
+      spacing="15px"
     >
-      <Survey />
-      <Menu isLazy>
-        <MenuButton>
-          <Avatar></Avatar>
-        </MenuButton>
-        <MenuList p={"15px"} borderRadius={"15px"}>
-          {user ? (
-            <VStack spacing="15px" marginY={"5px"}>
-              <HStack>
-                <Text fontWeight={"600"}>Signed in as: </Text>
-                <Spacer />
-                <Text color={"gray"}>{user.email}</Text>
-              </HStack>
-              <Button
-                bg={"red"}
-                w={"100%"}
-                borderRadius="500px"
-                color={"white"}
-                onClick={() => {
-                  signOut();
-                }}
-              >
-                Sign Out
-              </Button>
-            </VStack>
-          ) : (
-            <AuthenticationForm
-              initialAuthState={AuthState.SignIn}
-              midSurvey={false}
-              onVerify={() => {}}
-            />
-          )}
-        </MenuList>
-      </Menu>
-    </Flex>
+      <IconButton
+        icon={<QuestionIcon />}
+        background={showInstructions ? "heritageBlue.500" : "white"}
+        color={showInstructions ? "white" : "heritageBlue.500"}
+        aria-label="Instructions"
+        borderRadius="500px"
+        size={"lg"}
+        onClick={() => {
+          setShowInstructions(!showInstructions);
+        }}
+      />
+      <Flex
+        className={styles.rightHeaderStack}
+        align="center"
+        gap={2}
+        boxShadow={"xl"}
+        style={{
+          minWidth: width < 700 ? "350px" : "280px",
+        }}
+      >
+        <Survey />
+        <Menu isLazy>
+          <MenuButton>
+            <Avatar></Avatar>
+          </MenuButton>
+          <MenuList p={"15px"} borderRadius={"15px"}>
+            {user ? (
+              <VStack spacing="15px" marginY={"5px"}>
+                <HStack>
+                  <Text fontWeight={"600"}>Signed in as: </Text>
+                  <Spacer />
+                  <Text color={"gray"}>{user.email}</Text>
+                </HStack>
+                <Button
+                  bg={"red"}
+                  w={"100%"}
+                  borderRadius="500px"
+                  color={"white"}
+                  onClick={() => {
+                    signOut();
+                  }}
+                >
+                  Sign Out
+                </Button>
+              </VStack>
+            ) : (
+              <AuthenticationForm
+                initialAuthState={AuthState.SignIn}
+                midSurvey={false}
+                onVerify={() => {}}
+              />
+            )}
+          </MenuList>
+        </Menu>
+      </Flex>
+    </HStack>
   );
 };

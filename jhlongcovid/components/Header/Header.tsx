@@ -8,17 +8,24 @@ interface HeaderProps {
   markerData: any;
   realOrMock: RealOrMock;
   setRealOrMock: React.Dispatch<React.SetStateAction<RealOrMock>>;
+  showInstructions: boolean;
+  setShowInstructions: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   markerData,
   realOrMock,
   setRealOrMock,
+  showInstructions,
+  setShowInstructions,
 }) => {
   return (
     <Flex>
       <Search markerData={markerData} />
-      <ProfileCheckin />
+      <ProfileCheckin
+        showInstructions={showInstructions}
+        setShowInstructions={setShowInstructions}
+      />
       <HStack
         position={"absolute"}
         top="90px"

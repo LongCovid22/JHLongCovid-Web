@@ -5,7 +5,11 @@ import { Header } from "../components/Header/Header";
 import { Marker } from "../components/Marker";
 import { LeftSidePanel } from "../components/LeftSidePanel/LeftSidePanel";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { selectWidth, setDimensions } from "../redux/slices/viewportSlice";
+import {
+  selectHeight,
+  selectWidth,
+  setDimensions,
+} from "../redux/slices/viewportSlice";
 import {
   selectZoom,
   selectLoLat,
@@ -16,12 +20,20 @@ import {
 import { read } from "../util/mockDataTwo";
 import { sumUpCases } from "../preprocess";
 import React from "react";
-import { Amplify, API, Auth, Hub } from "aws-amplify";
+import { Amplify, API, Auth, graphqlOperation, Hub } from "aws-amplify";
+import { CONNECTION_STATE_CHANGE, ConnectionState } from "@aws-amplify/pubsub";
 import awsExports from "../src/aws-exports";
 import { initQuestions } from "../redux/slices/surveySlice/surveySlice";
 import awsconfig from "../src/aws-exports";
-import { GetUserQuery, User } from "../src/API";
+import { GraphQLSubscription } from "@aws-amplify/api";
+import {
+  GetUserQuery,
+  OnCreateMapDataSubscription,
+  OnUpdateMapDataSubscription,
+  User,
+} from "../src/API";
 import * as queries from "../src/graphql/queries";
+import * as subscriptions from "../src/graphql/subscriptions";
 import { resetUser, selectUser, setUser } from "../redux/slices/userSlice";
 import {
   Spinner,
@@ -34,8 +46,31 @@ import {
   Image,
   Flex,
   Fade,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalHeader,
+  CloseButton,
+  ModalFooter,
+  Text,
 } from "@chakra-ui/react";
-import { getAllMapData, calculateRadius } from "../components/Map/mapFunctions";
+import {
+  getAllMapData,
+  calculateRadius,
+  objectifyMapData,
+} from "../components/Map/mapFunctions";
+import {
+  selectDisplayData,
+  updateAllStateData,
+  updateAllCountyData,
+  toggleDisplayData,
+  updateCountyData,
+  updateStateData,
+  selectStateData,
+  selectCountyData,
+} from "../redux/slices/mapDataSlice";
+import { Instructions } from "../components/Instructions/Instructions";
 
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
@@ -52,14 +87,18 @@ export enum RealOrMock {
 const Home = () => {
   const dispatch = useAppDispatch();
   const width = useAppSelector(selectWidth);
-  const [county_data, setCountyData] = useState<any[]>([]);
-  const [state_data, setStateData] = useState<any[]>([]);
-  const [aggregateData, setAggregateData] = useState<any[]>([]);
+  const height = useAppSelector(selectHeight);
   const [selectedData, setSelectedData] = useState<any[]>([]);
   const [realOrMock, setRealOrMock] = useState(RealOrMock.REAL);
   const [markerData, setMarkerData] = useState<IHash>({});
   const [loadingMapData, setLoadingMapData] = useState(false);
+  const [onCreateMapDataSub, setOnCreateMapDataSub] = useState<any>(null);
+  const [onUpdateMapDataSub, setOnUpdateMapDataSub] = useState<any>(null);
+  const [showInstructions, setShowInstructions] = useState<boolean>(false);
 
+  const stateData = useAppSelector(selectStateData);
+  const countyData = useAppSelector(selectCountyData);
+  const displayData = useAppSelector(selectDisplayData);
   const zoomNum = useAppSelector(selectZoom);
   const latLow = useAppSelector(selectLoLat);
   const latHigh = useAppSelector(selectHighLat);
@@ -68,26 +107,18 @@ const Home = () => {
   const user = useAppSelector(selectUser);
 
   const [totalLongCovidCases, setTotalLongCovidCases] = useState(1);
-  const toggleAggregateDataOnZoom = () => {
-    let markers = [];
-    if (zoomNum >= 8) {
-      let array = [];
-      for (let i = 0; i < county_data.length; i++) {
-        let county = county_data[i];
-        if (
-          latLow <= county.lat &&
-          county.lat <= latHigh &&
-          longLow <= county.long &&
-          county.long <= longHigh
-        ) {
-          array.push(county);
-        }
-      }
-      setAggregateData(array);
-    } else if (zoomNum < 8) {
-      markers = state_data;
-      setAggregateData(markers);
-    }
+
+  const toggleDisplayDataOnZoom = () => {
+    dispatch(
+      toggleDisplayData({
+        realOrMock: realOrMock,
+        zoomNum: zoomNum,
+        latLow: latLow,
+        latHigh: latHigh,
+        longLow: longLow,
+        longHigh: longHigh,
+      })
+    );
   };
 
   const listenToAuthEvents = async (data: any) => {
@@ -129,6 +160,19 @@ const Home = () => {
   };
 
   useEffect(() => {
+    // setShowInstructions(true);
+    let showedInstructions = localStorage.getItem("showedInstructions");
+    if (showedInstructions === null) {
+      // Check if instructions have been shown before
+      let showedInstructions = localStorage.getItem("showedInstructions");
+      if (showedInstructions === null) {
+        localStorage.setItem("showedInstructions", JSON.stringify(true));
+        setShowInstructions(true);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     if (user) {
       dispatch(initQuestions({ authId: user.id }));
     } else {
@@ -139,10 +183,9 @@ const Home = () => {
   // Memoize map to only re-render when data changes
   const MapMemo = useMemo(() => {
     // console.log("re-render map");
-
     return (
       <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
-        {aggregateData.map((data) => (
+        {displayData.map((data) => (
           <Marker
             key={`marker-${data.lat}-${data.long}`}
             center={{ lat: data.lat, lng: data.long }}
@@ -165,7 +208,7 @@ const Home = () => {
         ))}
       </Map>
     );
-  }, [aggregateData]);
+  }, [displayData]);
 
   useEffect(() => {
     const initApp = async () => {
@@ -189,10 +232,60 @@ const Home = () => {
         console.log("Could not get authentication session: ", error);
       }
 
-      // console.log("INIT USER: ", user);
-
       // Hub listener for auth events
       Hub.listen("auth", listenToAuthEvents);
+
+      // Create MapData subscriptions
+      const onCreateSub = API.graphql<
+        GraphQLSubscription<typeof subscriptions.onCreateMapData>
+      >(graphqlOperation(subscriptions.onCreateMapData));
+      onCreateSub.subscribe({
+        next: ({ provider, value }) => {
+          const v = value.data as OnCreateMapDataSubscription;
+          const newMapData = v.onCreateMapData;
+          if (newMapData) {
+            if (newMapData.level === "county") {
+              dispatch(updateCountyData(newMapData));
+            } else {
+              dispatch(updateStateData(newMapData));
+            }
+          } else {
+            console.log("New map data is null");
+          }
+        },
+        error: (error) => {},
+      });
+
+      const onUpdateSub = API.graphql<
+        GraphQLSubscription<typeof subscriptions.onUpdateMapData>
+      >(graphqlOperation(subscriptions.onUpdateMapData));
+      onUpdateSub.subscribe({
+        next: ({ provider, value }) => {
+          const v = value.data as OnUpdateMapDataSubscription;
+          const newMapData = v.onUpdateMapData;
+          if (newMapData) {
+            if (newMapData.level === "county") {
+              dispatch(updateCountyData(newMapData));
+            } else {
+              dispatch(updateStateData(newMapData));
+            }
+          } else {
+            console.log("New map data is null");
+          }
+        },
+        error: (error) => {},
+      });
+
+      Hub.listen("api", (data: any) => {
+        const { payload } = data;
+        if (payload.event === CONNECTION_STATE_CHANGE) {
+          const connectionState = payload.data
+            .connectionState as ConnectionState;
+          console.log(connectionState);
+        }
+      });
+
+      // setOnCreateMapDataSub(subscription);
     };
 
     initApp();
@@ -210,29 +303,27 @@ const Home = () => {
 
         try {
           const mapData = await getAllMapData(null);
+          const mapDataObject = objectifyMapData(mapData);
 
-          const state_data = mapData.filter(
-            (data: any) => data.level === "state"
-          );
-          const county_data = mapData.filter(
-            (data: any) => data.level === "county"
-          );
-          setTotalLongCovidCases(sumUpCases(state_data));
-          setStateData(state_data);
-          setCountyData(county_data);
+          const state_data = mapDataObject.state;
+          const county_data = mapDataObject.county;
+
+          setTotalLongCovidCases(sumUpCases(state_data, realOrMock));
+          dispatch(updateAllStateData(state_data));
+          dispatch(updateAllCountyData(county_data));
           setLoadingMapData(false);
         } catch (error) {
           console.log("Error getting map data: ", error);
-          setStateData([]);
-          setCountyData([]);
+          dispatch(updateAllStateData({}));
+          dispatch(updateAllCountyData({}));
           setLoadingMapData(false);
         }
       } else {
         setLoadingMapData(true);
         const [county_data, state_data] = read();
-        setTotalLongCovidCases(sumUpCases(state_data));
-        setStateData(state_data);
-        setCountyData(county_data);
+        setTotalLongCovidCases(sumUpCases(state_data, realOrMock));
+        dispatch(updateAllStateData(state_data));
+        dispatch(updateAllCountyData(county_data));
         setLoadingMapData(false);
       }
     };
@@ -241,8 +332,17 @@ const Home = () => {
   }, [realOrMock]);
 
   useEffect(() => {
-    toggleAggregateDataOnZoom();
-  }, [zoomNum, latLow, latHigh, longLow, longHigh, state_data, county_data]);
+    toggleDisplayDataOnZoom();
+  }, [
+    zoomNum,
+    latLow,
+    latHigh,
+    longLow,
+    longHigh,
+    stateData,
+    countyData,
+    totalLongCovidCases,
+  ]);
 
   return (
     <>
@@ -252,6 +352,8 @@ const Home = () => {
           markerData={markerData}
           realOrMock={realOrMock}
           setRealOrMock={setRealOrMock}
+          showInstructions={showInstructions}
+          setShowInstructions={setShowInstructions}
         />
         <LeftSidePanel data={selectedData} realOrMock={realOrMock} />
         <Flex
@@ -298,6 +400,10 @@ const Home = () => {
             </HStack>
           </Center>
         </Slide>
+        <Instructions
+          showInstructions={showInstructions}
+          setShowInstructions={setShowInstructions}
+        />
       </div>
     </>
   );

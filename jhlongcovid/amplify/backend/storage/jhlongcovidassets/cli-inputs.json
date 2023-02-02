@@ -1,0 +1,14 @@
+{
+  "resourceName": "jhlongcovidassets",
+  "policyUUID": "4f6fa4ea",
+  "bucketName": "jhlongcovid",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

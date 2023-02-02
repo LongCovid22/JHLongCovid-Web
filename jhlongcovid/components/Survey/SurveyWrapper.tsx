@@ -183,7 +183,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [missingAnswer, setMissingAnswer] = useState(false);
   const [errorText, setErrorText] = useState("");
   const [errorPresent, setErrorPresent] = useState(false);
-  const [preSurvey, setPreSurvey] = useState(true);
+  const [preSurvey, setPreSurvey] = useState(false);
 
   const handleQuestionChange = async (
     direction: "next" | "prev" | "skip" | "finish"
@@ -376,25 +376,25 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     setAnswer(currentAnswer);
   }, [currentAnswer, currentQuestion]);
 
-  useEffect(() => {
-    // If a user is already signed in do not display the pre survey
-    // login screen. Instead create the survey depending on whether they
-    // are DAILY, WEEKLY, or MONTHLY
-    if (user !== undefined) {
-      setPreSurvey(false);
-    } else {
-      setPreSurvey(true);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   // If a user is already signed in do not display the pre survey
+  //   // login screen. Instead create the survey depending on whether they
+  //   // are DAILY, WEEKLY, or MONTHLY
+  //   if (user !== undefined) {
+  //     setPreSurvey(false);
+  //   } else {
+  //     setPreSurvey(true);
+  //   }
+  // }, [user]);
 
   return (
     <ModalContent
       style={{
         background: "white",
-        width: width < 700 ? 410 : width * 0.45,
+        width: width < 700 ? 410 : width * 0.6,
         minWidth: 410,
-        maxWidth: 750,
-        minHeight: height * 0.35,
+        maxWidth: 1000,
+        minHeight: height * 0.6,
         height: height < 720 ? height * 0.85 : "650px",
         borderRadius: "35px",
       }}
