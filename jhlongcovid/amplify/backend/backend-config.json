@@ -7,15 +7,23 @@
       "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
-        "usernameAttributes": ["EMAIL"],
-        "signupAttributes": ["EMAIL"],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
         },
         "mfaConfiguration": "ON",
-        "mfaTypes": ["TOTP"],
-        "verificationMechanisms": ["EMAIL"]
+        "mfaTypes": [
+          "TOTP"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
       }
     }
   },
@@ -45,7 +53,9 @@
         {
           "category": "auth",
           "resourceName": "jhlongcovid",
-          "attributes": ["UserPoolId"]
+          "attributes": [
+            "UserPoolId"
+          ]
         }
       ],
       "output": {
@@ -78,6 +88,13 @@
       "service": "amplifyhosting",
       "type": "cicd",
       "lastPushTimeStamp": "2022-09-28T15:03:03.118Z"
+    }
+  },
+  "storage": {
+    "jhlongcovidassets": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
     }
   }
 }

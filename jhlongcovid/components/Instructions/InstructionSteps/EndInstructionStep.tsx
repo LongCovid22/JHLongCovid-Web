@@ -10,7 +10,7 @@ export const EndInstructionStep: React.FC<InstructionStepProps> = ({
       <Image
         src="./bloomberg.logo.vertical.blue.jpg"
         alt="Hopkins Logo"
-        w="45%"
+        w="300px"
       />
       <VStack w={"80%"} spacing="20px" fontSize={"17px"}>
         <Text fontSize={"4xl"} fontWeight={"bold"}>

@@ -160,7 +160,9 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (showInstructions === false) {
+    // setShowInstructions(true);
+    let showedInstructions = localStorage.getItem("showedInstructions");
+    if (showedInstructions === null) {
       // Check if instructions have been shown before
       let showedInstructions = localStorage.getItem("showedInstructions");
       if (showedInstructions === null) {

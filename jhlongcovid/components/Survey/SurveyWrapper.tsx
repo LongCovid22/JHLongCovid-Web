@@ -391,10 +391,10 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     <ModalContent
       style={{
         background: "white",
-        width: width < 700 ? 410 : width * 0.45,
+        width: width < 700 ? 410 : width * 0.6,
         minWidth: 410,
-        maxWidth: 750,
-        minHeight: height * 0.35,
+        maxWidth: 1000,
+        minHeight: height * 0.6,
         height: height < 720 ? height * 0.85 : "650px",
         borderRadius: "35px",
       }}

@@ -71,7 +71,7 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
   return (
     <>
       <VStack height={"100%"} spacing={"15px"}>
-        <Text fontSize={"md"} fontWeight={"regular"}>
+        <Text fontSize={"md"} fontWeight={"regular"} w="100%">
           {currentQuestion.question}
         </Text>
         <BulletedList options={currentQuestion.options} />

@@ -82,7 +82,7 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
     <HStack
       position={"absolute"}
       top={width < 700 ? "90px" : "20px"}
-      right="20px"
+      right={width < 700 ? "30px" : "20px"}
       maxW={"400px"}
       spacing="15px"
     >
@@ -103,7 +103,7 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
         gap={2}
         boxShadow={"xl"}
         style={{
-          minWidth: width < 700 ? "410px" : "280px",
+          minWidth: width < 700 ? "350px" : "280px",
         }}
       >
         <Survey />
