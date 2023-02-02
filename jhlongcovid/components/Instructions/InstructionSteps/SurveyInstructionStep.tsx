@@ -2,7 +2,6 @@ import { Storage } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import { Spacer, Flex, VStack, Text, Image, Spinner } from "@chakra-ui/react";
 import { InstructionStepProps } from "../Instructions";
-import { VideoPlayer } from "../VideoPlayer";
 
 export const SurveyInstructionStep: React.FC<InstructionStepProps> = ({
   setInstructionStep,
