@@ -3516,7 +3516,6 @@ const updateMapData = async (county, state) => {
   try {
     response = await fetch(request);
     body = await response.json();
-    console.log("Body: ", body);
     console.log(`Updating MapData for ${state.level} ${state.name}...`);
 
     if (body.errors) statusCode = 400;
