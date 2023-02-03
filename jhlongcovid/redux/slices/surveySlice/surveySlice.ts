@@ -106,7 +106,6 @@ export const surveySlice = createSlice({
       //   ...state.questions[section][question],
       //   ...payload,
       // };
-      console.log("Current answer submitted: ", payload.answer);
       state.answerStack[state.currentQuestionIndex] = payload.answer;
 
       // Check branching logic as to which question to push on the stack next

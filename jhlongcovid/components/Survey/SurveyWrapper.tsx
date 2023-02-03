@@ -313,7 +313,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       // Save survey entries
       try {
         ids = await saveEntries(locationData, entries, userInfo, user);
-        console.log("IDS: ", ids);
       } catch (error) {
         console.log("Error saving survey entries", error);
         toast({
@@ -326,7 +325,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         });
       }
 
-      console.log("ENTRIES: ", entries);
       // Aggregate survey results
       try {
         await aggregateResults(entries, ids, userInfo, locationData, user);
@@ -351,6 +349,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       }
 
       setPerformingQueries(false);
+      dispatch(initQuestions({ authId: null }));
       onClose();
     } else {
       dispatch(prevQuestion({ answer: answer }));
@@ -376,7 +375,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     setMissingAnswer(false);
     setErrorPresent!(false);
     setAnswer(currentAnswer);
-    console.log(answerStack);
   }, [currentAnswer, currentQuestion]);
 
   // useEffect(() => {

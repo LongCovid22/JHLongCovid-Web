@@ -435,7 +435,6 @@ const createEntries = (
       }
     }
   }
-  console.log("Entries returned: ", entries);
   return entries;
 };
 
