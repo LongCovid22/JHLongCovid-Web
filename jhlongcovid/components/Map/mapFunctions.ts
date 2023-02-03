@@ -119,3 +119,20 @@ export const calculateRadius = (
       : ratio * maxRadius;
   }
 };
+
+export const onUpdateMapDataCust = /* GraphQL */ `
+  subscription OnUpdateMapData($filter: ModelSubscriptionMapDataFilterInput) {
+    onUpdateMapData(filter: $filter) {
+      id
+      level
+      name
+      stateAbbrev
+      lat
+      long
+      covidCount
+      longCovid
+      topMedicalCondition
+      totalFullEntries
+    }
+  }
+`;

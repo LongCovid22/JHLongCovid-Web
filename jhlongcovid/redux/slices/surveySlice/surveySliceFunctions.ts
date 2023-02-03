@@ -377,17 +377,17 @@ const createEntries = (
 
         entries[s.field] = genHealthResults;
         entries["totalScore"] = totalScore;
-      } else {
-        let reportedSymptoms = [];
-        for (var j = 0; j < a.length; j++) {
-          if (a[j] === "1") {
-            const key: string = Object.keys(symptomsMap)[j];
-            reportedSymptoms.push(symptomsMap[key] as string);
-          }
-        }
-
-        entries[s.field] = reportedSymptoms;
       }
+      //   else {
+      //     let reportedSymptoms = [];
+      //     for (var j = 0; j < a.length; j++) {
+      //       if (a[j] === "1") {
+      //         const key: string = Object.keys(symptomsMap)[j];
+      //         reportedSymptoms.push(symptomsMap[key] as string);
+      //       }
+      //     }
+      //     entries[s.field] = reportedSymptoms;
+      //   }
     } else if (s.type === "Int") {
       const splitAnswer = a.split(" ")[0];
       entries[s.field] = parseInt(splitAnswer);
@@ -423,6 +423,11 @@ const createEntries = (
         } else {
           entries[s.field] = choices;
         }
+      } else if (s.field === "symptoms") {
+        const choices = a.choices.map((value: string) => {
+          return symptomsMap[value];
+        });
+        entries[s.field] = choices;
       } else if (s.field === "currentWorkSituation") {
         entries[s.field] = socialDeterminantsMap[a];
       } else {
@@ -430,7 +435,7 @@ const createEntries = (
       }
     }
   }
-
+  console.log("Entries returned: ", entries);
   return entries;
 };
 

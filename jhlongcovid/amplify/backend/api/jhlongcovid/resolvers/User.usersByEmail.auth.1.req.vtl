@@ -1,0 +1,49 @@
+## [Start] Authorization Steps. **
+$util.qr($ctx.stash.put("hasAuth", true))
+#set( $isAuthorized = false )
+#set( $primaryFieldMap = {} )
+#if( $util.authType() == "API Key Authorization" )
+
+#end
+#if( $util.authType() == "IAM Authorization" )
+  #set( $adminRoles = ["aggregateSurveyResults-develop","arn:aws:iam::317973408936:user/nate-amplify-cli","arn:aws:iam::317973408936:role/amplify-jhlongcovid-devel-AggregateSurveyResultsLa-1EZRW3ZDYI4O","arn:aws:iam::317973408936:role/jhlongcovidLambdaRolec85f25a7-develop"] )
+  #foreach( $adminRole in $adminRoles )
+    #if( $ctx.identity.userArn.contains($adminRole) && $ctx.identity.userArn != $ctx.stash.authRole && $ctx.identity.userArn != $ctx.stash.unauthRole )
+      #return($util.toJson({}))
+    #end
+  #end
+  #if( !$isAuthorized )
+    #if( ($ctx.identity.userArn == $ctx.stash.authRole) || ($ctx.identity.cognitoIdentityPoolId == "us-east-1:e95cf0d4-3f4f-43d1-a50a-48c284bc5e69" && $ctx.identity.cognitoIdentityAuthType == "authenticated") )
+      #set( $isAuthorized = true )
+    #end
+  #end
+#end
+#if( $util.authType() == "User Pool Authorization" )
+  #if( !$isAuthorized )
+    #set( $authFilter = [] )
+    #set( $ownerClaim0 = $util.defaultIfNull($ctx.identity.claims.get("sub"), null) )
+    #set( $currentClaim1 = $util.defaultIfNull($ctx.identity.claims.get("username"), $util.defaultIfNull($ctx.identity.claims.get("cognito:username"), null)) )
+    #if( !$util.isNull($ownerClaim0) && !$util.isNull($currentClaim1) )
+      #set( $ownerClaim0 = "$ownerClaim0::$currentClaim1" )
+      #if( !$util.isNull($ownerClaim0) )
+        $util.qr($authFilter.add({"owner": { "eq": $ownerClaim0 }}))
+      #end
+    #end
+    #set( $role0_0 = $util.defaultIfNull($ctx.identity.claims.get("sub"), null) )
+    #if( !$util.isNull($role0_0) )
+      $util.qr($authFilter.add({"owner": { "eq": $role0_0 }}))
+    #end
+    #set( $role0_1 = $util.defaultIfNull($ctx.identity.claims.get("username"), $util.defaultIfNull($ctx.identity.claims.get("cognito:username"), null)) )
+    #if( !$util.isNull($role0_1) )
+      $util.qr($authFilter.add({"owner": { "eq": $role0_1 }}))
+    #end
+    #if( !$authFilter.isEmpty() )
+      $util.qr($ctx.stash.put("authFilter", { "or": $authFilter }))
+    #end
+  #end
+#end
+#if( !$isAuthorized && $util.isNull($ctx.stash.authFilter) )
+$util.unauthorized()
+#end
+$util.toJson({"version":"2018-05-29","payload":{}})
+## [End] Authorization Steps. **

@@ -1,0 +1,96 @@
+{
+  "arguments": {
+    "results": {
+      "id": "83ad1fc2-009d-4bc5-abc7-11a4186529bc",
+      "email": "",
+      "surveyVersion": 1,
+      "surveyType": "GUEST",
+      "age": "23",
+      "race": "white",
+      "sex": "Male",
+      "location": {
+        "county": "Monroe County",
+        "state": "New York",
+        "stateAbbrev": "NY",
+        "countyLat": 43.284125,
+        "countyLong": -77.745208,
+        "stateLat": 40.712775,
+        "stateLong": -74.005973
+      },
+      "covidResults": {
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "123",
+        "beenInfected": true,
+        "timesPositive": 2,
+        "hospitalized": true,
+        "timesHospitalized": 2,
+        "lastPositive": "2023-02-15T00:00:00.000Z",
+        "tested": true,
+        "positiveTest": "no",
+        "symptomatic": false,
+        "medicationsPrescribed": "no"
+      },
+      "recoveryResults": {
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "123",
+        "recovered": false
+      },
+      "vaccinationResults": {
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "123",
+        "vaccinated": "no"
+      },
+      "patientHealthResults": {
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "123",
+        "generalHealthResults": {
+          "littleInterestThings": "notAtAll",
+          "downDepressedHopeless": "notAtAll",
+          "sleepProblems": "notAtAll",
+          "tiredNoEnergy": "notAtAll",
+          "dietProblems": "notAtAll",
+          "badAboutSelf": "notAtAll",
+          "concentrationProblems": "notAtAll",
+          "slowOrRestless": "notAtAll"
+        },
+        "totalScore": 0
+      },
+      "symptomResults": {
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "123",
+        "symptoms": ["faintDizzyGoofy"],
+        "mentalHealthRank": "veryGood",
+        "socialSatisfactionRank": "veryGood",
+        "carryOutSocialActivitiesRank": "veryGood",
+        "anxietyInPastWeekRank": "rarely",
+        "medicalConditions": ["sleepApnea"],
+        "hasLongCovid": "no"
+      },
+      "socialDeterminantsResults": {
+        "age": "26",
+        "race": "white",
+        "sex": "Male",
+        "height": "55",
+        "weight": "123",
+        "hasMedicalInsurance": true,
+        "difficultCoveringExpenses": "somewhatDifficult",
+        "currentWorkSituation": "hybrid"
+      }
+    }
+  }
+}

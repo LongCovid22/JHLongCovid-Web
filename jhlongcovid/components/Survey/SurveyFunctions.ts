@@ -182,8 +182,9 @@ export const getCountyAndStateWithZip = async (
 
 export const parseHeightIntoInches = (height: string) => {
   if (height.length === 2) {
-    let feet = parseInt(height.split("'")[0]);
-    let inches = parseInt(height.split("'")[1]);
+    let feet = parseInt(height.split("")[0]);
+    let inches = parseInt(height.split("")[1]);
+    console.log(feet * 12 + inches);
     return (feet * 12 + inches).toString();
   } else if (height.length === 1) {
     return (parseInt(height) * 12).toString();
@@ -224,7 +225,6 @@ export const createCovidEntry = async (
       variables: { input: details },
     })) as { data?: CreateCovidEntryMutation; errors: any[] };
     if (cEntry.data && cEntry.data.createCovidEntry) {
-      console.log("Returning id: ", cEntry.data.createCovidEntry.id);
       return cEntry.data.createCovidEntry.id;
     }
   } catch (error) {
@@ -251,7 +251,7 @@ export const createRecoveryEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: parseHeightIntoInches(surveyData.height),
     weight: surveyData.weight,
     recovered: surveyData.recovered ?? null,
     lengthOfRecovery: surveyData.lengthOfRecovery ?? null,
@@ -291,7 +291,7 @@ export const createVaccinationEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: parseHeightIntoInches(surveyData.height),
     weight: surveyData.weight,
     totalVaccineShots: surveyData.totalVaccineShots ?? null,
     vaccinated: surveyData.vaccinated ?? null,
@@ -332,7 +332,7 @@ export const createGlobalHealthEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: parseHeightIntoInches(surveyData.height),
     weight: surveyData.weight,
     healthRank: surveyData.healthRank ?? null,
     physicalHealthRank: surveyData.physicalHealthRank ?? null,
@@ -375,7 +375,7 @@ export const createPatientHealthEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: parseHeightIntoInches(surveyData.height),
     weight: surveyData.weight,
     generalHealthResults:
       JSON.stringify(surveyData.generalHealthResults) ?? null,
@@ -416,7 +416,7 @@ export const createSymptomEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: parseHeightIntoInches(surveyData.height),
     weight: surveyData.weight,
     symptoms: surveyData.symptoms ?? null,
     carryOutSocialActivitiesRank:
@@ -459,7 +459,7 @@ export const createSocialDeterminantsEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: parseHeightIntoInches(surveyData.height),
     weight: surveyData.weight,
     hasMedicalInsurance: surveyData.hasMedicalInsurance ?? null,
     difficultCoveringExpenses: surveyData.difficultCoveringExpenses ?? null,
@@ -519,7 +519,7 @@ export const createSurveyEntry = async (
       age: parseInt(userInfo.age),
       race: race,
       sex: userInfo.sex,
-      height: userInfo.height,
+      height: parseHeightIntoInches(userInfo.height),
       weight: userInfo.weight,
       surveyEntryCovidEntryId: ids.CovidEntry ? ids.CovidEntry : null,
       surveyEntryVaccinationEntryId: ids.VaccinationEntry
