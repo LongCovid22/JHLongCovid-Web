@@ -46,9 +46,6 @@ export const ThankYou: React.FC<SurveyQuestionProps> = ({
                 preserveAspectRatio: "none",
               }}
               loop={false}
-              onComplete={() => {
-                console.log("DO nothing");
-              }}
             />
           </Center>
         </Flex>

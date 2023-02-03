@@ -45,20 +45,12 @@ import {
   Box,
   Image,
   Flex,
-  Fade,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  ModalHeader,
-  CloseButton,
-  ModalFooter,
-  Text,
 } from "@chakra-ui/react";
 import {
   getAllMapData,
   calculateRadius,
   objectifyMapData,
+  onUpdateMapDataCust,
 } from "../components/Map/mapFunctions";
 import {
   selectDisplayData,
@@ -258,7 +250,7 @@ const Home = () => {
 
       const onUpdateSub = API.graphql<
         GraphQLSubscription<typeof subscriptions.onUpdateMapData>
-      >(graphqlOperation(subscriptions.onUpdateMapData));
+      >(graphqlOperation(onUpdateMapDataCust));
       onUpdateSub.subscribe({
         next: ({ provider, value }) => {
           const v = value.data as OnUpdateMapDataSubscription;
@@ -330,6 +322,10 @@ const Home = () => {
 
     switchData();
   }, [realOrMock]);
+
+  useEffect(() => {
+    setTotalLongCovidCases(sumUpCases(stateData, realOrMock));
+  }, [stateData]);
 
   useEffect(() => {
     toggleDisplayDataOnZoom();

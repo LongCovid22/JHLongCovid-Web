@@ -71,6 +71,15 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
                       value={inputValue}
                       width={"50%"}
                       type={option.type}
+                      max={
+                        option.type === "date"
+                          ? new Date(
+                              new Date().setDate(new Date().getDate() - 1)
+                            )
+                              .toISOString()
+                              .split("T")[0]
+                          : undefined
+                      }
                       placeholder={option.placeholder}
                       focusBorderColor="clear"
                       onChange={(event) => handleInputOther(event.target.value)}

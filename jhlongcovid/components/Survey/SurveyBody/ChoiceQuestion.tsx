@@ -58,6 +58,15 @@ const Choices = (
                       width={"50%"}
                       placeholder={option.placeholder}
                       type={option.type}
+                      max={
+                        option.type === "date"
+                          ? new Date(
+                              new Date().setDate(new Date().getDate() - 1)
+                            )
+                              .toISOString()
+                              .split("T")[0]
+                          : undefined
+                      }
                       focusBorderColor="clear"
                       onChange={(event) => {
                         setValue(event.target.value, option.validation);

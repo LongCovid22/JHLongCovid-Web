@@ -349,6 +349,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       }
 
       setPerformingQueries(false);
+      dispatch(initQuestions({ authId: null }));
       onClose();
     } else {
       dispatch(prevQuestion({ answer: answer }));

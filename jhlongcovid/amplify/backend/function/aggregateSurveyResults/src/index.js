@@ -42,6 +42,7 @@ const AWS_REGION = process.env.AWS_REGION || "us-east-1";
 // amplify mock function aggregateSurveyResults --event ./src/event.json
 
 let properties = `
+      id
       level
       name
       stateAbbrev
@@ -3745,6 +3746,7 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
         }
 
         if (
+          covidResults.medicationsTaken &&
           covidResults.medicationsTaken !== null &&
           checkMedicationsTakenType(covidResults.medicationsTaken)
         ) {
@@ -3908,7 +3910,7 @@ const updateGlobalHealthSummary = (eventInput, county, state, indexes) => {
     };
   }
 
-  if (globalHealthResults === null) {
+  if (!globalHealthResults || globalHealthResults === null) {
     return;
   }
 

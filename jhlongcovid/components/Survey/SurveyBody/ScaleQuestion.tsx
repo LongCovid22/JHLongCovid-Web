@@ -4,16 +4,6 @@ import {
   VStack,
   Text,
   Spacer,
-  UnorderedList,
-  ListItem,
-  Input,
-  FormControl,
-  FormLabel,
-  List,
-  HStack,
-  ListIcon,
-  FormHelperText,
-  Stack,
   RadioGroup,
   Radio,
   Grid,
@@ -50,12 +40,19 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
 
     currentQuestion.options.map((value: string, i: number) => {
       gridItems.push(
-        <GridItem colSpan={currentQuestion.scale.length} position="sticky">
+        <GridItem
+          colSpan={currentQuestion.scale.length}
+          position="sticky"
+          key={`${value}-prompt-${i}`}
+        >
           <Text fontSize={"sm"}>{value}</Text>
         </GridItem>
       );
       gridItems.push(
-        <GridItem colSpan={currentQuestion.scale.length}>
+        <GridItem
+          colSpan={currentQuestion.scale.length}
+          key={`${value}-value-${i}`}
+        >
           <RadioGroup
             onChange={(val: string) => {
               handleScaleChange(i, val);
@@ -98,7 +95,7 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
         zIndex={1}
         mb={"25px"}
       >
-        <Text>{currentQuestion.question}</Text>
+        <Text w="100%">{currentQuestion.question}</Text>
         <Grid
           w="100%"
           templateColumns={`repeat(${currentQuestion.scale.length * 2}, 1fr)`}
