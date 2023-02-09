@@ -125,12 +125,13 @@ export const VerificationForm: React.FC<TotpProps> = ({
           </Heading>
         )}
         <FormControl isInvalid={codeIncorrect}>
-          <FormLabel>
+          <FormLabel fontSize={"lg"}>
             {verifType === "SignIn" || verifType === "VerifyTotp"
               ? "One-Time Passcode"
               : "Verification code"}
           </FormLabel>
           <Input
+            fontSize={"lg"}
             value={verifCode}
             placeholder={
               verifType === "SignIn"
@@ -156,6 +157,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
         <Spacer />
         {verifType === "SignUp" && (
           <Button
+            fontSize={"lg"}
             background={"spiritBlue.100"}
             color={"heritageBlue.500"}
             borderRadius={500}
@@ -168,6 +170,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
         )}
 
         <Button
+          fontSize={"lg"}
           colorScheme="heritageBlue"
           borderRadius={500}
           isLoading={performingQueries}

@@ -52,7 +52,7 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
 
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>
-      <Text fontSize={"md"} fontWeight={"regular"} width={"100%"}>
+      <Text fontSize={"lg"} fontWeight={"regular"} width={"100%"}>
         {currentQuestion.question}
       </Text>
       <VStack spacing={"15px"} width={"100%"} align="start">
@@ -60,17 +60,19 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
           colorScheme="heritageBlue"
           onChange={handleChoiceInput}
           value={checked}
+          size="lg"
         >
           {Array.isArray(currentQuestion.options) &&
             currentQuestion.options.map((option: any, key: number) => {
               if (option instanceof Object) {
                 return (
                   <FormControl key={key}>
-                    <FormLabel>{option.title}</FormLabel>
+                    <FormLabel fontSize="lg">{option.title}</FormLabel>
                     <Input
                       value={inputValue}
                       width={"50%"}
                       type={option.type}
+                      fontSize="lg"
                       max={
                         option.type === "date"
                           ? new Date(

@@ -16,7 +16,7 @@ export const EndInstructionStep: React.FC<InstructionStepProps> = ({
         <Text fontSize={"4xl"} fontWeight={"bold"}>
           Thank you for participating!
         </Text>
-        <Text textAlign={"center"}>
+        <Text textAlign={"center"} fontSize="lg">
           Your contributions are greatly appreciated and will help us better
           understand the long-term effects of COVID-19. If you have any feedback
           on how to make our dashboard better, please email us at ...

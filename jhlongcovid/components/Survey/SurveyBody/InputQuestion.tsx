@@ -30,13 +30,14 @@ const Choices = (
 ) => {
   return (
     <FormControl isInvalid={inputError}>
-      <FormLabel>{options.title}</FormLabel>
+      <FormLabel fontSize={"lg"}>{options.title}</FormLabel>
       <Input
         value={inputValue}
         width={"50%"}
         type={options.type}
         placeholder={options.placeholder}
         focusBorderColor="clear"
+        fontSize={"lg"}
         max={
           options.type === "date"
             ? new Date(new Date().setDate(new Date().getDate() - 1))
@@ -92,7 +93,7 @@ export const InputQuestion: React.FC<SurveyQuestionProps> = ({
 
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>
-      <Text fontSize={"md"} fontWeight={"regular"} width={"100%"}>
+      <Text fontSize={"lg"} fontWeight={"regular"} width={"100%"}>
         {currentQuestion.question}
       </Text>
       <VStack spacing={"15px"} width={"100%"}>

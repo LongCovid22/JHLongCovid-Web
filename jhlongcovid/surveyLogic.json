@@ -1,10 +1,12 @@
 {
   "version": "1.0",
+  "totalQuestions": 35,
   "questions": [
     [
       {
         "title": "",
-        "question": "Welcome to the Johns Hopkins Long COVID Questionnaire",
+        "questionNum": 0,
+        "question": "Welcome to the Johns Hopkins Long COVID Dashboard!",
         "options": [
           "Tell us your experience with COVID-19!",
           "How has COVID-19 affected life beyond your infection?",
@@ -16,6 +18,7 @@
       },
       {
         "title": "Consent",
+        "questionNum": 1,
         "question": "The following information will be collected to better understand your experience with COVID-19.",
         "options": [
           "COVID-19 Experience",
@@ -32,6 +35,7 @@
       },
       {
         "title": "Demographics",
+        "questionNum": 2,
         "question": "Please enter the following demographic information:",
         "options": [],
         "answerFormat": "demographics",
@@ -42,6 +46,7 @@
     [
       {
         "title": "COVID",
+        "questionNum": 3,
         "question": "Have you ever been infected with COVID-19?",
         "options": ["Yes", "No"],
         "answerFormat": ["choice", "choice"],
@@ -61,6 +66,7 @@
       },
       {
         "title": "COVID",
+        "questionNum": 4,
         "question": "In total, since the beginning of the COVID-19 pandemic in the US (March 2020), how many times do you think you have been infected with COVID‐19? (please estimate even if you are not sure)",
         "options": [
           "1 infection (only once)",
@@ -88,6 +94,7 @@
       },
       {
         "title": "COVID",
+        "questionNum": 5,
         "question": "Have you every been hospitalized for COVID-19?",
         "options": ["Yes", "No"],
         "answerFormat": ["choice", "choice"],
@@ -107,6 +114,7 @@
       },
       {
         "title": "COVID",
+        "questionNum": 6,
         "question": "How many times have you been hospitalized for COVID-19?",
         "options": [
           "1 COVID hospitalization",
@@ -135,6 +143,7 @@
       {
         "instructions": "The following questions refer to your most recent COVID-19 infection",
         "title": "COVID",
+        "questionNum": 7,
         "question": "When do you know or think you had COVID-19?",
         "options": {
           "title": "Date:",
@@ -152,6 +161,7 @@
       },
       {
         "title": "COVID",
+        "questionNum": 8,
         "question": "Did you take a COVID test at that time?",
         "options": ["Yes", "No"],
         "answerFormat": ["choice", "choice"],
@@ -171,6 +181,7 @@
       },
       {
         "title": "COVID",
+        "questionNum": 9,
         "question": "Did you have a positive test result? “Positive” means the test showed COVID-19.",
         "options": ["Yes", "No", "Do not know"],
         "answerFormat": ["choice", "choice", "choice"],
@@ -184,6 +195,7 @@
       },
       {
         "title": "COVID",
+        "questionNum": 10,
         "question": "Did you have any COVID19 symptoms, such as fever, cough, sore throat, or other symptoms?",
         "options": ["Yes", "No"],
         "answerFormat": ["choice", "choice"],
@@ -203,6 +215,7 @@
       },
       {
         "title": "COVID",
+        "questionNum": 11,
         "question": "When your symptoms were at their worst, did they prevent you from going about your daily activities?",
         "options": [
           "Not at all",
@@ -222,6 +235,7 @@
       },
       {
         "title": "COVID",
+        "questionNum": 12,
         "question": "Did a doctor or other health care professional prescribe any medications for you to take when you had COVID-19?",
         "options": ["Yes", "No", "Do not know"],
         "answerFormat": ["choice", "choice", "choice"],
@@ -241,6 +255,7 @@
       },
       {
         "title": "COVID",
+        "questionNum": 13,
         "question": "Did the doctor or other health care professional prescribe any of the following medications for COVID-19? Check all that apply.",
         "options": [
           "Antiviral pill, such as Paxlovid",
@@ -276,6 +291,7 @@
     [
       {
         "title": "Recovery",
+        "questionNum": 14,
         "question": "Would you say that you are completely recovered from COVID-19 now?",
         "options": ["Yes", "No"],
         "answerFormat": ["choice", "choice"],
@@ -295,6 +311,7 @@
       },
       {
         "title": "Recovery",
+        "questionNum": 15,
         "question": "How long did it take for you to recover from your most recent infection?",
         "options": {
           "type": "text",
@@ -318,6 +335,7 @@
     [
       {
         "title": "Vaccination",
+        "questionNum": 16,
         "question": "Have you ever been vaccinated against COVID-19?",
         "options": ["No", "Yes", "Do not know"],
         "answerFormat": ["choice", "choice", "choice"],
@@ -337,6 +355,7 @@
       },
       {
         "title": "Vaccination",
+        "questionNum": 17,
         "question": "In total, how many COVID-19 vaccine shots have you received?",
         "options": [
           {
@@ -361,6 +380,7 @@
       },
       {
         "title": "Vaccination",
+        "questionNum": 18,
         "question": "When was your most recent COVID vaccine?",
         "options": [
           {
@@ -382,6 +402,7 @@
       },
       {
         "title": "Vaccination",
+        "questionNum": 19,
         "question": "Which type of COVID vaccine was your last shot?",
         "options": [
           "Pfizer",
@@ -415,6 +436,7 @@
     [
       {
         "title": "Global Health",
+        "questionNum": 20,
         "question": "In general, would you say your health is:",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
@@ -428,6 +450,7 @@
       },
       {
         "title": "Global Health",
+        "questionNum": 21,
         "question": "In general, how would you rate your physical health?",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
@@ -441,6 +464,7 @@
       },
       {
         "title": "Global Health",
+        "questionNum": 22,
         "question": "To what extent are you able to carry out your everyday physical activities such as walking, climbing stairs, carrying groceries, or moving a chair?",
         "options": [
           "Completely",
@@ -460,6 +484,7 @@
       },
       {
         "title": "Global Health",
+        "questionNum": 23,
         "question": "In the past 7 days, how would you rate your fatigue on average?",
         "options": ["None", "Mild", "Moderate", "Severe", "Very Severe"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
@@ -473,6 +498,7 @@
       },
       {
         "title": "Global Health",
+        "questionNum": 24,
         "question": "In the past 7 days, how would you rate your pain on average? Please provide a number from 1 (no pain) to 10 (worst imagineable pain): ",
         "options": {
           "title": "Enter pain level (1-10)",
@@ -496,6 +522,7 @@
     [
       {
         "title": "Symptoms",
+        "questionNum": 25,
         "question": "During the past month, have you had any of the following symptoms?",
         "answerFormat": [
           "multichoice",
@@ -563,6 +590,7 @@
       },
       {
         "title": "Symptoms",
+        "questionNum": 26,
         "question": "In general, how would you rate your mental health, including your mood and your ability to think?",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
@@ -576,6 +604,7 @@
       },
       {
         "title": "Symptoms",
+        "questionNum": 27,
         "question": "In general, how would you rate your satisfaction with your social activities and relationships?",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
@@ -589,6 +618,7 @@
       },
       {
         "title": "Symptoms",
+        "questionNum": 28,
         "question": "In general, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in your community, and responsibilities as a parent, child, spouse, employee, friend, etc.)",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
@@ -602,6 +632,7 @@
       },
       {
         "title": "Symptoms",
+        "questionNum": 29,
         "question": "In the past 7 days, how often have you been bothered by emotional problems such as feeling anxious, depressed or irritable?",
         "options": ["Never", "Rarely", "Sometimes", "Often", "Always"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
@@ -617,6 +648,7 @@
     [
       {
         "title": "Patient Health",
+        "questionNum": 30,
         "question": "Over the last two weeks, how often have you been bothered by the following problems?",
         "scale": [
           "Not at all",
@@ -647,9 +679,9 @@
     [
       {
         "title": "Medical Conditions",
+        "questionNum": 31,
         "question": "Since the beginning of 2020, has a health care provider given you a new diagnosis of any of the following conditions?",
         "options": [
-          "No new diagnoses since the beginning of 2020",
           "Heart problems, such as heart failure or arrhythmia (e.g., “atrial fibrillation”)",
           "Lung problems, such as asthma, COPD, fibrosis or interstitial lung disease",
           "Blood clots in the lung (“pulmonary embolism”), leg or arm (“deep vein thrombosis”)",
@@ -669,7 +701,8 @@
             "title": "Other",
             "placeholder": "Enter condition"
           },
-          "Not sure"
+          "Not sure",
+          "No new diagnoses since the beginning of 2020"
         ],
         "answerFormat": [
           "multichoice",
@@ -686,8 +719,8 @@
           "multichoice",
           "multichoice",
           "multichoice",
-          "multichoice",
           "input",
+          "multichoice",
           "multichoice"
         ],
         "answer": null,
@@ -700,6 +733,7 @@
       },
       {
         "title": "Medical Conditions",
+        "questionNum": 32,
         "question": "Do you think that you are experiencing, or have ever experienced, what has been called “long COVID,” or symptoms related to COVID at least a month after your infection?",
         "options": ["Yes", "No", "Do not know"],
         "answerFormat": ["choice", "choice", "choice"],
@@ -715,6 +749,7 @@
     [
       {
         "title": "Social Determinants",
+        "questionNum": 33,
         "question": "Do you currently have some form of health insurance to help pay for medical bills?",
         "options": ["Yes", "No"],
         "answerFormat": ["choice", "choice"],
@@ -728,7 +763,8 @@
       },
       {
         "title": "Social Determinants",
-        "question": "In the past month, how difficult it has been to pay for the things you need (or you and your family needs)?",
+        "questionNum": 34,
+        "question": "In the past month, how difficult has it been to pay for the things you need (or you and your family needs)?",
         "options": [
           "Very difficult",
           "Somewhat difficult",
@@ -747,6 +783,7 @@
       },
       {
         "title": "Social Determinants",
+        "questionNum": 35,
         "question": "What is your current work situation?",
         "options": [
           "Working outside of the home",
@@ -786,7 +823,8 @@
     [
       {
         "title": "Create Account",
-        "question": "In order to better understand Long COVID, we would like to check in to see how your COVID experience changes over time. To participate, enter your email and desired password.",
+        "questionNum": 36,
+        "question": "In order to better understand Long COVID, we would like to check in to see how your COVID experience changes over time. To participate, enter your desired password to continue creating your account.\n\nIf you would like to skip creating an account and continue submitting your survey response, just click the skip button!",
         "options": null,
         "answer": null,
         "answerFormat": "account",
@@ -800,7 +838,8 @@
       },
       {
         "title": "Thank You",
-        "question": "Thank you for participating in the Johns Hopkins Long COVID survey. You will be emailed with a receipt of your survey entry shortly!",
+        "questionNum": 37,
+        "question": "Thank you for participating in our Long COVID survey. You will be emailed with a receipt of your survey entry shortly!",
         "options": null,
         "answer": null,
         "answerFormat": "thankYou",

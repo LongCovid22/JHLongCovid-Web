@@ -55,10 +55,10 @@ export const AboutUs = () => {
           style={{
             background: "white",
             minWidth: 410,
-            maxWidth: 750,
+            maxWidth: 800,
             borderRadius: "35px",
-            minHeight: height * 0.35,
-            height: height < 720 ? height * 0.85 : "690px",
+            minHeight: height * 0.45,
+            height: height < 720 ? height * 0.85 : "800px",
           }}
           mx="10px"
           containerProps={{
@@ -85,8 +85,8 @@ export const AboutUs = () => {
               paddingTop: "0px",
             }}
           >
-            <VStack spacing={10} w="100%" align={"start"}>
-              <Text>
+            <VStack spacing={5} w="100%" align={"start"}>
+              <Text fontSize={"lg"}>
                 Our team at Johns Hopkins is passionate about helping to better
                 understand the prevalence and impact of long covid in the United
                 States. We saw an opportunity to gather valuable information by
@@ -95,6 +95,10 @@ export const AboutUs = () => {
                 symptoms they may be facing. We are committed to using this tool
                 to not only gather important data, but also to provide support
                 and resources to those affected by long covid.
+              </Text>
+              <Text fontSize={"lg"} fontWeight="semibold">
+                A special thank you to the C4R project for providing us with
+                content for the Long COVID survey.
               </Text>
               <VStack spacing={5} w="100%" align={"start"}>
                 <Heading size={"sm"}>Team Members</Heading>
