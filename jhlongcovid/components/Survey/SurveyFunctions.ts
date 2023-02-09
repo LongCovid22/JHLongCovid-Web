@@ -184,7 +184,6 @@ export const parseHeightIntoInches = (height: string) => {
   if (height.length === 2) {
     let feet = parseInt(height.split("")[0]);
     let inches = parseInt(height.split("")[1]);
-    console.log(feet * 12 + inches);
     return (feet * 12 + inches).toString();
   } else if (height.length === 1) {
     return (parseInt(height) * 12).toString();
@@ -228,7 +227,6 @@ export const createCovidEntry = async (
       return cEntry.data.createCovidEntry.id;
     }
   } catch (error) {
-    console.log("Mutation result: ", error);
     let mutation = error as { data?: CreateCovidEntryMutation; errors: any[] };
     if (mutation.data && mutation.data.createCovidEntry) {
       return mutation.data.createCovidEntry.id;

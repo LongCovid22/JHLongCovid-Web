@@ -141,7 +141,6 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       capitalizeFirstLetters(getMostCommonSymptom(summary.symptomCounts))
     );
     setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
-    console.log(summary.qualityOfLife);
     setQOLConfig(
       createTotalsChartConfig(
         summary.qualityOfLife,

@@ -3694,7 +3694,7 @@ const updateCovidSummary = (eventInput, county, state, indexes) => {
       }
 
       // If the user has been infected, then we can update the other properties
-      if (covidResults.beenInfected) {
+      if (covidResults.beenInfected === true) {
         if (checkNotNullNumberGreaterThanZero(covidResults.timesPositive)) {
           let prop = resolveOneToThreePlus(covidResults.timesPositive);
           objectsToUpdate.push(timesPositive[prop]);
@@ -3783,7 +3783,7 @@ const updateRecoverySummary = (eventInput, county, state, indexes) => {
     };
   }
 
-  if (recoveryResults === null) {
+  if (recoveryResults === null || !recoveryResults) {
     return;
   }
 
@@ -3852,7 +3852,7 @@ const updateVaccinationSummary = (eventInput, county, state, indexes) => {
     };
   }
 
-  if (vaccinationResults === null) {
+  if (vaccinationResults === null || !vaccinationResults) {
     return;
   }
 
@@ -4002,7 +4002,7 @@ const updateSymptomSummary = (eventInput, county, state, indexes) => {
     };
   }
 
-  if (symptomResults === null) {
+  if (symptomResults === null || !symptomResults) {
     return;
   }
 
@@ -4089,7 +4089,7 @@ const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
     };
   }
 
-  if (symptomResults === null) {
+  if (symptomResults === null || !symptomResults) {
     return;
   }
 
@@ -4158,7 +4158,7 @@ const updatePatientHealthSummary = (eventInput, county, state, indexes) => {
     };
   }
 
-  if (patientHealthResults === null) {
+  if (patientHealthResults === null || !patientHealthResults) {
     return;
   }
 
@@ -4248,7 +4248,7 @@ const updateSocialSummary = (eventInput, county, state, indexes) => {
     };
   }
 
-  if (socialDeterminantsResults === null) {
+  if (socialDeterminantsResults === null || !socialDeterminantsResults) {
     return;
   }
 

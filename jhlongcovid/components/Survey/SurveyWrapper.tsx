@@ -310,6 +310,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       }
 
       let ids;
+
       // Save survey entries
       try {
         ids = await saveEntries(locationData, entries, userInfo, user);

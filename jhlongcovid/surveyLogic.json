@@ -496,7 +496,7 @@
     [
       {
         "title": "Symptoms",
-        "question": "During the past month, have you had any of the following symptoms? If yes, please tell us if the symptom was mild (not very bothersome), moderate (somewhat bothersome), or severe (very bothersome)",
+        "question": "During the past month, have you had any of the following symptoms?",
         "answerFormat": [
           "multichoice",
           "multichoice",

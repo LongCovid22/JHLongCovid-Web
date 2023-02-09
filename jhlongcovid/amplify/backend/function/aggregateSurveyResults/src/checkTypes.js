@@ -20,7 +20,7 @@ const checkNotAtAllToVeryMuchType = (num) => {
 };
 
 const checkYesNoDoNotKnowType = (num) => {
-  return num === "yes" || num === "no" || yes === "doNotKnow";
+  return num === "yes" || num === "no" || num === "doNotKnow";
 };
 
 const checkMedicationsTakenType = (arr) => {
