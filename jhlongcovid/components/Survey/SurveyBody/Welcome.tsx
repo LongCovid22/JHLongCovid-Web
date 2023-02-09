@@ -24,15 +24,17 @@ export const Welcome: React.FC<SurveyQuestionProps> = ({ currentQuestion }) => {
       {/* <VStack w={"100%"} spacing="20px" h={"100%"}> */}
       <LottieInfinite animationData={CovidAnimation} loop={false} />
       <VStack w={"80%"}>
-        <UnorderedList w={"100%"} spacing={"15px"}>
+        <VStack w={"100%"} spacing={"15px"}>
           {currentQuestion.options.map((key: any, value: any) => {
             return (
               <Fade key={value} in={true} delay={1.0 * value}>
-                <ListItem w={"100%"}>{key}</ListItem>
+                <Text w={"100%"} fontSize="xl">
+                  {key}
+                </Text>
               </Fade>
             );
           })}
-        </UnorderedList>
+        </VStack>
         {/* </VStack> */}
       </VStack>
     </VStack>

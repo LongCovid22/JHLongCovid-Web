@@ -14,8 +14,8 @@ export const Account: React.FC<SurveyQuestionProps> = ({
 }) => {
   return (
     <>
-      <VStack height={"100%"} spacing={"15px"}>
-        <Text fontSize={"md"} fontWeight={"regular"}>
+      <VStack height={"100%"} spacing={"25px"}>
+        <Text fontSize={"lg"} fontWeight={"regular"}>
           {currentQuestion.question}
         </Text>
         <AuthenticationForm

@@ -61,7 +61,7 @@ export const TotpForm: React.FC<TotpProps> = ({
             Setup MFA
           </Heading>
         )}
-        <Text>
+        <Text fontSize={"lg"}>
           Scan the below bar code using your authenticator app of choice (e.g.
           Google Authenticator)
         </Text>
@@ -70,6 +70,7 @@ export const TotpForm: React.FC<TotpProps> = ({
       <HStack spacing={3} width="100%">
         <Spacer />
         <Button
+          fontSize={"lg"}
           colorScheme="heritageBlue"
           borderRadius={500}
           onClick={() => {

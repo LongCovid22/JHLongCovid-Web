@@ -45,7 +45,7 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
           position="sticky"
           key={`${value}-prompt-${i}`}
         >
-          <Text fontSize={"sm"}>{value}</Text>
+          <Text fontSize={"lg"}>{value}</Text>
         </GridItem>
       );
       gridItems.push(
@@ -58,6 +58,7 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
               handleScaleChange(i, val);
             }}
             value={scaleValues[i]}
+            size="lg"
           >
             <Grid
               templateColumns={`repeat(${currentQuestion.scale.length}, 1fr)`}
@@ -95,7 +96,9 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
         zIndex={1}
         mb={"25px"}
       >
-        <Text w="100%">{currentQuestion.question}</Text>
+        <Text w="100%" fontSize={"lg"}>
+          {currentQuestion.question}
+        </Text>
         <Grid
           w="100%"
           templateColumns={`repeat(${currentQuestion.scale.length * 2}, 1fr)`}
@@ -109,7 +112,7 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
               <GridItem key={scaleI}>
                 <Flex h={"100%"} direction={"column"}>
                   <Spacer />
-                  <Text fontSize={"14"} align={"center"}>
+                  <Text fontSize={"lg"} align={"center"}>
                     {value}
                   </Text>
                   <Spacer />
@@ -126,6 +129,7 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
         templateRows={`repeat(${currentQuestion.options.length + 1}, 1fr)`}
         gap={4}
         zIndex={0}
+        mt="20px"
       >
         {ScaleQuestionGridItems(currentQuestion)}
       </Grid>

@@ -90,13 +90,14 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
   }, [currentAnswer]);
 
   return (
-    <VStack width={"100%"} height={"100%"} spacing={"20px"}>
-      <Text fontSize={"md"} fontWeight={"regular"} w="100%">
+    <VStack width={"100%"} height={"100%"} spacing={"20px"} fontSize="18px">
+      <Text fontSize={"lg"} fontWeight={"regular"} w="100%">
         {currentQuestion.question}
       </Text>
       <FormControl isInvalid={zipError}>
-        <FormLabel>Zip code</FormLabel>
+        <FormLabel fontSize={"18px"}>Zip code</FormLabel>
         <Input
+          fontSize={"18px"}
           type={"text"}
           placeholder={"Enter zip code"}
           focusBorderColor={"clear"}
@@ -115,8 +116,9 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
       </FormControl>
       <HStack w="100% ">
         <FormControl>
-          <FormLabel>Age</FormLabel>
+          <FormLabel fontSize={"18px"}>Age</FormLabel>
           <NumberInput
+            fontSize={"18px"}
             defaultValue={18}
             min={1}
             max={110}
@@ -125,7 +127,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
               handleAnswerChange("age", val);
             }}
           >
-            <NumberInputField />
+            <NumberInputField fontSize={"18px"} />
             <NumberInputStepper>
               <NumberIncrementStepper />
               <NumberDecrementStepper />
@@ -133,8 +135,9 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
           </NumberInput>
         </FormControl>
         <FormControl>
-          <FormLabel>Sex</FormLabel>
+          <FormLabel fontSize={"18px"}>Sex</FormLabel>
           <Select
+            fontSize={"18px"}
             value={demos.sex}
             onChange={(event) => {
               handleAnswerChange("sex", event.target.value);
@@ -148,7 +151,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
       </HStack>
       <HStack w="100%">
         <FormControl>
-          <FormLabel>Height</FormLabel>
+          <FormLabel fontSize={"18px"}>Height</FormLabel>
           <HStack>
             <PinInput
               value={demos.height}
@@ -164,9 +167,10 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
           </HStack>
         </FormControl>
         <FormControl>
-          <FormLabel>Weight</FormLabel>
+          <FormLabel fontSize={"18px"}>Weight</FormLabel>
           <HStack>
             <Input
+              fontSize={"18px"}
               placeholder="Enter weight"
               value={demos.weight}
               onChange={(event) => {
@@ -178,12 +182,13 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
         </FormControl>
       </HStack>
       <FormControl>
-        <FormLabel>Race</FormLabel>
+        <FormLabel fontSize={"18px"}>Race</FormLabel>
         <RadioGroup
           value={demos.race}
           onChange={(val) => {
             handleAnswerChange("race", val);
           }}
+          size="lg"
         >
           <Grid templateColumns="repeat(2, 1fr)" gap={3}>
             <GridItem>

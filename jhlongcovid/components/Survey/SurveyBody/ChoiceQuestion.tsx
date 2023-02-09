@@ -44,7 +44,7 @@ const Choices = (
             const option = options[key];
             if (`${af}` === "choice") {
               return (
-                <Radio key={key} value={option}>
+                <Radio key={key} value={option} size="lg" fontSize="18px">
                   {option}
                 </Radio>
               );
@@ -52,12 +52,13 @@ const Choices = (
               return (
                 <Stack direction={"column"} width={"100%"} key={key}>
                   <FormControl isInvalid={inputError}>
-                    <FormLabel>{option.title}</FormLabel>
+                    <FormLabel fontSize={"lg"}>{option.title}</FormLabel>
                     <Input
                       value={inputValue}
                       width={"50%"}
                       placeholder={option.placeholder}
                       type={option.type}
+                      fontSize={"lg"}
                       max={
                         option.type === "date"
                           ? new Date(
@@ -140,7 +141,7 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
 
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>
-      <Text fontSize={"md"} fontWeight={"regular"} width={"100%"}>
+      <Text fontSize={"lg"} fontWeight={"regular"} width={"100%"}>
         {currentQuestion.question}
       </Text>
       <VStack spacing={"15px"} width={"100%"}>

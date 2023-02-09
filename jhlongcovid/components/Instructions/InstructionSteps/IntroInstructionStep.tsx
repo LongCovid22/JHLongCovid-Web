@@ -17,7 +17,7 @@ export const IntroInstructionStep: React.FC<InstructionStepProps> = ({
         Welcome to the Johns Hopkins Long-COVID Dashboard!
       </Text>
 
-      <VStack w={"70%"} spacing="20px" fontSize={"17px"}>
+      <VStack w={"70%"} spacing="20px" fontSize={"lg"}>
         <Text>
           This dashboard is designed to help understand your long-term COVID-19
           symptoms and how they may be related to your health and lifestyle.

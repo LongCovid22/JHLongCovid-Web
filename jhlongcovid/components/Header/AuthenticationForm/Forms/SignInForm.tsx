@@ -87,8 +87,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({
           </Heading>
         )}
         <FormControl>
-          <FormLabel>Email</FormLabel>
+          <FormLabel fontSize={"lg"}>Email</FormLabel>
           <Input
+            fontSize={"lg"}
             placeholder="Enter email"
             value={email}
             onChange={(event) => {
@@ -97,8 +98,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({
           />
         </FormControl>
         <FormControl>
-          <FormLabel>Password</FormLabel>
+          <FormLabel fontSize={"lg"}>Password</FormLabel>
           <Input
+            fontSize={"lg"}
             type="password"
             placeholder="Enter password"
             value={password}
@@ -117,6 +119,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
       <HStack spacing={3} width="100%">
         <Spacer />
         <Button
+          fontSize={"lg"}
           background={"spiritBlue.100"}
           color={"heritageBlue.500"}
           borderRadius={500}
@@ -128,6 +131,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
         </Button>
 
         <Button
+          fontSize={"lg"}
           colorScheme="heritageBlue"
           isLoading={performingQueries}
           borderRadius={500}
