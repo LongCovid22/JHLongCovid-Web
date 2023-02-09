@@ -485,7 +485,7 @@
       {
         "title": "Global Health",
         "questionNum": 23,
-        "question": "In the past 7 days, how would you rate your fatigue on average?",
+        "question": "In the past 7 days, how would you rate you fatigue (extreme tiredness resulting from mental or physical exertion or illness) on average?",
         "options": ["None", "Mild", "Moderate", "Severe", "Very Severe"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
         "answer": null,
