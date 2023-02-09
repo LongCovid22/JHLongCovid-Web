@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { SignInForm } from "./Forms/SignInForm";
 import { SignUpForm } from "./Forms/SignUpForm";
 import { TotpForm } from "./Forms/TotpForm";
@@ -35,6 +35,12 @@ export const AuthenticationForm: React.FC<{
   >("SignIn");
   const [qrString, setQRString] = useState("");
   const [user, setUser] = useState<undefined | CognitoUser>(undefined);
+
+  useEffect(() => {
+    if (userInfo) {
+      setEmail(userInfo.email);
+    }
+  }, []);
 
   const renderFormBasedOnAuthState = useCallback(() => {
     switch (authState) {

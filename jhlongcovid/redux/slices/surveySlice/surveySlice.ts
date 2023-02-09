@@ -16,6 +16,7 @@ export type SurveyState = {
   answerStack: any[];
   lastQuestion: boolean;
   firstQuestion: boolean;
+  totalQuestions: number;
 };
 
 const initialState: SurveyState = {
@@ -27,6 +28,7 @@ const initialState: SurveyState = {
   answerStack: [], // ["true", "2"]
   lastQuestion: false,
   firstQuestion: true,
+  totalQuestions: surveyLogic.totalQuestions,
 };
 
 const checkIfLastQuestion = (
@@ -264,6 +266,10 @@ export const selectAnswerStack = (state: RootState) => {
 export const selectQuestions = (state: RootState) => {
   const survey: SurveyState = state.survey as SurveyState;
   return survey.questions;
+};
+export const selectTotalQuestions = (state: RootState) => {
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.totalQuestions;
 };
 
 export default surveySlice.reducer;

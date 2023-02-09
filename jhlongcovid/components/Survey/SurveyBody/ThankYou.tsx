@@ -15,6 +15,7 @@ import {
   Flex,
   Icon,
   Center,
+  Image,
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
 import { CheckCircleIcon } from "@chakra-ui/icons";
@@ -27,28 +28,30 @@ export const ThankYou: React.FC<SurveyQuestionProps> = ({
 }) => {
   return (
     <>
-      <VStack height={"100%"} spacing={"15px"}>
-        <Text fontSize={"md"} fontWeight={"regular"}>
-          {currentQuestion.question}
-        </Text>
-        <Spacer />
-        <Flex direction={"column"} w={"100%"} h="100%">
-          {/* <CheckCircleIcon color="green.300" w={"200px"} h={"200px"} /> */}
-          <Center w={"100%"} h="75%">
-            <Lottie
-              animationData={GreenCheck}
-              style={{
-                width: "45%",
-                height: "95%",
-              }}
-              rendererSettings={{
-                imagePreserveAspectRatio: "none",
-                preserveAspectRatio: "none",
-              }}
-              loop={false}
-            />
-          </Center>
-        </Flex>
+      <VStack
+        height={"100%"}
+        width={"100%"}
+        textAlign="center"
+        spacing={"45px"}
+      >
+        <Image
+          src="./bloomberg.logo.vertical.blue.jpg"
+          alt="Hopkins Logo"
+          w={"300px"}
+          mt="5px"
+        />
+        <CheckCircleIcon
+          boxSize={"75"}
+          color="green.300"
+          animation={"ease-in"}
+        />
+
+        <VStack w={"70%"} spacing="20px" fontSize={"xl"}>
+          <Text fontSize={"4xl"} fontWeight={"bold"}>
+            Thank You!
+          </Text>
+          <Text>{currentQuestion.question}</Text>
+        </VStack>
         <Spacer />
       </VStack>
     </>

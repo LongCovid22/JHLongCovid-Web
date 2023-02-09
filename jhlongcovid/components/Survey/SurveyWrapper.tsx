@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Button,
   Flex,
@@ -28,6 +28,7 @@ import {
   selectIslastQuestion,
   selectQuestions,
   selectQuestionStack,
+  selectTotalQuestions,
 } from "../../redux/slices/surveySlice/surveySlice";
 import { processEntries } from "../../redux/slices/surveySlice/surveySliceFunctions";
 //survey component templates
@@ -61,7 +62,7 @@ interface SurveyWrapperProps {
 }
 
 export type UserInfo = {
-  name: string;
+  email: string;
   age: string;
   zip: string;
   race: string;
@@ -162,6 +163,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const questionStack = useAppSelector(selectQuestionStack);
   const answerStack = useAppSelector(selectAnswerStack);
   const questions = useAppSelector(selectQuestions);
+  const totalQuestions = useAppSelector(selectTotalQuestions);
   const dispatch = useAppDispatch();
   const [performingQueries, setPerformingQueries] = useState(false);
   const [answer, setAnswer] = useState<string | string[] | object | null>(
@@ -170,7 +172,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
   // state to keep track of user info filled out throughout the survey
   const [userInfo, setUserInfo] = useState<UserInfo>({
-    name: "",
+    email: "",
     age: "",
     zip: "",
     race: "",
@@ -264,7 +266,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         const userInfoUpdate = { ...userInfo };
 
         if (currentQuestion.answerFormat === "consent") {
-          userInfoUpdate.name = answer as string;
+          userInfoUpdate.email = answer as string;
           setUserInfo(userInfoUpdate);
         } else if (currentQuestion.answerFormat === "demographics") {
           const a = answer as {
@@ -363,11 +365,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     if (currentQuestion.answerFormat === "account" && user) {
       handleQuestionChange("next");
     }
-    setIsFinalSection(
-      currentQuestion.answerFormat === "mfa" ||
-        currentQuestion.answerFormat === "thankYou" ||
-        currentQuestion.answerFormat === "account"
-    );
+    setIsFinalSection(currentQuestion.answerFormat === "thankYou");
   }, [currentQuestion]);
 
   // Reset wrapper values for next question
@@ -389,120 +387,155 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   //   }
   // }, [user]);
 
-  return (
-    <ModalContent
-      style={{
-        background: "white",
-        width: width < 700 ? 410 : width * 0.6,
-        minWidth: 410,
-        maxWidth: 1000,
-        minHeight: height * 0.6,
-        height: height < 720 ? height * 0.85 : "650px",
-        borderRadius: "35px",
-      }}
-      containerProps={{
-        overflow: "hidden",
-      }}
-    >
-      <ModalHeader>
-        <Flex>
-          <Text fontSize={"2xl"}>
-            {!preSurvey ? currentQuestion.title : ""}
-          </Text>
-          <Spacer />
-          <CloseButton
-            size={"md"}
-            bgColor="spiritBlue.100"
-            color={"heritageBlue.600"}
+  const renderNextButton = (
+    currentQuestion: any,
+    preSurvey: boolean,
+    performingQueries: boolean,
+    isLastQuestion: boolean
+  ) => {
+    if (currentQuestion.answerFormat !== "account") {
+      if (!preSurvey) {
+        return (
+          <Button
+            colorScheme="heritageBlue"
+            borderRadius={500}
+            isLoading={performingQueries}
+            onClick={() =>
+              isLastQuestion
+                ? handleQuestionChange("finish")
+                : handleQuestionChange("next")
+            }
+            fontSize="lg"
+          >
+            {isLastQuestion ? "Finish" : "Next"}
+          </Button>
+        );
+      } else {
+        return (
+          <Button
+            background={"spiritBlue.100"}
+            color={"heritageBlue.500"}
+            borderRadius={500}
             onClick={() => {
-              onClose();
               dispatch(initQuestions({ authId: null }));
+              setPreSurvey(false);
             }}
-          />
-        </Flex>
-      </ModalHeader>
-      <ModalBody
+            fontSize="lg"
+          >
+            Continue as guest
+          </Button>
+        );
+      }
+    }
+  };
+
+  return (
+    <>
+      <ModalContent
         style={{
-          overflowY: "auto",
-          paddingTop: "0px",
+          background: "white",
+          width: width < 700 ? 410 : width * 0.6,
+          minWidth: 410,
+          maxWidth: 1000,
+          minHeight: height * 0.6,
+          height: height < 720 ? height * 0.85 : "650px",
+          borderRadius: "35px",
+        }}
+        containerProps={{
+          overflow: "hidden",
         }}
       >
-        {!preSurvey ? (
-          <Body
-            currentQuestion={currentQuestion}
-            userInfo={userInfo}
-            setAnswer={setAnswer}
-            setErrorPresent={setErrorPresent}
-            setErrorText={setErrorText}
-            onVerify={() => handleQuestionChange("next")}
-          />
-        ) : (
-          <PreSurvey
-            dismissPreSurvey={() => {
-              setPreSurvey(false);
-              dispatch(initQuestions({ authId: null }));
-            }}
-          />
-        )}
-      </ModalBody>
-      <ModalFooter>
-        <HStack>
-          {(missingAnswer || errorPresent) && !preSurvey && (
-            <Text fontSize={"14px"} color={"red"}>
-              {errorText}
+        <ModalHeader>
+          <Flex>
+            <Text fontSize={"2xl"}>
+              {!preSurvey && currentQuestion.answerFormat !== "thankYou"
+                ? currentQuestion.title
+                : ""}
             </Text>
-          )}
-          {currentQuestion.answerFormat === "account" && !preSurvey && (
-            <Button
-              background={"spiritBlue.100"}
-              color={"heritageBlue.500"}
-              borderRadius={500}
+            <Spacer />
+            <CloseButton
+              size={"md"}
+              bgColor="spiritBlue.100"
+              color={"heritageBlue.600"}
               onClick={() => {
-                handleQuestionChange("skip");
-              }}
-            >
-              Skip
-            </Button>
-          )}
-          {!isFirstQuestion && !isFinalSection && !preSurvey && (
-            <Button
-              colorScheme="heritageBlue"
-              borderRadius={500}
-              onClick={() => {
-                handleQuestionChange("prev");
-              }}
-            >
-              Prev
-            </Button>
-          )}
-          {!preSurvey ? (
-            <Button
-              colorScheme="heritageBlue"
-              borderRadius={500}
-              isLoading={performingQueries}
-              onClick={() =>
-                isLastQuestion
-                  ? handleQuestionChange("finish")
-                  : handleQuestionChange("next")
-              }
-            >
-              {isLastQuestion ? "Finish" : "Next"}
-            </Button>
-          ) : (
-            <Button
-              background={"spiritBlue.100"}
-              color={"heritageBlue.500"}
-              borderRadius={500}
-              onClick={() => {
+                onClose();
                 dispatch(initQuestions({ authId: null }));
-                setPreSurvey(false);
               }}
-            >
-              Continue as guest
-            </Button>
+            />
+          </Flex>
+        </ModalHeader>
+        <ModalBody
+          style={{
+            overflowY: "auto",
+            paddingTop: "0px",
+          }}
+        >
+          {!preSurvey ? (
+            <Body
+              currentQuestion={currentQuestion}
+              userInfo={userInfo}
+              setAnswer={setAnswer}
+              setErrorPresent={setErrorPresent}
+              setErrorText={setErrorText}
+              onVerify={() => handleQuestionChange("next")}
+            />
+          ) : (
+            <PreSurvey
+              dismissPreSurvey={() => {
+                setPreSurvey(false);
+                dispatch(initQuestions({ authId: null }));
+              }}
+            />
           )}
-        </HStack>
-      </ModalFooter>
-    </ModalContent>
+        </ModalBody>
+        <ModalFooter>
+          {currentQuestion.questionNum !== 0 &&
+            currentQuestion.questionNum <= totalQuestions && (
+              <Text
+                color={"gray.400"}
+              >{`Step ${currentQuestion.questionNum} of ${totalQuestions}`}</Text>
+            )}
+          <Spacer />
+          <HStack>
+            {(missingAnswer || errorPresent) && !preSurvey && (
+              <Text fontSize={"14px"} color={"red"}>
+                {errorText}
+              </Text>
+            )}
+            {currentQuestion.answerFormat === "account" && !preSurvey && (
+              <Button
+                background={"spiritBlue.100"}
+                color={"heritageBlue.500"}
+                borderRadius={500}
+                onClick={() => {
+                  handleQuestionChange("skip");
+                }}
+                fontSize="lg"
+              >
+                Skip
+              </Button>
+            )}
+            {!isFirstQuestion && !isFinalSection && !preSurvey && (
+              <Button
+                colorScheme="heritageBlue"
+                borderRadius={500}
+                onClick={() => {
+                  handleQuestionChange("prev");
+                }}
+                fontSize="lg"
+              >
+                Prev
+              </Button>
+            )}
+            {renderNextButton(
+              currentQuestion,
+              preSurvey,
+              performingQueries,
+              isLastQuestion
+            )}
+          </HStack>
+        </ModalFooter>
+      </ModalContent>
+    </>
   );
 };

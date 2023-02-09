@@ -11,7 +11,7 @@ export const SurveyInstructionStep: React.FC<InstructionStepProps> = ({
 
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"} fontSize="17px">
-      <Text fontWeight={"regular"} width={"100%"}>
+      <Text fontWeight={"regular"} width={"100%"} fontSize="lg">
         To participate in our survey, just hit the participate button!
       </Text>
       {videoLoading && <Spinner color="heritageBlue.500" />}

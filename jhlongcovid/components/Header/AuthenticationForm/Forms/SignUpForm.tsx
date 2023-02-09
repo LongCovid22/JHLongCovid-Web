@@ -76,17 +76,11 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   };
 
   const handleSignUp = async () => {
-    let attributes: { name: string } = { name: "" };
-    if (userInfo) {
-      attributes.name = userInfo.name;
-    }
-
     setPerformingQueries(true);
     try {
       await Auth.signUp({
         username: email,
         password: confirmPass,
-        attributes: attributes,
       });
       setPerformingQueries(false);
       setVerifType("SignUp");
@@ -143,8 +137,9 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           </Heading>
         )}
         <FormControl isInvalid={!validEmail}>
-          <FormLabel>Email Address</FormLabel>
+          <FormLabel fontSize={"lg"}>Email Address</FormLabel>
           <Input
+            fontSize={"lg"}
             value={email}
             type="email"
             placeholder="Enter email "
@@ -158,9 +153,10 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           )}
         </FormControl>
         <FormControl isInvalid={!validPassword || !passwordsMatch}>
-          <FormLabel>Password</FormLabel>
+          <FormLabel fontSize={"lg"}>Password</FormLabel>
           <Input
             value={password}
+            fontSize={"lg"}
             type="password"
             placeholder="Enter password "
             colorScheme="heritageBlue"
@@ -174,9 +170,10 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           )}
         </FormControl>
         <FormControl isInvalid={!passwordsMatch}>
-          <FormLabel>Confrim Password</FormLabel>
+          <FormLabel fontSize={"lg"}>Confrim Password</FormLabel>
           <Input
             value={confirmPass}
+            fontSize={"lg"}
             type="password"
             placeholder="Enter confirm password "
             colorScheme="heritageBlue"
@@ -197,6 +194,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         <Spacer />
         {!midSurvey && (
           <Button
+            fontSize={"lg"}
             background={"spiritBlue.100"}
             color={"heritageBlue.500"}
             borderRadius={500}
@@ -210,6 +208,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         <Button
           colorScheme="heritageBlue"
           borderRadius={500}
+          fontSize={"lg"}
           isLoading={performingQueries}
           onClick={(event) => {
             handleSignUp();
