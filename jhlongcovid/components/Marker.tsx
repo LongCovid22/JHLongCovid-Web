@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { calculatePanelOffset } from "./Map/mapFunctions";
 import { useAppDispatch } from "../redux/hooks";
-import { setLeftSidePanelPres } from "../redux/slices/presentationSlice";
+import {
+  selectLeftSidePanelPres,
+  setLeftSidePanelPres,
+} from "../redux/slices/presentationSlice";
 import { medicalConditionsMap } from "./Survey/SurveyFunctions";
+import { useAppSelector } from "../redux/hooks";
 
 interface CircleProps extends google.maps.CircleOptions {
   data: any;
@@ -18,6 +22,7 @@ export const Marker: React.FC<CircleProps> = ({
   setSelectedData,
   ...options
 }) => {
+  const presentedSideMenu = useAppSelector(selectLeftSidePanelPres);
   const [marker, setMarker] = React.useState<google.maps.Circle>();
   const [infoWindow, setInfowWindow] = React.useState<google.maps.InfoWindow>();
   const dispatch = useAppDispatch();
@@ -80,6 +85,15 @@ export const Marker: React.FC<CircleProps> = ({
       marker.setOptions(options);
 
       google.maps.event.addListener(marker, "mouseover", function () {
+        marker.setOptions({
+          // radius: 10000,
+          strokeColor: "#A6192E",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#A6192E",
+          fillOpacity: 0.35,
+        });
+
         if (infoWindow !== undefined) {
           infoWindow.setPosition(marker.getCenter());
           infoWindow.open({
@@ -91,6 +105,20 @@ export const Marker: React.FC<CircleProps> = ({
         }
       });
 
+      google.maps.event.addListener(marker, "mouseout", function () {
+        marker.setOptions({
+          // radius: 10000,
+          strokeColor: "#68ACE5",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#68ACE5",
+          fillOpacity: 0.35,
+        });
+        if (infoWindow !== undefined) {
+          infoWindow.close();
+        }
+      });
+
       // Pan to marker on marker click
       google.maps.event.addListener(marker, "click", async function () {
         if (options.map !== null && options.map !== undefined) {
@@ -99,6 +127,15 @@ export const Marker: React.FC<CircleProps> = ({
 
           setSelectedData(data);
           dispatch(setLeftSidePanelPres(true));
+
+          marker.setOptions({
+            // radius: 10000,
+            strokeColor: "#A6192E",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: "#A6192E",
+            fillOpacity: 0.35,
+          });
 
           if (data.level == "county") {
             options.map.setZoom(11);
@@ -120,18 +157,18 @@ export const Marker: React.FC<CircleProps> = ({
           });
         }
 
-        setTimeout(() => {
-          if (infoWindow !== undefined) {
-            infoWindow.close();
-          }
-        }, 3000);
+        // setTimeout(() => {
+        //   if (infoWindow !== undefined) {
+        //     infoWindow.close();
+        //   }
+        // }, 3000);
       });
 
-      google.maps.event.addListener(marker, "mouseout", function () {
-        if (infoWindow !== undefined) {
-          infoWindow.close();
-        }
-      });
+      // google.maps.event.addListener(marker, "mouseout", function () {
+      //   if (infoWindow !== undefined) {
+      //     infoWindow.close();
+      //   }
+      // });
 
       let new_marker_data = markerData;
 
