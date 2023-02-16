@@ -11,6 +11,11 @@ import {
   Spacer,
   FormLabel,
   FormErrorMessage,
+  Slider,
+  SliderMark,
+  SliderTrack,
+  SliderThumb,
+  SliderFilledTrack,
 } from "@chakra-ui/react";
 import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
 import { useAppSelector } from "../../../redux/hooks";
@@ -28,29 +33,86 @@ const Choices = (
   inputValue: string,
   inputError: boolean
 ) => {
+  const getTextAlignment = (index: number, total: number) => {
+    if (index === 0) {
+      return "start";
+    } else if (index === total - 1) {
+      return "end";
+    } else {
+      return "center";
+    }
+  };
+
   return (
     <FormControl isInvalid={inputError}>
       <FormLabel fontSize={"lg"}>{options.title}</FormLabel>
-      <Input
-        value={inputValue}
-        width={"50%"}
-        type={options.type}
-        placeholder={options.placeholder}
-        focusBorderColor="clear"
-        fontSize={"lg"}
-        max={
-          options.type === "date"
-            ? new Date(new Date().setDate(new Date().getDate() - 1))
-                .toISOString()
-                .split("T")[0]
-            : undefined
-        }
-        onChange={(event) => {
-          setValue(event.target.value, options.validation);
-        }}
-      />
-      {inputError && options.validation && (
-        <FormErrorMessage>{options.validation.errorText}</FormErrorMessage>
+      {options.type === "text" ? (
+        <>
+          <Input
+            value={inputValue}
+            width={"50%"}
+            type={options.type}
+            placeholder={options.placeholder}
+            focusBorderColor="clear"
+            fontSize={"lg"}
+            max={
+              options.type === "date"
+                ? new Date(new Date().setDate(new Date().getDate() - 1))
+                    .toISOString()
+                    .split("T")[0]
+                : undefined
+            }
+            onChange={(event) => {
+              setValue(event.target.value, options.validation);
+            }}
+          />
+          {inputError && options.validation && (
+            <FormErrorMessage>{options.validation.errorText}</FormErrorMessage>
+          )}
+        </>
+      ) : (
+        <Slider
+          aria-label="survey-slider"
+          onChange={(value) => {
+            setValue(`${value}`);
+          }}
+          min={options.sliderProps.min}
+          max={options.sliderProps.max}
+          value={parseInt(inputValue) || options.sliderProps.default}
+          step={options.sliderProps.step}
+          maxW={"50%"}
+          minW="325px"
+        >
+          {options.sliderMarks.map((mark: any, key: number) => {
+            return (
+              <SliderMark
+                value={key + 1}
+                mt="10px"
+                ml={key === 0 ? "-2px" : "-4.5px"}
+                key={key}
+              >
+                <VStack>
+                  <Text>{mark.value}</Text>
+                  <Text
+                    color={"gray.400"}
+                    position="absolute"
+                    top={"15px"}
+                    alignSelf={getTextAlignment(
+                      key,
+                      options.sliderMarks.length
+                    )}
+                  >
+                    {mark.secondaryLabel}
+                  </Text>
+                </VStack>
+              </SliderMark>
+            );
+          })}
+          <SliderTrack>
+            <SliderFilledTrack />
+          </SliderTrack>
+          <SliderThumb />
+        </Slider>
       )}
     </FormControl>
   );

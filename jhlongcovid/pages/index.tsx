@@ -22,6 +22,7 @@ import { sumUpCases } from "../preprocess";
 import React from "react";
 import { Amplify, API, Auth, graphqlOperation, Hub } from "aws-amplify";
 import { CONNECTION_STATE_CHANGE, ConnectionState } from "@aws-amplify/pubsub";
+import { selectLeftSidePanelPres } from "../redux/slices/presentationSlice";
 import awsExports from "../src/aws-exports";
 import { initQuestions } from "../redux/slices/surveySlice/surveySlice";
 import awsconfig from "../src/aws-exports";

@@ -515,18 +515,21 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
                 Skip
               </Button>
             )}
-            {!isFirstQuestion && !isFinalSection && !preSurvey && (
-              <Button
-                colorScheme="heritageBlue"
-                borderRadius={500}
-                onClick={() => {
-                  handleQuestionChange("prev");
-                }}
-                fontSize="lg"
-              >
-                Prev
-              </Button>
-            )}
+            {!isFirstQuestion &&
+              !isFinalSection &&
+              !preSurvey &&
+              currentQuestion.answerFormat !== "account" && (
+                <Button
+                  colorScheme="heritageBlue"
+                  borderRadius={500}
+                  onClick={() => {
+                    handleQuestionChange("prev");
+                  }}
+                  fontSize="lg"
+                >
+                  Prev
+                </Button>
+              )}
             {renderNextButton(
               currentQuestion,
               preSurvey,
