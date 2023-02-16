@@ -77,7 +77,11 @@ const getNextQuestionAnswerDefault = (
   } else if (question.answerFormat === "account") {
     return { email: "", password: "" };
   } else {
-    return "";
+    if (question.options.type === "text") {
+      return "";
+    } else {
+      return "0";
+    }
   }
 };
 

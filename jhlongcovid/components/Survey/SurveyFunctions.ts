@@ -144,14 +144,21 @@ export const getCountyAndStateWithZip = async (
                 `${ac.long_name} state` +
                 `&key=${apiKey}`
             );
-            locationData.stateLat =
-              Math.round(
-                stateResponse.data.results[0].geometry.location.lat * 1000000
-              ) / 1000000;
-            locationData.stateLong =
-              Math.round(
-                stateResponse.data.results[0].geometry.location.lng * 1000000
-              ) / 1000000;
+
+            const west =
+              stateResponse.data.results[0].geometry.bounds.southwest.lng;
+            const east =
+              stateResponse.data.results[0].geometry.bounds.northeast.lng;
+            const lng = (west + east) / 2;
+
+            const north =
+              stateResponse.data.results[0].geometry.bounds.northeast.lat;
+            const south =
+              stateResponse.data.results[0].geometry.bounds.southwest.lat;
+            const lat = (north + south) / 2;
+
+            locationData.stateLat = Math.round(lat * 1000000) / 1000000;
+            locationData.stateLong = Math.round(lng * 1000000) / 1000000;
           }
 
           if (ac.types.includes("administrative_area_level_2")) {

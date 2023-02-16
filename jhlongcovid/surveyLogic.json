@@ -502,12 +502,56 @@
         "question": "In the past 7 days, how would you rate your pain on average? Please provide a number from 1 (no pain) to 10 (worst imagineable pain): ",
         "options": {
           "title": "Enter pain level (1-10)",
-          "type": "text",
+          "type": "slider",
           "placeholder": "Enter pain level",
-          "validation": {
-            "regex": "^[0-9]+$",
-            "errorText": "Please enter a valid number"
-          }
+          "sliderProps": {
+            "min": 1,
+            "max": 10,
+            "default": 5,
+            "step": 1
+          },
+          "sliderMarks": [
+            {
+              "value": 1,
+              "secondaryLabel": "No pain"
+            },
+            {
+              "value": 2,
+              "secondaryLabel": ""
+            },
+            {
+              "value": 3,
+              "secondaryLabel": ""
+            },
+            {
+              "value": 4,
+              "secondaryLabel": ""
+            },
+            {
+              "value": 5,
+              "secondaryLabel": "Moderate"
+            },
+            {
+              "value": 6,
+              "secondaryLabel": ""
+            },
+            {
+              "value": 7,
+              "secondaryLabel": ""
+            },
+            {
+              "value": 8,
+              "secondaryLabel": ""
+            },
+            {
+              "value": 9,
+              "secondaryLabel": ""
+            },
+            {
+              "value": 10,
+              "secondaryLabel": "Unimaginable"
+            }
+          ]
         },
         "answerFormat": "input",
         "answer": null,
