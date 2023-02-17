@@ -77,10 +77,10 @@ const getNextQuestionAnswerDefault = (
   } else if (question.answerFormat === "account") {
     return { email: "", password: "" };
   } else {
-    if (question.options.type === "text") {
-      return "";
-    } else {
+    if (question.options.type === "slider") {
       return "0";
+    } else {
+      return "";
     }
   }
 };
