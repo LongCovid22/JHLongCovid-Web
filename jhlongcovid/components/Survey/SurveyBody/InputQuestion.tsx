@@ -46,7 +46,7 @@ const Choices = (
   return (
     <FormControl isInvalid={inputError}>
       <FormLabel fontSize={"lg"}>{options.title}</FormLabel>
-      {options.type === "text" ? (
+      {options.type === "text" || options.type === "date" ? (
         <>
           <Input
             value={inputValue}

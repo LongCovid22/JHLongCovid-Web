@@ -77,7 +77,11 @@ const getNextQuestionAnswerDefault = (
   } else if (question.answerFormat === "account") {
     return { email: "", password: "" };
   } else {
-    if (question.options.type === "slider") {
+    if (
+      question &&
+      question.options !== null &&
+      question.options.type === "slider"
+    ) {
       return "0";
     } else {
       return "";
