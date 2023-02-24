@@ -110,12 +110,12 @@ export const calculateRadius = (
   if (stateOrCounty === "state") {
     const maxRadius = 500000;
     return realOrMock === RealOrMock.MOCK
-      ? ratio * maxRadius
+      ? ratio * maxRadius * 10
       : ratio * maxRadius;
   } else {
     const maxRadius = 50000;
     return realOrMock === RealOrMock.MOCK
-      ? ratio * maxRadius
+      ? ratio * maxRadius * 120
       : ratio * maxRadius;
   }
 };
