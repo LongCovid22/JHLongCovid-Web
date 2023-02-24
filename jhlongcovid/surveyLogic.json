@@ -435,7 +435,7 @@
     ],
     [
       {
-        "title": "Global Health",
+        "title": "Your Global Health",
         "questionNum": 20,
         "question": "In general, would you say your health is:",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
@@ -449,7 +449,7 @@
         }
       },
       {
-        "title": "Global Health",
+        "title": "Your Global Health",
         "questionNum": 21,
         "question": "In general, how would you rate your physical health?",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
@@ -463,7 +463,7 @@
         }
       },
       {
-        "title": "Global Health",
+        "title": "Your Global Health",
         "questionNum": 22,
         "question": "To what extent are you able to carry out your everyday physical activities such as walking, climbing stairs, carrying groceries, or moving a chair?",
         "options": [
@@ -483,7 +483,7 @@
         }
       },
       {
-        "title": "Global Health",
+        "title": "Your Global Health",
         "questionNum": 23,
         "question": "In the past 7 days, how would you rate you fatigue (extreme tiredness resulting from mental or physical exertion or illness) on average?",
         "options": ["None", "Mild", "Moderate", "Severe", "Very Severe"],
@@ -497,7 +497,7 @@
         }
       },
       {
-        "title": "Global Health",
+        "title": "Your Global Health",
         "questionNum": 24,
         "question": "In the past 7 days, how would you rate your pain on average? Please provide a number from 1 (no pain) to 10 (worst imagineable pain): ",
         "options": {
@@ -635,7 +635,7 @@
       {
         "title": "Symptoms",
         "questionNum": 26,
-        "question": "In general, how would you rate your mental health, including your mood and your ability to think?",
+        "question": "In general, over the last 2 weeks, how would you rate your mental health, including your mood and your ability to think?",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
         "answer": null,
@@ -649,7 +649,7 @@
       {
         "title": "Symptoms",
         "questionNum": 27,
-        "question": "In general, how would you rate your satisfaction with your social activities and relationships?",
+        "question": "In general, over the last 2 weeks, how would you rate your satisfaction with your social activities and relationships?",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
         "answer": null,
@@ -663,7 +663,7 @@
       {
         "title": "Symptoms",
         "questionNum": 28,
-        "question": "In general, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in your community, and responsibilities as a parent, child, spouse, employee, friend, etc.)",
+        "question": "In general, over the last 2 weeks, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in your community, and responsibilities as a parent, child, spouse, employee, friend, etc.)",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
         "answer": null,
@@ -792,7 +792,7 @@
     ],
     [
       {
-        "title": "Social Determinants",
+        "title": "Your Social Determinants",
         "questionNum": 33,
         "question": "Do you currently have some form of health insurance to help pay for medical bills?",
         "options": ["Yes", "No"],
@@ -806,7 +806,7 @@
         }
       },
       {
-        "title": "Social Determinants",
+        "title": "Your Social Determinants",
         "questionNum": 34,
         "question": "In the past month, how difficult has it been to pay for the things you need (or you and your family needs)?",
         "options": [
@@ -826,7 +826,7 @@
         }
       },
       {
-        "title": "Social Determinants",
+        "title": "Your Social Determinants",
         "questionNum": 35,
         "question": "What is your current work situation?",
         "options": [
