@@ -83,7 +83,7 @@ export const mapDataSlice = createSlice({
               longLow <= county.long &&
               county.long <= longHigh
             ) {
-              if (county.totalFullEntries >= 10) array.push(county);
+              array.push(county);
             }
           }
         }
@@ -96,7 +96,8 @@ export const mapDataSlice = createSlice({
             if (st.totalFullEntries >= 10) array.push(st);
           });
         } else {
-          array = stateData.filter((st: any) => st.totalFullEntries >= 10);
+          //   array = stateData.filter((st: any) => st.totalFullEntries >= 10);
+          array = stateData;
         }
         state.displayData = array;
       }
