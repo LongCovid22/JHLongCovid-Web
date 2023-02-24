@@ -176,7 +176,6 @@ const Home = () => {
   // Memoize map to only re-render when data changes
   const MapMemo = useMemo(() => {
     // console.log("re-render map");
-    console.log("Display ma data: ", displayData);
     return (
       <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
         {displayData.map((data) => (
@@ -315,8 +314,6 @@ const Home = () => {
       } else {
         setLoadingMapData(true);
         const [county_data, state_data] = read();
-        console.log("county data: ", county_data);
-        console.log("state data: ", state_data);
         setTotalLongCovidCases(sumUpCases(state_data, realOrMock));
         dispatch(updateAllStateData(state_data));
         dispatch(updateAllCountyData(county_data));
