@@ -531,7 +531,7 @@
             },
             {
               "value": 5,
-              "secondaryLabel": "Moderate"
+              "secondaryLabel": "Moderate pain"
             },
             {
               "value": 6,
@@ -551,7 +551,7 @@
             },
             {
               "value": 10,
-              "secondaryLabel": "Unimaginable"
+              "secondaryLabel": "Unimaginable pain"
             }
           ]
         },
