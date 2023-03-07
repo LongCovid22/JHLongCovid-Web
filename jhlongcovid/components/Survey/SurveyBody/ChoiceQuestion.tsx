@@ -15,6 +15,7 @@ import {
 import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { validate } from "graphql";
+import { QuestionText } from "./QuestionText";
 
 interface OptionProps {
   option: any;
@@ -141,9 +142,7 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
 
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>
-      <Text fontSize={"lg"} fontWeight={"regular"} width={"100%"}>
-        {currentQuestion.question}
-      </Text>
+      {QuestionText(currentQuestion.question, currentQuestion.timeframe)}
       <VStack spacing={"15px"} width={"100%"}>
         {Choices(
           currentQuestion.answerFormat,

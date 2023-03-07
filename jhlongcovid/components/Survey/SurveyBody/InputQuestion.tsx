@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
 import { useAppSelector } from "../../../redux/hooks";
+import { QuestionText } from "./QuestionText";
 
 interface OptionProps {
   option: any;
@@ -155,9 +156,7 @@ export const InputQuestion: React.FC<SurveyQuestionProps> = ({
 
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>
-      <Text fontSize={"lg"} fontWeight={"regular"} width={"100%"}>
-        {currentQuestion.question}
-      </Text>
+      {QuestionText(currentQuestion.question, currentQuestion.timeframe)}
       <VStack spacing={"15px"} width={"100%"}>
         {Choices(
           currentQuestion.answerFormat,
