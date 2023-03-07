@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { QuestionText } from "./QuestionText";
 
 export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
@@ -52,9 +53,10 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
 
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>
-      <Text fontSize={"lg"} fontWeight={"regular"} width={"100%"}>
+      {/* <Text fontSize={"lg"} fontWeight={"regular"} width={"100%"}>
         {currentQuestion.question}
-      </Text>
+      </Text> */}
+      {QuestionText(currentQuestion.question, currentQuestion.timeframe)}
       <VStack spacing={"15px"} width={"100%"} align="start">
         <CheckboxGroup
           colorScheme="heritageBlue"

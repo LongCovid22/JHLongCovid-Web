@@ -485,7 +485,8 @@
       {
         "title": "Your Global Health",
         "questionNum": 23,
-        "question": "In the past 7 days, how would you rate you fatigue (extreme tiredness resulting from mental or physical exertion or illness) on average?",
+        "question": "In the <timeframe>, how would you rate you fatigue (extreme tiredness resulting from mental or physical exertion or illness) on average?",
+        "timeframe": "past 7 days",
         "options": ["None", "Mild", "Moderate", "Severe", "Very Severe"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
         "answer": null,
@@ -499,7 +500,8 @@
       {
         "title": "Your Global Health",
         "questionNum": 24,
-        "question": "In the past 7 days, how would you rate your pain on average? Please provide a number from 1 (no pain) to 10 (worst imagineable pain): ",
+        "question": "In the <timeframe>, how would you rate your pain on average? Please provide a number from 1 (no pain) to 10 (worst imagineable pain): ",
+        "timeframe": "past 7 days",
         "options": {
           "title": "Enter pain level (1-10)",
           "type": "slider",
@@ -529,7 +531,7 @@
             },
             {
               "value": 5,
-              "secondaryLabel": "Moderate"
+              "secondaryLabel": "Moderate pain"
             },
             {
               "value": 6,
@@ -549,7 +551,7 @@
             },
             {
               "value": 10,
-              "secondaryLabel": "Unimaginable"
+              "secondaryLabel": "Unimaginable pain"
             }
           ]
         },
@@ -567,7 +569,8 @@
       {
         "title": "Symptoms",
         "questionNum": 25,
-        "question": "During the past month, have you had any of the following symptoms?",
+        "question": "During the <timeframe>, have you had any of the following symptoms? Check all that apply.",
+        "timeframe": "past month",
         "answerFormat": [
           "multichoice",
           "multichoice",
@@ -635,7 +638,8 @@
       {
         "title": "Symptoms",
         "questionNum": 26,
-        "question": "In general, over the last 2 weeks, how would you rate your mental health, including your mood and your ability to think?",
+        "question": "In general, over the <timeframe>, how would you rate your mental health, including your mood and your ability to think?",
+        "timeframe": "last 2 weeks",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
         "answer": null,
@@ -649,7 +653,8 @@
       {
         "title": "Symptoms",
         "questionNum": 27,
-        "question": "In general, over the last 2 weeks, how would you rate your satisfaction with your social activities and relationships?",
+        "question": "In general, over the <timeframe>, how would you rate your satisfaction with your social activities and relationships?",
+        "timeframe": "last 2 weeks",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
         "answer": null,
@@ -663,7 +668,8 @@
       {
         "title": "Symptoms",
         "questionNum": 28,
-        "question": "In general, over the last 2 weeks, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in your community, and responsibilities as a parent, child, spouse, employee, friend, etc.)",
+        "question": "In general, over the <timeframe>, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in your community, and responsibilities as a parent, child, spouse, employee, friend, etc.)",
+        "timeframe": "last 2 weeks",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
         "answer": null,
@@ -677,7 +683,8 @@
       {
         "title": "Symptoms",
         "questionNum": 29,
-        "question": "In the past 7 days, how often have you been bothered by emotional problems such as feeling anxious, depressed or irritable?",
+        "question": "In the <timeframe>, how often have you been bothered by emotional problems such as feeling anxious, depressed or irritable?",
+        "timeframe": "past 7 days",
         "options": ["Never", "Rarely", "Sometimes", "Often", "Always"],
         "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
         "answer": null,
@@ -693,7 +700,8 @@
       {
         "title": "Patient Health",
         "questionNum": 30,
-        "question": "Over the last two weeks, how often have you been bothered by the following problems?",
+        "question": "Over the <timeframe>, how often have you been bothered by the following problems?",
+        "timeframe": "last 2 weeks",
         "scale": [
           "Not at all",
           "Several days",
@@ -724,7 +732,8 @@
       {
         "title": "Medical Conditions",
         "questionNum": 31,
-        "question": "Since the beginning of 2020, has a health care provider given you a new diagnosis of any of the following conditions?",
+        "question": "Since the <timeframe>, has a health care provider given you a new diagnosis of any of the following conditions? Check all that apply.",
+        "timeframe": "beginning of 2020",
         "options": [
           "Heart problems, such as heart failure or arrhythmia (e.g., “atrial fibrillation”)",
           "Lung problems, such as asthma, COPD, fibrosis or interstitial lung disease",
@@ -808,7 +817,8 @@
       {
         "title": "Your Social Determinants",
         "questionNum": 34,
-        "question": "In the past month, how difficult has it been to pay for the things you need (or you and your family needs)?",
+        "question": "In the <timeframe>, how difficult has it been to pay for the things you need (or you and your family needs)?",
+        "timeframe": "past month",
         "options": [
           "Very difficult",
           "Somewhat difficult",

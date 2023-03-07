@@ -12,6 +12,7 @@ import {
 import { SurveyQuestionProps } from "../SurveyWrapper";
 import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
 import { useAppSelector } from "../../../redux/hooks";
+import { QuestionText } from "./QuestionText";
 
 export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
@@ -96,9 +97,7 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
         zIndex={1}
         mb={"25px"}
       >
-        <Text w="100%" fontSize={"lg"}>
-          {currentQuestion.question}
-        </Text>
+        {QuestionText(currentQuestion.question, currentQuestion.timeframe)}
         <Grid
           w="100%"
           templateColumns={`repeat(${currentQuestion.scale.length * 2}, 1fr)`}

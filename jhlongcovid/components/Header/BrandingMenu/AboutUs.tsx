@@ -106,27 +106,32 @@ export const AboutUs = () => {
                   <TeamMember
                     name={"Josef Coresh"}
                     role={"Professor"}
+                    school={"Bloomberg School of Public Health"}
                     image="./JosefCoreshHeadshot.jpg"
                   />
                   <TeamMember
                     name={"Elizabeth Oelsner"}
                     role={"Associate Professor"}
+                    school={"Columbia University Irving Medical Center"}
                     image="./ElizabethOelsnerHeadshot.jpg"
                   />
                   <TeamMember
                     name={"Ahmed Hassoon"}
                     role={"Assistant Scientist"}
+                    school={"Bloomberg School of Public Health"}
                     image="./AhmedHeadshot.jpg"
                   />
                   <TeamMember
                     name={"Nathan Farrell"}
-                    role={"Software Engineer"}
+                    role={"Lead Software Engineer"}
+                    school={"Johns Hopkins School of Medicine"}
                     image="./NateHeadshot.jpg"
                   />
                   <WrapItem>
                     <TeamMember
                       name={"Hubert Leo"}
                       role={"Software Engineer"}
+                      school={"Johns Hopkins University Grad"}
                       image="./HubertHeadshot.jpg"
                     />
                   </WrapItem>
@@ -134,6 +139,7 @@ export const AboutUs = () => {
                     <TeamMember
                       name={"Nora Xu"}
                       role={"Software Engineer"}
+                      school={"Johns Hopkins University"}
                       image="./NoraHeadshot.jpg"
                     />
                   </WrapItem>

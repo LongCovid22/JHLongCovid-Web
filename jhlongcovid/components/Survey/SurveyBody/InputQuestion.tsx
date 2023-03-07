@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
 import { useAppSelector } from "../../../redux/hooks";
+import { QuestionText } from "./QuestionText";
 
 interface OptionProps {
   option: any;
@@ -34,13 +35,14 @@ const Choices = (
   inputError: boolean
 ) => {
   const getTextAlignment = (index: number, total: number) => {
-    if (index === 0) {
-      return "start";
-    } else if (index === total - 1) {
-      return "end";
-    } else {
-      return "center";
-    }
+    // if (index === 0) {
+    //   return "start";
+    // } else if (index === total - 1) {
+    //   return "end";
+    // } else {
+    //   return "center";
+    // }
+    return "center";
   };
 
   return (
@@ -80,7 +82,7 @@ const Choices = (
           max={options.sliderProps.max}
           value={parseInt(inputValue) || options.sliderProps.default}
           step={options.sliderProps.step}
-          maxW={"50%"}
+          width={"75%"}
           minW="325px"
         >
           {options.sliderMarks.map((mark: any, key: number) => {
@@ -88,7 +90,7 @@ const Choices = (
               <SliderMark
                 value={key + 1}
                 mt="10px"
-                ml={key === 0 ? "-2px" : "-4.5px"}
+                // ml={key === 0 ? "-2px" : "-4.5px"}
                 key={key}
               >
                 <VStack>
@@ -97,10 +99,11 @@ const Choices = (
                     color={"gray.400"}
                     position="absolute"
                     top={"15px"}
-                    alignSelf={getTextAlignment(
-                      key,
-                      options.sliderMarks.length
-                    )}
+                    // alignSelf={getTextAlignment(
+                    //   key,
+                    //   options.sliderMarks.length
+                    // )}
+                    align="center"
                   >
                     {mark.secondaryLabel}
                   </Text>
@@ -155,9 +158,7 @@ export const InputQuestion: React.FC<SurveyQuestionProps> = ({
 
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>
-      <Text fontSize={"lg"} fontWeight={"regular"} width={"100%"}>
-        {currentQuestion.question}
-      </Text>
+      {QuestionText(currentQuestion.question, currentQuestion.timeframe)}
       <VStack spacing={"15px"} width={"100%"}>
         {Choices(
           currentQuestion.answerFormat,
