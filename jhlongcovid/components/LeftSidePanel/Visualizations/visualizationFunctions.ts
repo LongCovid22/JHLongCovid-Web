@@ -1,6 +1,7 @@
 import { SummaryDemos } from "./answerTypes";
 import { API } from "aws-amplify";
 import { GetMapDataQuery } from "../../../src/API";
+import { countySocialDetEntryByAge } from "../../../src/graphql/queries";
 
 export const backgroundColors = {
   red: "rgba(255, 99, 132, 0.45)",
@@ -47,10 +48,8 @@ export const createTotalsChartConfig = (
   const config = {
     labels: labels,
     options: {
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-      },
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         xAxis: {
           ticks: {

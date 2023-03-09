@@ -10,6 +10,7 @@ import {
   getTotalSymptomatic,
   percentOfTotalCovid,
   createRecoveryConfig,
+  getTotalPrescribed,
 } from "./covidVisualizationFunctions";
 import {
   MedicationsAvailable,
@@ -27,6 +28,7 @@ import {
   StatHelpText,
   VStack,
   Spinner,
+  HStack,
 } from "@chakra-ui/react";
 import { Bar, Doughnut } from "react-chartjs-2";
 import {
@@ -82,9 +84,12 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   setLoading,
 }) => {
   const [totalCovidCases, setTotalCovidCases] = useState(0);
+  const [totalEntries, setTotalEntries] = useState(0);
   const [percentTotalCovid, setPercentTotalCovid] = useState(0);
   const [hospitalizations, setHospitalizations] = useState(0);
   const [percentSymptomatic, setPercentSymptomatic] = useState(0);
+  const [symptomatic, setSymptomatic] = useState(0);
+  const [totalPrescribed, setTotalPrescribed] = useState(0);
   const [percentMedications, setPercentMedications] = useState(0);
   const [medicationsTakenConfig, setMedicationsTakenConfig] = useState<{
     labels: string[];
@@ -97,6 +102,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     data: any;
   }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
   const width = useAppSelector(selectWidth);
+  const [height, setHeight] = useState(350);
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
@@ -122,15 +128,22 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       const totalHospitalizations = getTotalHospitalizations(
         covidSummary.hospitalized as YesNo
       );
+      const totalSymptomatic = getTotalSymptomatic(
+        covidSummary.symptomatic as YesNo
+      );
       const percOfSymptomatic = getPercentSymptomatic(
-        getTotalSymptomatic(covidSummary.symptomatic as YesNo),
+        totalSymptomatic,
         totalCases
       );
 
+      const totalPrescribed = getTotalPrescribed(
+        covidSummary.medicationsPrescribed as YesNoDontKnow
+      );
       const percOfMedications = getPercentMedications(
         covidSummary.medicationsPrescribed as YesNoDontKnow,
         totalCases
       );
+
       const medTakenConfig = createMedicationsTakenConfig(
         covidSummary.medicationsTakenCount as MedicationsAvailable
       );
@@ -139,11 +152,15 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         recoverySummary.recovered as YesNo
       );
 
+      setTotalPrescribed(totalPrescribed);
+      setSymptomatic(totalSymptomatic);
+      setTotalEntries(totalFullEntries);
       setTotalCovidCases(totalCases);
       setPercentTotalCovid(percentOfCovidReported);
       setHospitalizations(totalHospitalizations);
       setPercentSymptomatic(percOfSymptomatic);
       setPercentMedications(percOfMedications);
+      setHeight(350);
       setMedicationsTakenConfig(medTakenConfig);
       setRecoveryConfig(recoveryConfig);
     };
@@ -157,56 +174,90 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         <Spinner color="heritageBlue.800" />
       ) : (
         <>
-          <Wrap spacing="30px">
+          <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
             <WrapItem>
               <Stat>
-                <StatLabel>COVID Cases</StatLabel>
-                <StatNumber>{totalCovidCases}</StatNumber>
-                <StatHelpText>Total COVID cases</StatHelpText>
+                <StatLabel>Entries</StatLabel>
+                <StatNumber>{totalEntries}</StatNumber>
+                <StatHelpText>Total Survey Entries</StatHelpText>
               </Stat>
             </WrapItem>
             <WrapItem>
+              <Stat>
+                <StatLabel>COVID Cases</StatLabel>
+                <StatNumber>
+                  {`${totalCovidCases} (${percentTotalCovid}%)`}
+                </StatNumber>
+                <StatHelpText>{`Total COVID Cases`}</StatHelpText>
+              </Stat>
+            </WrapItem>
+            {/* <WrapItem>
               <Stat>
                 <StatLabel>Reported COVID %</StatLabel>
                 <StatNumber>{percentTotalCovid}%</StatNumber>
                 <StatHelpText>% of entries with COVID</StatHelpText>
               </Stat>
-            </WrapItem>
+            </WrapItem> */}
             <WrapItem>
               <Stat>
                 <StatLabel>Hospitalizations</StatLabel>
-                <StatNumber>{hospitalizations}</StatNumber>
-                <StatHelpText>Hospitalizations due to COVID</StatHelpText>
+                <StatNumber>{`${hospitalizations} (${Math.round(
+                  (hospitalizations / totalCovidCases) * 100
+                )}%)`}</StatNumber>
+                <StatHelpText>Caused by COVID</StatHelpText>
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>Symptomatic %</StatLabel>
-                <StatNumber>{percentSymptomatic}%</StatNumber>
-                <StatHelpText>% of cases with symptoms</StatHelpText>
+                <StatLabel>Symptomatic</StatLabel>
+                <StatNumber>{`${symptomatic} (${percentSymptomatic}%)`}</StatNumber>
+                <StatHelpText>Cases with symptoms</StatHelpText>
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>Medications %</StatLabel>
-                <StatNumber>{percentMedications}%</StatNumber>
-                <StatHelpText>% of cases medication prescribed</StatHelpText>
+                <StatLabel>Medications</StatLabel>
+                <StatNumber>{`${totalPrescribed} (${percentMedications}%)`}</StatNumber>
+                <StatHelpText>People prescribed medications</StatHelpText>
               </Stat>
             </WrapItem>
           </Wrap>
-          <Wrap spacing="30px">
-            <WrapItem width={width < 1500 ? "300px" : "325px"}>
+          <Wrap spacing="30px" overflow={"visible"}>
+            <WrapItem
+              // width={width < 1500 ? "300px" : "325px"}
+              width={panelDimensions.width * 0.6 - 80}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
               <Bar
                 options={medicationsTakenConfig.options}
                 data={medicationsTakenConfig.data}
-                height={"300px"}
+                height="350px"
+                width={
+                  panelDimensions.width * 0.6 - 80 < 420
+                    ? "340px"
+                    : panelDimensions.width * 0.6 - 80
+                }
               />
             </WrapItem>
-            <WrapItem width={width < 1500 ? "300px" : "325px"}>
+            <WrapItem
+              width={panelDimensions.width * 0.4 - 80}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
               <Doughnut
                 options={recoveryTakenConfig.options}
                 data={recoveryTakenConfig.data}
-                height={"300px"}
+                height={"350px"}
+                width={
+                  panelDimensions.width * 0.4 - 80 < 420
+                    ? "340px"
+                    : panelDimensions.width * 0.4 - 80
+                }
               />
             </WrapItem>
           </Wrap>

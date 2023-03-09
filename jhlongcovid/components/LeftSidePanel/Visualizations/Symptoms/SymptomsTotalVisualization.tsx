@@ -78,6 +78,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   setLoading,
 }) => {
   const [totalSymptomsCount, setTotalSymptomsCount] = useState(0);
+  const [totalEntries, setTotalEntries] = useState(0);
   const [mostCommonSymptom, setMostCommonSymptom] = useState("");
   const [symptomCountConfig, setSymptomCountConfig] = useState<{
     labels: string[];
@@ -120,14 +121,16 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       backgroundColors.orange,
       backgroundColors.red,
     ];
-    let symptomSummary, covidSummary;
+    let symptomSummary, covidSummary, totalFullEntries;
 
     if (data && realOrMock === RealOrMock.REAL) {
       symptomSummary = data.symptomSummary;
       covidSummary = data.covidSummary;
+      totalFullEntries = data.totalFullEntries;
     } else {
       symptomSummary = mockResult.county.symptomSummary;
       covidSummary = mockResult.county.covidSummary;
+      totalFullEntries = mockResult.county.totalFullEntries;
     }
 
     if (covidSummary.symptomatic) {
@@ -181,11 +184,19 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         colors
       )
     );
+    setTotalEntries(totalFullEntries);
   }, [data]);
 
   return (
     <VStack align={"start"}>
-      <Wrap spacing="30px">
+      <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
+        <WrapItem>
+          <Stat>
+            <StatLabel>Entries</StatLabel>
+            <StatNumber>{totalEntries}</StatNumber>
+            <StatHelpText>Total Survey Entries</StatHelpText>
+          </Stat>
+        </WrapItem>
         <WrapItem>
           <Stat>
             <StatLabel>Symptoms Count</StatLabel>
@@ -197,47 +208,89 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           <Stat>
             <StatLabel>Most Common Symptom</StatLabel>
             <StatNumber>{mostCommonSymptom}</StatNumber>
-            <StatHelpText>Most common symptom reported</StatHelpText>
+            {/* <StatHelpText>Most common symptom reported</StatHelpText> */}
           </Stat>
         </WrapItem>
       </Wrap>
-      <Wrap spacing="30px">
-        <WrapItem width={width < 1500 ? "300px" : "500px"}>
+      <Wrap spacing="30px" overflow={"visible"}>
+        <WrapItem
+          // width={width < 1500 ? "300px" : "325px"}
+          width={panelDimensions.width - 80}
+          shadow="base"
+          borderRadius={"20px"}
+          p={"30px"}
+          minWidth="340px"
+        >
           <Bar
             options={symptomCountConfig.options}
             data={symptomCountConfig.data}
-            height={width < 1500 ? "400px" : "300px"}
+            height="375px"
+            width={
+              panelDimensions.width - 80 < 420
+                ? "340px"
+                : panelDimensions.width - 80
+            }
           />
         </WrapItem>
-        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+        <WrapItem
+          width={width < 1500 ? "300px" : "325px"}
+          shadow="base"
+          borderRadius={"20px"}
+          p={"30px"}
+          minWidth="340px"
+        >
           <Bar
             options={qualityOfLife.options}
             data={qualityOfLife.data}
             height={"300px"}
           />
         </WrapItem>
-        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+        <WrapItem
+          width={width < 1500 ? "300px" : "325px"}
+          shadow="base"
+          borderRadius={"20px"}
+          p={"30px"}
+          minWidth="340px"
+        >
           <Bar
             options={mentalHealthRank.options}
             data={mentalHealthRank.data}
             height={"300px"}
           />
         </WrapItem>
-        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+        <WrapItem
+          width={width < 1500 ? "300px" : "325px"}
+          shadow="base"
+          borderRadius={"20px"}
+          p={"30px"}
+          minWidth="340px"
+        >
           <Bar
             options={socialSatisfactionRank.options}
             data={socialSatisfactionRank.data}
             height={"300px"}
           />
         </WrapItem>
-        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+        <WrapItem
+          width={width < 1500 ? "300px" : "325px"}
+          shadow="base"
+          borderRadius={"20px"}
+          p={"30px"}
+          minWidth="340px"
+        >
           <Bar
             options={carryOutSocial.options}
             data={carryOutSocial.data}
             height={"300px"}
           />
         </WrapItem>
-        <WrapItem width={width < 1500 ? "300px" : "325px"}>
+        <WrapItem
+          width={width < 1500 ? "300px" : "325px"}
+          shadow="base"
+          borderRadius={"20px"}
+          p={"30px"}
+          minWidth="340px"
+        >
           <Bar options={anxiety.options} data={anxiety.data} height={"300px"} />
         </WrapItem>
       </Wrap>

@@ -21,23 +21,24 @@ export const VaccinationVisualizations: React.FC<LeftSidePanelBodyProps> = ({
 }) => {
   return (
     <VStack>
-      <Tabs variant="enclosed" colorScheme={"heritageBlue"}>
+      {/* <Tabs variant="enclosed" colorScheme={"heritageBlue"}>
         <TabList>
           <Tab fontSize={"14px"}>Total</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <VaccinationTotalVisuals
-              section={section}
-              data={data}
-              panelDimensions={panelDimensions}
-              realOrMock={realOrMock}
-              loading={loading}
-              setLoading={setLoading}
-            />
+            
           </TabPanel>
         </TabPanels>
-      </Tabs>
+      </Tabs> */}
+      <VaccinationTotalVisuals
+        section={section}
+        data={data}
+        panelDimensions={panelDimensions}
+        realOrMock={realOrMock}
+        loading={loading}
+        setLoading={setLoading}
+      />
     </VStack>
   );
 };

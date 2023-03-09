@@ -21,23 +21,24 @@ export const PHQ8Visualizations: React.FC<LeftSidePanelBodyProps> = ({
 }) => {
   return (
     <VStack>
-      <Tabs variant="enclosed" colorScheme={"heritageBlue"}>
+      {/* <Tabs variant="enclosed" colorScheme={"heritageBlue"}>
         <TabList>
           <Tab fontSize={"14px"}>Total</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <PHQ8TotalVisuals
-              section={section}
-              data={data}
-              realOrMock={realOrMock}
-              panelDimensions={panelDimensions}
-              loading={loading}
-              setLoading={setLoading}
-            />
+            
           </TabPanel>
         </TabPanels>
-      </Tabs>
+      </Tabs> */}
+      <PHQ8TotalVisuals
+        section={section}
+        data={data}
+        realOrMock={realOrMock}
+        panelDimensions={panelDimensions}
+        loading={loading}
+        setLoading={setLoading}
+      />
     </VStack>
   );
 };

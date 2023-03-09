@@ -76,6 +76,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   setLoading,
 }) => {
   const [avgPhq8Score, setAvgPhq8Score] = useState(0);
+  const [totalEntries, setTotalEntries] = useState(0);
   const [littleInterestConfig, setLittleInterestConfig] = useState<{
     labels: string[];
     options: any;
@@ -121,16 +122,20 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
     const createGraphVariables = () => {
-      let patientHealthQuestionnaireSummary, globalHealthSummary;
+      let patientHealthQuestionnaireSummary,
+        globalHealthSummary,
+        totalFullEntries;
 
       if (data && realOrMock === RealOrMock.REAL) {
         patientHealthQuestionnaireSummary =
           data.patientHealthQuestionnaireSummary;
         globalHealthSummary = data.globalHealthSummary;
+        totalFullEntries = data.totalFullEntries;
       } else {
         patientHealthQuestionnaireSummary =
           mockResult.county.patientHealthQuestionnaireSummary;
         globalHealthSummary = mockResult.county.globalHealthSummary;
+        totalFullEntries = mockResult.county.totalFullEntries;
       }
 
       const colors = [
@@ -237,6 +242,8 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         );
       }
 
+      setTotalEntries(totalFullEntries);
+
       if (setLoading) {
         setLoading(false);
       }
@@ -251,66 +258,121 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         <Spinner color="heritageBlue.800" />
       ) : (
         <>
-          <Wrap spacing="30px">
+          <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
             <WrapItem>
+              <Stat>
+                <StatLabel>Entries</StatLabel>
+                <StatNumber>{totalEntries}</StatNumber>
+                <StatHelpText>Total Survey Entries</StatHelpText>
+              </Stat>
+            </WrapItem>
+            {/* <WrapItem>
               <Stat>
                 <StatLabel>Avg. PHQ8 Score</StatLabel>
                 <StatNumber>{avgPhq8Score}</StatNumber>
                 <StatHelpText>Average PHQ8 score</StatHelpText>
               </Stat>
-            </WrapItem>
+            </WrapItem> */}
           </Wrap>
           <Wrap spacing="30px">
-            <WrapItem width={width < 1500 ? "300px" : "325px"}>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
               <Bar
                 options={littleInterestConfig.options}
                 data={littleInterestConfig.data}
                 height={"300px"}
               />
             </WrapItem>
-            <WrapItem width={width < 1500 ? "300px" : "325px"}>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
               <Bar
                 options={downDepressedConfig.options}
                 data={downDepressedConfig.data}
                 height={"300px"}
               />
             </WrapItem>
-            <WrapItem width={width < 1500 ? "300px" : "325px"}>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
               <Bar
                 options={sleepProbConfig.options}
                 data={sleepProbConfig.data}
                 height={"300px"}
               />
             </WrapItem>
-            <WrapItem width={width < 1500 ? "300px" : "325px"}>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
               <Bar
                 options={tiredConfig.options}
                 data={tiredConfig.data}
                 height={"300px"}
               />
             </WrapItem>
-            <WrapItem width={width < 1500 ? "300px" : "325px"}>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
               <Bar
                 options={dietConfig.options}
                 data={dietConfig.data}
                 height={"300px"}
               />
             </WrapItem>
-            <WrapItem width={width < 1500 ? "300px" : "325px"}>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
               <Bar
                 options={badSelfConfig.options}
                 data={badSelfConfig.data}
                 height={"300px"}
               />
             </WrapItem>
-            <WrapItem width={width < 1500 ? "300px" : "325px"}>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
               <Bar
                 options={concentrateConfig.options}
                 data={concentrateConfig.data}
                 height={"300px"}
               />
             </WrapItem>
-            <WrapItem width={width < 1500 ? "300px" : "325px"}>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
               <Bar
                 options={slowConfig.options}
                 data={slowConfig.data}

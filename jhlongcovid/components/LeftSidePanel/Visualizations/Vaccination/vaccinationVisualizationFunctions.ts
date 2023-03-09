@@ -17,10 +17,8 @@ export const createTotalVaccineShotsConfig = (
   const vaccinationsTakenConfig = {
     labels: labels,
     options: {
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-      },
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         xAxis: {
           ticks: {
@@ -104,10 +102,8 @@ export const createVaccineTypeConfig = (
           },
         },
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-      },
+      responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           position: "top" as const,
