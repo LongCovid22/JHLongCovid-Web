@@ -21,23 +21,24 @@ export const SymptomsVisualizations: React.FC<LeftSidePanelBodyProps> = ({
 }) => {
   return (
     <VStack>
-      <Tabs variant="enclosed" colorScheme={"heritageBlue"}>
+      {/* <Tabs variant="enclosed" colorScheme={"heritageBlue"}>
         <TabList>
           <Tab fontSize={"14px"}>Total</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <SymptomsTotalVisuals
-              section={section}
-              data={data}
-              panelDimensions={panelDimensions}
-              realOrMock={realOrMock}
-              loading={loading}
-              setLoading={setLoading}
-            />
+            
           </TabPanel>
         </TabPanels>
-      </Tabs>
+      </Tabs> */}
+      <SymptomsTotalVisuals
+        section={section}
+        data={data}
+        panelDimensions={panelDimensions}
+        realOrMock={realOrMock}
+        loading={loading}
+        setLoading={setLoading}
+      />
     </VStack>
   );
 };

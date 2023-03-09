@@ -70,6 +70,7 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   setLoading,
 }) => {
   const [totalVaccinated, setTotalVaccinated] = useState(0);
+  const [totalEntries, setTotalEntries] = useState(0);
   const [vaccineCountConfig, setVaccineCountConfig] = useState<{
     labels: string[];
     options: any;
@@ -84,13 +85,16 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
-    let summary;
+    let summary, totalFullEntries;
     if (data && realOrMock === RealOrMock.REAL) {
       summary = data.vaccinationSummary;
+      totalFullEntries = data.totalFullEntries;
     } else {
       summary = mockResult.county.vaccinationSummary;
+      totalFullEntries = mockResult.county.totalFullEntries;
     }
 
+    setTotalEntries(totalFullEntries);
     setTotalVaccinated(getVaccinations(summary.vaccinated as YesNo));
     setVaccineCountConfig(
       createTotalVaccineShotsConfig(summary.totalVaccineShots as OneToFivePlus)
@@ -102,29 +106,60 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
   return (
     <VStack align={"start"}>
-      <Wrap spacing="30px">
+      <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
+        <WrapItem>
+          <Stat>
+            <StatLabel>Entries</StatLabel>
+            <StatNumber>{totalEntries}</StatNumber>
+            <StatHelpText>Total Survey Entries</StatHelpText>
+          </Stat>
+        </WrapItem>
         <WrapItem>
           <Stat>
             <StatLabel>Vaccinated</StatLabel>
-            <StatNumber>{totalVaccinated}</StatNumber>
+            <StatNumber>{`${totalVaccinated} (${Math.round(
+              (totalVaccinated / totalEntries) * 100
+            )}%)`}</StatNumber>
             <StatHelpText>Total people vaccinated</StatHelpText>
           </Stat>
         </WrapItem>
       </Wrap>
       {/* Graph Wrap */}
-      <Wrap spacing="30px">
-        <WrapItem width={width < 1500 ? "300px" : "400px"}>
+      <Wrap spacing="30px" overflow={"visible"}>
+        <WrapItem
+          width={panelDimensions.width * 0.5 - 80}
+          p={"30px"}
+          shadow="base"
+          borderRadius={"20px"}
+          minWidth="340px"
+        >
           <Bar
             options={vaccineCountConfig.options}
             data={vaccineCountConfig.data}
-            height={"400px"}
+            height={"350px"}
+            width={
+              panelDimensions.width * 0.5 - 80 < 420
+                ? "340px"
+                : panelDimensions.width * 0.5 - 80
+            }
           />
         </WrapItem>
-        <WrapItem width={width < 1500 ? "300px" : "400px"}>
+        <WrapItem
+          width={panelDimensions.width * 0.5 - 80}
+          p={"30px"}
+          shadow="base"
+          borderRadius={"20px"}
+          minWidth="340px"
+        >
           <Bar
             options={vaccineTypeCountConfig.options}
             data={vaccineTypeCountConfig.data}
-            height={"400px"}
+            height={"350px"}
+            width={
+              panelDimensions.width * 0.5 - 80 < 420
+                ? "340px"
+                : panelDimensions.width * 0.5 - 80
+            }
           />
         </WrapItem>
       </Wrap>

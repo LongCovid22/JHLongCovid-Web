@@ -104,19 +104,19 @@ export const AboutUs = () => {
                 <Heading size={"sm"}>Team Members</Heading>
                 <Wrap spacingY={"30px"}>
                   <TeamMember
-                    name={"Josef Coresh"}
+                    name={"Josef Coresh, MD"}
                     role={"Professor"}
                     school={"Bloomberg School of Public Health"}
                     image="./JosefCoreshHeadshot.jpg"
                   />
                   <TeamMember
-                    name={"Elizabeth Oelsner"}
+                    name={"Elizabeth Oelsner, MD, MPH"}
                     role={"Associate Professor"}
                     school={"Columbia University Irving Medical Center"}
                     image="./ElizabethOelsnerHeadshot.jpg"
                   />
                   <TeamMember
-                    name={"Ahmed Hassoon"}
+                    name={"Ahmed Hassoon, MD"}
                     role={"Assistant Scientist"}
                     school={"Bloomberg School of Public Health"}
                     image="./AhmedHeadshot.jpg"

@@ -78,6 +78,7 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   setLoading,
 }) => {
   const [mostCommonWorkSituation, setMostCommonWorkSituation] = useState("");
+  const [totalEntries, setTotalEntries] = useState(0);
   const [hasMedicalInsuranceConfig, setHasMedicalInsuranceConfig] = useState<{
     labels: string[];
     options: any;
@@ -98,12 +99,14 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
     const createGraphVariables = () => {
-      let socialSummary;
+      let socialSummary, totalFullEntries;
 
       if (data && realOrMock === RealOrMock.REAL) {
         socialSummary = data.socialSummary;
+        totalFullEntries = data.totalFullEntries;
       } else {
         socialSummary = mockResult.county.socialSummary;
+        totalFullEntries = mockResult.county.totalFullEntries;
       }
 
       if (socialSummary.currentWorkSituation) {
@@ -138,6 +141,8 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           )
         );
       }
+
+      setTotalEntries(totalFullEntries);
     };
 
     createGraphVariables();
@@ -145,31 +150,56 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
   return (
     <VStack align={"start"}>
-      <Wrap spacing="30px">
+      <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
+        <WrapItem>
+          <Stat>
+            <StatLabel>Entries</StatLabel>
+            <StatNumber>{totalEntries}</StatNumber>
+            <StatHelpText>Total Survey Entries</StatHelpText>
+          </Stat>
+        </WrapItem>
         <WrapItem>
           <Stat>
             <StatLabel>Most Common Work Situation</StatLabel>
             <StatNumber>{mostCommonWorkSituation}</StatNumber>
-            <StatHelpText>Most common work situation</StatHelpText>
+            {/* <StatHelpText>Most common work situation</StatHelpText> */}
           </Stat>
         </WrapItem>
       </Wrap>
       <Wrap spacing="30px">
-        <WrapItem width={width < 1500 ? "300px" : "375px"}>
+        <WrapItem
+          width={width < 1500 ? "300px" : "375px"}
+          shadow="base"
+          borderRadius={"20px"}
+          p={"30px"}
+          minWidth="340px"
+        >
           <Bar
             options={hasMedicalInsuranceConfig.options}
             data={hasMedicalInsuranceConfig.data}
             height={"300px"}
           />
         </WrapItem>
-        <WrapItem width={width < 1500 ? "300px" : "375px"}>
+        <WrapItem
+          width={width < 1500 ? "300px" : "375px"}
+          shadow="base"
+          borderRadius={"20px"}
+          p={"30px"}
+          minWidth="340px"
+        >
           <Bar
             options={workSituationConfig.options}
             data={workSituationConfig.data}
             height={"300px"}
           />
         </WrapItem>
-        <WrapItem width={width < 1500 ? "300px" : "375px"}>
+        <WrapItem
+          width={width < 1500 ? "300px" : "375px"}
+          shadow="base"
+          borderRadius={"20px"}
+          p={"30px"}
+          minWidth="340px"
+        >
           <Bar
             options={coveringExpensesConfig.options}
             data={coveringExpensesConfig.data}

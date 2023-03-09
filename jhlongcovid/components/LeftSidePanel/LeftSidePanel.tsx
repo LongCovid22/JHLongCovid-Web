@@ -71,10 +71,10 @@ interface LeftSidePanelProps {
 export enum SurveySection {
   COVID = "COVID",
   VACCINATION = "Vaccination",
-  PHQ8 = "PHQ8",
+  PHQ8 = "Mental Health",
   Global = "Global",
-  SOCIAL = "Social",
-  SYMPTOMS = "SYMPTOMS",
+  SOCIAL = "Social Factors",
+  SYMPTOMS = "Symptoms",
 }
 
 export type LeftSidePanelBodyProps = {
@@ -189,7 +189,8 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
     const fetchSummaryData = async () => {
       setLoading(true);
       if (data && Object.keys(data).length > 0) {
-        setSummaryData(await getSummaries(data));
+        const returnedData = await getSummaries(data);
+        setSummaryData(returnedData);
       }
       setLoading(false);
     };
@@ -320,7 +321,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
                             onClick={() => setSection(SurveySection.PHQ8)}
                             fontSize={"13px"}
                           >
-                            PHQ8
+                            Mental Health
                           </Tab>
                         </WrapItem>
                         <WrapItem>
@@ -328,7 +329,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
                             onClick={() => setSection(SurveySection.SOCIAL)}
                             fontSize={"13px"}
                           >
-                            Social
+                            Social Factors
                           </Tab>
                         </WrapItem>
                       </Wrap>

@@ -33,10 +33,8 @@ export const createhasMedInsurConfig = (
   const hasMedInsurConfig = {
     labels: labels,
     options: {
-      options: {
-        responsive: true,
-        maintainsAspectRation: false,
-      },
+      responsive: true,
+      maintainsAspectRation: false,
       scales: {
         xAxis: {
           ticks: {

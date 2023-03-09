@@ -887,6 +887,7 @@ type PatientHealthQuestionnaireSummary {
   slowOrRestless: NotAtAllToNearlyEveryDay
   #each answer needs to contain [count, average]
   avgPHQScore: SummaryAvgByDemo
+  # TODO: Add one to 10 plus phq8 score field
 }
 
 type MedicalConditionsSummary {

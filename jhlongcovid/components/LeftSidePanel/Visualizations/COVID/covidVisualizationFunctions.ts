@@ -36,6 +36,13 @@ export const getTotalSymptomatic = (symptomatic: YesNo) => {
   );
 };
 
+export const getTotalPrescribed = (medications: YesNoDontKnow) => {
+  return medications.yes.race.values.reduce(
+    (acc: number, curr: number) => acc + curr,
+    0
+  );
+};
+
 export const getPercentSymptomatic = (
   totalSymptomatic: number,
   totalCovid: number
@@ -69,10 +76,8 @@ export const createMedicationsTakenConfig = (
   const medicationsTakenConfig = {
     labels: labels,
     options: {
-      options: {
-        responsive: true,
-        maintainsAspectRation: false,
-      },
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         xAxis: {
           ticks: {
@@ -157,10 +162,8 @@ export const createRecoveryConfig = (
   const recoveriesConfig = {
     labels: labels,
     options: {
-      options: {
-        responsive: true,
-        maintainsAspectRation: false,
-      },
+      responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           position: "top" as const,

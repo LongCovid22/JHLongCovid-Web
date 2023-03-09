@@ -38,29 +38,25 @@ export const COVIDVisualizations: React.FC<LeftSidePanelBodyProps> = ({
 
   return (
     <VStack>
-      <Tabs variant="enclosed" colorScheme={"heritageBlue"}>
+      {/* <Tabs variant="enclosed" colorScheme={"heritageBlue"}>
         <TabList>
           <Tab fontSize={"14px"}>Total</Tab>
-          {/* <Tab fontSize={"14px"}>Age</Tab>
-          <Tab fontSize={"14px"}>Race</Tab>
-          <Tab fontSize={"14px"}>Sex</Tab> */}
         </TabList>
         <TabPanels>
           <TabPanel>
-            <COVIDTotalVisuals
-              data={data}
-              section={section}
-              panelDimensions={panelDimensions}
-              realOrMock={realOrMock}
-              loading={loading}
-              setLoading={setLoading}
-            />
+            
           </TabPanel>
-          {/* <TabPanel>Age</TabPanel>
-          <TabPanel>race</TabPanel>
-          <TabPanel>sex</TabPanel> */}
         </TabPanels>
-      </Tabs>
+      </Tabs> */}
+
+      <COVIDTotalVisuals
+        data={data}
+        section={section}
+        panelDimensions={panelDimensions}
+        realOrMock={realOrMock}
+        loading={loading}
+        setLoading={setLoading}
+      />
     </VStack>
   );
 };
