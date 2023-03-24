@@ -166,7 +166,7 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           </Stat>
         </WrapItem>
       </Wrap>
-      <Wrap spacing="30px">
+      <Wrap spacing="30px" overflow={"visible"}>
         <WrapItem
           width={width < 1500 ? "300px" : "375px"}
           shadow="base"

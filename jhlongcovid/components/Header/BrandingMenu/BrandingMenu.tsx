@@ -36,11 +36,11 @@ export const BrandingMenu = () => {
         }}
       >
         <VStack spacing={3} maxWidth={300}>
-          <Image
+          {/* <Image
             src="/bloomberg.logo.horizontal.blue.jpg"
             alt="BSPH Logo Vertical"
             height={"60px"}
-          />
+          /> */}
           <Text fontSize="sm" color="black">
             <strong>
               JHU.edu Copyright © 2022 by Johns Hopkins University & Medicine.
