@@ -32,6 +32,8 @@ type MapData
   long: Float!
   covidCount: Int!
   longCovid: Int!
+  phq8AboveTen: Int
+  recoveredCount: Int
   topMedicalCondition: String!
   covidSummary: CovidSummary!
   recoverySummary: RecoverySummary!

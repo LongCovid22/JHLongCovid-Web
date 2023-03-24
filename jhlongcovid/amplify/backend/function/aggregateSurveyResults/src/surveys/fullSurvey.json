@@ -34,9 +34,7 @@
         "symptomatic": true,
         "symptomsPreventScale": "notAtAll",
         "medicationsPrescribed": "yes",
-        "medicationsTaken": [
-          "oralSteroids"
-        ]
+        "medicationsTaken": ["oralSteroids"]
       },
       "recoveryResults": {
         "id": "4897c703-248b-483d-81cc-4c343c7cac5d",
@@ -80,19 +78,14 @@
         "sex": "Male",
         "height": "55",
         "weight": "123",
-        "symptoms": [
-          "headache",
-          "bodyMuscleAche"
-        ],
+        "symptoms": ["headache", "bodyMuscleAche"],
         "qualityOfLife": "Excellent",
         "mentalHealthRank": "Excellent",
         "socialSatisfactionRank": "Excellent",
         "carryOutSocialActivitiesRank": "Excellent",
         "anxietyInPastWeekRank": "Rarely",
-        
-        "medicalConditions": [
-          "memory"
-        ],
+
+        "medicalConditions": ["memory"],
         "hasLongCovid": "yes"
       },
       "patientHealthResults": {
@@ -109,12 +102,12 @@
           "Feeling tired or having little energy?": "Nearly every day",
           "Poor appetite or overeating?": "More than half the days",
           "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?": "Several days",
-          "Trouble concentrating on things, such as reading the newspaper or watching television?": "Not at all",
+          "Trouble concentrating on things, such as reading the newspaper or watching television?": "Nearly every day",
           "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?": "Not at all"
         },
         "totalScore": 9
       },
-      
+
       "socialDeterminantsResults": {
         "id": "28ef266e-aad2-4610-8a60-a045f36dc76b",
         "age": "23",
