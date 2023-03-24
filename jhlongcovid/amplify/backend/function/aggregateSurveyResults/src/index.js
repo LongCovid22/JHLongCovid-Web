@@ -50,6 +50,8 @@ let properties = `
       long
       covidCount
       longCovid
+      phq8AboveTen
+      recoveredCount
       topMedicalCondition
       covidSummary {
         beenInfected {
@@ -3012,6 +3014,8 @@ let variables = {
     long: -54.345353535635,
     covidCount: 0,
     longCovid: 0,
+    phq8AboveTen: 0,
+    recoveredCount: 0,
     topMedicalCondition: "",
     covidSummary: {
       beenInfected: {
@@ -3792,6 +3796,16 @@ const updateRecoverySummary = (eventInput, county, state, indexes) => {
 
     if (checkNotNullAndBoolType(recoveryResults.recovered)) {
       let prop = trueEqualsYes(recoveryResults.recovered);
+      if (dat === "county") {
+        if (prop === "yes") {
+          county.recoveredCount += 1;
+        }
+      } else {
+        if (prop === "yes") {
+          state.recoveredCount += 1;
+        }
+      }
+      console.log("Recovery prop: ", prop);
       addCustomToTallyBasedOnCondition(indexes, recovered[prop], true, 1);
     }
 
@@ -4175,8 +4189,18 @@ const updatePatientHealthSummary = (eventInput, county, state, indexes) => {
       avgPHQScore,
     } = data[dat].patientHealthQuestionnaireSummary;
 
+    let phq8AnswerValues = {
+      "Not at all": 0,
+      "Several days": 1,
+      "More than half the days": 2,
+      "Nearly every day": 3,
+    };
+
+    let totalScore = 0;
     for (const health in patientHealthResults.generalHealthResults) {
       let curr = patientHealthResults.generalHealthResults[health];
+      totalScore += phq8AnswerValues[curr];
+
       if (
         checkNotNullAndStringType(curr) &&
         checkNotAtAllToNearlyEveryDay(curr)
@@ -4217,6 +4241,16 @@ const updatePatientHealthSummary = (eventInput, county, state, indexes) => {
           true,
           1
         );
+      }
+    }
+
+    if (dat == "county") {
+      if (totalScore > 10) {
+        county.phq8AboveTen += 1;
+      }
+    } else {
+      if (totalScore > 10) {
+        state.phq8AboveTen += 1;
       }
     }
 

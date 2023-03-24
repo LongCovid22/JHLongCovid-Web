@@ -13,6 +13,8 @@ export const onCreateMapData = /* GraphQL */ `
       long
       covidCount
       longCovid
+      phq8AboveTen
+      recoveredCount
       topMedicalCondition
       recoverySummary {
         avglengthOfRecovery {
@@ -70,6 +72,8 @@ export const onUpdateMapData = /* GraphQL */ `
       long
       covidCount
       longCovid
+      phq8AboveTen
+      recoveredCount
       topMedicalCondition
       recoverySummary {
         avglengthOfRecovery {
@@ -127,6 +131,8 @@ export const onDeleteMapData = /* GraphQL */ `
       long
       covidCount
       longCovid
+      phq8AboveTen
+      recoveredCount
       topMedicalCondition
       recoverySummary {
         avglengthOfRecovery {
