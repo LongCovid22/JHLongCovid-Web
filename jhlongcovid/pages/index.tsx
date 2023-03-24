@@ -360,19 +360,28 @@ const Home = () => {
             right: "20px",
             background: "white",
             borderRadius: "500px",
-            padding: "5px",
-            width: "220px",
+            padding: "25px",
             height: "60px",
           }}
           shadow="xl"
         >
           <Spacer />
-          <Image
-            src="./bloomberg.logo.horizontal.blue.jpg"
-            alt="Hopkins Logo"
-            w={"180px"}
-            mt="5px"
-          />
+          <HStack spacing="10px">
+            <Image
+              src="./crHorizontal.png"
+              alt="Hopkins Logo"
+              w={"180px"}
+              mt="5px"
+              align={"top"}
+            />
+            <Image
+              src="./bloomberg.logo.horizontal.blue.jpg"
+              alt="Hopkins Logo"
+              w={"180px"}
+              mt="5px"
+            />
+          </HStack>
+
           <Spacer />
         </Flex>
         <Slide

@@ -97,8 +97,9 @@ export const AboutUs = () => {
                 and resources to those affected by long covid.
               </Text>
               <Text fontSize={"lg"} fontWeight="semibold">
-                A special thank you to the C4R project for providing us with
-                content for the Long COVID survey.
+                The research was, in part, funded by the National Institutes of
+                Health (NIH) Agreement 1OT2HL156812 through the National Heart,
+                Lung, and Blood Institute (NHLBI) CONNECTS program.
               </Text>
               <VStack spacing={5} w="100%" align={"start"}>
                 <Heading size={"sm"}>Team Members</Heading>
