@@ -123,14 +123,14 @@ export const AboutUs = () => {
                     image="./AhmedHeadshot.jpg"
                   />
                   <TeamMember
-                    name={"Nathan Farrell"}
+                    name={"Nathan Farrell, BS"}
                     role={"Lead Software Engineer"}
                     school={"Johns Hopkins School of Medicine"}
                     image="./NateHeadshot.jpg"
                   />
                   <WrapItem>
                     <TeamMember
-                      name={"Hubert Leo"}
+                      name={"Hubert Leo, BS"}
                       role={"Software Engineer"}
                       school={"Johns Hopkins University Grad"}
                       image="./HubertHeadshot.jpg"

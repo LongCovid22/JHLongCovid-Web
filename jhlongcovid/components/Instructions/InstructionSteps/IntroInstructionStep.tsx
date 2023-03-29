@@ -36,6 +36,21 @@ export const IntroInstructionStep: React.FC<InstructionStepProps> = ({
 
       <VStack w={"70%"} spacing="20px" fontSize={"lg"}>
         <Text>
+          Some people who have been infected with the virus that causes COVID-19
+          can experience long-term effects from their infection, known as
+          post-COVID conditions (PCC) or long-COVID.
+        </Text>
+        <Text>
+          Long-COVID conditions can include a wide range of ongoing health
+          problems; these conditions can last weeks, months, or years.
+        </Text>
+        <Text>
+          Johns Hopkins and partners are working to understand more about who
+          experiences Long-COVID conditions, their symptoms, and risk, including
+          whether groups disproportionately impacted by COVID-19 are at higher
+          risk.
+        </Text>
+        <Text>
           This dashboard was designed to give voice to people who are suffering
           from Long-COVID by reporting their experiences with Long-COVID using
           survey questionnaires
