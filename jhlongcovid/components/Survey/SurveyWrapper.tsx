@@ -11,6 +11,7 @@ import {
   Text,
   Spacer,
   useToast,
+  Image,
 } from "@chakra-ui/react";
 
 //redux imports
@@ -437,7 +438,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           width: width < 700 ? 410 : width * 0.6,
           minWidth: 410,
           maxWidth: 1000,
-          minHeight: height * 0.6,
+          minHeight: height * 0.7,
           height: height < 720 ? height * 0.85 : "650px",
           borderRadius: "35px",
         }}
@@ -489,6 +490,12 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           )}
         </ModalBody>
         <ModalFooter>
+          {currentQuestion.questionNum === 0 && (
+            <>
+              <Image src="./crHorizontal.png" w="200px" alt="Hopkins Logo" />
+              <Spacer />
+            </>
+          )}
           {currentQuestion.questionNum !== 0 &&
             currentQuestion.questionNum <= totalQuestions && (
               <Text

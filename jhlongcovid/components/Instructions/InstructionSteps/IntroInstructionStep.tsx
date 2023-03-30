@@ -16,19 +16,12 @@ export const IntroInstructionStep: React.FC<InstructionStepProps> = ({
 }) => {
   return (
     <VStack height={"100%"} width={"100%"} textAlign="center" spacing={"45px"}>
-      <Wrap w="100%" justify={"center"} spacing="25px">
-        <WrapItem>
-          <Image src="./crVertical.png" w="275px" alt="Hopkins Logo" mt="5px" />
-        </WrapItem>
-        <WrapItem>
-          <Image
-            src="./bloomberg.logo.vertical.blue.jpg"
-            alt="Hopkins Logo"
-            w={"300px"}
-            mt="5px"
-          />
-        </WrapItem>
-      </Wrap>
+      <Image
+        src="./bloomberg.logo.vertical.blue.jpg"
+        alt="Hopkins Logo"
+        w={"300px"}
+        mt="5px"
+      />
 
       <Text fontSize={"4xl"} fontWeight={"bold"}>
         Welcome to the Johns Hopkins Long-COVID Dashboard!
@@ -36,28 +29,26 @@ export const IntroInstructionStep: React.FC<InstructionStepProps> = ({
 
       <VStack w={"70%"} spacing="20px" fontSize={"lg"}>
         <Text>
-          Some people who have been infected with the virus that causes COVID-19
-          can experience long-term effects from their infection, known as
-          post-COVID conditions (PCC) or long-COVID.
+          The COVID-19 pandemic has caused unprecedented health and social
+          challenges worldwide. To better understand the long-term consequences
+          of this disease, a team of researchers from Johns Hopkins University
+          and other institutions has developed this dashboard to amplify the
+          voices of Long-COVID sufferers and raise awareness of their challenges
+          and needs.
         </Text>
         <Text>
-          Long-COVID conditions can include a wide range of ongoing health
-          problems; these conditions can last weeks, months, or years.
-        </Text>
-        <Text>
-          Johns Hopkins and partners are working to understand more about who
-          experiences Long-COVID conditions, their symptoms, and risk, including
-          whether groups disproportionately impacted by COVID-19 are at higher
-          risk.
-        </Text>
-        <Text>
-          This dashboard was designed to give voice to people who are suffering
-          from Long-COVID by reporting their experiences with Long-COVID using
-          survey questionnaires
+          Your feedback on COVID-19 is important to us. We want to know how the
+          pandemic has impacted your well-being, lifestyle, work, or social
+          connections. Please fill out our survey questionnaire to share your
+          experiences with us.
         </Text>
         <Text>
           The following instructions will guide you through how to complete our
-          survey and view your results on the map
+          survey and view your results on the map.
+        </Text>
+        <Text color={"gray"} fontSize="xs" w="65%">
+          All survey questionnaires were developed in line with the
+          Collaborative Cohort of Cohorts for COVID-19 Research (C4R). 
         </Text>
       </VStack>
       <Spacer />
