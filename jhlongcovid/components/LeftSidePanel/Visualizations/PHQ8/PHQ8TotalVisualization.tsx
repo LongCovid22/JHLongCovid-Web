@@ -92,18 +92,21 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     const createGraphVariables = () => {
       let patientHealthQuestionnaireSummary,
         globalHealthSummary,
-        totalFullEntries;
+        totalFullEntries,
+        phq8AboveTen;
 
       if (data && realOrMock === RealOrMock.REAL) {
         patientHealthQuestionnaireSummary =
           data.patientHealthQuestionnaireSummary;
         globalHealthSummary = data.globalHealthSummary;
         totalFullEntries = data.totalFullEntries;
+        phq8AboveTen = data.phq8AboveTen;
       } else {
         patientHealthQuestionnaireSummary =
           mockResult.county.patientHealthQuestionnaireSummary;
         globalHealthSummary = mockResult.county.globalHealthSummary;
         totalFullEntries = mockResult.county.totalFullEntries;
+        phq8AboveTen = mockResult.county.phq8AboveTen;
       }
 
       const colors = [
@@ -122,10 +125,12 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         );
       }
 
-      const phq8OverTen =
-        data.phq8AboveTen !== null && data.phq8AboveTen ? data.phq8AboveTen : 0;
-      const phq8Config = createPHQ8OverTenConfig(phq8OverTen, totalEntries);
-      setPhq8AboveTenConfig(phq8Config);
+      if (phq8AboveTen) {
+        const phq8OverTen =
+          phq8AboveTen !== null && phq8AboveTen ? phq8AboveTen : 0;
+        const phq8Config = createPHQ8OverTenConfig(phq8OverTen, totalEntries);
+        setPhq8AboveTenConfig(phq8Config);
+      }
 
       setTotalEntries(totalFullEntries);
 
