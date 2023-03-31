@@ -15,6 +15,8 @@ export const getMapData = /* GraphQL */ `
       longCovid
       phq8AboveTen
       recoveredCount
+      longCovidOverFourWeeks
+      longCovidOverTwelveWeeks
       topMedicalCondition
       recoverySummary {
         avglengthOfRecovery {
@@ -89,6 +91,8 @@ export const listMapData = /* GraphQL */ `
         longCovid
         phq8AboveTen
         recoveredCount
+        longCovidOverFourWeeks
+        longCovidOverTwelveWeeks
         topMedicalCondition
         totalFullEntries
         createdAt
@@ -126,6 +130,8 @@ export const mapDataByLevelNameState = /* GraphQL */ `
         longCovid
         phq8AboveTen
         recoveredCount
+        longCovidOverFourWeeks
+        longCovidOverTwelveWeeks
         topMedicalCondition
         totalFullEntries
         createdAt
@@ -163,6 +169,8 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
         longCovid
         phq8AboveTen
         recoveredCount
+        longCovidOverFourWeeks
+        longCovidOverTwelveWeeks
         topMedicalCondition
         totalFullEntries
         createdAt

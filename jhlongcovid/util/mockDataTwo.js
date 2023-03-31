@@ -12948,6 +12948,16 @@ function countyStateAggregator(countyInfo) {
         topMedicalCondition: "Weakness",
         longCovid: x.longCovid + result[x.stateAbbrev].longCovid,
         covidCount: x.covidCount + result[x.stateAbbrev].covidCount,
+        phq8AboveTen: x.phq8AboveTen + result[x.stateAbbrev].phq8AboveTen,
+        recoveredCount: x.recoveredCount + result[x.stateAbbrev].recoveredCount,
+        longCovidOverFourWeeks:
+          x.longCovidOverFourWeeks +
+          result[x.stateAbbrev].longCovidOverFourWeeks,
+        longCovidOverTwelveWeeks:
+          x.longCovidOverTwelveWeeks +
+          result[x.stateAbbrev].longCovidOverTwelveWeeks,
+        totalFullEntries:
+          x.totalFullEntries + result[x.stateAbbrev].totalFullEntries,
         covidSummary: {
           totalLongCovidCases:
             x.covidSummary.totalLongCovidCases +
@@ -12974,6 +12984,11 @@ function countyStateAggregator(countyInfo) {
         longCovid: x.longCovid,
         covidCount: x.covidCount,
         name: x.stateName,
+        phq8AboveTen: x.phq8AboveTen,
+        recoveredCount: x.recoveredCount,
+        longCovidOverFourWeeks: x.longCovidOverFourWeeks,
+        longCovidOverTwelveWeeks: x.longCovidOverTwelveWeeks,
+        totalFullEntries: x.totalFullEntries,
       };
     }
   });
@@ -13014,8 +13029,13 @@ export function read() {
       stateAbbrev: state_abbrev_data[index],
       stateName: state_name_data[index++],
       topMedicalCondition: "Weakness",
-      longCovid: Math.floor(Math.random() * 10),
-      covidCount: Math.floor(Math.random() * 200),
+      longCovid: Math.floor(Math.random() * 50),
+      covidCount: Math.floor(Math.random() * 150),
+      phq8AboveTen: Math.floor(Math.random() * 100),
+      recoveredCount: Math.floor(Math.random() * 100),
+      longCovidOverFourWeeks: Math.floor(Math.random() * 30),
+      longCovidOverTwelveWeeks: Math.floor(Math.random() * 20),
+      totalFullEntries: 200,
       covidSummary: {
         totalLongCovidCases: Math.floor(Math.random() * 200),
         perReportedLongCovidCase: Math.random(),

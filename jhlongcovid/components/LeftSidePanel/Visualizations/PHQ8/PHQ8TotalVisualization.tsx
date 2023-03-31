@@ -42,7 +42,10 @@ import {
   createTotalsChartConfig,
   getMostCommonInSummary,
 } from "../visualizationFunctions";
-import { getAvgPhq8Score } from "./phq8VisualizationFunctions";
+import {
+  createPHQ8OverTenConfig,
+  getAvgPhq8Score,
+} from "./phq8VisualizationFunctions";
 import { backgroundColors } from "../visualizationFunctions";
 import { RealOrMock } from "../../../../pages";
 import { SummaryAvgValues } from "../../../../src/API";
@@ -77,42 +80,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 }) => {
   const [avgPhq8Score, setAvgPhq8Score] = useState(0);
   const [totalEntries, setTotalEntries] = useState(0);
-  const [littleInterestConfig, setLittleInterestConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [downDepressedConfig, setDownDepressedConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [sleepProbConfig, setSleepProbConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [tiredConfig, setTiredConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [dietConfig, setDietConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [badSelfConfig, setBadSelfConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [concentrateConfig, setConcentrateConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [slowConfig, setSlowConfig] = useState<{
+  const [phq8AboveTenConfig, setPhq8AboveTenConfig] = useState<{
     labels: string[];
     options: any;
     data: any;
@@ -124,18 +92,21 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     const createGraphVariables = () => {
       let patientHealthQuestionnaireSummary,
         globalHealthSummary,
-        totalFullEntries;
+        totalFullEntries,
+        phq8AboveTen;
 
       if (data && realOrMock === RealOrMock.REAL) {
         patientHealthQuestionnaireSummary =
           data.patientHealthQuestionnaireSummary;
         globalHealthSummary = data.globalHealthSummary;
         totalFullEntries = data.totalFullEntries;
+        phq8AboveTen = data.phq8AboveTen;
       } else {
         patientHealthQuestionnaireSummary =
           mockResult.county.patientHealthQuestionnaireSummary;
         globalHealthSummary = mockResult.county.globalHealthSummary;
         totalFullEntries = mockResult.county.totalFullEntries;
+        phq8AboveTen = mockResult.county.phq8AboveTen;
       }
 
       const colors = [
@@ -154,92 +125,11 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         );
       }
 
-      if (patientHealthQuestionnaireSummary.littleInterestThings) {
-        setLittleInterestConfig(
-          createTotalsChartConfig(
-            patientHealthQuestionnaireSummary.littleInterestThings,
-            "Interest in Things",
-            "People",
-            colors
-          )
-        );
-      }
-
-      if (patientHealthQuestionnaireSummary.downDepressedHopeless) {
-        setDownDepressedConfig(
-          createTotalsChartConfig(
-            patientHealthQuestionnaireSummary.downDepressedHopeless,
-            "Down, Depressed, or Hopeless",
-            "People",
-            colors
-          )
-        );
-      }
-
-      if (patientHealthQuestionnaireSummary.sleepProblems) {
-        setSleepProbConfig(
-          createTotalsChartConfig(
-            patientHealthQuestionnaireSummary.sleepProblems,
-            "Sleep Problems",
-            "People",
-            colors
-          )
-        );
-      }
-
-      if (patientHealthQuestionnaireSummary.tiredNoEnergy) {
-        setTiredConfig(
-          createTotalsChartConfig(
-            patientHealthQuestionnaireSummary.tiredNoEnergy,
-            "Tired or No Energy",
-            "People",
-            colors
-          )
-        );
-      }
-
-      if (patientHealthQuestionnaireSummary.dietProblems) {
-        setDietConfig(
-          createTotalsChartConfig(
-            patientHealthQuestionnaireSummary.dietProblems,
-            "Diet Problems",
-            "People",
-            colors
-          )
-        );
-      }
-
-      if (patientHealthQuestionnaireSummary.badAboutSelf) {
-        setBadSelfConfig(
-          createTotalsChartConfig(
-            patientHealthQuestionnaireSummary.badAboutSelf,
-            "Bad About Self",
-            "People",
-            colors
-          )
-        );
-      }
-
-      if (patientHealthQuestionnaireSummary.concentrationProblems) {
-        setConcentrateConfig(
-          createTotalsChartConfig(
-            patientHealthQuestionnaireSummary.concentrationProblems,
-            "Concentrate",
-            "People",
-            colors
-          )
-        );
-      }
-
-      if (patientHealthQuestionnaireSummary.slowOrRestless) {
-        setSlowConfig(
-          createTotalsChartConfig(
-            patientHealthQuestionnaireSummary.slowOrRestless,
-            "Slow or Restless",
-            "People",
-            colors
-          )
-        );
+      if (phq8AboveTen) {
+        const phq8OverTen =
+          phq8AboveTen !== null && phq8AboveTen ? phq8AboveTen : 0;
+        const phq8Config = createPHQ8OverTenConfig(phq8OverTen, totalEntries);
+        setPhq8AboveTenConfig(phq8Config);
       }
 
       setTotalEntries(totalFullEntries);
@@ -266,13 +156,6 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                 <StatHelpText>Total Survey Entries</StatHelpText>
               </Stat>
             </WrapItem>
-            {/* <WrapItem>
-              <Stat>
-                <StatLabel>Avg. PHQ8 Score</StatLabel>
-                <StatNumber>{avgPhq8Score}</StatNumber>
-                <StatHelpText>Average PHQ8 score</StatHelpText>
-              </Stat>
-            </WrapItem> */}
           </Wrap>
           <Wrap spacing="30px" overflow={"visible"}>
             <WrapItem
@@ -282,100 +165,9 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               p={"30px"}
               minWidth="340px"
             >
-              <Bar
-                options={littleInterestConfig.options}
-                data={littleInterestConfig.data}
-                height={"300px"}
-              />
-            </WrapItem>
-            <WrapItem
-              width={width < 1500 ? "300px" : "325px"}
-              shadow="base"
-              borderRadius={"20px"}
-              p={"30px"}
-              minWidth="340px"
-            >
-              <Bar
-                options={downDepressedConfig.options}
-                data={downDepressedConfig.data}
-                height={"300px"}
-              />
-            </WrapItem>
-            <WrapItem
-              width={width < 1500 ? "300px" : "325px"}
-              shadow="base"
-              borderRadius={"20px"}
-              p={"30px"}
-              minWidth="340px"
-            >
-              <Bar
-                options={sleepProbConfig.options}
-                data={sleepProbConfig.data}
-                height={"300px"}
-              />
-            </WrapItem>
-            <WrapItem
-              width={width < 1500 ? "300px" : "325px"}
-              shadow="base"
-              borderRadius={"20px"}
-              p={"30px"}
-              minWidth="340px"
-            >
-              <Bar
-                options={tiredConfig.options}
-                data={tiredConfig.data}
-                height={"300px"}
-              />
-            </WrapItem>
-            <WrapItem
-              width={width < 1500 ? "300px" : "325px"}
-              shadow="base"
-              borderRadius={"20px"}
-              p={"30px"}
-              minWidth="340px"
-            >
-              <Bar
-                options={dietConfig.options}
-                data={dietConfig.data}
-                height={"300px"}
-              />
-            </WrapItem>
-            <WrapItem
-              width={width < 1500 ? "300px" : "325px"}
-              shadow="base"
-              borderRadius={"20px"}
-              p={"30px"}
-              minWidth="340px"
-            >
-              <Bar
-                options={badSelfConfig.options}
-                data={badSelfConfig.data}
-                height={"300px"}
-              />
-            </WrapItem>
-            <WrapItem
-              width={width < 1500 ? "300px" : "325px"}
-              shadow="base"
-              borderRadius={"20px"}
-              p={"30px"}
-              minWidth="340px"
-            >
-              <Bar
-                options={concentrateConfig.options}
-                data={concentrateConfig.data}
-                height={"300px"}
-              />
-            </WrapItem>
-            <WrapItem
-              width={width < 1500 ? "300px" : "325px"}
-              shadow="base"
-              borderRadius={"20px"}
-              p={"30px"}
-              minWidth="340px"
-            >
-              <Bar
-                options={slowConfig.options}
-                data={slowConfig.data}
+              <Doughnut
+                options={phq8AboveTenConfig.options}
+                data={phq8AboveTenConfig.data}
                 height={"300px"}
               />
             </WrapItem>

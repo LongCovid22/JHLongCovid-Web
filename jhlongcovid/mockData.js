@@ -4,7 +4,6 @@ Total long covid cases
 % of people that have recovered from long covid
 */
 
-
 export const mockMapData = [
   {
     id: 0,
@@ -13,6 +12,12 @@ export const mockMapData = [
     stateAbbrev: "NY",
     lat: 42.6526,
     long: -73.7562,
+    covidCount: 18,
+    longCovid: 5,
+    phq8AboveTen: 13,
+    recoveredCount: 16,
+    longCovidOverFourWeeks: 5,
+    longCovidOverTwelveWeeks: 1,
     covidSummary: {
       preCovidCount: 65,
       postCovidCount: 24,
@@ -28,7 +33,7 @@ export const mockMapData = [
       modernaCount: 54,
       jjCount: 39,
     },
-    totalEntries: 25,
+    totalFullEntries: 25,
   },
   {
     id: 1,
@@ -37,6 +42,12 @@ export const mockMapData = [
     stateAbbrev: "NY",
     lat: 42.313,
     long: -78.0195,
+    covidCount: 18,
+    longCovid: 5,
+    phq8AboveTen: 13,
+    recoveredCount: 16,
+    longCovidOverFourWeeks: 5,
+    longCovidOverTwelveWeeks: 1,
     covidSummary: {
       preCovidCount: 65,
       postCovidCount: 24,
@@ -52,7 +63,7 @@ export const mockMapData = [
       modernaCount: 54,
       jjCount: 39,
     },
-    totalEntries: 35,
+    totalFullEntries: 35,
   },
   {
     id: 2,
@@ -61,6 +72,12 @@ export const mockMapData = [
     stateAbbrev: "NY",
     lat: 40.8448,
     long: -73.8648,
+    covidCount: 18,
+    longCovid: 5,
+    phq8AboveTen: 13,
+    recoveredCount: 16,
+    longCovidOverFourWeeks: 5,
+    longCovidOverTwelveWeeks: 1,
     covidSummary: {
       preCovidCount: 65,
       postCovidCount: 24,
@@ -76,7 +93,7 @@ export const mockMapData = [
       modernaCount: 54,
       jjCount: 39,
     },
-    totalEntries: 35,
+    totalFullEntries: 35,
   },
   {
     id: 3,
@@ -85,6 +102,12 @@ export const mockMapData = [
     stateAbbrev: "NY",
     lat: 42.1792,
     long: 75.8534,
+    covidCount: 18,
+    longCovid: 5,
+    phq8AboveTen: 13,
+    recoveredCount: 16,
+    longCovidOverFourWeeks: 5,
+    longCovidOverTwelveWeeks: 1,
     covidSummary: {
       preCovidCount: 65,
       postCovidCount: 24,
@@ -100,7 +123,7 @@ export const mockMapData = [
       modernaCount: 54,
       jjCount: 39,
     },
-    totalEntries: 35,
+    totalFullEntries: 35,
   },
   {
     id: 4,
@@ -109,6 +132,12 @@ export const mockMapData = [
     stateAbbrev: "NY",
     lat: 42.2318,
     long: -78.7476,
+    covidCount: 18,
+    longCovid: 5,
+    phq8AboveTen: 13,
+    recoveredCount: 16,
+    longCovidOverFourWeeks: 5,
+    longCovidOverTwelveWeeks: 1,
     covidSummary: {
       preCovidCount: 65,
       postCovidCount: 24,
@@ -124,7 +153,7 @@ export const mockMapData = [
       modernaCount: 54,
       jjCount: 39,
     },
-    totalEntries: 35,
+    totalFullEntries: 35,
   },
   {
     id: 5,
@@ -133,6 +162,12 @@ export const mockMapData = [
     stateAbbrev: "NY",
     lat: 42.7656,
     long: -76.5488,
+    covidCount: 18,
+    longCovid: 5,
+    phq8AboveTen: 13,
+    recoveredCount: 16,
+    longCovidOverFourWeeks: 5,
+    longCovidOverTwelveWeeks: 1,
     covidSummary: {
       preCovidCount: 65,
       postCovidCount: 24,
@@ -148,7 +183,7 @@ export const mockMapData = [
       modernaCount: 54,
       jjCount: 39,
     },
-    totalEntries: 35,
+    totalFullEntries: 35,
   },
   {
     id: 6,
@@ -157,6 +192,12 @@ export const mockMapData = [
     stateAbbrev: "NY",
     lat: 42.2313,
     long: -79.5603,
+    covidCount: 18,
+    longCovid: 5,
+    phq8AboveTen: 13,
+    recoveredCount: 16,
+    longCovidOverFourWeeks: 5,
+    longCovidOverTwelveWeeks: 1,
     covidSummary: {
       preCovidCount: 65,
       postCovidCount: 24,
@@ -172,7 +213,7 @@ export const mockMapData = [
       modernaCount: 54,
       jjCount: 39,
     },
-    totalEntries: 35,
+    totalFullEntries: 35,
   },
   {
     id: 7,
@@ -181,6 +222,12 @@ export const mockMapData = [
     stateAbbrev: "NY",
     lat: 42.1362,
     long: -76.78,
+    covidCount: 18,
+    longCovid: 5,
+    phq8AboveTen: 13,
+    recoveredCount: 16,
+    longCovidOverFourWeeks: 5,
+    longCovidOverTwelveWeeks: 1,
     covidSummary: {
       preCovidCount: 65,
       postCovidCount: 24,
@@ -196,6 +243,6 @@ export const mockMapData = [
       modernaCount: 54,
       jjCount: 39,
     },
-    totalEntries: 35,
+    totalFullEntries: 35,
   },
 ];

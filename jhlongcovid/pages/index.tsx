@@ -368,13 +368,6 @@ const Home = () => {
           <Spacer />
           <HStack spacing="10px">
             <Image
-              src="./crHorizontal.png"
-              alt="Hopkins Logo"
-              w={"180px"}
-              mt="5px"
-              align={"top"}
-            />
-            <Image
               src="./bloomberg.logo.horizontal.blue.jpg"
               alt="Hopkins Logo"
               w={"180px"}

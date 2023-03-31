@@ -212,7 +212,9 @@ export const Instructions: React.FC<InstructionsProps> = ({
           />
         </ModalBody>
         <ModalFooter>
-          <HStack>
+          <HStack w="100%">
+            <Image src="./crHorizontal.png" w="200px" alt="Hopkins Logo" />
+            <Spacer />
             {step !== "intro" && (
               <Button
                 colorScheme="heritageBlue"

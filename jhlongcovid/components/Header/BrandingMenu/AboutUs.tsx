@@ -96,11 +96,7 @@ export const AboutUs = () => {
                 to not only gather important data, but also to provide support
                 and resources to those affected by long covid.
               </Text>
-              <Text fontSize={"lg"} fontWeight="semibold">
-                The research was, in part, funded by the National Institutes of
-                Health (NIH) Agreement 1OT2HL156812 through the National Heart,
-                Lung, and Blood Institute (NHLBI) CONNECTS program.
-              </Text>
+
               <VStack spacing={5} w="100%" align={"start"}>
                 <Heading size={"sm"}>Team Members</Heading>
                 <Wrap spacingY={"30px"}>
@@ -123,14 +119,14 @@ export const AboutUs = () => {
                     image="./AhmedHeadshot.jpg"
                   />
                   <TeamMember
-                    name={"Nathan Farrell"}
+                    name={"Nathan Farrell, BS"}
                     role={"Lead Software Engineer"}
                     school={"Johns Hopkins School of Medicine"}
                     image="./NateHeadshot.jpg"
                   />
                   <WrapItem>
                     <TeamMember
-                      name={"Hubert Leo"}
+                      name={"Hubert Leo, BS"}
                       role={"Software Engineer"}
                       school={"Johns Hopkins University Grad"}
                       image="./HubertHeadshot.jpg"
@@ -145,6 +141,12 @@ export const AboutUs = () => {
                     />
                   </WrapItem>
                 </Wrap>
+                <Heading size={"sm"}>Funding</Heading>
+                <Text fontSize={"md"} fontWeight="semibold">
+                  The research was, in part, funded by the National Institutes
+                  of Health (NIH) Agreement 1OT2HL156812 through the National
+                  Heart, Lung, and Blood Institute (NHLBI) CONNECTS program.
+                </Text>
               </VStack>
             </VStack>
 

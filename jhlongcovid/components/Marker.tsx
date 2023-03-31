@@ -15,6 +15,18 @@ interface CircleProps extends google.maps.CircleOptions {
   setSelectedData: (data: any) => void;
 }
 
+function addCommasToNumberString(number: number): string {
+  const numberString = number.toString();
+  // Reverse the input string
+  const reversedString = numberString.split("").reverse().join("");
+
+  // Add commas every 3 characters
+  const stringWithCommas = reversedString.replace(/(\d{3})(?=\d)/g, "$1,");
+
+  // Reverse the result and return it
+  return stringWithCommas.split("").reverse().join("");
+}
+
 export const Marker: React.FC<CircleProps> = ({
   data,
   markerData,
@@ -40,6 +52,33 @@ export const Marker: React.FC<CircleProps> = ({
 
       setMarker(circle);
 
+      const totalEntries = data.totalFullEntries;
+
+      // Covid counts
+      const covidTotal = data.covidCount !== null ? data.covidCount : 0;
+      const covidPercent =
+        totalEntries > 0
+          ? Math.round((covidTotal / data.totalFullEntries) * 100)
+          : 0;
+      const covidTotalString = addCommasToNumberString(covidTotal);
+
+      // Recovery counts
+      const recoveryCount =
+        data.recoveredCount !== null ? data.recoveredCount : 0;
+      const recoveryPercent = Math.round((recoveryCount / covidTotal) * 100);
+      const recoveryCountString = addCommasToNumberString(recoveryCount);
+
+      // Symptoms over 12 weeks
+      const symptomsOverTwelve =
+        data.longCovidOverTwelveWeeks !== null
+          ? data.longCovidOverTwelveWeeks
+          : 0;
+      const symptomsOverTwelvePercent = Math.round(
+        (symptomsOverTwelve / covidTotal) * 100
+      );
+      const symptomsOverTwelveString =
+        addCommasToNumberString(symptomsOverTwelve);
+
       const contentString =
         '<div style="padding: 10px">' +
         `<h1 style = "font-weight: bold; font-size: 18px; font-family: 'Gentona'">${
@@ -48,20 +87,24 @@ export const Marker: React.FC<CircleProps> = ({
             : data.name + ", " + data.stateAbbrev
         }</h1>` +
         "<span>" +
-        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\"> Total Long Covid Cases</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${data.longCovid}</h5>` +
+        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\"> Total Participant Entries</h5>" +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${addCommasToNumberString(
+          totalEntries
+        )}</h5>` +
         "</span>" +
         "<span>" +
-        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Total COVID Cases</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${data.covidCount}</h5>` +
+        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">COVID History</h5>" +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${covidTotalString} (${covidPercent}%)</h5>` +
         "</span>" +
         "<span>" +
-        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Most Common Condition</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${
-          medicalConditionsMap[data.topMedicalCondition]
-        }</h5>` +
+        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Recovered</h5>" +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${recoveryCountString} (${recoveryPercent}%)</h5>` +
         "</span>" +
-        "</div";
+        "<span>" +
+        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Symptoms for >12 weeks</h5>" +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${symptomsOverTwelveString} (${symptomsOverTwelvePercent}%)</h5>` +
+        "</span>" +
+        "</div>";
 
       const infowindow = new google.maps.InfoWindow({
         content: contentString,

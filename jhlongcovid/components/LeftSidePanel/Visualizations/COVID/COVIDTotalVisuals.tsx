@@ -91,6 +91,12 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   const [symptomatic, setSymptomatic] = useState(0);
   const [totalPrescribed, setTotalPrescribed] = useState(0);
   const [percentMedications, setPercentMedications] = useState(0);
+  const [totalLongCovidFourWeeks, setTotalLongCovidFourWeeks] = useState(0);
+  const [totalLongCovidFourWeeksPerc, setTotalLongCovidFourWeeksPerc] =
+    useState(0);
+  const [totalLongCovidTwelveWeeks, setTotalLongCovidTwelveWeeks] = useState(0);
+  const [totalLongCovidTwelveWeeksPerc, setTotalLongCovidTwelveWeeksPerc] =
+    useState(0);
   const [medicationsTakenConfig, setMedicationsTakenConfig] = useState<{
     labels: string[];
     options: any;
@@ -152,6 +158,29 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         recoverySummary.recovered as YesNo
       );
 
+      if (data !== null) {
+        const longCovidOverFourWeeks =
+          data.longCovidOverFourWeeks !== null && data.longCovidOverFourWeeks
+            ? data.longCovidOverFourWeeks
+            : 0;
+        const longCovidOverFourWeeksPerc = Math.round(
+          (longCovidOverFourWeeks / totalCases) * 100
+        );
+
+        const longCovidOverTwelveWeeks =
+          data.longCovidOverTwelveWeeks !== null &&
+          data.longCovidOverTwelveWeeks
+            ? data.longCovidOverTwelveWeeks
+            : 0;
+        const longCovidOverTwelveWeeksPerc = Math.round(
+          (longCovidOverTwelveWeeks / totalCases) * 100
+        );
+        setTotalLongCovidFourWeeks(longCovidOverFourWeeks);
+        setTotalLongCovidFourWeeksPerc(longCovidOverFourWeeksPerc);
+        setTotalLongCovidTwelveWeeks(longCovidOverTwelveWeeks);
+        setTotalLongCovidTwelveWeeksPerc(longCovidOverTwelveWeeksPerc);
+      }
+
       setTotalPrescribed(totalPrescribed);
       setSymptomatic(totalSymptomatic);
       setTotalEntries(totalFullEntries);
@@ -189,6 +218,24 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   {`${totalCovidCases} (${percentTotalCovid}%)`}
                 </StatNumber>
                 <StatHelpText>{`Total COVID Cases`}</StatHelpText>
+              </Stat>
+            </WrapItem>
+            <WrapItem>
+              <Stat>
+                <StatLabel>{"Long COVID >4 Weeks"}</StatLabel>
+                <StatNumber>
+                  {`${totalLongCovidFourWeeks} (${totalLongCovidFourWeeksPerc}%)`}
+                </StatNumber>
+                <StatHelpText>{`Not recovered >4 weeks`}</StatHelpText>
+              </Stat>
+            </WrapItem>
+            <WrapItem>
+              <Stat>
+                <StatLabel>{"Long COVID >12 Weeks"}</StatLabel>
+                <StatNumber>
+                  {`${totalLongCovidTwelveWeeks} (${totalLongCovidTwelveWeeksPerc}%)`}
+                </StatNumber>
+                <StatHelpText>{`Not recovered >12 weeks`}</StatHelpText>
               </Stat>
             </WrapItem>
             {/* <WrapItem>

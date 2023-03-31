@@ -33,6 +33,7 @@ const {
   checkNotNullAndBoolType,
   checkNotNullNumberGreaterThanZero,
 } = require("./checkTypes");
+const { hasLongCovid } = require("./helper");
 
 const GRAPHQL_ENDPOINT = process.env.API_JHLONGCOVID_GRAPHQLAPIENDPOINTOUTPUT;
 
@@ -52,6 +53,8 @@ let properties = `
       longCovid
       phq8AboveTen
       recoveredCount
+      longCovidOverFourWeeks
+      longCovidOverTwelveWeeks
       topMedicalCondition
       covidSummary {
         beenInfected {
@@ -3016,6 +3019,8 @@ let variables = {
     longCovid: 0,
     phq8AboveTen: 0,
     recoveredCount: 0,
+    longCovidOverFourWeeks: 0,
+    longCovidOverTwelveWeeks: 0,
     topMedicalCondition: "",
     covidSummary: {
       beenInfected: {
@@ -4084,21 +4089,24 @@ const updateSymptomSummary = (eventInput, county, state, indexes) => {
 };
 
 const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
-  let { symptomResults } = eventInput;
+  let { symptomResults, covidResults, recoveryResults } = eventInput;
   let data;
   if (county) {
     data = {
       county: {
         medicalConditionsSummary: county.medicalConditionsSummary,
+        lastPositive: county.covidSummary.lastPositive,
       },
       state: {
         medicalConditionsSummary: state.medicalConditionsSummary,
+        lastPositive: state.covidSummary.lastPositive,
       },
     };
   } else {
     data = {
       state: {
         medicalConditionsSummary: state.medicalConditionsSummary,
+        lastPositive: state.covidSummary.lastPositive,
       },
     };
   }
@@ -4106,6 +4114,12 @@ const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
   if (symptomResults === null || !symptomResults) {
     return;
   }
+
+  const longCovidResults = hasLongCovid(
+    symptomResults,
+    covidResults,
+    recoveryResults
+  );
 
   for (const dat in data) {
     let { longCovid, newDiagnosisCounts } = data[dat].medicalConditionsSummary;
@@ -4133,9 +4147,35 @@ const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
       checkYesNoDoNotKnowType(symptomResults.hasLongCovid)
     ) {
       if (dat === "county") {
-        county.longCovid += symptomResults.hasLongCovid === "yes" ? 1 : 0;
+        county.longCovid =
+          county.longCovid === null || !county.longCovid
+            ? longCovidResults.OverFourWeeks
+            : county.longCovid + longCovidResults.OverFourWeeks;
+        county.longCovidOverFourWeeks =
+          county.longCovidOverFourWeeks === null ||
+          !county.longCovidOverFourWeeks
+            ? longCovidResults.OverFourWeeks
+            : county.longCovidOverFourWeeks + longCovidResults.OverFourWeeks;
+        county.longCovidOverTwelveWeeks =
+          county.longCovidOverTwelveWeeks === null ||
+          !county.longCovidOverTwelveWeeks
+            ? longCovidResults.OverTwelveWeeks
+            : county.longCovidOverTwelveWeeks +
+              longCovidResults.OverTwelveWeeks;
       } else {
-        state.longCovid += symptomResults.hasLongCovid === "yes" ? 1 : 0;
+        state.longCovid =
+          state.longCovid === null || !state.longCovid
+            ? longCovidResults.OverFourWeeks
+            : state.longCovid + longCovidResults.OverFourWeeks;
+        state.longCovidOverFourWeeks =
+          state.longCovidOverFourWeeks === null || !state.longCovidOverFourWeeks
+            ? longCovidResults.OverFourWeeks
+            : state.longCovidOverFourWeeks + longCovidResults.OverFourWeeks;
+        state.longCovidOverTwelveWeeks =
+          state.longCovidOverTwelveWeeks === null ||
+          !state.longCovidOverTwelveWeeks
+            ? longCovidResults.OverTwelveWeeks
+            : state.longCovidOverTwelveWeeks + longCovidResults.OverTwelveWeeks;
       }
 
       addCustomToTallyBasedOnCondition(
@@ -4496,7 +4536,7 @@ exports.handler = async (event) => {
   // let results = JSON.parse(input);
   // console.log("INPUT: ", input);
   const { county, state } = await aggregateSurveyResults(input);
-
+  // console.log("County: ", county);
   // await populate();
   const statusCode = 200;
   const body = {

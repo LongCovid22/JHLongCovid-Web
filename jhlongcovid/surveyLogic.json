@@ -8,9 +8,10 @@
         "questionNum": 0,
         "question": "Welcome to the Johns Hopkins Long COVID Dashboard!",
         "options": [
-          "Tell us your experience with COVID-19!",
-          "How has COVID-19 affected life beyond your infection?",
-          "All information will be used to help us better understand how to treat people with difficulties related to COVID-19"
+          "The COVID-19 pandemic has caused unprecedented health and social challenges worldwide. To better understand the long-term consequences of this disease, a team of researchers from Johns Hopkins University and other institutions has developed this dashboard to amplify the voices of Long-COVID sufferers and raise awareness of their challenges and needs.",
+          "Your feedback on COVID-19 is important to us. We want to know how the pandemic has impacted your well-being, lifestyle, work, or social connections. Please fill out our survey questionnaire to share your experiences with us.",
+          "Click next to begin the survey.",
+          "All survey questionnaires were developed in line with the Collaborative Cohort of Cohorts for COVID-19 Research (C4R)."
         ],
         "answerFormat": "welcome",
         "answer": null,
