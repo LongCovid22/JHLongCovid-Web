@@ -40,6 +40,29 @@ export const Marker: React.FC<CircleProps> = ({
 
       setMarker(circle);
 
+      const totalEntries = data.totalFullEntries;
+
+      // Covid counts
+      const covidTotal = data.covidCount !== null ? data.covidCount : 0;
+      const covidPercent =
+        totalEntries > 0
+          ? Math.round((covidTotal / data.totalFullEntries) * 100)
+          : 0;
+
+      // Recovery counts
+      const recoveryCount =
+        data.recoveredCount !== null ? data.recoveredCount : 0;
+      const recoveryPercent = Math.round((recoveryCount / covidTotal) * 100);
+
+      // Symptoms over 12 weeks
+      const symptomsOverTwelve =
+        data.longCovidOverTwelveWeeks !== null
+          ? data.longCovidOverTwelveWeeks
+          : 0;
+      const symptomsOverTwelvePercent = Math.round(
+        (symptomsOverTwelve / covidTotal) * 100
+      );
+
       const contentString =
         '<div style="padding: 10px">' +
         `<h1 style = "font-weight: bold; font-size: 18px; font-family: 'Gentona'">${
@@ -48,20 +71,22 @@ export const Marker: React.FC<CircleProps> = ({
             : data.name + ", " + data.stateAbbrev
         }</h1>` +
         "<span>" +
-        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\"> Total Long Covid Cases</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${data.longCovid}</h5>` +
+        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\"> Total Participant Entries</h5>" +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${totalEntries}</h5>` +
         "</span>" +
         "<span>" +
-        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Total COVID Cases</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${data.covidCount}</h5>` +
+        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">COVID History</h5>" +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${covidTotal} (${covidPercent}%)</h5>` +
         "</span>" +
         "<span>" +
-        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Most Common Condition</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${
-          medicalConditionsMap[data.topMedicalCondition]
-        }</h5>` +
+        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Recovered</h5>" +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${recoveryCount} (${recoveryPercent}%)</h5>` +
         "</span>" +
-        "</div";
+        "<span>" +
+        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Symptoms for >12 weeks</h5>" +
+        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${symptomsOverTwelve} (${symptomsOverTwelvePercent}%)</h5>` +
+        "</span>" +
+        "</div>";
 
       const infowindow = new google.maps.InfoWindow({
         content: contentString,

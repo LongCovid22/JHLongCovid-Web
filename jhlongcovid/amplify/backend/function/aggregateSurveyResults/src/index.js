@@ -4537,9 +4537,6 @@ exports.handler = async (event) => {
   // console.log("INPUT: ", input);
   const { county, state } = await aggregateSurveyResults(input);
   // console.log("County: ", county);
-  console.log("longCovid: ", state.longCovid);
-  console.log("longCovidFour: ", state.longCovidOverFourWeeks);
-  console.log("longCovidTwelve: ", state.longCovidOverTwelveWeeks);
   // await populate();
   const statusCode = 200;
   const body = {
