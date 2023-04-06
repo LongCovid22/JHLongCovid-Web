@@ -10,6 +10,8 @@ interface HeaderProps {
   setRealOrMock: React.Dispatch<React.SetStateAction<RealOrMock>>;
   showInstructions: boolean;
   setShowInstructions: React.Dispatch<React.SetStateAction<boolean>>;
+  showSurveyOnLaunch?: boolean;
+  setShowSurveyOnLaunch?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -18,6 +20,8 @@ export const Header: React.FC<HeaderProps> = ({
   setRealOrMock,
   showInstructions,
   setShowInstructions,
+  showSurveyOnLaunch,
+  setShowSurveyOnLaunch,
 }) => {
   return (
     <Flex>
@@ -25,6 +29,8 @@ export const Header: React.FC<HeaderProps> = ({
       <ProfileCheckin
         showInstructions={showInstructions}
         setShowInstructions={setShowInstructions}
+        showSurveyOnLaunch={showSurveyOnLaunch}
+        setShowSurveyOnLaunch={setShowSurveyOnLaunch}
       />
       <HStack
         position={"absolute"}

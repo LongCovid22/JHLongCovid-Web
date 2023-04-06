@@ -180,6 +180,7 @@ export const Instructions: React.FC<InstructionsProps> = ({
           maxHeight: height * 0.9,
           // height: height < 720 ? height * 0.9 : "700px",
           borderRadius: "35px",
+          padding: "15px",
         }}
         containerProps={{
           overflow: "hidden",
@@ -212,9 +213,14 @@ export const Instructions: React.FC<InstructionsProps> = ({
           />
         </ModalBody>
         <ModalFooter>
-          <HStack w="100%">
+          <HStack w="100%" spacing={"15px"}>
             <Image src="./crHorizontal.png" w="200px" alt="Hopkins Logo" />
+            <Text color={"gray.400"} fontSize="xs" w="45%" align={"left"}>
+              All survey questionnaires were developed in line with the
+              Collaborative Cohort of Cohorts for COVID-19 Research (C4R). 
+            </Text>
             <Spacer />
+
             {step !== "intro" && (
               <Button
                 colorScheme="heritageBlue"

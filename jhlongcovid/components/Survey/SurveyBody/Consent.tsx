@@ -70,7 +70,7 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
   return (
     <>
       <VStack height={"100%"} spacing={"15px"}>
-        <Text fontSize={"lg"} fontWeight={"regular"} w="100%">
+        <Text fontSize={"xl"} fontWeight={"regular"} w="100%">
           {currentQuestion.question}
         </Text>
         <BulletedList options={currentQuestion.options} />
@@ -83,7 +83,7 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
             colorScheme="heritageBlue"
             value={email}
             focusBorderColor={"clear"}
-            fontSize={"lg"}
+            fontSize={"xl"}
             onChange={(event) => {
               handleAnswerChange(event.target.value);
             }}

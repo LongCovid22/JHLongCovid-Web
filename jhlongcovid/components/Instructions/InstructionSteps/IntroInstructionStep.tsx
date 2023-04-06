@@ -46,10 +46,6 @@ export const IntroInstructionStep: React.FC<InstructionStepProps> = ({
           The following instructions will guide you through how to complete our
           survey and view your results on the map.
         </Text>
-        <Text color={"gray"} fontSize="xs" w="65%">
-          All survey questionnaires were developed in line with the
-          Collaborative Cohort of Cohorts for COVID-19 Research (C4R). 
-        </Text>
       </VStack>
       <Spacer />
     </VStack>
