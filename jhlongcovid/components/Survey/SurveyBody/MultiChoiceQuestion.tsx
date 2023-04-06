@@ -57,7 +57,7 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
         {currentQuestion.question}
       </Text> */}
       {QuestionText(currentQuestion.question, currentQuestion.timeframe)}
-      <VStack spacing={"15px"} width={"100%"} align="start">
+      <VStack spacing={"20px"} width={"100%"} align="start">
         <CheckboxGroup
           colorScheme="heritageBlue"
           onChange={handleChoiceInput}
@@ -74,7 +74,7 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
                       value={inputValue}
                       width={"50%"}
                       type={option.type}
-                      fontSize="lg"
+                      fontSize="xl"
                       max={
                         option.type === "date"
                           ? new Date(

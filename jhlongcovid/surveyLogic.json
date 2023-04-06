@@ -9,9 +9,7 @@
         "question": "Welcome to the Johns Hopkins Long COVID Dashboard!",
         "options": [
           "The COVID-19 pandemic has caused unprecedented health and social challenges worldwide. To better understand the long-term consequences of this disease, a team of researchers from Johns Hopkins University and other institutions has developed this dashboard to amplify the voices of Long-COVID sufferers and raise awareness of their challenges and needs.",
-          "Your feedback on COVID-19 is important to us. We want to know how the pandemic has impacted your well-being, lifestyle, work, or social connections. Please fill out our survey questionnaire to share your experiences with us.",
-          "Click next to begin the survey.",
-          "All survey questionnaires were developed in line with the Collaborative Cohort of Cohorts for COVID-19 Research (C4R)."
+          "Your feedback on COVID-19 is important to us. We want to know how the pandemic has impacted your well-being, lifestyle, work, or social connections. Please fill out our survey questionnaire to share your experiences with us."
         ],
         "answerFormat": "welcome",
         "answer": null,
@@ -360,7 +358,7 @@
         "question": "In total, how many COVID-19 vaccine shots have you received?",
         "options": [
           {
-            "type": "text",
+            "type": "dropdown",
             "title": "Number of shots: ",
             "placeholder": "Enter number of shots",
             "validation": {
@@ -382,7 +380,7 @@
       {
         "title": "Vaccination",
         "questionNum": 18,
-        "question": "When was your most recent COVID vaccine?",
+        "question": "When was your most recent COVID shot?",
         "options": [
           {
             "type": "date",
