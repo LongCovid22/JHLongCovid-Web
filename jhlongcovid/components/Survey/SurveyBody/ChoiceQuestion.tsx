@@ -11,6 +11,7 @@ import {
   Spacer,
   FormLabel,
   FormErrorMessage,
+  Select,
 } from "@chakra-ui/react";
 import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
@@ -40,12 +41,12 @@ const Choices = (
         value={choiceValue}
         key="choiceGroup"
       >
-        <VStack align="flex-start" spacing={"15px"} width={"100%"}>
+        <VStack align="flex-start" spacing={"20px"} width={"100%"}>
           {answerFormat.map((af: any, key: number) => {
             const option = options[key];
             if (`${af}` === "choice") {
               return (
-                <Radio key={key} value={option} size="lg" fontSize="18px">
+                <Radio key={key} value={option} size="lg" fontSize={"3xl"}>
                   {option}
                 </Radio>
               );
@@ -54,26 +55,46 @@ const Choices = (
                 <Stack direction={"column"} width={"100%"} key={key}>
                   <FormControl isInvalid={inputError}>
                     <FormLabel fontSize={"lg"}>{option.title}</FormLabel>
-                    <Input
-                      value={inputValue}
-                      width={"50%"}
-                      placeholder={option.placeholder}
-                      type={option.type}
-                      fontSize={"lg"}
-                      max={
-                        option.type === "date"
-                          ? new Date(
-                              new Date().setDate(new Date().getDate() - 1)
-                            )
-                              .toISOString()
-                              .split("T")[0]
-                          : undefined
-                      }
-                      focusBorderColor="clear"
-                      onChange={(event) => {
-                        setValue(event.target.value, option.validation);
-                      }}
-                    />
+                    {option.type === "dropdown" ? (
+                      <Select
+                        value={inputValue}
+                        width={"50%"}
+                        fontSize="xl"
+                        colorScheme={"heritageBlue"}
+                        onChange={(event) => {
+                          setValue(event.target.value, option.validation);
+                        }}
+                      >
+                        <option value={"1"}>1</option>
+                        <option value={"2"}>2</option>
+                        <option value={"3"}>3</option>
+                        <option value={"4"}>4</option>
+                        <option value={"5"}>5</option>
+                        <option value={"6"}>6</option>
+                      </Select>
+                    ) : (
+                      <Input
+                        value={inputValue}
+                        width={"50%"}
+                        placeholder={option.placeholder}
+                        type={option.type}
+                        fontSize={"lg"}
+                        max={
+                          option.type === "date"
+                            ? new Date(
+                                new Date().setDate(new Date().getDate() - 1)
+                              )
+                                .toISOString()
+                                .split("T")[0]
+                            : undefined
+                        }
+                        focusBorderColor="clear"
+                        onChange={(event) => {
+                          setValue(event.target.value, option.validation);
+                        }}
+                      />
+                    )}
+
                     {inputError && option.validation && (
                       <FormErrorMessage>
                         {option.validation.errorText}
@@ -143,7 +164,7 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>
       {QuestionText(currentQuestion.question, currentQuestion.timeframe)}
-      <VStack spacing={"15px"} width={"100%"}>
+      <VStack spacing={"20px"} width={"100%"}>
         {Choices(
           currentQuestion.answerFormat,
           currentQuestion.options,

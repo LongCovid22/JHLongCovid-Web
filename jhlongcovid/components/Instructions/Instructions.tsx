@@ -202,7 +202,7 @@ export const Instructions: React.FC<InstructionsProps> = ({
         </ModalHeader>
         <ModalBody
           style={{
-            overflowY: "hidden",
+            overflowY: "auto",
             paddingTop: "0px",
           }}
         >

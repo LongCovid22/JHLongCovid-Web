@@ -45,8 +45,9 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
           colSpan={currentQuestion.scale.length}
           position="sticky"
           key={`${value}-prompt-${i}`}
+          textAlign="center"
         >
-          <Text fontSize={"lg"}>{value}</Text>
+          <Text fontSize={"xl"}>{value}</Text>
         </GridItem>
       );
       gridItems.push(
@@ -66,7 +67,7 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
             >
               {currentQuestion.scale.map((sv: string, si: number) => {
                 return (
-                  <GridItem alignItems={"center"} key={si}>
+                  <GridItem alignItems={"center"} key={si} pt="8px">
                     <Flex w="100%" direction={"row"}>
                       <Spacer />
                       <Radio value={`${si}`} />
@@ -87,7 +88,7 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
   return (
     <>
       <VStack
-        fontSize={"md"}
+        fontSize={"lg"}
         fontWeight={"regular"}
         width="100%"
         position={"sticky"}

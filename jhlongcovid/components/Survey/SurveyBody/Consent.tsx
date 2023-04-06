@@ -18,7 +18,7 @@ import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySli
 const BulletedList = ({ options }: { options: any }) => {
   return (
     <>
-      <UnorderedList width={"75%"} spacing={"5px"} fontSize="lg">
+      <UnorderedList width={"75%"} spacing={"5px"} fontSize="xl">
         {options.map((value: string, key: number) => {
           return <ListItem key={key}>{value}</ListItem>;
         })}
@@ -76,7 +76,7 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
         <BulletedList options={currentQuestion.options} />
         <Spacer />
         <FormControl isInvalid={emailError}>
-          <FormLabel fontSize={"18px"}>Print your email</FormLabel>
+          <FormLabel fontSize={"xl"}>Print your email</FormLabel>
           <Input
             type="text"
             placeholder="Enter Email "
@@ -89,11 +89,11 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
             }}
           />
           {emailError ? (
-            <FormErrorMessage fontSize={"15px"}>
+            <FormErrorMessage fontSize={"lg"}>
               Please enter valid email
             </FormErrorMessage>
           ) : (
-            <FormHelperText fontSize={"15px"}>
+            <FormHelperText fontSize={"lg"}>
               Enter email to give consent. Your survey responses will be sent to
               this address after you submit your survey.
             </FormHelperText>

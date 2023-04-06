@@ -358,7 +358,7 @@
         "question": "In total, how many COVID-19 vaccine shots have you received?",
         "options": [
           {
-            "type": "text",
+            "type": "dropdown",
             "title": "Number of shots: ",
             "placeholder": "Enter number of shots",
             "validation": {
@@ -380,7 +380,7 @@
       {
         "title": "Vaccination",
         "questionNum": 18,
-        "question": "When was your most recent COVID vaccine?",
+        "question": "When was your most recent COVID shot?",
         "options": [
           {
             "type": "date",

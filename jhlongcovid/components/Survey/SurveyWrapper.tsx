@@ -40,7 +40,6 @@ import { ChoiceQuestion } from "./SurveyBody/ChoiceQuestion";
 import { InputQuestion } from "./SurveyBody/InputQuestion";
 import { Account } from "./SurveyBody/Account";
 import { ThankYou } from "./SurveyBody/ThankYou";
-import { MFA } from "./SurveyBody/MFA";
 import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
 import { PreSurvey } from "./SurveyBody/PreSurvey";
@@ -151,8 +150,6 @@ const Body: React.FC<SurveyQuestionProps> = ({
     );
   } else if (answerFormat === "thankYou") {
     return <ThankYou currentQuestion={currentQuestion} setAnswer={setAnswer} />;
-  } else if (answerFormat === "mfa") {
-    return <MFA currentQuestion={currentQuestion} setAnswer={setAnswer} />;
   } else if (answerFormat === "scale") {
     return (
       <ScaleQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
@@ -480,7 +477,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       >
         <ModalHeader>
           <Flex>
-            <Text fontSize={"2xl"}>
+            <Text fontSize={"3xl"}>
               {!preSurvey && currentQuestion.answerFormat !== "thankYou"
                 ? currentQuestion.title
                 : ""}
@@ -548,7 +545,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             <Spacer />
             <HStack>
               {(missingAnswer || errorPresent) && !preSurvey && (
-                <Text fontSize={"14px"} color={"red"}>
+                <Text fontSize={"lg"} color={"red"}>
                   {errorText}
                 </Text>
               )}
