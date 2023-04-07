@@ -22,7 +22,7 @@ import { selectWidth } from "../../redux/slices/viewportSlice";
 import { SurveyWrapper } from "../Survey/SurveyWrapper";
 
 import { PreSurvey } from "../Survey/SurveyBody/PreSurvey";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AuthenticationForm,
   AuthState,
@@ -31,14 +31,28 @@ import { resetUser, selectUser } from "../../redux/slices/userSlice";
 import { Auth } from "aws-amplify";
 
 interface ProfileCheckinProps {
-  showInstructions: boolean;
-  setShowInstructions: React.Dispatch<React.SetStateAction<boolean>>;
+  showInstructions?: boolean;
+  setShowInstructions?: React.Dispatch<React.SetStateAction<boolean>>;
+  showSurveyOnLaunch?: boolean;
+  setShowSurveyOnLaunch?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Survey() {
+export const Survey: React.FC<ProfileCheckinProps> = ({
+  showSurveyOnLaunch,
+  setShowSurveyOnLaunch,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [showSurvey, setShowSurvey] = useState(false);
+  const closeSurvey = () => {
+    if (setShowSurveyOnLaunch) setShowSurveyOnLaunch(false);
+    onClose();
+  };
+
+  useEffect(() => {
+    if (showSurveyOnLaunch) {
+      onOpen();
+    }
+  }, [showSurveyOnLaunch]);
 
   const dispatch = useAppDispatch();
   return (
@@ -52,9 +66,9 @@ function Survey() {
       >
         Participate
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered size={"lg"}>
-        <ModalOverlay />
-        <SurveyWrapper onClose={onClose} />
+      <Modal isOpen={isOpen} onClose={closeSurvey} isCentered size={"lg"}>
+        <ModalOverlay p="30px" />
+        <SurveyWrapper onClose={closeSurvey} />
         {/* {showSurvey && <SurveyWrapper onClose={onClose} />} */}
         {/* {showSurvey === false && (
           <PreSurvey onClose={onClose} setShowSurvey={setShowSurvey} />
@@ -62,11 +76,13 @@ function Survey() {
       </Modal>
     </>
   );
-}
+};
 
 export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
   showInstructions,
   setShowInstructions,
+  showSurveyOnLaunch,
+  setShowSurveyOnLaunch,
 }) => {
   // return(<BasicUsage />)
   const width = useAppSelector(selectWidth);
@@ -94,7 +110,7 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
         borderRadius="500px"
         size={"lg"}
         onClick={() => {
-          setShowInstructions(!showInstructions);
+          if (setShowInstructions) setShowInstructions(!showInstructions);
         }}
       />
       <Flex
@@ -106,7 +122,10 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
           minWidth: width < 700 ? "350px" : "280px",
         }}
       >
-        <Survey />
+        <Survey
+          showSurveyOnLaunch={showSurveyOnLaunch}
+          setShowSurveyOnLaunch={setShowSurveyOnLaunch}
+        />
         <Menu isLazy>
           <MenuButton>
             <Avatar></Avatar>

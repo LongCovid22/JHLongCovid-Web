@@ -40,7 +40,6 @@ import { ChoiceQuestion } from "./SurveyBody/ChoiceQuestion";
 import { InputQuestion } from "./SurveyBody/InputQuestion";
 import { Account } from "./SurveyBody/Account";
 import { ThankYou } from "./SurveyBody/ThankYou";
-import { MFA } from "./SurveyBody/MFA";
 import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
 import { PreSurvey } from "./SurveyBody/PreSurvey";
@@ -79,6 +78,9 @@ export interface SurveyQuestionProps {
   setErrorPresent?: (error: boolean) => void;
   setErrorText?: (text: string) => void;
   onVerify?: () => void;
+  handleQuestionChange?: (
+    direction: "next" | "prev" | "skip" | "finish"
+  ) => void;
 }
 
 const Body: React.FC<SurveyQuestionProps> = ({
@@ -88,6 +90,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
   setErrorPresent,
   setErrorText,
   onVerify,
+  handleQuestionChange,
 }) => {
   let answerFormat = currentQuestion.answerFormat;
   if (Array.isArray(answerFormat)) {
@@ -121,7 +124,13 @@ const Body: React.FC<SurveyQuestionProps> = ({
       <Demographics currentQuestion={currentQuestion} setAnswer={setAnswer} />
     );
   } else if (answerFormat === "welcome") {
-    return <Welcome currentQuestion={currentQuestion} setAnswer={setAnswer} />;
+    return (
+      <Welcome
+        currentQuestion={currentQuestion}
+        setAnswer={setAnswer}
+        handleQuestionChange={handleQuestionChange}
+      />
+    );
   } else if (answerFormat === "choice") {
     return (
       <ChoiceQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
@@ -141,8 +150,6 @@ const Body: React.FC<SurveyQuestionProps> = ({
     );
   } else if (answerFormat === "thankYou") {
     return <ThankYou currentQuestion={currentQuestion} setAnswer={setAnswer} />;
-  } else if (answerFormat === "mfa") {
-    return <MFA currentQuestion={currentQuestion} setAnswer={setAnswer} />;
   } else if (answerFormat === "scale") {
     return (
       <ScaleQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
@@ -394,7 +401,10 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     performingQueries: boolean,
     isLastQuestion: boolean
   ) => {
-    if (currentQuestion.answerFormat !== "account") {
+    if (
+      currentQuestion.answerFormat !== "account" &&
+      currentQuestion.answerFormat !== "welcome"
+    ) {
       if (!preSurvey) {
         return (
           <Button
@@ -428,6 +438,24 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         );
       }
     }
+
+    if (currentQuestion.answerFormat === "welcome" && height < 852) {
+      return (
+        <Button
+          colorScheme="heritageBlue"
+          borderRadius={500}
+          isLoading={performingQueries}
+          onClick={() =>
+            isLastQuestion
+              ? handleQuestionChange("finish")
+              : handleQuestionChange("next")
+          }
+          fontSize="md"
+        >
+          Begin Survey
+        </Button>
+      );
+    }
   };
 
   return (
@@ -435,12 +463,13 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       <ModalContent
         style={{
           background: "white",
-          width: width < 700 ? 410 : width * 0.6,
+          width: width < 700 ? 410 : width * 0.7,
           minWidth: 410,
           maxWidth: 1000,
-          minHeight: height * 0.7,
+          minHeight: height * 0.8,
           height: height < 720 ? height * 0.85 : "650px",
           borderRadius: "35px",
+          padding: "15px",
         }}
         containerProps={{
           overflow: "hidden",
@@ -448,7 +477,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       >
         <ModalHeader>
           <Flex>
-            <Text fontSize={"2xl"}>
+            <Text fontSize={"3xl"}>
               {!preSurvey && currentQuestion.answerFormat !== "thankYou"
                 ? currentQuestion.title
                 : ""}
@@ -479,6 +508,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               setErrorPresent={setErrorPresent}
               setErrorText={setErrorText}
               onVerify={() => handleQuestionChange("next")}
+              handleQuestionChange={handleQuestionChange}
             />
           ) : (
             <PreSurvey
@@ -489,10 +519,19 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             />
           )}
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter w="100%">
           {currentQuestion.questionNum === 0 && (
             <>
-              <Image src="./crHorizontal.png" w="200px" alt="Hopkins Logo" />
+              <HStack spacing="15px">
+                <Image src="./crHorizontal.png" w="200px" alt="Hopkins Logo" />
+                {width > 700 && (
+                  <Text color={"gray.400"} fontSize="xs" align={"left"} w="45%">
+                    All survey questionnaires were developed in line with the
+                    Collaborative Cohort of Cohorts for COVID-19 Research (C4R).
+                  </Text>
+                )}
+              </HStack>
+
               <Spacer />
             </>
           )}
@@ -502,48 +541,50 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
                 color={"gray.400"}
               >{`Step ${currentQuestion.questionNum} of ${totalQuestions}`}</Text>
             )}
-          <Spacer />
-          <HStack>
-            {(missingAnswer || errorPresent) && !preSurvey && (
-              <Text fontSize={"14px"} color={"red"}>
-                {errorText}
-              </Text>
-            )}
-            {currentQuestion.answerFormat === "account" && !preSurvey && (
-              <Button
-                background={"spiritBlue.100"}
-                color={"heritageBlue.500"}
-                borderRadius={500}
-                onClick={() => {
-                  handleQuestionChange("skip");
-                }}
-                fontSize="lg"
-              >
-                Skip
-              </Button>
-            )}
-            {!isFirstQuestion &&
-              !isFinalSection &&
-              !preSurvey &&
-              currentQuestion.answerFormat !== "account" && (
+          <>
+            <Spacer />
+            <HStack>
+              {(missingAnswer || errorPresent) && !preSurvey && (
+                <Text fontSize={"lg"} color={"red"}>
+                  {errorText}
+                </Text>
+              )}
+              {currentQuestion.answerFormat === "account" && !preSurvey && (
                 <Button
-                  colorScheme="heritageBlue"
+                  background={"spiritBlue.100"}
+                  color={"heritageBlue.500"}
                   borderRadius={500}
                   onClick={() => {
-                    handleQuestionChange("prev");
+                    handleQuestionChange("skip");
                   }}
                   fontSize="lg"
                 >
-                  Prev
+                  Skip
                 </Button>
               )}
-            {renderNextButton(
-              currentQuestion,
-              preSurvey,
-              performingQueries,
-              isLastQuestion
-            )}
-          </HStack>
+              {!isFirstQuestion &&
+                !isFinalSection &&
+                !preSurvey &&
+                currentQuestion.answerFormat !== "account" && (
+                  <Button
+                    colorScheme="heritageBlue"
+                    borderRadius={500}
+                    onClick={() => {
+                      handleQuestionChange("prev");
+                    }}
+                    fontSize="lg"
+                  >
+                    Prev
+                  </Button>
+                )}
+              {renderNextButton(
+                currentQuestion,
+                preSurvey,
+                performingQueries,
+                isLastQuestion
+              )}
+            </HStack>
+          </>
         </ModalFooter>
       </ModalContent>
     </>

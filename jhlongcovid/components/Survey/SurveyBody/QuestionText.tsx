@@ -6,7 +6,7 @@ export const QuestionText = (text: string, timeframe: string | undefined) => {
     const splitText = text.split("<timeframe>");
     return (
       <>
-        <Text fontSize={"lg"} fontWeight={"regular"} width={"100%"}>
+        <Text fontSize={"xl"} fontWeight={"regular"} width={"100%"}>
           {splitText[0]}
           <Text as="span" fontWeight={"bold"}>
             {timeframe}
@@ -17,7 +17,7 @@ export const QuestionText = (text: string, timeframe: string | undefined) => {
     );
   } else {
     return (
-      <Text fontSize={"lg"} fontWeight={"regular"} width={"100%"}>
+      <Text fontSize={"xl"} fontWeight={"regular"} width={"100%"}>
         {text}
       </Text>
     );

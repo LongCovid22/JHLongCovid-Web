@@ -88,6 +88,7 @@ const Home = () => {
   const [onCreateMapDataSub, setOnCreateMapDataSub] = useState<any>(null);
   const [onUpdateMapDataSub, setOnUpdateMapDataSub] = useState<any>(null);
   const [showInstructions, setShowInstructions] = useState<boolean>(false);
+  const [showSurveyOnLaunch, setShowSurveyOnLaunch] = useState<boolean>(false);
 
   const stateData = useAppSelector(selectStateData);
   const countyData = useAppSelector(selectCountyData);
@@ -154,13 +155,13 @@ const Home = () => {
 
   useEffect(() => {
     // setShowInstructions(true);
-    let showedInstructions = localStorage.getItem("showedInstructions");
-    if (showedInstructions === null) {
+    let showedSurvey = localStorage.getItem("showedSurveyOnLaunch");
+    if (showedSurvey === null) {
       // Check if instructions have been shown before
-      let showedInstructions = localStorage.getItem("showedInstructions");
-      if (showedInstructions === null) {
-        localStorage.setItem("showedInstructions", JSON.stringify(true));
-        setShowInstructions(true);
+      let showedSurvey = localStorage.getItem("showedSurveyOnLaunch");
+      if (showedSurvey === null) {
+        localStorage.setItem("showedSurveyOnLaunch", JSON.stringify(true));
+        setShowSurveyOnLaunch(true);
       }
     }
   }, []);
@@ -351,6 +352,8 @@ const Home = () => {
           setRealOrMock={setRealOrMock}
           showInstructions={showInstructions}
           setShowInstructions={setShowInstructions}
+          showSurveyOnLaunch={showSurveyOnLaunch}
+          setShowSurveyOnLaunch={setShowSurveyOnLaunch}
         />
         <LeftSidePanel data={selectedData} realOrMock={realOrMock} />
         <Flex

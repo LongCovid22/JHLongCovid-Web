@@ -15,7 +15,7 @@ export const IntroInstructionStep: React.FC<InstructionStepProps> = ({
   setInstructionStep,
 }) => {
   return (
-    <VStack height={"100%"} width={"100%"} textAlign="center" spacing={"45px"}>
+    <VStack height={"100%"} width={"100%"} textAlign="center" spacing={"35px"}>
       <Image
         src="./bloomberg.logo.vertical.blue.jpg"
         alt="Hopkins Logo"
@@ -24,10 +24,10 @@ export const IntroInstructionStep: React.FC<InstructionStepProps> = ({
       />
 
       <Text fontSize={"4xl"} fontWeight={"bold"}>
-        Welcome to the Johns Hopkins Long-COVID Dashboard!
+        Welcome to the Johns Hopkins Long COVID Dashboard!
       </Text>
 
-      <VStack w={"70%"} spacing="20px" fontSize={"lg"}>
+      <VStack w={"85%"} spacing="20px" fontSize={"xl"}>
         <Text>
           The COVID-19 pandemic has caused unprecedented health and social
           challenges worldwide. To better understand the long-term consequences
@@ -45,10 +45,6 @@ export const IntroInstructionStep: React.FC<InstructionStepProps> = ({
         <Text>
           The following instructions will guide you through how to complete our
           survey and view your results on the map.
-        </Text>
-        <Text color={"gray"} fontSize="xs" w="65%">
-          All survey questionnaires were developed in line with the
-          Collaborative Cohort of Cohorts for COVID-19 Research (C4R). 
         </Text>
       </VStack>
       <Spacer />
