@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Button, Text, Input, HStack } from "@chakra-ui/react";
+import {
+  Button,
+  Text,
+  Input,
+  HStack,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 import { selectLocation } from "../../../../redux/slices/locationSlice";
 
-interface LocationInputProps {
-  zipError: boolean;
-  setZipError: (error: boolean) => void;
-}
+interface LocationInputProps {}
 
-const LocationInput: React.FC<LocationInputProps> = ({
-  zipError,
-  setZipError,
-}) => {
+const LocationInput: React.FC<LocationInputProps> = () => {
   const location = useSelector(selectLocation);
   const [verifyingZip, setVerifyingZip] = useState<boolean>(false);
   const [zip, setZip] = useState<string | null>();
@@ -19,6 +21,7 @@ const LocationInput: React.FC<LocationInputProps> = ({
     state: string;
     county: string;
   } | null>(null);
+  const [zipError, setZipError] = useState<boolean>(false);
 
   const locationText = (location: { state: string; county: string }) => {
     if (location.county == "") {
@@ -88,31 +91,51 @@ const LocationInput: React.FC<LocationInputProps> = ({
 
   return (
     <>
-      {stateAndCounty ? (
-        <HStack>
-          <Text>{locationText(stateAndCounty)}</Text>
-        </HStack>
-      ) : (
-        <HStack spacing={"15px"}>
-          <Input
-            placeholder="Enter your zipcode"
-            value={zip || ""}
-            onChange={(event) => {
-              handleZipChange(event.target.value);
-            }}
-          />
-          <Button
-            background={"spiritBlue.100"}
-            color={"heritageBlue.500"}
-            borderRadius={500}
-            fontSize="lg"
-            isLoading={verifyingZip}
-            onClick={() => verifyZip()}
-          >
-            Verify
-          </Button>
-        </HStack>
-      )}
+      <FormControl isInvalid={zipError}>
+        <FormLabel fontSize={"18px"}>Location</FormLabel>
+        {/* <Input
+              fontSize={"18px"}
+              type={"text"}
+              placeholder={"Enter zip code"}
+              focusBorderColor={"clear"}
+              value={demos["zip"]}
+              onChange={(event) => {
+                handleAnswerChange("zip", event.target.value);
+              }}
+            /> */}
+        {stateAndCounty ? (
+          <HStack>
+            <Text>{locationText(stateAndCounty)}</Text>
+          </HStack>
+        ) : (
+          <HStack spacing={"15px"}>
+            <Input
+              placeholder="Enter your zipcode"
+              value={zip || ""}
+              onChange={(event) => {
+                handleZipChange(event.target.value);
+              }}
+            />
+            <Button
+              background={"spiritBlue.100"}
+              color={"heritageBlue.500"}
+              borderRadius={500}
+              fontSize="lg"
+              isLoading={verifyingZip}
+              onClick={() => verifyZip()}
+            >
+              Verify
+            </Button>
+          </HStack>
+        )}
+        {/* <FormHelperText>
+              Your zip code will not be stored. It will only be used to locate
+              your county and state
+            </FormHelperText> */}
+        {zipError && (
+          <FormErrorMessage>Please enter a valid zip code</FormErrorMessage>
+        )}
+      </FormControl>
     </>
   );
 };
