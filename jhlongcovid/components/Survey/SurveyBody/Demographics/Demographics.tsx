@@ -22,11 +22,12 @@ import {
   PinInputField,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { SurveyQuestionProps } from "../SurveyWrapper";
-import { useAppSelector } from "../../../redux/hooks";
-import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
-import { selectWidth } from "../../../redux/slices/viewportSlice";
+import { SurveyQuestionProps } from "../../SurveyWrapper";
+import { useAppSelector } from "../../../../redux/hooks";
+import { selectCurrentAnswer } from "../../../../redux/slices/surveySlice/surveySlice";
+import { selectWidth } from "../../../../redux/slices/viewportSlice";
 import { ConsoleLogger } from "@aws-amplify/core";
+import LocationInput from "./LocationInput";
 
 export const Demographics: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
@@ -102,8 +103,8 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
       {width < 1000 ? (
         <VStack align={"start"} w="100%">
           <FormControl isInvalid={zipError}>
-            <FormLabel fontSize={"18px"}>Zip code</FormLabel>
-            <Input
+            <FormLabel fontSize={"18px"}>Location</FormLabel>
+            {/* <Input
               fontSize={"18px"}
               type={"text"}
               placeholder={"Enter zip code"}
@@ -112,11 +113,12 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
               onChange={(event) => {
                 handleAnswerChange("zip", event.target.value);
               }}
-            />
-            <FormHelperText>
+            /> */}
+            <LocationInput zipError={zipError} setZipError={setZipError} />
+            {/* <FormHelperText>
               Your zip code will not be stored. It will only be used to locate
               your county and state
-            </FormHelperText>
+            </FormHelperText> */}
             {zipError && (
               <FormErrorMessage>Please enter a valid zip code</FormErrorMessage>
             )}
@@ -227,8 +229,8 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
         <HStack w="100%" spacing={"25px"}>
           <VStack>
             <FormControl isInvalid={zipError}>
-              <FormLabel fontSize={"18px"}>Zip code</FormLabel>
-              <Input
+              <FormLabel fontSize={"18px"}>Location</FormLabel>
+              {/* <Input
                 fontSize={"18px"}
                 type={"text"}
                 placeholder={"Enter zip code"}
@@ -237,11 +239,12 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
                 onChange={(event) => {
                   handleAnswerChange("zip", event.target.value);
                 }}
-              />
-              <FormHelperText>
+              /> */}
+              <LocationInput zipError={zipError} setZipError={setZipError} />
+              {/* <FormHelperText>
                 Your zip code will not be stored. It will only be used to locate
                 your county and state
-              </FormHelperText>
+              </FormHelperText> */}
               {zipError && (
                 <FormErrorMessage>
                   Please enter a valid zip code

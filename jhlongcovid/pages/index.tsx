@@ -64,6 +64,7 @@ import {
   selectCountyData,
 } from "../redux/slices/mapDataSlice";
 import { Instructions } from "../components/Instructions/Instructions";
+import { setLocation } from "../redux/slices/locationSlice";
 
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
@@ -209,6 +210,17 @@ const Home = () => {
       // set vp height and width and bind the set of the vp height and with on resize
       setViewport();
       window.addEventListener("resize", setViewport);
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          dispatch(
+            setLocation({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            })
+          );
+        });
+      }
 
       try {
         const userSession = await Auth.currentAuthenticatedUser();

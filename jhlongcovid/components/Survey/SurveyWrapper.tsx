@@ -35,7 +35,7 @@ import { processEntries } from "../../redux/slices/surveySlice/surveySliceFuncti
 //survey component templates
 import { Welcome } from "./SurveyBody/Welcome";
 import { Consent } from "./SurveyBody/Consent";
-import { Demographics } from "./SurveyBody/Demographics";
+import { Demographics } from "./SurveyBody/Demographics/Demographics";
 import { ChoiceQuestion } from "./SurveyBody/ChoiceQuestion";
 import { InputQuestion } from "./SurveyBody/InputQuestion";
 import { Account } from "./SurveyBody/Account";
