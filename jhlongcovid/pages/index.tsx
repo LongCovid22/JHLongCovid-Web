@@ -211,16 +211,16 @@ const Home = () => {
       setViewport();
       window.addEventListener("resize", setViewport);
 
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          dispatch(
-            setLocation({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            })
-          );
-        });
-      }
+      // if (navigator.geolocation) {
+      //   navigator.geolocation.getCurrentPosition((position) => {
+      //     dispatch(
+      //       setLocation({
+      //         lat: position.coords.latitude,
+      //         lng: position.coords.longitude,
+      //       })
+      //     );
+      //   });
+      // }
 
       try {
         const userSession = await Auth.currentAuthenticatedUser();

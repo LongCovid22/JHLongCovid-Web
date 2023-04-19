@@ -34,12 +34,13 @@ import LocationInput from "./LocationInput";
 export const Demographics: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
+  location,
+  setLocationData,
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const width = useAppSelector(selectWidth);
 
   const [demos, setDemos] = useState({
-    zip: "",
     age: "",
     race: "",
     sex: "",
@@ -88,7 +89,10 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
         <WrapItem>
           <Grid gap={4}>
             <GridItem>
-              <LocationInput />
+              <LocationInput
+                location={location}
+                setLocationData={setLocationData}
+              />
             </GridItem>
             <GridItem>
               <FormControl>

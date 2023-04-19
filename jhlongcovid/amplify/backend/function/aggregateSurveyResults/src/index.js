@@ -3550,6 +3550,7 @@ const getStateAndCountyInfo = async (eventInput) => {
 
   const stateInfo = await getID("state", state, null);
   const countyInfo = await getID("county", county, stateAbbrev);
+  console.log("State Info:", stateInfo);
 
   return {
     county: countyInfo ? countyInfo[0] : null,

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
+  VStack,
   Button,
   Text,
   Input,
@@ -10,11 +11,27 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { selectLocation } from "../../../../redux/slices/locationSlice";
+import {
+  checkEmptyLocationData,
+  getCountyAndStateWithLatLng,
+  getCountyAndStateWithZip,
+  LocationData,
+  NotInUSError,
+} from "../../SurveyFunctions";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { setLocation } from "../../../../redux/slices/locationSlice";
 
-interface LocationInputProps {}
+interface LocationInputProps {
+  location?: LocationData;
+  setLocationData?: React.Dispatch<React.SetStateAction<LocationData>>;
+}
 
-const LocationInput: React.FC<LocationInputProps> = () => {
-  const location = useSelector(selectLocation);
+const LocationInput: React.FC<LocationInputProps> = ({
+  location,
+  setLocationData,
+}) => {
+  const dispatch = useAppDispatch();
+  const locationLatLng = useSelector(selectLocation);
   const [verifyingZip, setVerifyingZip] = useState<boolean>(false);
   const [zip, setZip] = useState<string | null>();
   const [stateAndCounty, setStateAndCounty] = useState<{
@@ -22,6 +39,7 @@ const LocationInput: React.FC<LocationInputProps> = () => {
     county: string;
   } | null>(null);
   const [zipError, setZipError] = useState<boolean>(false);
+  const [zipErrorText, setZipErrorText] = useState<string>("");
 
   const locationText = (location: { state: string; county: string }) => {
     if (location.county == "") {
@@ -44,50 +62,62 @@ const LocationInput: React.FC<LocationInputProps> = () => {
 
   const verifyZip = async () => {
     setVerifyingZip(true);
-    const response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=zipcode ${zip}&key=${process.env.GOOGLEMAPS_API_KEY}`
-    );
-    const data = await response.json();
-    const stateAndCountyObj = data.results[0].address_components.reduce(
-      (acc: any, curr: any) => {
-        if (curr.types.includes("administrative_area_level_1")) {
-          acc.state = curr.long_name;
-        } else if (curr.types.includes("administrative_area_level_2")) {
-          acc.county = curr.long_name;
+    if (zip) {
+      try {
+        const ld = await getCountyAndStateWithZip(
+          zip,
+          process.env.GOOGLEMAPS_API_KEY!
+        );
+        if (checkEmptyLocationData(ld)) {
+          setZipError(true);
+          setZipErrorText(
+            "Unable to find your loaction. Please try another zip code."
+          );
+        } else {
+          setZipError(false);
+          setStateAndCounty({ state: ld.state, county: ld.county });
+          if (setLocationData) setLocationData(ld);
         }
-        return acc;
-      },
-      { state: "", county: "" }
-    );
+      } catch (error) {
+        if (error instanceof NotInUSError) {
+          setZipErrorText(`${error.message}. Please try another zip code.`);
+        } else {
+          setZipErrorText(
+            "Unable to find your loaction. Please try another zip code."
+          );
+        }
+        setZipError(true);
+      }
+    }
     setVerifyingZip(false);
-    setStateAndCounty(stateAndCountyObj);
-    console.log("State and county: ", stateAndCountyObj);
   };
 
   useEffect(() => {
     const fetchStateAndCounty = async () => {
-      if (location.lat !== null && location.lng !== null) {
-        const response = await fetch(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${process.env.GOOGLEMAPS_API_KEY}`
-        );
-        const data = await response.json();
-        const stateAndCountyObj = data.results[0].address_components.reduce(
-          (acc: any, curr: any) => {
-            if (curr.types.includes("administrative_area_level_1")) {
-              acc.state = curr.long_name;
-            } else if (curr.types.includes("administrative_area_level_2")) {
-              acc.county = curr.long_name;
+      if (location && !checkEmptyLocationData(location)) {
+        setStateAndCounty({ state: location.state, county: location.county });
+      } else {
+        if (locationLatLng.lat !== null && locationLatLng.lng !== null) {
+          try {
+            const ld = await getCountyAndStateWithLatLng(
+              locationLatLng,
+              process.env.GOOGLEMAPS_API_KEY!
+            );
+            setZipError(false);
+            setZipErrorText("");
+            if (!checkEmptyLocationData(ld)) {
+              setStateAndCounty({ state: ld.state, county: ld.county });
+              if (setLocationData) setLocationData(ld);
             }
-            return acc;
-          },
-          { state: "", county: "" }
-        );
-        setStateAndCounty(stateAndCountyObj);
+          } catch (error) {
+            console.error("Error fetching location data with lat long", error);
+          }
+        }
       }
     };
 
     fetchStateAndCounty();
-  }, [location]);
+  }, [locationLatLng]);
 
   return (
     <>
@@ -104,37 +134,87 @@ const LocationInput: React.FC<LocationInputProps> = () => {
               }}
             /> */}
         {stateAndCounty ? (
-          <HStack>
-            <Text>{locationText(stateAndCounty)}</Text>
-          </HStack>
-        ) : (
-          <HStack spacing={"15px"}>
-            <Input
-              placeholder="Enter your zipcode"
-              value={zip || ""}
-              onChange={(event) => {
-                handleZipChange(event.target.value);
-              }}
-            />
+          <VStack align={"start"} spacing="5px">
+            <HStack>
+              <Text>{locationText(stateAndCounty)}</Text>
+            </HStack>
             <Button
-              background={"spiritBlue.100"}
-              color={"heritageBlue.500"}
-              borderRadius={500}
-              fontSize="lg"
-              isLoading={verifyingZip}
-              onClick={() => verifyZip()}
+              color={"spiritBlue.500"}
+              fontSize="md"
+              variant="link"
+              onClick={() => {
+                setStateAndCounty(null);
+                if (setLocationData) {
+                  setLocationData({
+                    state: "",
+                    stateAbbrev: "",
+                    stateLat: 0.0,
+                    stateLong: 0.0,
+                    county: "",
+                    countyLat: 0.0,
+                    countyLong: 0.0,
+                  });
+                }
+              }}
             >
-              Verify
+              Change location
             </Button>
-          </HStack>
+          </VStack>
+        ) : (
+          <VStack align="start" w="100%" spacing="5px">
+            <HStack spacing={"15px"}>
+              <Input
+                placeholder="Enter your zipcode"
+                value={zip || ""}
+                onChange={(event) => {
+                  handleZipChange(event.target.value);
+                }}
+              />
+              <Button
+                background={"spiritBlue.100"}
+                color={"heritageBlue.500"}
+                borderRadius={500}
+                fontSize="lg"
+                isLoading={verifyingZip}
+                onClick={() => verifyZip()}
+              >
+                Verify
+              </Button>
+            </HStack>
+            <Button
+              color={"spiritBlue.500"}
+              fontSize="md"
+              variant="link"
+              onClick={() => {
+                setVerifyingZip(true);
+                if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                      setVerifyingZip(false);
+                      dispatch(
+                        setLocation({
+                          lat: position.coords.latitude,
+                          lng: position.coords.longitude,
+                        })
+                      );
+                    },
+                    (error) => {
+                      setVerifyingZip(false);
+                      console.log("ERROR GETTING LOCATION: ", error);
+                    }
+                  );
+                }
+              }}
+            >
+              Find My Location
+            </Button>
+          </VStack>
         )}
         {/* <FormHelperText>
               Your zip code will not be stored. It will only be used to locate
               your county and state
             </FormHelperText> */}
-        {zipError && (
-          <FormErrorMessage>Please enter a valid zip code</FormErrorMessage>
-        )}
+        {zipError && <FormErrorMessage>{zipErrorText}</FormErrorMessage>}
       </FormControl>
     </>
   );

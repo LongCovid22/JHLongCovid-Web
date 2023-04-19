@@ -47,6 +47,7 @@ import { selectUser } from "../../redux/slices/userSlice";
 import {
   aggregateResults,
   checkEmptyDemoFields,
+  checkEmptyLocationData,
   createCovidEntry,
   getCountyAndStateWithZip,
   LocationData,
@@ -64,7 +65,6 @@ interface SurveyWrapperProps {
 export type UserInfo = {
   email: string;
   age: string;
-  zip: string;
   race: string;
   sex: string;
   height: string;
@@ -75,8 +75,10 @@ export interface SurveyQuestionProps {
   currentQuestion: any;
   setAnswer: (answer: any) => void;
   userInfo?: UserInfo;
+  location?: LocationData;
   setErrorPresent?: (error: boolean) => void;
   setErrorText?: (text: string) => void;
+  setLocationData?: React.Dispatch<React.SetStateAction<LocationData>>;
   onVerify?: () => void;
   handleQuestionChange?: (
     direction: "next" | "prev" | "skip" | "finish"
@@ -86,9 +88,11 @@ export interface SurveyQuestionProps {
 const Body: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   userInfo,
+  location,
   setAnswer,
   setErrorPresent,
   setErrorText,
+  setLocationData,
   onVerify,
   handleQuestionChange,
 }) => {
@@ -121,7 +125,12 @@ const Body: React.FC<SurveyQuestionProps> = ({
     );
   } else if (answerFormat === "demographics") {
     return (
-      <Demographics currentQuestion={currentQuestion} setAnswer={setAnswer} />
+      <Demographics
+        currentQuestion={currentQuestion}
+        setAnswer={setAnswer}
+        location={location}
+        setLocationData={setLocationData}
+      />
     );
   } else if (answerFormat === "welcome") {
     return (
@@ -177,12 +186,20 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [answer, setAnswer] = useState<string | string[] | object | null>(
     currentQuestion.answer
   );
+  const [location, setLocation] = useState<LocationData>({
+    state: "",
+    stateAbbrev: "",
+    stateLat: 0.0,
+    stateLong: 0.0,
+    county: "",
+    countyLat: 0.0,
+    countyLong: 0.0,
+  });
 
   // state to keep track of user info filled out throughout the survey
   const [userInfo, setUserInfo] = useState<UserInfo>({
     email: "",
     age: "",
-    zip: "",
     race: "",
     sex: "",
     height: "",
@@ -226,7 +243,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         // Check for empty fields during the demographics stage
         if (currentQuestion.answerFormat === "demographics") {
           if (answer !== null) {
+            const emptyLocation = checkEmptyLocationData(location);
             const emptyFields = checkEmptyDemoFields(answer);
+            if (emptyLocation) {
+              emptyFields.push("location");
+            }
             if (emptyFields.length > 0) {
               setErrorText(`Please provide ${emptyFields.join(", ")}`);
               setMissingAnswer(true);
@@ -278,7 +299,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           setUserInfo(userInfoUpdate);
         } else if (currentQuestion.answerFormat === "demographics") {
           const a = answer as {
-            zip: string;
+            location: LocationData;
             age: string;
             race: string;
             sex: string;
@@ -286,7 +307,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             weight: string;
           };
           userInfoUpdate.age = a.age;
-          userInfoUpdate.zip = a.zip;
+          // userInfoUpdate.location = a.location;
           userInfoUpdate.race = a.race;
           userInfoUpdate.sex = a.sex;
           userInfoUpdate.weight = a.weight;
@@ -301,12 +322,13 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     } else if (direction === "finish") {
       setPerformingQueries(true);
       const entries = processEntries(questionStack, answerStack, questions);
-      const locationData: LocationData = await getCountyAndStateWithZip(
-        userInfo.zip,
-        process.env.GOOGLEMAPS_API_KEY ?? ""
-      );
+      // const locationData: LocationData = await getCountyAndStateWithZip(
+      //   // userInfo.location,
+      //   "13492",
+      //   process.env.GOOGLEMAPS_API_KEY ?? ""
+      // );
 
-      if (locationData.state === "") {
+      if (location.state === "") {
         toast({
           title: "Survey submission",
           description:
@@ -323,7 +345,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
       // Save survey entries
       try {
-        ids = await saveEntries(locationData, entries, userInfo, user);
+        ids = await saveEntries(location, entries, userInfo, user);
       } catch (error) {
         console.log("Error saving survey entries", error);
         toast({
@@ -338,7 +360,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
       // Aggregate survey results
       try {
-        await aggregateResults(entries, ids, userInfo, locationData, user);
+        await aggregateResults(entries, ids, userInfo, location, user);
         toast({
           title: "Survey submission",
           description: "Successfully submitted survey",
@@ -507,6 +529,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               setAnswer={setAnswer}
               setErrorPresent={setErrorPresent}
               setErrorText={setErrorText}
+              location={location}
+              setLocationData={setLocation}
               onVerify={() => handleQuestionChange("next")}
               handleQuestionChange={handleQuestionChange}
             />
