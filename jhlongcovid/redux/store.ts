@@ -5,6 +5,7 @@ import viewportReducer from "./slices/viewportSlice";
 import surveyReducer from "./slices/surveySlice/surveySlice";
 import userReducer from "./slices/userSlice";
 import mapDataReducer from "./slices/mapDataSlice";
+import locationReducer from "./slices/locationSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     survey: surveyReducer,
     user: userReducer,
     mapData: mapDataReducer,
+    location: locationReducer,
   },
 });
 

@@ -27,7 +27,6 @@ export const Welcome: React.FC<SurveyQuestionProps> = ({
 }) => {
   const width = useAppSelector(selectWidth);
   const height = useAppSelector(selectHeight);
-  console.log("Height: ", height);
 
   return (
     <VStack
