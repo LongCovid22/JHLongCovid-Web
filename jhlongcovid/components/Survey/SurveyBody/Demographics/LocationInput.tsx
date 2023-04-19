@@ -161,8 +161,8 @@ const LocationInput: React.FC<LocationInputProps> = ({
             </Button>
           </VStack>
         ) : (
-          <VStack align="start" w="100%" spacing="5px">
-            <HStack spacing={"15px"}>
+          <VStack align="start" spacing="5px">
+            <HStack spacing={"15px"} w="100%">
               <Input
                 placeholder="Enter your zipcode"
                 value={zip || ""}

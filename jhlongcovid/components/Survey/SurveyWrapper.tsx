@@ -518,7 +518,12 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         </ModalHeader>
         <ModalBody
           style={{
-            overflowY: "auto",
+            overflowY:
+              currentQuestion.answerFormat === "demographics"
+                ? width > 1400
+                  ? "hidden"
+                  : "auto"
+                : "auto",
             paddingTop: "0px",
           }}
         >

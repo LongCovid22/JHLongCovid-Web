@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  Box,
   VStack,
   Text,
   Spacer,
@@ -77,15 +78,13 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
       setAnswer(currentAnswer);
     }
   }, [currentAnswer]);
-
+  console.log("Wdith: ", width);
   return (
-    <VStack width={"100%"} height={"100%"} spacing={"20px"} fontSize="18px">
+    <VStack spacing={"20px"} fontSize="18px">
       <Text fontSize={"lg"} fontWeight={"regular"} w="100%">
         {currentQuestion.question}
       </Text>
-      {/* {width < 1000 ? ( */}
-      {/* <VStack align={"start"} w="100%"> */}
-      <Wrap spacing={4} flexDir={["column", "row"]} align="flex-start">
+      <Wrap spacing={4} flexDir={"column"} align="flex-start">
         <WrapItem>
           <Grid gap={4}>
             <GridItem>
