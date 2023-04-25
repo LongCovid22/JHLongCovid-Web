@@ -1,0 +1,15 @@
+{
+  "age": "30",
+  "gender": "male",
+  "occupation": "teacher",
+  "country": "United States",
+  "state": "California",
+  "vaccinated": "yes",
+  "covidSymptoms": [
+      "fever",
+      "cough"
+  ],
+  "covidExposure": "yes",
+  "covidTested": "yes",
+  "covidPositive": "no"
+}
