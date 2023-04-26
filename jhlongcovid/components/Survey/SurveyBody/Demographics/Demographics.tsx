@@ -66,7 +66,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
     if (currentAnswer !== null) {
       setDemos(
         currentAnswer as {
-          zip: string;
+          email: string;
           age: string;
           race: string;
           sex: string;
@@ -100,7 +100,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
                   fontSize={"18px"}
                   defaultValue={18}
                   min={1}
-                  max={110}
+                  max={100}
                   value={demos.age}
                   onChange={(val) => {
                     handleAnswerChange("age", val);
