@@ -79,6 +79,7 @@ const Choices = (
                         placeholder={option.placeholder}
                         type={option.type}
                         fontSize={"lg"}
+                        min={options.type === "date" ? "2020-01-01" : undefined}
                         max={
                           option.type === "date"
                             ? new Date(
@@ -146,7 +147,30 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
   const isValidText = (validation: undefined | any, inputValue: string) => {
     if (inputValue !== "" && validation !== undefined) {
       let reg = new RegExp(validation.regex);
-      return reg.test(inputValue);
+      let passesRegex = reg.test(inputValue);
+
+      if (validation.type && validation.type === "number") {
+        const num = parseInt(inputValue);
+        if (validation.max && validation.min) {
+          if (isNaN(num) || num > validation.max || num < validation.min) {
+            return false;
+          } else {
+            return true && passesRegex;
+          }
+        } else if (validation.min) {
+          if (isNaN(num) || num < validation.min) {
+            return false;
+          } else {
+            return true && passesRegex;
+          }
+        } else if (validation.max) {
+          if (isNaN(num) || num > validation.max) {
+            return false;
+          } else {
+            return true && passesRegex;
+          }
+        }
+      }
     }
     return true;
   };

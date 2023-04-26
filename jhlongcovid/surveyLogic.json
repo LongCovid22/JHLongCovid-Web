@@ -76,8 +76,11 @@
             "type": "text",
             "placeholder": "Enter number of infections",
             "validation": {
+              "type": "number",
+              "min": 4,
+              "max": 10,
               "regex": "^[0-9]+$",
-              "errorText": "Please enter a valid number"
+              "errorText": "Please enter a valid number. Must be less than 10 infections."
             }
           },
           "Do not know"
@@ -122,10 +125,13 @@
           {
             "title": "More than 3 hospitalizations: (please enter number)",
             "type": "text",
-            "placeholder": "Enter number of infections",
+            "placeholder": "Enter number of hospitalizations",
             "validation": {
+              "type": "number",
+              "min": 4,
+              "max": 10,
               "regex": "^[0-9]+$",
-              "errorText": "Please enter a valid number"
+              "errorText": "Please enter a valid number. Must be less than 10 hospitalizations."
             }
           },
           "Do not know"
@@ -143,7 +149,7 @@
         "instructions": "The following questions refer to your most recent COVID-19 infection",
         "title": "COVID",
         "questionNum": 7,
-        "question": "When do you know or think you had COVID-19?",
+        "question": "When do you know or think you had your most recent COVID-19 infection?",
         "options": {
           "title": "Date:",
           "type": "date",
@@ -161,7 +167,7 @@
       {
         "title": "COVID",
         "questionNum": 8,
-        "question": "Did you take a COVID test at that time?",
+        "question": "Did you take a COVID-19 test at that time?",
         "options": ["Yes", "No"],
         "answerFormat": ["choice", "choice"],
         "answer": null,
@@ -195,7 +201,7 @@
       {
         "title": "COVID",
         "questionNum": 10,
-        "question": "Did you have any COVID19 symptoms, such as fever, cough, sore throat, or other symptoms?",
+        "question": "Did you have any COVID-19 symptoms, such as fever, cough, sore throat, or other symptoms?",
         "options": ["Yes", "No"],
         "answerFormat": ["choice", "choice"],
         "answer": null,
@@ -263,11 +269,7 @@
           {
             "title": "Other",
             "type": "text",
-            "placeholder": "Enter medication",
-            "validation": {
-              "regex": "^[0-9]+$",
-              "errorText": "Please enter a valid number"
-            }
+            "placeholder": "Enter medication"
           },
           "Do not know"
         ],
@@ -317,8 +319,10 @@
           "title": "Days: ",
           "placeholder": "Enter number of days",
           "validation": {
+            "type": "number",
+            "max": 730,
             "regex": "^[0-9]+$",
-            "errorText": "Please enter a valid number"
+            "errorText": "Please enter a valid number. Must be less than 2 years old."
           }
         },
         "answerFormat": "input",
@@ -380,7 +384,7 @@
       {
         "title": "Vaccination",
         "questionNum": 18,
-        "question": "When was your most recent COVID shot?",
+        "question": "When was your most recent COVID-19 shot?",
         "options": [
           {
             "type": "date",
@@ -402,7 +406,7 @@
       {
         "title": "Vaccination",
         "questionNum": 19,
-        "question": "Which type of COVID vaccine was your last shot?",
+        "question": "Which type of COVID-19 vaccine was your last shot?",
         "options": [
           "Pfizer",
           "Moderna",
@@ -786,7 +790,7 @@
       {
         "title": "Medical Conditions",
         "questionNum": 32,
-        "question": "Do you think that you are experiencing, or have ever experienced, what has been called “long COVID,” or symptoms related to COVID at least a month after your infection?",
+        "question": "Do you think that you are experiencing, or have ever experienced, what has been called “long COVID” or symptoms related to COVID-19 at least a month after your infection?",
         "options": ["Yes", "No", "Do not know"],
         "answerFormat": ["choice", "choice", "choice"],
         "answer": null,
@@ -877,7 +881,7 @@
       {
         "title": "Create Account",
         "questionNum": 36,
-        "question": "In order to better understand Long COVID, we would like to check in to see how your COVID experience changes over time. To participate, enter your desired password to continue creating your account.\n\nIf you would like to skip creating an account and continue submitting your survey response, just click the skip button!",
+        "question": "In order to better understand Long COVID, we would like to check in to see how your COVID-19 experience changes over time. To participate, enter your desired password to continue creating your account.\n\nIf you would like to skip creating an account and continue submitting your survey response, just click the skip button!",
         "options": null,
         "answer": null,
         "answerFormat": "account",
