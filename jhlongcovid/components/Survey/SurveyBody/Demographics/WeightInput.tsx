@@ -8,9 +8,10 @@ import {
   PinInputField,
   Text,
   FormErrorMessage,
+  Input,
 } from "@chakra-ui/react";
 
-export type HeightInputProps = {
+export type WeightInputProps = {
   demos: {
     age: string;
     race: string;
@@ -31,52 +32,50 @@ export type HeightInputProps = {
   setErrorPresent?: (error: boolean) => void;
 };
 
-export const HeightInput: React.FC<HeightInputProps> = ({
+export const WeightInput: React.FC<WeightInputProps> = ({
   demos,
   setDemos,
   setAnswer,
   setErrorPresent,
 }) => {
-  const [heightErrorText, setHeightErrorText] = useState<string | null>(null);
+  const [heightErrorText, setWeightErrorText] = useState<string | null>(null);
 
-  const isValidWeight = (height: string) => {
-    if (height === "") return true;
-    const num = parseInt(height);
-    if (isNaN(num) || num <= 0 || num > 80) {
+  const isValidWeight = (weight: string) => {
+    if (weight === "") return true;
+    const num = parseInt(weight);
+    if (isNaN(num) || num < 90 || num > 600) {
       return false;
     }
     return true;
   };
 
-  const handleHeightChange = (value: string) => {
+  const handleWeightChange = (value: string) => {
     const demosCopy = { ...demos };
-    demosCopy["height"] = value;
+    demosCopy["weight"] = value;
     setDemos(demosCopy);
     if (isValidWeight(value)) {
       if (setErrorPresent) setErrorPresent(false);
-      setHeightErrorText(null);
+      setWeightErrorText(null);
       setAnswer(demosCopy);
     } else {
       if (setErrorPresent) setErrorPresent(true);
-      setHeightErrorText("Invalid height");
+      setWeightErrorText("Invalid weight");
     }
   };
 
   return (
     <FormControl isInvalid={heightErrorText !== null}>
-      <FormLabel fontSize={"18px"}>Height</FormLabel>
+      <FormLabel fontSize={"18px"}>Weight</FormLabel>
       <HStack>
-        <PinInput
-          value={demos.height}
-          onChange={(value) => {
-            handleHeightChange(value);
+        <Input
+          fontSize={"18px"}
+          placeholder="Enter weight"
+          value={demos.weight}
+          onChange={(event) => {
+            handleWeightChange(event.target.value);
           }}
-        >
-          <PinInputField />
-          <Text>ft</Text>
-          <PinInputField />
-          <Text>in</Text>
-        </PinInput>
+        />
+        <Text>lbs</Text>
       </HStack>
       {heightErrorText !== null && (
         <FormErrorMessage>{heightErrorText}</FormErrorMessage>

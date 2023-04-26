@@ -130,6 +130,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
         setAnswer={setAnswer}
         location={location}
         setLocationData={setLocationData}
+        setErrorPresent={setErrorPresent}
       />
     );
   } else if (answerFormat === "welcome") {
@@ -205,7 +206,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     height: "",
     weight: "",
   });
-
   const [isFinalSection, setIsFinalSection] = useState(false);
   const [missingAnswer, setMissingAnswer] = useState(false);
   const [errorText, setErrorText] = useState("");
@@ -253,6 +253,10 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               setMissingAnswer(true);
               return;
             }
+          }
+          if (errorPresent) {
+            setErrorText(`Please correct invalid responses`);
+            return;
           }
         }
 

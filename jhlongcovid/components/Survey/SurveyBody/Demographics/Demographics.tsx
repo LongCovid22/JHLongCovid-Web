@@ -31,12 +31,15 @@ import { selectCurrentAnswer } from "../../../../redux/slices/surveySlice/survey
 import { selectWidth } from "../../../../redux/slices/viewportSlice";
 import { ConsoleLogger } from "@aws-amplify/core";
 import LocationInput from "./LocationInput";
+import { HeightInput } from "./HeightInput";
+import { WeightInput } from "./WeightInput";
 
 export const Demographics: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
   location,
   setLocationData,
+  setErrorPresent,
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const width = useAppSelector(selectWidth);
@@ -78,7 +81,6 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
       setAnswer(currentAnswer);
     }
   }, [currentAnswer]);
-  console.log("Wdith: ", width);
   return (
     <VStack spacing={"20px"} fontSize="18px">
       <Text fontSize={"lg"} fontWeight={"regular"} w="100%">
@@ -99,7 +101,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
                 <NumberInput
                   fontSize={"18px"}
                   defaultValue={18}
-                  min={1}
+                  min={12}
                   max={100}
                   value={demos.age}
                   onChange={(val) => {
@@ -131,8 +133,8 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
               </FormControl>
             </GridItem>
             <GridItem>
-              <HStack w="100%">
-                <FormControl>
+              <HStack w="100%" align={"top"}>
+                {/* <FormControl>
                   <FormLabel fontSize={"18px"}>Height</FormLabel>
                   <HStack>
                     <PinInput
@@ -147,8 +149,14 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
                       <Text>in</Text>
                     </PinInput>
                   </HStack>
-                </FormControl>
-                <FormControl>
+                </FormControl> */}
+                <HeightInput
+                  demos={demos}
+                  setDemos={setDemos}
+                  setAnswer={setAnswer}
+                  setErrorPresent={setErrorPresent}
+                />
+                {/* <FormControl>
                   <FormLabel fontSize={"18px"}>Weight</FormLabel>
                   <HStack>
                     <Input
@@ -161,7 +169,13 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
                     />
                     <Text>lbs</Text>
                   </HStack>
-                </FormControl>
+                </FormControl> */}
+                <WeightInput
+                  demos={demos}
+                  setDemos={setDemos}
+                  setAnswer={setAnswer}
+                  setErrorPresent={setErrorPresent}
+                />
               </HStack>
             </GridItem>
           </Grid>
