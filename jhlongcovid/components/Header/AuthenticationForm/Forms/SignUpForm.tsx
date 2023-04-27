@@ -88,7 +88,11 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
     } catch (error) {
       setPerformingQueries(false);
       if (error instanceof Error) {
-        setErrorMessage(error.message);
+        if (error.message.includes("already exists")) {
+          setErrorMessage(error.message + " Please sign in.");
+        } else {
+          setErrorMessage(error.message);
+        }
       }
       setSignUpError(true);
     }
@@ -129,14 +133,14 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   }, []);
 
   return (
-    <VStack width="75%" maxW="450px" minW="325px" spacing="25px">
+    <VStack width="100%" maxW="450px" minW="325px" spacing="25px" p="10px">
       <VStack w="100%">
         {showTitle && (
           <Heading size={"md"} mb="5px">
             Sign Up
           </Heading>
         )}
-        <FormControl isInvalid={!validEmail}>
+        <FormControl isInvalid={!validEmail} tabIndex={0}>
           <FormLabel fontSize={"lg"}>Email Address</FormLabel>
           <Input
             fontSize={"lg"}
@@ -152,7 +156,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             </FormErrorMessage>
           )}
         </FormControl>
-        <FormControl isInvalid={!validPassword || !passwordsMatch}>
+        <FormControl isInvalid={!validPassword || !passwordsMatch} tabIndex={1}>
           <FormLabel fontSize={"lg"}>Password</FormLabel>
           <Input
             value={password}
@@ -169,7 +173,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             </FormErrorMessage>
           )}
         </FormControl>
-        <FormControl isInvalid={!passwordsMatch}>
+        <FormControl isInvalid={!passwordsMatch} tabIndex={2}>
           <FormLabel fontSize={"lg"}>Confrim Password</FormLabel>
           <Input
             value={confirmPass}
