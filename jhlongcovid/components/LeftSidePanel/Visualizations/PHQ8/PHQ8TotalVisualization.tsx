@@ -140,8 +140,6 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       if (setLoading) {
         setLoading(false);
       }
-
-      console.log("PHQ8 config:", phq8AboveTenConfig);
     };
 
     createGraphVariables();
