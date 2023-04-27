@@ -125,15 +125,10 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         );
       }
 
-      if (phq8AboveTen !== undefined) {
-        const phq8OverTen =
-          phq8AboveTen && phq8AboveTen !== null ? phq8AboveTen : 0;
-        const phq8Config = createPHQ8OverTenConfig(phq8OverTen, totalEntries);
-        setPhq8AboveTenConfig(phq8Config);
-      } else {
-        const phq8Config = createPHQ8OverTenConfig(0, totalEntries);
-        setPhq8AboveTenConfig(phq8Config);
-      }
+      const phq8OverTen =
+        phq8AboveTen !== undefined && phq8AboveTen !== null ? phq8AboveTen : 0;
+      const phq8Config = createPHQ8OverTenConfig(phq8OverTen, totalEntries);
+      setPhq8AboveTenConfig(phq8Config);
 
       setTotalEntries(totalFullEntries);
 
