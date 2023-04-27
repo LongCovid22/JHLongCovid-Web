@@ -595,6 +595,7 @@ export const createSocialDeterminantsEntry = async (
 export const createSurveyEntry = async (
   ids: any,
   userInfo: UserInfo,
+  locationData: LocationData,
   user?: User
 ) => {
   try {
@@ -619,6 +620,11 @@ export const createSurveyEntry = async (
       surveyVersion: 1,
       surveyType: SurveyType.GUEST,
       email: user ? user.email : null,
+      state: locationData.state,
+      countyState:
+        locationData.county !== ""
+          ? locationData.county + "#" + locationData.stateAbbrev
+          : null,
       age: parseInt(userInfo.age),
       race: race,
       sex: userInfo.sex,
@@ -723,7 +729,12 @@ export const saveEntries = async (
       }
     }
 
-    ids["SurveyEntry"] = await createSurveyEntry(ids, userInfo, user);
+    ids["SurveyEntry"] = await createSurveyEntry(
+      ids,
+      userInfo,
+      locationData,
+      user
+    );
     return ids;
   } catch (error) {
     console.log("Saving entries: ", error);

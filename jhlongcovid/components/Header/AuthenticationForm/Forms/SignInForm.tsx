@@ -79,7 +79,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   }, []);
 
   return (
-    <VStack width="75%" maxW="450px" minW="325px" spacing="25px">
+    <VStack width="100%" maxW="450px" minW="325px" spacing="25px" p="10px">
       <VStack w="100%">
         {showTitle && (
           <Heading size={"md"} mb="5px">

@@ -47,7 +47,7 @@ export const AboutUs = () => {
         onClose={() => setPresentAboutUs(false)}
         autoFocus={true}
         closeOnEsc={true}
-        closeOnOverlayClick={true}
+        closeOnOverlayClick={false}
         useInert={false}
       >
         <ModalOverlay />
@@ -58,7 +58,7 @@ export const AboutUs = () => {
             maxWidth: 800,
             borderRadius: "35px",
             minHeight: height * 0.45,
-            height: height < 720 ? height * 0.85 : "800px",
+            height: height < 950 ? height * 0.85 : "850px",
           }}
           mx="10px"
           containerProps={{
@@ -86,19 +86,8 @@ export const AboutUs = () => {
             }}
           >
             <VStack spacing={5} w="100%" align={"start"}>
-              <Text fontSize={"lg"}>
-                Our team at Johns Hopkins is passionate about helping to better
-                understand the prevalence and impact of long covid in the United
-                States. We saw an opportunity to gather valuable information by
-                creating a map-based crowd sourcing application, where
-                individuals could share their experiences and any ongoing
-                symptoms they may be facing. We are committed to using this tool
-                to not only gather important data, but also to provide support
-                and resources to those affected by long covid.
-              </Text>
-
               <VStack spacing={5} w="100%" align={"start"}>
-                <Heading size={"sm"}>Team Members</Heading>
+                <Heading size={"md"}>Team Members</Heading>
                 <Wrap spacingY={"30px"}>
                   <TeamMember
                     name={"Josef Coresh, MD"}
@@ -141,7 +130,18 @@ export const AboutUs = () => {
                     />
                   </WrapItem>
                 </Wrap>
-                <Heading size={"sm"}>Funding</Heading>
+                <Text fontSize={"lg"}>
+                  Our team at Johns Hopkins is passionate about helping to
+                  better understand the prevalence and impact of long covid in
+                  the United States. We saw an opportunity to gather valuable
+                  information by creating a map-based crowd sourcing
+                  application, where individuals could share their experiences
+                  and any ongoing symptoms they may be facing. We are committed
+                  to using this tool to not only gather important data, but also
+                  to provide support and resources to those affected by long
+                  covid.
+                </Text>
+                <Heading size={"md"}>Funding</Heading>
                 <Text fontSize={"md"} fontWeight="semibold">
                   The research was, in part, funded by the National Institutes
                   of Health (NIH) Agreement 1OT2HL156812 through the National

@@ -130,7 +130,7 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
           <MenuButton>
             <Avatar></Avatar>
           </MenuButton>
-          <MenuList p={"15px"} borderRadius={"15px"}>
+          <MenuList p={"15px"} borderRadius={"15px"} alignContent={"center"}>
             {user ? (
               <VStack spacing="15px" marginY={"5px"}>
                 <HStack>

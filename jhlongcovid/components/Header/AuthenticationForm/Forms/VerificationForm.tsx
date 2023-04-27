@@ -11,6 +11,7 @@ import {
   Heading,
   FormErrorMessage,
   FormHelperText,
+  Text,
 } from "@chakra-ui/react";
 import { Auth } from "aws-amplify";
 import { setUser } from "../../../../redux/slices/userSlice";
@@ -26,6 +27,7 @@ interface TotpProps {
   userInfo?: UserInfo;
   showTitle?: boolean;
   midSurvey: boolean;
+  qrString: string | null;
   setQRString: (val: string) => void;
   setUserInfo: (val: any) => void;
   changeAuthState: (state: AuthState) => void;
@@ -40,6 +42,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
   userInfo,
   showTitle,
   midSurvey,
+  qrString,
   setUserInfo,
   changeAuthState,
   onVerify,
@@ -98,6 +101,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
       }
     } catch (error) {
       console.log("Error signing up: ", error);
+      setPerformingQueries(false);
       if (error instanceof Error) {
         setCodeErrorMessage(error.message);
       }
@@ -115,7 +119,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
   };
 
   return (
-    <VStack width="75%" maxW="450px" minW="325px" spacing="25px">
+    <VStack width="100%" maxW="450px" minW="325px" spacing="25px" p="10px">
       <VStack w="100%">
         {showTitle && (
           <Heading size={"md"} mb="5px">
@@ -129,6 +133,11 @@ export const VerificationForm: React.FC<TotpProps> = ({
             {verifType === "SignIn" || verifType === "VerifyTotp"
               ? "One-Time Passcode"
               : "Verification code"}
+            <Text color={"gray.400"} fontSize="sm">
+              {verifType === "SignIn" || verifType === "VerifyTotp"
+                ? "Located within your third party authenticator app"
+                : "Check the email you input in the following step for a verification code"}
+            </Text>
           </FormLabel>
           <Input
             fontSize={"lg"}
@@ -154,6 +163,18 @@ export const VerificationForm: React.FC<TotpProps> = ({
       </VStack>
 
       <HStack spacing={3} width="100%">
+        {verifType === "VerifyTotp" && qrString !== null && (
+          <Button
+            fontSize={"lg"}
+            colorScheme="heritageBlue"
+            borderRadius={500}
+            onClick={() => {
+              changeAuthState(AuthState.TotpSetup);
+            }}
+          >
+            Prev
+          </Button>
+        )}
         <Spacer />
         {verifType === "SignUp" && (
           <Button

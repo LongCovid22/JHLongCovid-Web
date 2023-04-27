@@ -181,6 +181,13 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
     }
   };
 
+  const joinWordsByDash = (str: string): string => {
+    const words = str.split(" ");
+    const lowercasedWords = words.map((word) => word.toLowerCase());
+    const joinedWords = lowercasedWords.join("-");
+    return joinedWords;
+  };
+
   useLayoutEffect(() => {
     setDimensions();
   }, [width]);
@@ -257,7 +264,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
                           [
                             JSON.stringify(
                               realOrMock === RealOrMock.REAL
-                                ? data
+                                ? summaryData
                                 : mockResult.county
                             ),
                           ],
@@ -266,7 +273,9 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
                         const a = document.createElement("a");
                         a.download =
                           realOrMock === RealOrMock.REAL
-                            ? `${data.name}-data.json`
+                            ? `${joinWordsByDash(data.name)}-${
+                                data.level
+                              }-jhlongcovid-data.json`
                             : "data.json";
                         a.href = window.URL.createObjectURL(blob);
                         const clickEvent = new MouseEvent("click", {

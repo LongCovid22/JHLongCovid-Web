@@ -269,6 +269,8 @@ export const getSurveyEntry = /* GraphQL */ `
     getSurveyEntry(id: $id) {
       id
       email
+      state
+      countyState
       createdAt
       surveyVersion
       surveyType
@@ -284,6 +286,8 @@ export const getSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -476,6 +480,8 @@ export const getSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -650,6 +656,8 @@ export const getSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -828,6 +836,8 @@ export const getSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -1010,6 +1020,8 @@ export const getSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -1185,6 +1197,8 @@ export const getSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -1362,6 +1376,8 @@ export const getSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -1545,6 +1561,8 @@ export const getSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -1736,6 +1754,8 @@ export const listSurveyEntries = /* GraphQL */ `
       items {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -1751,6 +1771,8 @@ export const listSurveyEntries = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -1802,6 +1824,8 @@ export const listSurveyEntries = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -1835,6 +1859,8 @@ export const listSurveyEntries = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -1872,6 +1898,8 @@ export const listSurveyEntries = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -1913,6 +1941,8 @@ export const listSurveyEntries = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -1947,6 +1977,8 @@ export const listSurveyEntries = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -1983,6 +2015,8 @@ export const listSurveyEntries = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2025,6 +2059,8 @@ export const listSurveyEntries = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2087,6 +2123,8 @@ export const surveysByEmail = /* GraphQL */ `
       items {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -2102,6 +2140,8 @@ export const surveysByEmail = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2153,6 +2193,8 @@ export const surveysByEmail = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2186,6 +2228,8 @@ export const surveysByEmail = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2223,6 +2267,8 @@ export const surveysByEmail = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2264,6 +2310,8 @@ export const surveysByEmail = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2298,6 +2346,8 @@ export const surveysByEmail = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2334,6 +2384,8 @@ export const surveysByEmail = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2376,6 +2428,2960 @@ export const surveysByEmail = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          results
+          createdAt
+          updatedAt
+          monthlyEntrySurveyEntryId
+        }
+        updatedAt
+        surveyEntryCovidEntryId
+        surveyEntryVaccinationEntryId
+        surveyEntrySocialDeterminantsEntryId
+        surveyEntryRecoveryEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
+        surveyEntrySymptomsEntryId
+        surveyEntryMonthlyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const stateSurveyEntryByDate = /* GraphQL */ `
+  query StateSurveyEntryByDate(
+    $state: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSurveyEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    stateSurveyEntryByDate(
+      state: $state
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        state
+        countyState
+        createdAt
+        surveyVersion
+        surveyType
+        age
+        race
+        sex
+        height
+        weight
+        covidEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          beenInfected
+          timesPositive
+          lastPositive
+          tested
+          positiveTest
+          testMethod
+          hospitalized
+          timesHospitalized
+          symptomatic
+          symptomsPreventScale
+          medicationsPrescribed
+          medicationsTaken
+          createdAt
+          updatedAt
+          covidEntrySurveyEntryId
+        }
+        vaccinationEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          totalVaccineShots
+          vaccinated
+          vaccineType
+          dateOfLastVaccine
+          createdAt
+          updatedAt
+          vaccinationEntrySurveyEntryId
+        }
+        socialDeterminantsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          hasMedicalInsurance
+          difficultCoveringExpenses
+          currentWorkSituation
+          createdAt
+          updatedAt
+          socialDeterminantsEntrySurveyEntryId
+        }
+        recoveryEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          recovered
+          lengthOfRecovery
+          createdAt
+          updatedAt
+          recoveryEntrySurveyEntryId
+        }
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          generalHealthResults
+          totalScore
+          createdAt
+          updatedAt
+          patientHealthEntrySurveyEntryId
+        }
+        symptomsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          createdAt
+          symptoms
+          qualityOfLifeRank
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
+          medicalConditions
+          hasLongCovid
+          updatedAt
+          symptomEntrySurveyEntryId
+        }
+        monthlyEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          results
+          createdAt
+          updatedAt
+          monthlyEntrySurveyEntryId
+        }
+        updatedAt
+        surveyEntryCovidEntryId
+        surveyEntryVaccinationEntryId
+        surveyEntrySocialDeterminantsEntryId
+        surveyEntryRecoveryEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
+        surveyEntrySymptomsEntryId
+        surveyEntryMonthlyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const stateSurveyEntryByAge = /* GraphQL */ `
+  query StateSurveyEntryByAge(
+    $state: String!
+    $age: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSurveyEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    stateSurveyEntryByAge(
+      state: $state
+      age: $age
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        state
+        countyState
+        createdAt
+        surveyVersion
+        surveyType
+        age
+        race
+        sex
+        height
+        weight
+        covidEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          beenInfected
+          timesPositive
+          lastPositive
+          tested
+          positiveTest
+          testMethod
+          hospitalized
+          timesHospitalized
+          symptomatic
+          symptomsPreventScale
+          medicationsPrescribed
+          medicationsTaken
+          createdAt
+          updatedAt
+          covidEntrySurveyEntryId
+        }
+        vaccinationEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          totalVaccineShots
+          vaccinated
+          vaccineType
+          dateOfLastVaccine
+          createdAt
+          updatedAt
+          vaccinationEntrySurveyEntryId
+        }
+        socialDeterminantsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          hasMedicalInsurance
+          difficultCoveringExpenses
+          currentWorkSituation
+          createdAt
+          updatedAt
+          socialDeterminantsEntrySurveyEntryId
+        }
+        recoveryEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          recovered
+          lengthOfRecovery
+          createdAt
+          updatedAt
+          recoveryEntrySurveyEntryId
+        }
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          generalHealthResults
+          totalScore
+          createdAt
+          updatedAt
+          patientHealthEntrySurveyEntryId
+        }
+        symptomsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          createdAt
+          symptoms
+          qualityOfLifeRank
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
+          medicalConditions
+          hasLongCovid
+          updatedAt
+          symptomEntrySurveyEntryId
+        }
+        monthlyEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          results
+          createdAt
+          updatedAt
+          monthlyEntrySurveyEntryId
+        }
+        updatedAt
+        surveyEntryCovidEntryId
+        surveyEntryVaccinationEntryId
+        surveyEntrySocialDeterminantsEntryId
+        surveyEntryRecoveryEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
+        surveyEntrySymptomsEntryId
+        surveyEntryMonthlyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const stateSurveyEntryByRace = /* GraphQL */ `
+  query StateSurveyEntryByRace(
+    $state: String!
+    $race: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSurveyEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    stateSurveyEntryByRace(
+      state: $state
+      race: $race
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        state
+        countyState
+        createdAt
+        surveyVersion
+        surveyType
+        age
+        race
+        sex
+        height
+        weight
+        covidEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          beenInfected
+          timesPositive
+          lastPositive
+          tested
+          positiveTest
+          testMethod
+          hospitalized
+          timesHospitalized
+          symptomatic
+          symptomsPreventScale
+          medicationsPrescribed
+          medicationsTaken
+          createdAt
+          updatedAt
+          covidEntrySurveyEntryId
+        }
+        vaccinationEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          totalVaccineShots
+          vaccinated
+          vaccineType
+          dateOfLastVaccine
+          createdAt
+          updatedAt
+          vaccinationEntrySurveyEntryId
+        }
+        socialDeterminantsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          hasMedicalInsurance
+          difficultCoveringExpenses
+          currentWorkSituation
+          createdAt
+          updatedAt
+          socialDeterminantsEntrySurveyEntryId
+        }
+        recoveryEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          recovered
+          lengthOfRecovery
+          createdAt
+          updatedAt
+          recoveryEntrySurveyEntryId
+        }
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          generalHealthResults
+          totalScore
+          createdAt
+          updatedAt
+          patientHealthEntrySurveyEntryId
+        }
+        symptomsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          createdAt
+          symptoms
+          qualityOfLifeRank
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
+          medicalConditions
+          hasLongCovid
+          updatedAt
+          symptomEntrySurveyEntryId
+        }
+        monthlyEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          results
+          createdAt
+          updatedAt
+          monthlyEntrySurveyEntryId
+        }
+        updatedAt
+        surveyEntryCovidEntryId
+        surveyEntryVaccinationEntryId
+        surveyEntrySocialDeterminantsEntryId
+        surveyEntryRecoveryEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
+        surveyEntrySymptomsEntryId
+        surveyEntryMonthlyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const stateSurveyEntryBySex = /* GraphQL */ `
+  query StateSurveyEntryBySex(
+    $state: String!
+    $sex: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSurveyEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    stateSurveyEntryBySex(
+      state: $state
+      sex: $sex
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        state
+        countyState
+        createdAt
+        surveyVersion
+        surveyType
+        age
+        race
+        sex
+        height
+        weight
+        covidEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          beenInfected
+          timesPositive
+          lastPositive
+          tested
+          positiveTest
+          testMethod
+          hospitalized
+          timesHospitalized
+          symptomatic
+          symptomsPreventScale
+          medicationsPrescribed
+          medicationsTaken
+          createdAt
+          updatedAt
+          covidEntrySurveyEntryId
+        }
+        vaccinationEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          totalVaccineShots
+          vaccinated
+          vaccineType
+          dateOfLastVaccine
+          createdAt
+          updatedAt
+          vaccinationEntrySurveyEntryId
+        }
+        socialDeterminantsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          hasMedicalInsurance
+          difficultCoveringExpenses
+          currentWorkSituation
+          createdAt
+          updatedAt
+          socialDeterminantsEntrySurveyEntryId
+        }
+        recoveryEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          recovered
+          lengthOfRecovery
+          createdAt
+          updatedAt
+          recoveryEntrySurveyEntryId
+        }
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          generalHealthResults
+          totalScore
+          createdAt
+          updatedAt
+          patientHealthEntrySurveyEntryId
+        }
+        symptomsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          createdAt
+          symptoms
+          qualityOfLifeRank
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
+          medicalConditions
+          hasLongCovid
+          updatedAt
+          symptomEntrySurveyEntryId
+        }
+        monthlyEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          results
+          createdAt
+          updatedAt
+          monthlyEntrySurveyEntryId
+        }
+        updatedAt
+        surveyEntryCovidEntryId
+        surveyEntryVaccinationEntryId
+        surveyEntrySocialDeterminantsEntryId
+        surveyEntryRecoveryEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
+        surveyEntrySymptomsEntryId
+        surveyEntryMonthlyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const countySurveyEntryByDate = /* GraphQL */ `
+  query CountySurveyEntryByDate(
+    $countyState: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSurveyEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    countySurveyEntryByDate(
+      countyState: $countyState
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        state
+        countyState
+        createdAt
+        surveyVersion
+        surveyType
+        age
+        race
+        sex
+        height
+        weight
+        covidEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          beenInfected
+          timesPositive
+          lastPositive
+          tested
+          positiveTest
+          testMethod
+          hospitalized
+          timesHospitalized
+          symptomatic
+          symptomsPreventScale
+          medicationsPrescribed
+          medicationsTaken
+          createdAt
+          updatedAt
+          covidEntrySurveyEntryId
+        }
+        vaccinationEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          totalVaccineShots
+          vaccinated
+          vaccineType
+          dateOfLastVaccine
+          createdAt
+          updatedAt
+          vaccinationEntrySurveyEntryId
+        }
+        socialDeterminantsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          hasMedicalInsurance
+          difficultCoveringExpenses
+          currentWorkSituation
+          createdAt
+          updatedAt
+          socialDeterminantsEntrySurveyEntryId
+        }
+        recoveryEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          recovered
+          lengthOfRecovery
+          createdAt
+          updatedAt
+          recoveryEntrySurveyEntryId
+        }
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          generalHealthResults
+          totalScore
+          createdAt
+          updatedAt
+          patientHealthEntrySurveyEntryId
+        }
+        symptomsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          createdAt
+          symptoms
+          qualityOfLifeRank
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
+          medicalConditions
+          hasLongCovid
+          updatedAt
+          symptomEntrySurveyEntryId
+        }
+        monthlyEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          results
+          createdAt
+          updatedAt
+          monthlyEntrySurveyEntryId
+        }
+        updatedAt
+        surveyEntryCovidEntryId
+        surveyEntryVaccinationEntryId
+        surveyEntrySocialDeterminantsEntryId
+        surveyEntryRecoveryEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
+        surveyEntrySymptomsEntryId
+        surveyEntryMonthlyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const countySurveyEntryByAge = /* GraphQL */ `
+  query CountySurveyEntryByAge(
+    $countyState: String!
+    $age: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSurveyEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    countySurveyEntryByAge(
+      countyState: $countyState
+      age: $age
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        state
+        countyState
+        createdAt
+        surveyVersion
+        surveyType
+        age
+        race
+        sex
+        height
+        weight
+        covidEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          beenInfected
+          timesPositive
+          lastPositive
+          tested
+          positiveTest
+          testMethod
+          hospitalized
+          timesHospitalized
+          symptomatic
+          symptomsPreventScale
+          medicationsPrescribed
+          medicationsTaken
+          createdAt
+          updatedAt
+          covidEntrySurveyEntryId
+        }
+        vaccinationEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          totalVaccineShots
+          vaccinated
+          vaccineType
+          dateOfLastVaccine
+          createdAt
+          updatedAt
+          vaccinationEntrySurveyEntryId
+        }
+        socialDeterminantsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          hasMedicalInsurance
+          difficultCoveringExpenses
+          currentWorkSituation
+          createdAt
+          updatedAt
+          socialDeterminantsEntrySurveyEntryId
+        }
+        recoveryEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          recovered
+          lengthOfRecovery
+          createdAt
+          updatedAt
+          recoveryEntrySurveyEntryId
+        }
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          generalHealthResults
+          totalScore
+          createdAt
+          updatedAt
+          patientHealthEntrySurveyEntryId
+        }
+        symptomsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          createdAt
+          symptoms
+          qualityOfLifeRank
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
+          medicalConditions
+          hasLongCovid
+          updatedAt
+          symptomEntrySurveyEntryId
+        }
+        monthlyEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          results
+          createdAt
+          updatedAt
+          monthlyEntrySurveyEntryId
+        }
+        updatedAt
+        surveyEntryCovidEntryId
+        surveyEntryVaccinationEntryId
+        surveyEntrySocialDeterminantsEntryId
+        surveyEntryRecoveryEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
+        surveyEntrySymptomsEntryId
+        surveyEntryMonthlyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const countySurveyEntryByRace = /* GraphQL */ `
+  query CountySurveyEntryByRace(
+    $countyState: String!
+    $race: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSurveyEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    countySurveyEntryByRace(
+      countyState: $countyState
+      race: $race
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        state
+        countyState
+        createdAt
+        surveyVersion
+        surveyType
+        age
+        race
+        sex
+        height
+        weight
+        covidEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          beenInfected
+          timesPositive
+          lastPositive
+          tested
+          positiveTest
+          testMethod
+          hospitalized
+          timesHospitalized
+          symptomatic
+          symptomsPreventScale
+          medicationsPrescribed
+          medicationsTaken
+          createdAt
+          updatedAt
+          covidEntrySurveyEntryId
+        }
+        vaccinationEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          totalVaccineShots
+          vaccinated
+          vaccineType
+          dateOfLastVaccine
+          createdAt
+          updatedAt
+          vaccinationEntrySurveyEntryId
+        }
+        socialDeterminantsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          hasMedicalInsurance
+          difficultCoveringExpenses
+          currentWorkSituation
+          createdAt
+          updatedAt
+          socialDeterminantsEntrySurveyEntryId
+        }
+        recoveryEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          recovered
+          lengthOfRecovery
+          createdAt
+          updatedAt
+          recoveryEntrySurveyEntryId
+        }
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          generalHealthResults
+          totalScore
+          createdAt
+          updatedAt
+          patientHealthEntrySurveyEntryId
+        }
+        symptomsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          createdAt
+          symptoms
+          qualityOfLifeRank
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
+          medicalConditions
+          hasLongCovid
+          updatedAt
+          symptomEntrySurveyEntryId
+        }
+        monthlyEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          results
+          createdAt
+          updatedAt
+          monthlyEntrySurveyEntryId
+        }
+        updatedAt
+        surveyEntryCovidEntryId
+        surveyEntryVaccinationEntryId
+        surveyEntrySocialDeterminantsEntryId
+        surveyEntryRecoveryEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
+        surveyEntrySymptomsEntryId
+        surveyEntryMonthlyEntryId
+      }
+      nextToken
+    }
+  }
+`;
+export const countySurveyEntryBySex = /* GraphQL */ `
+  query CountySurveyEntryBySex(
+    $countyState: String!
+    $sex: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelSurveyEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    countySurveyEntryBySex(
+      countyState: $countyState
+      sex: $sex
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        state
+        countyState
+        createdAt
+        surveyVersion
+        surveyType
+        age
+        race
+        sex
+        height
+        weight
+        covidEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          beenInfected
+          timesPositive
+          lastPositive
+          tested
+          positiveTest
+          testMethod
+          hospitalized
+          timesHospitalized
+          symptomatic
+          symptomsPreventScale
+          medicationsPrescribed
+          medicationsTaken
+          createdAt
+          updatedAt
+          covidEntrySurveyEntryId
+        }
+        vaccinationEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          totalVaccineShots
+          vaccinated
+          vaccineType
+          dateOfLastVaccine
+          createdAt
+          updatedAt
+          vaccinationEntrySurveyEntryId
+        }
+        socialDeterminantsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          hasMedicalInsurance
+          difficultCoveringExpenses
+          currentWorkSituation
+          createdAt
+          updatedAt
+          socialDeterminantsEntrySurveyEntryId
+        }
+        recoveryEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          recovered
+          lengthOfRecovery
+          createdAt
+          updatedAt
+          recoveryEntrySurveyEntryId
+        }
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+        }
+        PatientHealthEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          generalHealthResults
+          totalScore
+          createdAt
+          updatedAt
+          patientHealthEntrySurveyEntryId
+        }
+        symptomsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+          }
+          age
+          race
+          sex
+          height
+          weight
+          createdAt
+          symptoms
+          qualityOfLifeRank
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
+          medicalConditions
+          hasLongCovid
+          updatedAt
+          symptomEntrySurveyEntryId
+        }
+        monthlyEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2438,6 +5444,8 @@ export const surveysByType = /* GraphQL */ `
       items {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -2453,6 +5461,8 @@ export const surveysByType = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2504,6 +5514,8 @@ export const surveysByType = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2537,6 +5549,8 @@ export const surveysByType = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2574,6 +5588,8 @@ export const surveysByType = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2615,6 +5631,8 @@ export const surveysByType = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2649,6 +5667,8 @@ export const surveysByType = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2685,6 +5705,8 @@ export const surveysByType = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2727,6 +5749,8 @@ export const surveysByType = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2783,6 +5807,8 @@ export const getVaccinationEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -2798,6 +5824,8 @@ export const getVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2849,6 +5877,8 @@ export const getVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2882,6 +5912,8 @@ export const getVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2919,6 +5951,8 @@ export const getVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2960,6 +5994,8 @@ export const getVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -2994,6 +6030,8 @@ export const getVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -3030,6 +6068,8 @@ export const getVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -3072,6 +6112,8 @@ export const getVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -3143,6 +6185,8 @@ export const listVaccinationEntries = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -3343,6 +6387,8 @@ export const stateVaccEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -3543,6 +6589,8 @@ export const stateVaccEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -3743,6 +6791,8 @@ export const stateVaccEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -3943,6 +6993,8 @@ export const stateVaccEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -4143,6 +7195,8 @@ export const countyVaccEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -4343,6 +7397,8 @@ export const countyVaccEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -4543,6 +7599,8 @@ export const countyVaccEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -4743,6 +7801,8 @@ export const countyVaccEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -4928,6 +7988,8 @@ export const getGlobalHealthEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -4943,6 +8005,8 @@ export const getGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -4994,6 +8058,8 @@ export const getGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5027,6 +8093,8 @@ export const getGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5064,6 +8132,8 @@ export const getGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5105,6 +8175,8 @@ export const getGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5139,6 +8211,8 @@ export const getGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5175,6 +8249,8 @@ export const getGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5217,6 +8293,8 @@ export const getGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5289,6 +8367,8 @@ export const listGlobalHealthEntries = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -5490,6 +8570,8 @@ export const stateGHEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -5691,6 +8773,8 @@ export const stateGHEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -5892,6 +8976,8 @@ export const stateGHEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -6093,6 +9179,8 @@ export const stateGHEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -6294,6 +9382,8 @@ export const countyGHEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -6495,6 +9585,8 @@ export const countyGHEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -6696,6 +9788,8 @@ export const countyGHEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -6897,6 +9991,8 @@ export const countyGHEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -7078,6 +10174,8 @@ export const getCovidEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -7093,6 +10191,8 @@ export const getCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7144,6 +10244,8 @@ export const getCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7177,6 +10279,8 @@ export const getCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7214,6 +10318,8 @@ export const getCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7255,6 +10361,8 @@ export const getCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7289,6 +10397,8 @@ export const getCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7325,6 +10435,8 @@ export const getCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7367,6 +10479,8 @@ export const getCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7442,6 +10556,8 @@ export const listCovidEntries = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -7650,6 +10766,8 @@ export const stateCovidEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -7858,6 +10976,8 @@ export const stateCovidEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -8066,6 +11186,8 @@ export const stateCovidEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -8274,6 +11396,8 @@ export const stateCovidEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -8482,6 +11606,8 @@ export const countyCovidEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -8690,6 +11816,8 @@ export const countyCovidEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -8898,6 +12026,8 @@ export const countyCovidEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -9106,6 +12236,8 @@ export const countyCovidEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -9299,6 +12431,8 @@ export const getRecoveryEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -9314,6 +12448,8 @@ export const getRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9365,6 +12501,8 @@ export const getRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9398,6 +12536,8 @@ export const getRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9435,6 +12575,8 @@ export const getRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9476,6 +12618,8 @@ export const getRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9510,6 +12654,8 @@ export const getRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9546,6 +12692,8 @@ export const getRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9588,6 +12736,8 @@ export const getRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9653,6 +12803,8 @@ export const listRecoveryEntries = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -9851,6 +13003,8 @@ export const stateRecovEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -10049,6 +13203,8 @@ export const stateRecovEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -10247,6 +13403,8 @@ export const stateRecovEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -10445,6 +13603,8 @@ export const stateRecovEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -10643,6 +13803,8 @@ export const countyRecovEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -10841,6 +14003,8 @@ export const countyRecovEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -11039,6 +14203,8 @@ export const countyRecovEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -11237,6 +14403,8 @@ export const countyRecovEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -11420,6 +14588,8 @@ export const getPatientHealthEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -11435,6 +14605,8 @@ export const getPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11486,6 +14658,8 @@ export const getPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11519,6 +14693,8 @@ export const getPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11556,6 +14732,8 @@ export const getPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11597,6 +14775,8 @@ export const getPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11631,6 +14811,8 @@ export const getPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11667,6 +14849,8 @@ export const getPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11709,6 +14893,8 @@ export const getPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11778,6 +14964,8 @@ export const listPatientHealthEntries = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -11976,6 +15164,8 @@ export const statePatientHealthEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -12174,6 +15364,8 @@ export const statePatientHealthEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -12372,6 +15564,8 @@ export const statePatientHealthEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -12570,6 +15764,8 @@ export const statePatientHealthEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -12768,6 +15964,8 @@ export const countyPatientHealthEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -12966,6 +16164,8 @@ export const countyPatientHealthEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -13164,6 +16364,8 @@ export const countyPatientHealthEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -13362,6 +16564,8 @@ export const countyPatientHealthEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -13545,6 +16749,8 @@ export const getSymptomEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -13560,6 +16766,8 @@ export const getSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -13611,6 +16819,8 @@ export const getSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -13644,6 +16854,8 @@ export const getSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -13681,6 +16893,8 @@ export const getSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -13722,6 +16936,8 @@ export const getSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -13756,6 +16972,8 @@ export const getSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -13792,6 +17010,8 @@ export const getSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -13834,6 +17054,8 @@ export const getSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -13905,6 +17127,8 @@ export const listSymptomEntries = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -14109,6 +17333,8 @@ export const stateSymptomEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -14313,6 +17539,8 @@ export const stateSymptomEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -14517,6 +17745,8 @@ export const stateSymptomEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -14721,6 +17951,8 @@ export const stateSymptomEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -14925,6 +18157,8 @@ export const countySymptomEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -15129,6 +18363,8 @@ export const countySymptomEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -15333,6 +18569,8 @@ export const countySymptomEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -15537,6 +18775,8 @@ export const countySymptomEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -15726,6 +18966,8 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -15741,6 +18983,8 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -15792,6 +19036,8 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -15825,6 +19071,8 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -15862,6 +19110,8 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -15903,6 +19153,8 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -15937,6 +19189,8 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -15973,6 +19227,8 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -16015,6 +19271,8 @@ export const getSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -16085,6 +19343,8 @@ export const listSocialDeterminantsEntries = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -16284,6 +19544,8 @@ export const stateSocialDetEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -16483,6 +19745,8 @@ export const stateSocialDetEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -16682,6 +19946,8 @@ export const stateSocialDetEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -16881,6 +20147,8 @@ export const stateSocialDetEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -17080,6 +20348,8 @@ export const countySocialDetEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -17279,6 +20549,8 @@ export const countySocialDetEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -17478,6 +20750,8 @@ export const countySocialDetEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -17677,6 +20951,8 @@ export const countySocialDetEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -17861,6 +21137,8 @@ export const getMonthlyEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -17876,6 +21154,8 @@ export const getMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -17927,6 +21207,8 @@ export const getMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -17960,6 +21242,8 @@ export const getMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -17997,6 +21281,8 @@ export const getMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -18038,6 +21324,8 @@ export const getMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -18072,6 +21360,8 @@ export const getMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -18108,6 +21398,8 @@ export const getMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -18150,6 +21442,8 @@ export const getMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -18214,6 +21508,8 @@ export const listMonthlyEntries = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -18411,6 +21707,8 @@ export const stateMonthlyEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -18608,6 +21906,8 @@ export const stateMonthlyEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -18805,6 +22105,8 @@ export const stateMonthlyEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -19002,6 +22304,8 @@ export const stateMonthlyEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -19199,6 +22503,8 @@ export const countyMonthlyEntryByDate = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -19396,6 +22702,8 @@ export const countyMonthlyEntryByAge = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -19593,6 +22901,8 @@ export const countyMonthlyEntryByRace = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -19790,6 +23100,8 @@ export const countyMonthlyEntryBySex = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
