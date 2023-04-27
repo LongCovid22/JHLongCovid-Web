@@ -279,6 +279,8 @@ export const createSurveyEntry = /* GraphQL */ `
     createSurveyEntry(input: $input, condition: $condition) {
       id
       email
+      state
+      countyState
       createdAt
       surveyVersion
       surveyType
@@ -294,6 +296,8 @@ export const createSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -486,6 +490,8 @@ export const createSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -660,6 +666,8 @@ export const createSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -838,6 +846,8 @@ export const createSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -1020,6 +1030,8 @@ export const createSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -1195,6 +1207,8 @@ export const createSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -1372,6 +1386,8 @@ export const createSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -1555,6 +1571,8 @@ export const createSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -1744,6 +1762,8 @@ export const updateSurveyEntry = /* GraphQL */ `
     updateSurveyEntry(input: $input, condition: $condition) {
       id
       email
+      state
+      countyState
       createdAt
       surveyVersion
       surveyType
@@ -1759,6 +1779,8 @@ export const updateSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -1951,6 +1973,8 @@ export const updateSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -2125,6 +2149,8 @@ export const updateSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -2303,6 +2329,8 @@ export const updateSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -2485,6 +2513,8 @@ export const updateSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -2660,6 +2690,8 @@ export const updateSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -2837,6 +2869,8 @@ export const updateSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -3020,6 +3054,8 @@ export const updateSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -3209,6 +3245,8 @@ export const deleteSurveyEntry = /* GraphQL */ `
     deleteSurveyEntry(input: $input, condition: $condition) {
       id
       email
+      state
+      countyState
       createdAt
       surveyVersion
       surveyType
@@ -3224,6 +3262,8 @@ export const deleteSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -3416,6 +3456,8 @@ export const deleteSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -3590,6 +3632,8 @@ export const deleteSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -3768,6 +3812,8 @@ export const deleteSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -3950,6 +3996,8 @@ export const deleteSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -4125,6 +4173,8 @@ export const deleteSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -4302,6 +4352,8 @@ export const deleteSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -4485,6 +4537,8 @@ export const deleteSurveyEntry = /* GraphQL */ `
         surveyEntry {
           id
           email
+          state
+          countyState
           createdAt
           surveyVersion
           surveyType
@@ -4683,6 +4737,8 @@ export const createVaccinationEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -4698,6 +4754,8 @@ export const createVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -4749,6 +4807,8 @@ export const createVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -4782,6 +4842,8 @@ export const createVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -4819,6 +4881,8 @@ export const createVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -4860,6 +4924,8 @@ export const createVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -4894,6 +4960,8 @@ export const createVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -4930,6 +4998,8 @@ export const createVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -4972,6 +5042,8 @@ export const createVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5037,6 +5109,8 @@ export const updateVaccinationEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -5052,6 +5126,8 @@ export const updateVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5103,6 +5179,8 @@ export const updateVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5136,6 +5214,8 @@ export const updateVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5173,6 +5253,8 @@ export const updateVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5214,6 +5296,8 @@ export const updateVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5248,6 +5332,8 @@ export const updateVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5284,6 +5370,8 @@ export const updateVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5326,6 +5414,8 @@ export const updateVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5391,6 +5481,8 @@ export const deleteVaccinationEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -5406,6 +5498,8 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5457,6 +5551,8 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5490,6 +5586,8 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5527,6 +5625,8 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5568,6 +5668,8 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5602,6 +5704,8 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5638,6 +5742,8 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5680,6 +5786,8 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5745,6 +5853,8 @@ export const createGlobalHealthEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -5760,6 +5870,8 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5811,6 +5923,8 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5844,6 +5958,8 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5881,6 +5997,8 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5922,6 +6040,8 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5956,6 +6076,8 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -5992,6 +6114,8 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6034,6 +6158,8 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6100,6 +6226,8 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -6115,6 +6243,8 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6166,6 +6296,8 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6199,6 +6331,8 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6236,6 +6370,8 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6277,6 +6413,8 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6311,6 +6449,8 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6347,6 +6487,8 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6389,6 +6531,8 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6455,6 +6599,8 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -6470,6 +6616,8 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6521,6 +6669,8 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6554,6 +6704,8 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6591,6 +6743,8 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6632,6 +6786,8 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6666,6 +6822,8 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6702,6 +6860,8 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6744,6 +6904,8 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6805,6 +6967,8 @@ export const createCovidEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -6820,6 +6984,8 @@ export const createCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6871,6 +7037,8 @@ export const createCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6904,6 +7072,8 @@ export const createCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6941,6 +7111,8 @@ export const createCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -6982,6 +7154,8 @@ export const createCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7016,6 +7190,8 @@ export const createCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7052,6 +7228,8 @@ export const createCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7094,6 +7272,8 @@ export const createCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7167,6 +7347,8 @@ export const updateCovidEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -7182,6 +7364,8 @@ export const updateCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7233,6 +7417,8 @@ export const updateCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7266,6 +7452,8 @@ export const updateCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7303,6 +7491,8 @@ export const updateCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7344,6 +7534,8 @@ export const updateCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7378,6 +7570,8 @@ export const updateCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7414,6 +7608,8 @@ export const updateCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7456,6 +7652,8 @@ export const updateCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7529,6 +7727,8 @@ export const deleteCovidEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -7544,6 +7744,8 @@ export const deleteCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7595,6 +7797,8 @@ export const deleteCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7628,6 +7832,8 @@ export const deleteCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7665,6 +7871,8 @@ export const deleteCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7706,6 +7914,8 @@ export const deleteCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7740,6 +7950,8 @@ export const deleteCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7776,6 +7988,8 @@ export const deleteCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7818,6 +8032,8 @@ export const deleteCovidEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7891,6 +8107,8 @@ export const createRecoveryEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -7906,6 +8124,8 @@ export const createRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7957,6 +8177,8 @@ export const createRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -7990,6 +8212,8 @@ export const createRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8027,6 +8251,8 @@ export const createRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8068,6 +8294,8 @@ export const createRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8102,6 +8330,8 @@ export const createRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8138,6 +8368,8 @@ export const createRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8180,6 +8412,8 @@ export const createRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8243,6 +8477,8 @@ export const updateRecoveryEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -8258,6 +8494,8 @@ export const updateRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8309,6 +8547,8 @@ export const updateRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8342,6 +8582,8 @@ export const updateRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8379,6 +8621,8 @@ export const updateRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8420,6 +8664,8 @@ export const updateRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8454,6 +8700,8 @@ export const updateRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8490,6 +8738,8 @@ export const updateRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8532,6 +8782,8 @@ export const updateRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8595,6 +8847,8 @@ export const deleteRecoveryEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -8610,6 +8864,8 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8661,6 +8917,8 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8694,6 +8952,8 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8731,6 +8991,8 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8772,6 +9034,8 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8806,6 +9070,8 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8842,6 +9108,8 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8884,6 +9152,8 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -8947,6 +9217,8 @@ export const createPatientHealthEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -8962,6 +9234,8 @@ export const createPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9013,6 +9287,8 @@ export const createPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9046,6 +9322,8 @@ export const createPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9083,6 +9361,8 @@ export const createPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9124,6 +9404,8 @@ export const createPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9158,6 +9440,8 @@ export const createPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9194,6 +9478,8 @@ export const createPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9236,6 +9522,8 @@ export const createPatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9299,6 +9587,8 @@ export const updatePatientHealthEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -9314,6 +9604,8 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9365,6 +9657,8 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9398,6 +9692,8 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9435,6 +9731,8 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9476,6 +9774,8 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9510,6 +9810,8 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9546,6 +9848,8 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9588,6 +9892,8 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9651,6 +9957,8 @@ export const deletePatientHealthEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -9666,6 +9974,8 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9717,6 +10027,8 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9750,6 +10062,8 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9787,6 +10101,8 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9828,6 +10144,8 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9862,6 +10180,8 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9898,6 +10218,8 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -9940,6 +10262,8 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10003,6 +10327,8 @@ export const createSymptomEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -10018,6 +10344,8 @@ export const createSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10069,6 +10397,8 @@ export const createSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10102,6 +10432,8 @@ export const createSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10139,6 +10471,8 @@ export const createSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10180,6 +10514,8 @@ export const createSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10214,6 +10550,8 @@ export const createSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10250,6 +10588,8 @@ export const createSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10292,6 +10632,8 @@ export const createSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10361,6 +10703,8 @@ export const updateSymptomEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -10376,6 +10720,8 @@ export const updateSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10427,6 +10773,8 @@ export const updateSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10460,6 +10808,8 @@ export const updateSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10497,6 +10847,8 @@ export const updateSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10538,6 +10890,8 @@ export const updateSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10572,6 +10926,8 @@ export const updateSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10608,6 +10964,8 @@ export const updateSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10650,6 +11008,8 @@ export const updateSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10719,6 +11079,8 @@ export const deleteSymptomEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -10734,6 +11096,8 @@ export const deleteSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10785,6 +11149,8 @@ export const deleteSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10818,6 +11184,8 @@ export const deleteSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10855,6 +11223,8 @@ export const deleteSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10896,6 +11266,8 @@ export const deleteSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10930,6 +11302,8 @@ export const deleteSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -10966,6 +11340,8 @@ export const deleteSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11008,6 +11384,8 @@ export const deleteSymptomEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11077,6 +11455,8 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -11092,6 +11472,8 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11143,6 +11525,8 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11176,6 +11560,8 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11213,6 +11599,8 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11254,6 +11642,8 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11288,6 +11678,8 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11324,6 +11716,8 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11366,6 +11760,8 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11430,6 +11826,8 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -11445,6 +11843,8 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11496,6 +11896,8 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11529,6 +11931,8 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11566,6 +11970,8 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11607,6 +12013,8 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11641,6 +12049,8 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11677,6 +12087,8 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11719,6 +12131,8 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11783,6 +12197,8 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -11798,6 +12214,8 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11849,6 +12267,8 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11882,6 +12302,8 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11919,6 +12341,8 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11960,6 +12384,8 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -11994,6 +12420,8 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12030,6 +12458,8 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12072,6 +12502,8 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12136,6 +12568,8 @@ export const createMonthlyEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -12151,6 +12585,8 @@ export const createMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12202,6 +12638,8 @@ export const createMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12235,6 +12673,8 @@ export const createMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12272,6 +12712,8 @@ export const createMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12313,6 +12755,8 @@ export const createMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12347,6 +12791,8 @@ export const createMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12383,6 +12829,8 @@ export const createMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12425,6 +12873,8 @@ export const createMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12487,6 +12937,8 @@ export const updateMonthlyEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -12502,6 +12954,8 @@ export const updateMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12553,6 +13007,8 @@ export const updateMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12586,6 +13042,8 @@ export const updateMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12623,6 +13081,8 @@ export const updateMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12664,6 +13124,8 @@ export const updateMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12698,6 +13160,8 @@ export const updateMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12734,6 +13198,8 @@ export const updateMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12776,6 +13242,8 @@ export const updateMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12838,6 +13306,8 @@ export const deleteMonthlyEntry = /* GraphQL */ `
       surveyEntry {
         id
         email
+        state
+        countyState
         createdAt
         surveyVersion
         surveyType
@@ -12853,6 +13323,8 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12904,6 +13376,8 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12937,6 +13411,8 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -12974,6 +13450,8 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -13015,6 +13493,8 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -13049,6 +13529,8 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -13085,6 +13567,8 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType
@@ -13127,6 +13611,8 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           surveyEntry {
             id
             email
+            state
+            countyState
             createdAt
             surveyVersion
             surveyType

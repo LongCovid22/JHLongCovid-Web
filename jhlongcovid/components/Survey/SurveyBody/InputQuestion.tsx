@@ -36,21 +36,12 @@ const Choices = (
   inputValue: string,
   inputError: boolean
 ) => {
-  const getTextAlignment = (index: number, total: number) => {
-    // if (index === 0) {
-    //   return "start";
-    // } else if (index === total - 1) {
-    //   return "end";
-    // } else {
-    //   return "center";
-    // }
-    return "center";
-  };
-
   return (
     <FormControl isInvalid={inputError}>
       {/* <FormLabel fontSize={"lg"}>{options.title}</FormLabel> */}
-      {options.type === "text" || options.type === "date" ? (
+      {options.type === "text" ||
+      options.type === "date" ||
+      options.type === "number" ? (
         <>
           <FormLabel fontSize={"lg"}>{options.title}</FormLabel>
           <Input
@@ -60,6 +51,11 @@ const Choices = (
             placeholder={options.placeholder}
             focusBorderColor="clear"
             fontSize={"xl"}
+            min={
+              options.type === "date"
+                ? new Date("2020-01-01").toISOString().split("T")[0]
+                : undefined
+            }
             max={
               options.type === "date"
                 ? new Date(new Date().setDate(new Date().getDate() - 1))
@@ -150,8 +146,37 @@ export const InputQuestion: React.FC<SurveyQuestionProps> = ({
 
   const isValidText = (validation: undefined | any, inputValue: string) => {
     if (inputValue !== "" && validation !== undefined) {
+      // const regexString = validation.regex.replace(
+      //   /[.*+\-?^${}()|[\]\\]/g,
+      //   "\\$&"
+      // );
       let reg = new RegExp(validation.regex);
-      return reg.test(inputValue);
+      let passesRegex = reg.test(inputValue);
+
+      if (validation.type && validation.type === "number") {
+        const num = parseInt(inputValue);
+        if (validation.max && validation.min) {
+          if (isNaN(num) || num > validation.max || num < validation.min) {
+            return false;
+          } else {
+            return true && passesRegex;
+          }
+        } else if (validation.min) {
+          if (isNaN(num) || num < validation.min) {
+            return false;
+          } else {
+            return true && passesRegex;
+          }
+        } else if (validation.max) {
+          if (isNaN(num) || num > validation.max) {
+            return false;
+          } else {
+            return true && passesRegex;
+          }
+        }
+      }
+
+      return passesRegex;
     }
     return true;
   };

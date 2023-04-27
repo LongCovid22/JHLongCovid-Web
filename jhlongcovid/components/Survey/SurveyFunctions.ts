@@ -23,6 +23,7 @@ import {
   User,
 } from "../../src/API";
 import axios from "axios";
+import { LocationState } from "../../redux/slices/locationSlice";
 
 export type LocationData = {
   county: string;
@@ -34,19 +35,32 @@ export type LocationData = {
   stateLong: number;
 };
 
+export const checkEmptyLocationData = (location: LocationData) => {
+  let isEmpty = true;
+  for (const key in location) {
+    const value = location[key as keyof object];
+    if (typeof value === "string") {
+      if (value !== "") {
+        isEmpty = false;
+      }
+    } else {
+      if (value !== 0.0) {
+        isEmpty = false;
+      }
+    }
+  }
+  return isEmpty;
+};
+
 export const checkEmptyDemoFields = (answer: any) => {
   let emptyFields = [];
   let demographics = answer as {
-    zip: string;
     age: string;
     race: string;
     sex: string;
     height: string;
     weight: string;
   };
-  if (demographics.zip === "") {
-    emptyFields.push("zip code");
-  }
   if (demographics.age === "") {
     emptyFields.push("age");
   }
@@ -108,6 +122,13 @@ export const userInfoIsEmpty = (userInfo: UserInfo) => {
   return false;
 };
 
+export class NotInUSError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "NotInUSError";
+  }
+}
+
 export const getCountyAndStateWithZip = async (
   zipCode: string,
   apiKey: string
@@ -121,67 +142,144 @@ export const getCountyAndStateWithZip = async (
     stateLat: 0.0,
     stateLong: 0.0,
   };
-  try {
-    const response = await axios.get(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-        zipCode +
-        `&key=${apiKey}`
+  const response = await axios.get(
+    `https://maps.googleapis.com/maps/api/geocode/json?address=` +
+      zipCode +
+      `&key=${apiKey}`
+  );
+  if (response.data.results.length > 0) {
+    await Promise.all(
+      response.data.results[0].address_components.map(async (value: any) => {
+        let ac = value as {
+          long_name: string;
+          short_name: string;
+          types: string[];
+        };
+
+        if (ac.types.includes("country") && ac.short_name !== "US") {
+          throw new NotInUSError("Location not in United States");
+        }
+
+        if (ac.types.includes("administrative_area_level_1")) {
+          locationData.state = ac.long_name;
+          locationData.stateAbbrev = ac.short_name;
+          const stateResponse = await axios.get(
+            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
+              `${ac.long_name} state` +
+              `&key=${apiKey}`
+          );
+
+          const west =
+            stateResponse.data.results[0].geometry.bounds.southwest.lng;
+          const east =
+            stateResponse.data.results[0].geometry.bounds.northeast.lng;
+          const lng = (west + east) / 2;
+
+          const north =
+            stateResponse.data.results[0].geometry.bounds.northeast.lat;
+          const south =
+            stateResponse.data.results[0].geometry.bounds.southwest.lat;
+          const lat = (north + south) / 2;
+
+          locationData.stateLat = Math.round(lat * 1000000) / 1000000;
+          locationData.stateLong = Math.round(lng * 1000000) / 1000000;
+        }
+
+        if (ac.types.includes("administrative_area_level_2")) {
+          const countyResponse = await axios.get(
+            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
+              ac.long_name +
+              `&key=${apiKey}`
+          );
+          locationData.countyLat =
+            Math.round(
+              countyResponse.data.results[0].geometry.location.lat * 1000000
+            ) / 1000000;
+          locationData.countyLong =
+            Math.round(
+              countyResponse.data.results[0].geometry.location.lng * 1000000
+            ) / 1000000;
+          locationData.county = ac.long_name;
+        }
+      })
     );
-    if (response.data.results.length > 0) {
-      await Promise.all(
-        response.data.results[0].address_components.map(async (value: any) => {
-          let ac = value as {
-            long_name: string;
-            short_name: string;
-            types: string[];
-          };
+  }
 
-          if (ac.types.includes("administrative_area_level_1")) {
-            locationData.state = ac.long_name;
-            locationData.stateAbbrev = ac.short_name;
-            const stateResponse = await axios.get(
-              `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-                `${ac.long_name} state` +
-                `&key=${apiKey}`
-            );
+  return locationData;
+};
 
-            const west =
-              stateResponse.data.results[0].geometry.bounds.southwest.lng;
-            const east =
-              stateResponse.data.results[0].geometry.bounds.northeast.lng;
-            const lng = (west + east) / 2;
+export const getCountyAndStateWithLatLng = async (
+  latLng: LocationState,
+  apiKey: string
+) => {
+  let locationData: LocationData = {
+    county: "",
+    state: "",
+    stateAbbrev: "",
+    countyLat: 0.0,
+    countyLong: 0.0,
+    stateLat: 0.0,
+    stateLong: 0.0,
+  };
+  const response = await axios.get(
+    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng.lat},${latLng.lng}` +
+      `&key=${apiKey}`
+  );
+  if (response.data.results.length > 0) {
+    await Promise.all(
+      response.data.results[0].address_components.map(async (value: any) => {
+        let ac = value as {
+          long_name: string;
+          short_name: string;
+          types: string[];
+        };
+        if (ac.types.includes("country") && ac.short_name !== "US") {
+          throw new NotInUSError("Location not in United States");
+        }
 
-            const north =
-              stateResponse.data.results[0].geometry.bounds.northeast.lat;
-            const south =
-              stateResponse.data.results[0].geometry.bounds.southwest.lat;
-            const lat = (north + south) / 2;
+        if (ac.types.includes("administrative_area_level_1")) {
+          locationData.state = ac.long_name;
+          locationData.stateAbbrev = ac.short_name;
+          const stateResponse = await axios.get(
+            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
+              `state ${ac.long_name}` +
+              `&key=${apiKey}`
+          );
 
-            locationData.stateLat = Math.round(lat * 1000000) / 1000000;
-            locationData.stateLong = Math.round(lng * 1000000) / 1000000;
-          }
+          const west =
+            stateResponse.data.results[0].geometry.bounds.southwest.lng;
+          const east =
+            stateResponse.data.results[0].geometry.bounds.northeast.lng;
+          const lng = (west + east) / 2;
 
-          if (ac.types.includes("administrative_area_level_2")) {
-            const countyResponse = await axios.get(
-              `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-                ac.long_name +
-                `&key=${apiKey}`
-            );
-            locationData.countyLat =
-              Math.round(
-                countyResponse.data.results[0].geometry.location.lat * 1000000
-              ) / 1000000;
-            locationData.countyLong =
-              Math.round(
-                countyResponse.data.results[0].geometry.location.lng * 1000000
-              ) / 1000000;
-            locationData.county = ac.long_name;
-          }
-        })
-      );
-    }
-  } catch (errors) {
-    console.error(errors);
+          const north =
+            stateResponse.data.results[0].geometry.bounds.northeast.lat;
+          const south =
+            stateResponse.data.results[0].geometry.bounds.southwest.lat;
+          const lat = (north + south) / 2;
+
+          locationData.stateLat = Math.round(lat * 1000000) / 1000000;
+          locationData.stateLong = Math.round(lng * 1000000) / 1000000;
+        }
+
+        if (ac.types.includes("administrative_area_level_2")) {
+          const countyResponse = await axios.get(
+            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
+              ac.long_name +
+              `&key=${apiKey}`
+          );
+          locationData.countyLat =
+            Math.round(
+              countyResponse.data.results[0].geometry.location.lat * 1000000
+            ) / 1000000;
+          locationData.countyLong =
+            Math.round(
+              countyResponse.data.results[0].geometry.location.lng * 1000000
+            ) / 1000000;
+          locationData.county = ac.long_name;
+        }
+      })
+    );
   }
 
   return locationData;
@@ -497,6 +595,7 @@ export const createSocialDeterminantsEntry = async (
 export const createSurveyEntry = async (
   ids: any,
   userInfo: UserInfo,
+  locationData: LocationData,
   user?: User
 ) => {
   try {
@@ -521,6 +620,11 @@ export const createSurveyEntry = async (
       surveyVersion: 1,
       surveyType: SurveyType.GUEST,
       email: user ? user.email : null,
+      state: locationData.state,
+      countyState:
+        locationData.county !== ""
+          ? locationData.county + "#" + locationData.stateAbbrev
+          : null,
       age: parseInt(userInfo.age),
       race: race,
       sex: userInfo.sex,
@@ -625,7 +729,12 @@ export const saveEntries = async (
       }
     }
 
-    ids["SurveyEntry"] = await createSurveyEntry(ids, userInfo, user);
+    ids["SurveyEntry"] = await createSurveyEntry(
+      ids,
+      userInfo,
+      locationData,
+      user
+    );
     return ids;
   } catch (error) {
     console.log("Saving entries: ", error);
@@ -696,7 +805,7 @@ export const aggregateResults = async (
     },
   };
 
-  // console.log("aggregateDetails: ", aggregateDetails);
+  console.log("aggregateDetails: ", aggregateDetails);
   const variables = {
     results: JSON.stringify(aggregateDetails),
   };
