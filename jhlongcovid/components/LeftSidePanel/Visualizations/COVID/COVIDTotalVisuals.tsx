@@ -113,6 +113,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
     const createGraphVariables = async () => {
+      console.log("data:", data);
       let covidSummary,
         recoverySummary,
         totalFullEntries = undefined;

@@ -125,9 +125,9 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         );
       }
 
-      if (phq8AboveTen) {
+      if (phq8AboveTen !== undefined) {
         const phq8OverTen =
-          phq8AboveTen !== null && phq8AboveTen ? phq8AboveTen : 0;
+          phq8AboveTen && phq8AboveTen !== null ? phq8AboveTen : 0;
         const phq8Config = createPHQ8OverTenConfig(phq8OverTen, totalEntries);
         setPhq8AboveTenConfig(phq8Config);
       }
@@ -137,6 +137,8 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       if (setLoading) {
         setLoading(false);
       }
+
+      console.log("PHQ8 config:", phq8AboveTenConfig);
     };
 
     createGraphVariables();

@@ -3013,6 +3013,12 @@ export const getSummaries = async (data: any) => {
           }
         }
         totalFullEntries
+        covidCount
+        longCovid
+        phq8AboveTen
+        recoveredCount
+        longCovidOverFourWeeks
+        longCovidOverTwelveWeeks
       }
     }
   `;
