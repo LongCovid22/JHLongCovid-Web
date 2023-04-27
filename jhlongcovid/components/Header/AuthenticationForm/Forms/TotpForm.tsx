@@ -21,6 +21,8 @@ interface TotpProps {
   showTitle?: boolean;
   setVerifType: (val: "SignUp" | "SignIn" | "VerifyTotp") => void;
   changeAuthState: (state: AuthState) => void;
+  qrString: string | null;
+  setQRString: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export const TotpForm: React.FC<TotpProps> = ({
@@ -28,8 +30,10 @@ export const TotpForm: React.FC<TotpProps> = ({
   showTitle,
   setVerifType,
   changeAuthState,
+  qrString,
+  setQRString,
 }) => {
-  const [qrString, setQRString] = useState("");
+  // const [qrString, setQRString] = useState("");
 
   const handleNext = () => {
     setVerifType("VerifyTotp");
@@ -38,7 +42,7 @@ export const TotpForm: React.FC<TotpProps> = ({
 
   useEffect(() => {
     const setupTotp = async () => {
-      if (user && qrString === "") {
+      if (user && qrString === null) {
         const code = await Auth.setupTOTP(user);
         const qr =
           "otpauth://totp/AWSCognito:" +
@@ -51,7 +55,7 @@ export const TotpForm: React.FC<TotpProps> = ({
     };
 
     setupTotp();
-  }, [user]);
+  }, [user, qrString]);
 
   return (
     <VStack width="75%" maxW="450px" minW="325px" spacing="25px">
@@ -62,11 +66,12 @@ export const TotpForm: React.FC<TotpProps> = ({
           </Heading>
         )}
         <Text fontSize={"lg"}>
-          Scan the below bar code using your authenticator app of choice (e.g.
-          Google Authenticator)
+          To register your one time passcodes, you'll need to download a
+          third-party authenticator app like Google Authenticator or Microsoft
+          Authenticator and then scan the QR code provided.
         </Text>
       </VStack>
-      <QRCode value={qrString} />
+      <QRCode value={qrString === null ? "" : qrString} />
       <HStack spacing={3} width="100%">
         <Spacer />
         <Button

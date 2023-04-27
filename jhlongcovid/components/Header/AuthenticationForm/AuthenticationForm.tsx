@@ -33,7 +33,7 @@ export const AuthenticationForm: React.FC<{
   const [verifType, setVerifType] = useState<
     "SignUp" | "SignIn" | "VerifyTotp"
   >("SignIn");
-  const [qrString, setQRString] = useState("");
+  const [qrString, setQRString] = useState<string | null>(null);
   const [user, setUser] = useState<undefined | CognitoUser>(undefined);
 
   useEffect(() => {
@@ -77,6 +77,8 @@ export const AuthenticationForm: React.FC<{
             user={user}
             setVerifType={setVerifType}
             changeAuthState={setAuthState}
+            qrString={qrString}
+            setQRString={setQRString}
           />
         );
       case AuthState.VerifyCode:
@@ -88,6 +90,7 @@ export const AuthenticationForm: React.FC<{
             verifType={verifType}
             midSurvey={midSurvey}
             userInfo={userInfo}
+            qrString={qrString}
             onVerify={onVerify}
             setUserInfo={setUser}
             setQRString={setQRString}
