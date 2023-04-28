@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UserInfo } from "../../SurveyWrapper";
 import {
   PinInput,
@@ -8,6 +8,7 @@ import {
   PinInputField,
   Text,
   FormErrorMessage,
+  Input,
 } from "@chakra-ui/react";
 
 export type HeightInputProps = {
@@ -38,6 +39,9 @@ export const HeightInput: React.FC<HeightInputProps> = ({
   setErrorPresent,
 }) => {
   const [heightErrorText, setHeightErrorText] = useState<string | null>(null);
+  const [feet, setFeet] = useState<string>("");
+  const [inches, setInches] = useState<string>("");
+  const [totalInches, setTotalInches] = useState<number>(0);
 
   const isValidWeight = (height: string) => {
     if (height === "") return true;
@@ -48,35 +52,76 @@ export const HeightInput: React.FC<HeightInputProps> = ({
     return true;
   };
 
-  const handleHeightChange = (value: string) => {
-    const demosCopy = { ...demos };
-    demosCopy["height"] = value;
-    setDemos(demosCopy);
-    if (isValidWeight(value)) {
-      if (setErrorPresent) setErrorPresent(false);
-      setHeightErrorText(null);
-      setAnswer(demosCopy);
-    } else {
+  const handleFeetChange = (value: string) => {
+    const num = parseInt(value);
+    if (isNaN(num) || num <= 0 || num > 7) {
       if (setErrorPresent) setErrorPresent(true);
       setHeightErrorText("Invalid height");
+    } else {
+      if (setErrorPresent) setErrorPresent(false);
+      setHeightErrorText(null);
     }
+    setFeet(value);
   };
+
+  const handleInchesChange = (value: string) => {
+    if (value !== "") {
+      const num = parseInt(value);
+      if (isNaN(num) || num <= 0 || num > 11) {
+        if (setErrorPresent) setErrorPresent(true);
+        setHeightErrorText("Invalid height");
+      } else {
+        if (setErrorPresent) setErrorPresent(false);
+        setHeightErrorText(null);
+      }
+    } else {
+      if (setErrorPresent) setErrorPresent(false);
+      setHeightErrorText(null);
+    }
+
+    setInches(value);
+  };
+
+  useEffect(() => {
+    const handleHeightChange = (feet: string, inches: string) => {
+      const demosCopy = { ...demos };
+      demosCopy["height"] = feet + inches;
+      setDemos(demosCopy);
+      // if (isValidWeight(value)) {
+      //   if (setErrorPresent) setErrorPresent(false);
+      //   setHeightErrorText(null);
+      //   setAnswer(demosCopy);
+      // } else {
+      //   if (setErrorPresent) setErrorPresent(true);
+      //   setHeightErrorText("Invalid height");
+      // }
+    };
+
+    handleHeightChange(feet, inches);
+  }, [feet, inches]);
 
   return (
     <FormControl isInvalid={heightErrorText !== null}>
       <FormLabel fontSize={"18px"}>Height</FormLabel>
       <HStack>
         <PinInput
-          value={demos.height}
+          value={feet}
           onChange={(value) => {
-            handleHeightChange(value);
+            handleFeetChange(value);
+            // handleHeightChange(value);
           }}
         >
           <PinInputField />
           <Text>ft</Text>
-          <PinInputField />
-          <Text>in</Text>
         </PinInput>
+        <Input
+          w="50px"
+          value={inches}
+          onChange={(event) => {
+            handleInchesChange(event.target.value);
+          }}
+        />
+        <Text>in</Text>
       </HStack>
       {heightErrorText !== null && (
         <FormErrorMessage>{heightErrorText}</FormErrorMessage>

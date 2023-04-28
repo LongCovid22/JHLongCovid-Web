@@ -1,3 +1,4 @@
+import { parseHeightIntoInches } from "../../../components/Survey/SurveyFunctions";
 import { UserInfo } from "../../../components/Survey/SurveyWrapper";
 import { VaccinationEntry } from "../../../src/API";
 
@@ -349,7 +350,7 @@ const createEntries = (
     age: demographics.age,
     race: demographics.race,
     sex: demographics.sex,
-    height: demographics.height,
+    height: parseHeightIntoInches(demographics.height),
     weight: demographics.weight,
   };
   for (var i = 0; i < questionStack.length; i++) {

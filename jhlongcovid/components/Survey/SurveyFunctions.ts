@@ -286,11 +286,19 @@ export const getCountyAndStateWithLatLng = async (
 };
 
 export const parseHeightIntoInches = (height: string) => {
-  if (height.length === 2) {
-    let feet = parseInt(height.split("")[0]);
-    let inches = parseInt(height.split("")[1]);
+  if (height.length >= 2) {
+    let feet = parseInt(height[0]);
+    let inches = parseInt(height.slice(1, height.length));
+    console.log(
+      "Returning height in inches: ",
+      (feet * 12 + inches).toString()
+    );
     return (feet * 12 + inches).toString();
   } else if (height.length === 1) {
+    console.log(
+      "Returning height in inches: ",
+      (parseInt(height) * 12).toString()
+    );
     return (parseInt(height) * 12).toString();
   }
   return "0";
@@ -309,7 +317,7 @@ export const createCovidEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     beenInfected: surveyData.beenInfected ?? null,
     timesPositive: surveyData.timesPositive ?? null,
@@ -354,7 +362,7 @@ export const createRecoveryEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     recovered: surveyData.recovered ?? null,
     lengthOfRecovery: surveyData.lengthOfRecovery ?? null,
@@ -394,7 +402,7 @@ export const createVaccinationEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     totalVaccineShots: surveyData.totalVaccineShots ?? null,
     vaccinated: surveyData.vaccinated ?? null,
@@ -435,7 +443,7 @@ export const createGlobalHealthEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     healthRank: surveyData.healthRank ?? null,
     physicalHealthRank: surveyData.physicalHealthRank ?? null,
@@ -478,7 +486,7 @@ export const createPatientHealthEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     generalHealthResults:
       JSON.stringify(surveyData.generalHealthResults) ?? null,
@@ -519,7 +527,7 @@ export const createSymptomEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     symptoms: surveyData.symptoms ?? null,
     carryOutSocialActivitiesRank:
@@ -562,7 +570,7 @@ export const createSocialDeterminantsEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     hasMedicalInsurance: surveyData.hasMedicalInsurance ?? null,
     difficultCoveringExpenses: surveyData.difficultCoveringExpenses ?? null,
@@ -628,7 +636,7 @@ export const createSurveyEntry = async (
       age: parseInt(userInfo.age),
       race: race,
       sex: userInfo.sex,
-      height: parseHeightIntoInches(userInfo.height),
+      height: userInfo.height,
       weight: userInfo.weight,
       surveyEntryCovidEntryId: ids.CovidEntry ? ids.CovidEntry : null,
       surveyEntryVaccinationEntryId: ids.VaccinationEntry
@@ -801,7 +809,7 @@ export const aggregateResults = async (
       : null,
     healthRelatedResults: {
       weight: userInfo.weight,
-      height: userInfo.height,
+      height: parseHeightIntoInches(userInfo.height),
     },
   };
 
