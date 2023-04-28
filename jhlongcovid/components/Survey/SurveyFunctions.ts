@@ -289,16 +289,8 @@ export const parseHeightIntoInches = (height: string) => {
   if (height.length >= 2) {
     let feet = parseInt(height[0]);
     let inches = parseInt(height.slice(1, height.length));
-    console.log(
-      "Returning height in inches: ",
-      (feet * 12 + inches).toString()
-    );
     return (feet * 12 + inches).toString();
   } else if (height.length === 1) {
-    console.log(
-      "Returning height in inches: ",
-      (parseInt(height) * 12).toString()
-    );
     return (parseInt(height) * 12).toString();
   }
   return "0";
@@ -813,7 +805,7 @@ export const aggregateResults = async (
     },
   };
 
-  console.log("aggregateDetails: ", aggregateDetails);
+  //   console.log("aggregateDetails: ", aggregateDetails);
   const variables = {
     results: JSON.stringify(aggregateDetails),
   };
