@@ -134,6 +134,7 @@ export const surveySlice = createSlice({
             state.questionStack[state.currentQuestionIndex],
             state.questions
           );
+          
           // { section: 0, question: 2}
           state.questionStack.push(nextQuestionInfo);
 

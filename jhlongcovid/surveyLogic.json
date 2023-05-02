@@ -322,7 +322,7 @@
             "type": "number",
             "max": 730,
             "regex": "^[0-9]+$",
-            "errorText": "Please enter a valid number. Must be less than 2 years old."
+            "errorText": "Please enter a valid number. Must be within 2 years."
           }
         },
         "answerFormat": "input",
