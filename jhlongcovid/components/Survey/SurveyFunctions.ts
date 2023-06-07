@@ -18,8 +18,13 @@ import {
   CreateSymptomEntryMutation,
   CreateVaccinationEntryInput,
   CreateVaccinationEntryMutation,
+  NotificationFrequency,
+  NotificationMethod,
   Race,
   SurveyType,
+  UpdateCovidEntryInput,
+  UpdateUserMutation,
+  UpdateUserMutationVariables,
   User,
 } from "../../src/API";
 import axios from "axios";
@@ -82,30 +87,55 @@ export const checkEmptyDemoFields = (answer: any) => {
 
 export const updateUserWithInfoFromSurvey = async (
   userInfo: UserInfo,
-  user: any
+  user: User,
+  recovered?: boolean | null
 ) => {
+  let race;
+  if (userInfo.race.toUpperCase() === "WHITE") {
+    race = Race.WHITE;
+  } else if (userInfo.race.toUpperCase() === "BLACK") {
+    race = Race.BLACK;
+  } else if (userInfo.race.toUpperCase() === "ASIAN") {
+    race = Race.ASIAN;
+  } else if (userInfo.race.toUpperCase() === "HISPANIC") {
+    race = Race.HISPANIC;
+  } else if (userInfo.race.toUpperCase() === "NATIVE") {
+    race = Race.NATIVE;
+  } else if (userInfo.race.toUpperCase() === "OTHER") {
+    race = Race.OTHER;
+  } else {
+    race = Race.NONE;
+  }
   // Update user with new info
-  let userDetails = {};
-  if (userInfo) {
-    userDetails = {
+  let userDetails: UpdateUserMutationVariables = {
+    input: {
       id: user.id,
-      age: userInfo.age,
-      race: userInfo.race.toUpperCase(),
-      sex: userInfo.sex,
-      height: userInfo.height,
-      weight: userInfo.weight,
-      lastSubmission: new Date(),
-    };
-
-    try {
-      API.graphql({
-        query: mutations.updateUser,
-        variables: { input: userDetails },
-        authMode: "AMAZON_COGNITO_USER_POOLS",
-      });
-    } catch (error) {
-      console.log("Error: ", error);
-    }
+      email: user.email,
+      age: userInfo ? parseInt(userInfo.age) : user.age,
+      race: userInfo ? race : user.race,
+      sex: userInfo ? userInfo.sex : user.sex,
+      height: userInfo ? userInfo.height : user.height,
+      weight: userInfo ? userInfo.weight : user.weight,
+      notificationFreq:
+        recovered !== null && recovered !== true
+          ? NotificationFrequency.WEEKLY
+          : user.notificationFreq,
+      notificationMethod:
+        recovered !== undefined && recovered !== true
+          ? NotificationMethod.EMAIL
+          : user.notificationMethod,
+      createdAt: user.createdAt,
+    },
+  };
+  console.log("Updating user with details: ", userDetails);
+  try {
+    API.graphql({
+      query: mutations.updateUser,
+      variables: userDetails,
+      authMode: "AMAZON_COGNITO_USER_POOLS",
+    });
+  } catch (error) {
+    console.log("Error: ", error);
   }
 };
 

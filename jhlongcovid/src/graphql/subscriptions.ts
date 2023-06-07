@@ -201,7 +201,7 @@ export const onCreateUser = /* GraphQL */ `
       lastSubmission
       lastSignIn
       notificationFreq
-      notificaitonMethod
+      notificationMethod
       createdAt
       updatedAt
       owner
@@ -224,7 +224,7 @@ export const onUpdateUser = /* GraphQL */ `
       lastSubmission
       lastSignIn
       notificationFreq
-      notificaitonMethod
+      notificationMethod
       createdAt
       updatedAt
       owner
@@ -247,7 +247,7 @@ export const onDeleteUser = /* GraphQL */ `
       lastSubmission
       lastSignIn
       notificationFreq
-      notificaitonMethod
+      notificationMethod
       createdAt
       updatedAt
       owner

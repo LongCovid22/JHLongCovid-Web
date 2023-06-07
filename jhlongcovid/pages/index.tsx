@@ -169,9 +169,9 @@ const Home = () => {
 
   useEffect(() => {
     if (user) {
-      dispatch(initQuestions({ authId: user.id }));
+      dispatch(initQuestions(user));
     } else {
-      dispatch(initQuestions({ authId: null }));
+      dispatch(initQuestions(undefined));
     }
   }, [user]);
 

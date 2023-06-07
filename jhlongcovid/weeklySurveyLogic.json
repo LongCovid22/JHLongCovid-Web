@@ -1,0 +1,202 @@
+{
+  "version": "1.0",
+  "totalQuestions": 9,
+  "questions": [
+    [
+      {
+        "title": "Weekly Checkin",
+        "questionNum": 1,
+        "question": "Thank you for checking in!",
+        "options": [
+          "During the weekly check-in we will be asking you about your recovery and if any sypmtoms remain after your recent COVID diagnosis",
+          "If you are fully recovered and no longer have any symptoms we will no longer notify you."
+        ],
+        "answerFormat": "welcome",
+        "answer": null,
+        "branching": null
+      }
+    ],
+    [
+      {
+        "title": "Recovery",
+        "questionNum": 2,
+        "question": "Since the last time you took the survey, would you say that you are completely recovered from COVID-19?",
+        "options": ["Yes", "No"],
+        "answerFormat": ["choice", "choice"],
+        "answer": null,
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "RecoveryEntry",
+          "field": "recovered",
+          "type": "Boolean"
+        }
+      },
+      {
+        "title": "Recovery",
+        "questionNum": 3,
+        "question": "How long did it take for you to recover from your most recent infection?",
+        "options": {
+          "type": "text",
+          "title": "Days: ",
+          "placeholder": "Enter number of days",
+          "validation": {
+            "type": "number",
+            "max": 730,
+            "regex": "^[0-9]+$",
+            "errorText": "Please enter a valid number. Must be within 2 years."
+          }
+        },
+        "answerFormat": "input",
+        "answer": null,
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "RecoveryEntry",
+          "field": "lengthOfRecovery",
+          "type": "Int"
+        }
+      }
+    ],
+    [
+      {
+        "title": "Symptoms",
+        "questionNum": 4,
+        "question": "During the <timeframe>, have you had any of the following symptoms? Check all that apply.",
+        "timeframe": "past 7 days",
+        "answerFormat": [
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice",
+          "multichoice"
+        ],
+        "options": [
+          "Headache",
+          "Body or muscle aches",
+          "Fever, chills, sweats or flushing",
+          "Feeling faint, dizzy, “goofy”; difficulty thinking soon after standing up from a sitting or lying position",
+          "Feeling sick after you exert yourself physically or mentally (“post-exertional malaise”)",
+          "Weakness in arms or legs",
+          "Shortness of breath (trouble breathing)",
+          "Cough",
+          "Palpitations, racing heart, arrhythmia, or skipped beats",
+          "Swelling of your legs",
+          "Indigestion, nausea, feeling uncomfortably full or vomiting after eating, diarrhea, or constipation",
+          "Bladder problems including incontinence, trouble passing urine or emptying bladder",
+          "Nerve problems including tremor, shaking, numbness, tingling, or burning",
+          "Problems thinking or concentrating (“brain fog”)",
+          "Problems with anxiety, depression, stress or trauma-related symptoms like nightmares or grief",
+          "Difficulty falling asleep, difficulty staying asleep, or early morning awakenings, 3 or more times per week",
+          "Feeling sleepy, trouble staying awake during the daytime, or falling asleep during the day when you do not intend to, 3 or more times per week",
+          "Loud snoring, stopping breathing, or gasping during sleep, 3 or more times per week",
+          "Uncomfortable feelings in your legs (creepy, crawling feeling) that make you want to move your legs, that are worse at night and improved with movement",
+          "Skin rash",
+          "Loss of or change in smell or taste",
+          "Excessive thirst",
+          "Excessively dry mouth",
+          "Vision problems (blurry, light sensitivity, difficult reading or focusing, floaters, flashing lights, “snow”)",
+          "Problems with hearing (hearing loss, ringing in ears)",
+          "Problems with fertility, changes in your menstrual cycle, changes in menopause symptoms"
+        ],
+        "answer": null,
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "SymptomEntry",
+          "field": "symptoms",
+          "type": "[String]"
+        }
+      },
+      {
+        "title": "Symptoms",
+        "questionNum": 5,
+        "question": "In general, over the <timeframe>, how would you rate your mental health, including your mood and your ability to think?",
+        "timeframe": "past 7 days",
+        "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
+        "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
+        "answer": null,
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "SymptomEntry",
+          "field": "mentalHealthRank",
+          "type": "String"
+        }
+      },
+      {
+        "title": "Symptoms",
+        "questionNum": 6,
+        "question": "In general, over the <timeframe>, how would you rate your satisfaction with your social activities and relationships?",
+        "timeframe": "past 7 days",
+        "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
+        "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
+        "answer": null,
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "SymptomEntry",
+          "field": "socialSatisfactionRank",
+          "type": "String"
+        }
+      },
+      {
+        "title": "Symptoms",
+        "questionNum": 7,
+        "question": "In general, over the <timeframe>, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in your community, and responsibilities as a parent, child, spouse, employee, friend, etc.)",
+        "timeframe": "past 7 days",
+        "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
+        "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
+        "answer": null,
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "SymptomEntry",
+          "field": "carryOutSocialActivitiesRank",
+          "type": "String"
+        }
+      },
+      {
+        "title": "Symptoms",
+        "questionNum": 8,
+        "question": "In the <timeframe>, how often have you been bothered by emotional problems such as feeling anxious, depressed or irritable?",
+        "timeframe": "past 7 days",
+        "options": ["Never", "Rarely", "Sometimes", "Often", "Always"],
+        "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
+        "answer": null,
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "SymptomEntry",
+          "field": "anxietyInPastWeekRank",
+          "type": "String"
+        }
+      }
+    ],
+    [
+      {
+        "title": "Thank You",
+        "questionNum": 9,
+        "question": "We are deeply grateful for your time and effort in completing this check in. If you reported no symptoms and a full recovery from COVID we will no longer being notifying you.",
+        "options": null,
+        "answer": null,
+        "answerFormat": "thankYou",
+        "branching": null
+      }
+    ]
+  ]
+}

@@ -187,6 +187,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [answer, setAnswer] = useState<string | string[] | object | null>(
     currentQuestion.answer
   );
+  const [recovered, setRecovered] = useState<boolean | null>(null);
   const [location, setLocation] = useState<LocationData>({
     state: "",
     stateAbbrev: "",
@@ -210,187 +211,220 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [missingAnswer, setMissingAnswer] = useState(false);
   const [errorText, setErrorText] = useState("");
   const [errorPresent, setErrorPresent] = useState(false);
-  const [preSurvey, setPreSurvey] = useState(false);
 
-  const handleQuestionChange = async (
-    direction: "next" | "prev" | "skip" | "finish"
-  ) => {
-    if (direction === "next") {
-      if (currentQuestion.answerFormat !== "welcome") {
-        // User hit continue as guest and needs to move in to
-        // the guest survey
-        if (preSurvey) {
-          setPreSurvey(false);
-          return;
+  const handleNextQuestion = async () => {
+    if (currentQuestion.answerFormat !== "welcome") {
+      // Update the info of the user signed in when on the account
+      // stage at the end of the survey
+      if (currentQuestion.answerFormat === "account" && user) {
+        if (!userInfoIsEmpty) {
+          await updateUserWithInfoFromSurvey(userInfo, user, recovered);
         }
+        dispatch(nextQuestion({ answer: answer }));
+        return;
+      }
 
-        // Update the info of the user signed in when on the account
-        // stage at the end of the survey
-        if (currentQuestion.answerFormat === "account" && user) {
-          if (!userInfoIsEmpty) {
-            await updateUserWithInfoFromSurvey(userInfo, user);
+      if (currentQuestion.answerFormat === "thankYou") {
+        // Finish the survey
+        onClose();
+        dispatch(initQuestions(user));
+      }
+
+      // Check for empty fields during the demographics stage
+      if (currentQuestion.answerFormat === "demographics") {
+        if (answer !== null) {
+          const emptyLocation = checkEmptyLocationData(location);
+          const emptyFields = checkEmptyDemoFields(answer);
+          if (emptyLocation) {
+            emptyFields.push("location");
           }
-          dispatch(nextQuestion({ answer: answer }));
-          return;
-        }
-
-        if (currentQuestion.answerFormat === "thankYou") {
-          // Finish the survey
-          onClose();
-          dispatch(initQuestions({ authId: null }));
-        }
-
-        // Check for empty fields during the demographics stage
-        if (currentQuestion.answerFormat === "demographics") {
-          if (answer !== null) {
-            const emptyLocation = checkEmptyLocationData(location);
-            const emptyFields = checkEmptyDemoFields(answer);
-            if (emptyLocation) {
-              emptyFields.push("location");
-            }
-            if (emptyFields.length > 0) {
-              setErrorText(`Please provide ${emptyFields.join(", ")}`);
-              setMissingAnswer(true);
-              return;
-            }
-          }
-          if (errorPresent) {
-            setErrorText(`Please correct invalid responses`);
+          if (emptyFields.length > 0) {
+            setErrorText(`Please provide ${emptyFields.join(", ")}`);
+            setMissingAnswer(true);
             return;
           }
         }
+        if (errorPresent) {
+          setErrorText(`Please correct invalid responses`);
+          return;
+        }
+      }
 
-        // Check for empty fields in any stage of the survey
+      // Check for empty fields in any stage of the survey
+      if (
+        answer === "" ||
+        answer === null ||
+        (Array.isArray(answer) && answer.length === 0) ||
+        (Array.isArray(answer) &&
+          answer.filter((element) => element === "").length > 0)
+      ) {
+        setErrorText("Please provide an answer to the missing fields");
+        setMissingAnswer(true);
+        return;
+      } else if (
+        Array.isArray(currentQuestion.answerFormat) &&
+        currentQuestion.answerFormat.includes("multichoice")
+      ) {
+        let multiChoiceAnswer = answer as {
+          choices: string[];
+          other: string;
+        };
+
         if (
-          answer === "" ||
-          answer === null ||
-          (Array.isArray(answer) && answer.length === 0) ||
-          (Array.isArray(answer) &&
-            answer.filter((element) => element === "").length > 0)
+          multiChoiceAnswer.choices.length === 0 &&
+          multiChoiceAnswer.other === ""
         ) {
           setErrorText("Please provide an answer to the missing fields");
           setMissingAnswer(true);
           return;
-        } else if (
-          Array.isArray(currentQuestion.answerFormat) &&
-          currentQuestion.answerFormat.includes("multichoice")
-        ) {
-          let multiChoiceAnswer = answer as {
-            choices: string[];
-            other: string;
-          };
+        }
+      } else {
+        setMissingAnswer(false);
+      }
+    }
 
-          if (
-            multiChoiceAnswer.choices.length === 0 &&
-            multiChoiceAnswer.other === ""
-          ) {
-            setErrorText("Please provide an answer to the missing fields");
-            setMissingAnswer(true);
-            return;
+    if (!errorPresent) {
+      // Perform action on next button
+      // Update user info depending on the page
+      const userInfoUpdate = { ...userInfo };
+
+      if (currentQuestion.answerFormat === "consent") {
+        userInfoUpdate.email = answer as string;
+        setUserInfo(userInfoUpdate);
+      } else if (currentQuestion.answerFormat === "demographics") {
+        const a = answer as {
+          location: LocationData;
+          age: string;
+          race: string;
+          sex: string;
+          height: string;
+          weight: string;
+        };
+        userInfoUpdate.age = a.age;
+        // userInfoUpdate.location = a.location;
+        userInfoUpdate.race = a.race;
+        userInfoUpdate.sex = a.sex;
+        userInfoUpdate.weight = a.weight;
+        userInfoUpdate.height = a.height;
+        setUserInfo(userInfoUpdate);
+      }
+
+      // Check if the recovered flag can be set
+      if (currentQuestion.schemaInfo) {
+        if (currentQuestion.schemaInfo.field === "recovered") {
+          if (answer === "Yes") {
+            setRecovered(true);
+          } else if (answer === "No") {
+            setRecovered(false);
           }
-        } else {
-          setMissingAnswer(false);
         }
       }
 
-      if (!errorPresent && direction === "next") {
-        // Perform action on next button
-        // Update user info depending on the page
-        const userInfoUpdate = { ...userInfo };
-
-        if (currentQuestion.answerFormat === "consent") {
-          userInfoUpdate.email = answer as string;
-          setUserInfo(userInfoUpdate);
-        } else if (currentQuestion.answerFormat === "demographics") {
-          const a = answer as {
-            location: LocationData;
-            age: string;
-            race: string;
-            sex: string;
-            height: string;
-            weight: string;
-          };
-          userInfoUpdate.age = a.age;
-          // userInfoUpdate.location = a.location;
-          userInfoUpdate.race = a.race;
-          userInfoUpdate.sex = a.sex;
-          userInfoUpdate.weight = a.weight;
-          userInfoUpdate.height = a.height;
-          setUserInfo(userInfoUpdate);
-        }
-
-        dispatch(nextQuestion({ answer: answer }));
-      }
-    } else if (direction === "skip") {
-      dispatch(nextQuestion({ answer: "skip" }));
-    } else if (direction === "finish") {
-      setPerformingQueries(true);
-      const entries = processEntries(questionStack, answerStack, questions);
-      // const locationData: LocationData = await getCountyAndStateWithZip(
-      //   // userInfo.location,
-      //   "13492",
-      //   process.env.GOOGLEMAPS_API_KEY ?? ""
-      // );
-
-      if (location.state === "") {
-        toast({
-          title: "Survey submission",
-          description:
-            "Unable to find location. Please enter a valid zip code at the begininng of the survey.",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-          position: "top-right",
-        });
-        return;
-      }
-
-      let ids;
-      // Save survey entries
-      try {
-        ids = await saveEntries(location, entries, userInfo, user);
-      } catch (error) {
-        console.log("Error saving survey entries", error);
-        toast({
-          title: "Survey submission",
-          description: "Failed to submit survey",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-          position: "top-right",
-        });
-      }
-
-      // Aggregate survey results
-      try {
-        await aggregateResults(entries, ids, userInfo, location, user);
-        toast({
-          title: "Survey submission",
-          description: "Successfully submitted survey",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "top-right",
-        });
-      } catch (error) {
-        console.log("Error aggregating survey results", error);
-        toast({
-          title: "Error aggregating results",
-          description: `${error}`,
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-          position: "top-right",
-        });
-      }
-
-      setPerformingQueries(false);
-      dispatch(initQuestions({ authId: null }));
-      onClose();
-    } else {
-      dispatch(prevQuestion({ answer: answer }));
+      dispatch(nextQuestion({ answer: answer }));
     }
     setAnswer("");
+  };
+
+  const handlePrevQuestion = () => {
+    dispatch(prevQuestion({ answer: answer }));
+    setAnswer("");
+  };
+
+  const handleSkipQuestion = () => {
+    dispatch(nextQuestion({ answer: "skip" }));
+    setAnswer("");
+  };
+
+  const handleFinishQuestion = async () => {
+    setPerformingQueries(true);
+    // console.log("Here is user: ", user);
+    // console.log("Here is recovered", recovered);
+    if (user) {
+      await updateUserWithInfoFromSurvey(userInfo, user, recovered);
+    }
+    // const entries = processEntries(questionStack, answerStack, questions);
+    // const locationData: LocationData = await getCountyAndStateWithZip(
+    //   // userInfo.location,
+    //   "13492",
+    //   process.env.GOOGLEMAPS_API_KEY ?? ""
+    // );
+
+    if (location.state === "") {
+      setPerformingQueries(false);
+      toast({
+        title: "Survey submission",
+        description:
+          "Unable to find location. Please enter a valid zip code at the begininng of the survey.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      });
+      return;
+    }
+
+    // let ids;
+    // // Save survey entries
+    // try {
+    //   ids = await saveEntries(location, entries, userInfo, user);
+    // } catch (error) {
+    //   console.log("Error saving survey entries", error);
+    //   toast({
+    //     title: "Survey submission",
+    //     description: "Failed to submit survey",
+    //     status: "error",
+    //     duration: 3000,
+    //     isClosable: true,
+    //     position: "top-right",
+    //   });
+    // }
+
+    // // Aggregate survey results
+    // try {
+    //   await aggregateResults(entries, ids, userInfo, location, user);
+    //   toast({
+    //     title: "Survey submission",
+    //     description: "Successfully submitted survey",
+    //     status: "success",
+    //     duration: 3000,
+    //     isClosable: true,
+    //     position: "top-right",
+    //   });
+    // } catch (error) {
+    //   console.log("Error aggregating survey results", error);
+    //   toast({
+    //     title: "Error aggregating results",
+    //     description: `${error}`,
+    //     status: "error",
+    //     duration: 3000,
+    //     isClosable: true,
+    //     position: "top-right",
+    //   });
+    // }
+
+    setPerformingQueries(false);
+    dispatch(initQuestions(user));
+    setAnswer("");
+    onClose();
+  };
+
+  const handleQuestionChange = async (
+    direction: "next" | "prev" | "skip" | "finish"
+  ) => {
+    switch (direction) {
+      case "next":
+        handleNextQuestion();
+        break;
+      case "prev":
+        handlePrevQuestion();
+        break;
+      case "finish":
+        handleFinishQuestion();
+        break;
+      case "skip":
+        handleSkipQuestion();
+        break;
+    }
   };
 
   // Mark final section
@@ -401,6 +435,10 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     setIsFinalSection(currentQuestion.answerFormat === "thankYou");
   }, [currentQuestion]);
 
+  useEffect(() => {
+    console.log("Recovered value: ", recovered);
+  }, [recovered]);
+
   // Reset wrapper values for next question
   useEffect(() => {
     setErrorText("");
@@ -409,20 +447,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     setAnswer(currentAnswer);
   }, [currentAnswer, currentQuestion]);
 
-  // useEffect(() => {
-  //   // If a user is already signed in do not display the pre survey
-  //   // login screen. Instead create the survey depending on whether they
-  //   // are DAILY, WEEKLY, or MONTHLY
-  //   if (user !== undefined) {
-  //     setPreSurvey(false);
-  //   } else {
-  //     setPreSurvey(true);
-  //   }
-  // }, [user]);
-
   const renderNextButton = (
     currentQuestion: any,
-    preSurvey: boolean,
     performingQueries: boolean,
     isLastQuestion: boolean
   ) => {
@@ -430,38 +456,21 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       currentQuestion.answerFormat !== "account" &&
       currentQuestion.answerFormat !== "welcome"
     ) {
-      if (!preSurvey) {
-        return (
-          <Button
-            colorScheme="heritageBlue"
-            borderRadius={500}
-            isLoading={performingQueries}
-            onClick={() =>
-              isLastQuestion
-                ? handleQuestionChange("finish")
-                : handleQuestionChange("next")
-            }
-            fontSize="lg"
-          >
-            {isLastQuestion ? "Finish" : "Next"}
-          </Button>
-        );
-      } else {
-        return (
-          <Button
-            background={"spiritBlue.100"}
-            color={"heritageBlue.500"}
-            borderRadius={500}
-            onClick={() => {
-              dispatch(initQuestions({ authId: null }));
-              setPreSurvey(false);
-            }}
-            fontSize="lg"
-          >
-            Continue as guest
-          </Button>
-        );
-      }
+      return (
+        <Button
+          colorScheme="heritageBlue"
+          borderRadius={500}
+          isLoading={performingQueries}
+          onClick={() =>
+            isLastQuestion
+              ? handleQuestionChange("finish")
+              : handleQuestionChange("next")
+          }
+          fontSize="lg"
+        >
+          {isLastQuestion ? "Finish" : "Next"}
+        </Button>
+      );
     }
 
     if (currentQuestion.answerFormat === "welcome" && height < 852) {
@@ -503,7 +512,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         <ModalHeader>
           <Flex>
             <Text fontSize={"3xl"}>
-              {!preSurvey && currentQuestion.answerFormat !== "thankYou"
+              {currentQuestion.answerFormat !== "thankYou"
                 ? currentQuestion.title
                 : ""}
             </Text>
@@ -514,7 +523,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               color={"heritageBlue.600"}
               onClick={() => {
                 onClose();
-                dispatch(initQuestions({ authId: null }));
+                dispatch(initQuestions(user));
               }}
             />
           </Flex>
@@ -530,26 +539,17 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             paddingTop: "0px",
           }}
         >
-          {!preSurvey ? (
-            <Body
-              currentQuestion={currentQuestion}
-              userInfo={userInfo}
-              setAnswer={setAnswer}
-              setErrorPresent={setErrorPresent}
-              setErrorText={setErrorText}
-              location={location}
-              setLocationData={setLocation}
-              onVerify={() => handleQuestionChange("next")}
-              handleQuestionChange={handleQuestionChange}
-            />
-          ) : (
-            <PreSurvey
-              dismissPreSurvey={() => {
-                setPreSurvey(false);
-                dispatch(initQuestions({ authId: null }));
-              }}
-            />
-          )}
+          <Body
+            currentQuestion={currentQuestion}
+            userInfo={userInfo}
+            setAnswer={setAnswer}
+            setErrorPresent={setErrorPresent}
+            setErrorText={setErrorText}
+            location={location}
+            setLocationData={setLocation}
+            onVerify={() => handleQuestionChange("next")}
+            handleQuestionChange={handleQuestionChange}
+          />
         </ModalBody>
         <ModalFooter w="100%">
           {currentQuestion.questionNum === 0 && (
@@ -576,12 +576,12 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           <>
             <Spacer />
             <HStack>
-              {(missingAnswer || errorPresent) && !preSurvey && (
+              {(missingAnswer || errorPresent) && (
                 <Text fontSize={"lg"} color={"red"}>
                   {errorText}
                 </Text>
               )}
-              {currentQuestion.answerFormat === "account" && !preSurvey && (
+              {currentQuestion.answerFormat === "account" && (
                 <Button
                   background={"spiritBlue.100"}
                   color={"heritageBlue.500"}
@@ -596,7 +596,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               )}
               {!isFirstQuestion &&
                 !isFinalSection &&
-                !preSurvey &&
                 currentQuestion.answerFormat !== "account" && (
                   <Button
                     colorScheme="heritageBlue"
@@ -611,7 +610,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
                 )}
               {renderNextButton(
                 currentQuestion,
-                preSurvey,
                 performingQueries,
                 isLastQuestion
               )}

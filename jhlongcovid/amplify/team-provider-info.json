@@ -77,7 +77,7 @@
       "function": {
         "aggregateSurveyResults": {
           "deploymentBucketName": "amplify-jhlongcovid-develop-113748-deployment",
-          "s3Key": "amplify-builds/aggregateSurveyResults-4a443064552b61424649-build.zip"
+          "s3Key": "amplify-builds/aggregateSurveyResults-347877326e614b455356-build.zip"
         },
         "jhlongcovid": {}
       },

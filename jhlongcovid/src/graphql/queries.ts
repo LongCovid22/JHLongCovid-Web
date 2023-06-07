@@ -193,7 +193,7 @@ export const getUser = /* GraphQL */ `
       lastSubmission
       lastSignIn
       notificationFreq
-      notificaitonMethod
+      notificationMethod
       createdAt
       updatedAt
       owner
@@ -218,7 +218,7 @@ export const listUsers = /* GraphQL */ `
         lastSubmission
         lastSignIn
         notificationFreq
-        notificaitonMethod
+        notificationMethod
         createdAt
         updatedAt
         owner
@@ -255,7 +255,7 @@ export const usersByEmail = /* GraphQL */ `
         lastSubmission
         lastSignIn
         notificationFreq
-        notificaitonMethod
+        notificationMethod
         createdAt
         updatedAt
         owner

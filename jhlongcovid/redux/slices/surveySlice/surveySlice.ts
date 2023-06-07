@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 import surveyLogic from "../../../surveyLogic.json";
+import weeklySurveyLogic from "../../../weeklySurveyLogic.json";
 import { Auth } from "aws-amplify";
 import { setUncaughtExceptionCaptureCallback } from "process";
 import { processEntries } from "./surveySliceFunctions";
+import { NotificationFrequency, User } from "../../../src/API";
 
 // this slice can be used for presentation throughout the app. When there is state that
 // controls somethings display, it should go in here
@@ -28,7 +30,7 @@ const initialState: SurveyState = {
   answerStack: [], // ["true", "2"]
   lastQuestion: false,
   firstQuestion: true,
-  totalQuestions: surveyLogic.totalQuestions,
+  totalQuestions: weeklySurveyLogic.totalQuestions,
 };
 
 const checkIfLastQuestion = (
@@ -134,7 +136,7 @@ export const surveySlice = createSlice({
             state.questionStack[state.currentQuestionIndex],
             state.questions
           );
-          
+
           // { section: 0, question: 2}
           state.questionStack.push(nextQuestionInfo);
 
@@ -222,25 +224,30 @@ export const surveySlice = createSlice({
      * That userId will be used to determine the set of questions the
      * user will experience during the survey.
      */
-    initQuestions: (state, { payload }) => {
+    initQuestions: (state, payload: PayloadAction<User | undefined>) => {
       // User not signed in, give full survey
-      if (payload.authId == null) {
-        while (state.questionStack.length > 0) {
-          state.questionStack.pop();
-        }
-        while (state.answerStack.length > 0) {
-          state.answerStack.pop();
-        }
-        state.questionStack.push({ section: 0, question: 0 });
-        state.answerStack.push("");
-
-        state.questions = surveyLogic.questions;
-        state.currentQuestion = surveyLogic.questions[0][0];
-        state.currentAnswer = state.answerStack[0];
-        state.currentQuestionIndex = 0;
-        state.firstQuestion = true;
-        state.lastQuestion = false;
+      while (state.questionStack.length > 0) {
+        state.questionStack.pop();
       }
+      while (state.answerStack.length > 0) {
+        state.answerStack.pop();
+      }
+      state.questionStack.push({ section: 0, question: 0 });
+      state.answerStack.push("");
+      state.firstQuestion = true;
+      state.lastQuestion = false;
+      state.currentQuestionIndex = 0;
+
+      const user = payload.payload;
+      //   if (user && user.notificationFreq == NotificationFrequency.WEEKLY) {
+      //     state.questions = weeklySurveyLogic.questions;
+      //   } else {
+      //     state.questions = surveyLogic.questions;
+      //   }
+      state.questions = weeklySurveyLogic.questions;
+
+      state.currentQuestion = weeklySurveyLogic.questions[0][0];
+      state.currentAnswer = state.answerStack[0];
     },
   },
 });
