@@ -117,6 +117,12 @@ type SurveyEntry
     ]
   ) {
   id: ID!
+  parentSurveyId: ID
+    @index(
+      name: "byParent"
+      sortKeyFields: ["createdAt"]
+      queryField: "surveysByParentId"
+    )
   email: String
     @index(
       name: "byEmail"
