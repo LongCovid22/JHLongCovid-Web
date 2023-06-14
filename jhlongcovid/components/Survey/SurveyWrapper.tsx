@@ -18,7 +18,6 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
 import {
-  finishSurvey,
   initQuestions,
   nextQuestion,
   prevQuestion,
@@ -29,6 +28,7 @@ import {
   selectIslastQuestion,
   selectQuestions,
   selectQuestionStack,
+  selectSurveyType,
   selectTotalQuestions,
 } from "../../redux/slices/surveySlice/surveySlice";
 import { processEntries } from "../../redux/slices/surveySlice/surveySliceFunctions";
@@ -182,6 +182,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const answerStack = useAppSelector(selectAnswerStack);
   const questions = useAppSelector(selectQuestions);
   const totalQuestions = useAppSelector(selectTotalQuestions);
+  const surveyType = useAppSelector(selectSurveyType);
   const dispatch = useAppDispatch();
   const [performingQueries, setPerformingQueries] = useState(false);
   const [answer, setAnswer] = useState<string | string[] | object | null>(
@@ -337,17 +338,17 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
   const handleFinishQuestion = async () => {
     setPerformingQueries(true);
-    if (user && userInfo) {
-      const updatedUser = await updateUserWithInfoFromSurvey(
-        userInfo,
-        user,
-        recovered
-      );
-      if (updatedUser) {
-        dispatch(setUser(updatedUser));
-      }
-    }
-    const entries = processEntries(questionStack, answerStack, questions);
+
+    // NOTE: the user passed in to this function doesn't receive the
+    // updated user infromation. It is only passed to get the user's demographics
+    // which shouldn't change after a weekly survey
+    const entries = processEntries(
+      surveyType,
+      questionStack,
+      answerStack,
+      questions,
+      user
+    );
     // const locationData: LocationData = await getCountyAndStateWithZip(
     //   // userInfo.location,
     //   "13492",
@@ -384,6 +385,17 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     //     position: "top-right",
     //   });
     // }
+
+    if (user) {
+      const updatedUser = await updateUserWithInfoFromSurvey(
+        userInfo,
+        user,
+        recovered
+      );
+      if (updatedUser) {
+        dispatch(setUser(updatedUser));
+      }
+    }
 
     // // Aggregate survey results
     // try {

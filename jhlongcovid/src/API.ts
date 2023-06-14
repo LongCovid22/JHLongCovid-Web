@@ -707,7 +707,9 @@ export type CreateUserInput = {
   sex?: string | null,
   height?: string | null,
   weight?: string | null,
+  covidStatus?: CovidStatus | null,
   lastSubmission?: string | null,
+  lastSubmissionId?: string | null,
   lastSignIn?: string | null,
   notificationFreq?: NotificationFrequency | null,
   notificationMethod?: NotificationMethod | null,
@@ -721,6 +723,13 @@ export enum Race {
   NATIVE = "NATIVE",
   HISPANIC = "HISPANIC",
   OTHER = "OTHER",
+  NONE = "NONE",
+}
+
+
+export enum CovidStatus {
+  RECOVERED = "RECOVERED",
+  NOT_RECOVERED = "NOT_RECOVERED",
   NONE = "NONE",
 }
 
@@ -745,7 +754,9 @@ export type ModelUserConditionInput = {
   sex?: ModelStringInput | null,
   height?: ModelStringInput | null,
   weight?: ModelStringInput | null,
+  covidStatus?: ModelCovidStatusInput | null,
   lastSubmission?: ModelStringInput | null,
+  lastSubmissionId?: ModelIDInput | null,
   lastSignIn?: ModelStringInput | null,
   notificationFreq?: ModelNotificationFrequencyInput | null,
   notificationMethod?: ModelNotificationMethodInput | null,
@@ -758,6 +769,27 @@ export type ModelUserConditionInput = {
 export type ModelRaceInput = {
   eq?: Race | null,
   ne?: Race | null,
+};
+
+export type ModelCovidStatusInput = {
+  eq?: CovidStatus | null,
+  ne?: CovidStatus | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
 };
 
 export type ModelNotificationFrequencyInput = {
@@ -779,7 +811,9 @@ export type User = {
   sex?: string | null,
   height?: string | null,
   weight?: string | null,
+  covidStatus?: CovidStatus | null,
   lastSubmission?: string | null,
+  lastSubmissionId?: string | null,
   lastSignIn?: string | null,
   notificationFreq?: NotificationFrequency | null,
   notificationMethod?: NotificationMethod | null,
@@ -796,7 +830,9 @@ export type UpdateUserInput = {
   sex?: string | null,
   height?: string | null,
   weight?: string | null,
+  covidStatus?: CovidStatus | null,
   lastSubmission?: string | null,
+  lastSubmissionId?: string | null,
   lastSignIn?: string | null,
   notificationFreq?: NotificationFrequency | null,
   notificationMethod?: NotificationMethod | null,
@@ -809,6 +845,7 @@ export type DeleteUserInput = {
 
 export type CreateSurveyEntryInput = {
   id?: string | null,
+  parentSurveyId?: string | null,
   email?: string | null,
   state?: string | null,
   countyState?: string | null,
@@ -839,6 +876,7 @@ export enum SurveyType {
 
 
 export type ModelSurveyEntryConditionInput = {
+  parentSurveyId?: ModelIDInput | null,
   email?: ModelStringInput | null,
   state?: ModelStringInput | null,
   countyState?: ModelStringInput | null,
@@ -868,25 +906,10 @@ export type ModelSurveyTypeInput = {
   ne?: SurveyType | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
 export type SurveyEntry = {
   __typename: "SurveyEntry",
   id: string,
+  parentSurveyId?: string | null,
   email?: string | null,
   state?: string | null,
   countyState?: string | null,
@@ -1084,6 +1107,7 @@ export type MonthlyEntry = {
 
 export type UpdateSurveyEntryInput = {
   id: string,
+  parentSurveyId?: string | null,
   email?: string | null,
   state?: string | null,
   countyState?: string | null,
@@ -1679,7 +1703,9 @@ export type ModelUserFilterInput = {
   sex?: ModelStringInput | null,
   height?: ModelStringInput | null,
   weight?: ModelStringInput | null,
+  covidStatus?: ModelCovidStatusInput | null,
   lastSubmission?: ModelStringInput | null,
+  lastSubmissionId?: ModelIDInput | null,
   lastSignIn?: ModelStringInput | null,
   notificationFreq?: ModelNotificationFrequencyInput | null,
   notificationMethod?: ModelNotificationMethodInput | null,
@@ -1697,6 +1723,7 @@ export type ModelUserConnection = {
 
 export type ModelSurveyEntryFilterInput = {
   id?: ModelIDInput | null,
+  parentSurveyId?: ModelIDInput | null,
   email?: ModelStringInput | null,
   state?: ModelStringInput | null,
   countyState?: ModelStringInput | null,
@@ -2030,7 +2057,9 @@ export type ModelSubscriptionUserFilterInput = {
   sex?: ModelSubscriptionStringInput | null,
   height?: ModelSubscriptionStringInput | null,
   weight?: ModelSubscriptionStringInput | null,
+  covidStatus?: ModelSubscriptionStringInput | null,
   lastSubmission?: ModelSubscriptionStringInput | null,
+  lastSubmissionId?: ModelSubscriptionIDInput | null,
   lastSignIn?: ModelSubscriptionStringInput | null,
   notificationFreq?: ModelSubscriptionStringInput | null,
   notificationMethod?: ModelSubscriptionStringInput | null,
@@ -2041,6 +2070,7 @@ export type ModelSubscriptionUserFilterInput = {
 
 export type ModelSubscriptionSurveyEntryFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  parentSurveyId?: ModelSubscriptionIDInput | null,
   email?: ModelSubscriptionStringInput | null,
   state?: ModelSubscriptionStringInput | null,
   countyState?: ModelSubscriptionStringInput | null,
@@ -2480,7 +2510,9 @@ export type CreateUserMutation = {
     sex?: string | null,
     height?: string | null,
     weight?: string | null,
+    covidStatus?: CovidStatus | null,
     lastSubmission?: string | null,
+    lastSubmissionId?: string | null,
     lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificationMethod?: NotificationMethod | null,
@@ -2505,7 +2537,9 @@ export type UpdateUserMutation = {
     sex?: string | null,
     height?: string | null,
     weight?: string | null,
+    covidStatus?: CovidStatus | null,
     lastSubmission?: string | null,
+    lastSubmissionId?: string | null,
     lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificationMethod?: NotificationMethod | null,
@@ -2530,7 +2564,9 @@ export type DeleteUserMutation = {
     sex?: string | null,
     height?: string | null,
     weight?: string | null,
+    covidStatus?: CovidStatus | null,
     lastSubmission?: string | null,
+    lastSubmissionId?: string | null,
     lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificationMethod?: NotificationMethod | null,
@@ -2549,6 +2585,7 @@ export type CreateSurveyEntryMutation = {
   createSurveyEntry?:  {
     __typename: "SurveyEntry",
     id: string,
+    parentSurveyId?: string | null,
     email?: string | null,
     state?: string | null,
     countyState?: string | null,
@@ -2568,6 +2605,7 @@ export type CreateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -2772,6 +2810,7 @@ export type CreateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -2958,6 +2997,7 @@ export type CreateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -3148,6 +3188,7 @@ export type CreateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -3342,6 +3383,7 @@ export type CreateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -3529,6 +3571,7 @@ export type CreateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -3718,6 +3761,7 @@ export type CreateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -3913,6 +3957,7 @@ export type CreateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -4114,6 +4159,7 @@ export type UpdateSurveyEntryMutation = {
   updateSurveyEntry?:  {
     __typename: "SurveyEntry",
     id: string,
+    parentSurveyId?: string | null,
     email?: string | null,
     state?: string | null,
     countyState?: string | null,
@@ -4133,6 +4179,7 @@ export type UpdateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -4337,6 +4384,7 @@ export type UpdateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -4523,6 +4571,7 @@ export type UpdateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -4713,6 +4762,7 @@ export type UpdateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -4907,6 +4957,7 @@ export type UpdateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -5094,6 +5145,7 @@ export type UpdateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -5283,6 +5335,7 @@ export type UpdateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -5478,6 +5531,7 @@ export type UpdateSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -5679,6 +5733,7 @@ export type DeleteSurveyEntryMutation = {
   deleteSurveyEntry?:  {
     __typename: "SurveyEntry",
     id: string,
+    parentSurveyId?: string | null,
     email?: string | null,
     state?: string | null,
     countyState?: string | null,
@@ -5698,6 +5753,7 @@ export type DeleteSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -5902,6 +5958,7 @@ export type DeleteSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -6088,6 +6145,7 @@ export type DeleteSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -6278,6 +6336,7 @@ export type DeleteSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -6472,6 +6531,7 @@ export type DeleteSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -6659,6 +6719,7 @@ export type DeleteSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -6848,6 +6909,7 @@ export type DeleteSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -7043,6 +7105,7 @@ export type DeleteSurveyEntryMutation = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -7254,6 +7317,7 @@ export type CreateVaccinationEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -7273,6 +7337,7 @@ export type CreateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7328,6 +7393,7 @@ export type CreateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7365,6 +7431,7 @@ export type CreateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7406,6 +7473,7 @@ export type CreateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7451,6 +7519,7 @@ export type CreateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7489,6 +7558,7 @@ export type CreateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7529,6 +7599,7 @@ export type CreateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7575,6 +7646,7 @@ export type CreateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7645,6 +7717,7 @@ export type UpdateVaccinationEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -7664,6 +7737,7 @@ export type UpdateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7719,6 +7793,7 @@ export type UpdateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7756,6 +7831,7 @@ export type UpdateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7797,6 +7873,7 @@ export type UpdateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7842,6 +7919,7 @@ export type UpdateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7880,6 +7958,7 @@ export type UpdateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7920,6 +7999,7 @@ export type UpdateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -7966,6 +8046,7 @@ export type UpdateVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8036,6 +8117,7 @@ export type DeleteVaccinationEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -8055,6 +8137,7 @@ export type DeleteVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8110,6 +8193,7 @@ export type DeleteVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8147,6 +8231,7 @@ export type DeleteVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8188,6 +8273,7 @@ export type DeleteVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8233,6 +8319,7 @@ export type DeleteVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8271,6 +8358,7 @@ export type DeleteVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8311,6 +8399,7 @@ export type DeleteVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8357,6 +8446,7 @@ export type DeleteVaccinationEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8427,6 +8517,7 @@ export type CreateGlobalHealthEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -8446,6 +8537,7 @@ export type CreateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8501,6 +8593,7 @@ export type CreateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8538,6 +8631,7 @@ export type CreateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8579,6 +8673,7 @@ export type CreateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8624,6 +8719,7 @@ export type CreateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8662,6 +8758,7 @@ export type CreateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8702,6 +8799,7 @@ export type CreateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8748,6 +8846,7 @@ export type CreateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8819,6 +8918,7 @@ export type UpdateGlobalHealthEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -8838,6 +8938,7 @@ export type UpdateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8893,6 +8994,7 @@ export type UpdateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8930,6 +9032,7 @@ export type UpdateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -8971,6 +9074,7 @@ export type UpdateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9016,6 +9120,7 @@ export type UpdateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9054,6 +9159,7 @@ export type UpdateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9094,6 +9200,7 @@ export type UpdateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9140,6 +9247,7 @@ export type UpdateGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9211,6 +9319,7 @@ export type DeleteGlobalHealthEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -9230,6 +9339,7 @@ export type DeleteGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9285,6 +9395,7 @@ export type DeleteGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9322,6 +9433,7 @@ export type DeleteGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9363,6 +9475,7 @@ export type DeleteGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9408,6 +9521,7 @@ export type DeleteGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9446,6 +9560,7 @@ export type DeleteGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9486,6 +9601,7 @@ export type DeleteGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9532,6 +9648,7 @@ export type DeleteGlobalHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9598,6 +9715,7 @@ export type CreateCovidEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -9617,6 +9735,7 @@ export type CreateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9672,6 +9791,7 @@ export type CreateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9709,6 +9829,7 @@ export type CreateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9750,6 +9871,7 @@ export type CreateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9795,6 +9917,7 @@ export type CreateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9833,6 +9956,7 @@ export type CreateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9873,6 +9997,7 @@ export type CreateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9919,6 +10044,7 @@ export type CreateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -9997,6 +10123,7 @@ export type UpdateCovidEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -10016,6 +10143,7 @@ export type UpdateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10071,6 +10199,7 @@ export type UpdateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10108,6 +10237,7 @@ export type UpdateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10149,6 +10279,7 @@ export type UpdateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10194,6 +10325,7 @@ export type UpdateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10232,6 +10364,7 @@ export type UpdateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10272,6 +10405,7 @@ export type UpdateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10318,6 +10452,7 @@ export type UpdateCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10396,6 +10531,7 @@ export type DeleteCovidEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -10415,6 +10551,7 @@ export type DeleteCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10470,6 +10607,7 @@ export type DeleteCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10507,6 +10645,7 @@ export type DeleteCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10548,6 +10687,7 @@ export type DeleteCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10593,6 +10733,7 @@ export type DeleteCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10631,6 +10772,7 @@ export type DeleteCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10671,6 +10813,7 @@ export type DeleteCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10717,6 +10860,7 @@ export type DeleteCovidEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10795,6 +10939,7 @@ export type CreateRecoveryEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -10814,6 +10959,7 @@ export type CreateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10869,6 +11015,7 @@ export type CreateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10906,6 +11053,7 @@ export type CreateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10947,6 +11095,7 @@ export type CreateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -10992,6 +11141,7 @@ export type CreateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11030,6 +11180,7 @@ export type CreateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11070,6 +11221,7 @@ export type CreateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11116,6 +11268,7 @@ export type CreateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11184,6 +11337,7 @@ export type UpdateRecoveryEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -11203,6 +11357,7 @@ export type UpdateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11258,6 +11413,7 @@ export type UpdateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11295,6 +11451,7 @@ export type UpdateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11336,6 +11493,7 @@ export type UpdateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11381,6 +11539,7 @@ export type UpdateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11419,6 +11578,7 @@ export type UpdateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11459,6 +11619,7 @@ export type UpdateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11505,6 +11666,7 @@ export type UpdateRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11573,6 +11735,7 @@ export type DeleteRecoveryEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -11592,6 +11755,7 @@ export type DeleteRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11647,6 +11811,7 @@ export type DeleteRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11684,6 +11849,7 @@ export type DeleteRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11725,6 +11891,7 @@ export type DeleteRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11770,6 +11937,7 @@ export type DeleteRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11808,6 +11976,7 @@ export type DeleteRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11848,6 +12017,7 @@ export type DeleteRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11894,6 +12064,7 @@ export type DeleteRecoveryEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -11962,6 +12133,7 @@ export type CreatePatientHealthEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -11981,6 +12153,7 @@ export type CreatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12036,6 +12209,7 @@ export type CreatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12073,6 +12247,7 @@ export type CreatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12114,6 +12289,7 @@ export type CreatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12159,6 +12335,7 @@ export type CreatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12197,6 +12374,7 @@ export type CreatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12237,6 +12415,7 @@ export type CreatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12283,6 +12462,7 @@ export type CreatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12351,6 +12531,7 @@ export type UpdatePatientHealthEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -12370,6 +12551,7 @@ export type UpdatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12425,6 +12607,7 @@ export type UpdatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12462,6 +12645,7 @@ export type UpdatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12503,6 +12687,7 @@ export type UpdatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12548,6 +12733,7 @@ export type UpdatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12586,6 +12772,7 @@ export type UpdatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12626,6 +12813,7 @@ export type UpdatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12672,6 +12860,7 @@ export type UpdatePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12740,6 +12929,7 @@ export type DeletePatientHealthEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -12759,6 +12949,7 @@ export type DeletePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12814,6 +13005,7 @@ export type DeletePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12851,6 +13043,7 @@ export type DeletePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12892,6 +13085,7 @@ export type DeletePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12937,6 +13131,7 @@ export type DeletePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -12975,6 +13170,7 @@ export type DeletePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13015,6 +13211,7 @@ export type DeletePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13061,6 +13258,7 @@ export type DeletePatientHealthEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13129,6 +13327,7 @@ export type CreateSymptomEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -13148,6 +13347,7 @@ export type CreateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13203,6 +13403,7 @@ export type CreateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13240,6 +13441,7 @@ export type CreateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13281,6 +13483,7 @@ export type CreateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13326,6 +13529,7 @@ export type CreateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13364,6 +13568,7 @@ export type CreateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13404,6 +13609,7 @@ export type CreateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13450,6 +13656,7 @@ export type CreateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13524,6 +13731,7 @@ export type UpdateSymptomEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -13543,6 +13751,7 @@ export type UpdateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13598,6 +13807,7 @@ export type UpdateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13635,6 +13845,7 @@ export type UpdateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13676,6 +13887,7 @@ export type UpdateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13721,6 +13933,7 @@ export type UpdateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13759,6 +13972,7 @@ export type UpdateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13799,6 +14013,7 @@ export type UpdateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13845,6 +14060,7 @@ export type UpdateSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13919,6 +14135,7 @@ export type DeleteSymptomEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -13938,6 +14155,7 @@ export type DeleteSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -13993,6 +14211,7 @@ export type DeleteSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14030,6 +14249,7 @@ export type DeleteSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14071,6 +14291,7 @@ export type DeleteSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14116,6 +14337,7 @@ export type DeleteSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14154,6 +14376,7 @@ export type DeleteSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14194,6 +14417,7 @@ export type DeleteSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14240,6 +14464,7 @@ export type DeleteSymptomEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14314,6 +14539,7 @@ export type CreateSocialDeterminantsEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -14333,6 +14559,7 @@ export type CreateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14388,6 +14615,7 @@ export type CreateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14425,6 +14653,7 @@ export type CreateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14466,6 +14695,7 @@ export type CreateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14511,6 +14741,7 @@ export type CreateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14549,6 +14780,7 @@ export type CreateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14589,6 +14821,7 @@ export type CreateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14635,6 +14868,7 @@ export type CreateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14704,6 +14938,7 @@ export type UpdateSocialDeterminantsEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -14723,6 +14958,7 @@ export type UpdateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14778,6 +15014,7 @@ export type UpdateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14815,6 +15052,7 @@ export type UpdateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14856,6 +15094,7 @@ export type UpdateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14901,6 +15140,7 @@ export type UpdateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14939,6 +15179,7 @@ export type UpdateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -14979,6 +15220,7 @@ export type UpdateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15025,6 +15267,7 @@ export type UpdateSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15094,6 +15337,7 @@ export type DeleteSocialDeterminantsEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -15113,6 +15357,7 @@ export type DeleteSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15168,6 +15413,7 @@ export type DeleteSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15205,6 +15451,7 @@ export type DeleteSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15246,6 +15493,7 @@ export type DeleteSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15291,6 +15539,7 @@ export type DeleteSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15329,6 +15578,7 @@ export type DeleteSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15369,6 +15619,7 @@ export type DeleteSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15415,6 +15666,7 @@ export type DeleteSocialDeterminantsEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15484,6 +15736,7 @@ export type CreateMonthlyEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -15503,6 +15756,7 @@ export type CreateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15558,6 +15812,7 @@ export type CreateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15595,6 +15850,7 @@ export type CreateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15636,6 +15892,7 @@ export type CreateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15681,6 +15938,7 @@ export type CreateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15719,6 +15977,7 @@ export type CreateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15759,6 +16018,7 @@ export type CreateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15805,6 +16065,7 @@ export type CreateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15872,6 +16133,7 @@ export type UpdateMonthlyEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -15891,6 +16153,7 @@ export type UpdateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15946,6 +16209,7 @@ export type UpdateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -15983,6 +16247,7 @@ export type UpdateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16024,6 +16289,7 @@ export type UpdateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16069,6 +16335,7 @@ export type UpdateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16107,6 +16374,7 @@ export type UpdateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16147,6 +16415,7 @@ export type UpdateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16193,6 +16462,7 @@ export type UpdateMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16260,6 +16530,7 @@ export type DeleteMonthlyEntryMutation = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -16279,6 +16550,7 @@ export type DeleteMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16334,6 +16606,7 @@ export type DeleteMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16371,6 +16644,7 @@ export type DeleteMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16412,6 +16686,7 @@ export type DeleteMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16457,6 +16732,7 @@ export type DeleteMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16495,6 +16771,7 @@ export type DeleteMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16535,6 +16812,7 @@ export type DeleteMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16581,6 +16859,7 @@ export type DeleteMonthlyEntryMutation = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -16835,7 +17114,9 @@ export type GetUserQuery = {
     sex?: string | null,
     height?: string | null,
     weight?: string | null,
+    covidStatus?: CovidStatus | null,
     lastSubmission?: string | null,
+    lastSubmissionId?: string | null,
     lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificationMethod?: NotificationMethod | null,
@@ -16863,7 +17144,9 @@ export type ListUsersQuery = {
       sex?: string | null,
       height?: string | null,
       weight?: string | null,
+      covidStatus?: CovidStatus | null,
       lastSubmission?: string | null,
+      lastSubmissionId?: string | null,
       lastSignIn?: string | null,
       notificationFreq?: NotificationFrequency | null,
       notificationMethod?: NotificationMethod | null,
@@ -16896,7 +17179,9 @@ export type UsersByEmailQuery = {
       sex?: string | null,
       height?: string | null,
       weight?: string | null,
+      covidStatus?: CovidStatus | null,
       lastSubmission?: string | null,
+      lastSubmissionId?: string | null,
       lastSignIn?: string | null,
       notificationFreq?: NotificationFrequency | null,
       notificationMethod?: NotificationMethod | null,
@@ -16916,6 +17201,7 @@ export type GetSurveyEntryQuery = {
   getSurveyEntry?:  {
     __typename: "SurveyEntry",
     id: string,
+    parentSurveyId?: string | null,
     email?: string | null,
     state?: string | null,
     countyState?: string | null,
@@ -16935,6 +17221,7 @@ export type GetSurveyEntryQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -17139,6 +17426,7 @@ export type GetSurveyEntryQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -17325,6 +17613,7 @@ export type GetSurveyEntryQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -17515,6 +17804,7 @@ export type GetSurveyEntryQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -17709,6 +17999,7 @@ export type GetSurveyEntryQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -17896,6 +18187,7 @@ export type GetSurveyEntryQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -18085,6 +18377,7 @@ export type GetSurveyEntryQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -18280,6 +18573,7 @@ export type GetSurveyEntryQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -18484,6 +18778,7 @@ export type ListSurveyEntriesQuery = {
     items:  Array< {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -18503,6 +18798,7 @@ export type ListSurveyEntriesQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -18558,6 +18854,7 @@ export type ListSurveyEntriesQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -18595,6 +18892,7 @@ export type ListSurveyEntriesQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -18636,6 +18934,7 @@ export type ListSurveyEntriesQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -18681,6 +18980,7 @@ export type ListSurveyEntriesQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -18719,6 +19019,7 @@ export type ListSurveyEntriesQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -18759,6 +19060,7 @@ export type ListSurveyEntriesQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -18805,6 +19107,397 @@ export type ListSurveyEntriesQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
+          email?: string | null,
+          state?: string | null,
+          countyState?: string | null,
+          createdAt: string,
+          surveyVersion: number,
+          surveyType: SurveyType,
+          age: number,
+          race: Race,
+          sex: string,
+          height: string,
+          weight: string,
+          updatedAt: string,
+          surveyEntryCovidEntryId?: string | null,
+          surveyEntryVaccinationEntryId?: string | null,
+          surveyEntrySocialDeterminantsEntryId?: string | null,
+          surveyEntryRecoveryEntryId?: string | null,
+          surveyEntryGlobalHealthEntryId?: string | null,
+          surveyEntryPatientHealthEntryId?: string | null,
+          surveyEntrySymptomsEntryId?: string | null,
+          surveyEntryMonthlyEntryId?: string | null,
+        } | null,
+        age: number,
+        race: Race,
+        sex: string,
+        height: string,
+        weight: string,
+        results?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        monthlyEntrySurveyEntryId?: string | null,
+      } | null,
+      updatedAt: string,
+      surveyEntryCovidEntryId?: string | null,
+      surveyEntryVaccinationEntryId?: string | null,
+      surveyEntrySocialDeterminantsEntryId?: string | null,
+      surveyEntryRecoveryEntryId?: string | null,
+      surveyEntryGlobalHealthEntryId?: string | null,
+      surveyEntryPatientHealthEntryId?: string | null,
+      surveyEntrySymptomsEntryId?: string | null,
+      surveyEntryMonthlyEntryId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type SurveysByParentIdQueryVariables = {
+  parentSurveyId: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelSurveyEntryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type SurveysByParentIdQuery = {
+  surveysByParentId?:  {
+    __typename: "ModelSurveyEntryConnection",
+    items:  Array< {
+      __typename: "SurveyEntry",
+      id: string,
+      parentSurveyId?: string | null,
+      email?: string | null,
+      state?: string | null,
+      countyState?: string | null,
+      createdAt: string,
+      surveyVersion: number,
+      surveyType: SurveyType,
+      age: number,
+      race: Race,
+      sex: string,
+      height: string,
+      weight: string,
+      covidEntry?:  {
+        __typename: "CovidEntry",
+        id: string,
+        state: string,
+        countyState?: string | null,
+        surveyEntry?:  {
+          __typename: "SurveyEntry",
+          id: string,
+          parentSurveyId?: string | null,
+          email?: string | null,
+          state?: string | null,
+          countyState?: string | null,
+          createdAt: string,
+          surveyVersion: number,
+          surveyType: SurveyType,
+          age: number,
+          race: Race,
+          sex: string,
+          height: string,
+          weight: string,
+          updatedAt: string,
+          surveyEntryCovidEntryId?: string | null,
+          surveyEntryVaccinationEntryId?: string | null,
+          surveyEntrySocialDeterminantsEntryId?: string | null,
+          surveyEntryRecoveryEntryId?: string | null,
+          surveyEntryGlobalHealthEntryId?: string | null,
+          surveyEntryPatientHealthEntryId?: string | null,
+          surveyEntrySymptomsEntryId?: string | null,
+          surveyEntryMonthlyEntryId?: string | null,
+        } | null,
+        age: number,
+        race: Race,
+        sex: string,
+        height: string,
+        weight: string,
+        beenInfected?: boolean | null,
+        timesPositive?: number | null,
+        lastPositive?: string | null,
+        tested?: boolean | null,
+        positiveTest?: string | null,
+        testMethod?: string | null,
+        hospitalized?: boolean | null,
+        timesHospitalized?: number | null,
+        symptomatic?: boolean | null,
+        symptomsPreventScale?: string | null,
+        medicationsPrescribed?: string | null,
+        medicationsTaken?: Array< string | null > | null,
+        createdAt: string,
+        updatedAt: string,
+        covidEntrySurveyEntryId?: string | null,
+      } | null,
+      vaccinationEntry?:  {
+        __typename: "VaccinationEntry",
+        id: string,
+        state: string,
+        countyState?: string | null,
+        age: number,
+        race: Race,
+        sex: string,
+        height: string,
+        weight: string,
+        surveyEntry?:  {
+          __typename: "SurveyEntry",
+          id: string,
+          parentSurveyId?: string | null,
+          email?: string | null,
+          state?: string | null,
+          countyState?: string | null,
+          createdAt: string,
+          surveyVersion: number,
+          surveyType: SurveyType,
+          age: number,
+          race: Race,
+          sex: string,
+          height: string,
+          weight: string,
+          updatedAt: string,
+          surveyEntryCovidEntryId?: string | null,
+          surveyEntryVaccinationEntryId?: string | null,
+          surveyEntrySocialDeterminantsEntryId?: string | null,
+          surveyEntryRecoveryEntryId?: string | null,
+          surveyEntryGlobalHealthEntryId?: string | null,
+          surveyEntryPatientHealthEntryId?: string | null,
+          surveyEntrySymptomsEntryId?: string | null,
+          surveyEntryMonthlyEntryId?: string | null,
+        } | null,
+        totalVaccineShots?: number | null,
+        vaccinated?: string | null,
+        vaccineType?: string | null,
+        dateOfLastVaccine?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        vaccinationEntrySurveyEntryId?: string | null,
+      } | null,
+      socialDeterminantsEntry?:  {
+        __typename: "SocialDeterminantsEntry",
+        id: string,
+        state: string,
+        countyState?: string | null,
+        surveyEntry?:  {
+          __typename: "SurveyEntry",
+          id: string,
+          parentSurveyId?: string | null,
+          email?: string | null,
+          state?: string | null,
+          countyState?: string | null,
+          createdAt: string,
+          surveyVersion: number,
+          surveyType: SurveyType,
+          age: number,
+          race: Race,
+          sex: string,
+          height: string,
+          weight: string,
+          updatedAt: string,
+          surveyEntryCovidEntryId?: string | null,
+          surveyEntryVaccinationEntryId?: string | null,
+          surveyEntrySocialDeterminantsEntryId?: string | null,
+          surveyEntryRecoveryEntryId?: string | null,
+          surveyEntryGlobalHealthEntryId?: string | null,
+          surveyEntryPatientHealthEntryId?: string | null,
+          surveyEntrySymptomsEntryId?: string | null,
+          surveyEntryMonthlyEntryId?: string | null,
+        } | null,
+        age: number,
+        race: Race,
+        sex: string,
+        height: string,
+        weight: string,
+        hasMedicalInsurance?: boolean | null,
+        difficultCoveringExpenses?: string | null,
+        currentWorkSituation?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        socialDeterminantsEntrySurveyEntryId?: string | null,
+      } | null,
+      recoveryEntry?:  {
+        __typename: "RecoveryEntry",
+        id: string,
+        state: string,
+        countyState?: string | null,
+        surveyEntry?:  {
+          __typename: "SurveyEntry",
+          id: string,
+          parentSurveyId?: string | null,
+          email?: string | null,
+          state?: string | null,
+          countyState?: string | null,
+          createdAt: string,
+          surveyVersion: number,
+          surveyType: SurveyType,
+          age: number,
+          race: Race,
+          sex: string,
+          height: string,
+          weight: string,
+          updatedAt: string,
+          surveyEntryCovidEntryId?: string | null,
+          surveyEntryVaccinationEntryId?: string | null,
+          surveyEntrySocialDeterminantsEntryId?: string | null,
+          surveyEntryRecoveryEntryId?: string | null,
+          surveyEntryGlobalHealthEntryId?: string | null,
+          surveyEntryPatientHealthEntryId?: string | null,
+          surveyEntrySymptomsEntryId?: string | null,
+          surveyEntryMonthlyEntryId?: string | null,
+        } | null,
+        age: number,
+        race: Race,
+        sex: string,
+        height: string,
+        weight: string,
+        recovered?: boolean | null,
+        lengthOfRecovery?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        recoveryEntrySurveyEntryId?: string | null,
+      } | null,
+      globalHealthEntry?:  {
+        __typename: "GlobalHealthEntry",
+        id: string,
+        state: string,
+        countyState?: string | null,
+        age: number,
+        race: Race,
+        sex: string,
+        height: string,
+        weight: string,
+        surveyEntry?:  {
+          __typename: "SurveyEntry",
+          id: string,
+          parentSurveyId?: string | null,
+          email?: string | null,
+          state?: string | null,
+          countyState?: string | null,
+          createdAt: string,
+          surveyVersion: number,
+          surveyType: SurveyType,
+          age: number,
+          race: Race,
+          sex: string,
+          height: string,
+          weight: string,
+          updatedAt: string,
+          surveyEntryCovidEntryId?: string | null,
+          surveyEntryVaccinationEntryId?: string | null,
+          surveyEntrySocialDeterminantsEntryId?: string | null,
+          surveyEntryRecoveryEntryId?: string | null,
+          surveyEntryGlobalHealthEntryId?: string | null,
+          surveyEntryPatientHealthEntryId?: string | null,
+          surveyEntrySymptomsEntryId?: string | null,
+          surveyEntryMonthlyEntryId?: string | null,
+        } | null,
+        healthRank?: string | null,
+        physicalHealthRank?: string | null,
+        carryPhysicalActivities?: string | null,
+        fatigueRank?: string | null,
+        painLevel?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        globalHealthEntrySurveyEntryId?: string | null,
+      } | null,
+      PatientHealthEntry?:  {
+        __typename: "PatientHealthEntry",
+        id: string,
+        state: string,
+        countyState?: string | null,
+        surveyEntry?:  {
+          __typename: "SurveyEntry",
+          id: string,
+          parentSurveyId?: string | null,
+          email?: string | null,
+          state?: string | null,
+          countyState?: string | null,
+          createdAt: string,
+          surveyVersion: number,
+          surveyType: SurveyType,
+          age: number,
+          race: Race,
+          sex: string,
+          height: string,
+          weight: string,
+          updatedAt: string,
+          surveyEntryCovidEntryId?: string | null,
+          surveyEntryVaccinationEntryId?: string | null,
+          surveyEntrySocialDeterminantsEntryId?: string | null,
+          surveyEntryRecoveryEntryId?: string | null,
+          surveyEntryGlobalHealthEntryId?: string | null,
+          surveyEntryPatientHealthEntryId?: string | null,
+          surveyEntrySymptomsEntryId?: string | null,
+          surveyEntryMonthlyEntryId?: string | null,
+        } | null,
+        age: number,
+        race: Race,
+        sex: string,
+        height: string,
+        weight: string,
+        generalHealthResults: string,
+        totalScore: number,
+        createdAt: string,
+        updatedAt: string,
+        patientHealthEntrySurveyEntryId?: string | null,
+      } | null,
+      symptomsEntry?:  {
+        __typename: "SymptomEntry",
+        id: string,
+        state: string,
+        countyState?: string | null,
+        surveyEntry?:  {
+          __typename: "SurveyEntry",
+          id: string,
+          parentSurveyId?: string | null,
+          email?: string | null,
+          state?: string | null,
+          countyState?: string | null,
+          createdAt: string,
+          surveyVersion: number,
+          surveyType: SurveyType,
+          age: number,
+          race: Race,
+          sex: string,
+          height: string,
+          weight: string,
+          updatedAt: string,
+          surveyEntryCovidEntryId?: string | null,
+          surveyEntryVaccinationEntryId?: string | null,
+          surveyEntrySocialDeterminantsEntryId?: string | null,
+          surveyEntryRecoveryEntryId?: string | null,
+          surveyEntryGlobalHealthEntryId?: string | null,
+          surveyEntryPatientHealthEntryId?: string | null,
+          surveyEntrySymptomsEntryId?: string | null,
+          surveyEntryMonthlyEntryId?: string | null,
+        } | null,
+        age: number,
+        race: Race,
+        sex: string,
+        height: string,
+        weight: string,
+        createdAt: string,
+        symptoms?: Array< string | null > | null,
+        qualityOfLifeRank?: string | null,
+        mentalHealthRank?: string | null,
+        socialSatisfactionRank?: string | null,
+        carryOutSocialActivitiesRank?: string | null,
+        anxietyInPastWeekRank?: string | null,
+        medicalConditions?: Array< string | null > | null,
+        hasLongCovid?: string | null,
+        updatedAt: string,
+        symptomEntrySurveyEntryId?: string | null,
+      } | null,
+      monthlyEntry?:  {
+        __typename: "MonthlyEntry",
+        id: string,
+        state: string,
+        countyState?: string | null,
+        surveyEntry?:  {
+          __typename: "SurveyEntry",
+          id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -18865,6 +19558,7 @@ export type SurveysByEmailQuery = {
     items:  Array< {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -18884,6 +19578,7 @@ export type SurveysByEmailQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -18939,6 +19634,7 @@ export type SurveysByEmailQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -18976,6 +19672,7 @@ export type SurveysByEmailQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19017,6 +19714,7 @@ export type SurveysByEmailQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19062,6 +19760,7 @@ export type SurveysByEmailQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19100,6 +19799,7 @@ export type SurveysByEmailQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19140,6 +19840,7 @@ export type SurveysByEmailQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19186,6 +19887,7 @@ export type SurveysByEmailQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19246,6 +19948,7 @@ export type StateSurveyEntryByDateQuery = {
     items:  Array< {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -19265,6 +19968,7 @@ export type StateSurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19320,6 +20024,7 @@ export type StateSurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19357,6 +20062,7 @@ export type StateSurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19398,6 +20104,7 @@ export type StateSurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19443,6 +20150,7 @@ export type StateSurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19481,6 +20189,7 @@ export type StateSurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19521,6 +20230,7 @@ export type StateSurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19567,6 +20277,7 @@ export type StateSurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19627,6 +20338,7 @@ export type StateSurveyEntryByAgeQuery = {
     items:  Array< {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -19646,6 +20358,7 @@ export type StateSurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19701,6 +20414,7 @@ export type StateSurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19738,6 +20452,7 @@ export type StateSurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19779,6 +20494,7 @@ export type StateSurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19824,6 +20540,7 @@ export type StateSurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19862,6 +20579,7 @@ export type StateSurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19902,6 +20620,7 @@ export type StateSurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -19948,6 +20667,7 @@ export type StateSurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20008,6 +20728,7 @@ export type StateSurveyEntryByRaceQuery = {
     items:  Array< {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -20027,6 +20748,7 @@ export type StateSurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20082,6 +20804,7 @@ export type StateSurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20119,6 +20842,7 @@ export type StateSurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20160,6 +20884,7 @@ export type StateSurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20205,6 +20930,7 @@ export type StateSurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20243,6 +20969,7 @@ export type StateSurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20283,6 +21010,7 @@ export type StateSurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20329,6 +21057,7 @@ export type StateSurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20389,6 +21118,7 @@ export type StateSurveyEntryBySexQuery = {
     items:  Array< {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -20408,6 +21138,7 @@ export type StateSurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20463,6 +21194,7 @@ export type StateSurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20500,6 +21232,7 @@ export type StateSurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20541,6 +21274,7 @@ export type StateSurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20586,6 +21320,7 @@ export type StateSurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20624,6 +21359,7 @@ export type StateSurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20664,6 +21400,7 @@ export type StateSurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20710,6 +21447,7 @@ export type StateSurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20770,6 +21508,7 @@ export type CountySurveyEntryByDateQuery = {
     items:  Array< {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -20789,6 +21528,7 @@ export type CountySurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20844,6 +21584,7 @@ export type CountySurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20881,6 +21622,7 @@ export type CountySurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20922,6 +21664,7 @@ export type CountySurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -20967,6 +21710,7 @@ export type CountySurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21005,6 +21749,7 @@ export type CountySurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21045,6 +21790,7 @@ export type CountySurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21091,6 +21837,7 @@ export type CountySurveyEntryByDateQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21151,6 +21898,7 @@ export type CountySurveyEntryByAgeQuery = {
     items:  Array< {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -21170,6 +21918,7 @@ export type CountySurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21225,6 +21974,7 @@ export type CountySurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21262,6 +22012,7 @@ export type CountySurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21303,6 +22054,7 @@ export type CountySurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21348,6 +22100,7 @@ export type CountySurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21386,6 +22139,7 @@ export type CountySurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21426,6 +22180,7 @@ export type CountySurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21472,6 +22227,7 @@ export type CountySurveyEntryByAgeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21532,6 +22288,7 @@ export type CountySurveyEntryByRaceQuery = {
     items:  Array< {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -21551,6 +22308,7 @@ export type CountySurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21606,6 +22364,7 @@ export type CountySurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21643,6 +22402,7 @@ export type CountySurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21684,6 +22444,7 @@ export type CountySurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21729,6 +22490,7 @@ export type CountySurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21767,6 +22529,7 @@ export type CountySurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21807,6 +22570,7 @@ export type CountySurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21853,6 +22617,7 @@ export type CountySurveyEntryByRaceQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21913,6 +22678,7 @@ export type CountySurveyEntryBySexQuery = {
     items:  Array< {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -21932,6 +22698,7 @@ export type CountySurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -21987,6 +22754,7 @@ export type CountySurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22024,6 +22792,7 @@ export type CountySurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22065,6 +22834,7 @@ export type CountySurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22110,6 +22880,7 @@ export type CountySurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22148,6 +22919,7 @@ export type CountySurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22188,6 +22960,7 @@ export type CountySurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22234,6 +23007,7 @@ export type CountySurveyEntryBySexQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22294,6 +23068,7 @@ export type SurveysByTypeQuery = {
     items:  Array< {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -22313,6 +23088,7 @@ export type SurveysByTypeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22368,6 +23144,7 @@ export type SurveysByTypeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22405,6 +23182,7 @@ export type SurveysByTypeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22446,6 +23224,7 @@ export type SurveysByTypeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22491,6 +23270,7 @@ export type SurveysByTypeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22529,6 +23309,7 @@ export type SurveysByTypeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22569,6 +23350,7 @@ export type SurveysByTypeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22615,6 +23397,7 @@ export type SurveysByTypeQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22678,6 +23461,7 @@ export type GetVaccinationEntryQuery = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -22697,6 +23481,7 @@ export type GetVaccinationEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22752,6 +23537,7 @@ export type GetVaccinationEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22789,6 +23575,7 @@ export type GetVaccinationEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22830,6 +23617,7 @@ export type GetVaccinationEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22875,6 +23663,7 @@ export type GetVaccinationEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22913,6 +23702,7 @@ export type GetVaccinationEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22953,6 +23743,7 @@ export type GetVaccinationEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -22999,6 +23790,7 @@ export type GetVaccinationEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -23072,6 +23864,7 @@ export type ListVaccinationEntriesQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -23279,6 +24072,7 @@ export type StateVaccEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -23486,6 +24280,7 @@ export type StateVaccEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -23693,6 +24488,7 @@ export type StateVaccEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -23900,6 +24696,7 @@ export type StateVaccEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -24107,6 +24904,7 @@ export type CountyVaccEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -24314,6 +25112,7 @@ export type CountyVaccEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -24521,6 +25320,7 @@ export type CountyVaccEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -24728,6 +25528,7 @@ export type CountyVaccEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -24928,6 +25729,7 @@ export type GetGlobalHealthEntryQuery = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -24947,6 +25749,7 @@ export type GetGlobalHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -25002,6 +25805,7 @@ export type GetGlobalHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -25039,6 +25843,7 @@ export type GetGlobalHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -25080,6 +25885,7 @@ export type GetGlobalHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -25125,6 +25931,7 @@ export type GetGlobalHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -25163,6 +25970,7 @@ export type GetGlobalHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -25203,6 +26011,7 @@ export type GetGlobalHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -25249,6 +26058,7 @@ export type GetGlobalHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -25323,6 +26133,7 @@ export type ListGlobalHealthEntriesQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -25531,6 +26342,7 @@ export type StateGHEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -25739,6 +26551,7 @@ export type StateGHEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -25947,6 +26760,7 @@ export type StateGHEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -26155,6 +26969,7 @@ export type StateGHEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -26363,6 +27178,7 @@ export type CountyGHEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -26571,6 +27387,7 @@ export type CountyGHEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -26779,6 +27596,7 @@ export type CountyGHEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -26987,6 +27805,7 @@ export type CountyGHEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -27183,6 +28002,7 @@ export type GetCovidEntryQuery = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -27202,6 +28022,7 @@ export type GetCovidEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -27257,6 +28078,7 @@ export type GetCovidEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -27294,6 +28116,7 @@ export type GetCovidEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -27335,6 +28158,7 @@ export type GetCovidEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -27380,6 +28204,7 @@ export type GetCovidEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -27418,6 +28243,7 @@ export type GetCovidEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -27458,6 +28284,7 @@ export type GetCovidEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -27504,6 +28331,7 @@ export type GetCovidEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -27585,6 +28413,7 @@ export type ListCovidEntriesQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -27800,6 +28629,7 @@ export type StateCovidEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -28015,6 +28845,7 @@ export type StateCovidEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -28230,6 +29061,7 @@ export type StateCovidEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -28445,6 +29277,7 @@ export type StateCovidEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -28660,6 +29493,7 @@ export type CountyCovidEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -28875,6 +29709,7 @@ export type CountyCovidEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -29090,6 +29925,7 @@ export type CountyCovidEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -29305,6 +30141,7 @@ export type CountyCovidEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -29513,6 +30350,7 @@ export type GetRecoveryEntryQuery = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -29532,6 +30370,7 @@ export type GetRecoveryEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -29587,6 +30426,7 @@ export type GetRecoveryEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -29624,6 +30464,7 @@ export type GetRecoveryEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -29665,6 +30506,7 @@ export type GetRecoveryEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -29710,6 +30552,7 @@ export type GetRecoveryEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -29748,6 +30591,7 @@ export type GetRecoveryEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -29788,6 +30632,7 @@ export type GetRecoveryEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -29834,6 +30679,7 @@ export type GetRecoveryEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -29905,6 +30751,7 @@ export type ListRecoveryEntriesQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -30110,6 +30957,7 @@ export type StateRecovEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -30315,6 +31163,7 @@ export type StateRecovEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -30520,6 +31369,7 @@ export type StateRecovEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -30725,6 +31575,7 @@ export type StateRecovEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -30930,6 +31781,7 @@ export type CountyRecovEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -31135,6 +31987,7 @@ export type CountyRecovEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -31340,6 +32193,7 @@ export type CountyRecovEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -31545,6 +32399,7 @@ export type CountyRecovEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -31743,6 +32598,7 @@ export type GetPatientHealthEntryQuery = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -31762,6 +32618,7 @@ export type GetPatientHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -31817,6 +32674,7 @@ export type GetPatientHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -31854,6 +32712,7 @@ export type GetPatientHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -31895,6 +32754,7 @@ export type GetPatientHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -31940,6 +32800,7 @@ export type GetPatientHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -31978,6 +32839,7 @@ export type GetPatientHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -32018,6 +32880,7 @@ export type GetPatientHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -32064,6 +32927,7 @@ export type GetPatientHealthEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -32135,6 +32999,7 @@ export type ListPatientHealthEntriesQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -32340,6 +33205,7 @@ export type StatePatientHealthEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -32545,6 +33411,7 @@ export type StatePatientHealthEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -32750,6 +33617,7 @@ export type StatePatientHealthEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -32955,6 +33823,7 @@ export type StatePatientHealthEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -33160,6 +34029,7 @@ export type CountyPatientHealthEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -33365,6 +34235,7 @@ export type CountyPatientHealthEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -33570,6 +34441,7 @@ export type CountyPatientHealthEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -33775,6 +34647,7 @@ export type CountyPatientHealthEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -33973,6 +34846,7 @@ export type GetSymptomEntryQuery = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -33992,6 +34866,7 @@ export type GetSymptomEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -34047,6 +34922,7 @@ export type GetSymptomEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -34084,6 +34960,7 @@ export type GetSymptomEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -34125,6 +35002,7 @@ export type GetSymptomEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -34170,6 +35048,7 @@ export type GetSymptomEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -34208,6 +35087,7 @@ export type GetSymptomEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -34248,6 +35128,7 @@ export type GetSymptomEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -34294,6 +35175,7 @@ export type GetSymptomEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -34371,6 +35253,7 @@ export type ListSymptomEntriesQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -34582,6 +35465,7 @@ export type StateSymptomEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -34793,6 +35677,7 @@ export type StateSymptomEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -35004,6 +35889,7 @@ export type StateSymptomEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -35215,6 +36101,7 @@ export type StateSymptomEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -35426,6 +36313,7 @@ export type CountySymptomEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -35637,6 +36525,7 @@ export type CountySymptomEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -35848,6 +36737,7 @@ export type CountySymptomEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -36059,6 +36949,7 @@ export type CountySymptomEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -36263,6 +37154,7 @@ export type GetSocialDeterminantsEntryQuery = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -36282,6 +37174,7 @@ export type GetSocialDeterminantsEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -36337,6 +37230,7 @@ export type GetSocialDeterminantsEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -36374,6 +37268,7 @@ export type GetSocialDeterminantsEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -36415,6 +37310,7 @@ export type GetSocialDeterminantsEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -36460,6 +37356,7 @@ export type GetSocialDeterminantsEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -36498,6 +37395,7 @@ export type GetSocialDeterminantsEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -36538,6 +37436,7 @@ export type GetSocialDeterminantsEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -36584,6 +37483,7 @@ export type GetSocialDeterminantsEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -36656,6 +37556,7 @@ export type ListSocialDeterminantsEntriesQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -36862,6 +37763,7 @@ export type StateSocialDetEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -37068,6 +37970,7 @@ export type StateSocialDetEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -37274,6 +38177,7 @@ export type StateSocialDetEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -37480,6 +38384,7 @@ export type StateSocialDetEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -37686,6 +38591,7 @@ export type CountySocialDetEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -37892,6 +38798,7 @@ export type CountySocialDetEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -38098,6 +39005,7 @@ export type CountySocialDetEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -38304,6 +39212,7 @@ export type CountySocialDetEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -38503,6 +39412,7 @@ export type GetMonthlyEntryQuery = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -38522,6 +39432,7 @@ export type GetMonthlyEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -38577,6 +39488,7 @@ export type GetMonthlyEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -38614,6 +39526,7 @@ export type GetMonthlyEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -38655,6 +39568,7 @@ export type GetMonthlyEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -38700,6 +39614,7 @@ export type GetMonthlyEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -38738,6 +39653,7 @@ export type GetMonthlyEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -38778,6 +39694,7 @@ export type GetMonthlyEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -38824,6 +39741,7 @@ export type GetMonthlyEntryQuery = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -38894,6 +39812,7 @@ export type ListMonthlyEntriesQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -39098,6 +40017,7 @@ export type StateMonthlyEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -39302,6 +40222,7 @@ export type StateMonthlyEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -39506,6 +40427,7 @@ export type StateMonthlyEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -39710,6 +40632,7 @@ export type StateMonthlyEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -39914,6 +40837,7 @@ export type CountyMonthlyEntryByDateQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -40118,6 +41042,7 @@ export type CountyMonthlyEntryByAgeQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -40322,6 +41247,7 @@ export type CountyMonthlyEntryByRaceQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -40526,6 +41452,7 @@ export type CountyMonthlyEntryBySexQuery = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -40965,7 +41892,9 @@ export type OnCreateUserSubscription = {
     sex?: string | null,
     height?: string | null,
     weight?: string | null,
+    covidStatus?: CovidStatus | null,
     lastSubmission?: string | null,
+    lastSubmissionId?: string | null,
     lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificationMethod?: NotificationMethod | null,
@@ -40990,7 +41919,9 @@ export type OnUpdateUserSubscription = {
     sex?: string | null,
     height?: string | null,
     weight?: string | null,
+    covidStatus?: CovidStatus | null,
     lastSubmission?: string | null,
+    lastSubmissionId?: string | null,
     lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificationMethod?: NotificationMethod | null,
@@ -41015,7 +41946,9 @@ export type OnDeleteUserSubscription = {
     sex?: string | null,
     height?: string | null,
     weight?: string | null,
+    covidStatus?: CovidStatus | null,
     lastSubmission?: string | null,
+    lastSubmissionId?: string | null,
     lastSignIn?: string | null,
     notificationFreq?: NotificationFrequency | null,
     notificationMethod?: NotificationMethod | null,
@@ -41033,6 +41966,7 @@ export type OnCreateSurveyEntrySubscription = {
   onCreateSurveyEntry?:  {
     __typename: "SurveyEntry",
     id: string,
+    parentSurveyId?: string | null,
     email?: string | null,
     state?: string | null,
     countyState?: string | null,
@@ -41052,6 +41986,7 @@ export type OnCreateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -41256,6 +42191,7 @@ export type OnCreateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -41442,6 +42378,7 @@ export type OnCreateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -41632,6 +42569,7 @@ export type OnCreateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -41826,6 +42764,7 @@ export type OnCreateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -42013,6 +42952,7 @@ export type OnCreateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -42202,6 +43142,7 @@ export type OnCreateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -42397,6 +43338,7 @@ export type OnCreateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -42597,6 +43539,7 @@ export type OnUpdateSurveyEntrySubscription = {
   onUpdateSurveyEntry?:  {
     __typename: "SurveyEntry",
     id: string,
+    parentSurveyId?: string | null,
     email?: string | null,
     state?: string | null,
     countyState?: string | null,
@@ -42616,6 +43559,7 @@ export type OnUpdateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -42820,6 +43764,7 @@ export type OnUpdateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -43006,6 +43951,7 @@ export type OnUpdateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -43196,6 +44142,7 @@ export type OnUpdateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -43390,6 +44337,7 @@ export type OnUpdateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -43577,6 +44525,7 @@ export type OnUpdateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -43766,6 +44715,7 @@ export type OnUpdateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -43961,6 +44911,7 @@ export type OnUpdateSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -44161,6 +45112,7 @@ export type OnDeleteSurveyEntrySubscription = {
   onDeleteSurveyEntry?:  {
     __typename: "SurveyEntry",
     id: string,
+    parentSurveyId?: string | null,
     email?: string | null,
     state?: string | null,
     countyState?: string | null,
@@ -44180,6 +45132,7 @@ export type OnDeleteSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -44384,6 +45337,7 @@ export type OnDeleteSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -44570,6 +45524,7 @@ export type OnDeleteSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -44760,6 +45715,7 @@ export type OnDeleteSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -44954,6 +45910,7 @@ export type OnDeleteSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -45141,6 +46098,7 @@ export type OnDeleteSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -45330,6 +46288,7 @@ export type OnDeleteSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -45525,6 +46484,7 @@ export type OnDeleteSurveyEntrySubscription = {
       surveyEntry?:  {
         __typename: "SurveyEntry",
         id: string,
+        parentSurveyId?: string | null,
         email?: string | null,
         state?: string | null,
         countyState?: string | null,
@@ -45735,6 +46695,7 @@ export type OnCreateVaccinationEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -45754,6 +46715,7 @@ export type OnCreateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -45809,6 +46771,7 @@ export type OnCreateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -45846,6 +46809,7 @@ export type OnCreateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -45887,6 +46851,7 @@ export type OnCreateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -45932,6 +46897,7 @@ export type OnCreateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -45970,6 +46936,7 @@ export type OnCreateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46010,6 +46977,7 @@ export type OnCreateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46056,6 +47024,7 @@ export type OnCreateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46125,6 +47094,7 @@ export type OnUpdateVaccinationEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -46144,6 +47114,7 @@ export type OnUpdateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46199,6 +47170,7 @@ export type OnUpdateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46236,6 +47208,7 @@ export type OnUpdateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46277,6 +47250,7 @@ export type OnUpdateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46322,6 +47296,7 @@ export type OnUpdateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46360,6 +47335,7 @@ export type OnUpdateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46400,6 +47376,7 @@ export type OnUpdateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46446,6 +47423,7 @@ export type OnUpdateVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46515,6 +47493,7 @@ export type OnDeleteVaccinationEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -46534,6 +47513,7 @@ export type OnDeleteVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46589,6 +47569,7 @@ export type OnDeleteVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46626,6 +47607,7 @@ export type OnDeleteVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46667,6 +47649,7 @@ export type OnDeleteVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46712,6 +47695,7 @@ export type OnDeleteVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46750,6 +47734,7 @@ export type OnDeleteVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46790,6 +47775,7 @@ export type OnDeleteVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46836,6 +47822,7 @@ export type OnDeleteVaccinationEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46905,6 +47892,7 @@ export type OnCreateGlobalHealthEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -46924,6 +47912,7 @@ export type OnCreateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -46979,6 +47968,7 @@ export type OnCreateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47016,6 +48006,7 @@ export type OnCreateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47057,6 +48048,7 @@ export type OnCreateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47102,6 +48094,7 @@ export type OnCreateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47140,6 +48133,7 @@ export type OnCreateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47180,6 +48174,7 @@ export type OnCreateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47226,6 +48221,7 @@ export type OnCreateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47296,6 +48292,7 @@ export type OnUpdateGlobalHealthEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -47315,6 +48312,7 @@ export type OnUpdateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47370,6 +48368,7 @@ export type OnUpdateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47407,6 +48406,7 @@ export type OnUpdateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47448,6 +48448,7 @@ export type OnUpdateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47493,6 +48494,7 @@ export type OnUpdateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47531,6 +48533,7 @@ export type OnUpdateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47571,6 +48574,7 @@ export type OnUpdateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47617,6 +48621,7 @@ export type OnUpdateGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47687,6 +48692,7 @@ export type OnDeleteGlobalHealthEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -47706,6 +48712,7 @@ export type OnDeleteGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47761,6 +48768,7 @@ export type OnDeleteGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47798,6 +48806,7 @@ export type OnDeleteGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47839,6 +48848,7 @@ export type OnDeleteGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47884,6 +48894,7 @@ export type OnDeleteGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47922,6 +48933,7 @@ export type OnDeleteGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -47962,6 +48974,7 @@ export type OnDeleteGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48008,6 +49021,7 @@ export type OnDeleteGlobalHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48073,6 +49087,7 @@ export type OnCreateCovidEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -48092,6 +49107,7 @@ export type OnCreateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48147,6 +49163,7 @@ export type OnCreateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48184,6 +49201,7 @@ export type OnCreateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48225,6 +49243,7 @@ export type OnCreateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48270,6 +49289,7 @@ export type OnCreateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48308,6 +49328,7 @@ export type OnCreateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48348,6 +49369,7 @@ export type OnCreateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48394,6 +49416,7 @@ export type OnCreateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48471,6 +49494,7 @@ export type OnUpdateCovidEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -48490,6 +49514,7 @@ export type OnUpdateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48545,6 +49570,7 @@ export type OnUpdateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48582,6 +49608,7 @@ export type OnUpdateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48623,6 +49650,7 @@ export type OnUpdateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48668,6 +49696,7 @@ export type OnUpdateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48706,6 +49735,7 @@ export type OnUpdateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48746,6 +49776,7 @@ export type OnUpdateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48792,6 +49823,7 @@ export type OnUpdateCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48869,6 +49901,7 @@ export type OnDeleteCovidEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -48888,6 +49921,7 @@ export type OnDeleteCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48943,6 +49977,7 @@ export type OnDeleteCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -48980,6 +50015,7 @@ export type OnDeleteCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49021,6 +50057,7 @@ export type OnDeleteCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49066,6 +50103,7 @@ export type OnDeleteCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49104,6 +50142,7 @@ export type OnDeleteCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49144,6 +50183,7 @@ export type OnDeleteCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49190,6 +50230,7 @@ export type OnDeleteCovidEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49267,6 +50308,7 @@ export type OnCreateRecoveryEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -49286,6 +50328,7 @@ export type OnCreateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49341,6 +50384,7 @@ export type OnCreateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49378,6 +50422,7 @@ export type OnCreateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49419,6 +50464,7 @@ export type OnCreateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49464,6 +50510,7 @@ export type OnCreateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49502,6 +50549,7 @@ export type OnCreateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49542,6 +50590,7 @@ export type OnCreateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49588,6 +50637,7 @@ export type OnCreateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49655,6 +50705,7 @@ export type OnUpdateRecoveryEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -49674,6 +50725,7 @@ export type OnUpdateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49729,6 +50781,7 @@ export type OnUpdateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49766,6 +50819,7 @@ export type OnUpdateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49807,6 +50861,7 @@ export type OnUpdateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49852,6 +50907,7 @@ export type OnUpdateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49890,6 +50946,7 @@ export type OnUpdateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49930,6 +50987,7 @@ export type OnUpdateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -49976,6 +51034,7 @@ export type OnUpdateRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50043,6 +51102,7 @@ export type OnDeleteRecoveryEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -50062,6 +51122,7 @@ export type OnDeleteRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50117,6 +51178,7 @@ export type OnDeleteRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50154,6 +51216,7 @@ export type OnDeleteRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50195,6 +51258,7 @@ export type OnDeleteRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50240,6 +51304,7 @@ export type OnDeleteRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50278,6 +51343,7 @@ export type OnDeleteRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50318,6 +51384,7 @@ export type OnDeleteRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50364,6 +51431,7 @@ export type OnDeleteRecoveryEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50431,6 +51499,7 @@ export type OnCreatePatientHealthEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -50450,6 +51519,7 @@ export type OnCreatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50505,6 +51575,7 @@ export type OnCreatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50542,6 +51613,7 @@ export type OnCreatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50583,6 +51655,7 @@ export type OnCreatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50628,6 +51701,7 @@ export type OnCreatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50666,6 +51740,7 @@ export type OnCreatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50706,6 +51781,7 @@ export type OnCreatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50752,6 +51828,7 @@ export type OnCreatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50819,6 +51896,7 @@ export type OnUpdatePatientHealthEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -50838,6 +51916,7 @@ export type OnUpdatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50893,6 +51972,7 @@ export type OnUpdatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50930,6 +52010,7 @@ export type OnUpdatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -50971,6 +52052,7 @@ export type OnUpdatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51016,6 +52098,7 @@ export type OnUpdatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51054,6 +52137,7 @@ export type OnUpdatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51094,6 +52178,7 @@ export type OnUpdatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51140,6 +52225,7 @@ export type OnUpdatePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51207,6 +52293,7 @@ export type OnDeletePatientHealthEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -51226,6 +52313,7 @@ export type OnDeletePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51281,6 +52369,7 @@ export type OnDeletePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51318,6 +52407,7 @@ export type OnDeletePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51359,6 +52449,7 @@ export type OnDeletePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51404,6 +52495,7 @@ export type OnDeletePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51442,6 +52534,7 @@ export type OnDeletePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51482,6 +52575,7 @@ export type OnDeletePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51528,6 +52622,7 @@ export type OnDeletePatientHealthEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51595,6 +52690,7 @@ export type OnCreateSymptomEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -51614,6 +52710,7 @@ export type OnCreateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51669,6 +52766,7 @@ export type OnCreateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51706,6 +52804,7 @@ export type OnCreateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51747,6 +52846,7 @@ export type OnCreateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51792,6 +52892,7 @@ export type OnCreateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51830,6 +52931,7 @@ export type OnCreateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51870,6 +52972,7 @@ export type OnCreateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51916,6 +53019,7 @@ export type OnCreateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -51989,6 +53093,7 @@ export type OnUpdateSymptomEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -52008,6 +53113,7 @@ export type OnUpdateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52063,6 +53169,7 @@ export type OnUpdateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52100,6 +53207,7 @@ export type OnUpdateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52141,6 +53249,7 @@ export type OnUpdateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52186,6 +53295,7 @@ export type OnUpdateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52224,6 +53334,7 @@ export type OnUpdateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52264,6 +53375,7 @@ export type OnUpdateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52310,6 +53422,7 @@ export type OnUpdateSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52383,6 +53496,7 @@ export type OnDeleteSymptomEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -52402,6 +53516,7 @@ export type OnDeleteSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52457,6 +53572,7 @@ export type OnDeleteSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52494,6 +53610,7 @@ export type OnDeleteSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52535,6 +53652,7 @@ export type OnDeleteSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52580,6 +53698,7 @@ export type OnDeleteSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52618,6 +53737,7 @@ export type OnDeleteSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52658,6 +53778,7 @@ export type OnDeleteSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52704,6 +53825,7 @@ export type OnDeleteSymptomEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52777,6 +53899,7 @@ export type OnCreateSocialDeterminantsEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -52796,6 +53919,7 @@ export type OnCreateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52851,6 +53975,7 @@ export type OnCreateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52888,6 +54013,7 @@ export type OnCreateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52929,6 +54055,7 @@ export type OnCreateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -52974,6 +54101,7 @@ export type OnCreateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53012,6 +54140,7 @@ export type OnCreateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53052,6 +54181,7 @@ export type OnCreateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53098,6 +54228,7 @@ export type OnCreateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53166,6 +54297,7 @@ export type OnUpdateSocialDeterminantsEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -53185,6 +54317,7 @@ export type OnUpdateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53240,6 +54373,7 @@ export type OnUpdateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53277,6 +54411,7 @@ export type OnUpdateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53318,6 +54453,7 @@ export type OnUpdateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53363,6 +54499,7 @@ export type OnUpdateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53401,6 +54538,7 @@ export type OnUpdateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53441,6 +54579,7 @@ export type OnUpdateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53487,6 +54626,7 @@ export type OnUpdateSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53555,6 +54695,7 @@ export type OnDeleteSocialDeterminantsEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -53574,6 +54715,7 @@ export type OnDeleteSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53629,6 +54771,7 @@ export type OnDeleteSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53666,6 +54809,7 @@ export type OnDeleteSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53707,6 +54851,7 @@ export type OnDeleteSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53752,6 +54897,7 @@ export type OnDeleteSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53790,6 +54936,7 @@ export type OnDeleteSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53830,6 +54977,7 @@ export type OnDeleteSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53876,6 +55024,7 @@ export type OnDeleteSocialDeterminantsEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -53944,6 +55093,7 @@ export type OnCreateMonthlyEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -53963,6 +55113,7 @@ export type OnCreateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54018,6 +55169,7 @@ export type OnCreateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54055,6 +55207,7 @@ export type OnCreateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54096,6 +55249,7 @@ export type OnCreateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54141,6 +55295,7 @@ export type OnCreateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54179,6 +55334,7 @@ export type OnCreateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54219,6 +55375,7 @@ export type OnCreateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54265,6 +55422,7 @@ export type OnCreateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54331,6 +55489,7 @@ export type OnUpdateMonthlyEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -54350,6 +55509,7 @@ export type OnUpdateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54405,6 +55565,7 @@ export type OnUpdateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54442,6 +55603,7 @@ export type OnUpdateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54483,6 +55645,7 @@ export type OnUpdateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54528,6 +55691,7 @@ export type OnUpdateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54566,6 +55730,7 @@ export type OnUpdateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54606,6 +55771,7 @@ export type OnUpdateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54652,6 +55818,7 @@ export type OnUpdateMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54718,6 +55885,7 @@ export type OnDeleteMonthlyEntrySubscription = {
     surveyEntry?:  {
       __typename: "SurveyEntry",
       id: string,
+      parentSurveyId?: string | null,
       email?: string | null,
       state?: string | null,
       countyState?: string | null,
@@ -54737,6 +55905,7 @@ export type OnDeleteMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54792,6 +55961,7 @@ export type OnDeleteMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54829,6 +55999,7 @@ export type OnDeleteMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54870,6 +56041,7 @@ export type OnDeleteMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54915,6 +56087,7 @@ export type OnDeleteMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54953,6 +56126,7 @@ export type OnDeleteMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -54993,6 +56167,7 @@ export type OnDeleteMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,
@@ -55039,6 +56214,7 @@ export type OnDeleteMonthlyEntrySubscription = {
         surveyEntry?:  {
           __typename: "SurveyEntry",
           id: string,
+          parentSurveyId?: string | null,
           email?: string | null,
           state?: string | null,
           countyState?: string | null,

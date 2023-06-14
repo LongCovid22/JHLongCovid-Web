@@ -69,6 +69,7 @@ type User
   weight: String
   covidStatus: CovidStatus
   lastSubmission: AWSDateTime # null if signed up aside from survey
+  lastSubmissionId: ID
   lastSignIn: AWSDateTime # Current DateTime at time of sign up after "autosignin"
   notificationFreq: NotificationFrequency # Daily
   notificationMethod: NotificationMethod # Email

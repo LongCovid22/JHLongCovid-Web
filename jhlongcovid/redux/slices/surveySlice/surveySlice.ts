@@ -216,16 +216,6 @@ export const surveySlice = createSlice({
       }
     },
 
-    // Reset survey and send query to API
-    finishSurvey: (state) => {
-      const stateCopy = { ...state };
-      const entries = processEntries(
-        stateCopy.questionStack,
-        stateCopy.answerStack,
-        stateCopy.questions
-      );
-    },
-
     /**
      * Initializes questions on startup. The payload coming in will
      * be the userId of the auth user that is signed in through cognito.
@@ -264,7 +254,7 @@ export const surveySlice = createSlice({
   },
 });
 
-export const { nextQuestion, prevQuestion, initQuestions, finishSurvey } =
+export const { nextQuestion, prevQuestion, initQuestions } =
   surveySlice.actions;
 
 export const selectCurrentQuestion = (state: RootState) => {
@@ -298,6 +288,11 @@ export const selectQuestions = (state: RootState) => {
 export const selectTotalQuestions = (state: RootState) => {
   const survey: SurveyState = state.survey as SurveyState;
   return survey.totalQuestions;
+};
+
+export const selectSurveyType = (state: RootState) => {
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.surveyType;
 };
 
 export default surveySlice.reducer;

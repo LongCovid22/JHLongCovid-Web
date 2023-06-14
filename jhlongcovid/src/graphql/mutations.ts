@@ -215,7 +215,9 @@ export const createUser = /* GraphQL */ `
       sex
       height
       weight
+      covidStatus
       lastSubmission
+      lastSubmissionId
       lastSignIn
       notificationFreq
       notificationMethod
@@ -238,7 +240,9 @@ export const updateUser = /* GraphQL */ `
       sex
       height
       weight
+      covidStatus
       lastSubmission
+      lastSubmissionId
       lastSignIn
       notificationFreq
       notificationMethod
@@ -261,7 +265,9 @@ export const deleteUser = /* GraphQL */ `
       sex
       height
       weight
+      covidStatus
       lastSubmission
+      lastSubmissionId
       lastSignIn
       notificationFreq
       notificationMethod
@@ -278,6 +284,7 @@ export const createSurveyEntry = /* GraphQL */ `
   ) {
     createSurveyEntry(input: $input, condition: $condition) {
       id
+      parentSurveyId
       email
       state
       countyState
@@ -295,6 +302,7 @@ export const createSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -489,6 +497,7 @@ export const createSurveyEntry = /* GraphQL */ `
         weight
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -665,6 +674,7 @@ export const createSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -845,6 +855,7 @@ export const createSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -1029,6 +1040,7 @@ export const createSurveyEntry = /* GraphQL */ `
         weight
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -1206,6 +1218,7 @@ export const createSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -1385,6 +1398,7 @@ export const createSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -1570,6 +1584,7 @@ export const createSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -1761,6 +1776,7 @@ export const updateSurveyEntry = /* GraphQL */ `
   ) {
     updateSurveyEntry(input: $input, condition: $condition) {
       id
+      parentSurveyId
       email
       state
       countyState
@@ -1778,6 +1794,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -1972,6 +1989,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         weight
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -2148,6 +2166,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -2328,6 +2347,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -2512,6 +2532,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         weight
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -2689,6 +2710,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -2868,6 +2890,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -3053,6 +3076,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -3244,6 +3268,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
   ) {
     deleteSurveyEntry(input: $input, condition: $condition) {
       id
+      parentSurveyId
       email
       state
       countyState
@@ -3261,6 +3286,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -3455,6 +3481,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         weight
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -3631,6 +3658,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -3811,6 +3839,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -3995,6 +4024,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         weight
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -4172,6 +4202,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -4351,6 +4382,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -4536,6 +4568,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         countyState
         surveyEntry {
           id
+          parentSurveyId
           email
           state
           countyState
@@ -4736,6 +4769,7 @@ export const createVaccinationEntry = /* GraphQL */ `
       weight
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -4753,6 +4787,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -4806,6 +4841,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -4841,6 +4877,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -4880,6 +4917,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -4923,6 +4961,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -4959,6 +4998,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -4997,6 +5037,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5041,6 +5082,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5108,6 +5150,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
       weight
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -5125,6 +5168,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5178,6 +5222,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5213,6 +5258,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5252,6 +5298,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5295,6 +5342,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5331,6 +5379,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5369,6 +5418,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5413,6 +5463,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5480,6 +5531,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
       weight
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -5497,6 +5549,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5550,6 +5603,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5585,6 +5639,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5624,6 +5679,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5667,6 +5723,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5703,6 +5760,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5741,6 +5799,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5785,6 +5844,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5852,6 +5912,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
       weight
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -5869,6 +5930,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5922,6 +5984,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5957,6 +6020,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -5996,6 +6060,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6039,6 +6104,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6075,6 +6141,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6113,6 +6180,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6157,6 +6225,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6225,6 +6294,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
       weight
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -6242,6 +6312,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6295,6 +6366,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6330,6 +6402,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6369,6 +6442,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6412,6 +6486,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6448,6 +6523,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6486,6 +6562,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6530,6 +6607,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6598,6 +6676,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
       weight
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -6615,6 +6694,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6668,6 +6748,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6703,6 +6784,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6742,6 +6824,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6785,6 +6868,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6821,6 +6905,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6859,6 +6944,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6903,6 +6989,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -6966,6 +7053,7 @@ export const createCovidEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -6983,6 +7071,7 @@ export const createCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7036,6 +7125,7 @@ export const createCovidEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7071,6 +7161,7 @@ export const createCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7110,6 +7201,7 @@ export const createCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7153,6 +7245,7 @@ export const createCovidEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7189,6 +7282,7 @@ export const createCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7227,6 +7321,7 @@ export const createCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7271,6 +7366,7 @@ export const createCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7346,6 +7442,7 @@ export const updateCovidEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -7363,6 +7460,7 @@ export const updateCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7416,6 +7514,7 @@ export const updateCovidEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7451,6 +7550,7 @@ export const updateCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7490,6 +7590,7 @@ export const updateCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7533,6 +7634,7 @@ export const updateCovidEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7569,6 +7671,7 @@ export const updateCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7607,6 +7710,7 @@ export const updateCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7651,6 +7755,7 @@ export const updateCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7726,6 +7831,7 @@ export const deleteCovidEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -7743,6 +7849,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7796,6 +7903,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7831,6 +7939,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7870,6 +7979,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7913,6 +8023,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7949,6 +8060,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -7987,6 +8099,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8031,6 +8144,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8106,6 +8220,7 @@ export const createRecoveryEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -8123,6 +8238,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8176,6 +8292,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8211,6 +8328,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8250,6 +8368,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8293,6 +8412,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8329,6 +8449,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8367,6 +8488,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8411,6 +8533,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8476,6 +8599,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -8493,6 +8617,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8546,6 +8671,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8581,6 +8707,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8620,6 +8747,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8663,6 +8791,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8699,6 +8828,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8737,6 +8867,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8781,6 +8912,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8846,6 +8978,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -8863,6 +8996,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8916,6 +9050,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8951,6 +9086,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -8990,6 +9126,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9033,6 +9170,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9069,6 +9207,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9107,6 +9246,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9151,6 +9291,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9216,6 +9357,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -9233,6 +9375,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9286,6 +9429,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9321,6 +9465,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9360,6 +9505,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9403,6 +9549,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9439,6 +9586,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9477,6 +9625,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9521,6 +9670,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9586,6 +9736,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -9603,6 +9754,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9656,6 +9808,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9691,6 +9844,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9730,6 +9884,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9773,6 +9928,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9809,6 +9965,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9847,6 +10004,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9891,6 +10049,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -9956,6 +10115,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -9973,6 +10133,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10026,6 +10187,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10061,6 +10223,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10100,6 +10263,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10143,6 +10307,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10179,6 +10344,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10217,6 +10383,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10261,6 +10428,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10326,6 +10494,7 @@ export const createSymptomEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -10343,6 +10512,7 @@ export const createSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10396,6 +10566,7 @@ export const createSymptomEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10431,6 +10602,7 @@ export const createSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10470,6 +10642,7 @@ export const createSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10513,6 +10686,7 @@ export const createSymptomEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10549,6 +10723,7 @@ export const createSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10587,6 +10762,7 @@ export const createSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10631,6 +10807,7 @@ export const createSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10702,6 +10879,7 @@ export const updateSymptomEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -10719,6 +10897,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10772,6 +10951,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10807,6 +10987,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10846,6 +11027,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10889,6 +11071,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10925,6 +11108,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -10963,6 +11147,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11007,6 +11192,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11078,6 +11264,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -11095,6 +11282,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11148,6 +11336,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11183,6 +11372,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11222,6 +11412,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11265,6 +11456,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11301,6 +11493,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11339,6 +11532,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11383,6 +11577,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11454,6 +11649,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -11471,6 +11667,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11524,6 +11721,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11559,6 +11757,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11598,6 +11797,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11641,6 +11841,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11677,6 +11878,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11715,6 +11917,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11759,6 +11962,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11825,6 +12029,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -11842,6 +12047,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11895,6 +12101,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11930,6 +12137,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -11969,6 +12177,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12012,6 +12221,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12048,6 +12258,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12086,6 +12297,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12130,6 +12342,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12196,6 +12409,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -12213,6 +12427,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12266,6 +12481,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12301,6 +12517,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12340,6 +12557,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12383,6 +12601,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12419,6 +12638,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12457,6 +12677,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12501,6 +12722,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12567,6 +12789,7 @@ export const createMonthlyEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -12584,6 +12807,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12637,6 +12861,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12672,6 +12897,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12711,6 +12937,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12754,6 +12981,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12790,6 +13018,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12828,6 +13057,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12872,6 +13102,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -12936,6 +13167,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -12953,6 +13185,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13006,6 +13239,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13041,6 +13275,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13080,6 +13315,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13123,6 +13359,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13159,6 +13396,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13197,6 +13435,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13241,6 +13480,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13305,6 +13545,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
       countyState
       surveyEntry {
         id
+        parentSurveyId
         email
         state
         countyState
@@ -13322,6 +13563,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13375,6 +13617,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13410,6 +13653,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13449,6 +13693,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13492,6 +13737,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           weight
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13528,6 +13774,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13566,6 +13813,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState
@@ -13610,6 +13858,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           countyState
           surveyEntry {
             id
+            parentSurveyId
             email
             state
             countyState

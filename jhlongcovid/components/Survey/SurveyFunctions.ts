@@ -2,6 +2,7 @@ import { UserInfo } from "./SurveyWrapper";
 import * as mutations from "../../src/graphql/mutations";
 import { API, input } from "aws-amplify";
 import {
+  CovidStatus,
   CreateCovidEntryInput,
   CreateCovidEntryMutation,
   CreateGlobalHealthEntryInput,
@@ -108,23 +109,39 @@ export const updateUserWithInfoFromSurvey = async (
     race = Race.NONE;
   }
   // Update user with new info
+  let notFreq: NotificationFrequency | null;
+  let notMethod: NotificationMethod | null;
+  let covidStatus: CovidStatus;
+  if (recovered !== null && recovered !== undefined) {
+    if (recovered === false) {
+      covidStatus = CovidStatus.NOT_RECOVERED;
+      notFreq = NotificationFrequency.WEEKLY;
+      notMethod = NotificationMethod.EMAIL;
+    }
+    covidStatus = CovidStatus.RECOVERED;
+    notFreq = null;
+    notMethod = null;
+  } else {
+    covidStatus = CovidStatus.NONE;
+    notFreq = null;
+    notMethod = null;
+  }
+
   let userDetails: UpdateUserMutationVariables = {
     input: {
       id: user.id,
       email: user.email,
-      age: userInfo ? parseInt(userInfo.age) : user.age,
-      race: userInfo ? race : user.race,
-      sex: userInfo ? userInfo.sex : user.sex,
-      height: userInfo ? userInfo.height : user.height,
-      weight: userInfo ? userInfo.weight : user.weight,
-      notificationFreq:
-        recovered !== null && recovered !== true
-          ? NotificationFrequency.WEEKLY
-          : user.notificationFreq,
+      age: userInfo.age !== "" ? parseInt(userInfo.age) : user.age,
+      race: userInfo.race !== "" ? race : user.race,
+      sex: userInfo.sex !== "" ? userInfo.sex : user.sex,
+      height: userInfo.height !== "" ? userInfo.height : user.height,
+      weight: userInfo.weight !== "" ? userInfo.weight : user.weight,
+      covidStatus: covidStatus,
+      notificationFreq: notFreq,
       notificationMethod:
         recovered !== undefined && recovered !== true
           ? NotificationMethod.EMAIL
-          : user.notificationMethod,
+          : null,
       createdAt: user.createdAt,
     },
   };
