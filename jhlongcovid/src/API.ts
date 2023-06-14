@@ -2252,6 +2252,18 @@ export type AggregateSurveyResultsMutation = {
   } | null,
 };
 
+export type EmailReceiptConfirmationMutationVariables = {
+  results: string,
+};
+
+export type EmailReceiptConfirmationMutation = {
+  emailReceiptConfirmation?:  {
+    __typename: "Response",
+    statusCode?: number | null,
+    body?: string | null,
+  } | null,
+};
+
 export type CreateMapDataMutationVariables = {
   input: CreateMapDataInput,
   condition?: ModelMapDataConditionInput | null,

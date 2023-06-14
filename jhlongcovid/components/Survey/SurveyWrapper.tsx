@@ -14,6 +14,9 @@ import {
   Image,
 } from "@chakra-ui/react";
 
+import { API, input } from "aws-amplify";
+import * as mutations from "../../src/graphql/mutations";
+
 //redux imports
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
@@ -54,6 +57,7 @@ import {
   saveEntries,
   updateUserWithInfoFromSurvey,
   userInfoIsEmpty,
+  emailReceiptConfirmation,
 } from "./SurveyFunctions";
 import { aggregateSurveyResults } from "../../src/graphql/mutations";
 
@@ -419,6 +423,26 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     //     position: "top-right",
     //   });
     // }
+
+    try {
+      const data = {
+        questions: questions,
+        questionStack: questionStack,
+        answerStack: answerStack,
+      };
+
+      const variables = {
+        results: JSON.stringify(data),
+      };
+
+      const emailReceipt = await API.graphql({
+        query: mutations.emailReceiptConfirmation,
+        variables: variables,
+      });
+      console.log("Email Receipt", emailReceipt);
+    } catch (error) {
+      console.log("Error sending email receipt: ", error);
+    }
 
     setPerformingQueries(false);
     dispatch(initQuestions(user));

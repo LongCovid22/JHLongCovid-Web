@@ -10,6 +10,14 @@ export const aggregateSurveyResults = /* GraphQL */ `
     }
   }
 `;
+export const emailReceiptConfirmation = /* GraphQL */ `
+  mutation EmailReceiptConfirmation($results: AWSJSON!) {
+    emailReceiptConfirmation(results: $results) {
+      statusCode
+      body
+    }
+  }
+`;
 export const createMapData = /* GraphQL */ `
   mutation CreateMapData(
     $input: CreateMapDataInput!
