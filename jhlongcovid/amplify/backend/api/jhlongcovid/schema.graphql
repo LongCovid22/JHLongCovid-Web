@@ -70,7 +70,7 @@ type User
   lastSubmission: AWSDateTime # null if signed up aside from survey
   lastSignIn: AWSDateTime # Current DateTime at time of sign up after "autosignin"
   notificationFreq: NotificationFrequency # Daily
-  notificaitonMethod: NotificationMethod # Email
+  notificationMethod: NotificationMethod # Email
   createdAt: AWSDateTime! # Will automatically be populated
 }
 
@@ -115,6 +115,48 @@ type SurveyEntry
       name: "byEmail"
       sortKeyFields: ["createdAt"]
       queryField: "surveysByEmail"
+    )
+  state: String
+    @index(
+      name: "byStateSortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "stateSurveyEntryByDate"
+    )
+    @index(
+      name: "byStateSortByAge"
+      sortKeyFields: ["age"]
+      queryField: "stateSurveyEntryByAge"
+    )
+    @index(
+      name: "byStateSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "stateSurveyEntryByRace"
+    )
+    @index(
+      name: "byStateSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "stateSurveyEntryBySex"
+    )
+  countyState: String
+    @index(
+      name: "byCountySortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "countySurveyEntryByDate"
+    )
+    @index(
+      name: "byCountySortByAge"
+      sortKeyFields: ["age"]
+      queryField: "countySurveyEntryByAge"
+    )
+    @index(
+      name: "byCountSortByRace"
+      sortKeyFields: ["race"]
+      queryField: "countySurveyEntryByRace"
+    )
+    @index(
+      name: "byCountSortBySex"
+      sortKeyFields: ["sex"]
+      queryField: "countySurveyEntryBySex"
     )
   createdAt: AWSDateTime!
   surveyVersion: Int!
@@ -955,7 +997,10 @@ type WorkingSituation {
 type Mutation {
   aggregateSurveyResults(results: AWSJSON!): Response
     @function(name: "aggregateSurveyResults-${env}")
+  emailReceiptConfirmation(results: AWSJSON!): Response
+    @function(name: "emailReceiptConfirmation-${env}")
 }
+
 
 type Response {
   statusCode: Int

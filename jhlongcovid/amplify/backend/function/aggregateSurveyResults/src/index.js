@@ -2956,9 +2956,10 @@ const mockCredentials = {
   accessKeyId: "ASIAVJKIAM-AuthRole",
   secretAccessKey: "fake",
 };
-const credentials = process.env.AWS_EXECUTION_ENV.endsWith("mock")
-  ? mockCredentials
-  : defaultProvider();
+const credentials = defaultProvider();
+// const credentials = process.env.AWS_EXECUTION_ENV.endsWith("mock")
+// ? mockCredentials
+// : defaultProvider();
 
 const NullJSONData = {
   age: {
@@ -3406,7 +3407,6 @@ const queryString = properties;
 
 const getID = async (level, name, stateAbbrev) => {
   let query = null;
-
   if (level === "county") {
     query = `
     query MyQuery {
@@ -3451,7 +3451,7 @@ const getID = async (level, name, stateAbbrev) => {
       return load.data.mapDataByStateAbbrev.items;
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(`${level} fetch: ` + error.message);
     return null;
   }
 };
@@ -3553,7 +3553,7 @@ const getStateAndCountyInfo = async (eventInput) => {
 
   return {
     county: countyInfo ? countyInfo[0] : null,
-    state: stateInfo[0],
+    state: stateInfo ? stateInfo[0] : null,
   };
 };
 
@@ -3810,7 +3810,6 @@ const updateRecoverySummary = (eventInput, county, state, indexes) => {
           state.recoveredCount += 1;
         }
       }
-      console.log("Recovery prop: ", prop);
       addCustomToTallyBasedOnCondition(indexes, recovered[prop], true, 1);
     }
 
@@ -4434,7 +4433,7 @@ const aggregateSurveyResults = async (eventInput) => {
           },
         ],
       };
-      console.log(body);
+      console.log(`County create: ` + body);
     }
   }
 
@@ -4487,7 +4486,7 @@ const aggregateSurveyResults = async (eventInput) => {
           },
         ],
       };
-      console.log(body);
+      console.log(`State create: ` + body);
     }
   }
 

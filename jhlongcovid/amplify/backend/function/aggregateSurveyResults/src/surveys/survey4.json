@@ -1,0 +1,106 @@
+{
+  "arguments": {
+    "results": {
+      "id": "8aa15d63-6b5b-40e0-9772-c1e04701ef00",
+      "email": "",
+      "surveyVersion": 1,
+      "surveyType": "GUEST",
+      "age": "21",
+      "race": "asian",
+      "sex": "Female",
+      "location": {
+        "county": "",
+        "state": "Maryland",
+        "stateAbbrev": "MD",
+        "countyLat": 0,
+        "countyLong": 0,
+        "stateLat": 38.804821,
+        "stateLong": -77.236966
+      },
+      "covidResults": {
+        "id": "9a9caa2f-b32f-4f6a-80ee-65015220cbaa",
+        "age": "21",
+        "race": "asian",
+        "sex": "Female",
+        "height": "55",
+        "weight": "120",
+        "beenInfected": false
+      },
+      "recoveryResults": null,
+      "vaccinationResults": {
+        "id": "f56b95b0-dae4-4fed-a382-4d9fac49fd93",
+        "age": "21",
+        "race": "asian",
+        "sex": "Female",
+        "height": "55",
+        "weight": "120",
+        "vaccinated": "yes",
+        "totalVaccineShots": 1,
+        "dateOfLastVaccine": "2023-04-14T00:00:00.000Z",
+        "vaccineType": "pfizer"
+      },
+      "globalHealthResults": {
+        "id": "1c0c94a5-bd99-436d-b646-851349aacb44",
+        "age": "21",
+        "race": "asian",
+        "sex": "Female",
+        "height": "55",
+        "weight": "120",
+        "healthRank": "excellent",
+        "physicalHealthRank": "veryGood",
+        "carryPhysicalActivities": "mostly",
+        "fatigueRank": "mild",
+        "painLevel": 0
+      },
+      "patientHealthResults": {
+        "id": "1a05de54-fe98-4570-b69a-6fca968b646e",
+        "age": "21",
+        "race": "asian",
+        "sex": "Female",
+        "height": "55",
+        "weight": "120",
+        "generalHealthResults": {
+          "littleInterestThings": "notAtAll",
+          "downDepressedHopeless": "notAtAll",
+          "sleepProblems": "notAtAll",
+          "tiredNoEnergy": "notAtAll",
+          "dietProblems": "notAtAll",
+          "badAboutSelf": "notAtAll",
+          "concentrationProblems": "notAtAll",
+          "slowOrRestless": "notAtAll"
+        },
+        "totalScore": 0
+      },
+      "symptomResults": {
+        "id": "31b95b7f-69da-4c35-876e-6ed9a09ff4bf",
+        "age": "21",
+        "race": "asian",
+        "sex": "Female",
+        "height": "55",
+        "weight": "120",
+        "symptoms": ["headache"],
+        "mentalHealthRank": "excellent",
+        "socialSatisfactionRank": "excellent",
+        "carryOutSocialActivitiesRank": "excellent",
+        "anxietyInPastWeekRank": "never",
+        "medicalConditions": ["stroke"],
+        "hasLongCovid": "no"
+      },
+      "socialDeterminantsResults": {
+        "id": "7652d459-8f91-4238-9a59-d2861f6fbb36",
+        "age": "21",
+        "race": "asian",
+        "sex": "Female",
+        "height": "55",
+        "weight": "120",
+        "hasMedicalInsurance": true,
+        "difficultCoveringExpenses": "doNotKnow",
+        "currentWorkSituation": "remote"
+      },
+      "healthRelatedResults": {
+        "weight": "120",
+        "height": "55"
+      }
+    }
+  }
+}

@@ -21,11 +21,76 @@
 const AWS = require('aws-sdk');
 const ses = new AWS.SES();
 
-exports.handler = async (event) => {
 
-    const tableRows = Object.keys(event).map(key => {
-        return `<tr><td>${key}</td><td>${event[key]}</td></tr>`;
-    }).join('');
+/*
+Look at surveySlice getNextQuestionAnswerDefault (line 60) for the default types of various answerFormats
+*/
+
+exports.handler = async (event) => {
+    let data = JSON.parse(event);
+    return {
+        statusCode : 200,
+        body: data,
+    };
+    
+if (typeof event === "string") {
+    event = JSON.parse(event);
+  } 
+
+    const questions = [];
+    const answers = [];
+    for (let i = 0; i < event.questionStack.length; i++) {
+        const question = event.questions[event.questionStack[i].section][event.questionStack[i].question];
+        const answer = event.answerStack[i];
+        
+        if(question.answerFormat !== "welcome" && question.answerFormat !== "consent") {
+            if (Array.isArray(question.answerFormat)) {
+                if (question.answerFormat.includes("multichoice")) {
+                    const { choices, other } = answer;
+                    //includes everything in choices array separated with comma, and in other if there's a valid string
+                    const ans = choices.concat(other).filter(Boolean).join(", ");
+                    answers.push(ans);
+                    questions.push(question.question);
+                } else {
+                    //includes choice or other
+                    questions.push(question.question);
+                    answers.push(answer);
+                }
+            } else if (question.answerFormat === "scale") {
+                //specifically for question No. 30
+                questions.push("Over the last 2 weeks, how often have you been bothered by the following problems?");
+                answers.push("");
+                for (let i = 0; i < question.options.length; i++) {
+                    questions.push(question.options[i]);
+                    answers.push(answer[i]);
+                }
+            } 
+            else if(question.answerFormat === "demographics") {
+                const propertyNames = ["zip", "age", "race", "sex", "height", "weight"];
+                const { zip, age, race, sex, height, weight } = answer;
+                propertyNames.forEach((propertyName) => {
+                questions.push(propertyName);
+                answers.push(eval(propertyName));
+                });
+            } else if(question.answerFormat === "account") {
+                const propertyNames = ["email", "password"];
+                const {email, password } = answer;
+                propertyNames.forEach((propertyName) => {
+                    questions.push(propertyName);
+                    answers.push(eval(propertyName));
+                });
+            } else {
+                questions.push(question.question);
+                answers.push(answer);
+            }
+        }
+    }
+
+    let tableRows = "";
+
+    for (let i = 0; i < questions.length; i++) {
+        tableRows += `<tr><td>${questions[i]}</td><td>${answers[i]}</td></tr>`;
+    }
 
 
     const params = {
@@ -46,10 +111,26 @@ exports.handler = async (event) => {
         Source: 'hopkinslongcovidteam@gmail.com' // Replace with your sender's email address
     };
 
+    let response;
+    let statusCode;
+
     try {
         const result = await ses.sendEmail(params).promise();
-        console.log('Email sent successfully', result);
+        response = {
+            event: event,
+            statusCode: 200,
+            body: JSON.stringify({ message: result }),
+        };
     } catch (error) {
-        console.error('Error sending email', error);
+        const response = {
+            event: event,
+            statusCode: 500,
+            body: JSON.stringify({ message: error }),
+         };
     }
+
+    return {
+        statusCode,
+        body: response,
+    };
 };
