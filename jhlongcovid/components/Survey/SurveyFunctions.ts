@@ -29,6 +29,7 @@ import {
 } from "../../src/API";
 import axios from "axios";
 import { LocationState } from "../../redux/slices/locationSlice";
+import { GraphQLQuery } from "@aws-amplify/api";
 
 export type LocationData = {
   county: string;
@@ -127,13 +128,18 @@ export const updateUserWithInfoFromSurvey = async (
       createdAt: user.createdAt,
     },
   };
-  console.log("Updating user with details: ", userDetails);
+
   try {
-    API.graphql({
+    const updateUserMutation = await API.graphql<
+      GraphQLQuery<UpdateUserMutation>
+    >({
       query: mutations.updateUser,
       variables: userDetails,
       authMode: "AMAZON_COGNITO_USER_POOLS",
     });
+    if (updateUserMutation.data && updateUserMutation.data.updateUser) {
+      return updateUserMutation.data.updateUser as User;
+    }
   } catch (error) {
     console.log("Error: ", error);
   }
@@ -315,15 +321,18 @@ export const getCountyAndStateWithLatLng = async (
   return locationData;
 };
 
-export const parseHeightIntoInches = (height: string) => {
-  if (height.length >= 2) {
-    let feet = parseInt(height[0]);
-    let inches = parseInt(height.slice(1, height.length));
-    return (feet * 12 + inches).toString();
-  } else if (height.length === 1) {
-    return (parseInt(height) * 12).toString();
+export const parseHeightIntoInches = (height: string | undefined | null) => {
+  if (height) {
+    if (height.length >= 2) {
+      let feet = parseInt(height[0]);
+      let inches = parseInt(height.slice(1, height.length));
+      return (feet * 12 + inches).toString();
+    } else if (height.length === 1) {
+      return (parseInt(height) * 12).toString();
+    }
+    return "0";
   }
-  return "0";
+  return null;
 };
 
 export const createCovidEntry = async (

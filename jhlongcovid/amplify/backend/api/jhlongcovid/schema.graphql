@@ -67,11 +67,18 @@ type User
   sex: String # null if signed up aside from survey
   height: String
   weight: String
+  covidStatus: CovidStatus
   lastSubmission: AWSDateTime # null if signed up aside from survey
   lastSignIn: AWSDateTime # Current DateTime at time of sign up after "autosignin"
   notificationFreq: NotificationFrequency # Daily
   notificationMethod: NotificationMethod # Email
   createdAt: AWSDateTime! # Will automatically be populated
+}
+
+enum CovidStatus {
+  RECOVERED
+  NOT_RECOVERED
+  NONE
 }
 
 enum Race {

@@ -43,7 +43,7 @@ import { ThankYou } from "./SurveyBody/ThankYou";
 import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
 import { PreSurvey } from "./SurveyBody/PreSurvey";
-import { selectUser } from "../../redux/slices/userSlice";
+import { selectUser, setUser } from "../../redux/slices/userSlice";
 import {
   aggregateResults,
   checkEmptyDemoFields,
@@ -337,17 +337,23 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
   const handleFinishQuestion = async () => {
     setPerformingQueries(true);
-    // console.log("Here is user: ", user);
-    // console.log("Here is recovered", recovered);
-    if (user) {
-      await updateUserWithInfoFromSurvey(userInfo, user, recovered);
+    if (user && userInfo) {
+      const updatedUser = await updateUserWithInfoFromSurvey(
+        userInfo,
+        user,
+        recovered
+      );
+      if (updatedUser) {
+        dispatch(setUser(updatedUser));
+      }
     }
-    // const entries = processEntries(questionStack, answerStack, questions);
+    const entries = processEntries(questionStack, answerStack, questions);
     // const locationData: LocationData = await getCountyAndStateWithZip(
     //   // userInfo.location,
     //   "13492",
     //   process.env.GOOGLEMAPS_API_KEY ?? ""
     // );
+    console.log("Entries: ", entries);
 
     if (location.state === "") {
       setPerformingQueries(false);
@@ -434,10 +440,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     }
     setIsFinalSection(currentQuestion.answerFormat === "thankYou");
   }, [currentQuestion]);
-
-  useEffect(() => {
-    console.log("Recovered value: ", recovered);
-  }, [recovered]);
 
   // Reset wrapper values for next question
   useEffect(() => {

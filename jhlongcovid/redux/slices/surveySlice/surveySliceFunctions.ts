@@ -1,6 +1,7 @@
 import { parseHeightIntoInches } from "../../../components/Survey/SurveyFunctions";
 import { UserInfo } from "../../../components/Survey/SurveyWrapper";
 import { VaccinationEntry } from "../../../src/API";
+import { User } from "../../../src/API";
 
 export type QuestionInfo = {
   questions: { section: number; question: number }[];
@@ -24,7 +25,8 @@ type SectionInfo = {
 export const processEntries = (
   questionStack: any[],
   answerStack: any[],
-  questions: any
+  questions: any,
+  user?: User
 ) => {
   let sectionQuestionInfo: SectionInfo = separatedSectionInfo(
     questionStack,
@@ -37,12 +39,12 @@ export const processEntries = (
     if (value === "CovidEntry") {
       const sectionInfo = sectionQuestionInfo.CovidEntry;
       if (sectionQuestionInfo.CovidEntry.questions.length > 0) {
-        entries[value] = processCovidEntry(sectionInfo, demographics);
+        entries[value] = processCovidEntry(sectionInfo, demographics, user);
       }
     } else if (value === "RecoveryEntry") {
       const sectionInfo = sectionQuestionInfo.RecoveryEntry;
       if (sectionQuestionInfo.RecoveryEntry.questions.length > 0) {
-        entries[value] = processRecoveryEntry(sectionInfo, demographics);
+        entries[value] = processRecoveryEntry(sectionInfo, demographics, user);
       }
     } else if (value === "VaccinationEntry") {
       const sectionInfo = sectionQuestionInfo.VaccinationEntry;
@@ -253,74 +255,86 @@ export const separatedSectionInfo = (
 
 export const processCovidEntry = (
   info: QuestionInfo,
-  demographics: UserInfo
-) => {
-  return createEntries(
-    info.questions,
-    info.schemas,
-    info.answers,
-    demographics
-  );
-};
-
-export const processRecoveryEntry = (
-  info: QuestionInfo,
-  demographics: UserInfo
-) => {
-  return createEntries(
-    info.questions,
-    info.schemas,
-    info.answers,
-    demographics
-  );
-};
-
-export const processVaccinationEntry = (
-  info: QuestionInfo,
-  demographics: UserInfo
-) => {
-  return createEntries(
-    info.questions,
-    info.schemas,
-    info.answers,
-    demographics
-  );
-};
-
-export const processGlobalHealthEntry = (
-  info: QuestionInfo,
-  demographics: UserInfo
-) => {
-  return createEntries(
-    info.questions,
-    info.schemas,
-    info.answers,
-    demographics
-  );
-};
-
-export const processSymptomEntry = (
-  info: QuestionInfo,
-  demographics: UserInfo
+  demographics?: UserInfo,
+  user?: User
 ) => {
   return createEntries(
     info.questions,
     info.schemas,
     info.answers,
     demographics,
+    user
+  );
+};
+
+export const processRecoveryEntry = (
+  info: QuestionInfo,
+  demographics?: UserInfo,
+  user?: User
+) => {
+  return createEntries(
+    info.questions,
+    info.schemas,
+    info.answers,
+    demographics,
+    user
+  );
+};
+
+export const processVaccinationEntry = (
+  info: QuestionInfo,
+  demographics?: UserInfo,
+  user?: User
+) => {
+  return createEntries(
+    info.questions,
+    info.schemas,
+    info.answers,
+    demographics,
+    user
+  );
+};
+
+export const processGlobalHealthEntry = (
+  info: QuestionInfo,
+  demographics?: UserInfo,
+  user?: User
+) => {
+  return createEntries(
+    info.questions,
+    info.schemas,
+    info.answers,
+    demographics,
+    user
+  );
+};
+
+export const processSymptomEntry = (
+  info: QuestionInfo,
+  demographics?: UserInfo,
+  user?: User
+) => {
+  return createEntries(
+    info.questions,
+    info.schemas,
+    info.answers,
+    demographics,
+    user,
     info.answerFormats
   );
 };
 
 export const processPatientHealthEntry = (
   info: QuestionInfo,
-  demographics: UserInfo
+  demographics?: UserInfo,
+  user?: User
 ) => {
   return createEntries(
     info.questions,
     info.schemas,
     info.answers,
     demographics,
+    user,
     info.answerFormats,
     info.options
   );
@@ -328,13 +342,15 @@ export const processPatientHealthEntry = (
 
 export const processSocialDeterminantsEntry = (
   info: QuestionInfo,
-  demographics: UserInfo
+  demographics?: UserInfo,
+  user?: User
 ) => {
   return createEntries(
     info.questions,
     info.schemas,
     info.answers,
-    demographics
+    demographics,
+    user
   );
 };
 
@@ -342,17 +358,30 @@ const createEntries = (
   questionStack: { section: number; question: number }[],
   schema: any[],
   answers: any,
-  demographics: UserInfo,
+  demographics?: UserInfo,
+  user?: User,
   answerFormats?: any[],
   options?: any[]
 ) => {
-  let entries: any = {
-    age: demographics.age,
-    race: demographics.race,
-    sex: demographics.sex,
-    height: parseHeightIntoInches(demographics.height),
-    weight: demographics.weight,
-  };
+  let entries: any;
+  if (demographics) {
+    entries = {
+      age: demographics.age,
+      race: demographics.race,
+      sex: demographics.sex,
+      height: parseHeightIntoInches(demographics.height),
+      weight: demographics.weight,
+    };
+  }
+  if (user) {
+    entries = {
+      age: user.age,
+      race: user.race,
+      sex: user.sex,
+      height: parseHeightIntoInches(user.height),
+      weight: user.weight,
+    };
+  }
   for (var i = 0; i < questionStack.length; i++) {
     const s = schema[i];
     const a = answers[i];

@@ -167,13 +167,13 @@ const Home = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      dispatch(initQuestions(user));
-    } else {
-      dispatch(initQuestions(undefined));
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     dispatch(initQuestions(user));
+  //   } else {
+  //     dispatch(initQuestions(undefined));
+  //   }
+  // }, [user]);
 
   // Memoize map to only re-render when data changes
   const MapMemo = useMemo(() => {

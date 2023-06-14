@@ -6,10 +6,12 @@ import { Auth } from "aws-amplify";
 import { setUncaughtExceptionCaptureCallback } from "process";
 import { processEntries } from "./surveySliceFunctions";
 import { NotificationFrequency, User } from "../../../src/API";
+import { stat } from "fs";
 
 // this slice can be used for presentation throughout the app. When there is state that
 // controls somethings display, it should go in here
 export type SurveyState = {
+  surveyType: SurveyType;
   currentQuestionIndex: number;
   currentQuestion: any;
   currentAnswer: string | string[] | object | null;
@@ -21,7 +23,13 @@ export type SurveyState = {
   totalQuestions: number;
 };
 
+export enum SurveyType {
+  MAIN,
+  WEEKLY,
+}
+
 const initialState: SurveyState = {
+  surveyType: SurveyType.MAIN,
   currentQuestionIndex: 0,
   currentQuestion: {},
   currentAnswer: null,
@@ -30,7 +38,7 @@ const initialState: SurveyState = {
   answerStack: [], // ["true", "2"]
   lastQuestion: false,
   firstQuestion: true,
-  totalQuestions: weeklySurveyLogic.totalQuestions,
+  totalQuestions: surveyLogic.totalQuestions,
 };
 
 const checkIfLastQuestion = (
@@ -239,14 +247,18 @@ export const surveySlice = createSlice({
       state.currentQuestionIndex = 0;
 
       const user = payload.payload;
-      //   if (user && user.notificationFreq == NotificationFrequency.WEEKLY) {
-      //     state.questions = weeklySurveyLogic.questions;
-      //   } else {
-      //     state.questions = surveyLogic.questions;
-      //   }
-      state.questions = weeklySurveyLogic.questions;
+      if (user && user.notificationFreq == NotificationFrequency.WEEKLY) {
+        state.questions = weeklySurveyLogic.questions;
+        state.totalQuestions = weeklySurveyLogic.totalQuestions;
+        state.surveyType = SurveyType.WEEKLY;
+      } else {
+        state.questions = surveyLogic.questions;
+        state.totalQuestions = surveyLogic.totalQuestions;
+        state.surveyType = SurveyType.MAIN;
+      }
+      //   state.questions = weeklySurveyLogic.questions;
 
-      state.currentQuestion = weeklySurveyLogic.questions[0][0];
+      state.currentQuestion = state.questions[0][0];
       state.currentAnswer = state.answerStack[0];
     },
   },
