@@ -225,12 +225,386 @@ export const createUser = /* GraphQL */ `
       weight
       covidStatus
       lastSubmission
-      lastSubmissionId
+      lastSubmissionEntry {
+        id
+        parentSurveyId
+        email
+        state
+        countyState
+        createdAt
+        surveyVersion
+        surveyType
+        age
+        race
+        sex
+        height
+        weight
+        covidEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          beenInfected
+          timesPositive
+          lastPositive
+          tested
+          positiveTest
+          testMethod
+          hospitalized
+          timesHospitalized
+          symptomatic
+          symptomsPreventScale
+          medicationsPrescribed
+          medicationsTaken
+          createdAt
+          updatedAt
+          covidEntrySurveyEntryId
+          owner
+        }
+        vaccinationEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          totalVaccineShots
+          vaccinated
+          vaccineType
+          dateOfLastVaccine
+          createdAt
+          updatedAt
+          vaccinationEntrySurveyEntryId
+          owner
+        }
+        socialDeterminantsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          hasMedicalInsurance
+          difficultCoveringExpenses
+          currentWorkSituation
+          createdAt
+          updatedAt
+          socialDeterminantsEntrySurveyEntryId
+          owner
+        }
+        recoveryEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          recovered
+          lengthOfRecovery
+          createdAt
+          updatedAt
+          recoveryEntrySurveyEntryId
+          owner
+        }
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+          owner
+        }
+        PatientHealthEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          generalHealthResults
+          totalScore
+          createdAt
+          updatedAt
+          patientHealthEntrySurveyEntryId
+          owner
+        }
+        symptomsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          createdAt
+          symptoms
+          qualityOfLifeRank
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
+          medicalConditions
+          hasLongCovid
+          updatedAt
+          symptomEntrySurveyEntryId
+          owner
+        }
+        monthlyEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          results
+          createdAt
+          updatedAt
+          monthlyEntrySurveyEntryId
+          owner
+        }
+        updatedAt
+        surveyEntryCovidEntryId
+        surveyEntryVaccinationEntryId
+        surveyEntrySocialDeterminantsEntryId
+        surveyEntryRecoveryEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
+        surveyEntrySymptomsEntryId
+        surveyEntryMonthlyEntryId
+        owner
+      }
       lastSignIn
       notificationFreq
       notificationMethod
       createdAt
       updatedAt
+      userLastSubmissionEntryId
       owner
     }
   }
@@ -250,12 +624,386 @@ export const updateUser = /* GraphQL */ `
       weight
       covidStatus
       lastSubmission
-      lastSubmissionId
+      lastSubmissionEntry {
+        id
+        parentSurveyId
+        email
+        state
+        countyState
+        createdAt
+        surveyVersion
+        surveyType
+        age
+        race
+        sex
+        height
+        weight
+        covidEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          beenInfected
+          timesPositive
+          lastPositive
+          tested
+          positiveTest
+          testMethod
+          hospitalized
+          timesHospitalized
+          symptomatic
+          symptomsPreventScale
+          medicationsPrescribed
+          medicationsTaken
+          createdAt
+          updatedAt
+          covidEntrySurveyEntryId
+          owner
+        }
+        vaccinationEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          totalVaccineShots
+          vaccinated
+          vaccineType
+          dateOfLastVaccine
+          createdAt
+          updatedAt
+          vaccinationEntrySurveyEntryId
+          owner
+        }
+        socialDeterminantsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          hasMedicalInsurance
+          difficultCoveringExpenses
+          currentWorkSituation
+          createdAt
+          updatedAt
+          socialDeterminantsEntrySurveyEntryId
+          owner
+        }
+        recoveryEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          recovered
+          lengthOfRecovery
+          createdAt
+          updatedAt
+          recoveryEntrySurveyEntryId
+          owner
+        }
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+          owner
+        }
+        PatientHealthEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          generalHealthResults
+          totalScore
+          createdAt
+          updatedAt
+          patientHealthEntrySurveyEntryId
+          owner
+        }
+        symptomsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          createdAt
+          symptoms
+          qualityOfLifeRank
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
+          medicalConditions
+          hasLongCovid
+          updatedAt
+          symptomEntrySurveyEntryId
+          owner
+        }
+        monthlyEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          results
+          createdAt
+          updatedAt
+          monthlyEntrySurveyEntryId
+          owner
+        }
+        updatedAt
+        surveyEntryCovidEntryId
+        surveyEntryVaccinationEntryId
+        surveyEntrySocialDeterminantsEntryId
+        surveyEntryRecoveryEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
+        surveyEntrySymptomsEntryId
+        surveyEntryMonthlyEntryId
+        owner
+      }
       lastSignIn
       notificationFreq
       notificationMethod
       createdAt
       updatedAt
+      userLastSubmissionEntryId
       owner
     }
   }
@@ -275,12 +1023,386 @@ export const deleteUser = /* GraphQL */ `
       weight
       covidStatus
       lastSubmission
-      lastSubmissionId
+      lastSubmissionEntry {
+        id
+        parentSurveyId
+        email
+        state
+        countyState
+        createdAt
+        surveyVersion
+        surveyType
+        age
+        race
+        sex
+        height
+        weight
+        covidEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          beenInfected
+          timesPositive
+          lastPositive
+          tested
+          positiveTest
+          testMethod
+          hospitalized
+          timesHospitalized
+          symptomatic
+          symptomsPreventScale
+          medicationsPrescribed
+          medicationsTaken
+          createdAt
+          updatedAt
+          covidEntrySurveyEntryId
+          owner
+        }
+        vaccinationEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          totalVaccineShots
+          vaccinated
+          vaccineType
+          dateOfLastVaccine
+          createdAt
+          updatedAt
+          vaccinationEntrySurveyEntryId
+          owner
+        }
+        socialDeterminantsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          hasMedicalInsurance
+          difficultCoveringExpenses
+          currentWorkSituation
+          createdAt
+          updatedAt
+          socialDeterminantsEntrySurveyEntryId
+          owner
+        }
+        recoveryEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          recovered
+          lengthOfRecovery
+          createdAt
+          updatedAt
+          recoveryEntrySurveyEntryId
+          owner
+        }
+        globalHealthEntry {
+          id
+          state
+          countyState
+          age
+          race
+          sex
+          height
+          weight
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          healthRank
+          physicalHealthRank
+          carryPhysicalActivities
+          fatigueRank
+          painLevel
+          createdAt
+          updatedAt
+          globalHealthEntrySurveyEntryId
+          owner
+        }
+        PatientHealthEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          generalHealthResults
+          totalScore
+          createdAt
+          updatedAt
+          patientHealthEntrySurveyEntryId
+          owner
+        }
+        symptomsEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          createdAt
+          symptoms
+          qualityOfLifeRank
+          mentalHealthRank
+          socialSatisfactionRank
+          carryOutSocialActivitiesRank
+          anxietyInPastWeekRank
+          medicalConditions
+          hasLongCovid
+          updatedAt
+          symptomEntrySurveyEntryId
+          owner
+        }
+        monthlyEntry {
+          id
+          state
+          countyState
+          surveyEntry {
+            id
+            parentSurveyId
+            email
+            state
+            countyState
+            createdAt
+            surveyVersion
+            surveyType
+            age
+            race
+            sex
+            height
+            weight
+            updatedAt
+            surveyEntryCovidEntryId
+            surveyEntryVaccinationEntryId
+            surveyEntrySocialDeterminantsEntryId
+            surveyEntryRecoveryEntryId
+            surveyEntryGlobalHealthEntryId
+            surveyEntryPatientHealthEntryId
+            surveyEntrySymptomsEntryId
+            surveyEntryMonthlyEntryId
+            owner
+          }
+          age
+          race
+          sex
+          height
+          weight
+          results
+          createdAt
+          updatedAt
+          monthlyEntrySurveyEntryId
+          owner
+        }
+        updatedAt
+        surveyEntryCovidEntryId
+        surveyEntryVaccinationEntryId
+        surveyEntrySocialDeterminantsEntryId
+        surveyEntryRecoveryEntryId
+        surveyEntryGlobalHealthEntryId
+        surveyEntryPatientHealthEntryId
+        surveyEntrySymptomsEntryId
+        surveyEntryMonthlyEntryId
+        owner
+      }
       lastSignIn
       notificationFreq
       notificationMethod
       createdAt
       updatedAt
+      userLastSubmissionEntryId
       owner
     }
   }
@@ -346,6 +1468,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -363,6 +1486,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -379,6 +1503,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -394,6 +1519,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -412,6 +1538,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -427,6 +1554,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -448,6 +1576,7 @@ export const createSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -462,6 +1591,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -472,6 +1602,7 @@ export const createSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -493,6 +1624,7 @@ export const createSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         covidEntrySurveyEntryId
+        owner
       }
       vaccinationEntry {
         id
@@ -541,6 +1673,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -558,6 +1691,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -574,6 +1708,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -589,6 +1724,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -607,6 +1743,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -622,6 +1759,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -643,6 +1781,7 @@ export const createSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -657,6 +1796,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -667,6 +1807,7 @@ export const createSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         totalVaccineShots
         vaccinated
@@ -675,6 +1816,7 @@ export const createSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         vaccinationEntrySurveyEntryId
+        owner
       }
       socialDeterminantsEntry {
         id
@@ -718,6 +1860,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -735,6 +1878,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -751,6 +1895,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -766,6 +1911,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -784,6 +1930,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -799,6 +1946,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -820,6 +1968,7 @@ export const createSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -834,6 +1983,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -844,6 +1994,7 @@ export const createSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -856,6 +2007,7 @@ export const createSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         socialDeterminantsEntrySurveyEntryId
+        owner
       }
       recoveryEntry {
         id
@@ -899,6 +2051,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -916,6 +2069,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -932,6 +2086,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -947,6 +2102,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -965,6 +2121,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -980,6 +2137,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -1001,6 +2159,7 @@ export const createSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -1015,6 +2174,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -1025,6 +2185,7 @@ export const createSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -1036,6 +2197,7 @@ export const createSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         recoveryEntrySurveyEntryId
+        owner
       }
       globalHealthEntry {
         id
@@ -1084,6 +2246,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -1101,6 +2264,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -1117,6 +2281,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -1132,6 +2297,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -1150,6 +2316,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -1165,6 +2332,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -1186,6 +2354,7 @@ export const createSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -1200,6 +2369,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -1210,6 +2380,7 @@ export const createSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         healthRank
         physicalHealthRank
@@ -1219,6 +2390,7 @@ export const createSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         globalHealthEntrySurveyEntryId
+        owner
       }
       PatientHealthEntry {
         id
@@ -1262,6 +2434,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -1279,6 +2452,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -1295,6 +2469,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -1310,6 +2485,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -1328,6 +2504,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -1343,6 +2520,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -1364,6 +2542,7 @@ export const createSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -1378,6 +2557,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -1388,6 +2568,7 @@ export const createSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -1399,6 +2580,7 @@ export const createSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         patientHealthEntrySurveyEntryId
+        owner
       }
       symptomsEntry {
         id
@@ -1442,6 +2624,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -1459,6 +2642,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -1475,6 +2659,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -1490,6 +2675,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -1508,6 +2694,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -1523,6 +2710,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -1544,6 +2732,7 @@ export const createSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -1558,6 +2747,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -1568,6 +2758,7 @@ export const createSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -1585,6 +2776,7 @@ export const createSurveyEntry = /* GraphQL */ `
         hasLongCovid
         updatedAt
         symptomEntrySurveyEntryId
+        owner
       }
       monthlyEntry {
         id
@@ -1628,6 +2820,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -1645,6 +2838,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -1661,6 +2855,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -1676,6 +2871,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -1694,6 +2890,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -1709,6 +2906,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -1730,6 +2928,7 @@ export const createSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -1744,6 +2943,7 @@ export const createSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -1754,6 +2954,7 @@ export const createSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -1764,6 +2965,7 @@ export const createSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         monthlyEntrySurveyEntryId
+        owner
       }
       updatedAt
       surveyEntryCovidEntryId
@@ -1774,6 +2976,7 @@ export const createSurveyEntry = /* GraphQL */ `
       surveyEntryPatientHealthEntryId
       surveyEntrySymptomsEntryId
       surveyEntryMonthlyEntryId
+      owner
     }
   }
 `;
@@ -1838,6 +3041,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -1855,6 +3059,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -1871,6 +3076,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -1886,6 +3092,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -1904,6 +3111,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -1919,6 +3127,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -1940,6 +3149,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -1954,6 +3164,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -1964,6 +3175,7 @@ export const updateSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -1985,6 +3197,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         covidEntrySurveyEntryId
+        owner
       }
       vaccinationEntry {
         id
@@ -2033,6 +3246,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -2050,6 +3264,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -2066,6 +3281,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -2081,6 +3297,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -2099,6 +3316,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -2114,6 +3332,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -2135,6 +3354,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -2149,6 +3369,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -2159,6 +3380,7 @@ export const updateSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         totalVaccineShots
         vaccinated
@@ -2167,6 +3389,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         vaccinationEntrySurveyEntryId
+        owner
       }
       socialDeterminantsEntry {
         id
@@ -2210,6 +3433,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -2227,6 +3451,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -2243,6 +3468,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -2258,6 +3484,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -2276,6 +3503,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -2291,6 +3519,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -2312,6 +3541,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -2326,6 +3556,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -2336,6 +3567,7 @@ export const updateSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -2348,6 +3580,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         socialDeterminantsEntrySurveyEntryId
+        owner
       }
       recoveryEntry {
         id
@@ -2391,6 +3624,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -2408,6 +3642,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -2424,6 +3659,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -2439,6 +3675,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -2457,6 +3694,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -2472,6 +3710,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -2493,6 +3732,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -2507,6 +3747,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -2517,6 +3758,7 @@ export const updateSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -2528,6 +3770,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         recoveryEntrySurveyEntryId
+        owner
       }
       globalHealthEntry {
         id
@@ -2576,6 +3819,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -2593,6 +3837,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -2609,6 +3854,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -2624,6 +3870,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -2642,6 +3889,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -2657,6 +3905,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -2678,6 +3927,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -2692,6 +3942,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -2702,6 +3953,7 @@ export const updateSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         healthRank
         physicalHealthRank
@@ -2711,6 +3963,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         globalHealthEntrySurveyEntryId
+        owner
       }
       PatientHealthEntry {
         id
@@ -2754,6 +4007,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -2771,6 +4025,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -2787,6 +4042,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -2802,6 +4058,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -2820,6 +4077,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -2835,6 +4093,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -2856,6 +4115,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -2870,6 +4130,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -2880,6 +4141,7 @@ export const updateSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -2891,6 +4153,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         patientHealthEntrySurveyEntryId
+        owner
       }
       symptomsEntry {
         id
@@ -2934,6 +4197,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -2951,6 +4215,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -2967,6 +4232,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -2982,6 +4248,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -3000,6 +4267,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -3015,6 +4283,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -3036,6 +4305,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -3050,6 +4320,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -3060,6 +4331,7 @@ export const updateSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -3077,6 +4349,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         hasLongCovid
         updatedAt
         symptomEntrySurveyEntryId
+        owner
       }
       monthlyEntry {
         id
@@ -3120,6 +4393,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -3137,6 +4411,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -3153,6 +4428,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -3168,6 +4444,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -3186,6 +4463,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -3201,6 +4479,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -3222,6 +4501,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -3236,6 +4516,7 @@ export const updateSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -3246,6 +4527,7 @@ export const updateSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -3256,6 +4538,7 @@ export const updateSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         monthlyEntrySurveyEntryId
+        owner
       }
       updatedAt
       surveyEntryCovidEntryId
@@ -3266,6 +4549,7 @@ export const updateSurveyEntry = /* GraphQL */ `
       surveyEntryPatientHealthEntryId
       surveyEntrySymptomsEntryId
       surveyEntryMonthlyEntryId
+      owner
     }
   }
 `;
@@ -3330,6 +4614,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -3347,6 +4632,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -3363,6 +4649,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -3378,6 +4665,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -3396,6 +4684,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -3411,6 +4700,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -3432,6 +4722,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -3446,6 +4737,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -3456,6 +4748,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -3477,6 +4770,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         covidEntrySurveyEntryId
+        owner
       }
       vaccinationEntry {
         id
@@ -3525,6 +4819,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -3542,6 +4837,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -3558,6 +4854,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -3573,6 +4870,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -3591,6 +4889,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -3606,6 +4905,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -3627,6 +4927,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -3641,6 +4942,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -3651,6 +4953,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         totalVaccineShots
         vaccinated
@@ -3659,6 +4962,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         vaccinationEntrySurveyEntryId
+        owner
       }
       socialDeterminantsEntry {
         id
@@ -3702,6 +5006,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -3719,6 +5024,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -3735,6 +5041,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -3750,6 +5057,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -3768,6 +5076,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -3783,6 +5092,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -3804,6 +5114,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -3818,6 +5129,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -3828,6 +5140,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -3840,6 +5153,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         socialDeterminantsEntrySurveyEntryId
+        owner
       }
       recoveryEntry {
         id
@@ -3883,6 +5197,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -3900,6 +5215,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -3916,6 +5232,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -3931,6 +5248,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -3949,6 +5267,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -3964,6 +5283,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -3985,6 +5305,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -3999,6 +5320,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -4009,6 +5331,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -4020,6 +5343,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         recoveryEntrySurveyEntryId
+        owner
       }
       globalHealthEntry {
         id
@@ -4068,6 +5392,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -4085,6 +5410,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -4101,6 +5427,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -4116,6 +5443,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -4134,6 +5462,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -4149,6 +5478,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -4170,6 +5500,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -4184,6 +5515,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -4194,6 +5526,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         healthRank
         physicalHealthRank
@@ -4203,6 +5536,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         globalHealthEntrySurveyEntryId
+        owner
       }
       PatientHealthEntry {
         id
@@ -4246,6 +5580,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -4263,6 +5598,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -4279,6 +5615,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -4294,6 +5631,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -4312,6 +5650,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -4327,6 +5666,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -4348,6 +5688,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -4362,6 +5703,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -4372,6 +5714,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -4383,6 +5726,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         patientHealthEntrySurveyEntryId
+        owner
       }
       symptomsEntry {
         id
@@ -4426,6 +5770,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -4443,6 +5788,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -4459,6 +5805,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -4474,6 +5821,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -4492,6 +5840,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -4507,6 +5856,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -4528,6 +5878,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -4542,6 +5893,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -4552,6 +5904,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -4569,6 +5922,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         hasLongCovid
         updatedAt
         symptomEntrySurveyEntryId
+        owner
       }
       monthlyEntry {
         id
@@ -4612,6 +5966,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             covidEntrySurveyEntryId
+            owner
           }
           vaccinationEntry {
             id
@@ -4629,6 +5984,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             vaccinationEntrySurveyEntryId
+            owner
           }
           socialDeterminantsEntry {
             id
@@ -4645,6 +6001,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             socialDeterminantsEntrySurveyEntryId
+            owner
           }
           recoveryEntry {
             id
@@ -4660,6 +6017,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             recoveryEntrySurveyEntryId
+            owner
           }
           globalHealthEntry {
             id
@@ -4678,6 +6036,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             globalHealthEntrySurveyEntryId
+            owner
           }
           PatientHealthEntry {
             id
@@ -4693,6 +6052,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             patientHealthEntrySurveyEntryId
+            owner
           }
           symptomsEntry {
             id
@@ -4714,6 +6074,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             hasLongCovid
             updatedAt
             symptomEntrySurveyEntryId
+            owner
           }
           monthlyEntry {
             id
@@ -4728,6 +6089,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
             createdAt
             updatedAt
             monthlyEntrySurveyEntryId
+            owner
           }
           updatedAt
           surveyEntryCovidEntryId
@@ -4738,6 +6100,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
           surveyEntryPatientHealthEntryId
           surveyEntrySymptomsEntryId
           surveyEntryMonthlyEntryId
+          owner
         }
         age
         race
@@ -4748,6 +6111,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
         createdAt
         updatedAt
         monthlyEntrySurveyEntryId
+        owner
       }
       updatedAt
       surveyEntryCovidEntryId
@@ -4758,6 +6122,7 @@ export const deleteSurveyEntry = /* GraphQL */ `
       surveyEntryPatientHealthEntryId
       surveyEntrySymptomsEntryId
       surveyEntryMonthlyEntryId
+      owner
     }
   }
 `;
@@ -4816,6 +6181,7 @@ export const createVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -4837,6 +6203,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -4870,6 +6237,7 @@ export const createVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -4878,6 +6246,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -4906,6 +6275,7 @@ export const createVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -4918,6 +6288,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -4946,6 +6317,7 @@ export const createVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -4957,6 +6329,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -4990,6 +6363,7 @@ export const createVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -4999,6 +6373,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -5027,6 +6402,7 @@ export const createVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5038,6 +6414,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -5066,6 +6443,7 @@ export const createVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5083,6 +6461,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -5111,6 +6490,7 @@ export const createVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5121,6 +6501,7 @@ export const createVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -5131,6 +6512,7 @@ export const createVaccinationEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       totalVaccineShots
       vaccinated
@@ -5139,6 +6521,7 @@ export const createVaccinationEntry = /* GraphQL */ `
       createdAt
       updatedAt
       vaccinationEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -5197,6 +6580,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5218,6 +6602,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -5251,6 +6636,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -5259,6 +6645,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -5287,6 +6674,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5299,6 +6687,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -5327,6 +6716,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5338,6 +6728,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -5371,6 +6762,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -5380,6 +6772,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -5408,6 +6801,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5419,6 +6813,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -5447,6 +6842,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5464,6 +6860,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -5492,6 +6889,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5502,6 +6900,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -5512,6 +6911,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       totalVaccineShots
       vaccinated
@@ -5520,6 +6920,7 @@ export const updateVaccinationEntry = /* GraphQL */ `
       createdAt
       updatedAt
       vaccinationEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -5578,6 +6979,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5599,6 +7001,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -5632,6 +7035,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -5640,6 +7044,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -5668,6 +7073,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5680,6 +7086,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -5708,6 +7115,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5719,6 +7127,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -5752,6 +7161,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -5761,6 +7171,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -5789,6 +7200,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5800,6 +7212,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -5828,6 +7241,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5845,6 +7259,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -5873,6 +7288,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5883,6 +7299,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -5893,6 +7310,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       totalVaccineShots
       vaccinated
@@ -5901,6 +7319,7 @@ export const deleteVaccinationEntry = /* GraphQL */ `
       createdAt
       updatedAt
       vaccinationEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -5959,6 +7378,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -5980,6 +7400,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -6013,6 +7434,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -6021,6 +7443,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -6049,6 +7472,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6061,6 +7485,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -6089,6 +7514,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6100,6 +7526,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -6133,6 +7560,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -6142,6 +7570,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -6170,6 +7599,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6181,6 +7611,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -6209,6 +7640,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6226,6 +7658,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -6254,6 +7687,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6264,6 +7698,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -6274,6 +7709,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       healthRank
       physicalHealthRank
@@ -6283,6 +7719,7 @@ export const createGlobalHealthEntry = /* GraphQL */ `
       createdAt
       updatedAt
       globalHealthEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -6341,6 +7778,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6362,6 +7800,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -6395,6 +7834,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -6403,6 +7843,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -6431,6 +7872,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6443,6 +7885,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -6471,6 +7914,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6482,6 +7926,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -6515,6 +7960,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -6524,6 +7970,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -6552,6 +7999,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6563,6 +8011,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -6591,6 +8040,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6608,6 +8058,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -6636,6 +8087,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6646,6 +8098,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -6656,6 +8109,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       healthRank
       physicalHealthRank
@@ -6665,6 +8119,7 @@ export const updateGlobalHealthEntry = /* GraphQL */ `
       createdAt
       updatedAt
       globalHealthEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -6723,6 +8178,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6744,6 +8200,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -6777,6 +8234,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -6785,6 +8243,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -6813,6 +8272,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6825,6 +8285,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -6853,6 +8314,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6864,6 +8326,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -6897,6 +8360,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -6906,6 +8370,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -6934,6 +8399,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6945,6 +8411,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -6973,6 +8440,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -6990,6 +8458,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -7018,6 +8487,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7028,6 +8498,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -7038,6 +8509,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       healthRank
       physicalHealthRank
@@ -7047,6 +8519,7 @@ export const deleteGlobalHealthEntry = /* GraphQL */ `
       createdAt
       updatedAt
       globalHealthEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -7100,6 +8573,7 @@ export const createCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7121,6 +8595,7 @@ export const createCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -7154,6 +8629,7 @@ export const createCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -7162,6 +8638,7 @@ export const createCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -7190,6 +8667,7 @@ export const createCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7202,6 +8680,7 @@ export const createCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -7230,6 +8709,7 @@ export const createCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7241,6 +8721,7 @@ export const createCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -7274,6 +8755,7 @@ export const createCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -7283,6 +8765,7 @@ export const createCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -7311,6 +8794,7 @@ export const createCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7322,6 +8806,7 @@ export const createCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -7350,6 +8835,7 @@ export const createCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7367,6 +8853,7 @@ export const createCovidEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -7395,6 +8882,7 @@ export const createCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7405,6 +8893,7 @@ export const createCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -7415,6 +8904,7 @@ export const createCovidEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -7436,6 +8926,7 @@ export const createCovidEntry = /* GraphQL */ `
       createdAt
       updatedAt
       covidEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -7489,6 +8980,7 @@ export const updateCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7510,6 +9002,7 @@ export const updateCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -7543,6 +9036,7 @@ export const updateCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -7551,6 +9045,7 @@ export const updateCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -7579,6 +9074,7 @@ export const updateCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7591,6 +9087,7 @@ export const updateCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -7619,6 +9116,7 @@ export const updateCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7630,6 +9128,7 @@ export const updateCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -7663,6 +9162,7 @@ export const updateCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -7672,6 +9172,7 @@ export const updateCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -7700,6 +9201,7 @@ export const updateCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7711,6 +9213,7 @@ export const updateCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -7739,6 +9242,7 @@ export const updateCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7756,6 +9260,7 @@ export const updateCovidEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -7784,6 +9289,7 @@ export const updateCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7794,6 +9300,7 @@ export const updateCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -7804,6 +9311,7 @@ export const updateCovidEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -7825,6 +9333,7 @@ export const updateCovidEntry = /* GraphQL */ `
       createdAt
       updatedAt
       covidEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -7878,6 +9387,7 @@ export const deleteCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7899,6 +9409,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -7932,6 +9443,7 @@ export const deleteCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -7940,6 +9452,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -7968,6 +9481,7 @@ export const deleteCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -7980,6 +9494,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -8008,6 +9523,7 @@ export const deleteCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8019,6 +9535,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -8052,6 +9569,7 @@ export const deleteCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -8061,6 +9579,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -8089,6 +9608,7 @@ export const deleteCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8100,6 +9620,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -8128,6 +9649,7 @@ export const deleteCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8145,6 +9667,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -8173,6 +9696,7 @@ export const deleteCovidEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8183,6 +9707,7 @@ export const deleteCovidEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -8193,6 +9718,7 @@ export const deleteCovidEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -8214,6 +9740,7 @@ export const deleteCovidEntry = /* GraphQL */ `
       createdAt
       updatedAt
       covidEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -8267,6 +9794,7 @@ export const createRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8288,6 +9816,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -8321,6 +9850,7 @@ export const createRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -8329,6 +9859,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -8357,6 +9888,7 @@ export const createRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8369,6 +9901,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -8397,6 +9930,7 @@ export const createRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8408,6 +9942,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -8441,6 +9976,7 @@ export const createRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -8450,6 +9986,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -8478,6 +10015,7 @@ export const createRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8489,6 +10027,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -8517,6 +10056,7 @@ export const createRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8534,6 +10074,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -8562,6 +10103,7 @@ export const createRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8572,6 +10114,7 @@ export const createRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -8582,6 +10125,7 @@ export const createRecoveryEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -8593,6 +10137,7 @@ export const createRecoveryEntry = /* GraphQL */ `
       createdAt
       updatedAt
       recoveryEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -8646,6 +10191,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8667,6 +10213,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -8700,6 +10247,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -8708,6 +10256,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -8736,6 +10285,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8748,6 +10298,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -8776,6 +10327,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8787,6 +10339,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -8820,6 +10373,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -8829,6 +10383,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -8857,6 +10412,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8868,6 +10424,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -8896,6 +10453,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8913,6 +10471,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -8941,6 +10500,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -8951,6 +10511,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -8961,6 +10522,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -8972,6 +10534,7 @@ export const updateRecoveryEntry = /* GraphQL */ `
       createdAt
       updatedAt
       recoveryEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -9025,6 +10588,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9046,6 +10610,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -9079,6 +10644,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -9087,6 +10653,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -9115,6 +10682,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9127,6 +10695,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -9155,6 +10724,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9166,6 +10736,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -9199,6 +10770,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -9208,6 +10780,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -9236,6 +10809,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9247,6 +10821,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -9275,6 +10850,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9292,6 +10868,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -9320,6 +10897,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9330,6 +10908,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -9340,6 +10919,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -9351,6 +10931,7 @@ export const deleteRecoveryEntry = /* GraphQL */ `
       createdAt
       updatedAt
       recoveryEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -9404,6 +10985,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9425,6 +11007,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -9458,6 +11041,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -9466,6 +11050,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -9494,6 +11079,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9506,6 +11092,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -9534,6 +11121,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9545,6 +11133,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -9578,6 +11167,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -9587,6 +11177,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -9615,6 +11206,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9626,6 +11218,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -9654,6 +11247,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9671,6 +11265,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -9699,6 +11294,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9709,6 +11305,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -9719,6 +11316,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -9730,6 +11328,7 @@ export const createPatientHealthEntry = /* GraphQL */ `
       createdAt
       updatedAt
       patientHealthEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -9783,6 +11382,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9804,6 +11404,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -9837,6 +11438,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -9845,6 +11447,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -9873,6 +11476,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9885,6 +11489,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -9913,6 +11518,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -9924,6 +11530,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -9957,6 +11564,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -9966,6 +11574,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -9994,6 +11603,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10005,6 +11615,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -10033,6 +11644,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10050,6 +11662,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -10078,6 +11691,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10088,6 +11702,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -10098,6 +11713,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -10109,6 +11725,7 @@ export const updatePatientHealthEntry = /* GraphQL */ `
       createdAt
       updatedAt
       patientHealthEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -10162,6 +11779,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10183,6 +11801,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -10216,6 +11835,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -10224,6 +11844,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -10252,6 +11873,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10264,6 +11886,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -10292,6 +11915,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10303,6 +11927,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -10336,6 +11961,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -10345,6 +11971,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -10373,6 +12000,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10384,6 +12012,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -10412,6 +12041,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10429,6 +12059,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -10457,6 +12088,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10467,6 +12099,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -10477,6 +12110,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -10488,6 +12122,7 @@ export const deletePatientHealthEntry = /* GraphQL */ `
       createdAt
       updatedAt
       patientHealthEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -10541,6 +12176,7 @@ export const createSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10562,6 +12198,7 @@ export const createSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -10595,6 +12232,7 @@ export const createSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -10603,6 +12241,7 @@ export const createSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -10631,6 +12270,7 @@ export const createSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10643,6 +12283,7 @@ export const createSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -10671,6 +12312,7 @@ export const createSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10682,6 +12324,7 @@ export const createSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -10715,6 +12358,7 @@ export const createSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -10724,6 +12368,7 @@ export const createSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -10752,6 +12397,7 @@ export const createSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10763,6 +12409,7 @@ export const createSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -10791,6 +12438,7 @@ export const createSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10808,6 +12456,7 @@ export const createSymptomEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -10836,6 +12485,7 @@ export const createSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10846,6 +12496,7 @@ export const createSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -10856,6 +12507,7 @@ export const createSymptomEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -10873,6 +12525,7 @@ export const createSymptomEntry = /* GraphQL */ `
       hasLongCovid
       updatedAt
       symptomEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -10926,6 +12579,7 @@ export const updateSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -10947,6 +12601,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -10980,6 +12635,7 @@ export const updateSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -10988,6 +12644,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -11016,6 +12673,7 @@ export const updateSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11028,6 +12686,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -11056,6 +12715,7 @@ export const updateSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11067,6 +12727,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -11100,6 +12761,7 @@ export const updateSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -11109,6 +12771,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -11137,6 +12800,7 @@ export const updateSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11148,6 +12812,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -11176,6 +12841,7 @@ export const updateSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11193,6 +12859,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -11221,6 +12888,7 @@ export const updateSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11231,6 +12899,7 @@ export const updateSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -11241,6 +12910,7 @@ export const updateSymptomEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -11258,6 +12928,7 @@ export const updateSymptomEntry = /* GraphQL */ `
       hasLongCovid
       updatedAt
       symptomEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -11311,6 +12982,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11332,6 +13004,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -11365,6 +13038,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -11373,6 +13047,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -11401,6 +13076,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11413,6 +13089,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -11441,6 +13118,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11452,6 +13130,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -11485,6 +13164,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -11494,6 +13174,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -11522,6 +13203,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11533,6 +13215,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -11561,6 +13244,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11578,6 +13262,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -11606,6 +13291,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11616,6 +13302,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -11626,6 +13313,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -11643,6 +13331,7 @@ export const deleteSymptomEntry = /* GraphQL */ `
       hasLongCovid
       updatedAt
       symptomEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -11696,6 +13385,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11717,6 +13407,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -11750,6 +13441,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -11758,6 +13450,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -11786,6 +13479,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11798,6 +13492,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -11826,6 +13521,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11837,6 +13533,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -11870,6 +13567,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -11879,6 +13577,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -11907,6 +13606,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11918,6 +13618,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -11946,6 +13647,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -11963,6 +13665,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -11991,6 +13694,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12001,6 +13705,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -12011,6 +13716,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -12023,6 +13729,7 @@ export const createSocialDeterminantsEntry = /* GraphQL */ `
       createdAt
       updatedAt
       socialDeterminantsEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -12076,6 +13783,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12097,6 +13805,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -12130,6 +13839,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -12138,6 +13848,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -12166,6 +13877,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12178,6 +13890,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -12206,6 +13919,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12217,6 +13931,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -12250,6 +13965,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -12259,6 +13975,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -12287,6 +14004,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12298,6 +14016,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -12326,6 +14045,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12343,6 +14063,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -12371,6 +14092,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12381,6 +14103,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -12391,6 +14114,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -12403,6 +14127,7 @@ export const updateSocialDeterminantsEntry = /* GraphQL */ `
       createdAt
       updatedAt
       socialDeterminantsEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -12456,6 +14181,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12477,6 +14203,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -12510,6 +14237,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -12518,6 +14246,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -12546,6 +14275,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12558,6 +14288,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -12586,6 +14317,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12597,6 +14329,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -12630,6 +14363,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -12639,6 +14373,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -12667,6 +14402,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12678,6 +14414,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -12706,6 +14443,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12723,6 +14461,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -12751,6 +14490,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12761,6 +14501,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -12771,6 +14512,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -12783,6 +14525,7 @@ export const deleteSocialDeterminantsEntry = /* GraphQL */ `
       createdAt
       updatedAt
       socialDeterminantsEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -12836,6 +14579,7 @@ export const createMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12857,6 +14601,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -12890,6 +14635,7 @@ export const createMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -12898,6 +14644,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -12926,6 +14673,7 @@ export const createMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12938,6 +14686,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -12966,6 +14715,7 @@ export const createMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -12977,6 +14727,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -13010,6 +14761,7 @@ export const createMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -13019,6 +14771,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -13047,6 +14800,7 @@ export const createMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13058,6 +14812,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -13086,6 +14841,7 @@ export const createMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13103,6 +14859,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -13131,6 +14888,7 @@ export const createMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13141,6 +14899,7 @@ export const createMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -13151,6 +14910,7 @@ export const createMonthlyEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -13161,6 +14921,7 @@ export const createMonthlyEntry = /* GraphQL */ `
       createdAt
       updatedAt
       monthlyEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -13214,6 +14975,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13235,6 +14997,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -13268,6 +15031,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -13276,6 +15040,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -13304,6 +15069,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13316,6 +15082,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -13344,6 +15111,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13355,6 +15123,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -13388,6 +15157,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -13397,6 +15167,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -13425,6 +15196,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13436,6 +15208,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -13464,6 +15237,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13481,6 +15255,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -13509,6 +15284,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13519,6 +15295,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -13529,6 +15306,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -13539,6 +15317,7 @@ export const updateMonthlyEntry = /* GraphQL */ `
       createdAt
       updatedAt
       monthlyEntrySurveyEntryId
+      owner
     }
   }
 `;
@@ -13592,6 +15371,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13613,6 +15393,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           covidEntrySurveyEntryId
+          owner
         }
         vaccinationEntry {
           id
@@ -13646,6 +15427,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           totalVaccineShots
           vaccinated
@@ -13654,6 +15436,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           vaccinationEntrySurveyEntryId
+          owner
         }
         socialDeterminantsEntry {
           id
@@ -13682,6 +15465,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13694,6 +15478,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           socialDeterminantsEntrySurveyEntryId
+          owner
         }
         recoveryEntry {
           id
@@ -13722,6 +15507,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13733,6 +15519,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           recoveryEntrySurveyEntryId
+          owner
         }
         globalHealthEntry {
           id
@@ -13766,6 +15553,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           healthRank
           physicalHealthRank
@@ -13775,6 +15563,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           globalHealthEntrySurveyEntryId
+          owner
         }
         PatientHealthEntry {
           id
@@ -13803,6 +15592,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13814,6 +15604,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           patientHealthEntrySurveyEntryId
+          owner
         }
         symptomsEntry {
           id
@@ -13842,6 +15633,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13859,6 +15651,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           hasLongCovid
           updatedAt
           symptomEntrySurveyEntryId
+          owner
         }
         monthlyEntry {
           id
@@ -13887,6 +15680,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
             surveyEntryPatientHealthEntryId
             surveyEntrySymptomsEntryId
             surveyEntryMonthlyEntryId
+            owner
           }
           age
           race
@@ -13897,6 +15691,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
           createdAt
           updatedAt
           monthlyEntrySurveyEntryId
+          owner
         }
         updatedAt
         surveyEntryCovidEntryId
@@ -13907,6 +15702,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
         surveyEntryPatientHealthEntryId
         surveyEntrySymptomsEntryId
         surveyEntryMonthlyEntryId
+        owner
       }
       age
       race
@@ -13917,6 +15713,7 @@ export const deleteMonthlyEntry = /* GraphQL */ `
       createdAt
       updatedAt
       monthlyEntrySurveyEntryId
+      owner
     }
   }
 `;

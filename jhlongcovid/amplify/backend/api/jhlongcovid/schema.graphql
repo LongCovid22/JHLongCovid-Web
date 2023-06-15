@@ -69,7 +69,7 @@ type User
   weight: String
   covidStatus: CovidStatus
   lastSubmission: AWSDateTime # null if signed up aside from survey
-  lastSubmissionId: ID
+  lastSubmissionEntry: SurveyEntry @hasOne
   lastSignIn: AWSDateTime # Current DateTime at time of sign up after "autosignin"
   notificationFreq: NotificationFrequency # Daily
   notificationMethod: NotificationMethod # Email
@@ -115,6 +115,7 @@ type SurveyEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -215,6 +216,7 @@ type VaccinationEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -281,6 +283,7 @@ type GlobalHealthEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -355,6 +358,7 @@ type CovidEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -434,6 +438,7 @@ type RecoveryEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -498,6 +503,7 @@ type PatientHealthEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -569,6 +575,7 @@ type SymptomEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -639,6 +646,7 @@ type SocialDeterminantsEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -704,6 +712,7 @@ type MonthlyEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -1014,7 +1023,6 @@ type Mutation {
   emailReceiptConfirmation(results: AWSJSON!): Response
     @function(name: "emailReceiptConfirmation-${env}")
 }
-
 
 type Response {
   statusCode: Int

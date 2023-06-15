@@ -57,9 +57,9 @@ import {
   saveEntries,
   updateUserWithInfoFromSurvey,
   userInfoIsEmpty,
-  emailReceiptConfirmation,
 } from "./SurveyFunctions";
 import { aggregateSurveyResults } from "../../src/graphql/mutations";
+import { SurveyType } from "../../src/API";
 
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
@@ -222,9 +222,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       // Update the info of the user signed in when on the account
       // stage at the end of the survey
       if (currentQuestion.answerFormat === "account" && user) {
-        if (!userInfoIsEmpty) {
-          await updateUserWithInfoFromSurvey(userInfo, user, recovered);
-        }
+        // if (!userInfoIsEmpty) {
+        //   await updateUserWithInfoFromSurvey(userInfo, user, recovered);
+        // }
         dispatch(nextQuestion({ answer: answer }));
         return;
       }
@@ -354,46 +354,48 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       user
     );
     // const locationData: LocationData = await getCountyAndStateWithZip(
-    //   // userInfo.location,
+    //   userInfo.location,
     //   "13492",
     //   process.env.GOOGLEMAPS_API_KEY ?? ""
     // );
     console.log("Entries: ", entries);
 
-    if (location.state === "") {
-      setPerformingQueries(false);
-      toast({
-        title: "Survey submission",
-        description:
-          "Unable to find location. Please enter a valid zip code at the begininng of the survey.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top-right",
-      });
-      return;
-    }
-
-    // let ids;
-    // // Save survey entries
-    // try {
-    //   ids = await saveEntries(location, entries, userInfo, user);
-    // } catch (error) {
-    //   console.log("Error saving survey entries", error);
+    // if (location.state === "") {
+    //   setPerformingQueries(false);
     //   toast({
     //     title: "Survey submission",
-    //     description: "Failed to submit survey",
+    //     description:
+    //       "Unable to find location. Please enter a valid zip code at the begininng of the survey.",
     //     status: "error",
     //     duration: 3000,
     //     isClosable: true,
     //     position: "top-right",
     //   });
+    //   return;
     // }
+
+    let ids;
+    // Save survey entries
+    try {
+      ids = await saveEntries(location, entries, userInfo, surveyType, user);
+      console.log("ENTRY ID: ", ids);
+    } catch (error) {
+      console.log("Error saving survey entries", error);
+      toast({
+        title: "Survey submission",
+        description: "Failed to submit survey",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
 
     if (user) {
       const updatedUser = await updateUserWithInfoFromSurvey(
         userInfo,
         user,
+        ids["SurveyEntry"],
         recovered
       );
       if (updatedUser) {
@@ -424,25 +426,26 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     //   });
     // }
 
-    try {
-      const data = {
-        questions: questions,
-        questionStack: questionStack,
-        answerStack: answerStack,
-      };
+    // SEND EMAIL RECEIPT OF QUESTION ANSWERS
+    // try {
+    //   const data = {
+    //     questions: questions,
+    //     questionStack: questionStack,
+    //     answerStack: answerStack,
+    //   };
 
-      const variables = {
-        results: JSON.stringify(data),
-      };
+    //   const variables = {
+    //     results: JSON.stringify(data),
+    //   };
 
-      const emailReceipt = await API.graphql({
-        query: mutations.emailReceiptConfirmation,
-        variables: variables,
-      });
-      console.log("Email Receipt", emailReceipt);
-    } catch (error) {
-      console.log("Error sending email receipt: ", error);
-    }
+    //   const emailReceipt = await API.graphql({
+    //     query: mutations.emailReceiptConfirmation,
+    //     variables: variables,
+    //   });
+    //   console.log("Email Receipt", emailReceipt);
+    // } catch (error) {
+    //   console.log("Error sending email receipt: ", error);
+    // }
 
     setPerformingQueries(false);
     dispatch(initQuestions(user));
@@ -484,6 +487,25 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     setErrorPresent!(false);
     setAnswer(currentAnswer);
   }, [currentAnswer, currentQuestion]);
+
+  useEffect(() => {
+    if (surveyType == SurveyType.WEEKLY) {
+      if (user && user.lastSubmissionEntry) {
+        let state = user.lastSubmissionEntry.state;
+        let countyState = user.lastSubmissionEntry.countyState;
+
+        // setLocation({
+        //   state: state,
+        //   stateAbbrev: "",
+        //   stateLat: 0.0,
+        //   stateLong: 0.0,
+        //   county: "",
+        //   countyLong: 0.0,
+        //   countyLat: 0.0,
+        // });
+      }
+    }
+  }, [surveyType]);
 
   const renderNextButton = (
     currentQuestion: any,

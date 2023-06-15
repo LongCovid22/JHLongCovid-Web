@@ -1,8 +1,7 @@
 import { parseHeightIntoInches } from "../../../components/Survey/SurveyFunctions";
 import { UserInfo } from "../../../components/Survey/SurveyWrapper";
-import { VaccinationEntry } from "../../../src/API";
+import { SurveyType, VaccinationEntry } from "../../../src/API";
 import { User } from "../../../src/API";
-import { SurveyType } from "./surveySlice";
 
 export type QuestionInfo = {
   questions: { section: number; question: number }[];
@@ -164,7 +163,7 @@ export const separatedSectionInfo = (
       questionStack[i];
     const answer = answerStack[i];
     let key = "";
-    if (surveyType == SurveyType.MAIN) {
+    if (surveyType == SurveyType.GUEST) {
       if (questionInfo.section === 0 && questionInfo.question === 2) {
         sectionQuestionInfo.Demographics.questions.push(questionInfo);
         sectionQuestionInfo.Demographics.answers.push(answer);
@@ -419,8 +418,7 @@ const createEntries = (
       height: parseHeightIntoInches(demographics.height),
       weight: demographics.weight,
     };
-  }
-  if (user) {
+  } else if (user) {
     entries = {
       age: user.age,
       race: user.race,

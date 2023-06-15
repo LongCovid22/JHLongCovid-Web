@@ -5,7 +5,7 @@ import weeklySurveyLogic from "../../../weeklySurveyLogic.json";
 import { Auth } from "aws-amplify";
 import { setUncaughtExceptionCaptureCallback } from "process";
 import { processEntries } from "./surveySliceFunctions";
-import { NotificationFrequency, User } from "../../../src/API";
+import { NotificationFrequency, SurveyType, User } from "../../../src/API";
 import { stat } from "fs";
 
 // this slice can be used for presentation throughout the app. When there is state that
@@ -23,13 +23,8 @@ export type SurveyState = {
   totalQuestions: number;
 };
 
-export enum SurveyType {
-  MAIN,
-  WEEKLY,
-}
-
 const initialState: SurveyState = {
-  surveyType: SurveyType.MAIN,
+  surveyType: SurveyType.GUEST,
   currentQuestionIndex: 0,
   currentQuestion: {},
   currentAnswer: null,
@@ -244,7 +239,7 @@ export const surveySlice = createSlice({
       } else {
         state.questions = surveyLogic.questions;
         state.totalQuestions = surveyLogic.totalQuestions;
-        state.surveyType = SurveyType.MAIN;
+        state.surveyType = SurveyType.GUEST;
       }
       //   state.questions = weeklySurveyLogic.questions;
 
