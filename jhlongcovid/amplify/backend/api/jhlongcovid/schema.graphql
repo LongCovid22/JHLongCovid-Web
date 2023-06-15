@@ -103,6 +103,30 @@ enum NotificationMethod {
   PUSH
 }
 
+type Notification {
+  id: ID!
+  recipientEmail: String!
+    @index(
+      name: "notByEmail"
+      sortKeyFields: ["createdAt"]
+      queryField: "notificationsByEmail"
+    )
+  message: String!
+  sendStatus: SendStatus!
+    @index(
+      name: "notByStatus"
+      sortKeyFields: ["createdAt"]
+      queryField: "notificationsByStatus"
+    )
+  createdAt: AWSDateTime!
+}
+
+enum SendStatus {
+  PENDING
+  DELIVERED
+  FAILED
+}
+
 """
 SurveyEntry - Represents the result of an entire User's survey.
   Access Patterns:

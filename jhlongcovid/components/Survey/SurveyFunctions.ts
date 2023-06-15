@@ -31,33 +31,7 @@ import {
 import axios from "axios";
 import { LocationState } from "../../redux/slices/locationSlice";
 import { GraphQLQuery } from "@aws-amplify/api";
-
-export type LocationData = {
-  county: string;
-  state: string;
-  stateAbbrev: string;
-  countyLat: number;
-  countyLong: number;
-  stateLat: number;
-  stateLong: number;
-};
-
-export const checkEmptyLocationData = (location: LocationData) => {
-  let isEmpty = true;
-  for (const key in location) {
-    const value = location[key as keyof object];
-    if (typeof value === "string") {
-      if (value !== "") {
-        isEmpty = false;
-      }
-    } else {
-      if (value !== 0.0) {
-        isEmpty = false;
-      }
-    }
-  }
-  return isEmpty;
-};
+import { LocationData } from "../../util/locationFunctions";
 
 export const checkEmptyDemoFields = (answer: any) => {
   let emptyFields = [];
@@ -113,13 +87,15 @@ export const updateUserWithInfoFromSurvey = async (
   let notFreq: NotificationFrequency | null = null;
   let notMethod: NotificationMethod | null = null;
   let covidStatus: CovidStatus = CovidStatus.NONE;
+
   if (recovered !== null && recovered !== undefined) {
     if (recovered === false) {
       covidStatus = CovidStatus.NOT_RECOVERED;
       notFreq = NotificationFrequency.WEEKLY;
       notMethod = NotificationMethod.EMAIL;
+    } else {
+      covidStatus = CovidStatus.RECOVERED;
     }
-    covidStatus = CovidStatus.RECOVERED;
   }
 
   let userDetails = {
@@ -152,6 +128,11 @@ export const updateUserWithInfoFromSurvey = async (
       return updateUserMutation.data.updateUser as User;
     }
   } catch (error) {
+    let graphqlResponse = error as { data?: UpdateUserMutation; error: any[] };
+
+    if (graphqlResponse.data && graphqlResponse.data.updateUser) {
+      return graphqlResponse.data.updateUser as User;
+    }
     console.log("Error: ", error);
   }
 };
@@ -167,169 +148,6 @@ export const userInfoIsEmpty = (userInfo: UserInfo) => {
     return true;
   }
   return false;
-};
-
-export class NotInUSError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "NotInUSError";
-  }
-}
-
-export const getCountyAndStateWithZip = async (
-  zipCode: string,
-  apiKey: string
-) => {
-  let locationData: LocationData = {
-    county: "",
-    state: "",
-    stateAbbrev: "",
-    countyLat: 0.0,
-    countyLong: 0.0,
-    stateLat: 0.0,
-    stateLong: 0.0,
-  };
-  const response = await axios.get(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-      zipCode +
-      `&key=${apiKey}`
-  );
-  if (response.data.results.length > 0) {
-    await Promise.all(
-      response.data.results[0].address_components.map(async (value: any) => {
-        let ac = value as {
-          long_name: string;
-          short_name: string;
-          types: string[];
-        };
-
-        if (ac.types.includes("country") && ac.short_name !== "US") {
-          throw new NotInUSError("Location not in United States");
-        }
-
-        if (ac.types.includes("administrative_area_level_1")) {
-          locationData.state = ac.long_name;
-          locationData.stateAbbrev = ac.short_name;
-          const stateResponse = await axios.get(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-              `${ac.long_name} state` +
-              `&key=${apiKey}`
-          );
-
-          const west =
-            stateResponse.data.results[0].geometry.bounds.southwest.lng;
-          const east =
-            stateResponse.data.results[0].geometry.bounds.northeast.lng;
-          const lng = (west + east) / 2;
-
-          const north =
-            stateResponse.data.results[0].geometry.bounds.northeast.lat;
-          const south =
-            stateResponse.data.results[0].geometry.bounds.southwest.lat;
-          const lat = (north + south) / 2;
-
-          locationData.stateLat = Math.round(lat * 1000000) / 1000000;
-          locationData.stateLong = Math.round(lng * 1000000) / 1000000;
-        }
-
-        if (ac.types.includes("administrative_area_level_2")) {
-          const countyResponse = await axios.get(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-              ac.long_name +
-              `&key=${apiKey}`
-          );
-          locationData.countyLat =
-            Math.round(
-              countyResponse.data.results[0].geometry.location.lat * 1000000
-            ) / 1000000;
-          locationData.countyLong =
-            Math.round(
-              countyResponse.data.results[0].geometry.location.lng * 1000000
-            ) / 1000000;
-          locationData.county = ac.long_name;
-        }
-      })
-    );
-  }
-
-  return locationData;
-};
-
-export const getCountyAndStateWithLatLng = async (
-  latLng: LocationState,
-  apiKey: string
-) => {
-  let locationData: LocationData = {
-    county: "",
-    state: "",
-    stateAbbrev: "",
-    countyLat: 0.0,
-    countyLong: 0.0,
-    stateLat: 0.0,
-    stateLong: 0.0,
-  };
-  const response = await axios.get(
-    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng.lat},${latLng.lng}` +
-      `&key=${apiKey}`
-  );
-  if (response.data.results.length > 0) {
-    await Promise.all(
-      response.data.results[0].address_components.map(async (value: any) => {
-        let ac = value as {
-          long_name: string;
-          short_name: string;
-          types: string[];
-        };
-        if (ac.types.includes("country") && ac.short_name !== "US") {
-          throw new NotInUSError("Location not in United States");
-        }
-
-        if (ac.types.includes("administrative_area_level_1")) {
-          locationData.state = ac.long_name;
-          locationData.stateAbbrev = ac.short_name;
-          const stateResponse = await axios.get(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-              `state ${ac.long_name}` +
-              `&key=${apiKey}`
-          );
-
-          const west =
-            stateResponse.data.results[0].geometry.bounds.southwest.lng;
-          const east =
-            stateResponse.data.results[0].geometry.bounds.northeast.lng;
-          const lng = (west + east) / 2;
-
-          const north =
-            stateResponse.data.results[0].geometry.bounds.northeast.lat;
-          const south =
-            stateResponse.data.results[0].geometry.bounds.southwest.lat;
-          const lat = (north + south) / 2;
-
-          locationData.stateLat = Math.round(lat * 1000000) / 1000000;
-          locationData.stateLong = Math.round(lng * 1000000) / 1000000;
-        }
-
-        if (ac.types.includes("administrative_area_level_2")) {
-          const countyResponse = await axios.get(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-              ac.long_name +
-              `&key=${apiKey}`
-          );
-          locationData.countyLat =
-            Math.round(
-              countyResponse.data.results[0].geometry.location.lat * 1000000
-            ) / 1000000;
-          locationData.countyLong =
-            Math.round(
-              countyResponse.data.results[0].geometry.location.lng * 1000000
-            ) / 1000000;
-          locationData.county = ac.long_name;
-        }
-      })
-    );
-  }
-
-  return locationData;
 };
 
 export const parseHeightIntoInches = (height: string | undefined | null) => {
@@ -351,12 +169,13 @@ export const createCovidEntry = async (
   locationData: LocationData,
   user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreateCovidEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
@@ -398,12 +217,13 @@ export const createRecoveryEntry = async (
   locationData: LocationData,
   user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreateRecoveryEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
@@ -440,12 +260,13 @@ export const createVaccinationEntry = async (
   locationData: LocationData,
   user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreateVaccinationEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
@@ -483,12 +304,13 @@ export const createGlobalHealthEntry = async (
   locationData: LocationData,
   user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreateGlobalHealthEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
@@ -528,12 +350,13 @@ export const createPatientHealthEntry = async (
   locationData: LocationData,
   user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreatePatientHealthEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
@@ -571,12 +394,13 @@ export const createSymptomEntry = async (
   locationData: LocationData,
   user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreateSymptomEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
@@ -616,12 +440,13 @@ export const createSocialDeterminantsEntry = async (
   locationData: LocationData,
   user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreateSocialDeterminantsEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
@@ -665,37 +490,60 @@ export const createSurveyEntry = async (
 ) => {
   try {
     let race;
-    if (userInfo.race.toUpperCase() === "WHITE") {
-      race = Race.WHITE;
-    } else if (userInfo.race.toUpperCase() === "BLACK") {
-      race = Race.BLACK;
-    } else if (userInfo.race.toUpperCase() === "ASIAN") {
-      race = Race.ASIAN;
-    } else if (userInfo.race.toUpperCase() === "HISPANIC") {
-      race = Race.HISPANIC;
-    } else if (userInfo.race.toUpperCase() === "NATIVE") {
-      race = Race.NATIVE;
-    } else if (userInfo.race.toUpperCase() === "OTHER") {
-      race = Race.OTHER;
-    } else {
-      race = Race.NONE;
+    if (userInfo.race !== "") {
+      if (userInfo.race.toUpperCase() === "WHITE") {
+        race = Race.WHITE;
+      } else if (userInfo.race.toUpperCase() === "BLACK") {
+        race = Race.BLACK;
+      } else if (userInfo.race.toUpperCase() === "ASIAN") {
+        race = Race.ASIAN;
+      } else if (userInfo.race.toUpperCase() === "HISPANIC") {
+        race = Race.HISPANIC;
+      } else if (userInfo.race.toUpperCase() === "NATIVE") {
+        race = Race.NATIVE;
+      } else if (userInfo.race.toUpperCase() === "OTHER") {
+        race = Race.OTHER;
+      } else {
+        race = Race.NONE;
+      }
     }
 
-    const surveyDetails: CreateSurveyEntryInput = {
+    let countyState =
+      locationData.county !== ""
+        ? locationData.county + "#" + locationData.stateAbbrev
+        : null;
+
+    // If the current survey is a weekly survey, need to submit it
+    // with a reference to the most recent GUEST survey that was filled out
+    // This is because that is where this user reported that they were not recovered
+    // from covid.
+    let parentSurveyId;
+    if (surveyType === SurveyType.WEEKLY) {
+      if (user && user.lastSubmissionEntry) {
+        let parentSurveyType = user.lastSubmissionEntry.surveyType;
+        if (parentSurveyType === SurveyType.GUEST) {
+          parentSurveyId = user.lastSubmissionEntry.id;
+        } else {
+          parentSurveyId = user.lastSubmissionEntry.parentSurveyId;
+        }
+      }
+    }
+
+    const surveyDetails = {
       surveyVersion: 1,
       surveyType: surveyType,
-      parentSurveyId: user?.lastSubmissionEntry?.parentSurveyId,
+      parentSurveyId: parentSurveyId,
       email: user ? user.email : null,
       state: locationData.state,
-      countyState:
-        locationData.county !== ""
-          ? locationData.county + "#" + locationData.stateAbbrev
-          : null,
-      age: parseInt(userInfo.age),
-      race: race,
-      sex: userInfo.sex,
-      height: userInfo.height,
-      weight: userInfo.weight,
+      countyState: countyState,
+      age:
+        surveyType === SurveyType.WEEKLY ? user!.age! : parseInt(userInfo.age),
+      race: surveyType === SurveyType.WEEKLY ? user!.race! : race,
+      sex: surveyType === SurveyType.WEEKLY ? user!.sex! : userInfo.sex,
+      height:
+        surveyType === SurveyType.WEEKLY ? user!.height! : userInfo.height,
+      weight:
+        surveyType === SurveyType.WEEKLY ? user!.weight! : userInfo.weight,
       surveyEntryCovidEntryId: ids.CovidEntry ? ids.CovidEntry : null,
       surveyEntryVaccinationEntryId: ids.VaccinationEntry
         ? ids.VaccinationEntry

@@ -50,16 +50,17 @@ import { selectUser, setUser } from "../../redux/slices/userSlice";
 import {
   aggregateResults,
   checkEmptyDemoFields,
-  checkEmptyLocationData,
-  createCovidEntry,
-  getCountyAndStateWithZip,
-  LocationData,
   saveEntries,
   updateUserWithInfoFromSurvey,
   userInfoIsEmpty,
 } from "./SurveyFunctions";
 import { aggregateSurveyResults } from "../../src/graphql/mutations";
 import { SurveyType } from "../../src/API";
+import {
+  checkEmptyLocationData,
+  getCountyAndStateCoords,
+  LocationData,
+} from "../../util/locationFunctions";
 
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
@@ -343,9 +344,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const handleFinishQuestion = async () => {
     setPerformingQueries(true);
 
-    // NOTE: the user passed in to this function doesn't receive the
-    // updated user infromation. It is only passed to get the user's demographics
-    // which shouldn't change after a weekly survey
+    // NOTE: the user passed in to this function to get the demographics
+    // if the survey type is not GUEST (since the weekly survey doesn't include the
+    // demographics section).
     const entries = processEntries(
       surveyType,
       questionStack,
@@ -353,32 +354,42 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       questions,
       user
     );
-    // const locationData: LocationData = await getCountyAndStateWithZip(
-    //   userInfo.location,
-    //   "13492",
-    //   process.env.GOOGLEMAPS_API_KEY ?? ""
-    // );
-    console.log("Entries: ", entries);
 
-    // if (location.state === "") {
-    //   setPerformingQueries(false);
-    //   toast({
-    //     title: "Survey submission",
-    //     description:
-    //       "Unable to find location. Please enter a valid zip code at the begininng of the survey.",
-    //     status: "error",
-    //     duration: 3000,
-    //     isClosable: true,
-    //     position: "top-right",
-    //   });
-    //   return;
-    // }
+    let locationData;
+    if (surveyType == SurveyType.WEEKLY) {
+      locationData = await getCountyAndStateCoords(
+        location.state,
+        location.county,
+        process.env.GOOGLEMAPS_API_KEY!
+      );
+    } else {
+      locationData = location;
+    }
+
+    if (locationData.state === "") {
+      setPerformingQueries(false);
+      toast({
+        title: "Survey submission",
+        description:
+          "Unable to find location. Please enter a valid zip code at the begininng of the survey.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      });
+      return;
+    }
 
     let ids;
     // Save survey entries
     try {
-      ids = await saveEntries(location, entries, userInfo, surveyType, user);
-      console.log("ENTRY ID: ", ids);
+      ids = await saveEntries(
+        locationData,
+        entries,
+        userInfo,
+        surveyType,
+        user
+      );
     } catch (error) {
       console.log("Error saving survey entries", error);
       toast({
@@ -403,28 +414,38 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       }
     }
 
-    // // Aggregate survey results
-    // try {
-    //   await aggregateResults(entries, ids, userInfo, location, user);
-    //   toast({
-    //     title: "Survey submission",
-    //     description: "Successfully submitted survey",
-    //     status: "success",
-    //     duration: 3000,
-    //     isClosable: true,
-    //     position: "top-right",
-    //   });
-    // } catch (error) {
-    //   console.log("Error aggregating survey results", error);
-    //   toast({
-    //     title: "Error aggregating results",
-    //     description: `${error}`,
-    //     status: "error",
-    //     duration: 3000,
-    //     isClosable: true,
-    //     position: "top-right",
-    //   });
-    // }
+    // Aggregate survey results
+    // TODO: Add aggregateion for weekly surveys
+    if (surveyType === SurveyType.GUEST) {
+      try {
+        await aggregateResults(
+          entries,
+          ids,
+          userInfo,
+          location,
+          surveyType,
+          user
+        );
+        toast({
+          title: "Survey submission",
+          description: "Successfully submitted survey",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+      } catch (error) {
+        console.log("Error aggregating survey results", error);
+        toast({
+          title: "Error aggregating results",
+          description: `${error}`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+      }
+    }
 
     // SEND EMAIL RECEIPT OF QUESTION ANSWERS
     // try {
@@ -447,10 +468,10 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     //   console.log("Error sending email receipt: ", error);
     // }
 
-    setPerformingQueries(false);
-    dispatch(initQuestions(user));
-    setAnswer("");
     onClose();
+    setPerformingQueries(false);
+    setAnswer("");
+    dispatch(initQuestions(user));
   };
 
   const handleQuestionChange = async (
@@ -489,23 +510,25 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   }, [currentAnswer, currentQuestion]);
 
   useEffect(() => {
-    if (surveyType == SurveyType.WEEKLY) {
+    if (surveyType != SurveyType.GUEST) {
       if (user && user.lastSubmissionEntry) {
-        let state = user.lastSubmissionEntry.state;
-        let countyState = user.lastSubmissionEntry.countyState;
-
-        // setLocation({
-        //   state: state,
-        //   stateAbbrev: "",
-        //   stateLat: 0.0,
-        //   stateLong: 0.0,
-        //   county: "",
-        //   countyLong: 0.0,
-        //   countyLat: 0.0,
-        // });
+        let entry = user.lastSubmissionEntry;
+        let state = entry.state;
+        let countyState = entry.countyState;
+        if (state && state !== null && countyState && countyState !== null) {
+          setLocation({
+            state: state,
+            stateAbbrev: "",
+            stateLat: 0.0,
+            stateLong: 0.0,
+            county: countyState.split("#")[0],
+            countyLong: 0.0,
+            countyLat: 0.0,
+          });
+        }
       }
     }
-  }, [surveyType]);
+  }, [surveyType, user]);
 
   const renderNextButton = (
     currentQuestion: any,

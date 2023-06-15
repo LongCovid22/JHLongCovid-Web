@@ -26,7 +26,7 @@ import { selectLeftSidePanelPres } from "../redux/slices/presentationSlice";
 import awsExports from "../src/aws-exports";
 import { initQuestions } from "../redux/slices/surveySlice/surveySlice";
 import awsconfig from "../src/aws-exports";
-import { GraphQLSubscription } from "@aws-amplify/api";
+import { GraphQLSubscription, GraphQLQuery } from "@aws-amplify/api";
 import {
   GetUserQuery,
   OnCreateMapDataSubscription,
@@ -42,8 +42,6 @@ import {
   Center,
   Spacer,
   Slide,
-  Button,
-  Box,
   Image,
   Flex,
 } from "@chakra-ui/react";
@@ -224,7 +222,12 @@ const Home = () => {
           dispatch(setUser(user.data.getUser as User));
         }
       } catch (error) {
-        console.log("Could not get authentication session: ", error);
+        let castedError = error as { data: GetUserQuery; errors: any[] };
+        if (castedError.data && castedError.data.getUser) {
+          dispatch(setUser(castedError.data.getUser as User));
+        } else {
+          console.log("Could not get authentication session: ", error);
+        }
       }
 
       // Hub listener for auth events
