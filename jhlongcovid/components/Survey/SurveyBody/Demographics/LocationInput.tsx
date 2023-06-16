@@ -17,7 +17,7 @@ import {
   getCountyAndStateWithZip,
   LocationData,
   NotInUSError,
-} from "../../SurveyFunctions";
+} from "../../../../util/locationFunctions";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { setLocation } from "../../../../redux/slices/locationSlice";
 

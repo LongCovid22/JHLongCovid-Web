@@ -41,7 +41,7 @@ export const createUser = async (
       sex: userInfo.sex,
       height: userInfo.height,
       weight: userInfo.weight,
-      lastSubmission: midSurvey ? new Date() : null,
+      lastSubmission: midSurvey ? new Date() : null, // TODO: GET RID OF ASSUMPTION THAT IF A USER SIGNS UP, THEY ARE SUBMITTING
     };
   } else {
     userDetails = {

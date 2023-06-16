@@ -1,13 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 import surveyLogic from "../../../surveyLogic.json";
+import weeklySurveyLogic from "../../../weeklySurveyLogic.json";
+import comeBackLater from "../../../comeBackLater.json";
 import { Auth } from "aws-amplify";
 import { setUncaughtExceptionCaptureCallback } from "process";
 import { processEntries } from "./surveySliceFunctions";
+import { NotificationFrequency, SurveyType, User } from "../../../src/API";
+import { stat } from "fs";
 
 // this slice can be used for presentation throughout the app. When there is state that
 // controls somethings display, it should go in here
 export type SurveyState = {
+  surveyType: SurveyType;
   currentQuestionIndex: number;
   currentQuestion: any;
   currentAnswer: string | string[] | object | null;
@@ -20,6 +25,7 @@ export type SurveyState = {
 };
 
 const initialState: SurveyState = {
+  surveyType: SurveyType.GUEST,
   currentQuestionIndex: 0,
   currentQuestion: {},
   currentAnswer: null,
@@ -134,6 +140,7 @@ export const surveySlice = createSlice({
             state.questionStack[state.currentQuestionIndex],
             state.questions
           );
+
           // { section: 0, question: 2}
           state.questionStack.push(nextQuestionInfo);
 
@@ -205,46 +212,46 @@ export const surveySlice = createSlice({
       }
     },
 
-    // Reset survey and send query to API
-    finishSurvey: (state) => {
-      const stateCopy = { ...state };
-      const entries = processEntries(
-        stateCopy.questionStack,
-        stateCopy.answerStack,
-        stateCopy.questions
-      );
-    },
-
     /**
      * Initializes questions on startup. The payload coming in will
      * be the userId of the auth user that is signed in through cognito.
      * That userId will be used to determine the set of questions the
      * user will experience during the survey.
      */
-    initQuestions: (state, { payload }) => {
+    initQuestions: (state, payload: PayloadAction<User | undefined>) => {
       // User not signed in, give full survey
-      if (payload.authId == null) {
-        while (state.questionStack.length > 0) {
-          state.questionStack.pop();
-        }
-        while (state.answerStack.length > 0) {
-          state.answerStack.pop();
-        }
-        state.questionStack.push({ section: 0, question: 0 });
-        state.answerStack.push("");
-
-        state.questions = surveyLogic.questions;
-        state.currentQuestion = surveyLogic.questions[0][0];
-        state.currentAnswer = state.answerStack[0];
-        state.currentQuestionIndex = 0;
-        state.firstQuestion = true;
-        state.lastQuestion = false;
+      while (state.questionStack.length > 0) {
+        state.questionStack.pop();
       }
+      while (state.answerStack.length > 0) {
+        state.answerStack.pop();
+      }
+      state.questionStack.push({ section: 0, question: 0 });
+      state.answerStack.push("");
+      state.firstQuestion = true;
+      state.lastQuestion = false;
+      state.currentQuestionIndex = 0;
+
+      const user = payload.payload;
+      if (user && user.notificationFreq == NotificationFrequency.WEEKLY) {
+        // Check if today is less than a week from the last check in
+        state.questions = weeklySurveyLogic.questions;
+        state.totalQuestions = weeklySurveyLogic.totalQuestions;
+        state.surveyType = SurveyType.WEEKLY;
+      } else {
+        state.questions = surveyLogic.questions;
+        state.totalQuestions = surveyLogic.totalQuestions;
+        state.surveyType = SurveyType.GUEST;
+      }
+      //   state.questions = weeklySurveyLogic.questions;
+
+      state.currentQuestion = state.questions[0][0];
+      state.currentAnswer = state.answerStack[0];
     },
   },
 });
 
-export const { nextQuestion, prevQuestion, initQuestions, finishSurvey } =
+export const { nextQuestion, prevQuestion, initQuestions } =
   surveySlice.actions;
 
 export const selectCurrentQuestion = (state: RootState) => {
@@ -278,6 +285,11 @@ export const selectQuestions = (state: RootState) => {
 export const selectTotalQuestions = (state: RootState) => {
   const survey: SurveyState = state.survey as SurveyState;
   return survey.totalQuestions;
+};
+
+export const selectSurveyType = (state: RootState) => {
+  const survey: SurveyState = state.survey as SurveyState;
+  return survey.surveyType;
 };
 
 export default surveySlice.reducer;

@@ -49,7 +49,7 @@
       "function": {
         "aggregateSurveyResults": {
           "deploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
-          "s3Key": "amplify-builds/aggregateSurveyResults-3378774b503441707530-build.zip"
+          "s3Key": "amplify-builds/aggregateSurveyResults-347877326e614b455356-build.zip"
         }
       },
       "storage": {
@@ -77,9 +77,17 @@
       "function": {
         "aggregateSurveyResults": {
           "deploymentBucketName": "amplify-jhlongcovid-develop-113748-deployment",
-          "s3Key": "amplify-builds/aggregateSurveyResults-4a443064552b61424649-build.zip"
+          "s3Key": "amplify-builds/aggregateSurveyResults-347877326e614b455356-build.zip"
         },
-        "jhlongcovid": {}
+        "jhlongcovid": {},
+        "emailReceiptConfirmation": {
+          "deploymentBucketName": "amplify-jhlongcovid-develop-113748-deployment",
+          "s3Key": "amplify-builds/emailReceiptConfirmation-6271794c7a714e556a74-build.zip"
+        },
+        "notificationScheduler": {
+          "deploymentBucketName": "amplify-jhlongcovid-develop-113748-deployment",
+          "s3Key": "amplify-builds/notificationScheduler-5a6a666f374367615446-build.zip"
+        }
       },
       "api": {
         "jhlongcovid": {}

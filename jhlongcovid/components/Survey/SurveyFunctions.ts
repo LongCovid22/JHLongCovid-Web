@@ -2,6 +2,7 @@ import { UserInfo } from "./SurveyWrapper";
 import * as mutations from "../../src/graphql/mutations";
 import { API, input } from "aws-amplify";
 import {
+  CovidStatus,
   CreateCovidEntryInput,
   CreateCovidEntryMutation,
   CreateGlobalHealthEntryInput,
@@ -18,39 +19,19 @@ import {
   CreateSymptomEntryMutation,
   CreateVaccinationEntryInput,
   CreateVaccinationEntryMutation,
+  NotificationFrequency,
+  NotificationMethod,
   Race,
   SurveyType,
+  UpdateCovidEntryInput,
+  UpdateUserMutation,
+  UpdateUserMutationVariables,
   User,
 } from "../../src/API";
 import axios from "axios";
 import { LocationState } from "../../redux/slices/locationSlice";
-
-export type LocationData = {
-  county: string;
-  state: string;
-  stateAbbrev: string;
-  countyLat: number;
-  countyLong: number;
-  stateLat: number;
-  stateLong: number;
-};
-
-export const checkEmptyLocationData = (location: LocationData) => {
-  let isEmpty = true;
-  for (const key in location) {
-    const value = location[key as keyof object];
-    if (typeof value === "string") {
-      if (value !== "") {
-        isEmpty = false;
-      }
-    } else {
-      if (value !== 0.0) {
-        isEmpty = false;
-      }
-    }
-  }
-  return isEmpty;
-};
+import { GraphQLQuery } from "@aws-amplify/api";
+import { LocationData } from "../../util/locationFunctions";
 
 export const checkEmptyDemoFields = (answer: any) => {
   let emptyFields = [];
@@ -82,30 +63,77 @@ export const checkEmptyDemoFields = (answer: any) => {
 
 export const updateUserWithInfoFromSurvey = async (
   userInfo: UserInfo,
-  user: any
+  user: User,
+  surveyId: string,
+  recovered?: boolean | null
 ) => {
+  let race;
+  if (userInfo.race.toUpperCase() === "WHITE") {
+    race = Race.WHITE;
+  } else if (userInfo.race.toUpperCase() === "BLACK") {
+    race = Race.BLACK;
+  } else if (userInfo.race.toUpperCase() === "ASIAN") {
+    race = Race.ASIAN;
+  } else if (userInfo.race.toUpperCase() === "HISPANIC") {
+    race = Race.HISPANIC;
+  } else if (userInfo.race.toUpperCase() === "NATIVE") {
+    race = Race.NATIVE;
+  } else if (userInfo.race.toUpperCase() === "OTHER") {
+    race = Race.OTHER;
+  } else {
+    race = Race.NONE;
+  }
   // Update user with new info
-  let userDetails = {};
-  if (userInfo) {
-    userDetails = {
-      id: user.id,
-      age: userInfo.age,
-      race: userInfo.race.toUpperCase(),
-      sex: userInfo.sex,
-      height: userInfo.height,
-      weight: userInfo.weight,
-      lastSubmission: new Date(),
-    };
+  let notFreq: NotificationFrequency | null = null;
+  let notMethod: NotificationMethod | null = null;
+  let covidStatus: CovidStatus = CovidStatus.NONE;
 
-    try {
-      API.graphql({
-        query: mutations.updateUser,
-        variables: { input: userDetails },
-        authMode: "AMAZON_COGNITO_USER_POOLS",
-      });
-    } catch (error) {
-      console.log("Error: ", error);
+  if (recovered !== null && recovered !== undefined) {
+    if (recovered === false) {
+      covidStatus = CovidStatus.NOT_RECOVERED;
+      notFreq = NotificationFrequency.WEEKLY;
+      notMethod = NotificationMethod.EMAIL;
+    } else {
+      covidStatus = CovidStatus.RECOVERED;
     }
+  }
+
+  let userDetails = {
+    input: {
+      id: user.id,
+      email: user.email,
+      age: userInfo.age !== "" ? parseInt(userInfo.age) : user.age,
+      race: userInfo.race !== "" ? race : user.race,
+      sex: userInfo.sex !== "" ? userInfo.sex : user.sex,
+      height: userInfo.height !== "" ? userInfo.height : user.height,
+      weight: userInfo.weight !== "" ? userInfo.weight : user.weight,
+      covidStatus: covidStatus,
+      notificationFreq: notFreq,
+      notificationMethod: notMethod,
+      lastSubmission: new Date(),
+      userLastSubmissionEntryId: surveyId,
+      createdAt: user.createdAt,
+    },
+  };
+
+  try {
+    const updateUserMutation = await API.graphql<
+      GraphQLQuery<UpdateUserMutation>
+    >({
+      query: mutations.updateUser,
+      variables: userDetails,
+      authMode: "AMAZON_COGNITO_USER_POOLS",
+    });
+    if (updateUserMutation.data && updateUserMutation.data.updateUser) {
+      return updateUserMutation.data.updateUser as User;
+    }
+  } catch (error) {
+    let graphqlResponse = error as { data?: UpdateUserMutation; error: any[] };
+
+    if (graphqlResponse.data && graphqlResponse.data.updateUser) {
+      return graphqlResponse.data.updateUser as User;
+    }
+    console.log("Error: ", error);
   }
 };
 
@@ -122,194 +150,36 @@ export const userInfoIsEmpty = (userInfo: UserInfo) => {
   return false;
 };
 
-export class NotInUSError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "NotInUSError";
+export const parseHeightIntoInches = (height: string | undefined | null) => {
+  if (height) {
+    if (height.length >= 2) {
+      let feet = parseInt(height[0]);
+      let inches = parseInt(height.slice(1, height.length));
+      return (feet * 12 + inches).toString();
+    } else if (height.length === 1) {
+      return (parseInt(height) * 12).toString();
+    }
+    return "0";
   }
-}
-
-export const getCountyAndStateWithZip = async (
-  zipCode: string,
-  apiKey: string
-) => {
-  let locationData: LocationData = {
-    county: "",
-    state: "",
-    stateAbbrev: "",
-    countyLat: 0.0,
-    countyLong: 0.0,
-    stateLat: 0.0,
-    stateLong: 0.0,
-  };
-  const response = await axios.get(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-      zipCode +
-      `&key=${apiKey}`
-  );
-  if (response.data.results.length > 0) {
-    await Promise.all(
-      response.data.results[0].address_components.map(async (value: any) => {
-        let ac = value as {
-          long_name: string;
-          short_name: string;
-          types: string[];
-        };
-
-        if (ac.types.includes("country") && ac.short_name !== "US") {
-          throw new NotInUSError("Location not in United States");
-        }
-
-        if (ac.types.includes("administrative_area_level_1")) {
-          locationData.state = ac.long_name;
-          locationData.stateAbbrev = ac.short_name;
-          const stateResponse = await axios.get(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-              `${ac.long_name} state` +
-              `&key=${apiKey}`
-          );
-
-          const west =
-            stateResponse.data.results[0].geometry.bounds.southwest.lng;
-          const east =
-            stateResponse.data.results[0].geometry.bounds.northeast.lng;
-          const lng = (west + east) / 2;
-
-          const north =
-            stateResponse.data.results[0].geometry.bounds.northeast.lat;
-          const south =
-            stateResponse.data.results[0].geometry.bounds.southwest.lat;
-          const lat = (north + south) / 2;
-
-          locationData.stateLat = Math.round(lat * 1000000) / 1000000;
-          locationData.stateLong = Math.round(lng * 1000000) / 1000000;
-        }
-
-        if (ac.types.includes("administrative_area_level_2")) {
-          const countyResponse = await axios.get(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-              ac.long_name +
-              `&key=${apiKey}`
-          );
-          locationData.countyLat =
-            Math.round(
-              countyResponse.data.results[0].geometry.location.lat * 1000000
-            ) / 1000000;
-          locationData.countyLong =
-            Math.round(
-              countyResponse.data.results[0].geometry.location.lng * 1000000
-            ) / 1000000;
-          locationData.county = ac.long_name;
-        }
-      })
-    );
-  }
-
-  return locationData;
-};
-
-export const getCountyAndStateWithLatLng = async (
-  latLng: LocationState,
-  apiKey: string
-) => {
-  let locationData: LocationData = {
-    county: "",
-    state: "",
-    stateAbbrev: "",
-    countyLat: 0.0,
-    countyLong: 0.0,
-    stateLat: 0.0,
-    stateLong: 0.0,
-  };
-  const response = await axios.get(
-    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng.lat},${latLng.lng}` +
-      `&key=${apiKey}`
-  );
-  if (response.data.results.length > 0) {
-    await Promise.all(
-      response.data.results[0].address_components.map(async (value: any) => {
-        let ac = value as {
-          long_name: string;
-          short_name: string;
-          types: string[];
-        };
-        if (ac.types.includes("country") && ac.short_name !== "US") {
-          throw new NotInUSError("Location not in United States");
-        }
-
-        if (ac.types.includes("administrative_area_level_1")) {
-          locationData.state = ac.long_name;
-          locationData.stateAbbrev = ac.short_name;
-          const stateResponse = await axios.get(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-              `state ${ac.long_name}` +
-              `&key=${apiKey}`
-          );
-
-          const west =
-            stateResponse.data.results[0].geometry.bounds.southwest.lng;
-          const east =
-            stateResponse.data.results[0].geometry.bounds.northeast.lng;
-          const lng = (west + east) / 2;
-
-          const north =
-            stateResponse.data.results[0].geometry.bounds.northeast.lat;
-          const south =
-            stateResponse.data.results[0].geometry.bounds.southwest.lat;
-          const lat = (north + south) / 2;
-
-          locationData.stateLat = Math.round(lat * 1000000) / 1000000;
-          locationData.stateLong = Math.round(lng * 1000000) / 1000000;
-        }
-
-        if (ac.types.includes("administrative_area_level_2")) {
-          const countyResponse = await axios.get(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-              ac.long_name +
-              `&key=${apiKey}`
-          );
-          locationData.countyLat =
-            Math.round(
-              countyResponse.data.results[0].geometry.location.lat * 1000000
-            ) / 1000000;
-          locationData.countyLong =
-            Math.round(
-              countyResponse.data.results[0].geometry.location.lng * 1000000
-            ) / 1000000;
-          locationData.county = ac.long_name;
-        }
-      })
-    );
-  }
-
-  return locationData;
-};
-
-export const parseHeightIntoInches = (height: string) => {
-  if (height.length === 2) {
-    let feet = parseInt(height.split("")[0]);
-    let inches = parseInt(height.split("")[1]);
-    return (feet * 12 + inches).toString();
-  } else if (height.length === 1) {
-    return (parseInt(height) * 12).toString();
-  }
-  return "0";
+  return null;
 };
 
 export const createCovidEntry = async (
   surveyData: any,
-  locationData: LocationData
+  locationData: LocationData,
+  user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreateCovidEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     beenInfected: surveyData.beenInfected ?? null,
     timesPositive: surveyData.timesPositive ?? null,
@@ -327,6 +197,7 @@ export const createCovidEntry = async (
     const cEntry = (await API.graphql({
       query: mutations.createCovidEntry,
       variables: { input: details },
+      authMode: user ? "AMAZON_COGNITO_USER_POOLS" : "API_KEY",
     })) as { data?: CreateCovidEntryMutation; errors: any[] };
     if (cEntry.data && cEntry.data.createCovidEntry) {
       return cEntry.data.createCovidEntry.id;
@@ -343,18 +214,20 @@ export const createCovidEntry = async (
 
 export const createRecoveryEntry = async (
   surveyData: any,
-  locationData: LocationData
+  locationData: LocationData,
+  user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreateRecoveryEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     recovered: surveyData.recovered ?? null,
     lengthOfRecovery: surveyData.lengthOfRecovery ?? null,
@@ -364,6 +237,7 @@ export const createRecoveryEntry = async (
     const rEntry = (await API.graphql({
       query: mutations.createRecoveryEntry,
       variables: { input: details },
+      authMode: user ? "AMAZON_COGNITO_USER_POOLS" : "API_KEY",
     })) as CreateRecoveryEntryMutation;
     if (rEntry.createRecoveryEntry) {
       return rEntry.createRecoveryEntry.id;
@@ -383,18 +257,20 @@ export const createRecoveryEntry = async (
 
 export const createVaccinationEntry = async (
   surveyData: any,
-  locationData: LocationData
+  locationData: LocationData,
+  user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreateVaccinationEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     totalVaccineShots: surveyData.totalVaccineShots ?? null,
     vaccinated: surveyData.vaccinated ?? null,
@@ -405,6 +281,7 @@ export const createVaccinationEntry = async (
     const vEntry = (await API.graphql({
       query: mutations.createVaccinationEntry,
       variables: { input: details },
+      authMode: user ? "AMAZON_COGNITO_USER_POOLS" : "API_KEY",
     })) as CreateVaccinationEntryMutation;
     if (vEntry.createVaccinationEntry) {
       return vEntry.createVaccinationEntry.id;
@@ -424,18 +301,20 @@ export const createVaccinationEntry = async (
 
 export const createGlobalHealthEntry = async (
   surveyData: any,
-  locationData: LocationData
+  locationData: LocationData,
+  user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreateGlobalHealthEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     healthRank: surveyData.healthRank ?? null,
     physicalHealthRank: surveyData.physicalHealthRank ?? null,
@@ -448,6 +327,7 @@ export const createGlobalHealthEntry = async (
     const ghEntry = (await API.graphql({
       query: mutations.createGlobalHealthEntry,
       variables: { input: details },
+      authMode: user ? "AMAZON_COGNITO_USER_POOLS" : "API_KEY",
     })) as CreateGlobalHealthEntryMutation;
     if (ghEntry.createGlobalHealthEntry) {
       return ghEntry.createGlobalHealthEntry.id;
@@ -467,18 +347,20 @@ export const createGlobalHealthEntry = async (
 
 export const createPatientHealthEntry = async (
   surveyData: any,
-  locationData: LocationData
+  locationData: LocationData,
+  user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreatePatientHealthEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     generalHealthResults:
       JSON.stringify(surveyData.generalHealthResults) ?? null,
@@ -489,6 +371,7 @@ export const createPatientHealthEntry = async (
     const phEntry = (await API.graphql({
       query: mutations.createPatientHealthEntry,
       variables: { input: details },
+      authMode: user ? "AMAZON_COGNITO_USER_POOLS" : "API_KEY",
     })) as CreatePatientHealthEntryMutation;
     if (phEntry.createPatientHealthEntry) {
       return phEntry.createPatientHealthEntry.id;
@@ -508,18 +391,20 @@ export const createPatientHealthEntry = async (
 
 export const createSymptomEntry = async (
   surveyData: any,
-  locationData: LocationData
+  locationData: LocationData,
+  user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreateSymptomEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     symptoms: surveyData.symptoms ?? null,
     carryOutSocialActivitiesRank:
@@ -532,6 +417,7 @@ export const createSymptomEntry = async (
     const sEntry = (await API.graphql({
       query: mutations.createSymptomEntry,
       variables: { input: details },
+      authMode: user ? "AMAZON_COGNITO_USER_POOLS" : "API_KEY",
     })) as CreateSymptomEntryMutation;
     if (sEntry.createSymptomEntry) {
       return sEntry.createSymptomEntry.id;
@@ -551,18 +437,20 @@ export const createSymptomEntry = async (
 
 export const createSocialDeterminantsEntry = async (
   surveyData: any,
-  locationData: LocationData
+  locationData: LocationData,
+  user?: User
 ) => {
+  let countyState =
+    locationData.county !== ""
+      ? locationData.county + "#" + locationData.stateAbbrev
+      : null;
   let details: CreateSocialDeterminantsEntryInput = {
     state: locationData.state,
-    countyState:
-      locationData.county !== ""
-        ? locationData.county + "#" + locationData.stateAbbrev
-        : null,
+    countyState: countyState,
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: parseHeightIntoInches(surveyData.height),
+    height: surveyData.height,
     weight: surveyData.weight,
     hasMedicalInsurance: surveyData.hasMedicalInsurance ?? null,
     difficultCoveringExpenses: surveyData.difficultCoveringExpenses ?? null,
@@ -572,6 +460,7 @@ export const createSocialDeterminantsEntry = async (
     const sdEntry = (await API.graphql({
       query: mutations.createSocialDeterminantsEntry,
       variables: { input: details },
+      authMode: user ? "AMAZON_COGNITO_USER_POOLS" : "API_KEY",
     })) as {
       data?: CreateSocialDeterminantsEntryMutation;
       errors: any[];
@@ -596,40 +485,65 @@ export const createSurveyEntry = async (
   ids: any,
   userInfo: UserInfo,
   locationData: LocationData,
+  surveyType: SurveyType,
   user?: User
 ) => {
   try {
     let race;
-    if (userInfo.race.toUpperCase() === "WHITE") {
-      race = Race.WHITE;
-    } else if (userInfo.race.toUpperCase() === "BLACK") {
-      race = Race.BLACK;
-    } else if (userInfo.race.toUpperCase() === "ASIAN") {
-      race = Race.ASIAN;
-    } else if (userInfo.race.toUpperCase() === "HISPANIC") {
-      race = Race.HISPANIC;
-    } else if (userInfo.race.toUpperCase() === "NATIVE") {
-      race = Race.NATIVE;
-    } else if (userInfo.race.toUpperCase() === "OTHER") {
-      race = Race.OTHER;
-    } else {
-      race = Race.NONE;
+    if (userInfo.race !== "") {
+      if (userInfo.race.toUpperCase() === "WHITE") {
+        race = Race.WHITE;
+      } else if (userInfo.race.toUpperCase() === "BLACK") {
+        race = Race.BLACK;
+      } else if (userInfo.race.toUpperCase() === "ASIAN") {
+        race = Race.ASIAN;
+      } else if (userInfo.race.toUpperCase() === "HISPANIC") {
+        race = Race.HISPANIC;
+      } else if (userInfo.race.toUpperCase() === "NATIVE") {
+        race = Race.NATIVE;
+      } else if (userInfo.race.toUpperCase() === "OTHER") {
+        race = Race.OTHER;
+      } else {
+        race = Race.NONE;
+      }
     }
 
-    const surveyDetails: CreateSurveyEntryInput = {
+    let countyState =
+      locationData.county !== ""
+        ? locationData.county + "#" + locationData.stateAbbrev
+        : null;
+
+    // If the current survey is a weekly survey, need to submit it
+    // with a reference to the most recent GUEST survey that was filled out
+    // This is because that is where this user reported that they were not recovered
+    // from covid.
+    let parentSurveyId;
+    if (surveyType === SurveyType.WEEKLY) {
+      if (user && user.lastSubmissionEntry) {
+        let parentSurveyType = user.lastSubmissionEntry.surveyType;
+        if (parentSurveyType === SurveyType.GUEST) {
+          parentSurveyId = user.lastSubmissionEntry.id;
+        } else {
+          parentSurveyId = user.lastSubmissionEntry.parentSurveyId;
+        }
+      }
+    }
+
+    const surveyDetails = {
       surveyVersion: 1,
-      surveyType: SurveyType.GUEST,
+      surveyType: surveyType,
+      parentSurveyId: parentSurveyId,
       email: user ? user.email : null,
       state: locationData.state,
-      countyState:
-        locationData.county !== ""
-          ? locationData.county + "#" + locationData.stateAbbrev
-          : null,
-      age: parseInt(userInfo.age),
-      race: race,
-      sex: userInfo.sex,
-      height: parseHeightIntoInches(userInfo.height),
-      weight: userInfo.weight,
+      countyState: countyState,
+      age:
+        surveyType === SurveyType.WEEKLY ? user!.age! : parseInt(userInfo.age),
+      race: surveyType === SurveyType.WEEKLY ? user!.race! : race,
+      sex: surveyType === SurveyType.WEEKLY ? user!.sex! : userInfo.sex,
+      height:
+        surveyType === SurveyType.WEEKLY ? user!.height! : userInfo.height,
+      weight:
+        surveyType === SurveyType.WEEKLY ? user!.weight! : userInfo.weight,
       surveyEntryCovidEntryId: ids.CovidEntry ? ids.CovidEntry : null,
       surveyEntryVaccinationEntryId: ids.VaccinationEntry
         ? ids.VaccinationEntry
@@ -651,6 +565,7 @@ export const createSurveyEntry = async (
     const sEntry = (await API.graphql({
       query: mutations.createSurveyEntry,
       variables: { input: surveyDetails },
+      authMode: user ? "AMAZON_COGNITO_USER_POOLS" : "API_KEY",
     })) as { data?: CreateSurveyEntryMutation; errors: any[] };
     if (sEntry.data && sEntry.data.createSurveyEntry) {
       return sEntry.data.createSurveyEntry.id;
@@ -669,6 +584,7 @@ export const saveEntries = async (
   locationData: LocationData,
   surveyData: any,
   userInfo: UserInfo,
+  surveyType: SurveyType,
   user?: User
 ) => {
   try {
@@ -678,49 +594,56 @@ export const saveEntries = async (
         case "CovidEntry":
           const covidEntryid = await createCovidEntry(
             surveyData[value],
-            locationData
+            locationData,
+            user
           );
           ids[value] = covidEntryid;
           break;
         case "RecoveryEntry":
           const recoveryEntryId = await createRecoveryEntry(
             surveyData[value],
-            locationData
+            locationData,
+            user
           );
           ids[value] = recoveryEntryId;
           break;
         case "VaccinationEntry":
           const vaccinationEntryId = await createVaccinationEntry(
             surveyData[value],
-            locationData
+            locationData,
+            user
           );
           ids[value] = vaccinationEntryId;
           break;
         case "PatientHealthEntry":
           const patientHealthEntryId = await createPatientHealthEntry(
             surveyData[value],
-            locationData
+            locationData,
+            user
           );
           ids[value] = patientHealthEntryId;
           break;
         case "GlobalHealthEntry":
           const globalHealthEntryId = await createGlobalHealthEntry(
             surveyData[value],
-            locationData
+            locationData,
+            user
           );
           ids[value] = globalHealthEntryId;
           break;
         case "SymptomEntry":
           const SymptomEntryId = await createSymptomEntry(
             surveyData[value],
-            locationData
+            locationData,
+            user
           );
           ids[value] = SymptomEntryId;
           break;
         case "SocialDeterminantsEntry":
           const socialDeterminantsEntryId = await createSocialDeterminantsEntry(
             surveyData[value],
-            locationData
+            locationData,
+            user
           );
           ids[value] = socialDeterminantsEntryId;
           break;
@@ -733,11 +656,18 @@ export const saveEntries = async (
       ids,
       userInfo,
       locationData,
+      surveyType,
       user
     );
     return ids;
   } catch (error) {
-    console.log("Saving entries: ", error);
+    let graphqlResponse = error as {
+      data?: CreateSurveyEntryMutation;
+      error: any[];
+    };
+    if (!graphqlResponse.data) {
+      console.log("Saving entries: ", error);
+    }
   }
 };
 
@@ -746,13 +676,14 @@ export const aggregateResults = async (
   ids: any,
   userInfo: UserInfo,
   location: LocationData,
+  surveyType: SurveyType,
   user?: User
 ) => {
   const aggregateDetails: any = {
     id: ids["SurveyEntry"],
     email: user ? user.email : "",
     surveyVersion: 1,
-    surveyType: SurveyType.GUEST,
+    surveyType: surveyType,
     age: userInfo.age,
     race: userInfo.race,
     sex: userInfo.sex,
@@ -801,11 +732,11 @@ export const aggregateResults = async (
       : null,
     healthRelatedResults: {
       weight: userInfo.weight,
-      height: userInfo.height,
+      height: parseHeightIntoInches(userInfo.height),
     },
   };
 
-  console.log("aggregateDetails: ", aggregateDetails);
+  //   console.log("aggregateDetails: ", aggregateDetails);
   const variables = {
     results: JSON.stringify(aggregateDetails),
   };

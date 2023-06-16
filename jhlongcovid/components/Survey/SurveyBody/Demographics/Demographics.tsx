@@ -133,7 +133,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
               </FormControl>
             </GridItem>
             <GridItem>
-              <HStack w="100%" align={"top"}>
+              <HStack w="100%" align={"top"} spacing="0px">
                 {/* <FormControl>
                   <FormLabel fontSize={"18px"}>Height</FormLabel>
                   <HStack>

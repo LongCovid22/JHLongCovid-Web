@@ -50,6 +50,7 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
   // For old cases of long covid
   let oldRecoveryDate = null;
   if (
+    recoveryResults !== null &&
     recoveryResults.lengthOfRecovery &&
     recoveryResults.lengthOfRecovery !== null
   ) {

@@ -67,11 +67,19 @@ type User
   sex: String # null if signed up aside from survey
   height: String
   weight: String
+  covidStatus: CovidStatus
   lastSubmission: AWSDateTime # null if signed up aside from survey
+  lastSubmissionEntry: SurveyEntry @hasOne
   lastSignIn: AWSDateTime # Current DateTime at time of sign up after "autosignin"
   notificationFreq: NotificationFrequency # Daily
-  notificaitonMethod: NotificationMethod # Email
+  notificationMethod: NotificationMethod # Email
   createdAt: AWSDateTime! # Will automatically be populated
+}
+
+enum CovidStatus {
+  RECOVERED
+  NOT_RECOVERED
+  NONE
 }
 
 enum Race {
@@ -95,6 +103,30 @@ enum NotificationMethod {
   PUSH
 }
 
+type Notification @model @auth(rules: [{ allow: private, provider: iam }]) {
+  id: ID!
+  recipientEmail: String!
+    @index(
+      name: "notByEmail"
+      sortKeyFields: ["createdAt"]
+      queryField: "notificationsByEmail"
+    )
+  message: String!
+  sendStatus: SendStatus!
+    @index(
+      name: "notByStatus"
+      sortKeyFields: ["createdAt"]
+      queryField: "notificationsByStatus"
+    )
+  createdAt: AWSDateTime!
+}
+
+enum SendStatus {
+  PENDING
+  DELIVERED
+  FAILED
+}
+
 """
 SurveyEntry - Represents the result of an entire User's survey.
   Access Patterns:
@@ -107,9 +139,16 @@ type SurveyEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
+  parentSurveyId: ID
+    @index(
+      name: "byParent"
+      sortKeyFields: ["createdAt"]
+      queryField: "surveysByParentId"
+    )
   email: String
     @index(
       name: "byEmail"
@@ -201,6 +240,7 @@ type VaccinationEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -267,6 +307,7 @@ type GlobalHealthEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -341,6 +382,7 @@ type CovidEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -420,6 +462,7 @@ type RecoveryEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -484,6 +527,7 @@ type PatientHealthEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -555,6 +599,7 @@ type SymptomEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -625,6 +670,7 @@ type SocialDeterminantsEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -690,6 +736,7 @@ type MonthlyEntry
     rules: [
       { allow: private, provider: iam }
       { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
   ) {
   id: ID!
@@ -997,6 +1044,8 @@ type WorkingSituation {
 type Mutation {
   aggregateSurveyResults(results: AWSJSON!): Response
     @function(name: "aggregateSurveyResults-${env}")
+  emailReceiptConfirmation(results: AWSJSON!): Response
+    @function(name: "emailReceiptConfirmation-${env}")
 }
 
 type Response {
