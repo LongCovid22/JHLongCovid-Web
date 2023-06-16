@@ -295,7 +295,6 @@ export const separatedSectionInfo = (
     }
   }
 
-  console.log("Section question info: ", sectionQuestionInfo);
   return sectionQuestionInfo;
 };
 

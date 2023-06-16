@@ -58,7 +58,6 @@ export const Survey: React.FC<ProfileCheckinProps> = ({
   }, [showSurveyOnLaunch]);
 
   const handleSurveyOpen = () => {
-    console.log("USER: ", user);
     dispatch(initQuestions(user));
     onOpen();
   };
