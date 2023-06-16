@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "totalQuestions": 1,
+  "questions": [
+    [
+      {
+        "title": "Weekly Checkin",
+        "questionNum": 1,
+        "question": "Come back later!",
+        "options": [],
+        "answerFormat": "comeBackLater",
+        "answer": null,
+        "branching": null
+      }
+    ]
+  ]
+}

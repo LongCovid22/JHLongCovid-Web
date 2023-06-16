@@ -24,7 +24,13 @@
         "options": ["Yes", "No"],
         "answerFormat": ["choice", "choice"],
         "answer": null,
-        "branching": null,
+        "branching": {
+          "predicate": "No",
+          "goto": {
+            "section": 2,
+            "question": 0
+          }
+        },
         "schemaInfo": {
           "tableName": "RecoveryEntry",
           "field": "recovered",

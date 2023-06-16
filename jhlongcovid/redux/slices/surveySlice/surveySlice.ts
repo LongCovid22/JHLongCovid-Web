@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 import surveyLogic from "../../../surveyLogic.json";
 import weeklySurveyLogic from "../../../weeklySurveyLogic.json";
+import comeBackLater from "../../../comeBackLater.json";
 import { Auth } from "aws-amplify";
 import { setUncaughtExceptionCaptureCallback } from "process";
 import { processEntries } from "./surveySliceFunctions";
@@ -233,6 +234,7 @@ export const surveySlice = createSlice({
 
       const user = payload.payload;
       if (user && user.notificationFreq == NotificationFrequency.WEEKLY) {
+        // Check if today is less than a week from the last check in
         state.questions = weeklySurveyLogic.questions;
         state.totalQuestions = weeklySurveyLogic.totalQuestions;
         state.surveyType = SurveyType.WEEKLY;

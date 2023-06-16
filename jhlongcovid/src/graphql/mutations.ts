@@ -1407,6 +1407,51 @@ export const deleteUser = /* GraphQL */ `
     }
   }
 `;
+export const createNotification = /* GraphQL */ `
+  mutation CreateNotification(
+    $input: CreateNotificationInput!
+    $condition: ModelNotificationConditionInput
+  ) {
+    createNotification(input: $input, condition: $condition) {
+      id
+      recipientEmail
+      message
+      sendStatus
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateNotification = /* GraphQL */ `
+  mutation UpdateNotification(
+    $input: UpdateNotificationInput!
+    $condition: ModelNotificationConditionInput
+  ) {
+    updateNotification(input: $input, condition: $condition) {
+      id
+      recipientEmail
+      message
+      sendStatus
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteNotification = /* GraphQL */ `
+  mutation DeleteNotification(
+    $input: DeleteNotificationInput!
+    $condition: ModelNotificationConditionInput
+  ) {
+    deleteNotification(input: $input, condition: $condition) {
+      id
+      recipientEmail
+      message
+      sendStatus
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createSurveyEntry = /* GraphQL */ `
   mutation CreateSurveyEntry(
     $input: CreateSurveyEntryInput!

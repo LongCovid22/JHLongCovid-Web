@@ -83,6 +83,10 @@
         "emailReceiptConfirmation": {
           "deploymentBucketName": "amplify-jhlongcovid-develop-113748-deployment",
           "s3Key": "amplify-builds/emailReceiptConfirmation-6271794c7a714e556a74-build.zip"
+        },
+        "notificationScheduler": {
+          "deploymentBucketName": "amplify-jhlongcovid-develop-113748-deployment",
+          "s3Key": "amplify-builds/notificationScheduler-5a6a666f374367615446-build.zip"
         }
       },
       "api": {

@@ -14,9 +14,6 @@ import {
   Image,
 } from "@chakra-ui/react";
 
-import { API, input } from "aws-amplify";
-import * as mutations from "../../src/graphql/mutations";
-
 //redux imports
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
@@ -45,7 +42,6 @@ import { Account } from "./SurveyBody/Account";
 import { ThankYou } from "./SurveyBody/ThankYou";
 import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
-import { PreSurvey } from "./SurveyBody/PreSurvey";
 import { selectUser, setUser } from "../../redux/slices/userSlice";
 import {
   aggregateResults,
@@ -415,7 +411,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     }
 
     // Aggregate survey results
-    // TODO: Add aggregateion for weekly surveys
+    // TODO: Add aggregateion for weekly surveys..
     if (surveyType === SurveyType.GUEST) {
       try {
         await aggregateResults(
@@ -509,6 +505,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     setAnswer(currentAnswer);
   }, [currentAnswer, currentQuestion]);
 
+  // If the survey is a weekly survey, initialize location data
+  // for later retrival from Google Geocoding API
   useEffect(() => {
     if (surveyType != SurveyType.GUEST) {
       if (user && user.lastSubmissionEntry) {

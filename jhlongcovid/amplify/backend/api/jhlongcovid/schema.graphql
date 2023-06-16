@@ -103,7 +103,7 @@ enum NotificationMethod {
   PUSH
 }
 
-type Notification {
+type Notification @model @auth(rules: [{ allow: private, provider: iam }]) {
   id: ID!
   recipientEmail: String!
     @index(

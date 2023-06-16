@@ -661,7 +661,13 @@ export const saveEntries = async (
     );
     return ids;
   } catch (error) {
-    console.log("Saving entries: ", error);
+    let graphqlResponse = error as {
+      data?: CreateSurveyEntryMutation;
+      error: any[];
+    };
+    if (!graphqlResponse.data) {
+      console.log("Saving entries: ", error);
+    }
   }
 };
 

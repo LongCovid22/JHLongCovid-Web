@@ -1382,6 +1382,48 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
+export const onCreateNotification = /* GraphQL */ `
+  subscription OnCreateNotification(
+    $filter: ModelSubscriptionNotificationFilterInput
+  ) {
+    onCreateNotification(filter: $filter) {
+      id
+      recipientEmail
+      message
+      sendStatus
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateNotification = /* GraphQL */ `
+  subscription OnUpdateNotification(
+    $filter: ModelSubscriptionNotificationFilterInput
+  ) {
+    onUpdateNotification(filter: $filter) {
+      id
+      recipientEmail
+      message
+      sendStatus
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteNotification = /* GraphQL */ `
+  subscription OnDeleteNotification(
+    $filter: ModelSubscriptionNotificationFilterInput
+  ) {
+    onDeleteNotification(filter: $filter) {
+      id
+      recipientEmail
+      message
+      sendStatus
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateSurveyEntry = /* GraphQL */ `
   subscription OnCreateSurveyEntry(
     $filter: ModelSubscriptionSurveyEntryFilterInput

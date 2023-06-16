@@ -992,6 +992,95 @@ export const usersByEmail = /* GraphQL */ `
     }
   }
 `;
+export const getNotification = /* GraphQL */ `
+  query GetNotification($id: ID!) {
+    getNotification(id: $id) {
+      id
+      recipientEmail
+      message
+      sendStatus
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listNotifications = /* GraphQL */ `
+  query ListNotifications(
+    $filter: ModelNotificationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listNotifications(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        recipientEmail
+        message
+        sendStatus
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const notificationsByEmail = /* GraphQL */ `
+  query NotificationsByEmail(
+    $recipientEmail: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelNotificationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    notificationsByEmail(
+      recipientEmail: $recipientEmail
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        recipientEmail
+        message
+        sendStatus
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const notificationsByStatus = /* GraphQL */ `
+  query NotificationsByStatus(
+    $sendStatus: SendStatus!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelNotificationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    notificationsByStatus(
+      sendStatus: $sendStatus
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        recipientEmail
+        message
+        sendStatus
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getSurveyEntry = /* GraphQL */ `
   query GetSurveyEntry($id: ID!) {
     getSurveyEntry(id: $id) {

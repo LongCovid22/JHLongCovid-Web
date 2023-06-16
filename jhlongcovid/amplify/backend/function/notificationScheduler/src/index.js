@@ -23,6 +23,8 @@ exports.handler = async (event) => {
       if (graphqlResponse.data.getRecoveryEntry) {
         let recovered = graphqlResponse.data.getRecoveryEntry.recovered;
         if (!recovered) {
+          // If the user hasn't recovered, schedule a notification for
+          // their weekly check in
           let createNotificationResponse = await createNotification(
             recipientEmail
           );
