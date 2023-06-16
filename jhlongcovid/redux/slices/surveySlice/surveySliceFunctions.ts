@@ -1,6 +1,7 @@
 import { parseHeightIntoInches } from "../../../components/Survey/SurveyFunctions";
 import { UserInfo } from "../../../components/Survey/SurveyWrapper";
-import { VaccinationEntry } from "../../../src/API";
+import { SurveyType, VaccinationEntry } from "../../../src/API";
+import { User } from "../../../src/API";
 
 export type QuestionInfo = {
   questions: { section: number; question: number }[];
@@ -22,11 +23,14 @@ type SectionInfo = {
 };
 
 export const processEntries = (
+  surveyType: SurveyType,
   questionStack: any[],
   answerStack: any[],
-  questions: any
+  questions: any,
+  user?: User
 ) => {
   let sectionQuestionInfo: SectionInfo = separatedSectionInfo(
+    surveyType,
     questionStack,
     answerStack,
     questions
@@ -37,32 +41,44 @@ export const processEntries = (
     if (value === "CovidEntry") {
       const sectionInfo = sectionQuestionInfo.CovidEntry;
       if (sectionQuestionInfo.CovidEntry.questions.length > 0) {
-        entries[value] = processCovidEntry(sectionInfo, demographics);
+        entries[value] = processCovidEntry(sectionInfo, demographics, user);
       }
     } else if (value === "RecoveryEntry") {
       const sectionInfo = sectionQuestionInfo.RecoveryEntry;
       if (sectionQuestionInfo.RecoveryEntry.questions.length > 0) {
-        entries[value] = processRecoveryEntry(sectionInfo, demographics);
+        entries[value] = processRecoveryEntry(sectionInfo, demographics, user);
       }
     } else if (value === "VaccinationEntry") {
       const sectionInfo = sectionQuestionInfo.VaccinationEntry;
       if (sectionQuestionInfo.VaccinationEntry.questions.length > 0) {
-        entries[value] = processVaccinationEntry(sectionInfo, demographics);
+        entries[value] = processVaccinationEntry(
+          sectionInfo,
+          demographics,
+          user
+        );
       }
     } else if (value === "GlobalHealthEntry") {
       const sectionInfo = sectionQuestionInfo.GlobalHealthEntry;
       if (sectionQuestionInfo.GlobalHealthEntry.questions.length > 0) {
-        entries[value] = processGlobalHealthEntry(sectionInfo, demographics);
+        entries[value] = processGlobalHealthEntry(
+          sectionInfo,
+          demographics,
+          user
+        );
       }
     } else if (value === "PatientHealthEntry") {
       const sectionInfo = sectionQuestionInfo.PatientHealthEntry;
       if (sectionQuestionInfo.PatientHealthEntry.questions.length > 0) {
-        entries[value] = processPatientHealthEntry(sectionInfo, demographics);
+        entries[value] = processPatientHealthEntry(
+          sectionInfo,
+          demographics,
+          user
+        );
       }
     } else if (value === "SymptomEntry") {
       const sectionInfo = sectionQuestionInfo.SymptomEntry;
       if (sectionQuestionInfo.SymptomEntry.questions.length > 0) {
-        entries[value] = processSymptomEntry(sectionInfo, demographics);
+        entries[value] = processSymptomEntry(sectionInfo, demographics, user);
       }
     } else if (value === "SocialDeterminantsEntry") {
       const sectionInfo = sectionQuestionInfo.SocialDeterminantsEntry;
@@ -79,6 +95,7 @@ export const processEntries = (
 };
 
 export const separatedSectionInfo = (
+  surveyType: SurveyType,
   questionStack: any[],
   answerStack: any[],
   questions: any
@@ -146,105 +163,135 @@ export const separatedSectionInfo = (
       questionStack[i];
     const answer = answerStack[i];
     let key = "";
-    if (questionInfo.section === 0 && questionInfo.question === 2) {
-      sectionQuestionInfo.Demographics.questions.push(questionInfo);
-      sectionQuestionInfo.Demographics.answers.push(answer);
-    } else if (questionInfo.section === 1) {
-      sectionQuestionInfo.CovidEntry.questions.push(questionInfo);
-      sectionQuestionInfo.CovidEntry.answers.push(answer);
-      sectionQuestionInfo.CovidEntry.schemas.push(
-        questions[questionInfo.section][questionInfo.question].schemaInfo
-      );
-      sectionQuestionInfo.CovidEntry.answerFormats.push(
-        questions[questionInfo.section][questionInfo.question].answerFormat
-      );
-      sectionQuestionInfo.CovidEntry.options.push(
-        questions[questionInfo.section][questionInfo.question].options
-      );
-    } else if (questionInfo.section === 2) {
-      sectionQuestionInfo.RecoveryEntry.questions.push(questionInfo);
-      sectionQuestionInfo.RecoveryEntry.answers.push(answer);
-      sectionQuestionInfo.RecoveryEntry.schemas.push(
-        questions[questionInfo.section][questionInfo.question].schemaInfo
-      );
-      sectionQuestionInfo.RecoveryEntry.answerFormats.push(
-        questions[questionInfo.section][questionInfo.question].answerFormat
-      );
-      sectionQuestionInfo.RecoveryEntry.options.push(
-        questions[questionInfo.section][questionInfo.question].options
-      );
-    } else if (questionInfo.section === 3) {
-      sectionQuestionInfo.VaccinationEntry.questions.push(questionInfo);
-      sectionQuestionInfo.VaccinationEntry.answers.push(answer);
-      sectionQuestionInfo.VaccinationEntry.schemas.push(
-        questions[questionInfo.section][questionInfo.question].schemaInfo
-      );
-      sectionQuestionInfo.VaccinationEntry.answerFormats.push(
-        questions[questionInfo.section][questionInfo.question].answerFormat
-      );
-      sectionQuestionInfo.VaccinationEntry.options.push(
-        questions[questionInfo.section][questionInfo.question].options
-      );
-    } else if (questionInfo.section === 4) {
-      sectionQuestionInfo.GlobalHealthEntry.questions.push(questionInfo);
-      sectionQuestionInfo.GlobalHealthEntry.answers.push(answer);
-      sectionQuestionInfo.GlobalHealthEntry.schemas.push(
-        questions[questionInfo.section][questionInfo.question].schemaInfo
-      );
-      sectionQuestionInfo.GlobalHealthEntry.answerFormats.push(
-        questions[questionInfo.section][questionInfo.question].answerFormat
-      );
-      sectionQuestionInfo.GlobalHealthEntry.options.push(
-        questions[questionInfo.section][questionInfo.question].options
-      );
-    } else if (questionInfo.section === 5) {
-      sectionQuestionInfo.SymptomEntry.questions.push(questionInfo);
-      sectionQuestionInfo.SymptomEntry.answers.push(answer);
-      sectionQuestionInfo.SymptomEntry.schemas.push(
-        questions[questionInfo.section][questionInfo.question].schemaInfo
-      );
-      sectionQuestionInfo.SymptomEntry.answerFormats.push(
-        questions[questionInfo.section][questionInfo.question].answerFormat
-      );
-      sectionQuestionInfo.SymptomEntry.options.push(
-        questions[questionInfo.section][questionInfo.question].options
-      );
-    } else if (questionInfo.section === 6) {
-      sectionQuestionInfo.PatientHealthEntry.questions.push(questionInfo);
-      sectionQuestionInfo.PatientHealthEntry.answers.push(answer);
-      sectionQuestionInfo.PatientHealthEntry.schemas.push(
-        questions[questionInfo.section][questionInfo.question].schemaInfo
-      );
-      sectionQuestionInfo.PatientHealthEntry.answerFormats.push(
-        questions[questionInfo.section][questionInfo.question].answerFormat
-      );
-      sectionQuestionInfo.PatientHealthEntry.options.push(
-        questions[questionInfo.section][questionInfo.question].options
-      );
-    } else if (questionInfo.section === 7) {
-      sectionQuestionInfo.SymptomEntry.questions.push(questionInfo);
-      sectionQuestionInfo.SymptomEntry.answers.push(answer);
-      sectionQuestionInfo.SymptomEntry.schemas.push(
-        questions[questionInfo.section][questionInfo.question].schemaInfo
-      );
-      sectionQuestionInfo.SymptomEntry.answerFormats.push(
-        questions[questionInfo.section][questionInfo.question].answerFormat
-      );
-      sectionQuestionInfo.SymptomEntry.options.push(
-        questions[questionInfo.section][questionInfo.question].options
-      );
-    } else if (questionInfo.section === 8) {
-      sectionQuestionInfo.SocialDeterminantsEntry.questions.push(questionInfo);
-      sectionQuestionInfo.SocialDeterminantsEntry.answers.push(answer);
-      sectionQuestionInfo.SocialDeterminantsEntry.schemas.push(
-        questions[questionInfo.section][questionInfo.question].schemaInfo
-      );
-      sectionQuestionInfo.SocialDeterminantsEntry.answerFormats.push(
-        questions[questionInfo.section][questionInfo.question].answerFormat
-      );
-      sectionQuestionInfo.SocialDeterminantsEntry.options.push(
-        questions[questionInfo.section][questionInfo.question].options
-      );
+    if (surveyType == SurveyType.GUEST) {
+      if (questionInfo.section === 0 && questionInfo.question === 2) {
+        sectionQuestionInfo.Demographics.questions.push(questionInfo);
+        sectionQuestionInfo.Demographics.answers.push(answer);
+      } else if (questionInfo.section === 1) {
+        sectionQuestionInfo.CovidEntry.questions.push(questionInfo);
+        sectionQuestionInfo.CovidEntry.answers.push(answer);
+        sectionQuestionInfo.CovidEntry.schemas.push(
+          questions[questionInfo.section][questionInfo.question].schemaInfo
+        );
+        sectionQuestionInfo.CovidEntry.answerFormats.push(
+          questions[questionInfo.section][questionInfo.question].answerFormat
+        );
+        sectionQuestionInfo.CovidEntry.options.push(
+          questions[questionInfo.section][questionInfo.question].options
+        );
+      } else if (questionInfo.section === 2) {
+        sectionQuestionInfo.RecoveryEntry.questions.push(questionInfo);
+        sectionQuestionInfo.RecoveryEntry.answers.push(answer);
+        sectionQuestionInfo.RecoveryEntry.schemas.push(
+          questions[questionInfo.section][questionInfo.question].schemaInfo
+        );
+        sectionQuestionInfo.RecoveryEntry.answerFormats.push(
+          questions[questionInfo.section][questionInfo.question].answerFormat
+        );
+        sectionQuestionInfo.RecoveryEntry.options.push(
+          questions[questionInfo.section][questionInfo.question].options
+        );
+      } else if (questionInfo.section === 3) {
+        sectionQuestionInfo.VaccinationEntry.questions.push(questionInfo);
+        sectionQuestionInfo.VaccinationEntry.answers.push(answer);
+        sectionQuestionInfo.VaccinationEntry.schemas.push(
+          questions[questionInfo.section][questionInfo.question].schemaInfo
+        );
+        sectionQuestionInfo.VaccinationEntry.answerFormats.push(
+          questions[questionInfo.section][questionInfo.question].answerFormat
+        );
+        sectionQuestionInfo.VaccinationEntry.options.push(
+          questions[questionInfo.section][questionInfo.question].options
+        );
+      } else if (questionInfo.section === 4) {
+        sectionQuestionInfo.GlobalHealthEntry.questions.push(questionInfo);
+        sectionQuestionInfo.GlobalHealthEntry.answers.push(answer);
+        sectionQuestionInfo.GlobalHealthEntry.schemas.push(
+          questions[questionInfo.section][questionInfo.question].schemaInfo
+        );
+        sectionQuestionInfo.GlobalHealthEntry.answerFormats.push(
+          questions[questionInfo.section][questionInfo.question].answerFormat
+        );
+        sectionQuestionInfo.GlobalHealthEntry.options.push(
+          questions[questionInfo.section][questionInfo.question].options
+        );
+      } else if (questionInfo.section === 5) {
+        sectionQuestionInfo.SymptomEntry.questions.push(questionInfo);
+        sectionQuestionInfo.SymptomEntry.answers.push(answer);
+        sectionQuestionInfo.SymptomEntry.schemas.push(
+          questions[questionInfo.section][questionInfo.question].schemaInfo
+        );
+        sectionQuestionInfo.SymptomEntry.answerFormats.push(
+          questions[questionInfo.section][questionInfo.question].answerFormat
+        );
+        sectionQuestionInfo.SymptomEntry.options.push(
+          questions[questionInfo.section][questionInfo.question].options
+        );
+      } else if (questionInfo.section === 6) {
+        sectionQuestionInfo.PatientHealthEntry.questions.push(questionInfo);
+        sectionQuestionInfo.PatientHealthEntry.answers.push(answer);
+        sectionQuestionInfo.PatientHealthEntry.schemas.push(
+          questions[questionInfo.section][questionInfo.question].schemaInfo
+        );
+        sectionQuestionInfo.PatientHealthEntry.answerFormats.push(
+          questions[questionInfo.section][questionInfo.question].answerFormat
+        );
+        sectionQuestionInfo.PatientHealthEntry.options.push(
+          questions[questionInfo.section][questionInfo.question].options
+        );
+      } else if (questionInfo.section === 7) {
+        sectionQuestionInfo.SymptomEntry.questions.push(questionInfo);
+        sectionQuestionInfo.SymptomEntry.answers.push(answer);
+        sectionQuestionInfo.SymptomEntry.schemas.push(
+          questions[questionInfo.section][questionInfo.question].schemaInfo
+        );
+        sectionQuestionInfo.SymptomEntry.answerFormats.push(
+          questions[questionInfo.section][questionInfo.question].answerFormat
+        );
+        sectionQuestionInfo.SymptomEntry.options.push(
+          questions[questionInfo.section][questionInfo.question].options
+        );
+      } else if (questionInfo.section === 8) {
+        sectionQuestionInfo.SocialDeterminantsEntry.questions.push(
+          questionInfo
+        );
+        sectionQuestionInfo.SocialDeterminantsEntry.answers.push(answer);
+        sectionQuestionInfo.SocialDeterminantsEntry.schemas.push(
+          questions[questionInfo.section][questionInfo.question].schemaInfo
+        );
+        sectionQuestionInfo.SocialDeterminantsEntry.answerFormats.push(
+          questions[questionInfo.section][questionInfo.question].answerFormat
+        );
+        sectionQuestionInfo.SocialDeterminantsEntry.options.push(
+          questions[questionInfo.section][questionInfo.question].options
+        );
+      }
+    } else {
+      if (questionInfo.section === 1) {
+        sectionQuestionInfo.RecoveryEntry.questions.push(questionInfo);
+        sectionQuestionInfo.RecoveryEntry.answers.push(answer);
+        sectionQuestionInfo.RecoveryEntry.schemas.push(
+          questions[questionInfo.section][questionInfo.question].schemaInfo
+        );
+        sectionQuestionInfo.RecoveryEntry.answerFormats.push(
+          questions[questionInfo.section][questionInfo.question].answerFormat
+        );
+        sectionQuestionInfo.RecoveryEntry.options.push(
+          questions[questionInfo.section][questionInfo.question].options
+        );
+      } else if (questionInfo.section === 2) {
+        sectionQuestionInfo.SymptomEntry.questions.push(questionInfo);
+        sectionQuestionInfo.SymptomEntry.answers.push(answer);
+        sectionQuestionInfo.SymptomEntry.schemas.push(
+          questions[questionInfo.section][questionInfo.question].schemaInfo
+        );
+        sectionQuestionInfo.SymptomEntry.answerFormats.push(
+          questions[questionInfo.section][questionInfo.question].answerFormat
+        );
+        sectionQuestionInfo.SymptomEntry.options.push(
+          questions[questionInfo.section][questionInfo.question].options
+        );
+      }
     }
   }
 
@@ -253,74 +300,86 @@ export const separatedSectionInfo = (
 
 export const processCovidEntry = (
   info: QuestionInfo,
-  demographics: UserInfo
-) => {
-  return createEntries(
-    info.questions,
-    info.schemas,
-    info.answers,
-    demographics
-  );
-};
-
-export const processRecoveryEntry = (
-  info: QuestionInfo,
-  demographics: UserInfo
-) => {
-  return createEntries(
-    info.questions,
-    info.schemas,
-    info.answers,
-    demographics
-  );
-};
-
-export const processVaccinationEntry = (
-  info: QuestionInfo,
-  demographics: UserInfo
-) => {
-  return createEntries(
-    info.questions,
-    info.schemas,
-    info.answers,
-    demographics
-  );
-};
-
-export const processGlobalHealthEntry = (
-  info: QuestionInfo,
-  demographics: UserInfo
-) => {
-  return createEntries(
-    info.questions,
-    info.schemas,
-    info.answers,
-    demographics
-  );
-};
-
-export const processSymptomEntry = (
-  info: QuestionInfo,
-  demographics: UserInfo
+  demographics?: UserInfo,
+  user?: User
 ) => {
   return createEntries(
     info.questions,
     info.schemas,
     info.answers,
     demographics,
+    user
+  );
+};
+
+export const processRecoveryEntry = (
+  info: QuestionInfo,
+  demographics?: UserInfo,
+  user?: User
+) => {
+  return createEntries(
+    info.questions,
+    info.schemas,
+    info.answers,
+    demographics,
+    user
+  );
+};
+
+export const processVaccinationEntry = (
+  info: QuestionInfo,
+  demographics?: UserInfo,
+  user?: User
+) => {
+  return createEntries(
+    info.questions,
+    info.schemas,
+    info.answers,
+    demographics,
+    user
+  );
+};
+
+export const processGlobalHealthEntry = (
+  info: QuestionInfo,
+  demographics?: UserInfo,
+  user?: User
+) => {
+  return createEntries(
+    info.questions,
+    info.schemas,
+    info.answers,
+    demographics,
+    user
+  );
+};
+
+export const processSymptomEntry = (
+  info: QuestionInfo,
+  demographics?: UserInfo,
+  user?: User
+) => {
+  return createEntries(
+    info.questions,
+    info.schemas,
+    info.answers,
+    demographics,
+    user,
     info.answerFormats
   );
 };
 
 export const processPatientHealthEntry = (
   info: QuestionInfo,
-  demographics: UserInfo
+  demographics?: UserInfo,
+  user?: User
 ) => {
   return createEntries(
     info.questions,
     info.schemas,
     info.answers,
     demographics,
+    user,
     info.answerFormats,
     info.options
   );
@@ -328,13 +387,15 @@ export const processPatientHealthEntry = (
 
 export const processSocialDeterminantsEntry = (
   info: QuestionInfo,
-  demographics: UserInfo
+  demographics?: UserInfo,
+  user?: User
 ) => {
   return createEntries(
     info.questions,
     info.schemas,
     info.answers,
-    demographics
+    demographics,
+    user
   );
 };
 
@@ -342,17 +403,29 @@ const createEntries = (
   questionStack: { section: number; question: number }[],
   schema: any[],
   answers: any,
-  demographics: UserInfo,
+  demographics?: UserInfo,
+  user?: User,
   answerFormats?: any[],
   options?: any[]
 ) => {
-  let entries: any = {
-    age: demographics.age,
-    race: demographics.race,
-    sex: demographics.sex,
-    height: parseHeightIntoInches(demographics.height),
-    weight: demographics.weight,
-  };
+  let entries: any;
+  if (demographics) {
+    entries = {
+      age: demographics.age,
+      race: demographics.race,
+      sex: demographics.sex,
+      height: parseHeightIntoInches(demographics.height),
+      weight: demographics.weight,
+    };
+  } else if (user) {
+    entries = {
+      age: user.age,
+      race: user.race,
+      sex: user.sex,
+      height: parseHeightIntoInches(user.height),
+      weight: user.weight,
+    };
+  }
   for (var i = 0; i < questionStack.length; i++) {
     const s = schema[i];
     const a = answers[i];
@@ -365,74 +438,78 @@ const createEntries = (
       option = options[i];
     }
 
-    if (af && af === "scale") {
-      if (s.field === "generalHealthResults") {
-        let genHealthResults: any = {};
-        let totalScore = 0;
-        for (var j = 0; j < option.length; j++) {
-          let currOption = option[j];
-          let phOption = patientHealthOptionsMap[currOption];
-          genHealthResults[phOption] = toCamelCase(phq8Options[parseInt(a[j])]);
-          totalScore += parseInt(a[j]);
-        }
+    if (s) {
+      if (af && af === "scale") {
+        if (s.field === "generalHealthResults") {
+          let genHealthResults: any = {};
+          let totalScore = 0;
+          for (var j = 0; j < option.length; j++) {
+            let currOption = option[j];
+            let phOption = patientHealthOptionsMap[currOption];
+            genHealthResults[phOption] = toCamelCase(
+              phq8Options[parseInt(a[j])]
+            );
+            totalScore += parseInt(a[j]);
+          }
 
-        entries[s.field] = genHealthResults;
-        entries["totalScore"] = totalScore;
-      }
-      //   else {
-      //     let reportedSymptoms = [];
-      //     for (var j = 0; j < a.length; j++) {
-      //       if (a[j] === "1") {
-      //         const key: string = Object.keys(symptomsMap)[j];
-      //         reportedSymptoms.push(symptomsMap[key] as string);
-      //       }
-      //     }
-      //     entries[s.field] = reportedSymptoms;
-      //   }
-    } else if (s.type === "Int") {
-      const splitAnswer = a.split(" ")[0];
-      entries[s.field] = parseInt(splitAnswer);
-    } else if (s.type === "Boolean") {
-      if (a === "Yes") {
-        entries[s.field] = true;
-      } else if (a === "No") {
-        entries[s.field] = false;
-      } else {
-        entries[s.field] = null;
-      }
-    } else if (s.type === "AWSDateTime") {
-      entries[s.field] = new Date(a);
-    } else {
-      if (s.field === "medicalConditions") {
-        const choices = a.choices.map((value: string) => {
-          return medicalConditionsMap[value];
-        });
-        if (a.other !== "") {
-          // a.choices.push(a.other);
-          entries[s.field] = [...choices, "other"];
-        } else {
-          entries[s.field] = choices;
+          entries[s.field] = genHealthResults;
+          entries["totalScore"] = totalScore;
         }
-      } else if (s.field === "medicationsTaken") {
-        const choices = a.choices.map((value: string) => {
-          return medicationsMap[value];
-        });
-        if (a.other !== "") {
-          // a.choices.push(a.other);
-          // TODO: MAKE SURE AHMED IS OKAY WITH USING OTHER
-          entries[s.field] = [...choices, "other"];
+        //   else {
+        //     let reportedSymptoms = [];
+        //     for (var j = 0; j < a.length; j++) {
+        //       if (a[j] === "1") {
+        //         const key: string = Object.keys(symptomsMap)[j];
+        //         reportedSymptoms.push(symptomsMap[key] as string);
+        //       }
+        //     }
+        //     entries[s.field] = reportedSymptoms;
+        //   }
+      } else if (s.type === "Int") {
+        const splitAnswer = a.split(" ")[0];
+        entries[s.field] = parseInt(splitAnswer);
+      } else if (s.type === "Boolean") {
+        if (a === "Yes") {
+          entries[s.field] = true;
+        } else if (a === "No") {
+          entries[s.field] = false;
         } else {
-          entries[s.field] = choices;
+          entries[s.field] = null;
         }
-      } else if (s.field === "symptoms") {
-        const choices = a.choices.map((value: string) => {
-          return symptomsMap[value];
-        });
-        entries[s.field] = choices;
-      } else if (s.field === "currentWorkSituation") {
-        entries[s.field] = socialDeterminantsMap[a];
+      } else if (s.type === "AWSDateTime") {
+        entries[s.field] = new Date(a);
       } else {
-        entries[s.field] = toCamelCase(a);
+        if (s.field === "medicalConditions") {
+          const choices = a.choices.map((value: string) => {
+            return medicalConditionsMap[value];
+          });
+          if (a.other !== "") {
+            // a.choices.push(a.other);
+            entries[s.field] = [...choices, "other"];
+          } else {
+            entries[s.field] = choices;
+          }
+        } else if (s.field === "medicationsTaken") {
+          const choices = a.choices.map((value: string) => {
+            return medicationsMap[value];
+          });
+          if (a.other !== "") {
+            // a.choices.push(a.other);
+            // TODO: MAKE SURE AHMED IS OKAY WITH USING OTHER
+            entries[s.field] = [...choices, "other"];
+          } else {
+            entries[s.field] = choices;
+          }
+        } else if (s.field === "symptoms") {
+          const choices = a.choices.map((value: string) => {
+            return symptomsMap[value];
+          });
+          entries[s.field] = choices;
+        } else if (s.field === "currentWorkSituation") {
+          entries[s.field] = socialDeterminantsMap[a];
+        } else {
+          entries[s.field] = toCamelCase(a);
+        }
       }
     }
   }

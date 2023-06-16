@@ -1,0 +1,97 @@
+{
+  "Records": [
+    {
+      "eventID": "df3452be81120933a590c446b60ba7fc",
+      "eventName": "INSERT",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "us-east-1",
+      "dynamodb": {
+        "ApproximateCreationDateTime": 1686864885,
+        "Keys": {
+          "id": {
+            "S": "c7d03f20-d49a-433e-8676-6823d4cbbf0c"
+          }
+        },
+        "NewImage": {
+          "owner": {
+            "S": "75953be6-f31d-4809-8509-4240168e0433::75953be6-f31d-4809-8509-4240168e0433"
+          },
+          "surveyType": {
+            "S": "WEEKLY"
+          },
+          "countyState": {
+            "S": "Monroe County#NY"
+          },
+          "surveyEntryCovidEntryId": {
+            "NULL": true
+          },
+          "surveyEntryPatientHealthEntryId": {
+            "NULL": true
+          },
+          "race": {
+            "S": "WHITE"
+          },
+          "surveyEntrySymptomsEntryId": {
+            "S": "d9763d01-013f-41d5-8d35-b5eb55883eae"
+          },
+          "surveyEntryGlobalHealthEntryId": {
+            "NULL": true
+          },
+          "__typename": {
+            "S": "SurveyEntry"
+          },
+          "sex": {
+            "S": "Male"
+          },
+          "surveyVersion": {
+            "N": "1"
+          },
+          "surveyEntrySocialDeterminantsEntryId": {
+            "NULL": true
+          },
+          "weight": {
+            "S": "123"
+          },
+          "surveyEntryMonthlyEntryId": {
+            "NULL": true
+          },
+          "createdAt": {
+            "S": "2023-06-15T21:34:45.476Z"
+          },
+          "surveyEntryRecoveryEntryId": {
+            "S": "47e4c53e-bd3a-486e-a337-6d196b70f607"
+          },
+          "parentSurveyId": {
+            "S": "8a819911-b80d-4070-868f-c485d758cd49"
+          },
+          "surveyEntryVaccinationEntryId": {
+            "NULL": true
+          },
+          "id": {
+            "S": "c7d03f20-d49a-433e-8676-6823d4cbbf0c"
+          },
+          "state": {
+            "S": "New York"
+          },
+          "age": {
+            "N": "26"
+          },
+          "email": {
+            "S": "nate.farrell36@gmail.com"
+          },
+          "height": {
+            "S": "44"
+          },
+          "updatedAt": {
+            "S": "2023-06-15T21:34:45.476Z"
+          }
+        },
+        "SequenceNumber": "1095605600000000040113637474",
+        "SizeBytes": 734,
+        "StreamViewType": "NEW_AND_OLD_IMAGES"
+      },
+      "eventSourceARN": "arn:aws:dynamodb:us-east-1:317973408936:table/SurveyEntry-3coa76ebsvhpnbhbhi3hkn4dsy-develop/stream/2022-10-28T16:09:39.150"
+    }
+  ]
+}

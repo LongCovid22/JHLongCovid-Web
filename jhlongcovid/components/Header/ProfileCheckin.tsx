@@ -29,6 +29,7 @@ import {
 } from "./AuthenticationForm/AuthenticationForm";
 import { resetUser, selectUser } from "../../redux/slices/userSlice";
 import { Auth } from "aws-amplify";
+import { initQuestions } from "../../redux/slices/surveySlice/surveySlice";
 
 interface ProfileCheckinProps {
   showInstructions?: boolean;
@@ -42,6 +43,8 @@ export const Survey: React.FC<ProfileCheckinProps> = ({
   setShowSurveyOnLaunch,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
 
   const closeSurvey = () => {
     if (setShowSurveyOnLaunch) setShowSurveyOnLaunch(false);
@@ -54,7 +57,11 @@ export const Survey: React.FC<ProfileCheckinProps> = ({
     }
   }, [showSurveyOnLaunch]);
 
-  const dispatch = useAppDispatch();
+  const handleSurveyOpen = () => {
+    dispatch(initQuestions(user));
+    onOpen();
+  };
+
   return (
     <>
       <Button
@@ -62,7 +69,7 @@ export const Survey: React.FC<ProfileCheckinProps> = ({
         borderRadius={"500px"}
         textColor="white"
         colorScheme="heritageBlue"
-        onClick={onOpen}
+        onClick={handleSurveyOpen}
       >
         Participate
       </Button>
