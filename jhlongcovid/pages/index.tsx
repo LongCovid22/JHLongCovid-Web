@@ -131,7 +131,16 @@ const Home = () => {
           }
           break;
         } catch (error) {
-          console.log("Error querying for user: ", error);
+          let graphqlResponse = error as { data?: GetUserQuery; errors: any[] };
+          if (
+            graphqlResponse &&
+            graphqlResponse.data &&
+            graphqlResponse.data.getUser
+          ) {
+            dispatch(setUser(graphqlResponse.data.getUser as User));
+          } else {
+            console.log("Error querying for user: ", error);
+          }
           break;
         }
       case "signOut":

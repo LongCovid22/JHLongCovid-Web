@@ -86,7 +86,7 @@
         },
         "notificationScheduler": {
           "deploymentBucketName": "amplify-jhlongcovid-develop-113748-deployment",
-          "s3Key": "amplify-builds/notificationScheduler-5a6a666f374367615446-build.zip"
+          "s3Key": "amplify-builds/notificationScheduler-715568336a564b57526e-build.zip"
         }
       },
       "api": {
