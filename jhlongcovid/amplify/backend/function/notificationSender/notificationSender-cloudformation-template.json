@@ -59,12 +59,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "aggregateSurveyResults",
+            "notificationSender",
             {
               "Fn::Join": [
                 "",
                 [
-                  "aggregateSurveyResults",
+                  "notificationSender",
                   "-",
                   {
                     "Ref": "env"
@@ -110,12 +110,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "jhlongcovidLambdaRolec85f25a7",
+            "jhlongcovidLambdaRolef238218f",
             {
               "Fn::Join": [
                 "",
                 [
-                  "jhlongcovidLambdaRolec85f25a7",
+                  "jhlongcovidLambdaRolef238218f",
                   "-",
                   {
                     "Ref": "env"
@@ -181,6 +181,15 @@
                   }
                 ]
               }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "sqs:ReceiveMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:DeleteMessage"
+              ],
+              "Resource": "*"
             }
           ]
         }
@@ -204,13 +213,7 @@
             {
               "Effect": "Allow",
               "Action": [
-                "appsync:Create*",
-                "appsync:StartSchemaCreation",
-                "appsync:GraphQL",
-                "appsync:Get*",
-                "appsync:List*",
-                "appsync:Update*",
-                "appsync:Delete*"
+                "appsync:GraphQL"
               ],
               "Resource": [
                 {
@@ -282,14 +285,6 @@
     "LambdaExecutionRole": {
       "Value": {
         "Ref": "LambdaExecutionRole"
-      }
-    },
-    "LambdaExecutionRoleArn": {
-      "Value": {
-        "Fn::GetAtt": [
-          "LambdaExecutionRole",
-          "Arn"
-        ]
       }
     }
   }

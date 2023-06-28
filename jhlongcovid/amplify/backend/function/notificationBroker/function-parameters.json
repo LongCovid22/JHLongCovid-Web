@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "api": {
+      "jhlongcovid": [
+        "Query",
+        "Mutation"
+      ]
+    }
+  },
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "weeklyRemindersQueueUrl",
+      "environmentVariableName": "WEEKLY_REMINDERS_QUEUE_URL"
+    }
+  ]
+}
