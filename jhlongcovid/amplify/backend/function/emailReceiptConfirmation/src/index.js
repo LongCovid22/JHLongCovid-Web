@@ -27,10 +27,10 @@ Look at surveySlice getNextQuestionAnswerDefault (line 60) for the default types
 */
 
 exports.handler = async (event) => {
-    //let data = JSON.parse(event);
+    // let data = JSON.parse(event);
     return {
         statusCode : 200,
-        body: event,
+        body: data,
     };
     
 if (typeof event === "string") {
