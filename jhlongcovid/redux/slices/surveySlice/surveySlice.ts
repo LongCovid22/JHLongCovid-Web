@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 import surveyLogic from "../../../surveyLogic.json";
 import weeklySurveyLogic from "../../../weeklySurveyLogic.json";
@@ -12,7 +12,7 @@ import { stat } from "fs";
 // this slice can be used for presentation throughout the app. When there is state that
 // controls somethings display, it should go in here
 export type SurveyState = {
-  surveyType: SurveyType;
+  surveyType: SurveyType | null;
   currentQuestionIndex: number;
   currentQuestion: any;
   currentAnswer: string | string[] | object | null;
@@ -233,11 +233,33 @@ export const surveySlice = createSlice({
       state.currentQuestionIndex = 0;
 
       const user = payload.payload;
-      if (user && user.notificationFreq == NotificationFrequency.WEEKLY) {
+
+      if (
+        user &&
+        user.lastSubmission &&
+        user.notificationFreq == NotificationFrequency.WEEKLY
+      ) {
         // Check if today is less than a week from the last check in
-        state.questions = weeklySurveyLogic.questions;
-        state.totalQuestions = weeklySurveyLogic.totalQuestions;
-        state.surveyType = SurveyType.WEEKLY;
+        const weekMilliseconds = 7 * 24 * 60 * 60 * 1000;
+        const currentDate = new Date();
+        const lastSubmissionDate = new Date(user.lastSubmission);
+        lastSubmissionDate.setHours(0, 0, 0, 0);
+        const timeDifference =
+          currentDate.getTime() - lastSubmissionDate.getTime();
+
+        // If the time since last submission is week or longer administer the
+        // weekly check in. Else, show the come back later page
+        if (timeDifference >= weekMilliseconds) {
+          state.questions = weeklySurveyLogic.questions;
+          state.totalQuestions = weeklySurveyLogic.totalQuestions;
+          state.surveyType = SurveyType.WEEKLY;
+        } else {
+          state.questions = comeBackLater.questions;
+          state.totalQuestions = comeBackLater.totalQuestions;
+          state.surveyType = null;
+          state.firstQuestion = true;
+          state.lastQuestion = true;
+        }
       } else {
         state.questions = surveyLogic.questions;
         state.totalQuestions = surveyLogic.totalQuestions;
