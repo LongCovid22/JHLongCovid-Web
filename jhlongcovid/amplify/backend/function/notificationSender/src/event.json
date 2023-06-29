@@ -1,5 +1,29 @@
 {
-  "key1": "value1",
-  "key2": "value2",
-  "key3": "value3"
+  "Records": [
+    {
+      "messageId": "58d48cab-29e4-4037-afca-e19a8de1a3e1",
+      "receiptHandle": "AQEBumr/ILSA92sNTJuAMLBgeLiDc43FXwcERWnVwyiWSKJjzfaS0g0ZKUkoxR1UaHavQdX6mX2MS9FsVXbPlCrNlzEfel7hAcCT84SGXc0kDsQzC+Dp2uhMA8BhQWiSIUKu71/AknFiphCI6kW8wCduXkc+6Y7ToXfTVzXhCPYi5y3oZiRSxZO66t8ljbfmVBU5X8I1SeOSfjIdrAF/VvrMilKEgB3pBq2m2erXSD1ZnXZUTVSOmwdVaE1YX0DhcXdySLunun4LT9+Z3itWsTaBo37Wko4hQtzmUekpb5rhdW1R2J2/7Wo3pV0Hz9Z2g4mQWRhbeVWNq6bEupjxKT6sp28HdAWgAEamsAHTH/+ByZwCQC5Omt+BqfmqIXDdehHyyJQLVhnSeAWa6KQwNMkt+g==",
+      "body": "It is time for your weekly check in!",
+      "attributes": {
+        "ApproximateReceiveCount": "5",
+        "AWSTraceHeader": "Root=1-63b6ffe7-2c48b4e36086hhhf21d16c8c;Parent=51740oo32a9d2e68;Sampled=0",
+        "SentTimestamp": "1687449183815",
+        "SenderId": "AIDAUUCFRFSUAP36XDLRG",
+        "ApproximateFirstReceiveTimestamp": "1687449183815"
+      },
+      "messageAttributes": {
+        "RecipientEmail": {
+          "stringValue": "nate.farrell36@gmail.com",
+          "stringListValues": [],
+          "binaryListValues": [],
+          "dataType": "String"
+        }
+      },
+      "md5OfMessageAttributes": "43b89082ea2f8d84a09362f3eff06e22",
+      "md5OfBody": "d5d96dab82857b461007d0d1dd1445cb",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:us-east-1:317973408936:WeeklyRemindersQueue",
+      "awsRegion": "us-east-1"
+    }
+  ]
 }

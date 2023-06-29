@@ -66,7 +66,8 @@ const createNotification = async (email) => {
   let variables = {
     input: {
       recipientEmail: email,
-      message: "It is time for your weekly check in!",
+      message:
+        "It is time for your weekly check in! Please navigate to https://www.jhlongcovid.com/ to check in.",
       sendStatus: "PENDING",
     },
   };
