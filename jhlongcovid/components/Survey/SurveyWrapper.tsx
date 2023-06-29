@@ -58,6 +58,9 @@ import {
   LocationData,
 } from "../../util/locationFunctions";
 
+import * as mutations from "../../src/graphql/mutations";
+import { API, } from "aws-amplify";
+
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
   onClose: () => void;
@@ -442,32 +445,33 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         });
       }
     }
+    console.log("sending Email Receipt");
 
     // SEND EMAIL RECEIPT OF QUESTION ANSWERS
-    // try {
-    //   const data = {
-    //     questions: questions,
-    //     questionStack: questionStack,
-    //     answerStack: answerStack,
-    //   };
+    try {
+      const data = {
+        questions: questions,
+        questionStack: questionStack,
+        answerStack: answerStack,
+      };
 
-    //   const variables = {
-    //     results: JSON.stringify(data),
-    //   };
+      const variables = {
+        results: JSON.stringify(data),
+      };
 
-    //   const emailReceipt = await API.graphql({
-    //     query: mutations.emailReceiptConfirmation,
-    //     variables: variables,
-    //   });
-    //   console.log("Email Receipt", emailReceipt);
-    // } catch (error) {
-    //   console.log("Error sending email receipt: ", error);
-    // }
+      const emailReceipt = await API.graphql({
+        query: mutations.emailReceiptConfirmation,
+        variables: variables,
+      });
+      console.log("Email Receipt", emailReceipt);
+    } catch (error) {
+      console.log("Error sending email receipt: ", error);
+    }
 
-    onClose();
-    setPerformingQueries(false);
-    setAnswer("");
-    dispatch(initQuestions(user));
+    // onClose();
+    //setPerformingQueries(false);
+    //setAnswer("");
+    //dispatch(initQuestions(user));
   };
 
   const handleQuestionChange = async (
