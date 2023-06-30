@@ -17,7 +17,9 @@
       },
       "function": {
         "aggregateSurveyResults": {},
-        "jhlongcovid": {}
+        "jhlongcovid": {},
+        "emailReceiptConfirmation": {},
+        "notificationScheduler": {}
       }
     }
   },
@@ -49,8 +51,10 @@
       "function": {
         "aggregateSurveyResults": {
           "deploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
-          "s3Key": "amplify-builds/aggregateSurveyResults-347877326e614b455356-build.zip"
-        }
+          "s3Key": "amplify-builds/aggregateSurveyResults-746f33652b526a447050-build.zip"
+        },
+        "emailReceiptConfirmation": {},
+        "notificationScheduler": {}
       },
       "storage": {
         "jhlongcovidassets": {}
