@@ -252,9 +252,13 @@ const Home = () => {
           const newMapData = v.onCreateMapData;
           if (newMapData) {
             if (newMapData.level === "county") {
-              dispatch(updateCountyData(newMapData));
+              if (realOrMock == RealOrMock.REAL) {
+                dispatch(updateCountyData(newMapData));
+              }
             } else {
-              dispatch(updateStateData(newMapData));
+              if (realOrMock == RealOrMock.REAL) {
+                dispatch(updateStateData(newMapData));
+              }
             }
           } else {
             console.log("New map data is null");
@@ -272,9 +276,13 @@ const Home = () => {
           const newMapData = v.onUpdateMapData;
           if (newMapData) {
             if (newMapData.level === "county") {
-              dispatch(updateCountyData(newMapData));
+              if (realOrMock == RealOrMock.REAL) {
+                dispatch(updateCountyData(newMapData));
+              }
             } else {
-              dispatch(updateStateData(newMapData));
+              if (realOrMock == RealOrMock.REAL) {
+                dispatch(updateStateData(newMapData));
+              }
             }
           } else {
             console.log("New map data is null");
