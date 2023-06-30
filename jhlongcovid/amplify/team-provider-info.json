@@ -27,10 +27,20 @@
       "function": {
         "aggregateSurveyResults": {
           "deploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
-          "s3Key": "amplify-builds/aggregateSurveyResults-746f33652b526a447050-build.zip"
+          "s3Key": "amplify-builds/aggregateSurveyResults-347877326e614b455356-build.zip"
         },
-        "emailReceiptConfirmation": {},
-        "notificationScheduler": {}
+        "emailReceiptConfirmation": {
+          "deploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
+          "s3Key": "amplify-builds/emailReceiptConfirmation-6271794c7a714e556a74-build.zip"
+        },
+        "notificationScheduler": {
+          "deploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
+          "s3Key": "amplify-builds/notificationScheduler-654d34514d6d4f544932-build.zip"
+        },
+        "notificationBroker": {
+          "weeklyRemindersQueueUrl": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue"
+        },
+        "notificationSender": {}
       },
       "storage": {
         "jhlongcovidassets": {}
