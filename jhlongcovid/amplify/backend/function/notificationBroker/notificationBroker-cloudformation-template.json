@@ -27,6 +27,9 @@
     "apijhlongcovidGraphQLAPIKeyOutput": {
       "Type": "String",
       "Default": "apijhlongcovidGraphQLAPIKeyOutput"
+    },
+    "weeklyRemindersQueueUrl": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -59,12 +62,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "aggregateSurveyResults",
+            "notificationBroker",
             {
               "Fn::Join": [
                 "",
                 [
-                  "aggregateSurveyResults",
+                  "notificationBroker",
                   "-",
                   {
                     "Ref": "env"
@@ -90,14 +93,14 @@
             },
             "API_JHLONGCOVID_GRAPHQLAPIKEYOUTPUT": {
               "Ref": "apijhlongcovidGraphQLAPIKeyOutput"
+            },
+            "WEEKLY_REMINDERS_QUEUE_URL": {
+              "Ref": "weeklyRemindersQueueUrl"
             }
           }
         },
         "Role": {
-          "Fn::GetAtt": [
-            "LambdaExecutionRole",
-            "Arn"
-          ]
+          "Fn::GetAtt": ["LambdaExecutionRole", "Arn"]
         },
         "Runtime": "nodejs14.x",
         "Layers": [],
@@ -110,12 +113,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "jhlongcovidLambdaRolec85f25a7",
+            "jhlongcovidLambdaRole14cd51a3",
             {
               "Fn::Join": [
                 "",
                 [
-                  "jhlongcovidLambdaRolec85f25a7",
+                  "jhlongcovidLambdaRole14cd51a3",
                   "-",
                   {
                     "Ref": "env"
@@ -131,22 +134,16 @@
             {
               "Effect": "Allow",
               "Principal": {
-                "Service": [
-                  "lambda.amazonaws.com"
-                ]
+                "Service": ["lambda.amazonaws.com"]
               },
-              "Action": [
-                "sts:AssumeRole"
-              ]
+              "Action": ["sts:AssumeRole"]
             }
           ]
         }
       }
     },
     "lambdaexecutionpolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
+      "DependsOn": ["LambdaExecutionRole"],
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyName": "lambda-execution-policy",
@@ -187,9 +184,7 @@
       }
     },
     "AmplifyResourcesPolicy": {
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ],
+      "DependsOn": ["LambdaExecutionRole"],
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyName": "amplify-lambda-execution-policy",
@@ -203,15 +198,7 @@
           "Statement": [
             {
               "Effect": "Allow",
-              "Action": [
-                "appsync:Create*",
-                "appsync:StartSchemaCreation",
-                "appsync:GraphQL",
-                "appsync:Get*",
-                "appsync:List*",
-                "appsync:Update*",
-                "appsync:Delete*"
-              ],
+              "Action": ["appsync:GraphQL"],
               "Resource": [
                 {
                   "Fn::Join": [
@@ -258,6 +245,39 @@
           ]
         }
       }
+    },
+    "CloudWatchEvent": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Description": "Schedule rule for Lambda",
+        "ScheduleExpression": {
+          "Ref": "CloudWatchRule"
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": ["LambdaFunction", "Arn"]
+            },
+            "Id": {
+              "Ref": "LambdaFunction"
+            }
+          }
+        ]
+      }
+    },
+    "PermissionForEventsToInvokeLambda": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "LambdaFunction"
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": ["CloudWatchEvent", "Arn"]
+        }
+      }
     }
   },
   "Outputs": {
@@ -268,10 +288,7 @@
     },
     "Arn": {
       "Value": {
-        "Fn::GetAtt": [
-          "LambdaFunction",
-          "Arn"
-        ]
+        "Fn::GetAtt": ["LambdaFunction", "Arn"]
       }
     },
     "Region": {
@@ -284,12 +301,9 @@
         "Ref": "LambdaExecutionRole"
       }
     },
-    "LambdaExecutionRoleArn": {
+    "CloudWatchEventRule": {
       "Value": {
-        "Fn::GetAtt": [
-          "LambdaExecutionRole",
-          "Arn"
-        ]
+        "Ref": "CloudWatchEvent"
       }
     }
   }

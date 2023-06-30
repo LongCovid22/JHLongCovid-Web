@@ -1,21 +1,16 @@
-import { Storage } from "aws-amplify";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Spacer,
   Flex,
   VStack,
   Text,
-  Image,
   Spinner,
   HStack,
-  Button,
-  IconButton,
   Box,
 } from "@chakra-ui/react";
 import { InstructionStepProps } from "../Instructions";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
 
-export const SurveyInstructionStep: React.FC<InstructionStepProps> = ({
+export const LongitudinalInstructionStep: React.FC<InstructionStepProps> = ({
   setInstructionStep,
   videoUrl,
 }) => {
@@ -51,11 +46,11 @@ export const SurveyInstructionStep: React.FC<InstructionStepProps> = ({
             </Text>
           </Box>
           <Text>
-            Navigate your cursor to the top right corner and click the{" "}
+            Before finishing your survey,{" "}
             <Text fontWeight={"bold"} as="span">
-              Participate
+              create your account
             </Text>{" "}
-            button.
+            at the account creation step.
           </Text>
         </HStack>
         <HStack spacing="15px" w="100%">
@@ -79,11 +74,12 @@ export const SurveyInstructionStep: React.FC<InstructionStepProps> = ({
             </Text>
           </Box>
           <Text>
-            Click the{" "}
+            Once your account has been created, a weekly reminder will be
+            emailed to you to follow up if you have{" "}
             <Text fontWeight={"bold"} as="span">
-              Begin Survey
+              not
             </Text>{" "}
-            button to start filling out the survey.
+            recovered from COVID yet.
           </Text>
         </HStack>
         <HStack spacing="15px" w="100%">
@@ -107,18 +103,19 @@ export const SurveyInstructionStep: React.FC<InstructionStepProps> = ({
             </Text>
           </Box>
           <Text>
-            Once you are finished completing the survey, click the{" "}
+            On your follow up date, return back to the dashboard and complete
+            your weekly check in. This process will repeat until you{" "}
             <Text fontWeight={"bold"} as="span">
-              Finish
+              have
             </Text>{" "}
-            button to submit your results.
+            recovered from COVID.
           </Text>
         </HStack>
       </VStack>
       <HStack w="100%" justifyContent={"center"}>
         <VStack>
           <Text color={"gray.400"}>
-            Here is a video showing a sample run through of a survey.
+            Here is a video walking through the account creation process.
           </Text>
           {videoUrl && (
             <video

@@ -15,16 +15,20 @@ interface CircleProps extends google.maps.CircleOptions {
   setSelectedData: (data: any) => void;
 }
 
-function addCommasToNumberString(number: number): string {
-  const numberString = number.toString();
-  // Reverse the input string
-  const reversedString = numberString.split("").reverse().join("");
+function addCommasToNumberString(number: number | undefined): string {
+  if (number) {
+    const numberString = number.toString();
+    // Reverse the input string
+    const reversedString = numberString.split("").reverse().join("");
 
-  // Add commas every 3 characters
-  const stringWithCommas = reversedString.replace(/(\d{3})(?=\d)/g, "$1,");
+    // Add commas every 3 characters
+    const stringWithCommas = reversedString.replace(/(\d{3})(?=\d)/g, "$1,");
 
-  // Reverse the result and return it
-  return stringWithCommas.split("").reverse().join("");
+    // Reverse the result and return it
+    return stringWithCommas.split("").reverse().join("");
+  }
+
+  return "";
 }
 
 export const Marker: React.FC<CircleProps> = ({

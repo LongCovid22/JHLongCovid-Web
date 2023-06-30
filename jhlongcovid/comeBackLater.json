@@ -4,9 +4,9 @@
   "questions": [
     [
       {
-        "title": "Weekly Checkin",
+        "title": "",
         "questionNum": 1,
-        "question": "Come back later!",
+        "question": "",
         "options": [],
         "answerFormat": "comeBackLater",
         "answer": null,

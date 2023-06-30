@@ -7,9 +7,11 @@ export function sumUpCases(data, realOrMock = RealOrMock.MOCK) {
       total += data[key].longCovid;
     });
   } else {
-    data.forEach((dat) => {
-      total += dat.longCovid;
-    });
+    if (Array.isArray(data)) {
+      data.forEach((dat) => {
+        total += dat.longCovid;
+      });
+    }
   }
 
   return total;

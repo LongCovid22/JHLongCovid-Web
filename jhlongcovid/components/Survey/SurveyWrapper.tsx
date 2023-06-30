@@ -57,6 +57,8 @@ import {
   getCountyAndStateCoords,
   LocationData,
 } from "../../util/locationFunctions";
+import { ComeBackLater } from "./SurveyBody/ComeBackLater";
+import { User } from "../../src/API";
 
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
@@ -75,6 +77,7 @@ export type UserInfo = {
 export interface SurveyQuestionProps {
   currentQuestion: any;
   setAnswer: (answer: any) => void;
+  user?: User;
   userInfo?: UserInfo;
   location?: LocationData;
   setErrorPresent?: (error: boolean) => void;
@@ -96,6 +99,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
   setLocationData,
   onVerify,
   handleQuestionChange,
+  user,
 }) => {
   let answerFormat = currentQuestion.answerFormat;
   if (Array.isArray(answerFormat)) {
@@ -122,6 +126,15 @@ const Body: React.FC<SurveyQuestionProps> = ({
         setAnswer={setAnswer}
         setErrorPresent={setErrorPresent}
         setErrorText={setErrorText}
+      />
+    );
+  } else if (answerFormat === "comeBackLater") {
+    return (
+      <ComeBackLater
+        currentQuestion={currentQuestion}
+        handleQuestionChange={handleQuestionChange}
+        setAnswer={setAnswer}
+        user={user}
       />
     );
   } else if (answerFormat === "demographics") {
@@ -338,131 +351,135 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   };
 
   const handleFinishQuestion = async () => {
-    setPerformingQueries(true);
+    // Handling the case where there isn't a survey being administered because
+    // the user tried to fill one out before their weekly check in
+    if (surveyType !== null) {
+      setPerformingQueries(true);
 
-    // NOTE: the user passed in to this function to get the demographics
-    // if the survey type is not GUEST (since the weekly survey doesn't include the
-    // demographics section).
-    const entries = processEntries(
-      surveyType,
-      questionStack,
-      answerStack,
-      questions,
-      user
-    );
-
-    let locationData;
-    if (surveyType == SurveyType.WEEKLY) {
-      locationData = await getCountyAndStateCoords(
-        location.state,
-        location.county,
-        process.env.GOOGLEMAPS_API_KEY!
-      );
-    } else {
-      locationData = location;
-    }
-
-    if (locationData.state === "") {
-      setPerformingQueries(false);
-      toast({
-        title: "Survey submission",
-        description:
-          "Unable to find location. Please enter a valid zip code at the begininng of the survey.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top-right",
-      });
-      return;
-    }
-
-    let ids;
-    // Save survey entries
-    try {
-      ids = await saveEntries(
-        locationData,
-        entries,
-        userInfo,
+      // NOTE: the user passed in to this function to get the demographics
+      // if the survey type is not GUEST (since the weekly survey doesn't include the
+      // demographics section).
+      const entries = processEntries(
         surveyType,
+        questionStack,
+        answerStack,
+        questions,
         user
       );
-    } catch (error) {
-      console.log("Error saving survey entries", error);
-      toast({
-        title: "Survey submission",
-        description: "Failed to submit survey",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top-right",
-      });
-    }
 
-    if (user) {
-      const updatedUser = await updateUserWithInfoFromSurvey(
-        userInfo,
-        user,
-        ids["SurveyEntry"],
-        recovered
-      );
-      if (updatedUser) {
-        dispatch(setUser(updatedUser));
-      }
-    }
-
-    // Aggregate survey results
-    // TODO: Add aggregateion for weekly surveys..
-    if (surveyType === SurveyType.GUEST) {
-      try {
-        await aggregateResults(
-          entries,
-          ids,
-          userInfo,
-          location,
-          surveyType,
-          user
+      let locationData;
+      if (surveyType == SurveyType.WEEKLY) {
+        locationData = await getCountyAndStateCoords(
+          location.state,
+          location.county,
+          process.env.GOOGLEMAPS_API_KEY!
         );
+      } else {
+        locationData = location;
+      }
+
+      if (locationData.state === "") {
+        setPerformingQueries(false);
         toast({
           title: "Survey submission",
-          description: "Successfully submitted survey",
-          status: "success",
+          description:
+            "Unable to find location. Please enter a valid zip code at the begininng of the survey.",
+          status: "error",
           duration: 3000,
           isClosable: true,
           position: "top-right",
         });
+        return;
+      }
+
+      let ids;
+      // Save survey entries
+      try {
+        ids = await saveEntries(
+          locationData,
+          entries,
+          userInfo,
+          surveyType,
+          user
+        );
       } catch (error) {
-        console.log("Error aggregating survey results", error);
+        console.log("Error saving survey entries", error);
         toast({
-          title: "Error aggregating results",
-          description: `${error}`,
+          title: "Survey submission",
+          description: "Failed to submit survey",
           status: "error",
           duration: 3000,
           isClosable: true,
           position: "top-right",
         });
       }
+
+      if (user) {
+        const updatedUser = await updateUserWithInfoFromSurvey(
+          userInfo,
+          user,
+          ids["SurveyEntry"],
+          recovered
+        );
+        if (updatedUser) {
+          dispatch(setUser(updatedUser));
+        }
+      }
+
+      // Aggregate survey results
+      // TODO: Add aggregateion for weekly surveys..
+      if (surveyType === SurveyType.GUEST) {
+        try {
+          await aggregateResults(
+            entries,
+            ids,
+            userInfo,
+            location,
+            surveyType,
+            user
+          );
+          toast({
+            title: "Survey submission",
+            description: "Successfully submitted survey",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "top-right",
+          });
+        } catch (error) {
+          console.log("Error aggregating survey results", error);
+          toast({
+            title: "Error aggregating results",
+            description: `${error}`,
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+            position: "top-right",
+          });
+        }
+      }
+
+      // SEND EMAIL RECEIPT OF QUESTION ANSWERS
+      // try {
+      //   const data = {
+      //     questions: questions,
+      //     questionStack: questionStack,
+      //     answerStack: answerStack,
+      //   };
+
+      //   const variables = {
+      //     results: JSON.stringify(data),
+      //   };
+
+      //   const emailReceipt = await API.graphql({
+      //     query: mutations.emailReceiptConfirmation,
+      //     variables: variables,
+      //   });
+      //   console.log("Email Receipt", emailReceipt);
+      // } catch (error) {
+      //   console.log("Error sending email receipt: ", error);
+      // }
     }
-
-    // SEND EMAIL RECEIPT OF QUESTION ANSWERS
-    // try {
-    //   const data = {
-    //     questions: questions,
-    //     questionStack: questionStack,
-    //     answerStack: answerStack,
-    //   };
-
-    //   const variables = {
-    //     results: JSON.stringify(data),
-    //   };
-
-    //   const emailReceipt = await API.graphql({
-    //     query: mutations.emailReceiptConfirmation,
-    //     variables: variables,
-    //   });
-    //   console.log("Email Receipt", emailReceipt);
-    // } catch (error) {
-    //   console.log("Error sending email receipt: ", error);
-    // }
 
     onClose();
     setPerformingQueries(false);
@@ -630,6 +647,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             setLocationData={setLocation}
             onVerify={() => handleQuestionChange("next")}
             handleQuestionChange={handleQuestionChange}
+            user={user}
           />
         </ModalBody>
         <ModalFooter w="100%">
