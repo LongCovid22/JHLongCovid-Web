@@ -1,6 +1,8 @@
 import { Storage } from "aws-amplify";
 import React, { useEffect, useState } from "react";
+import { ChevronLeftIcon } from "@chakra-ui/icons";
 import {
+  IconButton,
   Spacer,
   Flex,
   Modal,
@@ -22,8 +24,14 @@ import { IntroInstructionStep } from "./InstructionSteps/IntroInstructionStep";
 import { SurveyInstructionStep } from "./InstructionSteps/SurveyInstructionStep";
 import { VisualizationInstructionStep } from "./InstructionSteps/VisualizationInstructionStep";
 import { EndInstructionStep } from "./InstructionSteps/EndInstructionStep";
+import { LongitudinalInstructionStep } from "./InstructionSteps/LongitudinalInstructionStep";
 
-export type InstructionStep = "intro" | "survey" | "visualization" | "end";
+export type InstructionStep =
+  | "intro"
+  | "survey"
+  | "visualization"
+  | "end"
+  | "longitudinal";
 
 interface InstructionsProps {
   showInstructions: boolean;
@@ -60,8 +68,15 @@ export const InstructionStep: React.FC<InstructionStepProps> = ({
       );
     case "end":
       return <EndInstructionStep setInstructionStep={setInstructionStep} />;
+    case "longitudinal":
+      return (
+        <LongitudinalInstructionStep
+          setInstructionStep={setInstructionStep}
+          videoUrl={videoUrl}
+        />
+      );
     default:
-      return <Spinner />;
+      return null;
   }
 };
 
@@ -83,6 +98,12 @@ export const HeaderText: React.FC<{ step: InstructionStep }> = ({ step }) => {
       );
     case "end":
       return <Text></Text>;
+    case "longitudinal":
+      return (
+        <Text fontSize={"2xl"} fontWeight={"bold"}>
+          Longitudinal Study
+        </Text>
+      );
   }
 };
 
@@ -93,52 +114,29 @@ export const Instructions: React.FC<InstructionsProps> = ({
   const [step, setInstructionStep] = useState<InstructionStep>("intro");
   const [surveyVidUrl, setSurveyVidUrl] = useState<string | undefined>();
   const [dataVisVidUrl, setDataVisVidUrl] = useState<string | undefined>();
+  const [longVisVidUrl, setLongVisVidUrl] = useState<string | undefined>();
   const width = useSelector(selectWidth);
   const height = useSelector(selectHeight);
 
-  const handlePrevStep = () => {
-    switch (step) {
-      case "intro":
-        return;
-      case "survey":
-        return setInstructionStep("intro");
-      case "visualization":
-        return setInstructionStep("survey");
-      case "end":
-        return setInstructionStep("visualization");
-    }
-  };
-
-  const handleNextStep = () => {
-    switch (step) {
-      case "intro":
-        setInstructionStep("survey");
-        break;
-      case "survey":
-        setInstructionStep("visualization");
-        break;
-      case "visualization":
-        setInstructionStep("end");
-        break;
-      case "end":
-        setShowInstructions(false);
-        // setInstructionStep("intro");
-        break;
-    }
-  };
-
   const getSurveyVideoUrl = async () => {
-    const url = await Storage.get("participationInstructional.mp4", {
+    const url = await Storage.get("SurveyInstructional.mp4", {
       level: undefined,
     });
     setSurveyVidUrl(url);
   };
 
   const getVisVideoUrl = async () => {
-    const url = await Storage.get("DataVisualsExample.mp4", {
+    const url = await Storage.get("AnalyzeInstructional.mp4", {
       level: undefined,
     });
     setDataVisVidUrl(url);
+  };
+
+  const getLongVideoUrl = async () => {
+    const url = await Storage.get("LongInstructional.mp4", {
+      level: undefined,
+    });
+    setLongVisVidUrl(url);
   };
 
   const urlForStep = () => {
@@ -146,14 +144,15 @@ export const Instructions: React.FC<InstructionsProps> = ({
       return surveyVidUrl;
     } else if (step === "visualization") {
       return dataVisVidUrl;
-    } else {
-      return undefined;
+    } else if (step === "longitudinal") {
+      return longVisVidUrl;
     }
   };
 
   useEffect(() => {
     getSurveyVideoUrl();
     getVisVideoUrl();
+    getLongVideoUrl();
   }, []);
 
   useEffect(() => {
@@ -173,11 +172,11 @@ export const Instructions: React.FC<InstructionsProps> = ({
       <ModalContent
         style={{
           background: "white",
-          width: width < 700 ? 410 : width * 0.6,
+          width: width < 700 ? 410 : width * 0.65,
           minWidth: 410,
-          maxWidth: 1000,
-          minHeight: height * 0.6,
-          maxHeight: height * 0.9,
+          maxWidth: 1100,
+          minHeight: height * 0.7,
+          maxHeight: height * 0.95,
           // height: height < 720 ? height * 0.9 : "700px",
           borderRadius: "35px",
           padding: "15px",
@@ -188,6 +187,20 @@ export const Instructions: React.FC<InstructionsProps> = ({
       >
         <ModalHeader>
           <Flex>
+            {step !== "intro" && (
+              <IconButton
+                aria-label="Back"
+                icon={<ChevronLeftIcon fontSize={"35px"} />}
+                size="md"
+                variant={"outline"}
+                border="none"
+                top={"0px"}
+                colorScheme="spiritBlue"
+                onClick={() => {
+                  setInstructionStep("intro");
+                }}
+              />
+            )}
             <HeaderText step={step} />
             <Spacer />
             <CloseButton
@@ -215,12 +228,15 @@ export const Instructions: React.FC<InstructionsProps> = ({
         <ModalFooter>
           <HStack w="100%" spacing={"15px"}>
             <Image src="./crHorizontal.png" w="200px" alt="Hopkins Logo" />
-            <Text color={"gray.400"} fontSize="xs" w="45%" align={"left"}>
-              All survey questionnaires were developed in line with the
-              Collaborative Cohort of Cohorts for COVID-19 Research (C4R). 
-            </Text>
             <Spacer />
+            {width > 700 && (
+              <Text color={"gray.400"} fontSize="xs" w="45%" align={"right"}>
+                All survey questionnaires were developed in line with the
+                Collaborative Cohort of Cohorts for COVID-19 Research (C4R). 
+              </Text>
+            )}
 
+            {/* 
             {step !== "intro" && (
               <Button
                 colorScheme="heritageBlue"
@@ -238,7 +254,7 @@ export const Instructions: React.FC<InstructionsProps> = ({
               onClick={() => handleNextStep()}
             >
               {step === "end" ? "Finish" : "Next"}
-            </Button>
+            </Button> */}
           </HStack>
         </ModalFooter>
       </ModalContent>
