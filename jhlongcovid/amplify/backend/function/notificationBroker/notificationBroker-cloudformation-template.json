@@ -187,15 +187,6 @@
                   }
                 ]
               }
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
-                "sqs:ReceiveMessage",
-                "sqs:GetQueueAttributes",
-                "sqs:DeleteMessage"
-              ],
-              "Resource": "*"
             }
           ]
         }
@@ -335,6 +326,14 @@
     "CloudWatchEventRule": {
       "Value": {
         "Ref": "CloudWatchEvent"
+      }
+    },
+    "LambdaExecutionRoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "LambdaExecutionRole",
+          "Arn"
+        ]
       }
     }
   }

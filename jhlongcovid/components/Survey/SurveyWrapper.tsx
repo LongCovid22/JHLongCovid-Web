@@ -468,10 +468,10 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       console.log("Error sending email receipt: ", error);
     }
 
-    // onClose();
-    //setPerformingQueries(false);
-    //setAnswer("");
-    //dispatch(initQuestions(user));
+    onClose();
+    setPerformingQueries(false);
+    setAnswer("");
+    dispatch(initQuestions(user));
   };
 
   const handleQuestionChange = async (
