@@ -13,6 +13,7 @@ const { getRecovered, createNotification } = require("./queries");
 exports.handler = async (event) => {
   for (const record of event.Records) {
     const { email, surveyEntryRecoveryEntryId } = record.dynamodb.NewImage;
+    console.log("RECORD: ", record);
     const recipientEmail = email.S;
     const surveyEntryRecoveryEntryIdValue = surveyEntryRecoveryEntryId.S;
 
