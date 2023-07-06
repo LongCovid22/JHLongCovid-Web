@@ -1,5 +1,6 @@
 const AWS = require("aws-sdk");
 const ses = new AWS.SES({ region: "us-east-1" });
+const sqs = new AWS.SQS({ region: "us-east-1" });
 const Handlebars = require("handlebars");
 
 // Define your email template
@@ -81,7 +82,21 @@ exports.handler = async (event) => {
         // Ensure that the `ContentId` matches the `src` attribute in the email template
       };
 
+      console.log("Sending email for SQS message: ", record.receiptHandle);
       await ses.sendEmail(emailParams).promise();
+      console.log("Email sent successfully");
+
+      console.log(
+        "Deleting SQS message with receipt handle: ",
+        record.receiptHandle
+      );
+      const deleteParams = {
+        QueueUrl: process.env.WEEKLY_REMINDERS_QUEUE_URL,
+        ReceiptHandle: record.receiptHandle,
+      };
+
+      await sqs.deleteMessage(deleteParams).promise();
+      console.log("Deleting SQS message successful");
     }
   } catch (error) {
     console.error("Error: ", error);
