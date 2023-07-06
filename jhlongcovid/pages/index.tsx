@@ -187,27 +187,24 @@ const Home = () => {
     // console.log("re-render map");
     return (
       <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
-        {displayData.map((data) => (
-          <Marker
-            key={`marker-${data.lat}-${data.long}`}
-            center={{ lat: data.lat, lng: data.long }}
-            // radius={
-            //   data.level === "state"
-            //     ? (data.longCovid / totalLongCovidCases) * 1000000
-            //     : (data.longCovid / totalLongCovidCases) * 1000000
-            // }
-            radius={calculateRadius(
-              data.longCovid,
-              totalLongCovidCases,
-              data.level,
-              realOrMock
-            )}
-            data={data}
-            setSelectedData={setSelectedData}
-            markerData={markerData}
-            setMarkerData={setMarkerData}
-          />
-        ))}
+        {displayData.map((data) =>
+          data.longCovid > 0 && totalLongCovidCases > 0 ? (
+            <Marker
+              key={`marker-${data.lat}-${data.long}`}
+              center={{ lat: data.lat, lng: data.long }}
+              radius={calculateRadius(
+                data.longCovid,
+                totalLongCovidCases,
+                data.level,
+                realOrMock
+              )}
+              data={data}
+              setSelectedData={setSelectedData}
+              markerData={markerData}
+              setMarkerData={setMarkerData}
+            />
+          ) : null
+        )}
       </Map>
     );
   }, [displayData]);
