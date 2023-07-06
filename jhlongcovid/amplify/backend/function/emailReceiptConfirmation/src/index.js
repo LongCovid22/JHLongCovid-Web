@@ -39,7 +39,9 @@ exports.handler = async (event) => {
 
       if (
         question.answerFormat !== "welcome" &&
-        question.answerFormat !== "consent"
+        question.answerFormat !== "consent" && 
+        question.answerFormat !== "account" &&
+        question.answerFormat !== "thankYou"
       ) {
         if (Array.isArray(question.answerFormat)) {
           if (question.answerFormat.includes("multichoice")) {
@@ -65,14 +67,13 @@ exports.handler = async (event) => {
           }
         } else if (question.answerFormat === "demographics") {
           const propertyNames = [
-            "zip",
             "age",
             "race",
             "sex",
             "height",
             "weight",
           ];
-          const { zip, age, race, sex, height, weight } = answer;
+          const { age, race, sex, height, weight } = answer;
           propertyNames.forEach((propertyName) => {
             questions.push(propertyName);
             answers.push(eval(propertyName));
@@ -84,9 +85,6 @@ exports.handler = async (event) => {
             questions.push(propertyName);
             answers.push(eval(propertyName));
           });
-        } else {
-          questions.push(question.question);
-          answers.push(answer);
         }
       }
     }
@@ -97,9 +95,11 @@ exports.handler = async (event) => {
       tableRows += `<tr><td>${questions[i]}</td><td>${answers[i]}</td></tr>`;
     }
 
+    const email = event.arguments.email;
+
     const params = {
       Destination: {
-        ToAddresses: ["leo.hubert3@gmail.com"], // Replace with your recipient's email address
+        ToAddresses: [email], // Replace with your recipient's email address
       },
       Message: {
         Body: {
@@ -115,7 +115,7 @@ exports.handler = async (event) => {
           Data: "Test email from Amazon SES", // Replace with the subject of your email
         },
       },
-      Source: "no-reply@aricvoice.com", // Replace with your sender's email address
+      Source: "hopkinslongcovidteam@gmail.com", // Replace with your sender's email address
     };
 
     let response;
@@ -128,6 +128,7 @@ exports.handler = async (event) => {
         event: event,
         statusCode: 200,
         body: JSON.stringify({ message: result }),
+        email: event.arguments.email
       };
       statusCode = 200;
     } catch (error) {
@@ -136,6 +137,7 @@ exports.handler = async (event) => {
         event: event,
         statusCode: 500,
         body: JSON.stringify({ message: error }),
+        email: event.arguments.email
       };
       statusCode = 400;
     }

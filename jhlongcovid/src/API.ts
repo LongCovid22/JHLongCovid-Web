@@ -2342,6 +2342,7 @@ export type AggregateSurveyResultsMutation = {
 
 export type EmailReceiptConfirmationMutationVariables = {
   results: string,
+  email?: string | null,
 };
 
 export type EmailReceiptConfirmationMutation = {

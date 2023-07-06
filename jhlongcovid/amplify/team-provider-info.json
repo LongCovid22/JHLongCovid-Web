@@ -125,11 +125,11 @@
         },
         "emailReceiptConfirmation": {
           "deploymentBucketName": "amplify-jhlongcovid-dev-120240-deployment",
-          "s3Key": "amplify-builds/emailReceiptConfirmation-706d4a58417344505170-build.zip"
+          "s3Key": "amplify-builds/emailReceiptConfirmation-78752b4a4348642b5732-build.zip"
         },
         "notificationScheduler": {
           "deploymentBucketName": "amplify-jhlongcovid-dev-120240-deployment",
-          "s3Key": "amplify-builds/notificationScheduler-654d34514d6d4f544932-build.zip"
+          "s3Key": "amplify-builds/notificationScheduler-63384d51304d734f6935-build.zip"
         },
         "notificationBroker": {
           "weeklyRemindersQueueUrl": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue",

@@ -49,6 +49,7 @@ import {
   saveEntries,
   updateUserWithInfoFromSurvey,
   userInfoIsEmpty,
+  sendEmailResult
 } from "./SurveyFunctions";
 import { aggregateSurveyResults } from "../../src/graphql/mutations";
 import { SurveyType } from "../../src/API";
@@ -461,47 +462,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           });
         }
       }
-
-      // SEND EMAIL RECEIPT OF QUESTION ANSWERS
-      // try {
-      //   const data = {
-      //     questions: questions,
-      //     questionStack: questionStack,
-      //     answerStack: answerStack,
-      //   };
-
-      //   const variables = {
-      //     results: JSON.stringify(data),
-      //   };
-
-      //   const emailReceipt = await API.graphql({
-      //     query: mutations.emailReceiptConfirmation,
-      //     variables: variables,
-      //   });
-      //   console.log("Email Receipt", emailReceipt);
-      // } catch (error) {
-      //   console.log("Error sending email receipt: ", error);
-      // }
-
-      console.log("sending Email Receipt");
-      // SEND EMAIL RECEIPT OF QUESTION ANSWERS
-
       try {
-        const data = {
-          questions: questions,
-          questionStack: questionStack,
-          answerStack: answerStack,
-        };
-
-        const variables = {
-          results: JSON.stringify(data),
-        };
-
-        const emailReceipt = await API.graphql({
-          query: mutations.emailReceiptConfirmation,
-          variables: variables,
-        });
-        console.log("Email Receipt", emailReceipt);
+        await sendEmailResult(questions, questionStack, answerStack, userInfo.email);
       } catch (error) {
         console.log("Error sending email receipt: ", error);
       }

@@ -749,6 +749,30 @@ export const aggregateResults = async (
   });
 };
 
+export const sendEmailResult = async (
+  questions: any,
+  questionStack: any[],
+  answerStack: any[],
+  email: String
+) => {
+  const data = {
+    questions: questions,
+    questionStack: questionStack,
+    answerStack: answerStack,
+  };
+
+  const variables = {
+    results: JSON.stringify(data),
+    email
+  };
+
+  const emailReceipt = await API.graphql({
+    query: mutations.emailReceiptConfirmation,
+    variables: variables,
+  });
+  console.log("Email Receipt", emailReceipt);
+}
+
 export const medicalConditionsMap: any = {
   noNewDiagnosis: "None",
   heartProblems:
