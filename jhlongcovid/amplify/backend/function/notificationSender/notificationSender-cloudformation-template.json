@@ -27,6 +27,9 @@
     "apijhlongcovidGraphQLAPIKeyOutput": {
       "Type": "String",
       "Default": "apijhlongcovidGraphQLAPIKeyOutput"
+    },
+    "weeklyRemindersQueueUrl": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -90,6 +93,9 @@
             },
             "API_JHLONGCOVID_GRAPHQLAPIKEYOUTPUT": {
               "Ref": "apijhlongcovidGraphQLAPIKeyOutput"
+            },
+            "WEEKLY_REMINDERS_QUEUE_URL": {
+              "Ref": "weeklyRemindersQueueUrl"
             }
           }
         },
@@ -261,6 +267,33 @@
           ]
         }
       }
+    },
+    "CustomLambdaExecutionPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "custom-lambda-execution-policy",
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Action": [
+                "ses:SendEmail",
+                "ses:SendRawEmail"
+              ],
+              "Resource": [
+                "*"
+              ],
+              "Effect": "Allow"
+            }
+          ]
+        },
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ]
+      },
+      "DependsOn": "LambdaExecutionRole"
     }
   },
   "Outputs": {

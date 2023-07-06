@@ -16,7 +16,7 @@ exports.handler = async (event) => {
       const { id, email, surveyEntryRecoveryEntryId } =
         record.dynamodb.NewImage;
       const idValue = id.S;
-      console.log(`INSERT RECORD RECEIVED id: ${id}, email: ${email}`);
+      console.log(`INSERT RECORD RECEIVED id: ${idValue}, email: ${email}`);
       if (email) {
         const recipientEmail = email.S;
         const surveyEntryRecoveryEntryIdValue = surveyEntryRecoveryEntryId.S;
@@ -37,8 +37,7 @@ exports.handler = async (event) => {
               );
               if (createNotificationResponse.data.createNotification) {
                 console.log(
-                  "Successfully scheduled Notification:",
-                  createNotificationResponse.data.createNotification.id
+                  `Successfully scheduled Notification ${createNotificationResponse.data.createNotification.id} after survey entry ${idValue}`
                 );
               }
             }
