@@ -240,6 +240,14 @@
         }
       ]
     },
+    "AMPLIFY_function_notificationSender_weeklyRemindersQueueUrl": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notificationSender"
+        }
+      ]
+    },
     "AMPLIFY_hosting_amplifyhosting_appId": {
       "usedBy": [
         {
