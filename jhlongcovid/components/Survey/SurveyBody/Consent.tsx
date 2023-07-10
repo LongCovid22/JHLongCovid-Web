@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   VStack,
   Text,
@@ -11,6 +11,8 @@ import {
   FormHelperText,
   FormErrorMessage,
 } from "@chakra-ui/react";
+import ReCAPTCHA from "react-google-recaptcha";
+
 import { SurveyQuestionProps } from "../SurveyWrapper";
 import { useAppSelector } from "../../../redux/hooks";
 import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
@@ -29,13 +31,17 @@ const BulletedList = ({ options }: { options: any }) => {
 
 export const Consent: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
+  setRecap,
   setAnswer,
   setErrorPresent,
   setErrorText,
 }) => {
+  
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+
 
   const handleAnswerChange = (value: string) => {
     setEmail(value);
@@ -52,6 +58,14 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
       }
     }
   };
+
+  function onChange(value: string) {
+    
+    if  (value !== null && setRecap) {
+      setErrorPresent!(false);
+      setRecap(true);
+    }
+  }
 
   const validateEmail = (value: string) => {
     return value.match(
@@ -99,6 +113,13 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
             </FormHelperText>
           )}
         </FormControl>
+        <form >
+          <ReCAPTCHA
+            ref={recaptchaRef}
+            sitekey="6LfrfhEnAAAAAL4WpQIxHKCqUH03WWVQVWL_-I9j"
+            onChange={onChange}
+          />
+        </form>
       </VStack>
     </>
   );

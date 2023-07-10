@@ -81,6 +81,7 @@ export type UserInfo = {
 export interface SurveyQuestionProps {
   currentQuestion: any;
   setAnswer: (answer: any) => void;
+  setRecap?: (recap: any) => void;
   user?: User;
   userInfo?: UserInfo;
   location?: LocationData;
@@ -98,6 +99,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
   userInfo,
   location,
   setAnswer,
+  setRecap,
   setErrorPresent,
   setErrorText,
   setLocationData,
@@ -127,6 +129,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
     return (
       <Consent
         currentQuestion={currentQuestion}
+        setRecap={setRecap}
         setAnswer={setAnswer}
         setErrorPresent={setErrorPresent}
         setErrorText={setErrorText}
@@ -203,9 +206,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const surveyType = useAppSelector(selectSurveyType);
   const dispatch = useAppDispatch();
   const [performingQueries, setPerformingQueries] = useState(false);
+  const [recap, setRecap] = useState(false);
   const [answer, setAnswer] = useState<string | string[] | object | null>(
     currentQuestion.answer
   );
+ 
   const [recovered, setRecovered] = useState<boolean | null>(null);
   const [location, setLocation] = useState<LocationData>({
     state: "",
@@ -233,6 +238,13 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
   const handleNextQuestion = async () => {
     if (currentQuestion.answerFormat !== "welcome") {
+      if(currentQuestion.answerFormat === "consent") {
+        if (recap == false) {
+          setErrorText("Please complete the ReCaptcha!");
+          setMissingAnswer(true);
+          return;
+        }
+      }
       // Update the info of the user signed in when on the account
       // stage at the end of the survey
       if (currentQuestion.answerFormat === "account" && user) {
@@ -346,6 +358,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
   const handlePrevQuestion = () => {
     dispatch(prevQuestion({ answer: answer }));
+    setRecap(false);
     setAnswer("");
   };
 
@@ -628,6 +641,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           <Body
             currentQuestion={currentQuestion}
             userInfo={userInfo}
+            setRecap={setRecap}
             setAnswer={setAnswer}
             setErrorPresent={setErrorPresent}
             setErrorText={setErrorText}
