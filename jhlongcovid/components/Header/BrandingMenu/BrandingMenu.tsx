@@ -19,7 +19,7 @@ import { AboutUs } from "./AboutUs";
 
 export const BrandingMenu = () => {
   return (
-    <Menu isLazy>
+    <Menu isLazy closeOnBlur={false} closeOnSelect={false}>
       <MenuButton
         as={IconButton}
         aria-label="Options"
