@@ -12,6 +12,10 @@ import {
   Spacer,
   useToast,
   Image,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalCloseButton
 } from "@chakra-ui/react";
 
 //redux imports
@@ -235,6 +239,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [missingAnswer, setMissingAnswer] = useState(false);
   const [errorText, setErrorText] = useState("");
   const [errorPresent, setErrorPresent] = useState(false);
+
+  const { isOpen: isConfirmOpen , onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure();
+
 
   const handleNextQuestion = async () => {
     if (currentQuestion.answerFormat !== "welcome") {
@@ -620,11 +627,33 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               size={"md"}
               bgColor="spiritBlue.100"
               color={"heritageBlue.600"}
-              onClick={() => {
-                onClose();
-                dispatch(initQuestions(user));
-              }}
+              
+              onClick={onConfirmOpen}
             />
+
+            <Modal isOpen={isConfirmOpen} onClose={onConfirmClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Confirm Close</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  Are you sure you want to close the survey? You will lose all progress.
+                </ModalBody>
+
+                <ModalFooter>
+                 {/*onClose is the original function, so we close BOTH modals */}
+                  <Button colorScheme='blue' mr={3} onClick={() => {
+                    onConfirmClose();
+                    onClose();
+                    dispatch(initQuestions(user));
+                  }}>
+                    Close
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+
+
           </Flex>
         </ModalHeader>
         <ModalBody
