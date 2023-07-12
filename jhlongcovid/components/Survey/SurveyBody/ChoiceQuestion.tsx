@@ -31,8 +31,12 @@ const Choices = (
   setValue: (val: string, validation?: any) => void,
   choiceValue: string,
   inputValue: string,
-  inputError: boolean
+  inputError: boolean,
+  setErrorPresent?: (error: boolean) => void,
+  setErrorText?: (text: string) => void,
 ) => {
+
+  
   if (Array.isArray(answerFormat)) {
     return (
       <RadioGroup
@@ -91,7 +95,15 @@ const Choices = (
                         }
                         focusBorderColor="clear"
                         onChange={(event) => {
-                          setValue(event.target.value, option.validation);
+                          if (event.target.value.length < 50) {
+                            setValue(event.target.value, option.validation);
+                            setErrorPresent!(false);
+                            setErrorText!("");
+                          } else {
+                            setErrorPresent!(true);
+                            setErrorText!("Please enter a valid input less than 50 characters");
+                          }
+                          
                         }}
                       />
                     )}
@@ -117,6 +129,8 @@ const Choices = (
 export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
+  setErrorPresent,
+  setErrorText
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const [choiceValue, setChoiceValue] = useState<string>("");
@@ -195,7 +209,9 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
           handleAnswerChange,
           choiceValue,
           inputValue,
-          inputError
+          inputError,
+          setErrorPresent,
+          setErrorText
         )}
       </VStack>
     </VStack>

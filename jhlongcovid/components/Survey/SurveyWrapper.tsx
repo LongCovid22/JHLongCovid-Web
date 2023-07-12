@@ -119,6 +119,8 @@ const Body: React.FC<SurveyQuestionProps> = ({
         <MultiChoiceQuestion
           currentQuestion={currentQuestion}
           setAnswer={setAnswer}
+          setErrorPresent={setErrorPresent}
+          setErrorText={setErrorText}
         />
       );
     } else {
@@ -126,6 +128,8 @@ const Body: React.FC<SurveyQuestionProps> = ({
         <ChoiceQuestion
           currentQuestion={currentQuestion}
           setAnswer={setAnswer}
+          setErrorPresent={setErrorPresent}
+          setErrorText={setErrorText}
         />
       );
     }
