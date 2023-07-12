@@ -83,7 +83,7 @@ const Choices = (
                         placeholder={option.placeholder}
                         type={option.type}
                         fontSize={"lg"}
-                        min={options.type === "date" ? "2020-01-01" : undefined}
+                        min={option.type === "date" ? "2020-01-01" : undefined}
                         max={
                           option.type === "date"
                             ? new Date(

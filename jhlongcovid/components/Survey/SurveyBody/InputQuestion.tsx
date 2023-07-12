@@ -129,8 +129,6 @@ const Choices = (
 export const InputQuestion: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
-  setErrorPresent,
-  setErrorText
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const [inputValue, setInputValue] = useState<string>("");
