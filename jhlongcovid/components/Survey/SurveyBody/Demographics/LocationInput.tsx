@@ -71,7 +71,7 @@ const LocationInput: React.FC<LocationInputProps> = ({
         if (checkEmptyLocationData(ld)) {
           setZipError(true);
           setZipErrorText(
-            "Unable to find your loaction. Please try another zip code."
+            "Unable to find your location. Please try another zip code."
           );
         } else {
           setZipError(false);
@@ -83,7 +83,7 @@ const LocationInput: React.FC<LocationInputProps> = ({
           setZipErrorText(`${error.message}. Please try another zip code.`);
         } else {
           setZipErrorText(
-            "Unable to find your loaction. Please try another zip code."
+            "Unable to find your location. Please try another zip code."
           );
         }
         setZipError(true);

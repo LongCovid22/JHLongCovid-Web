@@ -39,7 +39,7 @@ export const LegalStatement = () => {
         isOpen={presentLegalStatement}
         onClose={() => setPresentLegalStatement(false)}
         useInert={true}
-        closeOnOverlayClick={true}
+        closeOnEsc={false} closeOnOverlayClick={false}
       >
         <ModalOverlay />
         <ModalContent

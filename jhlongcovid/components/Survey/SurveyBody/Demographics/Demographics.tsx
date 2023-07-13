@@ -48,7 +48,8 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
     age: "",
     race: "",
     sex: "",
-    height: "",
+    feet: "",
+    inches: "",
     weight: "",
   });
 
@@ -66,6 +67,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
   };
 
   useEffect(() => {
+    // console.log("current answer", currentAnswer);
     if (currentAnswer !== null) {
       setDemos(
         currentAnswer as {
@@ -73,7 +75,8 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
           age: string;
           race: string;
           sex: string;
-          height: string;
+          feet: string;
+          inches: string;
           weight: string;
         }
       );
@@ -81,6 +84,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
       setAnswer(currentAnswer);
     }
   }, [currentAnswer]);
+
   return (
     <VStack spacing={"20px"} fontSize="18px">
       <Text fontSize={"lg"} fontWeight={"regular"} w="100%">

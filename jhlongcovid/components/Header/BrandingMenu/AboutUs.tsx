@@ -46,7 +46,7 @@ export const AboutUs = () => {
         isOpen={presentAboutUs}
         onClose={() => setPresentAboutUs(false)}
         autoFocus={true}
-        closeOnEsc={true}
+        closeOnEsc={false} 
         closeOnOverlayClick={false}
         useInert={false}
       >

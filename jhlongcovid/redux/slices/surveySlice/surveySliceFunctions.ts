@@ -1,4 +1,7 @@
-import { parseHeightIntoInches } from "../../../components/Survey/SurveyFunctions";
+import {
+  parseHeightIntoInches,
+  convertFeetAndInchIntoinches,
+} from "../../../components/Survey/SurveyFunctions";
 import { UserInfo } from "../../../components/Survey/SurveyWrapper";
 import { SurveyType, VaccinationEntry } from "../../../src/API";
 import { User } from "../../../src/API";
@@ -414,7 +417,10 @@ const createEntries = (
       age: demographics.age,
       race: demographics.race,
       sex: demographics.sex,
-      height: parseHeightIntoInches(demographics.height),
+      height: convertFeetAndInchIntoinches(
+        demographics.feet,
+        demographics.inches
+      ),
       weight: demographics.weight,
     };
   } else if (user) {
@@ -422,7 +428,7 @@ const createEntries = (
       age: user.age,
       race: user.race,
       sex: user.sex,
-      height: parseHeightIntoInches(user.height),
+      height: user.height,
       weight: user.weight,
     };
   }

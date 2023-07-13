@@ -12,6 +12,10 @@ import {
   Spacer,
   useToast,
   Image,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalCloseButton,
 } from "@chakra-ui/react";
 
 //redux imports
@@ -49,6 +53,7 @@ import {
   saveEntries,
   updateUserWithInfoFromSurvey,
   userInfoIsEmpty,
+  sendEmailResult,
 } from "./SurveyFunctions";
 import { aggregateSurveyResults } from "../../src/graphql/mutations";
 import { SurveyType } from "../../src/API";
@@ -73,13 +78,15 @@ export type UserInfo = {
   age: string;
   race: string;
   sex: string;
-  height: string;
+  feet: string;
+  inches: string;
   weight: string;
 };
 
 export interface SurveyQuestionProps {
   currentQuestion: any;
   setAnswer: (answer: any) => void;
+  setRecap?: (recap: any) => void;
   user?: User;
   userInfo?: UserInfo;
   location?: LocationData;
@@ -97,6 +104,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
   userInfo,
   location,
   setAnswer,
+  setRecap,
   setErrorPresent,
   setErrorText,
   setLocationData,
@@ -112,6 +120,8 @@ const Body: React.FC<SurveyQuestionProps> = ({
         <MultiChoiceQuestion
           currentQuestion={currentQuestion}
           setAnswer={setAnswer}
+          setErrorPresent={setErrorPresent}
+          setErrorText={setErrorText}
         />
       );
     } else {
@@ -119,6 +129,8 @@ const Body: React.FC<SurveyQuestionProps> = ({
         <ChoiceQuestion
           currentQuestion={currentQuestion}
           setAnswer={setAnswer}
+          setErrorPresent={setErrorPresent}
+          setErrorText={setErrorText}
         />
       );
     }
@@ -126,6 +138,7 @@ const Body: React.FC<SurveyQuestionProps> = ({
     return (
       <Consent
         currentQuestion={currentQuestion}
+        setRecap={setRecap}
         setAnswer={setAnswer}
         setErrorPresent={setErrorPresent}
         setErrorText={setErrorText}
@@ -202,9 +215,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const surveyType = useAppSelector(selectSurveyType);
   const dispatch = useAppDispatch();
   const [performingQueries, setPerformingQueries] = useState(false);
+  const [recap, setRecap] = useState(false);
   const [answer, setAnswer] = useState<string | string[] | object | null>(
     currentQuestion.answer
   );
+
   const [recovered, setRecovered] = useState<boolean | null>(null);
   const [location, setLocation] = useState<LocationData>({
     state: "",
@@ -222,7 +237,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     age: "",
     race: "",
     sex: "",
-    height: "",
+    feet: "",
+    inches: "",
     weight: "",
   });
   const [isFinalSection, setIsFinalSection] = useState(false);
@@ -230,8 +246,21 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [errorText, setErrorText] = useState("");
   const [errorPresent, setErrorPresent] = useState(false);
 
+  const {
+    isOpen: isConfirmOpen,
+    onOpen: onConfirmOpen,
+    onClose: onConfirmClose,
+  } = useDisclosure();
+
   const handleNextQuestion = async () => {
     if (currentQuestion.answerFormat !== "welcome") {
+      if (currentQuestion.answerFormat === "consent") {
+        if (recap == false) {
+          setErrorText("Please complete the ReCaptcha!");
+          setMissingAnswer(true);
+          return;
+        }
+      }
       // Update the info of the user signed in when on the account
       // stage at the end of the survey
       if (currentQuestion.answerFormat === "account" && user) {
@@ -250,6 +279,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
       // Check for empty fields during the demographics stage
       if (currentQuestion.answerFormat === "demographics") {
+        console.log(answer);
         if (answer !== null) {
           const emptyLocation = checkEmptyLocationData(location);
           const emptyFields = checkEmptyDemoFields(answer);
@@ -315,7 +345,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           age: string;
           race: string;
           sex: string;
-          height: string;
+          feet: string;
+          inches: string;
           weight: string;
         };
         userInfoUpdate.age = a.age;
@@ -323,7 +354,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         userInfoUpdate.race = a.race;
         userInfoUpdate.sex = a.sex;
         userInfoUpdate.weight = a.weight;
-        userInfoUpdate.height = a.height;
+        userInfoUpdate.feet = a.feet;
+        userInfoUpdate.inches = a.inches;
         setUserInfo(userInfoUpdate);
       }
 
@@ -345,7 +377,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
   const handlePrevQuestion = () => {
     dispatch(prevQuestion({ answer: answer }));
+    setRecap(false);
     setAnswer("");
+    console.log(answer);
   };
 
   const handleSkipQuestion = () => {
@@ -362,6 +396,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       // NOTE: the user passed in to this function to get the demographics
       // if the survey type is not GUEST (since the weekly survey doesn't include the
       // demographics section).
+
+      // TODO: Check function for height parsing
       const entries = processEntries(
         surveyType,
         questionStack,
@@ -398,6 +434,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       let ids;
       // Save survey entries
       try {
+        // TODO: Check function for height parsing
         ids = await saveEntries(
           locationData,
           entries,
@@ -418,6 +455,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       }
 
       if (user) {
+        // TODO: Check function for height parsing
         const updatedUser = await updateUserWithInfoFromSurvey(
           userInfo,
           user,
@@ -461,47 +499,14 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           });
         }
       }
-
-      // SEND EMAIL RECEIPT OF QUESTION ANSWERS
-      // try {
-      //   const data = {
-      //     questions: questions,
-      //     questionStack: questionStack,
-      //     answerStack: answerStack,
-      //   };
-
-      //   const variables = {
-      //     results: JSON.stringify(data),
-      //   };
-
-      //   const emailReceipt = await API.graphql({
-      //     query: mutations.emailReceiptConfirmation,
-      //     variables: variables,
-      //   });
-      //   console.log("Email Receipt", emailReceipt);
-      // } catch (error) {
-      //   console.log("Error sending email receipt: ", error);
-      // }
-
-      console.log("sending Email Receipt");
-      // SEND EMAIL RECEIPT OF QUESTION ANSWERS
-
       try {
-        const data = {
-          questions: questions,
-          questionStack: questionStack,
-          answerStack: answerStack,
-        };
-
-        const variables = {
-          results: JSON.stringify(data),
-        };
-
-        const emailReceipt = await API.graphql({
-          query: mutations.emailReceiptConfirmation,
-          variables: variables,
-        });
-        console.log("Email Receipt", emailReceipt);
+        // TODO: Check email lambda for height parsing
+        await sendEmailResult(
+          questions,
+          questionStack,
+          answerStack,
+          userInfo.email
+        );
       } catch (error) {
         console.log("Error sending email receipt: ", error);
       }
@@ -645,11 +650,35 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               size={"md"}
               bgColor="spiritBlue.100"
               color={"heritageBlue.600"}
-              onClick={() => {
-                onClose();
-                dispatch(initQuestions(user));
-              }}
+              onClick={onConfirmOpen}
             />
+
+            <Modal isOpen={isConfirmOpen} onClose={onConfirmClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Confirm Close</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  Are you sure you want to close the survey? You will lose all
+                  progress.
+                </ModalBody>
+
+                <ModalFooter>
+                  {/*onClose is the original function, so we close BOTH modals */}
+                  <Button
+                    colorScheme="blue"
+                    mr={3}
+                    onClick={() => {
+                      onConfirmClose();
+                      onClose();
+                      dispatch(initQuestions(user));
+                    }}
+                  >
+                    Close
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
           </Flex>
         </ModalHeader>
         <ModalBody
@@ -666,6 +695,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           <Body
             currentQuestion={currentQuestion}
             userInfo={userInfo}
+            setRecap={setRecap}
             setAnswer={setAnswer}
             setErrorPresent={setErrorPresent}
             setErrorText={setErrorText}

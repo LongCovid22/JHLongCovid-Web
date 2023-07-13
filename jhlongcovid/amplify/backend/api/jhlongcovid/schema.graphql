@@ -1044,7 +1044,7 @@ type WorkingSituation {
 type Mutation {
   aggregateSurveyResults(results: AWSJSON!): Response
     @function(name: "aggregateSurveyResults-${env}")
-  emailReceiptConfirmation(results: AWSJSON!): Response
+  emailReceiptConfirmation(results: AWSJSON!, email: String): Response
     @function(name: "emailReceiptConfirmation-${env}")
 }
 
