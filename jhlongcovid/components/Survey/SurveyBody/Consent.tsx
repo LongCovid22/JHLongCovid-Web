@@ -57,7 +57,7 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
     }
   };
 
-  function onChange(value: string) {
+  function onChange(value: string | null) {
     if (value !== null && setRecap) {
       setErrorPresent!(false);
       setRecap(true);
@@ -164,7 +164,7 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
           <ReCAPTCHA
             ref={recaptchaRef}
             sitekey="6LfrfhEnAAAAAL4WpQIxHKCqUH03WWVQVWL_-I9j"
-            onChange={onChange}
+            onChange={(value) => onChange(value)}
           />
         </form>
       </VStack>

@@ -39,7 +39,8 @@ export const checkEmptyDemoFields = (answer: any) => {
     age: string;
     race: string;
     sex: string;
-    height: string;
+    feet: string;
+    inches: string;
     weight: string;
   };
   if (demographics.age === "") {
@@ -51,7 +52,7 @@ export const checkEmptyDemoFields = (answer: any) => {
   if (demographics.sex === "") {
     emptyFields.push("sex");
   }
-  if (demographics.height === "") {
+  if (demographics.feet === "") {
     emptyFields.push("height");
   }
   if (demographics.weight === "") {
@@ -105,8 +106,16 @@ export const updateUserWithInfoFromSurvey = async (
       age: userInfo.age !== "" ? parseInt(userInfo.age) : user.age,
       race: userInfo.race !== "" ? race : user.race,
       sex: userInfo.sex !== "" ? userInfo.sex : user.sex,
-      feet: userInfo.feet !== "" ? userInfo.feet : getFeetFromHeight(user.height),
-      inches: userInfo.inches !== "" ? userInfo.inches : getInchesFromHeight(user.height),
+      height:
+        userInfo.feet !== ""
+          ? convertFeetAndInchIntoinches(userInfo.feet, userInfo.inches)
+          : user.height,
+      // feet:
+      //   userInfo.feet !== "" ? userInfo.feet : getFeetFromHeight(user.height),
+      // inches:
+      //   userInfo.inches !== ""
+      //     ? userInfo.inches
+      //     : getInchesFromHeight(user.height),
       weight: userInfo.weight !== "" ? userInfo.weight : user.weight,
       covidStatus: covidStatus,
       notificationFreq: notFreq,
@@ -116,8 +125,6 @@ export const updateUserWithInfoFromSurvey = async (
       createdAt: user.createdAt,
     },
   };
-
-  
 
   try {
     const updateUserMutation = await API.graphql<
@@ -168,18 +175,22 @@ export const parseHeightIntoInches = (height: string | undefined | null) => {
   return null;
 };
 
-export const getFeetFromHeight = (height: string | undefined | null) : string | undefined | null => {
+export const getFeetFromHeight = (
+  height: string | undefined | null
+): string | undefined | null => {
   if (height) {
     if (height.length >= 1) {
       return height[0];
     } else {
-      return "0"
+      return "0";
     }
   }
   return null;
-}
+};
 
-export const getInchesFromHeight = (height: string | undefined | null) : string | undefined | null => {
+export const getInchesFromHeight = (
+  height: string | undefined | null
+): string | undefined | null => {
   if (height) {
     if (height.length >= 2) {
       return height.slice(1);
@@ -189,20 +200,19 @@ export const getInchesFromHeight = (height: string | undefined | null) : string 
   } else {
     return null;
   }
-}
+};
 
 export const convertFeetAndInchIntoinches = (feet: string, inches: string) => {
   const feetInInches = parseInt(feet, 10) * 12;
   const inch = parseInt(inches, 10);
-  
+
   // Check if feet and inches are not a number after parsing.
   // if (isNaN(feetInInches) || isNaN(inch)) {
   //   throw new Error("Both feet and inches should be valid numbers.");
   // }
 
   return feetInInches + inch;
-
-}
+};
 
 export const createCovidEntry = async (
   surveyData: any,
@@ -581,7 +591,9 @@ export const createSurveyEntry = async (
       race: surveyType === SurveyType.WEEKLY ? user!.race! : race,
       sex: surveyType === SurveyType.WEEKLY ? user!.sex! : userInfo.sex,
       height:
-        surveyType === SurveyType.WEEKLY ? user!.height! : convertFeetAndInchIntoinches(userInfo.feet, userInfo.inches) ,
+        surveyType === SurveyType.WEEKLY
+          ? user!.height!
+          : convertFeetAndInchIntoinches(userInfo.feet, userInfo.inches),
       weight:
         surveyType === SurveyType.WEEKLY ? user!.weight! : userInfo.weight,
       surveyEntryCovidEntryId: ids.CovidEntry ? ids.CovidEntry : null,
@@ -803,7 +815,7 @@ export const sendEmailResult = async (
 
   const variables = {
     results: JSON.stringify(data),
-    email
+    email,
   };
 
   const emailReceipt = await API.graphql({
@@ -811,7 +823,7 @@ export const sendEmailResult = async (
     variables: variables,
   });
   console.log("Email Receipt", emailReceipt);
-}
+};
 
 export const medicalConditionsMap: any = {
   noNewDiagnosis: "None",

@@ -405,6 +405,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         questions,
         user
       );
+      console.log("ENTRIES: ", entries);
 
       let locationData;
       if (surveyType == SurveyType.WEEKLY) {
