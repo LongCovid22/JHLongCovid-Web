@@ -66,7 +66,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
   };
 
   useEffect(() => {
-    console.log(currentAnswer);
+    // console.log("current answer", currentAnswer);
     if (currentAnswer !== null) {
       setDemos(
         currentAnswer as {
