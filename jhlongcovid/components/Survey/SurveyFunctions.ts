@@ -822,7 +822,6 @@ export const sendEmailResult = async (
     query: mutations.emailReceiptConfirmation,
     variables: variables,
   });
-  console.log("Email Receipt", emailReceipt);
 };
 
 export const medicalConditionsMap: any = {
