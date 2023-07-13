@@ -10,6 +10,7 @@ import {
   FormErrorMessage,
   Input,
 } from "@chakra-ui/react";
+import { ConsoleLogger } from "@aws-amplify/core";
 
 export type HeightInputProps = {
   demos: {
@@ -43,15 +44,6 @@ export const HeightInput: React.FC<HeightInputProps> = ({
   const [inches, setInches] = useState<string>("");
   const [totalInches, setTotalInches] = useState<number>(0);
 
-  const isValidWeight = (height: string) => {
-    if (height === "") return true;
-    const num = parseInt(height);
-    if (isNaN(num) || num <= 0 || num > 80) {
-      return false;
-    }
-    return true;
-  };
-
   const handleFeetChange = (value: string) => {
     const num = parseInt(value);
     if (isNaN(num) || num <= 0 || num > 7) {
@@ -83,10 +75,26 @@ export const HeightInput: React.FC<HeightInputProps> = ({
   };
 
   useEffect(() => {
+    const demosCopy = { ...demos };
+    if (demosCopy.height !== "") {
+      const splitHeight = demosCopy.height.split("");
+      console.log("Split height: ", splitHeight);
+      if (splitHeight.length === 1) {
+        handleFeetChange(splitHeight[0]);
+      } else {
+        handleFeetChange(splitHeight[0]);
+        handleInchesChange(splitHeight.slice(1).join(""));
+      }
+    }
+  }, []);
+
+  // When it gets loaded and when feet and inches change
+  useEffect(() => {
     const handleHeightChange = (feet: string, inches: string) => {
       const demosCopy = { ...demos };
       demosCopy["height"] = feet + inches;
       setDemos(demosCopy);
+
       // if (isValidWeight(value)) {
       //   if (setErrorPresent) setErrorPresent(false);
       //   setHeightErrorText(null);
