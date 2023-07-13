@@ -48,7 +48,8 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
     age: "",
     race: "",
     sex: "",
-    height: "",
+    feet: "",
+    inches: "",
     weight: "",
   });
 
@@ -74,7 +75,8 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
           age: string;
           race: string;
           sex: string;
-          height: string;
+          feet: string;
+          inches: string;
           weight: string;
         }
       );

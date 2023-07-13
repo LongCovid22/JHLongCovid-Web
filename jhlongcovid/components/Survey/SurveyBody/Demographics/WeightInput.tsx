@@ -16,7 +16,8 @@ export type WeightInputProps = {
     age: string;
     race: string;
     sex: string;
-    height: string;
+    feet: string;
+    inches: string;
     weight: string;
   };
   setDemos: React.Dispatch<
@@ -24,7 +25,8 @@ export type WeightInputProps = {
       age: string;
       race: string;
       sex: string;
-      height: string;
+      feet: string;
+      inches: string;
       weight: string;
     }>
   >;

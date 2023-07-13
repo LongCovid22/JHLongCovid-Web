@@ -10,14 +10,14 @@ import {
   FormErrorMessage,
   Input,
 } from "@chakra-ui/react";
-import { ConsoleLogger } from "@aws-amplify/core";
 
 export type HeightInputProps = {
   demos: {
     age: string;
     race: string;
     sex: string;
-    height: string;
+    feet: string;
+    inches: string;
     weight: string;
   };
   setDemos: React.Dispatch<
@@ -25,7 +25,8 @@ export type HeightInputProps = {
       age: string;
       race: string;
       sex: string;
-      height: string;
+      feet: string;
+      inches: string;
       weight: string;
     }>
   >;
@@ -79,15 +80,15 @@ export const HeightInput: React.FC<HeightInputProps> = ({
       setHeightErrorText(null);
     }
     // setFeet(value);
-    const demosCopy = { ...demos };
-    demosCopy["height"] = value + inches;
+    let demosCopy = { ...demos };
+    demosCopy["feet"] = value;
     setDemos(demosCopy);
   };
 
   const handleInchesChange = (value: string) => {
     if (value !== "") {
       const num = parseInt(value);
-      if (isNaN(num) || num <= 1 || num > 11) {
+      if (isNaN(num) || num <= 0 || num > 11) {
         if (setErrorPresent) setErrorPresent(true);
         setHeightErrorText("Invalid height");
       } else {
@@ -99,26 +100,26 @@ export const HeightInput: React.FC<HeightInputProps> = ({
       setHeightErrorText(null);
     }
 
-    const demosCopy = { ...demos };
-    demosCopy["height"] = feet + value;
+    let demosCopy = { ...demos };
+    demosCopy["inches"] = value;
     setDemos(demosCopy);
   };
 
-  useEffect(() => {
-    if (initialRender) {
-      const demosCopy = { ...demos };
-      if (demosCopy.height !== "") {
-        const splitHeight = demosCopy.height.split("");
-        if (splitHeight.length === 1) {
-          handleFeetChange(splitHeight[0]);
-        } else {
-          handleFeetChange(splitHeight[0]);
-          handleInchesChange(splitHeight.slice(1).join(""));
-        }
-      }
-      setInitialRender(false);
-    }
-  }, [demos]);
+  // useEffect(() => {
+  //   if (initialRender) {
+  //     const demosCopy = { ...demos };
+  //     if (demosCopy.height !== "") {
+  //       const splitHeight = demosCopy.height.split("");
+  //       if (splitHeight.length === 1) {
+  //         handleFeetChange(splitHeight[0]);
+  //       } else {
+  //         handleFeetChange(splitHeight[0]);
+  //         handleInchesChange(splitHeight.slice(1).join(""));
+  //       }
+  //     }
+  //     setInitialRender(false);
+  //   }
+  // }, [demos]);
 
   // // When it gets loaded and when feet and inches change
   // useEffect(() => {
@@ -136,7 +137,7 @@ export const HeightInput: React.FC<HeightInputProps> = ({
       <FormLabel fontSize={"18px"}>Height</FormLabel>
       <HStack>
         <PinInput
-          value={formatFeet(demos.height)}
+          value={demos.feet}
           onChange={(value) => {
             handleFeetChange(value);
             // handleHeightChange(value);
@@ -147,7 +148,7 @@ export const HeightInput: React.FC<HeightInputProps> = ({
         </PinInput>
         <Input
           w="50px"
-          value={formatInches(demos.height)}
+          value={demos.inches}
           onChange={(event) => {
             handleInchesChange(event.target.value);
           }}
