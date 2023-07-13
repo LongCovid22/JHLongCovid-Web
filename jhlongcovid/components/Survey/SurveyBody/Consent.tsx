@@ -93,8 +93,6 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
         <br /><br />The anonymized data from this survey will be used to compile a comprehensive database about the long-term health effects of COVID-19. This data will be used by researchers, policymakers, and healthcare providers to better understand the virus's impact, inform public health strategies, and improve patient care. By participating, you are contributing to the body of knowledge that will ultimately help society manage and mitigate the effects of this and potential future pandemics.
         <br /><br />By proceeding with this survey, you indicate your understanding of the above terms and give your voluntary consent to participate. Your decision to participate, decline, or withdraw from the study at any point will have no adverse consequences.
         <br /><br />Thank you for your time and your contribution to this crucial area of public health research.
-
-
         </Text>
 
         <Text fontSize={"xl"} fontWeight={"regular"} w="100%">

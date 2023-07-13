@@ -86,7 +86,10 @@ export const HeightInput: React.FC<HeightInputProps> = ({
     const handleHeightChange = (feet: string, inches: string) => {
       const demosCopy = { ...demos };
       demosCopy["height"] = feet + inches;
+      console.log(demos);
       setDemos(demosCopy);
+      console.log(demos);
+      
       // if (isValidWeight(value)) {
       //   if (setErrorPresent) setErrorPresent(false);
       //   setHeightErrorText(null);

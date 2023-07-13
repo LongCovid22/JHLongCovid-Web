@@ -274,6 +274,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
       // Check for empty fields during the demographics stage
       if (currentQuestion.answerFormat === "demographics") {
+        console.log(answer);
         if (answer !== null) {
           const emptyLocation = checkEmptyLocationData(location);
           const emptyFields = checkEmptyDemoFields(answer);
@@ -371,6 +372,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     dispatch(prevQuestion({ answer: answer }));
     setRecap(false);
     setAnswer("");
+    console.log(answer);
   };
 
   const handleSkipQuestion = () => {
