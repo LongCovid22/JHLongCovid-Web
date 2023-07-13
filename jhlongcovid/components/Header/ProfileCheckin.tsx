@@ -53,7 +53,7 @@ export const Survey: React.FC<ProfileCheckinProps> = ({
 
   useEffect(() => {
     if (showSurveyOnLaunch) {
-      onOpen();
+      handleSurveyOpen();
     }
   }, [showSurveyOnLaunch]);
 
