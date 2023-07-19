@@ -1,0 +1,3 @@
+Redux slice to track user, where User type is defined from the AWS API.
+Has functions to set the User and reset the User.
+

@@ -7,7 +7,8 @@
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "testComponent": "jest --testRegex=surveyComponents.test.ts --coverage"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.3",

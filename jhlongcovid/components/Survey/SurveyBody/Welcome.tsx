@@ -1,25 +1,15 @@
-import Lottie from "lottie-react";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   VStack,
   Text,
   Spacer,
   HStack,
   Image,
-  Box,
-  UnorderedList,
-  ListItem,
-  Fade,
-  Wrap,
-  WrapItem,
   Button,
 } from "@chakra-ui/react";
 import { SurveyQuestionProps } from "../SurveyWrapper";
-import CovidAnimation from "../../../theme/lottie/CovidAnimation.json";
-import LottieInfinite from "../../utils/LottieInfinite";
 import { useAppSelector } from "../../../redux/hooks";
 import { selectHeight, selectWidth } from "../../../redux/slices/viewportSlice";
-import { SP } from "next/dist/shared/lib/utils";
 
 export const Welcome: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
