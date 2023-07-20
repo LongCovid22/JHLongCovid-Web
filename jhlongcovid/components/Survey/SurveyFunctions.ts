@@ -1,6 +1,6 @@
 import { UserInfo } from "./SurveyWrapper";
 import * as mutations from "../../src/graphql/mutations";
-import { API, input } from "aws-amplify";
+import  API from "aws-amplify";
 import {
   CovidStatus,
   CreateCovidEntryInput,
