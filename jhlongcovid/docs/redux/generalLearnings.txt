@@ -1,0 +1,8 @@
+Collection of random notes about the nature of our tech stack
+
+Redux:
+
+- Why does reducers when defined have state as the first variable?
+In Redux Toolkit, reducers defined within a slice typically follow the "reducer-first" syntax, where the first parameter is the current state and the second parameter is the action. However, when you call the reducer, you only pass the payload as the argument.
+
+The reason for this is that Redux Toolkit uses an internal mechanism called "immer" to handle immutable updates to the state. Immer takes care of creating a new copy of the state for you, so you only need to modify the state object within the reducer.

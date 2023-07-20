@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 
-// declaring the types for our state
 export type ZoomState = {
   value: number;
   low_long: number;
@@ -18,11 +17,6 @@ const initialState: ZoomState = {
   high_lat: 52.6,
 };
 
-interface LatLong {
-  lo: number;
-  hi: number;
-}
-
 export const zoomSlice = createSlice({
   name: "zoom",
   initialState,
@@ -33,8 +27,6 @@ export const zoomSlice = createSlice({
 
     setLowLong: (state, action: PayloadAction<number>) => {
       state.low_long = action.payload;
-
-      // console.log(state.low_long);
     },
 
     setHiLong: (state, action: PayloadAction<number>) => {
@@ -43,8 +35,6 @@ export const zoomSlice = createSlice({
 
     setLowLat: (state, action: PayloadAction<number>) => {
       state.low_lat = action.payload;
-
-      // console.log(state.low_lat);
     },
     setHiLat: (state, action: PayloadAction<number>) => {
       state.high_lat = action.payload;
@@ -57,7 +47,6 @@ export const { setByAmount, setLowLong, setHiLong, setLowLat, setHiLat } =
 
 // calling the above actions would be useless if we could not access the data in the state. So, we use something called a selector which allows us to select a value from the state.
 export const selectZoom = (state: RootState) => state.zoom.value;
-
 export const selectLoLat = (state: RootState) => state.zoom.low_lat;
 export const selectHighLat = (state: RootState) => state.zoom.high_lat;
 export const selectLoLong = (state: RootState) => state.zoom.low_long;

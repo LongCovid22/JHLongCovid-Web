@@ -7,8 +7,8 @@ import userReducer from "./slices/userSlice";
 import mapDataReducer from "./slices/mapDataSlice";
 import locationReducer from "./slices/locationSlice";
 
-const store = configureStore({
-  reducer: {
+export const createStore = () => configureStore({
+  reducer : {
     zoom: zoomReducer,
     presentation: presentationReducer,
     viewport: viewportReducer,
@@ -17,7 +17,9 @@ const store = configureStore({
     mapData: mapDataReducer,
     location: locationReducer,
   },
-});
+})
+
+const store = createStore();
 
 export default store;
 export type RootState = ReturnType<typeof store.getState>;

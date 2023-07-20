@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 
-// this slice can be used for presentation throughout the app. When there is state that
-// controls somethings display, it should go in here
 export type PresentationState = {
   leftSidePanel: boolean;
 };

@@ -40,7 +40,7 @@ const initialState: SurveyState = {
 const checkIfLastQuestion = (
   questionInfo: { section: number; question: number },
   questions: any
-) => {
+) : boolean => {
   const nextSection = questions[questionInfo.section + 1];
   const nextQuestion =
     questions[questionInfo.section][questionInfo.question + 1];
@@ -50,7 +50,7 @@ const checkIfLastQuestion = (
 const getNextQuestionInfo = (
   questionInfo: { section: number; question: number },
   questions: any
-) => {
+) : ({section: number; question: number}) => {
   const nextQuestion =
     questions[questionInfo.section][questionInfo.question + 1];
   if (nextQuestion === undefined) {
