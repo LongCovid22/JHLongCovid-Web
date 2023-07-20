@@ -1,0 +1,2 @@
+User's lat and long information for utilization in 
+location input of demographics section.
