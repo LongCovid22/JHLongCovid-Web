@@ -4,10 +4,6 @@ import {
   Button,
   Flex,
   Avatar,
-  keyframes,
-  Modal,
-  ModalOverlay,
-  useDisclosure,
   Menu,
   MenuButton,
   MenuList,
@@ -19,71 +15,22 @@ import { QuestionIcon } from "@chakra-ui/icons";
 import styles from "../../styles/Header.module.css";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectWidth } from "../../redux/slices/viewportSlice";
-import { SurveyWrapper } from "../Survey/SurveyWrapper";
 
-import { PreSurvey } from "../Survey/SurveyBody/PreSurvey";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   AuthenticationForm,
   AuthState,
 } from "./AuthenticationForm/AuthenticationForm";
 import { resetUser, selectUser } from "../../redux/slices/userSlice";
 import { Auth } from "aws-amplify";
-import { initQuestions } from "../../redux/slices/surveySlice/surveySlice";
+import { Survey } from "./Survey";
 
-interface ProfileCheckinProps {
+export interface ProfileCheckinProps {
   showInstructions?: boolean;
   setShowInstructions?: React.Dispatch<React.SetStateAction<boolean>>;
   showSurveyOnLaunch?: boolean;
   setShowSurveyOnLaunch?: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-export const Survey: React.FC<ProfileCheckinProps> = ({
-  showSurveyOnLaunch,
-  setShowSurveyOnLaunch,
-}) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const user = useAppSelector(selectUser);
-  const dispatch = useAppDispatch();
-
-  const closeSurvey = () => {
-    if (setShowSurveyOnLaunch) setShowSurveyOnLaunch(false);
-    onClose();
-  };
-
-  useEffect(() => {
-    if (showSurveyOnLaunch) {
-      handleSurveyOpen();
-    }
-  }, [showSurveyOnLaunch]);
-
-  const handleSurveyOpen = () => {
-    dispatch(initQuestions(user));
-    onOpen();
-  };
-
-  return (
-    <>
-      <Button
-        flex={1}
-        borderRadius={"500px"}
-        textColor="white"
-        colorScheme="heritageBlue"
-        onClick={handleSurveyOpen}
-      >
-        Participate
-      </Button>
-      <Modal isOpen={isOpen} onClose={closeSurvey} isCentered size={"lg"} closeOnEsc={false} closeOnOverlayClick={false}>
-        <ModalOverlay p="30px" />
-        <SurveyWrapper onClose={closeSurvey} />
-        {/* {showSurvey && <SurveyWrapper onClose={onClose} />} */}
-        {/* {showSurvey === false && (
-          <PreSurvey onClose={onClose} setShowSurvey={setShowSurvey} />
-        )} */}
-      </Modal>
-    </>
-  );
-};
 
 export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
   showInstructions,
