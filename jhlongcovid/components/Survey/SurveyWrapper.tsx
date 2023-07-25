@@ -15,9 +15,7 @@ import {
   useDisclosure,
   Modal,
   ModalOverlay,
-  ModalCloseButton,
 } from "@chakra-ui/react";
-
 //redux imports
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
@@ -37,15 +35,7 @@ import {
 } from "../../redux/slices/surveySlice/surveySlice";
 import { processEntries } from "../../redux/slices/surveySlice/surveySliceFunctions";
 //survey component templates
-import { Welcome } from "./SurveyBody/Welcome";
-import { Consent } from "./SurveyBody/Consent";
-import { Demographics } from "./SurveyBody/Demographics/Demographics";
-import { ChoiceQuestion } from "./SurveyBody/ChoiceQuestion";
-import { InputQuestion } from "./SurveyBody/InputQuestion";
-import { Account } from "./SurveyBody/Account";
-import { ThankYou } from "./SurveyBody/ThankYou";
-import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
-import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
+
 import { selectUser, setUser } from "../../redux/slices/userSlice";
 import {
   aggregateResults,
@@ -54,7 +44,7 @@ import {
   updateUserWithInfoFromSurvey,
   userInfoIsEmpty,
   sendEmailResult,
-} from "./SurveyFunctions";
+} from "./surveyFunctions";
 import { aggregateSurveyResults } from "../../src/graphql/mutations";
 import { SurveyType } from "../../src/API";
 import {
@@ -62,11 +52,7 @@ import {
   getCountyAndStateCoords,
   LocationData,
 } from "../../util/locationFunctions";
-import { ComeBackLater } from "./SurveyBody/ComeBackLater";
-import { User } from "../../src/API";
-
-import * as mutations from "../../src/graphql/mutations";
-import { API } from "aws-amplify";
+import { SurveyBody } from "./SurveyBody";
 
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
@@ -81,122 +67,6 @@ export type UserInfo = {
   feet: string;
   inches: string;
   weight: string;
-};
-
-export interface SurveyQuestionProps {
-  currentQuestion: any;
-  setAnswer: (answer: any) => void;
-  setRecap?: (recap: any) => void;
-  user?: User;
-  userInfo?: UserInfo;
-  location?: LocationData;
-  setErrorPresent?: (error: boolean) => void;
-  setErrorText?: (text: string) => void;
-  setLocationData?: React.Dispatch<React.SetStateAction<LocationData>>;
-  onVerify?: () => void;
-  handleQuestionChange?: (
-    direction: "next" | "prev" | "skip" | "finish"
-  ) => void;
-}
-
-const Body: React.FC<SurveyQuestionProps> = ({
-  currentQuestion,
-  userInfo,
-  location,
-  setAnswer,
-  setRecap,
-  setErrorPresent,
-  setErrorText,
-  setLocationData,
-  onVerify,
-  handleQuestionChange,
-  user,
-}) => {
-  let answerFormat = currentQuestion.answerFormat;
-  if (Array.isArray(answerFormat)) {
-    answerFormat = answerFormat as string[];
-    if (answerFormat.includes("multichoice")) {
-      return (
-        <MultiChoiceQuestion
-          currentQuestion={currentQuestion}
-          setAnswer={setAnswer}
-          setErrorPresent={setErrorPresent}
-          setErrorText={setErrorText}
-        />
-      );
-    } else {
-      return (
-        <ChoiceQuestion
-          currentQuestion={currentQuestion}
-          setAnswer={setAnswer}
-          setErrorPresent={setErrorPresent}
-          setErrorText={setErrorText}
-        />
-      );
-    }
-  } else if (answerFormat === "consent") {
-    return (
-      <Consent
-        currentQuestion={currentQuestion}
-        setRecap={setRecap}
-        setAnswer={setAnswer}
-        setErrorPresent={setErrorPresent}
-        setErrorText={setErrorText}
-      />
-    );
-  } else if (answerFormat === "comeBackLater") {
-    return (
-      <ComeBackLater
-        currentQuestion={currentQuestion}
-        handleQuestionChange={handleQuestionChange}
-        setAnswer={setAnswer}
-        user={user}
-      />
-    );
-  } else if (answerFormat === "demographics") {
-    return (
-      <Demographics
-        currentQuestion={currentQuestion}
-        setAnswer={setAnswer}
-        location={location}
-        setLocationData={setLocationData}
-        setErrorPresent={setErrorPresent}
-      />
-    );
-  } else if (answerFormat === "welcome") {
-    return (
-      <Welcome
-        currentQuestion={currentQuestion}
-        setAnswer={setAnswer}
-        handleQuestionChange={handleQuestionChange}
-      />
-    );
-  } else if (answerFormat === "choice") {
-    return (
-      <ChoiceQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
-    );
-  } else if (answerFormat === "input") {
-    return (
-      <InputQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
-    );
-  } else if (answerFormat === "account") {
-    return (
-      <Account
-        currentQuestion={currentQuestion}
-        userInfo={userInfo}
-        setAnswer={setAnswer}
-        onVerify={onVerify}
-      />
-    );
-  } else if (answerFormat === "thankYou") {
-    return <ThankYou currentQuestion={currentQuestion} setAnswer={setAnswer} />;
-  } else if (answerFormat === "scale") {
-    return (
-      <ScaleQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
-    );
-  } else {
-    return <Text>Sample Text</Text>;
-  }
 };
 
 export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
@@ -279,7 +149,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
       // Check for empty fields during the demographics stage
       if (currentQuestion.answerFormat === "demographics") {
-        console.log(answer);
         if (answer !== null) {
           const emptyLocation = checkEmptyLocationData(location);
           const emptyFields = checkEmptyDemoFields(answer);
@@ -626,11 +495,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       <ModalContent
         style={{
           background: "white",
-          width: width < 700 ? 410 : width * 0.7,
+          width: width < 700 ? 410 : width * 0.85,
           minWidth: 410,
-          maxWidth: 1000,
-          minHeight: height * 0.8,
-          height: height < 720 ? height * 0.85 : "650px",
+          maxWidth: 1050,
+          minHeight: height * 0.75,
+          height: height < 720 ? height * 0.75 : "650px",
           borderRadius: "35px",
           padding: "15px",
         }}
@@ -655,9 +524,23 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
             <Modal isOpen={isConfirmOpen} onClose={onConfirmClose}>
               <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Confirm Close</ModalHeader>
-                <ModalCloseButton />
+              <ModalContent
+                style={{
+                  borderRadius: "20px",
+                }}
+              >
+                <ModalHeader>
+                  <Flex w="100%">
+                    <Text fontSize={"3xl"}>Confirm</Text>
+                    <Spacer />
+                    <CloseButton
+                      size={"md"}
+                      bgColor="spiritBlue.100"
+                      color={"heritageBlue.600"}
+                      onClick={onConfirmClose}
+                    />
+                  </Flex>
+                </ModalHeader>
                 <ModalBody>
                   Are you sure you want to close the survey? You will lose all
                   progress.
@@ -666,8 +549,10 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
                 <ModalFooter>
                   {/*onClose is the original function, so we close BOTH modals */}
                   <Button
-                    colorScheme="blue"
-                    mr={3}
+                    colorScheme="heritageBlue"
+                    borderRadius={500}
+                    isLoading={performingQueries}
+                    fontSize="lg"
                     onClick={() => {
                       onConfirmClose();
                       onClose();
@@ -683,16 +568,16 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         </ModalHeader>
         <ModalBody
           style={{
-            overflowY:
-              currentQuestion.answerFormat === "demographics"
-                ? width > 1400
-                  ? "hidden"
-                  : "auto"
-                : "auto",
+            overflowY: "auto",
+            // currentQuestion.answerFormat === "demographics"
+            //   ? width > 1400
+            //     ? "hidden"
+            //     : "auto"
+            //   : "auto",
             paddingTop: "0px",
           }}
         >
-          <Body
+          <SurveyBody
             currentQuestion={currentQuestion}
             userInfo={userInfo}
             setRecap={setRecap}

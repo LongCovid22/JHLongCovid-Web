@@ -1,4 +1,4 @@
-import { getCountyAndStateWithZip } from "../SurveyFunctions";
+import { getCountyAndStateWithZip } from "../surveyFunctions";
 
 describe("Testing retrieving county and state information with zip code", () => {
   it("Retrieving location data for zip with state and county", async () => {

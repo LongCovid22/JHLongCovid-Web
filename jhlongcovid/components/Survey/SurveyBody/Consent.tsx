@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import ReCAPTCHA from "react-google-recaptcha";
 
-import { SurveyQuestionProps } from "../SurveyWrapper";
+import { SurveyQuestionProps } from "../SurveyBody";
 import { useAppSelector } from "../../../redux/hooks";
 import { selectCurrentAnswer } from "../../../redux/slices/surveySlice/surveySlice";
 

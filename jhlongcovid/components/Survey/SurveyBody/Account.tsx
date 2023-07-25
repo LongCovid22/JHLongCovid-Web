@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { VStack, Text } from "@chakra-ui/react";
-import { SurveyQuestionProps } from "../SurveyWrapper";
+import { SurveyQuestionProps } from "../SurveyBody";
 import {
   AuthenticationForm,
   AuthState,

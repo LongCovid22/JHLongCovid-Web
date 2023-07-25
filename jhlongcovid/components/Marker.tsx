@@ -5,7 +5,7 @@ import {
   selectLeftSidePanelPres,
   setLeftSidePanelPres,
 } from "../redux/slices/presentationSlice";
-import { medicalConditionsMap } from "./Survey/SurveyFunctions";
+import { medicalConditionsMap } from "./Survey/surveyFunctions";
 import { useAppSelector } from "../redux/hooks";
 
 interface CircleProps extends google.maps.CircleOptions {
