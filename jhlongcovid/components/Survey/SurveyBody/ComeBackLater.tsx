@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SurveyQuestionProps } from "../SurveyWrapper";
+import { SurveyQuestionProps } from "../SurveyBody";
 import {
   VStack,
   Text,

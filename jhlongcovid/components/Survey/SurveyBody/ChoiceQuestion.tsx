@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SurveyQuestionProps } from "../SurveyWrapper";
+import { SurveyQuestionProps } from "../SurveyBody";
 import {
   VStack,
   Text,
@@ -33,10 +33,8 @@ const Choices = (
   inputValue: string,
   inputError: boolean,
   setErrorPresent?: (error: boolean) => void,
-  setErrorText?: (text: string) => void,
+  setErrorText?: (text: string) => void
 ) => {
-
-  
   if (Array.isArray(answerFormat)) {
     return (
       <RadioGroup
@@ -101,9 +99,10 @@ const Choices = (
                             setErrorText!("");
                           } else {
                             setErrorPresent!(true);
-                            setErrorText!("Please enter a valid input less than 50 characters");
+                            setErrorText!(
+                              "Please enter a valid input less than 50 characters"
+                            );
                           }
-                          
                         }}
                       />
                     )}
@@ -130,7 +129,7 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
   setErrorPresent,
-  setErrorText
+  setErrorText,
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const [choiceValue, setChoiceValue] = useState<string>("");

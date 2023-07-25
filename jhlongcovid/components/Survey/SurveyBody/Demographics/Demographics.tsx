@@ -25,7 +25,7 @@ import {
   WrapItem,
   Wrap,
 } from "@chakra-ui/react";
-import { SurveyQuestionProps } from "../../SurveyWrapper";
+import { SurveyQuestionProps } from "../../SurveyBody";
 import { useAppSelector } from "../../../../redux/hooks";
 import { selectCurrentAnswer } from "../../../../redux/slices/surveySlice/surveySlice";
 import { selectWidth } from "../../../../redux/slices/viewportSlice";
@@ -90,7 +90,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
       <Text fontSize={"lg"} fontWeight={"regular"} w="100%">
         {currentQuestion.question}
       </Text>
-      <Wrap spacing={4} flexDir={"column"} align="flex-start">
+      <Wrap spacing={4} flexDir={"column"} align="flex-start" w="100%">
         <WrapItem>
           <Grid gap={4}>
             <GridItem>
