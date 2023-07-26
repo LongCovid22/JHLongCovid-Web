@@ -1,5 +1,5 @@
 
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent,getByLabelText, within } from '@testing-library/react';
 import {Provider} from 'react-redux';
 import { createStore } from "../../../redux/store";
 import React from "react";
@@ -49,7 +49,7 @@ describe("Geolocation Test", () => {
     process.env = OLD_ENV; // Restore old environment
   });
 
-  test('Welcome screen unit test', async() => {
+  test('Welcome screen unit test', async () => {
     
     const test = true;
     const { debug } = render(
@@ -80,7 +80,24 @@ describe("Geolocation Test", () => {
     fireEvent.click(screen.getByText(/Find My Location/i));    
     expect(await screen.findByText(/New York County, New York/i, {}, { timeout: 2000 })).toBeInTheDocument();
 
-  
+    const ageInput = screen.getByTestId('age-input').querySelector('input');
+    if(ageInput) {
+      fireEvent.change(ageInput, { target: { value: '23' } });
+    }
 
+    fireEvent.change(screen.getByTestId('sex-input'), { target: { value: 'Male' } });
+
+    fireEvent.change(screen.getByTestId('height-ft-input'), { target: { value: '5' } });
+    fireEvent.change(screen.getByTestId('height-in-input'), { target: { value: '10' } });
+
+    fireEvent.change(screen.getByTestId('weight-input'), { target: { value: '150' } });
+
+    const asianRadioButton = screen.getByRole('radio', { name: /Asian/i });
+  fireEvent.click(asianRadioButton);
+
+    fireEvent.click(screen.getByText('Next'));
+
+    //get whatever data we have already from the store
+    debug(undefined, 70000);
   })
 });
