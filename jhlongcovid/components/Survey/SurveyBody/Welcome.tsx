@@ -1,13 +1,6 @@
 import React from "react";
-import {
-  VStack,
-  Text,
-  Spacer,
-  HStack,
-  Image,
-  Button,
-} from "@chakra-ui/react";
-import { SurveyQuestionProps } from "../SurveyWrapper";
+import { VStack, Text, Spacer, HStack, Image, Button } from "@chakra-ui/react";
+import { SurveyQuestionProps } from "../SurveyBody";
 import { useAppSelector } from "../../../redux/hooks";
 import { selectHeight, selectWidth } from "../../../redux/slices/viewportSlice";
 
@@ -30,7 +23,7 @@ export const Welcome: React.FC<SurveyQuestionProps> = ({
           <Image
             src="./bloomberg.logo.vertical.blue.jpg"
             alt="Hopkins Logo"
-            w={height < 1000 ? "200px" : "250px"}
+            w={height < 1000 ? "175px" : "200px"}
             mt="5px"
           />
           <Text data-test-id = "title" fontSize={height < 1055 ? "3xl" : "4xl"} fontWeight={"bold"}>

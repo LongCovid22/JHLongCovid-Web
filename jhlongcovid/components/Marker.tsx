@@ -5,7 +5,7 @@ import {
   selectLeftSidePanelPres,
   setLeftSidePanelPres,
 } from "../redux/slices/presentationSlice";
-import { medicalConditionsMap } from "./Survey/SurveyFunctions";
+import { medicalConditionsMap } from "./Survey/surveyFunctions";
 import { useAppSelector } from "../redux/hooks";
 
 interface CircleProps extends google.maps.CircleOptions {
@@ -43,11 +43,8 @@ export const Marker: React.FC<CircleProps> = ({
   const [infoWindow, setInfowWindow] = React.useState<google.maps.InfoWindow>();
   const dispatch = useAppDispatch();
 
-  console.log("Redrawing");
-
   useEffect(() => {
     if (!marker) {
-      console.log("use effect 1");
       const circle = new google.maps.Circle({
         // radius: 10000,
         strokeColor: "#68ACE5",
@@ -132,7 +129,6 @@ export const Marker: React.FC<CircleProps> = ({
 
   useEffect(() => {
     if (marker) {
-      console.log("use effect 2");
       marker.setOptions(options);
 
       google.maps.event.addListener(marker, "mouseover", function () {

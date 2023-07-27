@@ -1,7 +1,7 @@
 import {
   parseHeightIntoInches,
   convertFeetAndInchIntoinches,
-} from "../../../components/Survey/SurveyFunctions";
+} from "../../../components/Survey/surveyFunctions";
 import { UserInfo } from "../../../components/Survey/SurveyWrapper";
 import { SurveyType, VaccinationEntry } from "../../../src/API";
 import { User } from "../../../src/API";

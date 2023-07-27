@@ -5,9 +5,12 @@ const parseQuestionWithReplacements = (questionObj) => {
   //for the case where question has <timeframe> for instance, need to replace with objects.timeframe
   //generalized for ANY case so its not just timeframe
   const placeholderRegex = /<([^>]+)>/g;
-  const questionWithReplacements = questionObj.question.replace(placeholderRegex, (match, placeholder) => {
-    return questionObj[placeholder] || match;
-  });
+  const questionWithReplacements = questionObj.question.replace(
+    placeholderRegex,
+    (match, placeholder) => {
+      return questionObj[placeholder] || match;
+    }
+  );
   const questionWithTags = `${questionWithReplacements}`;
   return questionWithTags;
 };
@@ -28,10 +31,11 @@ function parseHeightIntoInches(height) {
     }
   }
   return height.length;
-};
+}
 exports.handler = async (event) => {
   // let data = JSON.parse(event);
   //let variable = event.arguments.results;
+  console.log("EVENT: ", event);
 
   //event.arguments.results.questionStack (relook at JSON)
   try {
@@ -47,7 +51,7 @@ exports.handler = async (event) => {
 
       if (
         question.answerFormat !== "welcome" &&
-        question.answerFormat !== "consent" && 
+        question.answerFormat !== "consent" &&
         question.answerFormat !== "account" &&
         question.answerFormat !== "thankYou"
       ) {
@@ -59,7 +63,6 @@ exports.handler = async (event) => {
             //includes everything in choices array separated with comma, and in other if there's a valid string
             const ans = choices.concat(other).filter(Boolean).join(", ");
             answers.push(ans);
-            
           } else {
             //includes choice or something else
             questions.push(parseQuestionWithReplacements(question));
@@ -67,9 +70,7 @@ exports.handler = async (event) => {
           }
         } else if (question.answerFormat === "scale") {
           //specifically for question No. 30
-          questions.push(
-            `<b>${parseQuestionWithReplacements(question)}</b>`
-          );
+          questions.push(`<b>${parseQuestionWithReplacements(question)}</b>`);
           answers.push("");
           for (let i = 0; i < question.options.length; i++) {
             questions.push(question.options[i]);
@@ -77,30 +78,24 @@ exports.handler = async (event) => {
             // answers.push(answer[i]);
           }
         } else if (question.answerFormat === "demographics") {
-          const propertyNames = [
-            "age",
-            "race",
-            "sex",
-            "height",
-            "weight",
-          ];
+          const propertyNames = ["age", "race", "sex", "height", "weight"];
           let { age, race, sex, height, weight } = answer;
           race = capitalizeEachWord(race);
           sex = capitalizeEachWord(sex);
           propertyNames.forEach((propertyName) => {
-
             if (propertyName === "height") {
-              questions.push(capitalizeEachWord(propertyName) + " (Feet and Inches)");
+              questions.push(
+                capitalizeEachWord(propertyName) + " (Feet and Inches)"
+              );
             } else if (propertyName === "weight") {
               questions.push(capitalizeEachWord(propertyName) + " (Pounds)");
-            } 
-            else {
+            } else {
               questions.push(capitalizeEachWord(propertyName));
             }
 
             if (propertyName === "height") {
-              height = parseHeightIntoInches(height);
-            } 
+              height = height ? parseHeightIntoInches(height) : "";
+            }
             answers.push(eval(propertyName));
           });
         } else {
@@ -133,41 +128,34 @@ exports.handler = async (event) => {
           },
         },
         Subject: {
-          Data: "Thanks for Participating in the Long Covid Health Survey!", // Replace with the subject of your email
+          Data: "Thank You for Participating in the Long Covid Health Survey!", // Replace with the subject of your email
         },
       },
       Source: "hopkinslongcovidteam@gmail.com", // Replace with your sender's email address
     };
 
     let response;
-    let statusCode;
+    let statusCode = 200;
 
     try {
-      const result = await ses.sendEmail(params).promise();
+      await ses.sendEmail(params).promise();
       response = {
-        input: event.arguments.results,
-        event: event,
-        statusCode: 200,
-        body: JSON.stringify({ message: result }),
-        email: event.arguments.email
+        message: `Successfully sent survey receipt to email ${event.arguments.email}`,
       };
-      statusCode = 200;
     } catch (error) {
+      console.log(`Error sending email to ${event.arguments.email}: `, error);
       response = {
-        input: event.arguments.results,
-        event: event,
-        statusCode: 500,
-        body: JSON.stringify({ message: error }),
-        email: event.arguments.email
+        message: error,
       };
       statusCode = 400;
     }
 
     return {
-      statusCode: 502,
+      statusCode: statusCode,
       body: response,
     };
   } catch (error) {
+    console.log(`Error sending email to ${event.arguments.email}: `, error);
     return {
       statusCode: 501,
       body: error,

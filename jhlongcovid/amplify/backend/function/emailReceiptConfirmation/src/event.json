@@ -47,14 +47,8 @@
             "title": "COVID",
             "questionNum": 3,
             "question": "Have you ever been infected with COVID-19?",
-            "options": [
-              "Yes",
-              "No"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice"
-            ],
+            "options": ["Yes", "No"],
+            "answerFormat": ["choice", "choice"],
             "answer": null,
             "branching": {
               "predicate": "No",
@@ -88,13 +82,7 @@
               },
               "Do not know"
             ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice",
-              "input",
-              "choice"
-            ],
+            "answerFormat": ["choice", "choice", "choice", "input", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -107,14 +95,8 @@
             "title": "COVID",
             "questionNum": 5,
             "question": "Have you every been hospitalized for COVID-19?",
-            "options": [
-              "Yes",
-              "No"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice"
-            ],
+            "options": ["Yes", "No"],
+            "answerFormat": ["choice", "choice"],
             "answer": null,
             "branching": {
               "predicate": "No",
@@ -148,13 +130,7 @@
               },
               "Do not know"
             ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice",
-              "input",
-              "choice"
-            ],
+            "answerFormat": ["choice", "choice", "choice", "input", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -186,14 +162,8 @@
             "title": "COVID",
             "questionNum": 8,
             "question": "Did you take a COVID test at that time?",
-            "options": [
-              "Yes",
-              "No"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice"
-            ],
+            "options": ["Yes", "No"],
+            "answerFormat": ["choice", "choice"],
             "answer": null,
             "branching": {
               "predicate": "No",
@@ -212,16 +182,8 @@
             "title": "COVID",
             "questionNum": 9,
             "question": "Did you have a positive test result? “Positive” means the test showed COVID-19.",
-            "options": [
-              "Yes",
-              "No",
-              "Do not know"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "options": ["Yes", "No", "Do not know"],
+            "answerFormat": ["choice", "choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -234,14 +196,8 @@
             "title": "COVID",
             "questionNum": 10,
             "question": "Did you have any COVID19 symptoms, such as fever, cough, sore throat, or other symptoms?",
-            "options": [
-              "Yes",
-              "No"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice"
-            ],
+            "options": ["Yes", "No"],
+            "answerFormat": ["choice", "choice"],
             "answer": null,
             "branching": {
               "predicate": "No",
@@ -267,13 +223,7 @@
               "Quite a bit",
               "Very much"
             ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -286,22 +236,11 @@
             "title": "COVID",
             "questionNum": 12,
             "question": "Did a doctor or other health care professional prescribe any medications for you to take when you had COVID-19?",
-            "options": [
-              "Yes",
-              "No",
-              "Do not know"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "options": ["Yes", "No", "Do not know"],
+            "answerFormat": ["choice", "choice", "choice"],
             "answer": null,
             "branching": {
-              "predicate": [
-                "No",
-                "Do not know"
-              ],
+              "predicate": ["No", "Do not know"],
               "goto": {
                 "section": 2,
                 "question": 0
@@ -353,14 +292,8 @@
             "title": "Recovery",
             "questionNum": 14,
             "question": "Would you say that you are completely recovered from COVID-19 now?",
-            "options": [
-              "Yes",
-              "No"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice"
-            ],
+            "options": ["Yes", "No"],
+            "answerFormat": ["choice", "choice"],
             "answer": null,
             "branching": {
               "predicate": "No",
@@ -403,16 +336,8 @@
             "title": "Vaccination",
             "questionNum": 16,
             "question": "Have you ever been vaccinated against COVID-19?",
-            "options": [
-              "No",
-              "Yes",
-              "Do not know"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "options": ["No", "Yes", "Do not know"],
+            "answerFormat": ["choice", "choice", "choice"],
             "answer": null,
             "branching": {
               "predicate": "No",
@@ -443,10 +368,7 @@
               },
               "Do not know"
             ],
-            "answerFormat": [
-              "input",
-              "choice"
-            ],
+            "answerFormat": ["input", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -468,11 +390,7 @@
               "Unsure",
               "Decline to answer"
             ],
-            "answerFormat": [
-              "input",
-              "choice",
-              "choice"
-            ],
+            "answerFormat": ["input", "choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -519,20 +437,8 @@
             "title": "Your Global Health",
             "questionNum": 20,
             "question": "In general, would you say your health is:",
-            "options": [
-              "Excellent",
-              "Very good",
-              "Good",
-              "Fair",
-              "Poor"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
+            "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -545,20 +451,8 @@
             "title": "Your Global Health",
             "questionNum": 21,
             "question": "In general, how would you rate your physical health?",
-            "options": [
-              "Excellent",
-              "Very good",
-              "Good",
-              "Fair",
-              "Poor"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
+            "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -578,13 +472,7 @@
               "A little",
               "Not at all"
             ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -598,20 +486,8 @@
             "questionNum": 23,
             "question": "In the <timeframe>, how would you rate you fatigue (extreme tiredness resulting from mental or physical exertion or illness) on average?",
             "timeframe": "past 7 days",
-            "options": [
-              "None",
-              "Mild",
-              "Moderate",
-              "Severe",
-              "Very Severe"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "options": ["None", "Mild", "Moderate", "Severe", "Very Severe"],
+            "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -763,20 +639,8 @@
             "questionNum": 26,
             "question": "In general, over the <timeframe>, how would you rate your mental health, including your mood and your ability to think?",
             "timeframe": "last 2 weeks",
-            "options": [
-              "Excellent",
-              "Very good",
-              "Good",
-              "Fair",
-              "Poor"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
+            "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -790,20 +654,8 @@
             "questionNum": 27,
             "question": "In general, over the <timeframe>, how would you rate your satisfaction with your social activities and relationships?",
             "timeframe": "last 2 weeks",
-            "options": [
-              "Excellent",
-              "Very good",
-              "Good",
-              "Fair",
-              "Poor"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
+            "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -817,20 +669,8 @@
             "questionNum": 28,
             "question": "In general, over the <timeframe>, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in your community, and responsibilities as a parent, child, spouse, employee, friend, etc.)",
             "timeframe": "last 2 weeks",
-            "options": [
-              "Excellent",
-              "Very good",
-              "Good",
-              "Fair",
-              "Poor"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
+            "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -844,20 +684,8 @@
             "questionNum": 29,
             "question": "In the <timeframe>, how often have you been bothered by emotional problems such as feeling anxious, depressed or irritable?",
             "timeframe": "past 7 days",
-            "options": [
-              "Never",
-              "Rarely",
-              "Sometimes",
-              "Often",
-              "Always"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "options": ["Never", "Rarely", "Sometimes", "Often", "Always"],
+            "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -959,16 +787,8 @@
             "title": "Medical Conditions",
             "questionNum": 32,
             "question": "Do you think that you are experiencing, or have ever experienced, what has been called “long COVID,” or symptoms related to COVID at least a month after your infection?",
-            "options": [
-              "Yes",
-              "No",
-              "Do not know"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "options": ["Yes", "No", "Do not know"],
+            "answerFormat": ["choice", "choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -983,14 +803,8 @@
             "title": "Your Social Determinants",
             "questionNum": 33,
             "question": "Do you currently have some form of health insurance to help pay for medical bills?",
-            "options": [
-              "Yes",
-              "No"
-            ],
-            "answerFormat": [
-              "choice",
-              "choice"
-            ],
+            "options": ["Yes", "No"],
+            "answerFormat": ["choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -1011,13 +825,7 @@
               "Do not know",
               "Prefer not to answer"
             ],
-            "answerFormat": [
-              "choice",
-              "choice",
-              "choice",
-              "choice",
-              "choice"
-            ],
+            "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
             "answer": null,
             "branching": null,
             "schemaInfo": {
@@ -1166,55 +974,43 @@
           "question": 1
         }
       ],
-      "answerStack": 
-        [
-          "",
-          "hleo1@jhu.edu",
-          {
-            "age": 18,
-            "race": "asian",
-            "sex": "Male",
-            "height": 6,
-            "weight": 100
-          },
-          "No",
-          "No",
-          {
-            "choices": [
-              "Feeling faint, dizzy, “goofy”; difficulty thinking soon after standing up from a sitting or lying position",
-              "Fever, chills, sweats or flushing",
-              "Feeling sick after you exert yourself physically or mentally (“post-exertional malaise”)",
-              "Weakness in arms or legs"
-            ],
-            "other": ""
-          },
-          "Very good",
-          "Very good",
-          "Very good",
-          "Rarely",
-          [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+      "answerStack": [
+        "",
+        "hleo1@jhu.edu",
+        {
+          "age": 18,
+          "race": "asian",
+          "sex": "Male",
+          "height": 6,
+          "weight": 100
+        },
+        "No",
+        "No",
+        {
+          "choices": [
+            "Feeling faint, dizzy, “goofy”; difficulty thinking soon after standing up from a sitting or lying position",
+            "Fever, chills, sweats or flushing",
+            "Feeling sick after you exert yourself physically or mentally (“post-exertional malaise”)",
+            "Weakness in arms or legs"
           ],
-          {
-            "choices": [
-              "Migraine or other headache disorder"
-            ],
-            "other": ""
-          },
-          "No",
-          "No",
-          "Somewhat difficult",
-          "Working remotely from home",
-          "skip"
-        ]
+          "other": ""
+        },
+        "Very good",
+        "Very good",
+        "Very good",
+        "Rarely",
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        {
+          "choices": ["Migraine or other headache disorder"],
+          "other": ""
+        },
+        "No",
+        "No",
+        "Somewhat difficult",
+        "Working remotely from home",
+        "skip"
+      ]
     },
-    "email" : "leo.hubert3@gmail.com"
+    "email": "nate.farrell36@gmail.com"
   }
 }

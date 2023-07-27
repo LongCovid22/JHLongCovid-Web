@@ -131,6 +131,10 @@ export const onUpdateMapDataCust = /* GraphQL */ `
       long
       covidCount
       longCovid
+      phq8AboveTen
+      recoveredCount
+      longCovidOverFourWeeks
+      longCovidOverTwelveWeeks
       topMedicalCondition
       totalFullEntries
     }

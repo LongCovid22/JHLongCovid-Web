@@ -1,6 +1,6 @@
 import { UserInfo } from "./SurveyWrapper";
 import * as mutations from "../../src/graphql/mutations";
-import  {API } from "aws-amplify";
+import { API } from "aws-amplify";
 import {
   CovidStatus,
   CreateCovidEntryInput,
@@ -34,7 +34,7 @@ import { GraphQLQuery } from "@aws-amplify/api";
 import { LocationData } from "../../util/locationFunctions";
 
 export const checkEmptyDemoFields = (answer: any) => {
-  let emptyFields = [];
+  let emptyFields: string[] = [];
   let demographics = answer as {
     age: string;
     race: string;
