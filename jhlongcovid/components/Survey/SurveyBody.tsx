@@ -1,3 +1,4 @@
+import React from "react";
 import { User } from "../../src/API";
 import { UserInfo } from "./SurveyWrapper";
 import { LocationData } from "../../util/locationFunctions";

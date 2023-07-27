@@ -60,7 +60,7 @@ export const IntroInstructionStep: React.FC<InstructionStepProps> = ({
               setInstructionStep("survey");
             }}
           >
-            Contribute by filling out a survey
+            How to contribute by filling out a survey
           </Button>
           <Button
             w="100%"
@@ -74,7 +74,7 @@ export const IntroInstructionStep: React.FC<InstructionStepProps> = ({
               setInstructionStep("longitudinal");
             }}
           >
-            Participate in longitudinal study
+            How to participate in longitudinal study
           </Button>
           <Button
             w="100%"
@@ -88,7 +88,7 @@ export const IntroInstructionStep: React.FC<InstructionStepProps> = ({
               setInstructionStep("visualization");
             }}
           >
-            Analyze data on the map
+            How to analyze data on the map
           </Button>
         </VStack>
       </VStack>
