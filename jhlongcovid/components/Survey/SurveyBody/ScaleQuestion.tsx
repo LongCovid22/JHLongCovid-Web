@@ -67,13 +67,14 @@ export const ScaleQuestion: React.FC<SurveyQuestionProps> = ({
             >
               {currentQuestion.scale.map((sv: string, si: number) => {
                 return (
-                  <GridItem alignItems={"center"} key={si} pt="8px">
+         
+                    <GridItem alignItems={"center"} key={si} pt="8px" data-testid={`${i}-${si}`}>
                     <Flex w="100%" direction={"row"}>
                       <Spacer />
                       <Radio value={`${si}`} />
                       <Spacer />
                     </Flex>
-                  </GridItem>
+                  </GridItem>                  
                 );
               })}
             </Grid>

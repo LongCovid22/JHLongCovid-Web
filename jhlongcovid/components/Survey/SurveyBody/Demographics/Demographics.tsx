@@ -111,6 +111,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
                   onChange={(val) => {
                     handleAnswerChange("age", val);
                   }}
+                  data-testid="age-input"
                 >
                   <NumberInputField fontSize={"18px"} />
                   <NumberInputStepper>
@@ -129,6 +130,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
                   onChange={(event) => {
                     handleAnswerChange("sex", event.target.value);
                   }}
+                  data-testid="sex-input"
                 >
                   <option value={""}></option>
                   <option value={"Male"}>Male</option>
@@ -193,6 +195,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
                 handleAnswerChange("race", val);
               }}
               size="lg"
+              data-testid="race-input"
             >
               <Grid templateColumns="repeat(1, 1fr)" gap={3}>
                 <GridItem>

@@ -22,7 +22,7 @@ export const Survey: React.FC<ProfileCheckinProps> = ({
     const { isOpen, onOpen, onClose } = useDisclosure();
     const user = useAppSelector(selectUser);
     const dispatch = useAppDispatch();
-  
+
     const closeSurvey = () => {
       if (setShowSurveyOnLaunch) setShowSurveyOnLaunch(false);
       onClose();

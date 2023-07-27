@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef,useContext } from "react";
 import {
   VStack,
   Text,
@@ -12,6 +12,8 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import ReCAPTCHA from "react-google-recaptcha";
+
+import { TestContext } from "../../Header/ProfileCheckin";
 
 import { SurveyQuestionProps } from "../SurveyWrapper";
 import { useAppSelector } from "../../../redux/hooks";
@@ -40,6 +42,8 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const test = useContext(TestContext);
+
 
   const handleAnswerChange = (value: string) => {
     setEmail(value);
@@ -58,9 +62,9 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
   };
 
   function onChange(value: string | null) {
-    if (value !== null && setRecap) {
+    if (value !== null) {
       setErrorPresent!(false);
-      setRecap(true);
+      setRecap!(true);
     }
   }
 
@@ -77,6 +81,13 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
       setAnswer(currentAnswer);
     }
   }, [currentAnswer]);
+
+  useEffect(() => {
+    if (test) {
+      setErrorPresent!(false);
+      setRecap!(true);  
+    }
+  }, [])
 
   return (
     <>
@@ -160,13 +171,17 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
             </FormHelperText>
           )}
         </FormControl>
-        <form>
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey="6LfrfhEnAAAAAL4WpQIxHKCqUH03WWVQVWL_-I9j"
-            onChange={(value) => onChange(value)}
-          />
-        </form>
+        ({!test &&
+          <form>
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey="6LfrfhEnAAAAAL4WpQIxHKCqUH03WWVQVWL_-I9j"
+              onChange={(value) => onChange(value)}
+            />
+          </form>
+        })
+        
+        
       </VStack>
     </>
   );

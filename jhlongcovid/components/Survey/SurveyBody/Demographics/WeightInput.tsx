@@ -76,6 +76,7 @@ export const WeightInput: React.FC<WeightInputProps> = ({
           onChange={(event) => {
             handleWeightChange(event.target.value);
           }}
+          data-testid="weight-input"
         />
         <Text>lbs</Text>
       </HStack>
