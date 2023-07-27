@@ -84,7 +84,7 @@
         "carryOutSocialActivitiesRank": "excellent",
         "anxietyInPastWeekRank": "never",
         "medicalConditions": ["heartProblems"],
-        "hasLongCovid": "no"
+        "hasLongCovid": "yes"
       },
       "socialDeterminantsResults": {
         "id": "8d442ea3-dc9e-4ade-b381-2c14b48299ff",
