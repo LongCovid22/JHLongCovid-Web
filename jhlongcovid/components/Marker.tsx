@@ -132,7 +132,6 @@ export const Marker: React.FC<CircleProps> = ({
 
   useEffect(() => {
     if (marker) {
-      console.log("use effect 2");
       marker.setOptions(options);
 
       google.maps.event.addListener(marker, "mouseover", function () {
