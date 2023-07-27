@@ -247,6 +247,7 @@ const Home = () => {
         next: ({ provider, value }) => {
           const v = value.data as OnCreateMapDataSubscription;
           const newMapData = v.onCreateMapData;
+          console.log("CREATE NEW MAP DATA: ", newMapData);
           if (newMapData) {
             if (newMapData.level === "county") {
               if (realOrMock == RealOrMock.REAL) {
@@ -271,6 +272,7 @@ const Home = () => {
         next: ({ provider, value }) => {
           const v = value.data as OnUpdateMapDataSubscription;
           const newMapData = v.onUpdateMapData;
+          // console.log("UPDATE NEW MAP DATA: ", newMapData);
           if (newMapData) {
             if (newMapData.level === "county") {
               if (realOrMock == RealOrMock.REAL) {
@@ -285,7 +287,9 @@ const Home = () => {
             console.log("New map data is null");
           }
         },
-        error: (error) => {},
+        error: (error) => {
+          console.log("ERROR WITHIN UPDATE SUBSCRIPTION: ", error);
+        },
       });
 
       Hub.listen("api", (data: any) => {
