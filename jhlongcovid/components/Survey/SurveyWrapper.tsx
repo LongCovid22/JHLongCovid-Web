@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Flex,
@@ -67,10 +67,6 @@ import { User } from "../../src/API";
 
 import * as mutations from "../../src/graphql/mutations";
 import { API } from "aws-amplify";
-
-import { TestContext } from "../Header/Survey";
-
-const UserContext = createContext(null);
 
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
@@ -249,8 +245,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [missingAnswer, setMissingAnswer] = useState(false);
   const [errorText, setErrorText] = useState("");
   const [errorPresent, setErrorPresent] = useState(false);
-
-  const test = true;
 
   const {
     isOpen: isConfirmOpen,
