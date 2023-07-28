@@ -275,7 +275,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         user
       );
 
-      /*
       let locationData;
       if (surveyType == SurveyType.WEEKLY) {
         locationData = await getCountyAndStateCoords(
@@ -380,7 +379,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       } catch (error) {
         console.log("Error sending email receipt: ", error);
       }
-      */
     }
 
     onClose();

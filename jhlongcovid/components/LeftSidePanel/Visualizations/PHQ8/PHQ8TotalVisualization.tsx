@@ -48,7 +48,10 @@ import {
 } from "./phq8VisualizationFunctions";
 import { backgroundColors } from "../visualizationFunctions";
 import { RealOrMock } from "../../../../pages";
-import { SummaryAvgValues } from "../../../../src/API";
+import {
+  PatientHealthQuestionnaireSummary,
+  SummaryAvgValues,
+} from "../../../../src/API";
 
 ChartJS.register(
   CategoryScale,
@@ -78,57 +81,46 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   loading,
   setLoading,
 }) => {
-  const [avgPhq8Score, setAvgPhq8Score] = useState(0);
+  let patientHealthQuestionnaireSummary: any,
+    globalHealthSummary,
+    totalFullEntries: number,
+    phq8AboveTen;
+
+  if (data && realOrMock === RealOrMock.REAL) {
+    patientHealthQuestionnaireSummary = data.patientHealthQuestionnaireSummary;
+    globalHealthSummary = data.globalHealthSummary;
+    totalFullEntries = data.totalFullEntries;
+    phq8AboveTen = data.phq8AboveTen;
+  } else {
+    patientHealthQuestionnaireSummary =
+      mockResult.county.patientHealthQuestionnaireSummary;
+    globalHealthSummary = mockResult.county.globalHealthSummary;
+    totalFullEntries = mockResult.county.totalFullEntries;
+    phq8AboveTen = mockResult.county.phq8AboveTen;
+  }
+
+  const phq8OverTen =
+    phq8AboveTen !== undefined && phq8AboveTen !== null ? phq8AboveTen : 0;
+  const phq8Config = createPHQ8OverTenConfig(phq8OverTen, totalFullEntries);
+  // const [avgPhq8Score, setAvgPhq8Score] = useState(0);
   const [totalEntries, setTotalEntries] = useState(0);
-  const [phq8AboveTenConfig, setPhq8AboveTenConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
   const width = useAppSelector(selectWidth);
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
     const createGraphVariables = () => {
-      let patientHealthQuestionnaireSummary,
-        globalHealthSummary,
-        totalFullEntries,
-        phq8AboveTen;
-
-      if (data && realOrMock === RealOrMock.REAL) {
-        patientHealthQuestionnaireSummary =
-          data.patientHealthQuestionnaireSummary;
-        globalHealthSummary = data.globalHealthSummary;
-        totalFullEntries = data.totalFullEntries;
-        phq8AboveTen = data.phq8AboveTen;
-      } else {
-        patientHealthQuestionnaireSummary =
-          mockResult.county.patientHealthQuestionnaireSummary;
-        globalHealthSummary = mockResult.county.globalHealthSummary;
-        totalFullEntries = mockResult.county.totalFullEntries;
-        phq8AboveTen = mockResult.county.phq8AboveTen;
+      if (setLoading) {
+        setLoading(true);
       }
 
-      const colors = [
-        backgroundColors.green,
-        backgroundColors.yellow,
-        backgroundColors.orange,
-        backgroundColors.red,
-      ];
-
-      if (patientHealthQuestionnaireSummary.avgPHQScore) {
-        setAvgPhq8Score(
-          getAvgPhq8Score(
-            patientHealthQuestionnaireSummary.avgPHQScore
-              .race as SummaryAvgValues
-          )
-        );
-      }
-
-      const phq8OverTen =
-        phq8AboveTen !== undefined && phq8AboveTen !== null ? phq8AboveTen : 0;
-      const phq8Config = createPHQ8OverTenConfig(phq8OverTen, totalEntries);
-      setPhq8AboveTenConfig(phq8Config);
+      // if (patientHealthQuestionnaireSummary.avgPHQScore) {
+      //   setAvgPhq8Score(
+      //     getAvgPhq8Score(
+      //       patientHealthQuestionnaireSummary.avgPHQScore
+      //         .race as SummaryAvgValues
+      //     )
+      //   );
+      // }
 
       setTotalEntries(totalFullEntries);
 
@@ -164,8 +156,8 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               minWidth="340px"
             >
               <Doughnut
-                options={phq8AboveTenConfig.options}
-                data={phq8AboveTenConfig.data}
+                options={phq8Config.options}
+                data={phq8Config.data}
                 height={"300px"}
               />
             </WrapItem>

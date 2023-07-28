@@ -163,18 +163,15 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           data.longCovidOverFourWeeks !== null && data.longCovidOverFourWeeks
             ? data.longCovidOverFourWeeks
             : 0;
-        const longCovidOverFourWeeksPerc = Math.round(
-          (longCovidOverFourWeeks / totalCases) * 100
-        );
-
+        const longCovidOverFourWeeksPerc =
+          (longCovidOverFourWeeks / totalCases) * 100;
         const longCovidOverTwelveWeeks =
           data.longCovidOverTwelveWeeks !== null &&
           data.longCovidOverTwelveWeeks
             ? data.longCovidOverTwelveWeeks
             : 0;
-        const longCovidOverTwelveWeeksPerc = Math.round(
-          (longCovidOverTwelveWeeks / totalCases) * 100
-        );
+        const longCovidOverTwelveWeeksPerc =
+          (longCovidOverTwelveWeeks / totalCases) * 100;
         setTotalLongCovidFourWeeks(longCovidOverFourWeeks);
         setTotalLongCovidFourWeeksPerc(longCovidOverFourWeeksPerc);
         setTotalLongCovidTwelveWeeks(longCovidOverTwelveWeeks);
@@ -215,7 +212,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               <Stat>
                 <StatLabel>COVID Cases</StatLabel>
                 <StatNumber>
-                  {`${totalCovidCases} (${percentTotalCovid}%)`}
+                  {`${totalCovidCases} (${percentTotalCovid.toFixed()}%)`}
                 </StatNumber>
                 <StatHelpText>{`Total COVID Cases`}</StatHelpText>
               </Stat>
@@ -224,7 +221,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               <Stat>
                 <StatLabel>{"Long COVID >4 Weeks"}</StatLabel>
                 <StatNumber>
-                  {`${totalLongCovidFourWeeks} (${totalLongCovidFourWeeksPerc}%)`}
+                  {`${totalLongCovidFourWeeks} (${totalLongCovidFourWeeksPerc.toFixed()}%)`}
                 </StatNumber>
                 <StatHelpText>{`Not recovered >4 weeks`}</StatHelpText>
               </Stat>
@@ -233,7 +230,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               <Stat>
                 <StatLabel>{"Long COVID >12 Weeks"}</StatLabel>
                 <StatNumber>
-                  {`${totalLongCovidTwelveWeeks} (${totalLongCovidTwelveWeeksPerc}%)`}
+                  {`${totalLongCovidTwelveWeeks} (${totalLongCovidTwelveWeeksPerc.toFixed()}%)`}
                 </StatNumber>
                 <StatHelpText>{`Not recovered >12 weeks`}</StatHelpText>
               </Stat>
@@ -248,23 +245,24 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             <WrapItem>
               <Stat>
                 <StatLabel>Hospitalizations</StatLabel>
-                <StatNumber>{`${hospitalizations} (${Math.round(
-                  (hospitalizations / totalCovidCases) * 100
-                )}%)`}</StatNumber>
+                <StatNumber>{`${hospitalizations} (${(
+                  (hospitalizations / totalCovidCases) *
+                  100
+                ).toFixed()}%)`}</StatNumber>
                 <StatHelpText>Caused by COVID</StatHelpText>
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
                 <StatLabel>Symptomatic</StatLabel>
-                <StatNumber>{`${symptomatic} (${percentSymptomatic}%)`}</StatNumber>
+                <StatNumber>{`${symptomatic} (${percentSymptomatic.toFixed()}%)`}</StatNumber>
                 <StatHelpText>Cases with symptoms</StatHelpText>
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
                 <StatLabel>Medications</StatLabel>
-                <StatNumber>{`${totalPrescribed} (${percentMedications}%)`}</StatNumber>
+                <StatNumber>{`${totalPrescribed} (${percentMedications.toFixed()}%)`}</StatNumber>
                 <StatHelpText>People prescribed medications</StatHelpText>
               </Stat>
             </WrapItem>
