@@ -35,7 +35,6 @@ function parseHeightIntoInches(height) {
 exports.handler = async (event) => {
   // let data = JSON.parse(event);
   //let variable = event.arguments.results;
-  console.log("EVENT: ", event);
 
   //event.arguments.results.questionStack (relook at JSON)
   try {

@@ -229,7 +229,13 @@ export const createCovidEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: surveyData.height
+      ? `${surveyData.height}`
+      : !user
+      ? ""
+      : user.height
+      ? user.height
+      : "",
     weight: surveyData.weight,
     beenInfected: surveyData.beenInfected ?? null,
     timesPositive: surveyData.timesPositive ?? null,
@@ -277,7 +283,13 @@ export const createRecoveryEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: surveyData.height
+      ? `${surveyData.height}`
+      : !user
+      ? ""
+      : user.height
+      ? user.height
+      : "",
     weight: surveyData.weight,
     recovered: surveyData.recovered ?? null,
     lengthOfRecovery: surveyData.lengthOfRecovery ?? null,
@@ -320,7 +332,13 @@ export const createVaccinationEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: surveyData.height
+      ? `${surveyData.height}`
+      : !user
+      ? ""
+      : user.height
+      ? user.height
+      : "",
     weight: surveyData.weight,
     totalVaccineShots: surveyData.totalVaccineShots ?? null,
     vaccinated: surveyData.vaccinated ?? null,
@@ -364,7 +382,13 @@ export const createGlobalHealthEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: surveyData.height
+      ? `${surveyData.height}`
+      : !user
+      ? ""
+      : user.height
+      ? user.height
+      : "",
     weight: surveyData.weight,
     healthRank: surveyData.healthRank ?? null,
     physicalHealthRank: surveyData.physicalHealthRank ?? null,
@@ -410,7 +434,13 @@ export const createPatientHealthEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: surveyData.height
+      ? `${surveyData.height}`
+      : !user
+      ? ""
+      : user.height
+      ? user.height
+      : "",
     weight: surveyData.weight,
     generalHealthResults:
       JSON.stringify(surveyData.generalHealthResults) ?? null,
@@ -454,7 +484,13 @@ export const createSymptomEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: surveyData.height
+      ? `${surveyData.height}`
+      : !user
+      ? ""
+      : user.height
+      ? user.height
+      : "",
     weight: surveyData.weight,
     symptoms: surveyData.symptoms ?? null,
     carryOutSocialActivitiesRank:
@@ -500,7 +536,13 @@ export const createSocialDeterminantsEntry = async (
     age: parseInt(surveyData.age),
     race: surveyData.race.toUpperCase(),
     sex: surveyData.sex,
-    height: surveyData.height,
+    height: surveyData.height
+      ? `${surveyData.height}`
+      : !user
+      ? ""
+      : user.height
+      ? user.height
+      : "",
     weight: surveyData.weight,
     hasMedicalInsurance: surveyData.hasMedicalInsurance ?? null,
     difficultCoveringExpenses: surveyData.difficultCoveringExpenses ?? null,
