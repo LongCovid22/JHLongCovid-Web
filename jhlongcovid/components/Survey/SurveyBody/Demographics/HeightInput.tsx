@@ -136,22 +136,25 @@ export const HeightInput: React.FC<HeightInputProps> = ({
     <FormControl isInvalid={heightErrorText !== null}>
       <FormLabel fontSize={"18px"}>Height</FormLabel>
       <HStack>
-        <PinInput
+        <Input
+          w="50px"
           value={demos.feet}
-          onChange={(value) => {
-            handleFeetChange(value);
+          data-testid="height-ft-input"
+          onChange={(event) => {
+            handleFeetChange(event.target.value);
             // handleHeightChange(value);
           }}
-        >
-          <PinInputField />
+        />
+          {/* <PinInputField /> */}
           <Text>ft</Text>
-        </PinInput>
+        {/* </PinInput> */}
         <Input
           w="50px"
           value={demos.inches}
           onChange={(event) => {
             handleInchesChange(event.target.value);
           }}
+          data-testid="height-in-input"
         />
         <Text>in</Text>
       </HStack>

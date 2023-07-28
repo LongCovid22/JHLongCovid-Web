@@ -204,6 +204,7 @@ const LocationInput: React.FC<LocationInputProps> = ({
                     }
                   );
                 }
+                setVerifyingZip(false);
               }}
             >
               Find My Location

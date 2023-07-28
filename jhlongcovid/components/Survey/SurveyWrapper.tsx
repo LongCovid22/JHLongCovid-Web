@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Flex,
@@ -248,7 +248,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     dispatch(prevQuestion({ answer: answer }));
     setRecap(false);
     setAnswer("");
-    console.log(answer);
   };
 
   const handleSkipQuestion = () => {

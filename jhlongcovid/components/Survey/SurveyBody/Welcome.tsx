@@ -26,7 +26,7 @@ export const Welcome: React.FC<SurveyQuestionProps> = ({
             w={height < 1000 ? "175px" : "200px"}
             mt="5px"
           />
-          <Text fontSize={height < 1055 ? "3xl" : "4xl"} fontWeight={"bold"}>
+          <Text data-test-id = "title" fontSize={height < 1055 ? "3xl" : "4xl"} fontWeight={"bold"}>
             {currentQuestion.question}
           </Text>
         </HStack>
@@ -38,7 +38,7 @@ export const Welcome: React.FC<SurveyQuestionProps> = ({
             w={height < 1000 ? "250px" : "300px"}
             mt="5px"
           />
-          <Text fontSize={height < 1055 ? "3xl" : "4xl"} fontWeight={"bold"}>
+          <Text data-test-id = "title" fontSize={height < 1055 ? "3xl" : "4xl"} fontWeight={"bold"}>
             {currentQuestion.question}
           </Text>
         </>
