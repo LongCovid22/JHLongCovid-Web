@@ -19,7 +19,7 @@ export const percentOfTotalCovid = (
   totalCovidReports: number,
   totalEntries: number
 ) => {
-  return Math.round((totalCovidReports / totalEntries) * 100);
+  return (totalCovidReports / totalEntries) * 100;
 };
 
 export const getTotalHospitalizations = (hospitalizations: YesNo) => {
@@ -50,7 +50,7 @@ export const getPercentSymptomatic = (
   if (totalCovid === 0) {
     return 0;
   }
-  return Math.round((totalSymptomatic / totalCovid) * 100);
+  return (totalSymptomatic / totalCovid) * 100;
 };
 
 export const getPercentMedications = (

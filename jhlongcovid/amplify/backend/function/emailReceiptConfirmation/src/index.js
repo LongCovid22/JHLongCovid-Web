@@ -35,7 +35,6 @@ function parseHeightIntoInches(height) {
 exports.handler = async (event) => {
   // let data = JSON.parse(event);
   //let variable = event.arguments.results;
-  console.log("EVENT: ", event);
 
   //event.arguments.results.questionStack (relook at JSON)
   try {
@@ -79,7 +78,7 @@ exports.handler = async (event) => {
           }
         } else if (question.answerFormat === "demographics") {
           const propertyNames = ["age", "race", "sex", "height", "weight"];
-          let { age, race, sex, height, weight } = answer;
+          let { age, race, sex, feet, inches, weight } = answer;
           race = capitalizeEachWord(race);
           sex = capitalizeEachWord(sex);
           propertyNames.forEach((propertyName) => {
@@ -94,9 +93,15 @@ exports.handler = async (event) => {
             }
 
             if (propertyName === "height") {
-              height = height ? parseHeightIntoInches(height) : "";
+              if (feet && inches) {
+                height = `${feet}' ${inches}"`;
+              } else {
+                height = "";
+              }
+              answers.push(height);
+            } else {
+              answers.push(eval(propertyName));
             }
-            answers.push(eval(propertyName));
           });
         } else {
           questions.push(parseQuestionWithReplacements(question));

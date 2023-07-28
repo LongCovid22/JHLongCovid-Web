@@ -24,12 +24,12 @@
             }
           ],
           "defaultAuthentication": {
+            "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDate": "2022-09-20T23:30:56.825Z",
-              "apiKeyExpirationDays": 7,
+              "apiKeyExpirationDays": 365,
+              "apiKeyExpirationDate": "2024-07-27T11:57:27.522Z",
               "description": "LongCovidPublicAPIKey"
-            },
-            "authenticationType": "API_KEY"
+            }
           }
         }
       },
