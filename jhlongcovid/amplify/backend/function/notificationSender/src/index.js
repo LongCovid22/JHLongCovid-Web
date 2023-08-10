@@ -108,6 +108,6 @@ exports.handler = async (event) => {
 
   return {
     statusCode: 200,
-    body: `Successfully sent weekly check in reminder to ${event.Records[0].RecipientEmail.stringValue}`,
+    body: `Successfully sent weekly check in reminder to ${event.Records[0].messageAttributes.RecipientEmail.stringValue}`,
   };
 };

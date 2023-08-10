@@ -27,7 +27,7 @@ exports.handler = async (event) => {
           let graphqlResponse = await getRecovered(
             surveyEntryRecoveryEntryIdValue
           );
-          if (graphqlResponse.data.getRecoveryEntry) {
+          if (graphqlResponse.data && graphqlResponse.data.getRecoveryEntry) {
             let recovered = graphqlResponse.data.getRecoveryEntry.recovered;
             if (!recovered) {
               // If the user hasn't recovered, schedule a notification for
