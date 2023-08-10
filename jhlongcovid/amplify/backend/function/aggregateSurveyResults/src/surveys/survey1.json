@@ -98,6 +98,7 @@
         "height": "44",
         "weight": "43",
         "symptoms": ["weaknessInArmsLegs", "loudSnoring", "hearingProblems"],
+        "qualityOfLifeRank": "excellent",
         "mentalHealthRank": "veryGood",
         "socialSatisfactionRank": "veryGood",
         "carryOutSocialActivitiesRank": "veryGood",

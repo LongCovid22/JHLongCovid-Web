@@ -493,6 +493,7 @@ export const createSymptomEntry = async (
       : "",
     weight: surveyData.weight,
     symptoms: surveyData.symptoms ?? null,
+    qualityOfLifeRank: surveyData.qualityOfLifeRank ?? null,
     carryOutSocialActivitiesRank:
       surveyData.carryOutSocialActivitiesRank ?? null,
     anxietyInPastWeekRank: surveyData.anxietyInPastWeekRank ?? null,

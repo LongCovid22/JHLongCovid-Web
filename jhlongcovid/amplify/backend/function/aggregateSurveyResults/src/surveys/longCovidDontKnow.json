@@ -58,6 +58,7 @@
         "height": "55",
         "weight": "213",
         "symptoms": ["bodyMuscleAche"],
+        "qualityOfLifeRank": "excellent",
         "mentalHealthRank": "veryGood",
         "socialSatisfactionRank": "veryGood",
         "carryOutSocialActivitiesRank": "veryGood",
