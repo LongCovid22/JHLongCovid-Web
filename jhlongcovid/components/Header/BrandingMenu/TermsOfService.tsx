@@ -40,8 +40,7 @@ export const TermsOfService = () => {
         isOpen={presentTOS}
         onClose={() => setPresentTOS(false)}
         useInert={false}
-        closeOnEsc={true}
-        closeOnOverlayClick={true}
+        closeOnEsc={false} closeOnOverlayClick={false}
       >
         <ModalOverlay />
         <ModalContent

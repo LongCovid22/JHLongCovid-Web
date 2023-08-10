@@ -16,7 +16,8 @@ export type WeightInputProps = {
     age: string;
     race: string;
     sex: string;
-    height: string;
+    feet: string;
+    inches: string;
     weight: string;
   };
   setDemos: React.Dispatch<
@@ -24,7 +25,8 @@ export type WeightInputProps = {
       age: string;
       race: string;
       sex: string;
-      height: string;
+      feet: string;
+      inches: string;
       weight: string;
     }>
   >;
@@ -74,6 +76,7 @@ export const WeightInput: React.FC<WeightInputProps> = ({
           onChange={(event) => {
             handleWeightChange(event.target.value);
           }}
+          data-testid="weight-input"
         />
         <Text>lbs</Text>
       </HStack>

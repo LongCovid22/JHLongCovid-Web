@@ -40,7 +40,7 @@ const initialState: SurveyState = {
 const checkIfLastQuestion = (
   questionInfo: { section: number; question: number },
   questions: any
-) => {
+) : boolean => {
   const nextSection = questions[questionInfo.section + 1];
   const nextQuestion =
     questions[questionInfo.section][questionInfo.question + 1];
@@ -50,7 +50,7 @@ const checkIfLastQuestion = (
 const getNextQuestionInfo = (
   questionInfo: { section: number; question: number },
   questions: any
-) => {
+) : ({section: number; question: number}) => {
   const nextQuestion =
     questions[questionInfo.section][questionInfo.question + 1];
   if (nextQuestion === undefined) {
@@ -79,7 +79,14 @@ const getNextQuestionAnswerDefault = (
   } else if (question.answerFormat === "scale") {
     return Array.from({ length: question.options.length }, () => "");
   } else if (question.answerFormat === "demographics") {
-    return { age: "", race: "", sex: "", height: "", weight: "" };
+    return {
+      age: "",
+      race: "",
+      sex: "",
+      feet: "",
+      inches: "",
+      weight: "",
+    };
   } else if (question.answerFormat === "account") {
     return { email: "", password: "" };
   } else {

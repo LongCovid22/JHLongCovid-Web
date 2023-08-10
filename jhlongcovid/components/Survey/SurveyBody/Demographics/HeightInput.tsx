@@ -16,7 +16,8 @@ export type HeightInputProps = {
     age: string;
     race: string;
     sex: string;
-    height: string;
+    feet: string;
+    inches: string;
     weight: string;
   };
   setDemos: React.Dispatch<
@@ -24,7 +25,8 @@ export type HeightInputProps = {
       age: string;
       race: string;
       sex: string;
-      height: string;
+      feet: string;
+      inches: string;
       weight: string;
     }>
   >;
@@ -42,14 +44,30 @@ export const HeightInput: React.FC<HeightInputProps> = ({
   const [feet, setFeet] = useState<string>("");
   const [inches, setInches] = useState<string>("");
   const [totalInches, setTotalInches] = useState<number>(0);
+  const [initialRender, setInitialRender] = useState(true);
 
-  const isValidWeight = (height: string) => {
-    if (height === "") return true;
-    const num = parseInt(height);
-    if (isNaN(num) || num <= 0 || num > 80) {
-      return false;
+  const formatFeet = (height: string) => {
+    if (height.length > 0) {
+      const splitheight = height.split("");
+      if (splitheight.length >= 1) {
+        return splitheight[0];
+      }
     }
-    return true;
+
+    return "";
+  };
+
+  const formatInches = (height: string) => {
+    if (height.length > 0) {
+      const splitheight = height.split("");
+      if (splitheight.length == 1) {
+        return "0";
+      } else if (splitheight.length > 1) {
+        return splitheight.splice(1).join("");
+      }
+    }
+
+    return null;
   };
 
   const handleFeetChange = (value: string) => {
@@ -61,7 +79,10 @@ export const HeightInput: React.FC<HeightInputProps> = ({
       if (setErrorPresent) setErrorPresent(false);
       setHeightErrorText(null);
     }
-    setFeet(value);
+    // setFeet(value);
+    let demosCopy = { ...demos };
+    demosCopy["feet"] = value;
+    setDemos(demosCopy);
   };
 
   const handleInchesChange = (value: string) => {
@@ -79,47 +100,61 @@ export const HeightInput: React.FC<HeightInputProps> = ({
       setHeightErrorText(null);
     }
 
-    setInches(value);
+    let demosCopy = { ...demos };
+    demosCopy["inches"] = value;
+    setDemos(demosCopy);
   };
 
-  useEffect(() => {
-    const handleHeightChange = (feet: string, inches: string) => {
-      const demosCopy = { ...demos };
-      demosCopy["height"] = feet + inches;
-      setDemos(demosCopy);
-      // if (isValidWeight(value)) {
-      //   if (setErrorPresent) setErrorPresent(false);
-      //   setHeightErrorText(null);
-      //   setAnswer(demosCopy);
-      // } else {
-      //   if (setErrorPresent) setErrorPresent(true);
-      //   setHeightErrorText("Invalid height");
-      // }
-    };
+  // useEffect(() => {
+  //   if (initialRender) {
+  //     const demosCopy = { ...demos };
+  //     if (demosCopy.height !== "") {
+  //       const splitHeight = demosCopy.height.split("");
+  //       if (splitHeight.length === 1) {
+  //         handleFeetChange(splitHeight[0]);
+  //       } else {
+  //         handleFeetChange(splitHeight[0]);
+  //         handleInchesChange(splitHeight.slice(1).join(""));
+  //       }
+  //     }
+  //     setInitialRender(false);
+  //   }
+  // }, [demos]);
 
-    handleHeightChange(feet, inches);
-  }, [feet, inches]);
+  // // When it gets loaded and when feet and inches change
+  // useEffect(() => {
+  //   const handleHeightChange = (feet: string, inches: string) => {
+  //     const demosCopy = { ...demos };
+  //     demosCopy["height"] = feet + inches;
+  //     setDemos(demosCopy);
+  //   };
+
+  //   handleHeightChange(feet, inches);
+  // }, [feet, inches]);
 
   return (
     <FormControl isInvalid={heightErrorText !== null}>
       <FormLabel fontSize={"18px"}>Height</FormLabel>
       <HStack>
-        <PinInput
-          value={feet}
-          onChange={(value) => {
-            handleFeetChange(value);
-            // handleHeightChange(value);
-          }}
-        >
-          <PinInputField />
-          <Text>ft</Text>
-        </PinInput>
         <Input
           w="50px"
-          value={inches}
+          value={demos.feet}
+          data-testid="height-ft-input"
+          onChange={(event) => {
+            handleFeetChange(event.target.value);
+            // handleHeightChange(value);
+          }}
+        />
+          {/* <PinInputField /> */}
+          <Text>ft</Text>
+        {/* </PinInput> */}
+        <Input
+          w="50px"
+          value={demos.inches}
           onChange={(event) => {
             handleInchesChange(event.target.value);
           }}
+          data-testid="height-in-input"
         />
         <Text>in</Text>
       </HStack>

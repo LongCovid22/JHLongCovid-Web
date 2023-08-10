@@ -17,7 +17,7 @@ import {
   Center,
   Image,
 } from "@chakra-ui/react";
-import { SurveyQuestionProps } from "../SurveyWrapper";
+import { SurveyQuestionProps } from "../SurveyBody";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import Lottie from "lottie-react";
 import GreenCheck from "../../../theme/lottie/GreenCheck.json";

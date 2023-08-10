@@ -20,6 +20,8 @@ import { QuestionText } from "./QuestionText";
 export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
+  setErrorPresent,
+  setErrorText
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const [checked, setChecked] = useState<string[]>([]);
@@ -38,8 +40,16 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
   };
 
   const handleInputOther = (input: string) => {
-    setInputValue(input);
-    setAnswer({ choices: checked, other: input });
+    if (input.length < 50) {
+      setInputValue(input);
+      setAnswer({ choices: checked, other: input });
+      setErrorPresent!(false);
+      setErrorText!("");
+    } else {
+      setErrorPresent!(true);
+      setErrorText!("Please enter a valid input less than 50 characters");
+    }
+    
   };
 
   // Check if there is an already existing answer to provide as a default value

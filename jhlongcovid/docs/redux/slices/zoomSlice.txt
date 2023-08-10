@@ -1,0 +1,8 @@
+ZoomState represents the type that represents the zoom state of our map. Zoomstate contains several
+numbers: value, low_long, high_long, low_lat, and high_lat. value is the zoom value from google maps 
+0 represents the whole world, and 10 gets close to street level.
+
+low_long, high_long, low_lat, and high_lat represent the long/lat of the edges of the map view.
+
+each of these variables have their own reducers and select functions (get/set) that can be activated 
+globally.

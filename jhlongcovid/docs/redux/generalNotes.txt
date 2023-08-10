@@ -1,0 +1,11 @@
+Extensively utilized https://www.merixstudio.com/blog/introduction-using-redux-toolkit-nextjs-and-typescript/ tutorial
+for our start in using React redux. Steps were:
+- installing @reduxjs/toolkit react-redux
+- copying/pasting hook.ts and store.ts from tutorial (mostly boilerplate code)
+- in __app.tsx, wrapped our application with <Provider store = {store}>, where store is our redux store
+- created our slices in the redux folder, a slice usually needs the following: a type to represent the type of the global
+object we are keepign track of, an initial state, reducers (what can change state) inside of createSlice, exporting the
+reducers, exporting the variable itself, and exporting the reducer.
+- added reducers to our store.
+
+- In our view, we can use dispatch to use the reducers and appselector to use the variable.

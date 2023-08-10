@@ -1,0 +1,9 @@
+Description:
+ViewportState is the type representing the state of our view. Contains height/width for our viewport. 
+
+Updates:
+setDimensions updates the height/width and is called inside index.tsx.
+
+Utilization:
+selectwidth/selectHeight is useful for components that require knowledge of the current height/widht,
+for instance leftHandPanel and some survey components that require proportionate sizing.

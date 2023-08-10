@@ -1,136 +1,169 @@
-
-
-
-// /**
-//  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
-//  */
-// exports.handler = async (event) => {
-//     console.log(`EVENT: ${JSON.stringify(event)}`);
-//     return {
-//         statusCode: 200,
-//     //  Uncomment below to enable CORS requests
-//      headers: {
-//          "Access-Control-Allow-Origin": "*",
-//          "Access-Control-Allow-Headers": "*"
-//      }, 
-//         body: JSON.stringify('Hello from Lambda!'),
-//     };
-// };
-
-
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 const ses = new AWS.SES();
 
+const parseQuestionWithReplacements = (questionObj) => {
+  //for the case where question has <timeframe> for instance, need to replace with objects.timeframe
+  //generalized for ANY case so its not just timeframe
+  const placeholderRegex = /<([^>]+)>/g;
+  const questionWithReplacements = questionObj.question.replace(
+    placeholderRegex,
+    (match, placeholder) => {
+      return questionObj[placeholder] || match;
+    }
+  );
+  const questionWithTags = `${questionWithReplacements}`;
+  return questionWithTags;
+};
 
-/*
-Look at surveySlice getNextQuestionAnswerDefault (line 60) for the default types of various answerFormats
-*/
+function capitalizeEachWord(str) {
+  return str.replace(/\b./g, (match) => match.toUpperCase());
+}
 
+function parseHeightIntoInches(height) {
+  height = height.toString();
+  if (height) {
+    if (height.length >= 2) {
+      let feet = parseInt(height[0]);
+      let inches = parseInt(height.slice(1, height.length));
+      return `${feet} Feet and ${inches} Inches`;
+    } else if (height.length === 1) {
+      return `${parseInt(height)} Feet`;
+    }
+  }
+  return height.length;
+}
 exports.handler = async (event) => {
-    let data = JSON.parse(event);
-    return {
-        statusCode : 200,
-        body: data,
-    };
-    
-if (typeof event === "string") {
-    event = JSON.parse(event);
-  } 
+  // let data = JSON.parse(event);
+  //let variable = event.arguments.results;
 
+  //event.arguments.results.questionStack (relook at JSON)
+  try {
     const questions = [];
     const answers = [];
-    for (let i = 0; i < event.questionStack.length; i++) {
-        const question = event.questions[event.questionStack[i].section][event.questionStack[i].question];
-        const answer = event.answerStack[i];
-        
-        if(question.answerFormat !== "welcome" && question.answerFormat !== "consent") {
-            if (Array.isArray(question.answerFormat)) {
-                if (question.answerFormat.includes("multichoice")) {
-                    const { choices, other } = answer;
-                    //includes everything in choices array separated with comma, and in other if there's a valid string
-                    const ans = choices.concat(other).filter(Boolean).join(", ");
-                    answers.push(ans);
-                    questions.push(question.question);
-                } else {
-                    //includes choice or other
-                    questions.push(question.question);
-                    answers.push(answer);
-                }
-            } else if (question.answerFormat === "scale") {
-                //specifically for question No. 30
-                questions.push("Over the last 2 weeks, how often have you been bothered by the following problems?");
-                answers.push("");
-                for (let i = 0; i < question.options.length; i++) {
-                    questions.push(question.options[i]);
-                    answers.push(answer[i]);
-                }
-            } 
-            else if(question.answerFormat === "demographics") {
-                const propertyNames = ["zip", "age", "race", "sex", "height", "weight"];
-                const { zip, age, race, sex, height, weight } = answer;
-                propertyNames.forEach((propertyName) => {
-                questions.push(propertyName);
-                answers.push(eval(propertyName));
-                });
-            } else if(question.answerFormat === "account") {
-                const propertyNames = ["email", "password"];
-                const {email, password } = answer;
-                propertyNames.forEach((propertyName) => {
-                    questions.push(propertyName);
-                    answers.push(eval(propertyName));
-                });
+    const results = event.arguments.results;
+    for (let i = 0; i < results.questionStack.length; i++) {
+      const question =
+        results.questions[results.questionStack[i].section][
+          results.questionStack[i].question
+        ];
+      const answer = results.answerStack[i];
+
+      if (
+        question.answerFormat !== "welcome" &&
+        question.answerFormat !== "consent" &&
+        question.answerFormat !== "account" &&
+        question.answerFormat !== "thankYou"
+      ) {
+        //follows logic of get
+        if (Array.isArray(question.answerFormat)) {
+          if (question.answerFormat.includes("multichoice")) {
+            const { choices, other } = answer;
+            questions.push(parseQuestionWithReplacements(question));
+            //includes everything in choices array separated with comma, and in other if there's a valid string
+            const ans = choices.concat(other).filter(Boolean).join(", ");
+            answers.push(ans);
+          } else {
+            //includes choice or something else
+            questions.push(parseQuestionWithReplacements(question));
+            answers.push(answer);
+          }
+        } else if (question.answerFormat === "scale") {
+          //specifically for question No. 30
+          questions.push(`<b>${parseQuestionWithReplacements(question)}</b>`);
+          answers.push("");
+          for (let i = 0; i < question.options.length; i++) {
+            questions.push(question.options[i]);
+            answers.push(question.scale[answer[i]]);
+            // answers.push(answer[i]);
+          }
+        } else if (question.answerFormat === "demographics") {
+          const propertyNames = ["age", "race", "sex", "height", "weight"];
+          let { age, race, sex, feet, inches, weight } = answer;
+          race = capitalizeEachWord(race);
+          sex = capitalizeEachWord(sex);
+          propertyNames.forEach((propertyName) => {
+            if (propertyName === "height") {
+              questions.push(
+                capitalizeEachWord(propertyName) + " (Feet and Inches)"
+              );
+            } else if (propertyName === "weight") {
+              questions.push(capitalizeEachWord(propertyName) + " (Pounds)");
             } else {
-                questions.push(question.question);
-                answers.push(answer);
+              questions.push(capitalizeEachWord(propertyName));
             }
+
+            if (propertyName === "height") {
+              if (feet && inches) {
+                height = `${feet}' ${inches}"`;
+              } else {
+                height = "";
+              }
+              answers.push(height);
+            } else {
+              answers.push(eval(propertyName));
+            }
+          });
+        } else {
+          questions.push(parseQuestionWithReplacements(question));
+          answers.push(answer);
         }
+      }
     }
 
     let tableRows = "";
 
     for (let i = 0; i < questions.length; i++) {
-        tableRows += `<tr><td>${questions[i]}</td><td>${answers[i]}</td></tr>`;
+      tableRows += `<tr><td>${questions[i]}</td><td>${answers[i]}</td></tr>`;
     }
 
+    const email = event.arguments.email;
 
     const params = {
-        Destination: {
-            ToAddresses: ['leo.hubert3@gmail.com'] // Replace with your recipient's email address
+      Destination: {
+        ToAddresses: [email], // Replace with your recipient's email address
+      },
+      Message: {
+        Body: {
+          Html: {
+            Data:
+              '<html><head><style>table { border-collapse: collapse; } th, td { border: 1px solid black; padding: 0.5rem; }</style></head><body><div style="text-align: center;"><img src="https://upload.wikimedia.org/wikipedia/en/4/47/Bloomberg.logo.small.horizontal.blue.png" alt="Johns Hopkins Logo"></div><h1>Congratulations!</h1><p>Thank you for filling out the Johns Hopkins Long Covid Survey. Here is a record of your survey data:</p><table><thead><tr><th>Question</th><th>Answer</th></tr></thead><tbody>' +
+              tableRows +
+              "</tbody></table>Thanks for taking the time to fill it out! Your contribution will help our researchers better understand the implications of Long COVID. </body></html>", // Replace with your HTML content
+            Charset: "UTF-8",
+          },
         },
-        Message: {
-            Body: {
-                Html: {
-                    Data: '<html><head><style>table { border-collapse: collapse; } th, td { border: 1px solid black; padding: 0.5rem; }</style></head><body><img src="https://upload.wikimedia.org/wikipedia/en/4/47/Bloomberg.logo.small.horizontal.blue.png" alt="Johns Hopkins Logo"><h1>Congratulations!</h1><p>Thank you for filling out the survey. Here is your survey data:</p><table><thead><tr><th>Question</th><th>Answer</th></tr></thead><tbody>' + tableRows + '</tbody></table></body></html>', // Replace with your HTML content
-                    Charset: 'UTF-8'
-                }
-            },
-            Subject: {
-                Data: 'Test email from Amazon SES' // Replace with the subject of your email
-            }
+        Subject: {
+          Data: "Thank You for Participating in the Long Covid Health Survey!", // Replace with the subject of your email
         },
-        Source: 'hopkinslongcovidteam@gmail.com' // Replace with your sender's email address
+      },
+      Source: "hopkinslongcovidteam@gmail.com", // Replace with your sender's email address
     };
 
     let response;
-    let statusCode;
+    let statusCode = 200;
 
     try {
-        const result = await ses.sendEmail(params).promise();
-        response = {
-            event: event,
-            statusCode: 200,
-            body: JSON.stringify({ message: result }),
-        };
+      await ses.sendEmail(params).promise();
+      response = {
+        message: `Successfully sent survey receipt to email ${event.arguments.email}`,
+      };
     } catch (error) {
-        const response = {
-            event: event,
-            statusCode: 500,
-            body: JSON.stringify({ message: error }),
-         };
+      console.log(`Error sending email to ${event.arguments.email}: `, error);
+      response = {
+        message: error,
+      };
+      statusCode = 400;
     }
 
     return {
-        statusCode,
-        body: response,
+      statusCode: statusCode,
+      body: response,
     };
+  } catch (error) {
+    console.log(`Error sending email to ${event.arguments.email}: `, error);
+    return {
+      statusCode: 501,
+      body: error,
+    };
+  }
 };

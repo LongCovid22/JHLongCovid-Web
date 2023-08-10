@@ -106,11 +106,11 @@ describe("Create vaccination entry from survey answers", () => {
     const demographics: UserInfo = {
       age: "23",
       weight: "123",
-      height: "55",
+      feet: "6",
+      inches: "3",
       race: "white",
       sex: "male",
-      name: "jeff",
-      zip: "123492",
+      email: "leo.hubert3@gmail.com"
     };
 
     const entry = processVaccinationEntry(sectionInfo, demographics);

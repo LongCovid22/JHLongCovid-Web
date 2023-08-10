@@ -11,8 +11,8 @@ export const aggregateSurveyResults = /* GraphQL */ `
   }
 `;
 export const emailReceiptConfirmation = /* GraphQL */ `
-  mutation EmailReceiptConfirmation($results: AWSJSON!) {
-    emailReceiptConfirmation(results: $results) {
+  mutation EmailReceiptConfirmation($results: AWSJSON!, $email: String) {
+    emailReceiptConfirmation(results: $results, email: $email) {
       statusCode
       body
     }

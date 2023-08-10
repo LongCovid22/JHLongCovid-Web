@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "totalQuestions": 35,
+  "totalQuestions": 36,
   "questions": [
     [
       {
@@ -641,6 +641,21 @@
       {
         "title": "Symptoms",
         "questionNum": 26,
+        "question": "In general, over the <timeframe>, how would you rate your quality of life?",
+        "timeframe": "last 2 weeks",
+        "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
+        "answerFormat": ["choice", "choice", "choice", "choice", "choice"],
+        "answer": null,
+        "branching": null,
+        "schemaInfo": {
+          "tableName": "SymptomEntry",
+          "field": "qualityOfLifeRank",
+          "type": "String"
+        }
+      },
+      {
+        "title": "Symptoms",
+        "questionNum": 27,
         "question": "In general, over the <timeframe>, how would you rate your mental health, including your mood and your ability to think?",
         "timeframe": "last 2 weeks",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
@@ -655,7 +670,7 @@
       },
       {
         "title": "Symptoms",
-        "questionNum": 27,
+        "questionNum": 28,
         "question": "In general, over the <timeframe>, how would you rate your satisfaction with your social activities and relationships?",
         "timeframe": "last 2 weeks",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
@@ -670,7 +685,7 @@
       },
       {
         "title": "Symptoms",
-        "questionNum": 28,
+        "questionNum": 29,
         "question": "In general, over the <timeframe>, please rate how well you carry out your usual social activities and roles. (This includes activities at home, at work and in your community, and responsibilities as a parent, child, spouse, employee, friend, etc.)",
         "timeframe": "last 2 weeks",
         "options": ["Excellent", "Very good", "Good", "Fair", "Poor"],
@@ -685,7 +700,7 @@
       },
       {
         "title": "Symptoms",
-        "questionNum": 29,
+        "questionNum": 30,
         "question": "In the <timeframe>, how often have you been bothered by emotional problems such as feeling anxious, depressed or irritable?",
         "timeframe": "past 7 days",
         "options": ["Never", "Rarely", "Sometimes", "Often", "Always"],
@@ -702,7 +717,7 @@
     [
       {
         "title": "Patient Health",
-        "questionNum": 30,
+        "questionNum": 31,
         "question": "Over the <timeframe>, how often have you been bothered by the following problems?",
         "timeframe": "last 2 weeks",
         "scale": [
@@ -734,7 +749,7 @@
     [
       {
         "title": "Medical Conditions",
-        "questionNum": 31,
+        "questionNum": 32,
         "question": "Since the <timeframe>, has a health care provider given you a new diagnosis of any of the following conditions? Check all that apply.",
         "timeframe": "beginning of 2020",
         "options": [
@@ -789,7 +804,7 @@
       },
       {
         "title": "Medical Conditions",
-        "questionNum": 32,
+        "questionNum": 33,
         "question": "Do you think that you are experiencing, or have ever experienced, what has been called “long COVID” or symptoms related to COVID-19 at least a month after your infection?",
         "options": ["Yes", "No", "Do not know"],
         "answerFormat": ["choice", "choice", "choice"],
@@ -805,7 +820,7 @@
     [
       {
         "title": "Your Social Determinants",
-        "questionNum": 33,
+        "questionNum": 34,
         "question": "Do you currently have some form of health insurance to help pay for medical bills?",
         "options": ["Yes", "No"],
         "answerFormat": ["choice", "choice"],
@@ -819,7 +834,7 @@
       },
       {
         "title": "Your Social Determinants",
-        "questionNum": 34,
+        "questionNum": 35,
         "question": "In the <timeframe>, how difficult has it been to pay for the things you need (or you and your family needs)?",
         "timeframe": "past month",
         "options": [
@@ -840,7 +855,7 @@
       },
       {
         "title": "Your Social Determinants",
-        "questionNum": 35,
+        "questionNum": 36,
         "question": "What is your current work situation?",
         "options": [
           "Working outside of the home",
@@ -880,7 +895,7 @@
     [
       {
         "title": "Create Account",
-        "questionNum": 36,
+        "questionNum": 37,
         "question": "In order to better understand Long COVID, we would like to check in to see how your COVID-19 experience changes over time. To participate, enter your desired password to continue creating your account.\n\nIf you would like to skip creating an account and continue submitting your survey response, just click the skip button!",
         "options": null,
         "answer": null,
@@ -895,7 +910,7 @@
       },
       {
         "title": "Thank You",
-        "questionNum": 37,
+        "questionNum": 38,
         "question": "Thank you for participating in our Long COVID survey. You will be emailed with a receipt of your survey entry shortly!",
         "options": null,
         "answer": null,

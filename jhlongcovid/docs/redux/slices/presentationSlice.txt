@@ -1,0 +1,2 @@
+Needed to track if leftSidePanel is shown or not.
+

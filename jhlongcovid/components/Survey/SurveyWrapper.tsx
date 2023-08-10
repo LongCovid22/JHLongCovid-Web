@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Flex,
@@ -12,8 +12,10 @@ import {
   Spacer,
   useToast,
   Image,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
 } from "@chakra-ui/react";
-
 //redux imports
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectHeight, selectWidth } from "../../redux/slices/viewportSlice";
@@ -33,15 +35,7 @@ import {
 } from "../../redux/slices/surveySlice/surveySlice";
 import { processEntries } from "../../redux/slices/surveySlice/surveySliceFunctions";
 //survey component templates
-import { Welcome } from "./SurveyBody/Welcome";
-import { Consent } from "./SurveyBody/Consent";
-import { Demographics } from "./SurveyBody/Demographics/Demographics";
-import { ChoiceQuestion } from "./SurveyBody/ChoiceQuestion";
-import { InputQuestion } from "./SurveyBody/InputQuestion";
-import { Account } from "./SurveyBody/Account";
-import { ThankYou } from "./SurveyBody/ThankYou";
-import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
-import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
+
 import { selectUser, setUser } from "../../redux/slices/userSlice";
 import {
   aggregateResults,
@@ -49,7 +43,8 @@ import {
   saveEntries,
   updateUserWithInfoFromSurvey,
   userInfoIsEmpty,
-} from "./SurveyFunctions";
+  sendEmailResult,
+} from "./surveyFunctions";
 import { aggregateSurveyResults } from "../../src/graphql/mutations";
 import { SurveyType } from "../../src/API";
 import {
@@ -57,8 +52,7 @@ import {
   getCountyAndStateCoords,
   LocationData,
 } from "../../util/locationFunctions";
-import { ComeBackLater } from "./SurveyBody/ComeBackLater";
-import { User } from "../../src/API";
+import { SurveyBody } from "./SurveyBody";
 
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
@@ -70,117 +64,9 @@ export type UserInfo = {
   age: string;
   race: string;
   sex: string;
-  height: string;
+  feet: string;
+  inches: string;
   weight: string;
-};
-
-export interface SurveyQuestionProps {
-  currentQuestion: any;
-  setAnswer: (answer: any) => void;
-  user?: User;
-  userInfo?: UserInfo;
-  location?: LocationData;
-  setErrorPresent?: (error: boolean) => void;
-  setErrorText?: (text: string) => void;
-  setLocationData?: React.Dispatch<React.SetStateAction<LocationData>>;
-  onVerify?: () => void;
-  handleQuestionChange?: (
-    direction: "next" | "prev" | "skip" | "finish"
-  ) => void;
-}
-
-const Body: React.FC<SurveyQuestionProps> = ({
-  currentQuestion,
-  userInfo,
-  location,
-  setAnswer,
-  setErrorPresent,
-  setErrorText,
-  setLocationData,
-  onVerify,
-  handleQuestionChange,
-  user,
-}) => {
-  let answerFormat = currentQuestion.answerFormat;
-  if (Array.isArray(answerFormat)) {
-    answerFormat = answerFormat as string[];
-    if (answerFormat.includes("multichoice")) {
-      return (
-        <MultiChoiceQuestion
-          currentQuestion={currentQuestion}
-          setAnswer={setAnswer}
-        />
-      );
-    } else {
-      return (
-        <ChoiceQuestion
-          currentQuestion={currentQuestion}
-          setAnswer={setAnswer}
-        />
-      );
-    }
-  } else if (answerFormat === "consent") {
-    return (
-      <Consent
-        currentQuestion={currentQuestion}
-        setAnswer={setAnswer}
-        setErrorPresent={setErrorPresent}
-        setErrorText={setErrorText}
-      />
-    );
-  } else if (answerFormat === "comeBackLater") {
-    return (
-      <ComeBackLater
-        currentQuestion={currentQuestion}
-        handleQuestionChange={handleQuestionChange}
-        setAnswer={setAnswer}
-        user={user}
-      />
-    );
-  } else if (answerFormat === "demographics") {
-    return (
-      <Demographics
-        currentQuestion={currentQuestion}
-        setAnswer={setAnswer}
-        location={location}
-        setLocationData={setLocationData}
-        setErrorPresent={setErrorPresent}
-      />
-    );
-  } else if (answerFormat === "welcome") {
-    return (
-      <Welcome
-        currentQuestion={currentQuestion}
-        setAnswer={setAnswer}
-        handleQuestionChange={handleQuestionChange}
-      />
-    );
-  } else if (answerFormat === "choice") {
-    return (
-      <ChoiceQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
-    );
-  } else if (answerFormat === "input") {
-    return (
-      <InputQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
-    );
-  } else if (answerFormat === "account") {
-    return (
-      <Account
-        currentQuestion={currentQuestion}
-        userInfo={userInfo}
-        setAnswer={setAnswer}
-        onVerify={onVerify}
-      />
-    );
-  } else if (answerFormat === "thankYou") {
-    return <ThankYou currentQuestion={currentQuestion} setAnswer={setAnswer} />;
-  } else if (answerFormat === "scale") {
-    return (
-      <ScaleQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
-    );
-  } else {
-    return <Text>Sample Text</Text>;
-  }
 };
 
 export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
@@ -199,9 +85,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const surveyType = useAppSelector(selectSurveyType);
   const dispatch = useAppDispatch();
   const [performingQueries, setPerformingQueries] = useState(false);
+  const [recap, setRecap] = useState(false);
   const [answer, setAnswer] = useState<string | string[] | object | null>(
     currentQuestion.answer
   );
+
   const [recovered, setRecovered] = useState<boolean | null>(null);
   const [location, setLocation] = useState<LocationData>({
     state: "",
@@ -219,7 +107,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     age: "",
     race: "",
     sex: "",
-    height: "",
+    feet: "",
+    inches: "",
     weight: "",
   });
   const [isFinalSection, setIsFinalSection] = useState(false);
@@ -227,8 +116,21 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [errorText, setErrorText] = useState("");
   const [errorPresent, setErrorPresent] = useState(false);
 
+  const {
+    isOpen: isConfirmOpen,
+    onOpen: onConfirmOpen,
+    onClose: onConfirmClose,
+  } = useDisclosure();
+
   const handleNextQuestion = async () => {
     if (currentQuestion.answerFormat !== "welcome") {
+      if (currentQuestion.answerFormat === "consent") {
+        if (recap == false) {
+          setErrorText("Please complete the ReCaptcha!");
+          setMissingAnswer(true);
+          return;
+        }
+      }
       // Update the info of the user signed in when on the account
       // stage at the end of the survey
       if (currentQuestion.answerFormat === "account" && user) {
@@ -312,7 +214,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           age: string;
           race: string;
           sex: string;
-          height: string;
+          feet: string;
+          inches: string;
           weight: string;
         };
         userInfoUpdate.age = a.age;
@@ -320,7 +223,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
         userInfoUpdate.race = a.race;
         userInfoUpdate.sex = a.sex;
         userInfoUpdate.weight = a.weight;
-        userInfoUpdate.height = a.height;
+        userInfoUpdate.feet = a.feet;
+        userInfoUpdate.inches = a.inches;
         setUserInfo(userInfoUpdate);
       }
 
@@ -342,6 +246,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
   const handlePrevQuestion = () => {
     dispatch(prevQuestion({ answer: answer }));
+    setRecap(false);
     setAnswer("");
   };
 
@@ -359,6 +264,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       // NOTE: the user passed in to this function to get the demographics
       // if the survey type is not GUEST (since the weekly survey doesn't include the
       // demographics section).
+
+      // TODO: Check function for height parsing
       const entries = processEntries(
         surveyType,
         questionStack,
@@ -395,6 +302,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       let ids;
       // Save survey entries
       try {
+        // TODO: Check function for height parsing
         ids = await saveEntries(
           locationData,
           entries,
@@ -415,6 +323,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       }
 
       if (user) {
+        // TODO: Check function for height parsing
         const updatedUser = await updateUserWithInfoFromSurvey(
           userInfo,
           user,
@@ -458,27 +367,17 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           });
         }
       }
-
-      // SEND EMAIL RECEIPT OF QUESTION ANSWERS
-      // try {
-      //   const data = {
-      //     questions: questions,
-      //     questionStack: questionStack,
-      //     answerStack: answerStack,
-      //   };
-
-      //   const variables = {
-      //     results: JSON.stringify(data),
-      //   };
-
-      //   const emailReceipt = await API.graphql({
-      //     query: mutations.emailReceiptConfirmation,
-      //     variables: variables,
-      //   });
-      //   console.log("Email Receipt", emailReceipt);
-      // } catch (error) {
-      //   console.log("Error sending email receipt: ", error);
-      // }
+      try {
+        // TODO: Check email lambda for height parsing
+        await sendEmailResult(
+          questions,
+          questionStack,
+          answerStack,
+          userInfo.email
+        );
+      } catch (error) {
+        console.log("Error sending email receipt: ", error);
+      }
     }
 
     onClose();
@@ -595,11 +494,11 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       <ModalContent
         style={{
           background: "white",
-          width: width < 700 ? 410 : width * 0.7,
+          width: width < 700 ? 410 : width * 0.85,
           minWidth: 410,
-          maxWidth: 1000,
-          minHeight: height * 0.8,
-          height: height < 720 ? height * 0.85 : "650px",
+          maxWidth: 1050,
+          minHeight: height * 0.75,
+          height: height < 720 ? height * 0.75 : "650px",
           borderRadius: "35px",
           padding: "15px",
         }}
@@ -619,27 +518,68 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
               size={"md"}
               bgColor="spiritBlue.100"
               color={"heritageBlue.600"}
-              onClick={() => {
-                onClose();
-                dispatch(initQuestions(user));
-              }}
+              onClick={onConfirmOpen}
             />
+
+            <Modal isOpen={isConfirmOpen} onClose={onConfirmClose}>
+              <ModalOverlay />
+              <ModalContent
+                style={{
+                  borderRadius: "20px",
+                }}
+              >
+                <ModalHeader>
+                  <Flex w="100%">
+                    <Text fontSize={"3xl"}>Confirm</Text>
+                    <Spacer />
+                    <CloseButton
+                      size={"md"}
+                      bgColor="spiritBlue.100"
+                      color={"heritageBlue.600"}
+                      onClick={onConfirmClose}
+                    />
+                  </Flex>
+                </ModalHeader>
+                <ModalBody>
+                  Are you sure you want to close the survey? You will lose all
+                  progress.
+                </ModalBody>
+
+                <ModalFooter>
+                  {/*onClose is the original function, so we close BOTH modals */}
+                  <Button
+                    colorScheme="heritageBlue"
+                    borderRadius={500}
+                    isLoading={performingQueries}
+                    fontSize="lg"
+                    onClick={() => {
+                      onConfirmClose();
+                      onClose();
+                      dispatch(initQuestions(user));
+                    }}
+                  >
+                    Close
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
           </Flex>
         </ModalHeader>
         <ModalBody
           style={{
-            overflowY:
-              currentQuestion.answerFormat === "demographics"
-                ? width > 1400
-                  ? "hidden"
-                  : "auto"
-                : "auto",
+            overflowY: "auto",
+            // currentQuestion.answerFormat === "demographics"
+            //   ? width > 1400
+            //     ? "hidden"
+            //     : "auto"
+            //   : "auto",
             paddingTop: "0px",
           }}
         >
-          <Body
+          <SurveyBody
             currentQuestion={currentQuestion}
             userInfo={userInfo}
+            setRecap={setRecap}
             setAnswer={setAnswer}
             setErrorPresent={setErrorPresent}
             setErrorText={setErrorText}

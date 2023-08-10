@@ -24,12 +24,12 @@
             }
           ],
           "defaultAuthentication": {
+            "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDate": "2022-09-20T23:30:56.825Z",
-              "apiKeyExpirationDays": 7,
+              "apiKeyExpirationDays": 365,
+              "apiKeyExpirationDate": "2024-07-27T11:57:27.522Z",
               "description": "LongCovidPublicAPIKey"
-            },
-            "authenticationType": "API_KEY"
+            }
           }
         }
       },
@@ -87,61 +87,61 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "notificationScheduler": {
+    "notificationBroker": {
       "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
       "dependsOn": [
         {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
           "category": "api",
-          "resourceName": "jhlongcovid",
+          "resourceName": "jhlongcovid"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "notificationScheduler": {
+      "build": true,
+      "dependsOn": [
+        {
           "attributes": [
             "GraphQLAPIIdOutput",
             "GraphQLAPIEndpointOutput"
-          ]
+          ],
+          "category": "api",
+          "resourceName": "jhlongcovid"
         },
         {
-          "category": "api",
-          "resourceName": "jhlongcovid",
           "attributes": [
             "GraphQLAPIIdOutput",
             "GraphQLAPIEndpointOutput",
             "GraphQLAPIKeyOutput"
-          ]
+          ],
+          "category": "api",
+          "resourceName": "jhlongcovid"
         }
-      ]
-    },
-    "notificationBroker": {
-      "build": true,
+      ],
       "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "api",
-          "resourceName": "jhlongcovid",
-          "attributes": [
-            "GraphQLAPIIdOutput",
-            "GraphQLAPIEndpointOutput",
-            "GraphQLAPIKeyOutput"
-          ]
-        }
-      ]
+      "service": "Lambda"
     },
     "notificationSender": {
       "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
       "dependsOn": [
         {
-          "category": "api",
-          "resourceName": "jhlongcovid",
           "attributes": [
             "GraphQLAPIIdOutput",
             "GraphQLAPIEndpointOutput",
             "GraphQLAPIKeyOutput"
-          ]
+          ],
+          "category": "api",
+          "resourceName": "jhlongcovid"
         }
-      ]
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "hosting": {
@@ -165,6 +165,86 @@
         {
           "category": "function",
           "resourceName": "aggregateSurveyResults"
+        }
+      ]
+    },
+    "AMPLIFY_function_emailReceiptConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "emailReceiptConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_emailReceiptConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "emailReceiptConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_notificationBroker_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notificationBroker"
+        }
+      ]
+    },
+    "AMPLIFY_function_notificationBroker_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notificationBroker"
+        }
+      ]
+    },
+    "AMPLIFY_function_notificationBroker_weeklyRemindersQueueUrl": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notificationBroker"
+        }
+      ]
+    },
+    "AMPLIFY_function_notificationScheduler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notificationScheduler"
+        }
+      ]
+    },
+    "AMPLIFY_function_notificationScheduler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notificationScheduler"
+        }
+      ]
+    },
+    "AMPLIFY_function_notificationSender_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notificationSender"
+        }
+      ]
+    },
+    "AMPLIFY_function_notificationSender_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notificationSender"
+        }
+      ]
+    },
+    "AMPLIFY_function_notificationSender_weeklyRemindersQueueUrl": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notificationSender"
         }
       ]
     },

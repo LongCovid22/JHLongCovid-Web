@@ -1,0 +1,27 @@
+Notes on SurveyState Type:
+- SurveyType is DAILY, WEEKLY, MONTHLY, or GUEST
+
+checkIfLastQuestion
+- Description: Checks if the last question has been reached.
+
+getNextQuestionInfo
+- Description: Returns the details of the next question from surveyLogic.json
+
+getNextQuestionAnswerDefault
+- Description: Get the default answer for the next question, based on the 
+next question's answer format.
+
+shouldBranch
+- Description: Some questions branch to another question based of what the user
+has answered. This function detects if that is the case.
+
+Reducers:
+
+nextQuestion
+- Description:
+
+prevQuestion
+- Description: updates the application's state by storing the user's answer for the current question, adjusting the question index, and retrieving the previous question. Additionally, it manages flags to indicate if the user is on the first or last question
+
+initQuestions:
+- Description:

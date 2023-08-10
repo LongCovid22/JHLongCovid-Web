@@ -25,7 +25,7 @@ import {
   WrapItem,
   Wrap,
 } from "@chakra-ui/react";
-import { SurveyQuestionProps } from "../../SurveyWrapper";
+import { SurveyQuestionProps } from "../../SurveyBody";
 import { useAppSelector } from "../../../../redux/hooks";
 import { selectCurrentAnswer } from "../../../../redux/slices/surveySlice/surveySlice";
 import { selectWidth } from "../../../../redux/slices/viewportSlice";
@@ -48,7 +48,8 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
     age: "",
     race: "",
     sex: "",
-    height: "",
+    feet: "",
+    inches: "",
     weight: "",
   });
 
@@ -66,6 +67,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
   };
 
   useEffect(() => {
+    // console.log("current answer", currentAnswer);
     if (currentAnswer !== null) {
       setDemos(
         currentAnswer as {
@@ -73,7 +75,8 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
           age: string;
           race: string;
           sex: string;
-          height: string;
+          feet: string;
+          inches: string;
           weight: string;
         }
       );
@@ -81,12 +84,13 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
       setAnswer(currentAnswer);
     }
   }, [currentAnswer]);
+
   return (
     <VStack spacing={"20px"} fontSize="18px">
       <Text fontSize={"lg"} fontWeight={"regular"} w="100%">
         {currentQuestion.question}
       </Text>
-      <Wrap spacing={4} flexDir={"column"} align="flex-start">
+      <Wrap spacing={4} flexDir={"column"} align="flex-start" w="100%">
         <WrapItem>
           <Grid gap={4}>
             <GridItem>
@@ -107,6 +111,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
                   onChange={(val) => {
                     handleAnswerChange("age", val);
                   }}
+                  data-testid="age-input"
                 >
                   <NumberInputField fontSize={"18px"} />
                   <NumberInputStepper>
@@ -125,6 +130,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
                   onChange={(event) => {
                     handleAnswerChange("sex", event.target.value);
                   }}
+                  data-testid="sex-input"
                 >
                   <option value={""}></option>
                   <option value={"Male"}>Male</option>
@@ -189,6 +195,7 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
                 handleAnswerChange("race", val);
               }}
               size="lg"
+              data-testid="race-input"
             >
               <Grid templateColumns="repeat(1, 1fr)" gap={3}>
                 <GridItem>

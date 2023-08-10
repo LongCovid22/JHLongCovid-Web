@@ -3526,7 +3526,6 @@ const updateMapData = async (county, state) => {
     response = await fetch(request);
     body = await response.json();
     console.log(`Updating MapData for ${state.level} ${state.name}...`);
-
     if (body.errors) statusCode = 400;
   } catch (error) {
     statusCode = 500;
@@ -4041,10 +4040,10 @@ const updateSymptomSummary = (eventInput, county, state, indexes) => {
 
     let objects = [];
     if (
-      checkNotNullAndStringType(symptomResults.qualityOfLife) &&
-      checkExcellentToPoor(symptomResults.qualityOfLife)
+      checkNotNullAndStringType(symptomResults.qualityOfLifeRank) &&
+      checkExcellentToPoor(symptomResults.qualityOfLifeRank)
     ) {
-      objects.push(qualityOfLife[symptomResults.qualityOfLife]);
+      objects.push(qualityOfLife[symptomResults.qualityOfLifeRank]);
     }
 
     if (
@@ -4537,6 +4536,9 @@ exports.handler = async (event) => {
   const { county, state } = await aggregateSurveyResults(input);
   // console.log("County: ", county);
   // await populate();
+  // console.log("County: ", county);
+  // console.log("state: ", state);
+
   const statusCode = 200;
   const body = {
     message: `Successfully aggregated data for survey submission ${

@@ -79,12 +79,11 @@
         "height": "55",
         "weight": "123",
         "symptoms": ["headache", "bodyMuscleAche"],
-        "qualityOfLife": "Excellent",
-        "mentalHealthRank": "Excellent",
-        "socialSatisfactionRank": "Excellent",
-        "carryOutSocialActivitiesRank": "Excellent",
+        "qualityOfLifeRank": "excellent",
+        "mentalHealthRank": "excellent",
+        "socialSatisfactionRank": "excellent",
+        "carryOutSocialActivitiesRank": "excellent",
         "anxietyInPastWeekRank": "Rarely",
-
         "medicalConditions": ["memory"],
         "hasLongCovid": "yes"
       },

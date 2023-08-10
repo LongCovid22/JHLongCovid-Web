@@ -4,10 +4,6 @@ import {
   Button,
   Flex,
   Avatar,
-  keyframes,
-  Modal,
-  ModalOverlay,
-  useDisclosure,
   Menu,
   MenuButton,
   MenuList,
@@ -19,71 +15,26 @@ import { QuestionIcon } from "@chakra-ui/icons";
 import styles from "../../styles/Header.module.css";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectWidth } from "../../redux/slices/viewportSlice";
-import { SurveyWrapper } from "../Survey/SurveyWrapper";
 
-import { PreSurvey } from "../Survey/SurveyBody/PreSurvey";
-import React, { useEffect, useState } from "react";
+import React, { createContext } from "react";
 import {
   AuthenticationForm,
   AuthState,
 } from "./AuthenticationForm/AuthenticationForm";
 import { resetUser, selectUser } from "../../redux/slices/userSlice";
 import { Auth } from "aws-amplify";
-import { initQuestions } from "../../redux/slices/surveySlice/surveySlice";
+import { Survey } from "./Survey";
 
-interface ProfileCheckinProps {
+export const TestContext = createContext(false);
+
+//Component for the top right corner
+
+export interface ProfileCheckinProps {
   showInstructions?: boolean;
   setShowInstructions?: React.Dispatch<React.SetStateAction<boolean>>;
   showSurveyOnLaunch?: boolean;
   setShowSurveyOnLaunch?: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-export const Survey: React.FC<ProfileCheckinProps> = ({
-  showSurveyOnLaunch,
-  setShowSurveyOnLaunch,
-}) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const user = useAppSelector(selectUser);
-  const dispatch = useAppDispatch();
-
-  const closeSurvey = () => {
-    if (setShowSurveyOnLaunch) setShowSurveyOnLaunch(false);
-    onClose();
-  };
-
-  useEffect(() => {
-    if (showSurveyOnLaunch) {
-      handleSurveyOpen();
-    }
-  }, [showSurveyOnLaunch]);
-
-  const handleSurveyOpen = () => {
-    dispatch(initQuestions(user));
-    onOpen();
-  };
-
-  return (
-    <>
-      <Button
-        flex={1}
-        borderRadius={"500px"}
-        textColor="white"
-        colorScheme="heritageBlue"
-        onClick={handleSurveyOpen}
-      >
-        Participate
-      </Button>
-      <Modal isOpen={isOpen} onClose={closeSurvey} isCentered size={"lg"}>
-        <ModalOverlay p="30px" />
-        <SurveyWrapper onClose={closeSurvey} />
-        {/* {showSurvey && <SurveyWrapper onClose={onClose} />} */}
-        {/* {showSurvey === false && (
-          <PreSurvey onClose={onClose} setShowSurvey={setShowSurvey} />
-        )} */}
-      </Modal>
-    </>
-  );
-};
 
 export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
   showInstructions,
@@ -129,10 +80,13 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
           minWidth: width < 700 ? "350px" : "280px",
         }}
       >
-        <Survey
-          showSurveyOnLaunch={showSurveyOnLaunch}
-          setShowSurveyOnLaunch={setShowSurveyOnLaunch}
-        />
+        <TestContext.Provider value={true}>
+          <Survey
+            showSurveyOnLaunch={showSurveyOnLaunch}
+            setShowSurveyOnLaunch={setShowSurveyOnLaunch}
+          />
+        </TestContext.Provider>
+
         <Menu isLazy>
           <MenuButton>
             <Avatar></Avatar>
