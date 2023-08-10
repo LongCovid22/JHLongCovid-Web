@@ -4040,10 +4040,10 @@ const updateSymptomSummary = (eventInput, county, state, indexes) => {
 
     let objects = [];
     if (
-      checkNotNullAndStringType(symptomResults.qualityOfLife) &&
-      checkExcellentToPoor(symptomResults.qualityOfLife)
+      checkNotNullAndStringType(symptomResults.qualityOfLifeRank) &&
+      checkExcellentToPoor(symptomResults.qualityOfLifeRank)
     ) {
-      objects.push(qualityOfLife[symptomResults.qualityOfLife]);
+      objects.push(qualityOfLife[symptomResults.qualityOfLifeRank]);
     }
 
     if (

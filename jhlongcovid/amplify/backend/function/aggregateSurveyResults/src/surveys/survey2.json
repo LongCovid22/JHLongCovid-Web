@@ -74,6 +74,7 @@
         "height": "55",
         "weight": "123",
         "symptoms": ["faintDizzyGoofy"],
+        "qualityOfLifeRank": "excellent",
         "mentalHealthRank": "veryGood",
         "socialSatisfactionRank": "veryGood",
         "carryOutSocialActivitiesRank": "veryGood",

@@ -79,6 +79,7 @@
         "height": "55",
         "weight": "120",
         "symptoms": ["headache"],
+        "qualityOfLifeRank": "excellent",
         "mentalHealthRank": "excellent",
         "socialSatisfactionRank": "excellent",
         "carryOutSocialActivitiesRank": "excellent",

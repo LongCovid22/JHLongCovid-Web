@@ -47,6 +47,7 @@ const checkVaccineType = (str) => {
 };
 
 const checkExcellentToPoor = (str) => {
+  console.log("etop string: ", str);
   let allowed = ["excellent", "veryGood", "good", "fair", "poor"];
   return allowed.includes(str);
 };
