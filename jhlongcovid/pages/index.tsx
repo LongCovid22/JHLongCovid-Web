@@ -48,6 +48,7 @@ import {
   calculateRadius,
   objectifyMapData,
   onUpdateMapDataCust,
+  onCreateMapDataCust,
 } from "../components/Map/mapFunctions";
 import {
   selectDisplayData,
@@ -182,30 +183,31 @@ const Home = () => {
 
   // Memoize map to only re-render when data changes
   const MapMemo = useMemo(() => {
-    console.log("Total long covid: ", totalLongCovidCases);
-    // console.log("data: ", totalLongCovidCases);
+    // console.log("Total long covid: ", totalLongCovidCases);
     return (
       <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
-        {displayData.map((data) =>
-          data.longCovid > 0 && totalLongCovidCases > 0 ? (
-            <Marker
-              key={`marker-${data.lat}-${data.long}`}
-              center={{ lat: data.lat, lng: data.long }}
-              radius={calculateRadius(
-                data.longCovid,
-                totalLongCovidCases,
-                data.level,
-                realOrMock
-              )}
-              data={data}
-              totalLongCovidCases={totalLongCovidCases}
-              realOrMock={realOrMock}
-              setSelectedData={setSelectedData}
-              markerData={markerData}
-              setMarkerData={setMarkerData}
-            />
-          ) : null
-        )}
+        {displayData.map((data) => (
+          <Marker
+            key={`marker-${data.lat}-${data.long}`}
+            center={{ lat: data.lat, lng: data.long }}
+            radius={
+              data.totalFullEntries >= 10 && data.totalLongCovidCases > 0
+                ? calculateRadius(
+                    data.longCovid,
+                    totalLongCovidCases,
+                    data.level,
+                    realOrMock
+                  )
+                : 50000
+            }
+            data={data}
+            totalLongCovidCases={totalLongCovidCases}
+            realOrMock={realOrMock}
+            setSelectedData={setSelectedData}
+            markerData={markerData}
+            setMarkerData={setMarkerData}
+          />
+        ))}
       </Map>
     );
   }, [displayData]);
@@ -243,12 +245,11 @@ const Home = () => {
       // Create MapData subscriptions
       const onCreateSub = API.graphql<
         GraphQLSubscription<typeof subscriptions.onCreateMapData>
-      >(graphqlOperation(subscriptions.onCreateMapData));
+      >(graphqlOperation(onCreateMapDataCust));
       onCreateSub.subscribe({
         next: ({ provider, value }) => {
           const v = value.data as OnCreateMapDataSubscription;
           const newMapData = v.onCreateMapData;
-          console.log("CREATE NEW MAP DATA: ", newMapData);
           if (newMapData) {
             if (newMapData.level === "county") {
               if (realOrMock == RealOrMock.REAL) {
@@ -274,7 +275,6 @@ const Home = () => {
         next: ({ provider, value }) => {
           const v = value.data as OnUpdateMapDataSubscription;
           const newMapData = v.onUpdateMapData;
-          // console.log("UPDATE NEW MAP DATA: ", newMapData);
           if (newMapData) {
             if (newMapData.level === "county") {
               if (realOrMock == RealOrMock.REAL) {

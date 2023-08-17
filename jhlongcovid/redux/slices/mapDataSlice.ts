@@ -71,7 +71,7 @@ export const mapDataSlice = createSlice({
               longLow <= county.long &&
               county.long <= longHigh
             ) {
-              if (county.totalFullEntries >= 10) array.push(county);
+              array.push(county);
             }
           });
         } else {
@@ -93,7 +93,7 @@ export const mapDataSlice = createSlice({
         if (realOrMock === RealOrMock.REAL) {
           Object.keys(stateData).map((key) => {
             let st = stateData[key];
-            if (st.totalFullEntries >= 10) array.push(st);
+            array.push(st);
           });
         } else {
           //   array = stateData.filter((st: any) => st.totalFullEntries >= 10);
