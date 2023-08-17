@@ -4534,8 +4534,7 @@ exports.handler = async (event) => {
   // let results = JSON.parse(input);
   // console.log("INPUT: ", input);
   const { county, state } = await aggregateSurveyResults(input);
-  // console.log("County: ", county);
-  // await populate();
+
   // console.log("County: ", county);
   // console.log("state: ", state);
 

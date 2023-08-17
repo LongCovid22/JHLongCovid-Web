@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { calculatePanelOffset } from "./Map/mapFunctions";
+import { calculatePanelOffset, calculateRadius } from "./Map/mapFunctions";
 import { useAppDispatch } from "../redux/hooks";
 import {
   selectLeftSidePanelPres,
@@ -7,10 +7,14 @@ import {
 } from "../redux/slices/presentationSlice";
 import { medicalConditionsMap } from "./Survey/surveyFunctions";
 import { useAppSelector } from "../redux/hooks";
+import { ConsoleLogger } from "@aws-amplify/core";
+import { RealOrMock } from "../pages";
 
 interface CircleProps extends google.maps.CircleOptions {
   data: any;
   markerData: any;
+  totalLongCovidCases: any;
+  realOrMock: RealOrMock;
   setMarkerData: (data: any) => void;
   setSelectedData: (data: any) => void;
 }
@@ -34,6 +38,8 @@ function addCommasToNumberString(number: number | undefined): string {
 export const Marker: React.FC<CircleProps> = ({
   data,
   markerData,
+  totalLongCovidCases,
+  realOrMock,
   setMarkerData,
   setSelectedData,
   ...options
@@ -56,59 +62,7 @@ export const Marker: React.FC<CircleProps> = ({
 
       setMarker(circle);
 
-      const totalEntries = data.totalFullEntries;
-
-      // Covid counts
-      const covidTotal = data.covidCount !== null ? data.covidCount : 0;
-      const covidPercent =
-        totalEntries > 0
-          ? Math.round((covidTotal / data.totalFullEntries) * 100)
-          : 0;
-      const covidTotalString = addCommasToNumberString(covidTotal);
-
-      // Recovery counts
-      const recoveryCount =
-        data.recoveredCount !== null ? data.recoveredCount : 0;
-      const recoveryPercent = Math.round((recoveryCount / covidTotal) * 100);
-      const recoveryCountString = addCommasToNumberString(recoveryCount);
-
-      // Symptoms over 12 weeks
-      const symptomsOverTwelve =
-        data.longCovidOverTwelveWeeks !== null
-          ? data.longCovidOverTwelveWeeks
-          : 0;
-      const symptomsOverTwelvePercent = Math.round(
-        (symptomsOverTwelve / covidTotal) * 100
-      );
-      const symptomsOverTwelveString =
-        addCommasToNumberString(symptomsOverTwelve);
-
-      const contentString =
-        '<div style="padding: 10px">' +
-        `<h1 style = "font-weight: bold; font-size: 18px; font-family: 'Gentona'">${
-          data.level === "state"
-            ? data.name
-            : data.name + ", " + data.stateAbbrev
-        }</h1>` +
-        "<span>" +
-        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\"> Total Participant Entries</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${addCommasToNumberString(
-          totalEntries
-        )}</h5>` +
-        "</span>" +
-        "<span>" +
-        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">COVID History</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${covidTotalString} (${covidPercent}%)</h5>` +
-        "</span>" +
-        "<span>" +
-        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Recovered</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${recoveryCountString} (${recoveryPercent}%)</h5>` +
-        "</span>" +
-        "<span>" +
-        "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Symptoms for >12 weeks</h5>" +
-        `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${symptomsOverTwelveString} (${symptomsOverTwelvePercent}%)</h5>` +
-        "</span>" +
-        "</div>";
+      const contentString = createInfoPanelContentString(data);
 
       const infowindow = new google.maps.InfoWindow({
         content: contentString,
@@ -130,6 +84,18 @@ export const Marker: React.FC<CircleProps> = ({
   useEffect(() => {
     if (marker) {
       marker.setOptions(options);
+      if (infoWindow) {
+        if (totalLongCovidCases && data) {
+          const radius = calculateRadius(
+            data.longCovid,
+            totalLongCovidCases,
+            data.level,
+            realOrMock
+          );
+          marker.setRadius(radius);
+        }
+        infoWindow.setContent(createInfoPanelContentString(data));
+      }
 
       google.maps.event.addListener(marker, "mouseover", function () {
         marker.setOptions({
@@ -194,7 +160,7 @@ export const Marker: React.FC<CircleProps> = ({
           options.map.panBy(calculatePanelOffset(options.map), 0);
         }
 
-        if (infoWindow !== undefined) {
+        if (infoWindow) {
           infoWindow.setPosition(marker.getCenter());
           infoWindow.open({
             anchor: marker,
@@ -234,7 +200,58 @@ export const Marker: React.FC<CircleProps> = ({
 
       setMarkerData(new_marker_data);
     }
-  }, [marker, options]);
+  }, [marker, options, data]);
 
   return null;
+};
+
+const createInfoPanelContentString = (data: any): string => {
+  const totalEntries = data.totalFullEntries;
+
+  // Covid counts
+  const covidTotal = data.covidCount !== null ? data.covidCount : 0;
+  const covidPercent =
+    totalEntries > 0
+      ? Math.round((covidTotal / data.totalFullEntries) * 100)
+      : 0;
+  const covidTotalString = addCommasToNumberString(covidTotal);
+
+  // Recovery counts
+  const recoveryCount = data.recoveredCount !== null ? data.recoveredCount : 0;
+  const recoveryPercent = Math.round((recoveryCount / covidTotal) * 100);
+  const recoveryCountString = addCommasToNumberString(recoveryCount);
+
+  // Symptoms over 12 weeks
+  const symptomsOverTwelve =
+    data.longCovidOverTwelveWeeks !== null ? data.longCovidOverTwelveWeeks : 0;
+  const symptomsOverTwelvePercent = Math.round(
+    (symptomsOverTwelve / covidTotal) * 100
+  );
+  const symptomsOverTwelveString = addCommasToNumberString(symptomsOverTwelve);
+
+  const contentString =
+    '<div style="padding: 10px">' +
+    `<h1 style = "font-weight: bold; font-size: 18px; font-family: 'Gentona'">${
+      data.level === "state" ? data.name : data.name + ", " + data.stateAbbrev
+    }</h1>` +
+    "<span>" +
+    "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\"> Total Participant Entries</h5>" +
+    `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${addCommasToNumberString(
+      totalEntries
+    )}</h5>` +
+    "</span>" +
+    "<span>" +
+    "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">COVID History</h5>" +
+    `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${covidTotalString} (${covidPercent}%)</h5>` +
+    "</span>" +
+    "<span>" +
+    "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Recovered</h5>" +
+    `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${recoveryCountString} (${recoveryPercent}%)</h5>` +
+    "</span>" +
+    "<span>" +
+    "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\">Symptoms for >12 weeks</h5>" +
+    `<h5 style="margin-top: 2px; font-weight:500; font-size: 20px; font-family: \'Gentona\'">${symptomsOverTwelveString} (${symptomsOverTwelvePercent}%)</h5>` +
+    "</span>" +
+    "</div>";
+  return contentString;
 };

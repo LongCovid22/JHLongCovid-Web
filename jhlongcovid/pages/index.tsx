@@ -182,7 +182,8 @@ const Home = () => {
 
   // Memoize map to only re-render when data changes
   const MapMemo = useMemo(() => {
-    // console.log("re-render map");
+    console.log("Total long covid: ", totalLongCovidCases);
+    // console.log("data: ", totalLongCovidCases);
     return (
       <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
         {displayData.map((data) =>
@@ -197,6 +198,8 @@ const Home = () => {
                 realOrMock
               )}
               data={data}
+              totalLongCovidCases={totalLongCovidCases}
+              realOrMock={realOrMock}
               setSelectedData={setSelectedData}
               markerData={markerData}
               setMarkerData={setMarkerData}
