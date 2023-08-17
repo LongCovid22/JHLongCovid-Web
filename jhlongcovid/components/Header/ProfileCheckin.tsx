@@ -16,7 +16,7 @@ import styles from "../../styles/Header.module.css";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectWidth } from "../../redux/slices/viewportSlice";
 
-import React, {createContext} from "react";
+import React, { createContext } from "react";
 import {
   AuthenticationForm,
   AuthState,
@@ -27,7 +27,7 @@ import { Survey } from "./Survey";
 
 export const TestContext = createContext(false);
 
-//Component for the top right corner 
+//Component for the top right corner
 
 export interface ProfileCheckinProps {
   showInstructions?: boolean;
@@ -86,7 +86,7 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
             setShowSurveyOnLaunch={setShowSurveyOnLaunch}
           />
         </TestContext.Provider>
-        
+
         <Menu isLazy>
           <MenuButton>
             <Avatar></Avatar>

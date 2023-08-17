@@ -140,3 +140,24 @@ export const onUpdateMapDataCust = /* GraphQL */ `
     }
   }
 `;
+
+export const onCreateMapDataCust = /* GraphQL */ `
+  subscription OnCreateMapData($filter: ModelSubscriptionMapDataFilterInput) {
+    onCreateMapData(filter: $filter) {
+      id
+      level
+      name
+      stateAbbrev
+      lat
+      long
+      covidCount
+      longCovid
+      phq8AboveTen
+      recoveredCount
+      longCovidOverFourWeeks
+      longCovidOverTwelveWeeks
+      topMedicalCondition
+      totalFullEntries
+    }
+  }
+`;
