@@ -256,6 +256,7 @@ const Home = () => {
                 dispatch(updateStateData(newMapData));
               }
             }
+            toggleDisplayDataOnZoom();
           } else {
             console.log("New map data is null");
           }
@@ -281,6 +282,7 @@ const Home = () => {
                 dispatch(updateStateData(newMapData));
               }
             }
+            toggleDisplayDataOnZoom();
           } else {
             console.log("New map data is null");
           }
