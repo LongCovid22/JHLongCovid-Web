@@ -87,7 +87,7 @@ export const Marker: React.FC<CircleProps> = ({
       if (infoWindow) {
         if (totalLongCovidCases && data) {
           let radius: number;
-          if (data.totalFullEntries >= 10) {
+          if (data.totalFullEntries >= 10 && totalLongCovidCases > 0) {
             radius = calculateRadius(
               data.longCovid,
               totalLongCovidCases,
@@ -116,10 +116,10 @@ export const Marker: React.FC<CircleProps> = ({
       google.maps.event.addListener(marker, "mouseover", function () {
         marker.setOptions({
           // radius: 10000,
-          strokeColor: "#A6192E",
+          strokeColor: "#002D72",
           strokeOpacity: 0.8,
           strokeWeight: 2,
-          fillColor: "#A6192E",
+          fillColor: "#002D72",
           fillOpacity: 0.35,
         });
 

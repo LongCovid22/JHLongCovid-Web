@@ -191,14 +191,14 @@ const Home = () => {
             key={`marker-${data.lat}-${data.long}`}
             center={{ lat: data.lat, lng: data.long }}
             radius={
-              data.totalFullEntries >= 10 && data.totalLongCovidCases > 0
+              data.totalFullEntries >= 10 && totalLongCovidCases > 0
                 ? calculateRadius(
                     data.longCovid,
                     totalLongCovidCases,
                     data.level,
                     realOrMock
                   )
-                : 50000
+                : 5000
             }
             data={data}
             totalLongCovidCases={totalLongCovidCases}
@@ -250,6 +250,7 @@ const Home = () => {
         next: ({ provider, value }) => {
           const v = value.data as OnCreateMapDataSubscription;
           const newMapData = v.onCreateMapData;
+          console.log("CREATE NEW MAP DATA: ", newMapData);
           if (newMapData) {
             if (newMapData.level === "county") {
               if (realOrMock == RealOrMock.REAL) {
@@ -275,6 +276,7 @@ const Home = () => {
         next: ({ provider, value }) => {
           const v = value.data as OnUpdateMapDataSubscription;
           const newMapData = v.onUpdateMapData;
+          // console.log("UPDATE NEW MAP DATA: ", newMapData);
           if (newMapData) {
             if (newMapData.level === "county") {
               if (realOrMock == RealOrMock.REAL) {
