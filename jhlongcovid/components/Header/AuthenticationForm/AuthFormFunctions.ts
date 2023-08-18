@@ -39,7 +39,8 @@ export const createUser = async (
       race: userInfo.race.toUpperCase(),
       lastSignIn: new Date(),
       sex: userInfo.sex,
-      height: userInfo.height,
+      feet: userInfo.feet,
+      inches: userInfo.inches,
       weight: userInfo.weight,
       lastSubmission: midSurvey ? new Date() : null, // TODO: GET RID OF ASSUMPTION THAT IF A USER SIGNS UP, THEY ARE SUBMITTING
     };
