@@ -5,7 +5,6 @@ import {
   selectLeftSidePanelPres,
   setLeftSidePanelPres,
 } from "../redux/slices/presentationSlice";
-import { medicalConditionsMap } from "./Survey/surveyFunctions";
 import { useAppSelector } from "../redux/hooks";
 import { ConsoleLogger } from "@aws-amplify/core";
 import { RealOrMock } from "../pages";

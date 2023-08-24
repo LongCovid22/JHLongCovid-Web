@@ -44,7 +44,7 @@ import {
   updateUserWithInfoFromSurvey,
   userInfoIsEmpty,
   sendEmailResult,
-} from "./surveyFunctions";
+} from "./SurveyFunctions";
 import { aggregateSurveyResults } from "../../src/graphql/mutations";
 import { SurveyType } from "../../src/API";
 import {
