@@ -34,6 +34,7 @@ type MapData
   longCovid: Int!
   phq8AboveTen: Int
   recoveredCount: Int
+  selfReportedLongCovid: Int
   longCovidOverFourWeeks: Int
   longCovidOverTwelveWeeks: Int
   topMedicalCondition: String!

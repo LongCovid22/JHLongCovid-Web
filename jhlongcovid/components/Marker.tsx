@@ -5,7 +5,6 @@ import {
   selectLeftSidePanelPres,
   setLeftSidePanelPres,
 } from "../redux/slices/presentationSlice";
-import { medicalConditionsMap } from "./Survey/surveyFunctions";
 import { useAppSelector } from "../redux/hooks";
 import { ConsoleLogger } from "@aws-amplify/core";
 import { RealOrMock } from "../pages";
@@ -284,7 +283,7 @@ const createInfoPanelContentString = (data: any): string => {
         data.level === "state" ? data.name : data.name + ", " + data.stateAbbrev
       }</h1>` +
       "<span>" +
-      "<h5 style=\"margin-top: 10px; font-weight: 400; font-family: 'Gentona'\"> Waiting on more data!</h5>";
+      "<h5 style=\"margin-top: 10px; font-weight: 400; font-size: 16px; font-family: 'Gentona'\"> Waiting on more data for<br>privacy reasons!</h5>";
     return contentString;
   }
 };

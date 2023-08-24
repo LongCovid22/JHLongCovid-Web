@@ -97,6 +97,10 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   const [totalLongCovidTwelveWeeks, setTotalLongCovidTwelveWeeks] = useState(0);
   const [totalLongCovidTwelveWeeksPerc, setTotalLongCovidTwelveWeeksPerc] =
     useState(0);
+  const [totalSelfReported, setTotalSelfReported] = useState<number>(0);
+  const [totalSelfReportedPerc, setTotalSelfReportedPerc] = useState<number>(0);
+  const [totalLongCovid, setTotalLongCovid] = useState<number>(0);
+  const [totalLongCovidPerc, setTotalLongCovidPerc] = useState<number>(0);
   const [medicationsTakenConfig, setMedicationsTakenConfig] = useState<{
     labels: string[];
     options: any;
@@ -159,19 +163,29 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       );
 
       if (data !== null) {
-        const longCovidOverFourWeeks =
-          data.longCovidOverFourWeeks !== null && data.longCovidOverFourWeeks
-            ? data.longCovidOverFourWeeks
-            : 0;
+        const longCovidOverFourWeeks = data.longCovidOverFourWeeks
+          ? data.longCovidOverFourWeeks
+          : 0;
         const longCovidOverFourWeeksPerc =
           (longCovidOverFourWeeks / totalCases) * 100;
-        const longCovidOverTwelveWeeks =
-          data.longCovidOverTwelveWeeks !== null &&
-          data.longCovidOverTwelveWeeks
-            ? data.longCovidOverTwelveWeeks
-            : 0;
+        const longCovidOverTwelveWeeks = data.longCovidOverTwelveWeeks
+          ? data.longCovidOverTwelveWeeks
+          : 0;
         const longCovidOverTwelveWeeksPerc =
           (longCovidOverTwelveWeeks / totalCases) * 100;
+        const selfReported = data.selfReportedLongCovid
+          ? data.selfReportedLongCovid
+          : 0;
+        const selfReportedPerc = data.longCovid
+          ? (selfReported / data.longCovid) * 100
+          : 0;
+        const longCovid = data.longCovid ? data.longCovid : 0;
+        const longCovidPerc = (longCovid / totalFullEntries) * 100;
+
+        setTotalLongCovid(longCovid);
+        setTotalLongCovidPerc(longCovidPerc);
+        setTotalSelfReported(selfReported);
+        setTotalSelfReportedPerc(selfReportedPerc);
         setTotalLongCovidFourWeeks(longCovidOverFourWeeks);
         setTotalLongCovidFourWeeksPerc(longCovidOverFourWeeksPerc);
         setTotalLongCovidTwelveWeeks(longCovidOverTwelveWeeks);
@@ -233,6 +247,30 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   {`${totalLongCovidTwelveWeeks} (${totalLongCovidTwelveWeeksPerc.toFixed()}%)`}
                 </StatNumber>
                 <StatHelpText>{`Not recovered >12 weeks`}</StatHelpText>
+              </Stat>
+            </WrapItem>
+            <WrapItem>
+              <Stat>
+                <StatLabel>{"Self Reported Long COVID"}</StatLabel>
+                <StatNumber>
+                  {`${totalSelfReported} (${totalSelfReportedPerc.toFixed()}%)`}
+                </StatNumber>
+                <StatHelpText
+                  maxWidth={200}
+                  noOfLines={2}
+                >{`Reported Long COVID (% of total Long COVID cases)`}</StatHelpText>
+              </Stat>
+            </WrapItem>
+            <WrapItem>
+              <Stat>
+                <StatLabel>{"Total Long COVID"}</StatLabel>
+                <StatNumber>
+                  {`${totalLongCovid} (${totalLongCovidPerc.toFixed()}%)`}
+                </StatNumber>
+                <StatHelpText
+                  maxWidth={200}
+                  noOfLines={2}
+                >{`Total Long COVID (% of total survey entries)`}</StatHelpText>
               </Stat>
             </WrapItem>
             {/* <WrapItem>

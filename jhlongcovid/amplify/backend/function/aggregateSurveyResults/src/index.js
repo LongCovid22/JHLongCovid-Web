@@ -53,6 +53,7 @@ let properties = `
       longCovid
       phq8AboveTen
       recoveredCount
+      selfReportedLongCovid
       longCovidOverFourWeeks
       longCovidOverTwelveWeeks
       topMedicalCondition
@@ -3020,6 +3021,7 @@ let variables = {
     longCovid: 0,
     phq8AboveTen: 0,
     recoveredCount: 0,
+    selfReportedLongCovid: 0,
     longCovidOverFourWeeks: 0,
     longCovidOverTwelveWeeks: 0,
     topMedicalCondition: "",
@@ -4119,6 +4121,8 @@ const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
     recoveryResults
   );
 
+  console.log("LC RESULTS: ", longCovidResults);
+
   for (const dat in data) {
     let { longCovid, newDiagnosisCounts } = data[dat].medicalConditionsSummary;
 
@@ -4144,36 +4148,53 @@ const updateMedicalConditionsSummary = (eventInput, county, state, indexes) => {
       checkNotNullAndStringType(symptomResults.hasLongCovid) &&
       checkYesNoDoNotKnowType(symptomResults.hasLongCovid)
     ) {
+      const amountToAdd =
+        longCovidResults.OverFourWeeks == 1 ||
+        longCovidResults.OverTwelveWeeks == 1 ||
+        longCovidResults.SelfReportedLongCovid == 1
+          ? 1
+          : 0;
+
       if (dat === "county") {
-        county.longCovid =
-          county.longCovid === null || !county.longCovid
-            ? longCovidResults.OverFourWeeks
-            : county.longCovid + longCovidResults.OverFourWeeks;
-        county.longCovidOverFourWeeks =
-          county.longCovidOverFourWeeks === null ||
-          !county.longCovidOverFourWeeks
-            ? longCovidResults.OverFourWeeks
-            : county.longCovidOverFourWeeks + longCovidResults.OverFourWeeks;
-        county.longCovidOverTwelveWeeks =
-          county.longCovidOverTwelveWeeks === null ||
-          !county.longCovidOverTwelveWeeks
-            ? longCovidResults.OverTwelveWeeks
-            : county.longCovidOverTwelveWeeks +
-              longCovidResults.OverTwelveWeeks;
+        // If longCovid already exists, add 1 if any long covid was reported
+        county.longCovid = county.longCovid
+          ? county.longCovid + amountToAdd
+          : amountToAdd;
+
+        //
+        county.selfReportedLongCovid = county.selfReportedLongCovid
+          ? county.selfReportedLongCovid +
+            longCovidResults.SelfReportedLongCovid
+          : longCovidResults.SelfReportedLongCovid;
+
+        // If longCovidOverFourWeeks already exists, add the 1 if symptoms > 4 weeks were reported
+        county.longCovidOverFourWeeks = county.longCovidOverFourWeeks
+          ? county.longCovidOverFourWeeks + longCovidResults.OverFourWeeks
+          : longCovidResults.OverFourWeeks;
+
+        // If longCovidOverTwelveWeeks already exists, add 1 if symptoms > 12 weeks were reported
+        county.longCovidOverTwelveWeeks = county.longCovidOverTwelveWeeks
+          ? county.longCovidOverTwelveWeeks + longCovidResults.OverTwelveWeeks
+          : longCovidResults.OverTwelveWeeks;
       } else {
-        state.longCovid =
-          state.longCovid === null || !state.longCovid
-            ? longCovidResults.OverFourWeeks
-            : state.longCovid + longCovidResults.OverFourWeeks;
-        state.longCovidOverFourWeeks =
-          state.longCovidOverFourWeeks === null || !state.longCovidOverFourWeeks
-            ? longCovidResults.OverFourWeeks
-            : state.longCovidOverFourWeeks + longCovidResults.OverFourWeeks;
-        state.longCovidOverTwelveWeeks =
-          state.longCovidOverTwelveWeeks === null ||
-          !state.longCovidOverTwelveWeeks
-            ? longCovidResults.OverTwelveWeeks
-            : state.longCovidOverTwelveWeeks + longCovidResults.OverTwelveWeeks;
+        // If longCovid already exists, add 1 if any long covid was reported
+        state.longCovid = state.longCovid
+          ? state.longCovid + amountToAdd
+          : amountToAdd;
+
+        state.selfReportedLongCovid = state.selfReportedLongCovid
+          ? state.selfReportedLongCovid + longCovidResults.SelfReportedLongCovid
+          : longCovidResults.SelfReportedLongCovid;
+
+        // If longCovidOverFourWeeks already exists, add the 1 if symptoms > 4 weeks were reported
+        state.longCovidOverFourWeeks = state.longCovidOverFourWeeks
+          ? state.longCovidOverFourWeeks + longCovidResults.OverFourWeeks
+          : longCovidResults.OverFourWeeks;
+
+        // If longCovidOverTwelveWeeks already exists, add 1 if symptoms > 12 weeks were reported
+        state.longCovidOverTwelveWeeks = state.longCovidOverTwelveWeeks
+          ? state.longCovidOverTwelveWeeks + longCovidResults.OverTwelveWeeks
+          : longCovidResults.OverTwelveWeeks;
       }
 
       addCustomToTallyBasedOnCondition(

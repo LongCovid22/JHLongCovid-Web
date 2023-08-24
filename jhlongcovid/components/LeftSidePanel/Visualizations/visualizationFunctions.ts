@@ -3017,6 +3017,7 @@ export const getSummaries = async (data: any) => {
         longCovid
         phq8AboveTen
         recoveredCount
+        selfReportedLongCovid
         longCovidOverFourWeeks
         longCovidOverTwelveWeeks
       }

@@ -27,6 +27,7 @@ function addDaysToDate(date, days) {
 
 function hasLongCovid(symptomResults, covidResults, recoveryResults) {
   let longCovidResults = {
+    SelfReportedLongCovid: 0,
     OverFourWeeks: 0,
     OverTwelveWeeks: 0,
   };
@@ -56,30 +57,28 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
     ? weeksBetweenDates(lastPositiveDate, oldRecoveryDate)
     : null;
 
-  const hasLongCovid = symptomResults.hasLongCovid === "yes";
+  const selfReported = symptomResults.hasLongCovid === "yes";
   const notRecovered = recoveryResults ? !recoveryResults.recovered : false;
 
-  if (!weeksSinceLastPositive && !weeksSinceLastPositiveOld && hasLongCovid) {
-    longCovidResults.OverFourWeeks = 1;
-    longCovidResults.OverTwelveWeeks = 1;
+  if (selfReported) {
+    longCovidResults.SelfReportedLongCovid = 1;
   }
-  // Logic for long covid: time since positive date > 4 && (not recovered || said yes to having long covid)
+
+  // Logic for long covid: time since positive date > 4 && not recovered
   if (weeksSinceLastPositive) {
-    if (weeksSinceLastPositive > 4 && (hasLongCovid || notRecovered)) {
+    if (weeksSinceLastPositive > 4 && notRecovered) {
       longCovidResults.OverFourWeeks = 1;
     }
 
-    if (weeksSinceLastPositive > 12 && (hasLongCovid || notRecovered)) {
-      if (symptomResults.hasLongCovid === "yes" || !recoveryResults.recovered) {
-        longCovidResults.OverTwelveWeeks = 1;
-      }
+    if (weeksSinceLastPositive > 12 && notRecovered) {
+      longCovidResults.OverTwelveWeeks = 1;
     }
   }
 
-  // Logic for an old case of long covid: (time since positive date > 4 && not recovered) || said yes to having long covid
+  // Logic for an old case of long covid: (time since positive date > 4 && not recovered)
   if (weeksSinceLastPositiveOld) {
-    const oldHasLongCovid = weeksSinceLastPositiveOld > 4 || hasLongCovid;
-    const oldOverTwelveWeeks = weeksSinceLastPositiveOld > 12 || hasLongCovid;
+    const oldHasLongCovid = weeksSinceLastPositiveOld > 4;
+    const oldOverTwelveWeeks = weeksSinceLastPositiveOld > 12;
 
     if (oldHasLongCovid) {
       longCovidResults.OverFourWeeks = 1;

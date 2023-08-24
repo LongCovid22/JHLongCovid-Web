@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SurveyQuestionProps } from "../SurveyWrapper";
+import { SurveyQuestionProps } from "../SurveyBody";
 import {
   VStack,
   Text,
@@ -21,7 +21,7 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
   setErrorPresent,
-  setErrorText
+  setErrorText,
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const [checked, setChecked] = useState<string[]>([]);
@@ -49,7 +49,6 @@ export const MultiChoiceQuestion: React.FC<SurveyQuestionProps> = ({
       setErrorPresent!(true);
       setErrorText!("Please enter a valid input less than 50 characters");
     }
-    
   };
 
   // Check if there is an already existing answer to provide as a default value
