@@ -15,6 +15,7 @@ export const onCreateMapData = /* GraphQL */ `
       longCovid
       phq8AboveTen
       recoveredCount
+      selfReportedLongCovid
       longCovidOverFourWeeks
       longCovidOverTwelveWeeks
       topMedicalCondition
@@ -76,6 +77,7 @@ export const onUpdateMapData = /* GraphQL */ `
       longCovid
       phq8AboveTen
       recoveredCount
+      selfReportedLongCovid
       longCovidOverFourWeeks
       longCovidOverTwelveWeeks
       topMedicalCondition
@@ -137,6 +139,7 @@ export const onDeleteMapData = /* GraphQL */ `
       longCovid
       phq8AboveTen
       recoveredCount
+      selfReportedLongCovid
       longCovidOverFourWeeks
       longCovidOverTwelveWeeks
       topMedicalCondition

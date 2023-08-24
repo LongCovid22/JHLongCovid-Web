@@ -250,7 +250,6 @@ const Home = () => {
         next: ({ provider, value }) => {
           const v = value.data as OnCreateMapDataSubscription;
           const newMapData = v.onCreateMapData;
-          console.log("CREATE NEW MAP DATA: ", newMapData);
           if (newMapData) {
             if (newMapData.level === "county") {
               if (realOrMock == RealOrMock.REAL) {
