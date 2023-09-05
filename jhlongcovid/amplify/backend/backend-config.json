@@ -142,6 +142,21 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "feedbackSubmitIssues": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "jhlongcovid",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ]
+        }
+      ]
     }
   },
   "hosting": {

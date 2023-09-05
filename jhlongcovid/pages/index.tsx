@@ -35,6 +35,7 @@ import * as queries from "../src/graphql/queries";
 import * as subscriptions from "../src/graphql/subscriptions";
 import { resetUser, selectUser, setUser } from "../redux/slices/userSlice";
 import {
+  Text,
   Spinner,
   HStack,
   Center,
@@ -42,6 +43,8 @@ import {
   Slide,
   Image,
   Flex,
+  VStack,
+  Button,
 } from "@chakra-ui/react";
 import {
   getAllMapData,
@@ -62,6 +65,7 @@ import {
 } from "../redux/slices/mapDataSlice";
 import { Instructions } from "../components/Instructions/Instructions";
 import { setLocation } from "../redux/slices/locationSlice";
+import { FeedbackPanel } from "../components/Feedback/FeedbackPanel";
 
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
@@ -275,7 +279,6 @@ const Home = () => {
         next: ({ provider, value }) => {
           const v = value.data as OnUpdateMapDataSubscription;
           const newMapData = v.onUpdateMapData;
-          // console.log("UPDATE NEW MAP DATA: ", newMapData);
           if (newMapData) {
             if (newMapData.level === "county") {
               if (realOrMock == RealOrMock.REAL) {
@@ -404,6 +407,7 @@ const Home = () => {
 
           <Spacer />
         </Flex>
+        <FeedbackPanel />
         <Slide
           direction="top"
           in={loadingMapData}

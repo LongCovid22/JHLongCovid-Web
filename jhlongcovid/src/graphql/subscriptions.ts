@@ -15737,3 +15737,45 @@ export const onDeleteMonthlyEntry = /* GraphQL */ `
     }
   }
 `;
+export const onCreateFeedbackEntry = /* GraphQL */ `
+  subscription OnCreateFeedbackEntry(
+    $filter: ModelSubscriptionFeedbackEntryFilterInput
+  ) {
+    onCreateFeedbackEntry(filter: $filter) {
+      id
+      name
+      feedback
+      completed
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateFeedbackEntry = /* GraphQL */ `
+  subscription OnUpdateFeedbackEntry(
+    $filter: ModelSubscriptionFeedbackEntryFilterInput
+  ) {
+    onUpdateFeedbackEntry(filter: $filter) {
+      id
+      name
+      feedback
+      completed
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteFeedbackEntry = /* GraphQL */ `
+  subscription OnDeleteFeedbackEntry(
+    $filter: ModelSubscriptionFeedbackEntryFilterInput
+  ) {
+    onDeleteFeedbackEntry(filter: $filter) {
+      id
+      name
+      feedback
+      completed
+      createdAt
+      updatedAt
+    }
+  }
+`;

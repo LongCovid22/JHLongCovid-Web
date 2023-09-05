@@ -1677,6 +1677,46 @@ export type DeleteMonthlyEntryInput = {
   id: string,
 };
 
+export type CreateFeedbackEntryInput = {
+  id?: string | null,
+  name: string,
+  feedback: string,
+  completed?: boolean | null,
+  createdAt?: string | null,
+};
+
+export type ModelFeedbackEntryConditionInput = {
+  name?: ModelStringInput | null,
+  feedback?: ModelStringInput | null,
+  completed?: ModelBooleanInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelFeedbackEntryConditionInput | null > | null,
+  or?: Array< ModelFeedbackEntryConditionInput | null > | null,
+  not?: ModelFeedbackEntryConditionInput | null,
+};
+
+export type FeedbackEntry = {
+  __typename: "FeedbackEntry",
+  id: string,
+  name: string,
+  feedback: string,
+  completed?: boolean | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateFeedbackEntryInput = {
+  id: string,
+  name?: string | null,
+  feedback?: string | null,
+  completed?: boolean | null,
+  createdAt?: string | null,
+};
+
+export type DeleteFeedbackEntryInput = {
+  id: string,
+};
+
 export type ModelMapDataPrimaryCompositeKeyConditionInput = {
   eq?: ModelMapDataPrimaryCompositeKeyInput | null,
   le?: ModelMapDataPrimaryCompositeKeyInput | null,
@@ -2060,6 +2100,23 @@ export type ModelMonthlyEntryConnection = {
   nextToken?: string | null,
 };
 
+export type ModelFeedbackEntryFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  feedback?: ModelStringInput | null,
+  completed?: ModelBooleanInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelFeedbackEntryFilterInput | null > | null,
+  or?: Array< ModelFeedbackEntryFilterInput | null > | null,
+  not?: ModelFeedbackEntryFilterInput | null,
+};
+
+export type ModelFeedbackEntryConnection = {
+  __typename: "ModelFeedbackEntryConnection",
+  items:  Array<FeedbackEntry | null >,
+  nextToken?: string | null,
+};
+
 export type ModelSubscriptionMapDataFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   level?: ModelSubscriptionStringInput | null,
@@ -2332,6 +2389,16 @@ export type ModelSubscriptionMonthlyEntryFilterInput = {
   createdAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMonthlyEntryFilterInput | null > | null,
   or?: Array< ModelSubscriptionMonthlyEntryFilterInput | null > | null,
+};
+
+export type ModelSubscriptionFeedbackEntryFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  feedback?: ModelSubscriptionStringInput | null,
+  completed?: ModelSubscriptionBooleanInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionFeedbackEntryFilterInput | null > | null,
+  or?: Array< ModelSubscriptionFeedbackEntryFilterInput | null > | null,
 };
 
 export type AggregateSurveyResultsMutationVariables = {
@@ -18919,6 +18986,57 @@ export type DeleteMonthlyEntryMutation = {
     updatedAt: string,
     monthlyEntrySurveyEntryId?: string | null,
     owner?: string | null,
+  } | null,
+};
+
+export type CreateFeedbackEntryMutationVariables = {
+  input: CreateFeedbackEntryInput,
+  condition?: ModelFeedbackEntryConditionInput | null,
+};
+
+export type CreateFeedbackEntryMutation = {
+  createFeedbackEntry?:  {
+    __typename: "FeedbackEntry",
+    id: string,
+    name: string,
+    feedback: string,
+    completed?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateFeedbackEntryMutationVariables = {
+  input: UpdateFeedbackEntryInput,
+  condition?: ModelFeedbackEntryConditionInput | null,
+};
+
+export type UpdateFeedbackEntryMutation = {
+  updateFeedbackEntry?:  {
+    __typename: "FeedbackEntry",
+    id: string,
+    name: string,
+    feedback: string,
+    completed?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteFeedbackEntryMutationVariables = {
+  input: DeleteFeedbackEntryInput,
+  condition?: ModelFeedbackEntryConditionInput | null,
+};
+
+export type DeleteFeedbackEntryMutation = {
+  deleteFeedbackEntry?:  {
+    __typename: "FeedbackEntry",
+    id: string,
+    name: string,
+    feedback: string,
+    completed?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -45644,6 +45762,69 @@ export type CountyMonthlyEntryBySexQuery = {
   } | null,
 };
 
+export type GetFeedbackEntryQueryVariables = {
+  id: string,
+};
+
+export type GetFeedbackEntryQuery = {
+  getFeedbackEntry?:  {
+    __typename: "FeedbackEntry",
+    id: string,
+    name: string,
+    feedback: string,
+    completed?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListFeedbackEntriesQueryVariables = {
+  filter?: ModelFeedbackEntryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListFeedbackEntriesQuery = {
+  listFeedbackEntries?:  {
+    __typename: "ModelFeedbackEntryConnection",
+    items:  Array< {
+      __typename: "FeedbackEntry",
+      id: string,
+      name: string,
+      feedback: string,
+      completed?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type FeedbackByIDQueryVariables = {
+  id: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelFeedbackEntryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type FeedbackByIDQuery = {
+  feedbackByID?:  {
+    __typename: "ModelFeedbackEntryConnection",
+    items:  Array< {
+      __typename: "FeedbackEntry",
+      id: string,
+      name: string,
+      feedback: string,
+      completed?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type OnCreateMapDataSubscriptionVariables = {
   filter?: ModelSubscriptionMapDataFilterInput | null,
 };
@@ -62198,5 +62379,53 @@ export type OnDeleteMonthlyEntrySubscription = {
     updatedAt: string,
     monthlyEntrySurveyEntryId?: string | null,
     owner?: string | null,
+  } | null,
+};
+
+export type OnCreateFeedbackEntrySubscriptionVariables = {
+  filter?: ModelSubscriptionFeedbackEntryFilterInput | null,
+};
+
+export type OnCreateFeedbackEntrySubscription = {
+  onCreateFeedbackEntry?:  {
+    __typename: "FeedbackEntry",
+    id: string,
+    name: string,
+    feedback: string,
+    completed?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateFeedbackEntrySubscriptionVariables = {
+  filter?: ModelSubscriptionFeedbackEntryFilterInput | null,
+};
+
+export type OnUpdateFeedbackEntrySubscription = {
+  onUpdateFeedbackEntry?:  {
+    __typename: "FeedbackEntry",
+    id: string,
+    name: string,
+    feedback: string,
+    completed?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteFeedbackEntrySubscriptionVariables = {
+  filter?: ModelSubscriptionFeedbackEntryFilterInput | null,
+};
+
+export type OnDeleteFeedbackEntrySubscription = {
+  onDeleteFeedbackEntry?:  {
+    __typename: "FeedbackEntry",
+    id: string,
+    name: string,
+    feedback: string,
+    completed?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };

@@ -15765,3 +15765,48 @@ export const deleteMonthlyEntry = /* GraphQL */ `
     }
   }
 `;
+export const createFeedbackEntry = /* GraphQL */ `
+  mutation CreateFeedbackEntry(
+    $input: CreateFeedbackEntryInput!
+    $condition: ModelFeedbackEntryConditionInput
+  ) {
+    createFeedbackEntry(input: $input, condition: $condition) {
+      id
+      name
+      feedback
+      completed
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateFeedbackEntry = /* GraphQL */ `
+  mutation UpdateFeedbackEntry(
+    $input: UpdateFeedbackEntryInput!
+    $condition: ModelFeedbackEntryConditionInput
+  ) {
+    updateFeedbackEntry(input: $input, condition: $condition) {
+      id
+      name
+      feedback
+      completed
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteFeedbackEntry = /* GraphQL */ `
+  mutation DeleteFeedbackEntry(
+    $input: DeleteFeedbackEntryInput!
+    $condition: ModelFeedbackEntryConditionInput
+  ) {
+    deleteFeedbackEntry(input: $input, condition: $condition) {
+      id
+      name
+      feedback
+      completed
+      createdAt
+      updatedAt
+    }
+  }
+`;
