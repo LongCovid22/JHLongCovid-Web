@@ -146,7 +146,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             fontSize={"lg"}
             value={email}
             type="email"
-            placeholder="Enter email "
+            placeholder="Enter email"
             colorScheme="heritageBlue"
             onChange={(event) => handleEmail(event.target.value)}
           />
