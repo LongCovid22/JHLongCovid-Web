@@ -24,12 +24,12 @@
             }
           ],
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 365,
               "apiKeyExpirationDate": "2024-07-27T11:57:27.522Z",
+              "apiKeyExpirationDays": 365,
               "description": "LongCovidPublicAPIKey"
-            }
+            },
+            "authenticationType": "API_KEY"
           }
         }
       },
@@ -84,6 +84,21 @@
     },
     "emailReceiptConfirmation": {
       "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "feedbackSubmitIssues": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "jhlongcovid"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -142,21 +157,6 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    },
-    "feedbackSubmitIssues": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "api",
-          "resourceName": "jhlongcovid",
-          "attributes": [
-            "GraphQLAPIIdOutput",
-            "GraphQLAPIEndpointOutput"
-          ]
-        }
-      ]
     }
   },
   "hosting": {
@@ -196,6 +196,22 @@
         {
           "category": "function",
           "resourceName": "emailReceiptConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_feedbackSubmitIssues_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "feedbackSubmitIssues"
+        }
+      ]
+    },
+    "AMPLIFY_function_feedbackSubmitIssues_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "feedbackSubmitIssues"
         }
       ]
     },
