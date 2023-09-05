@@ -1,0 +1,39 @@
+{
+  "Records": [
+    {
+      "eventID": "sampleEventId",
+      "eventName": "INSERT",
+      "eventVersion": "1.0",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "us-west-2",
+      "dynamodb": {
+        "Keys": {
+          "id": {
+            "S": "sampleID"
+          }
+        },
+        "NewImage": {
+          "id": {
+            "S": "sampleID"
+          },
+          "name": {
+            "S": "John Doe"
+          },
+          "feedback": {
+            "S": "This is a sample feedback message."
+          },
+          "completed": {
+            "BOOL": false
+          },
+          "createdAt": {
+            "S": "2023-08-30T00:00:00Z"
+          }
+        },
+        "StreamViewType": "NEW_IMAGE",
+        "SequenceNumber": "sampleSequenceNumber",
+        "SizeBytes": 128
+      },
+      "eventSourceARN": "sampleEventSourceARN"
+    }
+  ]
+}

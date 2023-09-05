@@ -795,6 +795,19 @@ type MonthlyEntry
   createdAt: AWSDateTime!
 }
 
+type FeedbackEntry @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+    @index(
+      name: "byIDSortByDate"
+      sortKeyFields: ["createdAt"]
+      queryField: "feedbackByID"
+    )
+  name: String!
+  feedback: String!
+  completed: Boolean
+  createdAt: AWSDateTime!
+}
+
 # -------- Summary Types --------
 # These summary types are to be updated on each survey entry for both the state and county levels.
 # They represent information that could be displayed on click or hover of a map marker.

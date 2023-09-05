@@ -25875,3 +25875,63 @@ export const countyMonthlyEntryBySex = /* GraphQL */ `
     }
   }
 `;
+export const getFeedbackEntry = /* GraphQL */ `
+  query GetFeedbackEntry($id: ID!) {
+    getFeedbackEntry(id: $id) {
+      id
+      name
+      feedback
+      completed
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listFeedbackEntries = /* GraphQL */ `
+  query ListFeedbackEntries(
+    $filter: ModelFeedbackEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFeedbackEntries(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        feedback
+        completed
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const feedbackByID = /* GraphQL */ `
+  query FeedbackByID(
+    $id: ID!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelFeedbackEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    feedbackByID(
+      id: $id
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        feedback
+        completed
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

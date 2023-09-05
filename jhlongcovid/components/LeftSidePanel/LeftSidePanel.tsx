@@ -218,6 +218,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
           top: width < 700 ? "160px" : "90px",
           left: presentLeftSidePanel ? "20px" : "0px",
           height: width < 700 ? height - 300 : height - 130,
+          zIndex: 1,
         }}
         ref={panelRef}
       >
