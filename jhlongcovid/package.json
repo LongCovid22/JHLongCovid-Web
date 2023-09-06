@@ -9,7 +9,7 @@
     "lint": "next lint",
     "test": "jest",
     "testComponent": "jest --verbose --testRegex=surveyComponents.test.tsx",
-    "cypress": "cypress open"
+    "cypress": "cypress open --retries 2"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.3",
