@@ -117,6 +117,9 @@ export const calculateRadius = (
   } else {
     return 50000;
   }
+  if (ratio == 0) {
+    return 5000;
+  }
 
   if (stateOrCounty === "state") {
     const maxRadius = 500000;
