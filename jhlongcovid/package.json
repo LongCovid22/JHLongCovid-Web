@@ -11,6 +11,9 @@
     "testComponent": "jest --verbose --testRegex=surveyComponents.test.tsx",
     "cypress": "cypress open"
   },
+  "browserslist": [
+    "chrome 64"
+  ],
   "dependencies": {
     "@chakra-ui/icons": "^2.0.3",
     "@chakra-ui/react": "^2.2.4",
