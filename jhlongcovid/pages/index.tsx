@@ -18,7 +18,7 @@ import {
   selectHighLong,
 } from "../redux/slices/zoomSlice";
 import { read } from "../util/mockDataTwo";
-import { sumUpCases } from "../preprocess";
+import { sumUpTotals } from "../preprocess";
 import React from "react";
 import { Amplify, API, Auth, graphqlOperation, Hub } from "aws-amplify";
 import { CONNECTION_STATE_CHANGE, ConnectionState } from "@aws-amplify/pubsub";
@@ -66,6 +66,8 @@ import {
 import { Instructions } from "../components/Instructions/Instructions";
 import { setLocation } from "../redux/slices/locationSlice";
 import { FeedbackPanel } from "../components/Feedback/FeedbackPanel";
+import { useOnCreateMapDataSubscription } from "../hooks/useOnCreateMapDataSubscription";
+import { useOnUpdateMapDataSubscription } from "../hooks/useOnUpdateMapDataSubscription";
 
 Amplify.configure(awsconfig);
 Amplify.configure(awsExports);
@@ -87,7 +89,10 @@ const Home = () => {
   const [realOrMock, setRealOrMock] = useState(RealOrMock.REAL);
   const [markerData, setMarkerData] = useState<IHash>({});
   const [loadingMapData, setLoadingMapData] = useState(false);
-  const [onCreateMapDataSub, setOnCreateMapDataSub] = useState<any>(null);
+  const [markerType, setMarkerType] = useState<"totalLongCovid" | "totalCovid">(
+    "totalLongCovid"
+  );
+
   const [onUpdateMapDataSub, setOnUpdateMapDataSub] = useState<any>(null);
   const [showInstructions, setShowInstructions] = useState<boolean>(false);
   const [showSurveyOnLaunch, setShowSurveyOnLaunch] = useState<boolean>(false);
@@ -101,8 +106,7 @@ const Home = () => {
   const longLow = useAppSelector(selectLoLong);
   const longHigh = useAppSelector(selectHighLong);
   const user = useAppSelector(selectUser);
-
-  const [totalLongCovidCases, setTotalLongCovidCases] = useState(1);
+  const [totals, setTotals] = useState(1);
 
   const toggleDisplayDataOnZoom = () => {
     dispatch(
@@ -116,6 +120,9 @@ const Home = () => {
       })
     );
   };
+
+  useOnCreateMapDataSubscription(toggleDisplayDataOnZoom, realOrMock);
+  useOnUpdateMapDataSubscription(toggleDisplayDataOnZoom, realOrMock);
 
   const listenToAuthEvents = async (data: any) => {
     switch (data.payload.event) {
@@ -164,6 +171,7 @@ const Home = () => {
     );
   };
 
+  // Check local storage to check if user has ever entered the dashboard
   useEffect(() => {
     // setShowInstructions(true);
     let showedSurvey = localStorage.getItem("showedSurveyOnLaunch");
@@ -194,18 +202,20 @@ const Home = () => {
           <Marker
             key={`marker-${data.lat}-${data.long}`}
             center={{ lat: data.lat, lng: data.long }}
+            type={markerType}
+            data={data}
             radius={
-              data.totalFullEntries >= 10 && totalLongCovidCases > 0
+              data.totalFullEntries >= 10 && totals > 0
                 ? calculateRadius(
-                    data.longCovid,
-                    totalLongCovidCases,
+                    data,
+                    totals,
+                    markerType,
                     data.level,
                     realOrMock
                   )
-                : 5000
+                : 50000
             }
-            data={data}
-            totalLongCovidCases={totalLongCovidCases}
+            total={totals}
             realOrMock={realOrMock}
             setSelectedData={setSelectedData}
             markerData={markerData}
@@ -214,7 +224,7 @@ const Home = () => {
         ))}
       </Map>
     );
-  }, [displayData]);
+  }, [displayData, markerType]);
 
   useEffect(() => {
     const initApp = async () => {
@@ -245,57 +255,6 @@ const Home = () => {
 
       // Hub listener for auth events
       Hub.listen("auth", listenToAuthEvents);
-
-      // Create MapData subscriptions
-      const onCreateSub = API.graphql<
-        GraphQLSubscription<typeof subscriptions.onCreateMapData>
-      >(graphqlOperation(onCreateMapDataCust));
-      onCreateSub.subscribe({
-        next: ({ provider, value }) => {
-          const v = value.data as OnCreateMapDataSubscription;
-          const newMapData = v.onCreateMapData;
-          if (newMapData) {
-            if (newMapData.level === "county") {
-              if (realOrMock == RealOrMock.REAL) {
-                dispatch(updateCountyData(newMapData));
-              }
-            } else {
-              if (realOrMock == RealOrMock.REAL) {
-                dispatch(updateStateData(newMapData));
-              }
-            }
-            toggleDisplayDataOnZoom();
-          } else {
-            console.log("New map data is null");
-          }
-        },
-        error: (error) => {},
-      });
-
-      const onUpdateSub = API.graphql<
-        GraphQLSubscription<typeof subscriptions.onUpdateMapData>
-      >(graphqlOperation(onUpdateMapDataCust));
-      onUpdateSub.subscribe({
-        next: ({ provider, value }) => {
-          const v = value.data as OnUpdateMapDataSubscription;
-          const newMapData = v.onUpdateMapData;
-          if (newMapData) {
-            if (newMapData.level === "county") {
-              if (realOrMock == RealOrMock.REAL) {
-                dispatch(updateCountyData(newMapData));
-              }
-            } else {
-              if (realOrMock == RealOrMock.REAL) {
-                dispatch(updateStateData(newMapData));
-              }
-            }
-            toggleDisplayDataOnZoom();
-          } else {
-            console.log("New map data is null");
-          }
-        },
-        error: (error) => {},
-      });
 
       Hub.listen("api", (data: any) => {
         const { payload } = data;
@@ -329,7 +288,7 @@ const Home = () => {
           const state_data = mapDataObject.state;
           const county_data = mapDataObject.county;
 
-          setTotalLongCovidCases(sumUpCases(state_data, realOrMock));
+          setTotals(sumUpTotals(state_data, markerType, realOrMock));
           dispatch(updateAllStateData(state_data));
           dispatch(updateAllCountyData(county_data));
           setLoadingMapData(false);
@@ -342,7 +301,7 @@ const Home = () => {
       } else {
         setLoadingMapData(true);
         const [county_data, state_data] = read();
-        setTotalLongCovidCases(sumUpCases(state_data, realOrMock));
+        setTotals(sumUpTotals(state_data, markerType, realOrMock));
         dispatch(updateAllStateData(state_data));
         dispatch(updateAllCountyData(county_data));
         setLoadingMapData(false);
@@ -353,7 +312,7 @@ const Home = () => {
   }, [realOrMock]);
 
   useEffect(() => {
-    setTotalLongCovidCases(sumUpCases(stateData, realOrMock));
+    setTotals(sumUpTotals(stateData, markerType, realOrMock));
   }, [stateData]);
 
   useEffect(() => {
@@ -366,7 +325,7 @@ const Home = () => {
     longHigh,
     stateData,
     countyData,
-    totalLongCovidCases,
+    totals,
   ]);
 
   return (
@@ -381,6 +340,7 @@ const Home = () => {
           setShowInstructions={setShowInstructions}
           showSurveyOnLaunch={showSurveyOnLaunch}
           setShowSurveyOnLaunch={setShowSurveyOnLaunch}
+          setMarkerType={setMarkerType}
         />
         <LeftSidePanel data={selectedData} realOrMock={realOrMock} />
         <Flex
@@ -396,7 +356,7 @@ const Home = () => {
           shadow="xl"
         >
           <Spacer />
-          <HStack spacing="10px">
+          <HStack spacing="10px" shadow={"xl"}>
             <Image
               src="./bloomberg.logo.horizontal.blue.jpg"
               alt="Hopkins Logo"

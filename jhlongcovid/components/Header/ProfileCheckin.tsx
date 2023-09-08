@@ -24,6 +24,7 @@ import {
 import { resetUser, selectUser } from "../../redux/slices/userSlice";
 import { Auth } from "aws-amplify";
 import { Survey } from "./Survey";
+import { MarkerCircleDropdown } from "./MarkerCircleDropdown/MarkerCircleDropdown";
 
 export const TestContext = createContext(false);
 
@@ -34,6 +35,9 @@ export interface ProfileCheckinProps {
   setShowInstructions?: React.Dispatch<React.SetStateAction<boolean>>;
   showSurveyOnLaunch?: boolean;
   setShowSurveyOnLaunch?: React.Dispatch<React.SetStateAction<boolean>>;
+  setMarkerType?: React.Dispatch<
+    React.SetStateAction<"totalLongCovid" | "totalCovid">
+  >;
 }
 
 export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
@@ -41,6 +45,7 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
   setShowInstructions,
   showSurveyOnLaunch,
   setShowSurveyOnLaunch,
+  setMarkerType,
 }) => {
   // return(<BasicUsage />)
   const width = useAppSelector(selectWidth);
@@ -57,7 +62,7 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
       position={"absolute"}
       top={width < 700 ? "90px" : "20px"}
       right={width < 700 ? "30px" : "20px"}
-      maxW={"400px"}
+      // maxW={"500px"}
       spacing="15px"
     >
       <IconButton
@@ -66,11 +71,13 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
         color={showInstructions ? "white" : "heritageBlue.500"}
         aria-label="Instructions"
         borderRadius="500px"
+        shadow={"xl"}
         size={"lg"}
         onClick={() => {
           if (setShowInstructions) setShowInstructions(!showInstructions);
         }}
       />
+      <MarkerCircleDropdown setMarkerType={setMarkerType} />
       <Flex
         className={styles.rightHeaderStack}
         align="center"
