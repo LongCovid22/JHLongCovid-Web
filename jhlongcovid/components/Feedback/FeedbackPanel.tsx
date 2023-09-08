@@ -24,7 +24,8 @@ export const FeedbackPanel = () => {
           Development in Progress
         </Text>
         <Text textAlign={"center"}>
-          Please share your feedback if you see room for improvement!
+          This dashboard is currently under development. We are looking for your
+          feedback to enhance its functionality.
         </Text>
         <Button
           w="100%"

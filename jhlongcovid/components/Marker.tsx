@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { calculatePanelOffset, calculateRadius } from "./Map/mapFunctions";
+import {
+  calculatePanelOffset,
+  calculateRadius,
+  markerColor,
+  markerHoverColor,
+} from "./Map/mapFunctions";
 import { useAppDispatch } from "../redux/hooks";
 import {
   selectLeftSidePanelPres,
@@ -11,8 +16,9 @@ import { RealOrMock } from "../pages";
 
 interface CircleProps extends google.maps.CircleOptions {
   data: any;
+  type: "totalLongCovid" | "totalCovid";
   markerData: any;
-  totalLongCovidCases: any;
+  total: number;
   realOrMock: RealOrMock;
   setMarkerData: (data: any) => void;
   setSelectedData: (data: any) => void;
@@ -36,26 +42,31 @@ function addCommasToNumberString(number: number | undefined): string {
 
 export const Marker: React.FC<CircleProps> = ({
   data,
+  type,
   markerData,
-  totalLongCovidCases,
+  total,
   realOrMock,
   setMarkerData,
   setSelectedData,
   ...options
 }) => {
-  const presentedSideMenu = useAppSelector(selectLeftSidePanelPres);
   const [marker, setMarker] = React.useState<google.maps.Circle>();
   const [infoWindow, setInfowWindow] = React.useState<google.maps.InfoWindow>();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!marker) {
+      const markColor = markerColor(type);
       const circle = new google.maps.Circle({
-        // radius: 10000,
-        strokeColor: data.totalFullEntries >= 10 ? "#68ACE5" : "#A6192E",
+        radius:
+          data.totalFullEntries >= 10 && total > 0
+            ? calculateRadius(data, total, type, data.level, realOrMock)
+            : 50000,
+        center: { lat: data.lat, lng: data.long },
+        strokeColor: data.totalFullEntries >= 10 ? markColor : "#A6192E",
         strokeOpacity: 0.8,
         strokeWeight: 2,
-        fillColor: data.totalFullEntries >= 10 ? "#68ACE5" : "#A6192E",
+        fillColor: data.totalFullEntries >= 10 ? markColor : "#A6192E",
         fillOpacity: 0.35,
       });
 
@@ -84,15 +95,10 @@ export const Marker: React.FC<CircleProps> = ({
     if (marker) {
       marker.setOptions(options);
       if (infoWindow) {
-        if (totalLongCovidCases && data) {
+        if (total && data) {
           let radius: number;
-          if (data.totalFullEntries >= 10 && totalLongCovidCases > 0) {
-            radius = calculateRadius(
-              data.longCovid,
-              totalLongCovidCases,
-              data.level,
-              realOrMock
-            );
+          if (data.totalFullEntries >= 10) {
+            radius = calculateRadius(data, total, type, data.level, realOrMock);
           } else {
             radius = 50000;
           }
@@ -101,11 +107,12 @@ export const Marker: React.FC<CircleProps> = ({
         }
 
         if (data) {
+          const markColor = markerColor(type);
           marker.setOptions({
-            strokeColor: data.totalFullEntries >= 10 ? "#68ACE5" : "#A6192E",
+            strokeColor: data.totalFullEntries >= 10 ? markColor : "#A6192E",
             strokeOpacity: 0.8,
             strokeWeight: 2,
-            fillColor: data.totalFullEntries >= 10 ? "#68ACE5" : "#A6192E",
+            fillColor: data.totalFullEntries >= 10 ? markColor : "#A6192E",
             fillOpacity: 0.35,
           });
         }
@@ -113,12 +120,13 @@ export const Marker: React.FC<CircleProps> = ({
       }
 
       google.maps.event.addListener(marker, "mouseover", function () {
+        const markHoverColor = markerHoverColor(type);
         marker.setOptions({
           // radius: 10000,
-          strokeColor: "#002D72",
+          strokeColor: markHoverColor,
           strokeOpacity: 0.8,
           strokeWeight: 2,
-          fillColor: "#002D72",
+          fillColor: markHoverColor,
           fillOpacity: 0.35,
         });
 
@@ -134,12 +142,13 @@ export const Marker: React.FC<CircleProps> = ({
       });
 
       google.maps.event.addListener(marker, "mouseout", function () {
+        const markColor = markerColor(type);
         marker.setOptions({
           // radius: 10000,
-          strokeColor: data.totalFullEntries >= 10 ? "#68ACE5" : "#A6192E",
+          strokeColor: data.totalFullEntries >= 10 ? markColor : "#A6192E",
           strokeOpacity: 0.8,
           strokeWeight: 2,
-          fillColor: data.totalFullEntries >= 10 ? "#68ACE5" : "#A6192E",
+          fillColor: data.totalFullEntries >= 10 ? markColor : "#A6192E",
           fillOpacity: 0.35,
         });
         if (infoWindow !== undefined) {
@@ -156,13 +165,13 @@ export const Marker: React.FC<CircleProps> = ({
 
             setSelectedData(data);
             dispatch(setLeftSidePanelPres(true));
-
+            const markHoverColor = markerHoverColor(type);
             marker.setOptions({
               // radius: 10000,
-              strokeColor: "#A6192E",
+              strokeColor: markHoverColor,
               strokeOpacity: 0.8,
               strokeWeight: 2,
-              fillColor: "#A6192E",
+              fillColor: markHoverColor,
               fillOpacity: 0.35,
             });
 
