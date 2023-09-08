@@ -109,10 +109,10 @@ export const Marker: React.FC<CircleProps> = ({
         if (data) {
           const markColor = markerColor(type);
           marker.setOptions({
-            strokeColor: data.totalFullEntries >= 10 ? markColor : "#A6192E",
+            strokeColor: markColor,
             strokeOpacity: 0.8,
             strokeWeight: 2,
-            fillColor: data.totalFullEntries >= 10 ? markColor : "#A6192E",
+            fillColor: markColor,
             fillOpacity: 0.35,
           });
         }
@@ -145,10 +145,10 @@ export const Marker: React.FC<CircleProps> = ({
         const markColor = markerColor(type);
         marker.setOptions({
           // radius: 10000,
-          strokeColor: data.totalFullEntries >= 10 ? markColor : "#A6192E",
+          strokeColor: markColor,
           strokeOpacity: 0.8,
           strokeWeight: 2,
-          fillColor: data.totalFullEntries >= 10 ? markColor : "#A6192E",
+          fillColor: markColor,
           fillOpacity: 0.35,
         });
         if (infoWindow !== undefined) {
