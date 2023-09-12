@@ -23,6 +23,9 @@ export interface SurveyQuestionProps {
   location?: LocationData;
   setErrorPresent?: (error: boolean) => void;
   setErrorText?: (text: string) => void;
+  setAgeDemoError?: (error: boolean) => void;
+  setHeightDemoError?: (error: boolean) => void;
+  setWeightDemoError?: (error: boolean) => void;
   setLocationData?: React.Dispatch<React.SetStateAction<LocationData>>;
   onVerify?: () => void;
   handleQuestionChange?: (
@@ -38,6 +41,9 @@ export const SurveyBody: React.FC<SurveyQuestionProps> = ({
   setRecap,
   setErrorPresent,
   setErrorText,
+  setAgeDemoError,
+  setHeightDemoError,
+  setWeightDemoError,
   setLocationData,
   onVerify,
   handleQuestionChange,
@@ -90,6 +96,9 @@ export const SurveyBody: React.FC<SurveyQuestionProps> = ({
         currentQuestion={currentQuestion}
         setAnswer={setAnswer}
         location={location}
+        setAgeDemoError = {setAgeDemoError}
+        setHeightDemoError = {setHeightDemoError}
+        setWeightDemoError = {setWeightDemoError}
         setLocationData={setLocationData}
         setErrorPresent={setErrorPresent}
       />

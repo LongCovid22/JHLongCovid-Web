@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { UserInfo } from "../../SurveyWrapper";
 import {
-  PinInput,
   FormControl,
   FormLabel,
   HStack,
-  PinInputField,
   Text,
   FormErrorMessage,
   Input,
@@ -41,54 +38,21 @@ export const HeightInput: React.FC<HeightInputProps> = ({
   setErrorPresent,
 }) => {
   const [heightErrorText, setHeightErrorText] = useState<string | null>(null);
-  const [feet, setFeet] = useState<string>("");
-  const [inches, setInches] = useState<string>("");
-  const [totalInches, setTotalInches] = useState<number>(0);
-  const [initialRender, setInitialRender] = useState(true);
 
-  const formatFeet = (height: string) => {
-    if (height.length > 0) {
-      const splitheight = height.split("");
-      if (splitheight.length >= 1) {
-        return splitheight[0];
-      }
-    }
+  const [heightFeet, setHeightFeet] = useState<string>("");
+  const [heightInches, setHeightInches] = useState<string>("");
 
-    return "";
-  };
 
-  const formatInches = (height: string) => {
-    if (height.length > 0) {
-      const splitheight = height.split("");
-      if (splitheight.length == 1) {
-        return "0";
-      } else if (splitheight.length > 1) {
-        return splitheight.splice(1).join("");
-      }
-    }
-
-    return null;
-  };
+  function isStringOfIntegers(input: string): boolean {
+    // Use a regular expression to check if the string contains only integer digits
+    return /^\d+$/.test(input);
+  }
 
   const handleFeetChange = (value: string) => {
-    const num = parseInt(value);
-    if (isNaN(num) || num <= 0 || num > 7) {
-      if (setErrorPresent) setErrorPresent(true);
-      setHeightErrorText("Invalid height");
-    } else {
-      if (setErrorPresent) setErrorPresent(false);
-      setHeightErrorText(null);
-    }
-    // setFeet(value);
-    let demosCopy = { ...demos };
-    demosCopy["feet"] = value;
-    setDemos(demosCopy);
-  };
-
-  const handleInchesChange = (value: string) => {
-    if (value !== "") {
-      const num = parseInt(value);
-      if (isNaN(num) || num <= 0 || num > 11) {
+    let num = value;    
+    if (isStringOfIntegers(value)) {
+      let checkNum = parseInt(value);
+      if (isNaN(checkNum) || checkNum <= 0 || checkNum > 7) {
         if (setErrorPresent) setErrorPresent(true);
         setHeightErrorText("Invalid height");
       } else {
@@ -96,41 +60,60 @@ export const HeightInput: React.FC<HeightInputProps> = ({
         setHeightErrorText(null);
       }
     } else {
-      if (setErrorPresent) setErrorPresent(false);
-      setHeightErrorText(null);
+      console.log("Height feet not a string of integers")
+      if (setErrorPresent) setErrorPresent(true);
+      setHeightErrorText("Invalid height");
     }
-
     let demosCopy = { ...demos };
-    demosCopy["inches"] = value;
+    demosCopy["feet"] = num;
     setDemos(demosCopy);
+    setAnswer(demosCopy);
   };
 
-  // useEffect(() => {
-  //   if (initialRender) {
-  //     const demosCopy = { ...demos };
-  //     if (demosCopy.height !== "") {
-  //       const splitHeight = demosCopy.height.split("");
-  //       if (splitHeight.length === 1) {
-  //         handleFeetChange(splitHeight[0]);
-  //       } else {
-  //         handleFeetChange(splitHeight[0]);
-  //         handleInchesChange(splitHeight.slice(1).join(""));
-  //       }
-  //     }
-  //     setInitialRender(false);
-  //   }
-  // }, [demos]);
+  const handleInchesChange = (value: string) => {
+    let num = value;    
+    if (isStringOfIntegers(value)) {
+      let checkNum = parseInt(value);
+      if (isNaN(checkNum) || checkNum <= 0 || checkNum > 11) {
+        if (setErrorPresent) setErrorPresent(true);
+        setHeightErrorText("Invalid height");
+      } else {
+        if (setErrorPresent) setErrorPresent(false);
+        setHeightErrorText(null);
+      }
+    } else {
+      if (setErrorPresent) setErrorPresent(true);
+      setHeightErrorText("Invalid height");
+    }
+    let demosCopy = { ...demos };
+    demosCopy["inches"] = num;
+    setDemos(demosCopy);
+    setAnswer(demosCopy);
+  };
 
-  // // When it gets loaded and when feet and inches change
-  // useEffect(() => {
-  //   const handleHeightChange = (feet: string, inches: string) => {
-  //     const demosCopy = { ...demos };
-  //     demosCopy["height"] = feet + inches;
-  //     setDemos(demosCopy);
-  //   };
+  const handleChange = () => {
+    if (isStringOfIntegers(heightFeet) && isStringOfIntegers(heightInches)) {
+      let inchParse = parseInt(heightInches);
+      let feetParse = parseInt(heightFeet);
 
-  //   handleHeightChange(feet, inches);
-  // }, [feet, inches]);
+      if (isNaN(inchParse) || isNaN(feetParse) || inchParse <= 0 || feetParse <= 0 
+      || inchParse > 11 || feetParse > 7) {
+        if (setErrorPresent) setErrorPresent(true);
+        setHeightErrorText("Invalid height");
+      } else {
+        if (setErrorPresent) setErrorPresent(true);
+        setHeightErrorText("Invalid height");
+      }
+    } else {
+      if (setErrorPresent) setErrorPresent(true);
+      setHeightErrorText("Invalid height");
+    }
+    let demosCopy = { ...demos };
+    demosCopy["inches"] = heightInches;
+    demosCopy["feet"] = heightFeet;
+    setDemos(demosCopy);
+    setAnswer(demosCopy);
+  }
 
   return (
     <FormControl isInvalid={heightErrorText !== null}>
@@ -141,18 +124,17 @@ export const HeightInput: React.FC<HeightInputProps> = ({
           value={demos.feet}
           data-testid="height-ft-input"
           onChange={(event) => {
-            handleFeetChange(event.target.value);
-            // handleHeightChange(value);
+            setHeightFeet(event.target.value);
+            handleChange();
           }}
         />
-          {/* <PinInputField /> */}
           <Text>ft</Text>
-        {/* </PinInput> */}
         <Input
           w="50px"
           value={demos.inches}
           onChange={(event) => {
-            handleInchesChange(event.target.value);
+            setHeightInches(event.target.value);
+            handleChange();
           }}
           data-testid="height-in-input"
         />

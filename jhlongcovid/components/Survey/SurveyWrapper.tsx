@@ -116,6 +116,12 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [errorText, setErrorText] = useState("");
   const [errorPresent, setErrorPresent] = useState(false);
 
+  const [ageDemoError, setAgeDemoError] = useState(false);
+
+  const [heightDemoError, setHeightDemoError] = useState(false);
+
+  const [weightDemoError, setWeightDemoError] = useState(false);
+
   const {
     isOpen: isConfirmOpen,
     onOpen: onConfirmOpen,
@@ -149,6 +155,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
       // Check for empty fields during the demographics stage
       if (currentQuestion.answerFormat === "demographics") {
+        console.log(ageDemoError);
         if (answer !== null) {
           const emptyLocation = checkEmptyLocationData(location);
           const emptyFields = checkEmptyDemoFields(answer);
@@ -161,10 +168,15 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             return;
           }
         }
-        if (errorPresent) {
+
+        if (ageDemoError || heightDemoError || weightDemoError) {
           setErrorText(`Please correct invalid responses`);
+          setMissingAnswer(true);
           return;
         }
+
+        
+        
       }
 
       // Check for empty fields in any stage of the survey
@@ -583,6 +595,12 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             setAnswer={setAnswer}
             setErrorPresent={setErrorPresent}
             setErrorText={setErrorText}
+            setAgeDemoError = {setAgeDemoError}
+
+            setHeightDemoError = {setHeightDemoError}
+
+            setWeightDemoError = {setWeightDemoError}
+
             location={location}
             setLocationData={setLocation}
             onVerify={() => handleQuestionChange("next")}
