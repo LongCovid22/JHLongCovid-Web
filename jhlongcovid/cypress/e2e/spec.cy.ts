@@ -838,7 +838,88 @@ describe("Survey Test", () => {
 });
 */
 
+
+
+describe("Demographics Positive Test Cases", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:3001");
+    BeingSurveyTest(); 
+    ConsentParseAndNext("edgesummerprograms@gmail.com");
+    cy.contains("Demographics").should(
+"be.visible"
+    );
+  });
+  
+  afterEach(() => {
+    //should proceed through to next page following Demographics page
+    cy.contains("Demographics").should("not.exist");
+  })
+  it("Profile 3: Hispanic Female", () => {
+    DemographicsParseAndNext("45", "Female", "5", "2", "130", "Hispanic, Latino, or Spanish");
+  });
+  it("Profile 1: White Male", () => {
+    DemographicsParseAndNext("28", "Male", "5", "6", "140", "White");
+  });
+  it("Profile 2: African American Male", () => {
+    DemographicsParseAndNext("32", "Male", "5", "10", "175", "Black or African American");
+  });
+  it("Profile 4: Asian Male", () => {
+    DemographicsParseAndNext("19", "Male", "6", "1", "180", "Asian");
+  });
+  it("Profile 5: Pacific Islander Female", () => {
+    DemographicsParseAndNext("37", "Female", "5", "8", "160", "Native Hawaiian or other Pacific Islander");
+  });
+  it("Profile 6: White Male", () => {
+    DemographicsParseAndNext("50", "Male", "5", "11", "200", "White");
+  });
+  it("Profile 7: Hispanic Female", () => {
+    DemographicsParseAndNext("29", "Female", "5", "4", "120", "Hispanic, Latino, or Spanish");
+  });
+  it("Profile 8: African American Male", () => {
+    DemographicsParseAndNext("24", "Male", "6", "0", "170", "Black or African American");
+  });
+  it("Profile 9: Other Female", () => {
+    DemographicsParseAndNext("42", "Female", "5", "7", "150", "Other");
+  });
+  it("Profile 10: Native American Male", () => {
+    DemographicsParseAndNext("18", "Male", "6", "2", "190", "Native American");
+  });
+  it("Profile 11: Asian Female", () => {
+    DemographicsParseAndNext("55", "Female", "5", "5", "140", "Asian");
+  });
+  it("Profile 12: Pacific Islander Male", () => {
+    DemographicsParseAndNext("30", "Male", "5", "9", "175", "Native Hawaiian or other Pacific Islander");
+  });
+  it("Profile 13: White Female", () => {
+    DemographicsParseAndNext("38", "Female", "5", "3", "135", "White");
+  });
+  it("Profile 14: African American Male", () => {
+    DemographicsParseAndNext("27", "Male", "6", "4", "200", "Black or African American");
+  });
+  it("Profile 15: Choose Not to Identify Female", () => {
+    DemographicsParseAndNext("48", "Female", "5", "10", "160", "Choose to not identify");
+  });
+});
+
 const testCases = [
+  {
+    name: "Invalid Age - Non-numeric value",
+    execute: () => {
+      DemographicsParseAndNext("Twenty-Two", "Male", "6", "3", "150", "Asian");
+    }
+  },
+  {
+    name: "Invalid Age - Negative value",
+    execute: () => {
+      DemographicsParseAndNext("1", "Male", "6", "3", "150", "Asian");
+    }
+  },
+  {
+    name: "Invalid Age - Age above a reasonable limit",
+    execute: () => {
+      DemographicsParseAndNext("150", "Male", "6", "3", "150", "Asian");
+    }
+  },
   {
     name: "Invalid Height_inches - Non-numeric value",
     execute: () => {
@@ -900,24 +981,7 @@ const testCases = [
       DemographicsParseAndNext("22", "", "6", "3", "150", "Asian");
     }
   },
-  {
-    name: "Invalid Age - Non-numeric value",
-    execute: () => {
-      DemographicsParseAndNext("Twenty-Two", "Male", "6", "3", "150", "Asian");
-    }
-  },
-  {
-    name: "Invalid Age - Negative value",
-    execute: () => {
-      DemographicsParseAndNext("1", "Male", "6", "3", "150", "Asian");
-    }
-  },
-  {
-    name: "Invalid Age - Age above a reasonable limit",
-    execute: () => {
-      DemographicsParseAndNext("150", "Male", "6", "3", "150", "Asian");
-    }
-  },
+ 
   
   {
     name: "Invalid Race - Blank value",
@@ -933,7 +997,8 @@ testCases.forEach(testCase => {
   
   describe(testCase.name, () => {
     before(() => {
-      cy.visit("http://localhost:3001", { timeout: 10000, retryOnStatusCodeFailure: true }); 
+      cy.visit("http://localhost:3001", { retryOnStatusCodeFailure: true }); 
+      cy.wait(1000);
       BeingSurveyTest();
       ConsentParseAndNext("edgesummerprograms@gmail.com");
       cy.contains("Demographics").should("be.visible");
@@ -949,67 +1014,3 @@ testCases.forEach(testCase => {
     })
   });
 })
-
-/*
-describe("Demographics Positive Test Cases", () => {
-  beforeEach(() => {
-    cy.visit("http://localhost:3001");
-    BeingSurveyTest(); 
-    ConsentParseAndNext("edgesummerprograms@gmail.com");
-    cy.contains("Demographics").should(
-"be.visible"
-    );
-  });
-  
-  afterEach(() => {
-    //should proceed through to next page following Demographics page
-    cy.contains("Demographics").should("not.exist");
-  })
-  it("Profile 3: Hispanic Female", () => {
-    DemographicsParseAndNext("45", "Female", "5", "2", "130", "Hispanic, Latino, or Spanish");
-  });
-  it("Profile 1: White Male", () => {
-    DemographicsParseAndNext("28", "Male", "5", "6", "140", "White");
-  });
-  it("Profile 2: African American Male", () => {
-    DemographicsParseAndNext("32", "Male", "5", "10", "175", "Black or African American");
-  });
-  it("Profile 4: Asian Male", () => {
-    DemographicsParseAndNext("19", "Male", "6", "1", "180", "Asian");
-  });
-  it("Profile 5: Pacific Islander Female", () => {
-    DemographicsParseAndNext("37", "Female", "5", "8", "160", "Native Hawaiian or other Pacific Islander");
-  });
-  it("Profile 6: White Male", () => {
-    DemographicsParseAndNext("50", "Male", "5", "11", "200", "White");
-  });
-  it("Profile 7: Hispanic Female", () => {
-    DemographicsParseAndNext("29", "Female", "5", "4", "120", "Hispanic, Latino, or Spanish");
-  });
-  it("Profile 8: African American Male", () => {
-    DemographicsParseAndNext("24", "Male", "6", "0", "170", "Black or African American");
-  });
-  it("Profile 9: Other Female", () => {
-    DemographicsParseAndNext("42", "Female", "5", "7", "150", "Other");
-  });
-  it("Profile 10: Native American Male", () => {
-    DemographicsParseAndNext("18", "Male", "6", "2", "190", "Native American");
-  });
-  it("Profile 11: Asian Female", () => {
-    DemographicsParseAndNext("55", "Female", "5", "5", "140", "Asian");
-  });
-  it("Profile 12: Pacific Islander Male", () => {
-    DemographicsParseAndNext("30", "Male", "5", "9", "175", "Native Hawaiian or other Pacific Islander");
-  });
-  it("Profile 13: White Female", () => {
-    DemographicsParseAndNext("38", "Female", "5", "3", "135", "White");
-  });
-  it("Profile 14: African American Male", () => {
-    DemographicsParseAndNext("27", "Male", "6", "4", "200", "Black or African American");
-  });
-  it("Profile 15: Choose Not to Identify Female", () => {
-    DemographicsParseAndNext("48", "Female", "5", "10", "160", "Choose to not identify");
-  });
-})
-
-*/

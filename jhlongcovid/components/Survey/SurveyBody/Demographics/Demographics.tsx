@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {
-  Box,
   VStack,
   Text,
-  Spacer,
   FormControl,
   FormLabel,
-  FormHelperText,
-  Input,
   NumberInput,
   NumberInputField,
   NumberIncrementStepper,
@@ -19,8 +15,6 @@ import {
   Grid,
   GridItem,
   HStack,
-  PinInput,
-  PinInputField,
   FormErrorMessage,
   WrapItem,
   Wrap,
@@ -33,6 +27,7 @@ import { ConsoleLogger } from "@aws-amplify/core";
 import LocationInput from "./LocationInput";
 import { HeightInput } from "./HeightInput";
 import { WeightInput } from "./WeightInput";
+import { AgeInput } from "./AgeInput";
 import { isString } from "cypress/types/lodash";
 
 export const Demographics: React.FC<SurveyQuestionProps> = ({
@@ -134,27 +129,12 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
               />
             </GridItem>
             <GridItem>
-              <FormControl isInvalid={ageErrorText !== null}>
-                <FormLabel fontSize={"18px"}>Age</FormLabel>
-                <NumberInput
-                  fontSize={"18px"}
-                  value={demos.age}
-                  onChange={(val) => {
-                    handleAnswerChange("age", val);
-                  }}
-                  data-testid="age-input"
-                >
-                  <NumberInputField fontSize={"18px"} />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-
-                {ageErrorText !== null && (
-                  <FormErrorMessage>{ageErrorText}</FormErrorMessage>
-                )}
-              </FormControl>
+              <AgeInput
+                    demos={demos}
+                    setDemos={setDemos}
+                    setAnswer={setAnswer}
+                    setAgeDemoError={setAgeDemoError}
+                  />
             </GridItem>
             <GridItem>
               <FormControl>
