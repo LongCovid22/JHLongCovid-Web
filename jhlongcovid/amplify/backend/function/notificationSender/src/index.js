@@ -2,6 +2,10 @@ const AWS = require("aws-sdk");
 const ses = new AWS.SES({ region: "us-east-1" });
 const sqs = new AWS.SQS({ region: "us-east-1" });
 const Handlebars = require("handlebars");
+const {
+  updateNotification,
+  updateNotificationDelivered,
+} = require("./queries");
 
 // Define your email template
 const emailTemplate = `
@@ -15,12 +19,11 @@ const emailTemplate = `
       margin: 0;
       padding: 20px;
     }
-    h1 {
-      font-size: 36px;
+    h3 {
       margin-bottom: 20px;
     }
     p {
-      font-size: 24px;
+      font-size: 18px;
       margin-bottom: 10px;
     }
     .note {
@@ -38,13 +41,10 @@ const emailTemplate = `
   </style>
 </head>
 <body>
-    <h1>Johns Hopkins Long COVID Weekly Check In</h1>
+    <h3>Johns Hopkins Long COVID Weekly Check In</h3>
     <p>{{message}}</p>
     <div class="note">
       <p>Please note that this is an automated email. Do not reply.</p>
-    </div>
-    <div class="footer">
-      <p>This email was sent by Your Company. © 2023 Your Company. All rights reserved.</p>
     </div>
 </body>
 </html>
@@ -54,6 +54,15 @@ const emailTemplate = `
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 exports.handler = async (event) => {
+  if (
+    process.env._X_AMZN_TRACE_ID &&
+    process.env._X_AMZN_TRACE_ID.split("-").includes("mock")
+  ) {
+    // If mocking the lambda function, replace trace id with fake trace id
+    process.env._X_AMZN_TRACE_ID =
+      "Root=1-63b6ffe7-2c48b4e36086hhhf21d16c8c;Parent=51740oo32a9d2e68;Sampled=0";
+  }
+
   try {
     for (const record of event.Records) {
       //   const queueMessage = JSON.parse(record);
@@ -77,7 +86,7 @@ exports.handler = async (event) => {
             Data: "Johns Hopkins Long Covid Weekly Checkin",
           },
         },
-        Source: "no-reply@aricvoice.com", // Replace with your SES-verified email address
+        Source: "hopkinslongcovidteam@gmail.com", // Replace with your SES-verified email address
         // Define the attachment for the embedded image
         // Ensure that the `ContentId` matches the `src` attribute in the email template
       };
@@ -91,10 +100,16 @@ exports.handler = async (event) => {
         record.receiptHandle
       );
       const deleteParams = {
-        QueueUrl: process.env.WEEKLY_REMINDERS_QUEUE_URL,
+        QueueUrl:
+          process.env.ENV === "staging"
+            ? process.env.WEEKLY_REMINDERS_QUEUE_STAGING
+            : process.env.WEEKLY_REMINDERS_QUEUE_DEV,
         ReceiptHandle: record.receiptHandle,
       };
 
+      // Update the Notification in the DB to DELIVERED
+      await updateNotificationDelivered(record.messageId);
+      // Delete the Queue message
       await sqs.deleteMessage(deleteParams).promise();
       console.log("Deleting SQS message successful");
     }
