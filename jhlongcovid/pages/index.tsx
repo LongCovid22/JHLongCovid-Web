@@ -196,6 +196,7 @@ const Home = () => {
   // Memoize map to only re-render when data changes
   const MapMemo = useMemo(() => {
     // console.log("Total long covid: ", totalLongCovidCases);
+    // data.totalFullEntries >= 10 &&
     return (
       <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
         {displayData.map((data) => (
@@ -205,7 +206,7 @@ const Home = () => {
             type={markerType}
             data={data}
             radius={
-              data.totalFullEntries >= 10 && totals > 0
+              totals > 0
                 ? calculateRadius(
                     data,
                     totals,
