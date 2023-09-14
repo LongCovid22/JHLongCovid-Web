@@ -188,7 +188,15 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           } else {
             setMissingAnswer(false);
           }
-      } 
+      } else if (currentQuestion.answerFormat === "input") {
+        if (answer === "" || answer === null || answer === "0") {
+          setErrorText("Please provide a number using the slider");
+          setMissingAnswer(true);
+          return;
+        } else {
+          setMissingAnswer(false);
+        }
+      }
       // Check for empty fields in any stage of the survey
       else if (
         answer === "" ||
@@ -263,6 +271,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           }
         }
       }
+      console.log(answer);
       dispatch(nextQuestion({ answer: answer }));
     }
     setAnswer("");
