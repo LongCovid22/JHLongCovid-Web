@@ -894,8 +894,17 @@
     ],
     [
       {
-        "title": "Create Account",
+        "title": "Review Submission",
         "questionNum": 37,
+        "question": "Please review all the questions and answers that you have submitted so far: ",
+        "options": null,
+        "answer": null,
+        "answerFormat": "review",
+        "branching": null
+      },
+      {
+        "title": "Create Account",
+        "questionNum": 38,
         "question": "In order to better understand Long COVID, we would like to check in to see how your COVID-19 experience changes over time. To participate, enter your desired password to continue creating your account.\n\nIf you would like to skip creating an account and continue submitting your survey response, just click the skip button!",
         "options": null,
         "answer": null,
@@ -904,13 +913,13 @@
           "predicate": "skip",
           "goto": {
             "section": 9,
-            "question": 1
+            "question": 2
           }
         }
       },
       {
         "title": "Thank You",
-        "questionNum": 38,
+        "questionNum": 39,
         "question": "Thank you for participating in our Long COVID survey. You will be emailed with a receipt of your survey entry shortly!",
         "options": null,
         "answer": null,
