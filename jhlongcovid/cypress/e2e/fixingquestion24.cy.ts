@@ -277,8 +277,8 @@ describe("Iterate through Step 36", () => {
 
     if (resume) {
       //Number 24
-      cy.get('[role="slider"]').type('{rightarrow}'); // Increase the slider value
-      cy.get('[role="slider"]').type('{leftarrow}'); // Decrease the slider value
+      // cy.get('[role="slider"]').type('{rightarrow}'); // Increase the slider value
+      // cy.get('[role="slider"]').type('{leftarrow}'); // Decrease the slider value
       cy.contains("button", "Next").click();
 
     //Number 25

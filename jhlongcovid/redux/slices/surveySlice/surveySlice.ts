@@ -95,7 +95,7 @@ const getNextQuestionAnswerDefault = (
       question.options !== null &&
       question.options.type === "slider"
     ) {
-      return "0";
+      return "5";
     } else {
       return "";
     }

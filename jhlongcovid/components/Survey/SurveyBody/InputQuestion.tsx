@@ -186,7 +186,6 @@ export const InputQuestion: React.FC<SurveyQuestionProps> = ({
     if (currentAnswer !== "") {
       handleAnswerChange(currentAnswer as string);
     } else {
-      console.log(currentAnswer);
       setAnswer(currentAnswer);
     }
   }, [currentAnswer, currentQuestion]);
