@@ -142,14 +142,16 @@
           "s3Key": "amplify-builds/notificationScheduler-38524132705379633947-build.zip"
         },
         "notificationBroker": {
-          "weeklyRemindersQueueUrl": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue",
           "deploymentBucketName": "amplify-jhlongcovid-dev-120240-deployment",
-          "s3Key": "amplify-builds/notificationBroker-6e577772524564586d50-build.zip"
+          "s3Key": "amplify-builds/notificationBroker-475a33644d4831575956-build.zip",
+          "weeklyRemindersQueueDev": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue",
+          "weeklyRemindersQueueStaging": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue-staging"
         },
         "notificationSender": {
           "deploymentBucketName": "amplify-jhlongcovid-dev-120240-deployment",
-          "s3Key": "amplify-builds/notificationSender-6f48514246626d4a6453-build.zip",
-          "weeklyRemindersQueueUrl": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue"
+          "s3Key": "amplify-builds/notificationSender-344a334e7a7475756b49-build.zip",
+          "weeklyRemindersQueueDev": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue",
+          "weeklyRemindersQueueStaging": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue-staging"
         },
         "jhlongcovid": {},
         "feedbackSubmitIssues": {
