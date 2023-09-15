@@ -1,62 +1,4 @@
 {
-  "staging": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-jhlongcovid-staging-100445-authRole",
-      "UnauthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-staging-100445-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-staging-100445-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
-      "UnauthRoleName": "amplify-jhlongcovid-staging-100445-unauthRole",
-      "StackName": "amplify-jhlongcovid-staging-100445",
-      "StackId": "arn:aws:cloudformation:us-east-1:317973408936:stack/amplify-jhlongcovid-staging-100445/822fada0-3f36-11ed-928b-0a3b4282c6bf",
-      "AmplifyAppId": "d304vc3h5b8tce"
-    },
-    "categories": {
-      "auth": {
-        "jhlongcovid": {}
-      },
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d304vc3h5b8tce",
-          "type": "cicd"
-        }
-      },
-      "api": {
-        "jhlongcovid": {}
-      },
-      "function": {
-        "aggregateSurveyResults": {
-          "deploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
-          "s3Key": "amplify-builds/aggregateSurveyResults-7257306554356f6f3756-build.zip"
-        },
-        "emailReceiptConfirmation": {
-          "deploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
-          "s3Key": "amplify-builds/emailReceiptConfirmation-4c42546c4e6449686738-build.zip"
-        },
-        "notificationScheduler": {
-          "deploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
-          "s3Key": "amplify-builds/notificationScheduler-38524132705379633947-build.zip"
-        },
-        "notificationBroker": {
-          "weeklyRemindersQueueUrl": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue",
-          "deploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
-          "s3Key": "amplify-builds/notificationBroker-6e577772524564586d50-build.zip"
-        },
-        "notificationSender": {
-          "weeklyRemindersQueueUrl": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue",
-          "deploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
-          "s3Key": "amplify-builds/notificationSender-6f48514246626d4a6453-build.zip"
-        },
-        "feedbackSubmitIssues": {
-          "deploymentBucketName": "amplify-jhlongcovid-staging-100445-deployment",
-          "s3Key": "amplify-builds/feedbackSubmitIssues-382f786179374a684949-build.zip"
-        }
-      },
-      "storage": {
-        "jhlongcovidassets": {}
-      }
-    }
-  },
   "develop": {
     "awscloudformation": {
       "AuthRoleName": "amplify-jhlongcovid-develop-113748-authRole",
@@ -158,6 +100,67 @@
           "deploymentBucketName": "amplify-jhlongcovid-dev-120240-deployment",
           "s3Key": "amplify-builds/feedbackSubmitIssues-382f786179374a684949-build.zip"
         }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d304vc3h5b8tce",
+          "type": "cicd"
+        }
+      },
+      "api": {
+        "jhlongcovid": {}
+      },
+      "storage": {
+        "jhlongcovidassets": {}
+      }
+    }
+  },
+  "stage": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-jhlongcovid-stage-135715-authRole",
+      "UnauthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-stage-135715-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::317973408936:role/amplify-jhlongcovid-stage-135715-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-jhlongcovid-stage-135715-deployment",
+      "UnauthRoleName": "amplify-jhlongcovid-stage-135715-unauthRole",
+      "StackName": "amplify-jhlongcovid-stage-135715",
+      "StackId": "arn:aws:cloudformation:us-east-1:317973408936:stack/amplify-jhlongcovid-stage-135715/4ed6d570-53f1-11ee-a95a-0a18c71358cf",
+      "AmplifyAppId": "d304vc3h5b8tce"
+    },
+    "categories": {
+      "auth": {
+        "jhlongcovid": {}
+      },
+      "function": {
+        "aggregateSurveyResults": {
+          "deploymentBucketName": "amplify-jhlongcovid-stage-135715-deployment",
+          "s3Key": "amplify-builds/aggregateSurveyResults-574b764c2f494874546f-build.zip"
+        },
+        "emailReceiptConfirmation": {
+          "deploymentBucketName": "amplify-jhlongcovid-stage-135715-deployment",
+          "s3Key": "amplify-builds/emailReceiptConfirmation-4c42546c4e6449686738-build.zip"
+        },
+        "notificationBroker": {
+          "weeklyRemindersQueueDev": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue",
+          "weeklyRemindersQueueStaging": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue-staging",
+          "deploymentBucketName": "amplify-jhlongcovid-stage-135715-deployment",
+          "s3Key": "amplify-builds/notificationBroker-475a33644d4831575956-build.zip"
+        },
+        "notificationScheduler": {
+          "deploymentBucketName": "amplify-jhlongcovid-stage-135715-deployment",
+          "s3Key": "amplify-builds/notificationScheduler-38524132705379633947-build.zip"
+        },
+        "notificationSender": {
+          "weeklyRemindersQueueDev": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue",
+          "weeklyRemindersQueueStaging": "https://sqs.us-east-1.amazonaws.com/317973408936/WeeklyRemindersQueue-staging",
+          "deploymentBucketName": "amplify-jhlongcovid-stage-135715-deployment",
+          "s3Key": "amplify-builds/notificationSender-344a334e7a7475756b49-build.zip"
+        },
+        "feedbackSubmitIssues": {
+          "deploymentBucketName": "amplify-jhlongcovid-stage-135715-deployment",
+          "s3Key": "amplify-builds/feedbackSubmitIssues-382f786179374a684949-build.zip"
+        },
+        "jhlongcovid": {}
       },
       "hosting": {
         "amplifyhosting": {

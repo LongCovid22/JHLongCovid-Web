@@ -257,7 +257,6 @@ const createInfoPanelContentString = (data: any): string => {
     (symptomsOverTwelve / covidTotal) * 100
   );
   const symptomsOverTwelveString = addCommasToNumberString(symptomsOverTwelve);
-  console.log("Symptoms over 12", symptomsOverTwelveString);
 
   const contentString =
     '<div style="padding: 10px">' +
