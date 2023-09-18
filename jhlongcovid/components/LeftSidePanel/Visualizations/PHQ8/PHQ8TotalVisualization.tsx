@@ -55,6 +55,14 @@ import {
   SummaryAvgValues,
 } from "../../../../src/API";
 
+import {
+  createSymptomCountConfig,
+  getSymptomsCount,
+  getMostCommonSymptom,
+} from "../Symptoms/symptomsVisualizationFunctions";
+
+import { capitalizeFirstLetters } from "../Social/socialVisualizationFunctions";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -107,6 +115,114 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   // const [avgPhq8Score, setAvgPhq8Score] = useState(0);
   const [totalEntries, setTotalEntries] = useState(0);
   const width = useAppSelector(selectWidth);
+  const [totalSymptomsCount, setTotalSymptomsCount] = useState(0);
+  const [mostCommonSymptom, setMostCommonSymptom] = useState("");
+
+  const [symptomCountConfig, setSymptomCountConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [qualityOfLife, setQOLConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [mentalHealthRank, setMentalHealthConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [socialSatisfactionRank, setSocialSatisConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [carryOutSocial, setCarryOutSocialConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [anxiety, setAnxietyConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+
+  useEffect(() => {
+    // Perform all processing on map data and populate visualizations
+    const colors = [
+      backgroundColors.green,
+      backgroundColors.blue,
+      backgroundColors.yellow,
+      backgroundColors.orange,
+      backgroundColors.red,
+    ];
+    let symptomSummary, covidSummary, totalFullEntries;
+
+    if (data && realOrMock === RealOrMock.REAL) {
+      symptomSummary = data.symptomSummary;
+      covidSummary = data.covidSummary;
+      totalFullEntries = data.totalFullEntries;
+    } else {
+      symptomSummary = mockResult.county.symptomSummary;
+      covidSummary = mockResult.county.covidSummary;
+      totalFullEntries = mockResult.county.totalFullEntries;
+    }
+
+    if (covidSummary.symptomatic) {
+      setTotalSymptomsCount(
+        getSymptomsCount(covidSummary.symptomatic as YesNo)
+      );
+    }
+
+    const summary = symptomSummary as SymptomSummary;
+    setMostCommonSymptom(
+      capitalizeFirstLetters(getMostCommonSymptom(summary.symptomCounts))
+    );
+    setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
+    setQOLConfig(
+      createTotalsChartConfig(
+        summary.qualityOfLife,
+        "Quality of Life",
+        "People",
+        colors
+      )
+    );
+    setMentalHealthConfig(
+      createTotalsChartConfig(
+        summary.mentalHealthRank,
+        "Mental Health",
+        "People",
+        colors
+      )
+    );
+    setSocialSatisConfig(
+      createTotalsChartConfig(
+        summary.socialSatisfactionRank,
+        "Social Satisfaction",
+        "People",
+        colors
+      )
+    );
+    setCarryOutSocialConfig(
+      createTotalsChartConfig(
+        summary.carryOutSocialActivitiesRank,
+        "Carry Out Social Activities",
+        "People",
+        colors
+      )
+    );
+    setAnxietyConfig(
+      createTotalsChartConfig(
+        summary.anxietyInPastWeekRank,
+        "Anxiety In Past Week",
+        "People",
+        colors
+      )
+    );
+    setTotalEntries(totalFullEntries);
+  }, [data]);
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
@@ -156,6 +272,68 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                 data={phq8Config.data}
                 height={"300px"}
               />
+            </WrapItem>
+
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={qualityOfLife.options}
+                data={qualityOfLife.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={mentalHealthRank.options}
+                data={mentalHealthRank.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={socialSatisfactionRank.options}
+                data={socialSatisfactionRank.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={carryOutSocial.options}
+                data={carryOutSocial.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar options={anxiety.options} data={anxiety.data} height={"300px"} />
             </WrapItem>
           </Wrap>
         </>

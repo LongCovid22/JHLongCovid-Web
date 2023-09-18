@@ -225,67 +225,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             }
           />
         </WrapItem>
-        <WrapItem
-          width={width < 1500 ? "300px" : "325px"}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar
-            options={qualityOfLife.options}
-            data={qualityOfLife.data}
-            height={"300px"}
-          />
-        </WrapItem>
-        <WrapItem
-          width={width < 1500 ? "300px" : "325px"}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar
-            options={mentalHealthRank.options}
-            data={mentalHealthRank.data}
-            height={"300px"}
-          />
-        </WrapItem>
-        <WrapItem
-          width={width < 1500 ? "300px" : "325px"}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar
-            options={socialSatisfactionRank.options}
-            data={socialSatisfactionRank.data}
-            height={"300px"}
-          />
-        </WrapItem>
-        <WrapItem
-          width={width < 1500 ? "300px" : "325px"}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar
-            options={carryOutSocial.options}
-            data={carryOutSocial.data}
-            height={"300px"}
-          />
-        </WrapItem>
-        <WrapItem
-          width={width < 1500 ? "300px" : "325px"}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar options={anxiety.options} data={anxiety.data} height={"300px"} />
-        </WrapItem>
+        
       </Wrap>
     </VStack>
   );

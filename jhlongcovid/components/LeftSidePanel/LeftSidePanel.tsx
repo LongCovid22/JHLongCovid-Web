@@ -262,23 +262,11 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
               <Wrap>
                 <WrapItem>
                   <HStack spacing="0px">
-                    <Box
-                      bg="#002D72" // Background color
-                      color="white" // Text color
-                      borderRadius="lg" // Rounded corners
-                      p="4" // Padding
-                      textAlign="center" // Center align content
-                      position="relative" // To position number on top
-                      display="inline-block" // Adjust to fit the content
-                      maxW = "300px"
-                    >
-                      <Heading as="h3" size="lg" mb="2">
-                        {totalEntries + " total entries in"}
-                      </Heading>
+                    <Box display="flex" flexDirection="column">
                       <Heading as="h3" size="lg" mb="2">
                         {data.level === "state" ? data.name : data.name + ", " + data.stateAbbrev}
                       </Heading>
-                      
+                      <Text as="span" fontSize="lg" color="heritageBlue.500">{totalEntries} total survey entries completed</Text>
                     </Box>
                     <IconButton
                       aria-label="downloadButton"
