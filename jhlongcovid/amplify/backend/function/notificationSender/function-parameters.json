@@ -10,8 +10,12 @@
   "lambdaLayers": [],
   "environmentVariableList": [
     {
-      "cloudFormationParameterName": "weeklyRemindersQueueUrl",
-      "environmentVariableName": "WEEKLY_REMINDERS_QUEUE_URL"
+      "cloudFormationParameterName": "weeklyRemindersQueueDev",
+      "environmentVariableName": "WEEKLY_REMINDERS_QUEUE_DEV"
+    },
+    {
+      "cloudFormationParameterName": "weeklyRemindersQueueStaging",
+      "environmentVariableName": "WEEKLY_REMINDERS_QUEUE_STAGING"
     }
   ]
 }

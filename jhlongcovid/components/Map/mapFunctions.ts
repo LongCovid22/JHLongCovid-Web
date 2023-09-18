@@ -101,12 +101,26 @@ export const objectifyMapData = (mapData: any[]) => {
 };
 
 export const calculateRadius = (
-  cases: number,
-  totalCases: number,
+  data: any,
+  total: number,
+  type: "totalLongCovid" | "totalCovid",
   stateOrCounty: string,
   realOrMock: RealOrMock
 ): number => {
-  const ratio = cases / totalCases;
+  let ratio: number;
+  if (total > 0) {
+    if (type == "totalLongCovid") {
+      ratio = data.longCovid / total;
+    } else {
+      ratio = data.covidCount / total;
+    }
+  } else {
+    return 50000;
+  }
+  if (ratio == 0) {
+    return 5000;
+  }
+
   if (stateOrCounty === "state") {
     const maxRadius = 500000;
     return realOrMock === RealOrMock.MOCK
@@ -117,6 +131,24 @@ export const calculateRadius = (
     return realOrMock === RealOrMock.MOCK
       ? ratio * maxRadius * 120
       : ratio * maxRadius;
+  }
+};
+
+export const markerColor = (type: "totalCovid" | "totalLongCovid") => {
+  switch (type) {
+    case "totalCovid":
+      return "#38A169";
+    case "totalLongCovid":
+      return "#68ACE5";
+  }
+};
+
+export const markerHoverColor = (type: "totalCovid" | "totalLongCovid") => {
+  switch (type) {
+    case "totalCovid":
+      return "#276749";
+    case "totalLongCovid":
+      return "#227bc5";
   }
 };
 

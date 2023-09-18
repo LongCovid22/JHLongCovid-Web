@@ -12,6 +12,9 @@ interface HeaderProps {
   setShowInstructions: React.Dispatch<React.SetStateAction<boolean>>;
   showSurveyOnLaunch?: boolean;
   setShowSurveyOnLaunch?: React.Dispatch<React.SetStateAction<boolean>>;
+  setMarkerType?: React.Dispatch<
+    React.SetStateAction<"totalLongCovid" | "totalCovid">
+  >;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -22,6 +25,7 @@ export const Header: React.FC<HeaderProps> = ({
   setShowInstructions,
   showSurveyOnLaunch,
   setShowSurveyOnLaunch,
+  setMarkerType,
 }) => {
   return (
     <Flex>
@@ -31,6 +35,7 @@ export const Header: React.FC<HeaderProps> = ({
         setShowInstructions={setShowInstructions}
         showSurveyOnLaunch={showSurveyOnLaunch}
         setShowSurveyOnLaunch={setShowSurveyOnLaunch}
+        setMarkerType={setMarkerType}
       />
       <HStack
         position={"absolute"}
