@@ -20,9 +20,11 @@ import {
   StatLabel,
   StatNumber,
   StatHelpText,
-  VStack,
+  VStack, Tooltip as ChakraTooltip,
   Spinner,
 } from "@chakra-ui/react";
+
+import { QuestionOutlineIcon } from '@chakra-ui/icons';
 import { Bar, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -155,6 +157,9 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               p={"30px"}
               minWidth="340px"
             >
+              <ChakraTooltip label="PHQ8 is a 8 question survey established as a valid diagnostic and severity measure for depressive disorders. Scores are rated as normal (0-2), mild (3-5), moderate (6-8), and severe (9-12)." maxW="150px" fontSize="sm">
+                <QuestionOutlineIcon boxSize={5} ml={1} mr={1} mt={2} />
+              </ChakraTooltip>
               <Doughnut
                 options={phq8Config.options}
                 data={phq8Config.data}
