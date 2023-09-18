@@ -366,6 +366,8 @@
             "title": "Number of shots: ",
             "placeholder": "Enter number of shots",
             "validation": {
+              "min": 0,
+              "max": 10,
               "regex": "^[0-9]+$",
               "errorText": "Please enter a valid number"
             }

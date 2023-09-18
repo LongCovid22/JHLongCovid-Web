@@ -29,6 +29,30 @@ export const ConsentParseAndNext = (email: string) => {
   cy.contains("button", "Next").click();
 };
 
+export const DemographicsParseWithLocationAndNext = (
+  age: string,
+  sex: string,
+  height_ft: string,
+  height_in: string,
+  weight_lbs: string,
+  race: string,
+  location: string
+) => {
+  cy.get('input[placeholder="Enter your zipcode"]').type(location);
+  pressButton("Verify");
+  cy.contains("Change location").scrollIntoView();
+  cy.get('[data-testid="age-input"]').find("input").type(age);
+  cy.get('[data-testid="sex-input"]').select(sex);
+  targetInputWithTestIdAndFillWithValue("height-ft-input", height_ft);
+  targetInputWithTestIdAndFillWithValue("height-in-input", height_in);
+  targetInputWithTestIdAndFillWithValue("weight-input", weight_lbs);
+  if (race) {
+    cy.get('[data-testid="race-input"]').contains(race).click();
+  }
+  cy.contains("button", "Next").click();
+};
+
+
 export const DemographicsParseAndNext = (
   age: string,
   sex: string,
@@ -38,7 +62,7 @@ export const DemographicsParseAndNext = (
   race: string
 ) => {
   cy.contains("Find My Location").click();
-  cy.wait(1000);
+  cy.wait(5000);
   cy.contains("Change location").scrollIntoView();
   
   cy.get('[data-testid="age-input"]').find("input").type(age);
@@ -63,10 +87,20 @@ export const RadioWithCustomParseAndNext = (answer : string) => {
   RadioOnlyParseAndNext(answer);
 }
 
+export const TextInputandParseOnly = (placeholder: string, answer: string) => {
+  cy.get(`input[placeholder="${placeholder}"]`) // Locate the input field by placeholder text
+      .type(answer); // Type the date value
+}
+
 export const TextInputandParseAndNext = (placeholder: string, answer: string) => {
   cy.get(`input[placeholder="${placeholder}"]`) // Locate the input field by placeholder text
       .type(answer); // Type the date value
     cy.contains("button", "Next").click();
+}
+
+export  const getDataTestIdAndSelectAndNext = (dataTestId: string, select: string): void => {
+  cy.get(`[data-testid="${dataTestId}"]`).select(select);
+  pressButton("Next");
 }
 
 export const MultiChoiceParseAndNext = (answer : string) => {
@@ -95,6 +129,31 @@ export function clickRadioButtonsAndNext(testIds: string[]) {
   cy.contains("button", "Next").click();
 }
 
+export function sliderRandomAndNext(currentQuestion: any) {
+  let sliderProps = currentQuestion.options.sliderProps;
+  const { min, max, step, default: currentValue } = sliderProps;
+  // Generate a random value between min and max (inclusive)
+  const randomValue = Math.floor(Math.random() * (max - min + 1)) + min;
+// Calculate the number of steps to reach the randomValue
+  const stepsToValue = Math.abs(currentValue - randomValue) / step;
+// Determine whether to press left or right arrow keys
+  const direction = randomValue < currentValue ? '{leftarrow}' : '{rightarrow}';
+  // Press the arrow key the appropriate number of times
+  for (let i = 0; i < stepsToValue; i++) {
+    cy.get('[role="slider"]').type(direction);
+  }
+  pressButton("Next");
+}
+
+export function getRandomVaccine(option: any) {
+  let value;
+  if (option.placeholder === "Enter vaccine type") {
+    let vaccines = ["vaccineA", "vaccineB", "vaccineC", "vaccineD"];
+    value = vaccines[getRandomInt(vaccines.length)];
+    TextInputandParseAndNext(option.placeholder, value);
+  }
+}
+
 export function getRandomInt(max : number) {
   return Math.floor(Math.random() * max);
 }
@@ -104,7 +163,27 @@ export function getRandomArbitrary(min: number, max: number) : number {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-let validDate =  "2023-11-08";
+
+export function randomDate() {
+  const startDate = new Date('2020-01-01');
+  const endDate = new Date();
+  
+  // Calculate the time difference in milliseconds
+  const timeDiff = endDate.getTime() - startDate.getTime();
+  
+  // Generate a random number within the time difference
+  const randomTime = Math.floor(Math.random() * timeDiff);
+  
+  // Create a new Date by adding the random time to the start date
+  const randomDate = new Date(startDate.getTime() + randomTime);
+  
+  // Convert the random date to a string in "YYYY-MM-DD" format
+  const dateString = randomDate.toISOString().split('T')[0];
+  
+  return dateString;
+}
+
+let validDate =  randomDate();
 
 export function questionToRandomAnswer(currentQuestion: any) {
   let answerFormat = currentQuestion.answerFormat;
@@ -174,7 +253,7 @@ export function questionToRandomAnswer(currentQuestion: any) {
 
 }
 
-function pressButton(name: string) {
+export function pressButton(name: string) {
   cy.contains("button", name).click()
 }
 
@@ -300,7 +379,6 @@ function testBranchingLogicForCurrentSection(SectionIndex: number, QuestionIndex
 // 5) single inputs: "input" / "scale"
 // 5) pages: "welcome", "consent", "demographics", "account", "thankYou"
 // As of 9/8/2023 branching only happens with the 1st Type
-
 export function goNext(SectionIndex: number, QuestionIndex: number) {
   let currentQuestion : any = surveyLogic.questions[SectionIndex][QuestionIndex];
   let answerFormat = currentQuestion.answerFormat;
