@@ -29,12 +29,11 @@ import {
   VStack,
   Spinner,
   Tooltip as ChakraTooltip,
-
   HStack,
   Flex,
 } from "@chakra-ui/react";
 
-import { QuestionOutlineIcon } from '@chakra-ui/icons';
+import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import { Bar, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -81,23 +80,29 @@ type RecoverySummary = {
   avglengthOfRecovery: SummaryDemos;
 };
 
-export const numberAndPercentage = (num: number, percentage: number, title: string, description: string) => {
-
+export const numberAndPercentage = (
+  num: number,
+  percentage: number,
+  title: string,
+  description: string
+) => {
   return (
     <>
-      <StatLabel>{title} <ChakraTooltip label={description} maxW="150px" fontSize="sm">
-        <QuestionOutlineIcon boxSize={2.5} ml={1} mr={1} />
-      </ChakraTooltip></StatLabel>
+      <StatLabel>
+        {title}{" "}
+        <ChakraTooltip label={description} maxW="150px" fontSize="sm">
+          <QuestionOutlineIcon boxSize={2.5} ml={1} mr={1} />
+        </ChakraTooltip>
+      </StatLabel>
       <StatNumber>
         <Flex alignItems="flex-start">
-          <span style={{ marginRight: '8px' }}>{`${num}`}</span>
+          <span style={{ marginRight: "8px" }}>{`${num}`}</span>
           <span>{`(${percentage.toFixed()}%)`}</span>
         </Flex>
       </StatNumber>
     </>
-  )
-
-}
+  );
+};
 
 export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
@@ -231,8 +236,6 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     createGraphVariables();
   }, [data, realOrMock]);
 
-  
-
   return (
     <VStack align={"start"} spacing="30px">
       {loading ? (
@@ -242,42 +245,82 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
             <WrapItem>
               <Stat>
-                {numberAndPercentage(totalCovidCases, percentTotalCovid, "COVID Cases", "reported exposure to COVID")}
+                {numberAndPercentage(
+                  totalCovidCases,
+                  percentTotalCovid,
+                  "COVID Cases",
+                  "Number of people who reported a COVID experience (% of the total survey entries)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                {numberAndPercentage(totalLongCovidFourWeeks, totalLongCovidFourWeeksPerc, "Long COVID >4 Weeks", "reported long COVID of more than 4 Weeks")}
+                {numberAndPercentage(
+                  totalLongCovidFourWeeks,
+                  totalLongCovidFourWeeksPerc,
+                  "Long COVID >4 Weeks",
+                  "Number of people experienceing COVID symptoms for over 4 weeks (% of total people who reported a COVID experience)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                {numberAndPercentage(totalLongCovidTwelveWeeks, totalLongCovidTwelveWeeksPerc, "Long COVID >12 Weeks", "reported long COVID of more than 12 Weeks")}
+                {numberAndPercentage(
+                  totalLongCovidTwelveWeeks,
+                  totalLongCovidTwelveWeeksPerc,
+                  "Long COVID >12 Weeks",
+                  "Number of people experienceing COVID symptoms for over 12 weeks (% of total people who reported a COVID experience)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                {numberAndPercentage(totalSelfReported, totalSelfReportedPerc, "Self Reported Long COVID", "self reported having long COVID")}
+                {numberAndPercentage(
+                  totalSelfReported,
+                  totalSelfReportedPerc,
+                  "Self Reported Long COVID",
+                  "Self reported having long COVID (% of the total survey entries)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                {numberAndPercentage(totalLongCovid, totalLongCovidPerc, "Total Long COVID", "self reported having long COVID or being symptomatic for more than 4 weeks")}
+                {numberAndPercentage(
+                  totalLongCovid,
+                  totalLongCovidPerc,
+                  "Total Long COVID",
+                  "The amount of people who reported symptoms for over 4 weeks or reported that they think they have long COVID (% of the total entries)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                {numberAndPercentage(hospitalizations, ((hospitalizations / totalCovidCases) * 100), "Hospitalizations", "hospitalized due to COVID")}
+                {numberAndPercentage(
+                  hospitalizations,
+                  (hospitalizations / totalCovidCases) * 100,
+                  "Hospitalizations",
+                  "Number of people that reported that they were hospitalized due to COVID complications (% of total people who reported a COVID experience)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                {numberAndPercentage(symptomatic, percentSymptomatic, "Symptomatic", "reported COVID related symptoms")}
+                {numberAndPercentage(
+                  symptomatic,
+                  percentSymptomatic,
+                  "Symptomatic",
+                  "Number of people that reported symptoms during their COVID experience (% of total people who reported a COVID experience)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                {numberAndPercentage(totalPrescribed, percentMedications, "Medications", "were prescribed medications")}
+                {numberAndPercentage(
+                  totalPrescribed,
+                  percentMedications,
+                  "Medications",
+                  "Number of people who were prescribed medications (% of total people who reported a COVID experience)"
+                )}
               </Stat>
             </WrapItem>
           </Wrap>

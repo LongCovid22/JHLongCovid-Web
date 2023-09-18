@@ -247,15 +247,21 @@ const createInfoPanelContentString = (data: any): string => {
 
   // Recovery counts
   const recoveryCount = data.recoveredCount !== null ? data.recoveredCount : 0;
-  const recoveryPercent = Math.round((recoveryCount / covidTotal) * 100);
+  let recoveryPercent = Math.round((recoveryCount / covidTotal) * 100);
+  if (isNaN(recoveryPercent)) {
+    recoveryPercent = 0;
+  }
   const recoveryCountString = addCommasToNumberString(recoveryCount);
 
   // Symptoms over 12 weeks
   const symptomsOverTwelve =
     data.longCovidOverTwelveWeeks !== null ? data.longCovidOverTwelveWeeks : 0;
-  const symptomsOverTwelvePercent = Math.round(
+  let symptomsOverTwelvePercent = Math.round(
     (symptomsOverTwelve / covidTotal) * 100
   );
+  if (isNaN(symptomsOverTwelvePercent)) {
+    symptomsOverTwelvePercent = 0;
+  }
   const symptomsOverTwelveString = addCommasToNumberString(symptomsOverTwelve);
 
   const contentString =

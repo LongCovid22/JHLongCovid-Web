@@ -181,8 +181,6 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
     }
   }, [data, mockResult, realOrMock]);
 
-
-
   const setDimensions = () => {
     if (panelRef.current !== null) {
       setPanelDimensions({
@@ -261,12 +259,16 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
             <Flex width={"100%"}>
               <Wrap>
                 <WrapItem>
-                  <HStack spacing="0px">
+                  <HStack spacing="0px" align={"top"}>
                     <Box display="flex" flexDirection="column">
                       <Heading as="h3" size="lg" mb="2">
-                        {data.level === "state" ? data.name : data.name + ", " + data.stateAbbrev}
+                        {data.level === "state"
+                          ? data.name
+                          : data.name + ", " + data.stateAbbrev}
                       </Heading>
-                      <Text as="span" fontSize="lg" color="heritageBlue.500">{totalEntries} total survey entries completed</Text>
+                      <Text as="span" fontSize="lg" color="gray.600">
+                        {totalEntries} total survey entries
+                      </Text>
                     </Box>
                     <IconButton
                       aria-label="downloadButton"
@@ -286,8 +288,9 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
                         const a = document.createElement("a");
                         a.download =
                           realOrMock === RealOrMock.REAL
-                            ? `${joinWordsByDash(data.name)}-${data.level
-                            }-jhlongcovid-data.json`
+                            ? `${joinWordsByDash(data.name)}-${
+                                data.level
+                              }-jhlongcovid-data.json`
                             : "data.json";
                         a.href = window.URL.createObjectURL(blob);
                         const clickEvent = new MouseEvent("click", {
