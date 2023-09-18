@@ -9,6 +9,7 @@ import { ChoiceQuestion } from "./SurveyBody/ChoiceQuestion";
 import { InputQuestion } from "./SurveyBody/InputQuestion";
 import { Account } from "./SurveyBody/Account";
 import { ThankYou } from "./SurveyBody/ThankYou";
+import { ReviewAnswers } from "./SurveyBody/ReviewAnswers";
 import { ScaleQuestion } from "./SurveyBody/ScaleQuestion";
 import { MultiChoiceQuestion } from "./SurveyBody/MultiChoiceQuestion";
 import { ComeBackLater } from "./SurveyBody/ComeBackLater";
@@ -23,6 +24,9 @@ export interface SurveyQuestionProps {
   location?: LocationData;
   setErrorPresent?: (error: boolean) => void;
   setErrorText?: (text: string) => void;
+  setAgeDemoError?: (error: boolean) => void;
+  setHeightDemoError?: (error: boolean) => void;
+  setWeightDemoError?: (error: boolean) => void;
   setLocationData?: React.Dispatch<React.SetStateAction<LocationData>>;
   onVerify?: () => void;
   handleQuestionChange?: (
@@ -38,6 +42,9 @@ export const SurveyBody: React.FC<SurveyQuestionProps> = ({
   setRecap,
   setErrorPresent,
   setErrorText,
+  setAgeDemoError,
+  setHeightDemoError,
+  setWeightDemoError,
   setLocationData,
   onVerify,
   handleQuestionChange,
@@ -90,6 +97,9 @@ export const SurveyBody: React.FC<SurveyQuestionProps> = ({
         currentQuestion={currentQuestion}
         setAnswer={setAnswer}
         location={location}
+        setAgeDemoError = {setAgeDemoError}
+        setHeightDemoError = {setHeightDemoError}
+        setWeightDemoError = {setWeightDemoError}
         setLocationData={setLocationData}
         setErrorPresent={setErrorPresent}
       />
@@ -110,7 +120,10 @@ export const SurveyBody: React.FC<SurveyQuestionProps> = ({
     return (
       <InputQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
     );
-  } else if (answerFormat === "account") {
+  } else if (answerFormat === "review") {
+    return (<ReviewAnswers currentQuestion={currentQuestion} setAnswer={setAnswer}/>);
+  }
+   else if (answerFormat === "account") {
     return (
       <Account
         currentQuestion={currentQuestion}
@@ -126,6 +139,6 @@ export const SurveyBody: React.FC<SurveyQuestionProps> = ({
       <ScaleQuestion currentQuestion={currentQuestion} setAnswer={setAnswer} />
     );
   } else {
-    return <Text>Sample Text</Text>;
+    return <Text></Text>;
   }
 };

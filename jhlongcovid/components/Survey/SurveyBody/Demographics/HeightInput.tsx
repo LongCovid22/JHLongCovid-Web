@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { UserInfo } from "../../SurveyWrapper";
 import {
-  PinInput,
   FormControl,
   FormLabel,
   HStack,
-  PinInputField,
   Text,
   FormErrorMessage,
   Input,
@@ -41,54 +38,24 @@ export const HeightInput: React.FC<HeightInputProps> = ({
   setErrorPresent,
 }) => {
   const [heightErrorText, setHeightErrorText] = useState<string | null>(null);
-  const [feet, setFeet] = useState<string>("");
-  const [inches, setInches] = useState<string>("");
-  const [totalInches, setTotalInches] = useState<number>(0);
-  const [initialRender, setInitialRender] = useState(true);
 
-  const formatFeet = (height: string) => {
-    if (height.length > 0) {
-      const splitheight = height.split("");
-      if (splitheight.length >= 1) {
-        return splitheight[0];
-      }
-    }
+  const [heightFeet, setHeightFeet] = useState<string>("");
+  const [heightInches, setHeightInches] = useState<string>("");
 
-    return "";
-  };
+  
+  function isStringOfIntegers(input: string): boolean {
+    // Use a regular expression to check if the string contains only integer digits
+    return /^\d+$/.test(input);
+  }
 
-  const formatInches = (height: string) => {
-    if (height.length > 0) {
-      const splitheight = height.split("");
-      if (splitheight.length == 1) {
-        return "0";
-      } else if (splitheight.length > 1) {
-        return splitheight.splice(1).join("");
-      }
-    }
 
-    return null;
-  };
+  useEffect(() => {
+    if (isStringOfIntegers(heightFeet) && isStringOfIntegers(heightInches)) {
+      let inchParse = parseInt(heightInches);
+      let feetParse = parseInt(heightFeet);
 
-  const handleFeetChange = (value: string) => {
-    const num = parseInt(value);
-    if (isNaN(num) || num <= 0 || num > 7) {
-      if (setErrorPresent) setErrorPresent(true);
-      setHeightErrorText("Invalid height");
-    } else {
-      if (setErrorPresent) setErrorPresent(false);
-      setHeightErrorText(null);
-    }
-    // setFeet(value);
-    let demosCopy = { ...demos };
-    demosCopy["feet"] = value;
-    setDemos(demosCopy);
-  };
-
-  const handleInchesChange = (value: string) => {
-    if (value !== "") {
-      const num = parseInt(value);
-      if (isNaN(num) || num <= 0 || num > 11) {
+      if (isNaN(inchParse) || isNaN(feetParse) || inchParse < 0 || feetParse <= 0 
+      || inchParse > 11 || feetParse > 7) {
         if (setErrorPresent) setErrorPresent(true);
         setHeightErrorText("Invalid height");
       } else {
@@ -96,42 +63,31 @@ export const HeightInput: React.FC<HeightInputProps> = ({
         setHeightErrorText(null);
       }
     } else {
-      if (setErrorPresent) setErrorPresent(false);
+      if (setErrorPresent) setErrorPresent(true);
+      setHeightErrorText("Invalid height");
+    }
+
+    if (heightFeet === "" || heightInches === "") {
       setHeightErrorText(null);
     }
 
+
+  }, [heightFeet, heightInches, setErrorPresent]);
+  
+  const handleNewChange = (payload: string, feature: string) => {
     let demosCopy = { ...demos };
-    demosCopy["inches"] = value;
+    if (feature === "feet") {
+      demosCopy["feet"] = payload;
+      setHeightFeet(payload);
+    } else if (feature === "inches") {
+      demosCopy["inches"] = payload;
+      setHeightInches(payload);
+    }
     setDemos(demosCopy);
-  };
+    setAnswer(demosCopy);
+  }
 
-  // useEffect(() => {
-  //   if (initialRender) {
-  //     const demosCopy = { ...demos };
-  //     if (demosCopy.height !== "") {
-  //       const splitHeight = demosCopy.height.split("");
-  //       if (splitHeight.length === 1) {
-  //         handleFeetChange(splitHeight[0]);
-  //       } else {
-  //         handleFeetChange(splitHeight[0]);
-  //         handleInchesChange(splitHeight.slice(1).join(""));
-  //       }
-  //     }
-  //     setInitialRender(false);
-  //   }
-  // }, [demos]);
-
-  // // When it gets loaded and when feet and inches change
-  // useEffect(() => {
-  //   const handleHeightChange = (feet: string, inches: string) => {
-  //     const demosCopy = { ...demos };
-  //     demosCopy["height"] = feet + inches;
-  //     setDemos(demosCopy);
-  //   };
-
-  //   handleHeightChange(feet, inches);
-  // }, [feet, inches]);
-
+ 
   return (
     <FormControl isInvalid={heightErrorText !== null}>
       <FormLabel fontSize={"18px"}>Height</FormLabel>
@@ -141,18 +97,15 @@ export const HeightInput: React.FC<HeightInputProps> = ({
           value={demos.feet}
           data-testid="height-ft-input"
           onChange={(event) => {
-            handleFeetChange(event.target.value);
-            // handleHeightChange(value);
+            handleNewChange(event.target.value, "feet");
           }}
         />
-          {/* <PinInputField /> */}
           <Text>ft</Text>
-        {/* </PinInput> */}
         <Input
           w="50px"
           value={demos.inches}
           onChange={(event) => {
-            handleInchesChange(event.target.value);
+            handleNewChange(event.target.value, "inches");
           }}
           data-testid="height-in-input"
         />

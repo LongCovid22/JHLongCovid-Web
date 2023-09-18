@@ -64,7 +64,7 @@ export const createSymptomCountConfig = (
         },
         title: {
           display: true,
-          text: "Symptom Counts",
+          text: "Symptom Counts during the Past Month",
           font: {
             size: 18,
             family: "Gentona",

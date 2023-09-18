@@ -192,16 +192,9 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
         <WrapItem>
           <Stat>
-            <StatLabel>Entries</StatLabel>
-            <StatNumber>{totalEntries}</StatNumber>
-            <StatHelpText>Total Survey Entries</StatHelpText>
-          </Stat>
-        </WrapItem>
-        <WrapItem>
-          <Stat>
             <StatLabel>Symptoms Count</StatLabel>
             <StatNumber>{totalSymptomsCount}</StatNumber>
-            <StatHelpText>Total people w/ symptoms</StatHelpText>
+            <StatHelpText>Total people with symptoms</StatHelpText>
           </Stat>
         </WrapItem>
         <WrapItem>
@@ -232,67 +225,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             }
           />
         </WrapItem>
-        <WrapItem
-          width={width < 1500 ? "300px" : "325px"}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar
-            options={qualityOfLife.options}
-            data={qualityOfLife.data}
-            height={"300px"}
-          />
-        </WrapItem>
-        <WrapItem
-          width={width < 1500 ? "300px" : "325px"}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar
-            options={mentalHealthRank.options}
-            data={mentalHealthRank.data}
-            height={"300px"}
-          />
-        </WrapItem>
-        <WrapItem
-          width={width < 1500 ? "300px" : "325px"}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar
-            options={socialSatisfactionRank.options}
-            data={socialSatisfactionRank.data}
-            height={"300px"}
-          />
-        </WrapItem>
-        <WrapItem
-          width={width < 1500 ? "300px" : "325px"}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar
-            options={carryOutSocial.options}
-            data={carryOutSocial.data}
-            height={"300px"}
-          />
-        </WrapItem>
-        <WrapItem
-          width={width < 1500 ? "300px" : "325px"}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar options={anxiety.options} data={anxiety.data} height={"300px"} />
-        </WrapItem>
+        
       </Wrap>
     </VStack>
   );

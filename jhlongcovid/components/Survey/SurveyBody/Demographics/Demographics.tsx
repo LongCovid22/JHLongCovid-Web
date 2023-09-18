@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {
-  Box,
   VStack,
   Text,
-  Spacer,
   FormControl,
   FormLabel,
-  FormHelperText,
-  Input,
   NumberInput,
   NumberInputField,
   NumberIncrementStepper,
@@ -19,8 +15,6 @@ import {
   Grid,
   GridItem,
   HStack,
-  PinInput,
-  PinInputField,
   FormErrorMessage,
   WrapItem,
   Wrap,
@@ -33,12 +27,17 @@ import { ConsoleLogger } from "@aws-amplify/core";
 import LocationInput from "./LocationInput";
 import { HeightInput } from "./HeightInput";
 import { WeightInput } from "./WeightInput";
+import { AgeInput } from "./AgeInput";
+import { isString } from "cypress/types/lodash";
 
 export const Demographics: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setAnswer,
   location,
   setLocationData,
+  setAgeDemoError,
+  setHeightDemoError,
+  setWeightDemoError,
   setErrorPresent,
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
@@ -53,10 +52,40 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
     weight: "",
   });
 
+  const [ageErrorText, setAgeErrorText] = useState<string | null>(null);
+
+
+  function isStringOfIntegers(input: string): boolean {
+    // Use a regular expression to check if the string contains only integer digits
+    return /^\d+$/.test(input);
+  }
+
+
+  function isValidPositiveInteger(input: string): boolean {
+    if (!isStringOfIntegers(input)) {
+      return false;
+    }
+    const parsedNumber = parseInt(input, 10); //Parse base 10
+    return !isNaN(parsedNumber) && parsedNumber >= 12 && parsedNumber <= 100;
+  }
+
   const handleAnswerChange = (key: string, value: string) => {
     let demosCopy = { ...demos };
     demosCopy[key as keyof typeof demosCopy] = value;
-    if (key === "zip") {
+    
+    if (key == "age") {
+      setDemos(demosCopy);
+      if (isValidPositiveInteger(value) || value === "") {
+        if (setAgeDemoError) {setAgeDemoError(false)};
+        setAgeErrorText(null);
+        setAnswer(demosCopy);
+      } else {
+        if (setAgeDemoError) {setAgeDemoError(true)};
+        setAgeErrorText("Age must be valid number between 12 and 100");
+      }
+    } 
+    
+    else if (key === "zip") {
       if (value.length <= 5) {
         setDemos(demosCopy);
       }
@@ -100,26 +129,12 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
               />
             </GridItem>
             <GridItem>
-              <FormControl>
-                <FormLabel fontSize={"18px"}>Age</FormLabel>
-                <NumberInput
-                  fontSize={"18px"}
-                  defaultValue={18}
-                  min={12}
-                  max={100}
-                  value={demos.age}
-                  onChange={(val) => {
-                    handleAnswerChange("age", val);
-                  }}
-                  data-testid="age-input"
-                >
-                  <NumberInputField fontSize={"18px"} />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </FormControl>
+              <AgeInput
+                    demos={demos}
+                    setDemos={setDemos}
+                    setAnswer={setAnswer}
+                    setAgeDemoError={setAgeDemoError}
+                  />
             </GridItem>
             <GridItem>
               <FormControl>
@@ -140,47 +155,17 @@ export const Demographics: React.FC<SurveyQuestionProps> = ({
             </GridItem>
             <GridItem>
               <HStack w="100%" align={"top"} spacing="0px">
-                {/* <FormControl>
-                  <FormLabel fontSize={"18px"}>Height</FormLabel>
-                  <HStack>
-                    <PinInput
-                      value={demos.height}
-                      onChange={(value) => {
-                        handleAnswerChange("height", value);
-                      }}
-                    >
-                      <PinInputField />
-                      <Text>ft</Text>
-                      <PinInputField />
-                      <Text>in</Text>
-                    </PinInput>
-                  </HStack>
-                </FormControl> */}
                 <HeightInput
                   demos={demos}
                   setDemos={setDemos}
                   setAnswer={setAnswer}
-                  setErrorPresent={setErrorPresent}
+                  setErrorPresent={setHeightDemoError}
                 />
-                {/* <FormControl>
-                  <FormLabel fontSize={"18px"}>Weight</FormLabel>
-                  <HStack>
-                    <Input
-                      fontSize={"18px"}
-                      placeholder="Enter weight"
-                      value={demos.weight}
-                      onChange={(event) => {
-                        handleAnswerChange("weight", event.target.value);
-                      }}
-                    />
-                    <Text>lbs</Text>
-                  </HStack>
-                </FormControl> */}
                 <WeightInput
                   demos={demos}
                   setDemos={setDemos}
                   setAnswer={setAnswer}
-                  setErrorPresent={setErrorPresent}
+                  setErrorPresent={setWeightDemoError}
                 />
               </HStack>
             </GridItem>

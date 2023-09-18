@@ -86,7 +86,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const dispatch = useAppDispatch();
   const [performingQueries, setPerformingQueries] = useState(false);
   const [recap, setRecap] = useState(false);
-  const [answer, setAnswer] = useState<string | string[] | object | null>(
+  const [answer, setAnswer] = useState<string | string[] | boolean | object | null>(
     currentQuestion.answer
   );
 
@@ -115,6 +115,12 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
   const [missingAnswer, setMissingAnswer] = useState(false);
   const [errorText, setErrorText] = useState("");
   const [errorPresent, setErrorPresent] = useState(false);
+
+  const [ageDemoError, setAgeDemoError] = useState(false);
+
+  const [heightDemoError, setHeightDemoError] = useState(false);
+
+  const [weightDemoError, setWeightDemoError] = useState(false);
 
   const {
     isOpen: isConfirmOpen,
@@ -149,6 +155,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
       // Check for empty fields during the demographics stage
       if (currentQuestion.answerFormat === "demographics") {
+        console.log(ageDemoError);
         if (answer !== null) {
           const emptyLocation = checkEmptyLocationData(location);
           const emptyFields = checkEmptyDemoFields(answer);
@@ -161,14 +168,39 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             return;
           }
         }
-        if (errorPresent) {
+
+        if (ageDemoError || heightDemoError || weightDemoError) {
           setErrorText(`Please correct invalid responses`);
+          setMissingAnswer(true);
           return;
         }
+
+
+
       }
 
+      
+      if (currentQuestion.answerFormat === "review") {
+          if (answer === "" || answer === null || answer === false) {
+            setErrorText("Please scroll down, read through your answers, and click the checkbox.");
+            setMissingAnswer(true);
+            return;
+          } else {
+            setMissingAnswer(false);
+          }
+      } 
+      
+      // else if (currentQuestion.answerFormat === "input") {
+      //   if (answer === "" || answer === null || answer === "0") {
+      //     setErrorText("Please provide a number using the slider");
+      //     setMissingAnswer(true);
+      //     return;
+      //   } else {
+      //     setMissingAnswer(false);
+      //   }
+      // }
       // Check for empty fields in any stage of the survey
-      if (
+      else if (
         answer === "" ||
         answer === null ||
         (Array.isArray(answer) && answer.length === 0) ||
@@ -195,7 +227,10 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           setMissingAnswer(true);
           return;
         }
-      } else {
+      } 
+      
+      
+      else {
         setMissingAnswer(false);
       }
     }
@@ -238,7 +273,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           }
         }
       }
-
+      console.log(answer);
       dispatch(nextQuestion({ answer: answer }));
     }
     setAnswer("");
@@ -583,6 +618,9 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             setAnswer={setAnswer}
             setErrorPresent={setErrorPresent}
             setErrorText={setErrorText}
+            setAgeDemoError={setAgeDemoError}
+            setHeightDemoError={setHeightDemoError}
+            setWeightDemoError={setWeightDemoError}
             location={location}
             setLocationData={setLocation}
             onVerify={() => handleQuestionChange("next")}
@@ -621,17 +659,31 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
                 </Text>
               )}
               {currentQuestion.answerFormat === "account" && (
-                <Button
-                  background={"spiritBlue.100"}
-                  color={"heritageBlue.500"}
-                  borderRadius={500}
-                  onClick={() => {
-                    handleQuestionChange("skip");
-                  }}
-                  fontSize="lg"
-                >
-                  Skip
-                </Button>
+                <>
+                  <Button
+                    colorScheme="heritageBlue"
+                    borderRadius={500}
+                    onClick={() => {
+                      handleQuestionChange("prev");
+                    }}
+                    fontSize="lg"
+                  >
+                    Prev
+                  </Button>
+
+                  <Button
+                    background={"spiritBlue.100"}
+                    color={"heritageBlue.500"}
+                    borderRadius={500}
+                    onClick={() => {
+                      handleQuestionChange("skip");
+                    }}
+                    fontSize="lg"
+                  >
+                    Skip
+                  </Button>
+                </>
+
               )}
               {!isFirstQuestion &&
                 !isFinalSection &&

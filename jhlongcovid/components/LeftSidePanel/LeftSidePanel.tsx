@@ -171,6 +171,15 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
   const [loading, setLoading] = useState(true);
   const [summaryData, setSummaryData] = useState<any>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const [totalEntries, setTotalEntries] = useState(0);
+
+  useEffect(() => {
+    if (data && realOrMock === RealOrMock.REAL) {
+      setTotalEntries(data.totalFullEntries);
+    } else {
+      setTotalEntries(mockResult.county.totalFullEntries);
+    }
+  }, [data, mockResult, realOrMock]);
 
   const setDimensions = () => {
     if (panelRef.current !== null) {
@@ -250,12 +259,17 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
             <Flex width={"100%"}>
               <Wrap>
                 <WrapItem>
-                  <HStack spacing="0px">
-                    <Heading as="h3" size="lg">
-                      {data.level === "state"
-                        ? data.name
-                        : data.name + ", " + data.stateAbbrev}
-                    </Heading>
+                  <HStack spacing="0px" align={"top"}>
+                    <Box display="flex" flexDirection="column">
+                      <Heading as="h3" size="lg" mb="2">
+                        {data.level === "state"
+                          ? data.name
+                          : data.name + ", " + data.stateAbbrev}
+                      </Heading>
+                      <Text as="span" fontSize="lg" color="gray.600">
+                        {totalEntries} total survey entries
+                      </Text>
+                    </Box>
                     <IconButton
                       aria-label="downloadButton"
                       variant={"none"}

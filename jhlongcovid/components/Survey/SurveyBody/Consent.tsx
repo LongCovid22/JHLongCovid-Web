@@ -152,7 +152,7 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
           <FormLabel fontSize={"xl"}>Print your email</FormLabel>
           <Input
             type="text"
-            placeholder="Enter Email "
+            placeholder="Enter Email"
             colorScheme="heritageBlue"
             value={email}
             focusBorderColor={"clear"}

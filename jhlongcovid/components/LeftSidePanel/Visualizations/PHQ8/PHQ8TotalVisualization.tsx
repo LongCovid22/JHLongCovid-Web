@@ -21,8 +21,16 @@ import {
   StatNumber,
   StatHelpText,
   VStack,
+  Tooltip as ChakraTooltip,
   Spinner,
+  HStack,
+  Spacer,
+  Circle,
+  Text,
+  Button,
 } from "@chakra-ui/react";
+
+import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import { Bar, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -52,6 +60,14 @@ import {
   PatientHealthQuestionnaireSummary,
   SummaryAvgValues,
 } from "../../../../src/API";
+
+import {
+  createSymptomCountConfig,
+  getSymptomsCount,
+  getMostCommonSymptom,
+} from "../Symptoms/symptomsVisualizationFunctions";
+
+import { capitalizeFirstLetters } from "../Social/socialVisualizationFunctions";
 
 ChartJS.register(
   CategoryScale,
@@ -105,6 +121,114 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   // const [avgPhq8Score, setAvgPhq8Score] = useState(0);
   const [totalEntries, setTotalEntries] = useState(0);
   const width = useAppSelector(selectWidth);
+  const [totalSymptomsCount, setTotalSymptomsCount] = useState(0);
+  const [mostCommonSymptom, setMostCommonSymptom] = useState("");
+
+  const [symptomCountConfig, setSymptomCountConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [qualityOfLife, setQOLConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [mentalHealthRank, setMentalHealthConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [socialSatisfactionRank, setSocialSatisConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [carryOutSocial, setCarryOutSocialConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  const [anxiety, setAnxietyConfig] = useState<{
+    labels: string[];
+    options: any;
+    data: any;
+  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+
+  useEffect(() => {
+    // Perform all processing on map data and populate visualizations
+    const colors = [
+      backgroundColors.green,
+      backgroundColors.blue,
+      backgroundColors.yellow,
+      backgroundColors.orange,
+      backgroundColors.red,
+    ];
+    let symptomSummary, covidSummary, totalFullEntries;
+
+    if (data && realOrMock === RealOrMock.REAL) {
+      symptomSummary = data.symptomSummary;
+      covidSummary = data.covidSummary;
+      totalFullEntries = data.totalFullEntries;
+    } else {
+      symptomSummary = mockResult.county.symptomSummary;
+      covidSummary = mockResult.county.covidSummary;
+      totalFullEntries = mockResult.county.totalFullEntries;
+    }
+
+    if (covidSummary.symptomatic) {
+      setTotalSymptomsCount(
+        getSymptomsCount(covidSummary.symptomatic as YesNo)
+      );
+    }
+
+    const summary = symptomSummary as SymptomSummary;
+    setMostCommonSymptom(
+      capitalizeFirstLetters(getMostCommonSymptom(summary.symptomCounts))
+    );
+    setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
+    setQOLConfig(
+      createTotalsChartConfig(
+        summary.qualityOfLife,
+        "Quality of Life",
+        "People",
+        colors
+      )
+    );
+    setMentalHealthConfig(
+      createTotalsChartConfig(
+        summary.mentalHealthRank,
+        "Mental Health",
+        "People",
+        colors
+      )
+    );
+    setSocialSatisConfig(
+      createTotalsChartConfig(
+        summary.socialSatisfactionRank,
+        "Social Satisfaction",
+        "People",
+        colors
+      )
+    );
+    setCarryOutSocialConfig(
+      createTotalsChartConfig(
+        summary.carryOutSocialActivitiesRank,
+        "Carry Out Social Activities",
+        "People",
+        colors
+      )
+    );
+    setAnxietyConfig(
+      createTotalsChartConfig(
+        summary.anxietyInPastWeekRank,
+        "Anxiety In Past Week",
+        "People",
+        colors
+      )
+    );
+    setTotalEntries(totalFullEntries);
+  }, [data]);
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
@@ -138,15 +262,6 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         <Spinner color="heritageBlue.800" />
       ) : (
         <>
-          <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
-            <WrapItem>
-              <Stat>
-                <StatLabel>Entries</StatLabel>
-                <StatNumber>{totalEntries}</StatNumber>
-                <StatHelpText>Total Survey Entries</StatHelpText>
-              </Stat>
-            </WrapItem>
-          </Wrap>
           <Wrap spacing="30px" overflow={"visible"}>
             <WrapItem
               width={width < 1500 ? "300px" : "325px"}
@@ -158,6 +273,78 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               <Doughnut
                 options={phq8Config.options}
                 data={phq8Config.data}
+                height={"300px"}
+              />
+              {/* <ChakraTooltip
+                label="PHQ8 is a 8 question survey established as a valid diagnostic and severity measure for depressive disorders. Scores are rated as normal (0-2), mild (3-5), moderate (6-8), and severe (9-12)."
+                maxW="150px"
+                fontSize="sm"
+              >
+                <QuestionOutlineIcon boxSize={5} ml={1} mr={1} mt={2} />
+              </ChakraTooltip> */}
+            </WrapItem>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={qualityOfLife.options}
+                data={qualityOfLife.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={mentalHealthRank.options}
+                data={mentalHealthRank.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={socialSatisfactionRank.options}
+                data={socialSatisfactionRank.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={carryOutSocial.options}
+                data={carryOutSocial.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            <WrapItem
+              width={width < 1500 ? "300px" : "325px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={anxiety.options}
+                data={anxiety.data}
                 height={"300px"}
               />
             </WrapItem>

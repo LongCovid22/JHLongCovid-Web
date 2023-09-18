@@ -10,6 +10,7 @@ import {
   FormErrorMessage,
   Input,
 } from "@chakra-ui/react";
+import { isString } from "cypress/types/lodash";
 
 export type WeightInputProps = {
   demos: {
@@ -40,33 +41,37 @@ export const WeightInput: React.FC<WeightInputProps> = ({
   setAnswer,
   setErrorPresent,
 }) => {
-  const [heightErrorText, setWeightErrorText] = useState<string | null>(null);
+  const [weightErrorText, setWeightErrorText] = useState<string | null>(null);
 
-  const isValidWeight = (weight: string) => {
-    if (weight === "") return true;
-    const num = parseInt(weight);
-    if (isNaN(num) || num < 90 || num > 600) {
-      return false;
-    }
-    return true;
-  };
+
+  function isStringOfIntegers(input: string): boolean {
+    // Use a regular expression to check if the string contains only integer digits
+    return /^\d+$/.test(input);
+  }
 
   const handleWeightChange = (value: string) => {
-    const demosCopy = { ...demos };
-    demosCopy["weight"] = value;
-    setDemos(demosCopy);
-    if (isValidWeight(value)) {
-      if (setErrorPresent) setErrorPresent(false);
-      setWeightErrorText(null);
-      setAnswer(demosCopy);
+    let num = value;    
+    if (isStringOfIntegers(value)) {
+      let checkNum = parseInt(value);
+      if (isNaN(checkNum) || checkNum <= 90 || checkNum > 600) {
+        if (setErrorPresent) setErrorPresent(true);
+        setWeightErrorText("Invalid weight");
+      } else {
+        if (setErrorPresent) setErrorPresent(false);
+        setWeightErrorText(null);
+      }
     } else {
       if (setErrorPresent) setErrorPresent(true);
       setWeightErrorText("Invalid weight");
     }
+    let demosCopy = { ...demos };
+    demosCopy["weight"] = num;
+    setDemos(demosCopy);
+    setAnswer(demosCopy);
   };
 
   return (
-    <FormControl isInvalid={heightErrorText !== null}>
+    <FormControl isInvalid={weightErrorText !== null}>
       <FormLabel fontSize={"18px"}>Weight</FormLabel>
       <HStack>
         <Input
@@ -80,8 +85,8 @@ export const WeightInput: React.FC<WeightInputProps> = ({
         />
         <Text>lbs</Text>
       </HStack>
-      {heightErrorText !== null && (
-        <FormErrorMessage>{heightErrorText}</FormErrorMessage>
+      {weightErrorText !== null && (
+        <FormErrorMessage>{weightErrorText}</FormErrorMessage>
       )}
     </FormControl>
   );

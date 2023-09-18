@@ -66,6 +66,7 @@ const Choices = (
                         onChange={(event) => {
                           setValue(event.target.value, option.validation);
                         }}
+                        data-testid="dropdown-input"
                       >
                         <option value={"1"}>1</option>
                         <option value={"2"}>2</option>

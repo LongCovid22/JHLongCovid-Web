@@ -28,8 +28,12 @@ import {
   StatHelpText,
   VStack,
   Spinner,
+  Tooltip as ChakraTooltip,
   HStack,
+  Flex,
 } from "@chakra-ui/react";
+
+import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import { Bar, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -74,6 +78,30 @@ type CovidSummary = {
 type RecoverySummary = {
   recovered: YesNo;
   avglengthOfRecovery: SummaryDemos;
+};
+
+export const numberAndPercentage = (
+  num: number,
+  percentage: number,
+  title: string,
+  description: string
+) => {
+  return (
+    <>
+      <StatLabel>
+        {title}{" "}
+        <ChakraTooltip label={description} maxW="150px" fontSize="sm">
+          <QuestionOutlineIcon boxSize={2.5} ml={1} mr={1} />
+        </ChakraTooltip>
+      </StatLabel>
+      <StatNumber>
+        <Flex alignItems="flex-start">
+          <span style={{ marginRight: "8px" }}>{`${num}`}</span>
+          <span>{`(${percentage.toFixed()}%)`}</span>
+        </Flex>
+      </StatNumber>
+    </>
+  );
 };
 
 export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
@@ -217,91 +245,82 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
             <WrapItem>
               <Stat>
-                <StatLabel>Entries</StatLabel>
-                <StatNumber>{totalEntries}</StatNumber>
-                <StatHelpText>Total Survey Entries</StatHelpText>
+                {numberAndPercentage(
+                  totalCovidCases,
+                  percentTotalCovid,
+                  "COVID Cases",
+                  "Number of people who reported a COVID experience (% of the total survey entries)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>COVID Cases</StatLabel>
-                <StatNumber>
-                  {`${totalCovidCases} (${percentTotalCovid.toFixed()}%)`}
-                </StatNumber>
-                <StatHelpText>{`Total COVID Cases`}</StatHelpText>
+                {numberAndPercentage(
+                  totalLongCovidFourWeeks,
+                  totalLongCovidFourWeeksPerc,
+                  "Long COVID >4 Weeks",
+                  "Number of people experienceing COVID symptoms for over 4 weeks (% of total people who reported a COVID experience)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>{"Long COVID >4 Weeks"}</StatLabel>
-                <StatNumber>
-                  {`${totalLongCovidFourWeeks} (${totalLongCovidFourWeeksPerc.toFixed()}%)`}
-                </StatNumber>
-                <StatHelpText>{`Not recovered >4 weeks`}</StatHelpText>
+                {numberAndPercentage(
+                  totalLongCovidTwelveWeeks,
+                  totalLongCovidTwelveWeeksPerc,
+                  "Long COVID >12 Weeks",
+                  "Number of people experienceing COVID symptoms for over 12 weeks (% of total people who reported a COVID experience)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>{"Long COVID >12 Weeks"}</StatLabel>
-                <StatNumber>
-                  {`${totalLongCovidTwelveWeeks} (${totalLongCovidTwelveWeeksPerc.toFixed()}%)`}
-                </StatNumber>
-                <StatHelpText>{`Not recovered >12 weeks`}</StatHelpText>
+                {numberAndPercentage(
+                  totalSelfReported,
+                  totalSelfReportedPerc,
+                  "Self Reported Long COVID",
+                  "Self reported having long COVID (% of the total survey entries)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>{"Self Reported Long COVID"}</StatLabel>
-                <StatNumber>
-                  {`${totalSelfReported} (${totalSelfReportedPerc.toFixed()}%)`}
-                </StatNumber>
-                <StatHelpText
-                  maxWidth={200}
-                  noOfLines={2}
-                >{`Reported Long COVID (% of total Long COVID cases)`}</StatHelpText>
+                {numberAndPercentage(
+                  totalLongCovid,
+                  totalLongCovidPerc,
+                  "Total Long COVID",
+                  "The amount of people who reported symptoms for over 4 weeks or reported that they think they have long COVID (% of the total entries)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>{"Total Long COVID"}</StatLabel>
-                <StatNumber>
-                  {`${totalLongCovid} (${totalLongCovidPerc.toFixed()}%)`}
-                </StatNumber>
-                <StatHelpText
-                  maxWidth={200}
-                  noOfLines={2}
-                >{`Total Long COVID (% of total survey entries)`}</StatHelpText>
-              </Stat>
-            </WrapItem>
-            {/* <WrapItem>
-              <Stat>
-                <StatLabel>Reported COVID %</StatLabel>
-                <StatNumber>{percentTotalCovid}%</StatNumber>
-                <StatHelpText>% of entries with COVID</StatHelpText>
-              </Stat>
-            </WrapItem> */}
-            <WrapItem>
-              <Stat>
-                <StatLabel>Hospitalizations</StatLabel>
-                <StatNumber>{`${hospitalizations} (${(
-                  (hospitalizations / totalCovidCases) *
-                  100
-                ).toFixed()}%)`}</StatNumber>
-                <StatHelpText>Caused by COVID</StatHelpText>
+                {numberAndPercentage(
+                  hospitalizations,
+                  (hospitalizations / totalCovidCases) * 100,
+                  "Hospitalizations",
+                  "Number of people that reported that they were hospitalized due to COVID complications (% of total people who reported a COVID experience)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>Symptomatic</StatLabel>
-                <StatNumber>{`${symptomatic} (${percentSymptomatic.toFixed()}%)`}</StatNumber>
-                <StatHelpText>Cases with symptoms</StatHelpText>
+                {numberAndPercentage(
+                  symptomatic,
+                  percentSymptomatic,
+                  "Symptomatic",
+                  "Number of people that reported symptoms during their COVID experience (% of total people who reported a COVID experience)"
+                )}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>Medications</StatLabel>
-                <StatNumber>{`${totalPrescribed} (${percentMedications.toFixed()}%)`}</StatNumber>
-                <StatHelpText>People prescribed medications</StatHelpText>
+                {numberAndPercentage(
+                  totalPrescribed,
+                  percentMedications,
+                  "Medications",
+                  "Number of people who were prescribed medications (% of total people who reported a COVID experience)"
+                )}
               </Stat>
             </WrapItem>
           </Wrap>
