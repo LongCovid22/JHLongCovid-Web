@@ -81,6 +81,24 @@ type RecoverySummary = {
   avglengthOfRecovery: SummaryDemos;
 };
 
+export const numberAndPercentage = (num: number, percentage: number, title: string, description: string) => {
+
+  return (
+    <>
+      <StatLabel>{title} <ChakraTooltip label={description} maxW="150px" fontSize="sm">
+        <QuestionOutlineIcon boxSize={2.5} ml={1} mr={1} />
+      </ChakraTooltip></StatLabel>
+      <StatNumber>
+        <Flex alignItems="flex-start">
+          <span style={{ marginRight: '8px' }}>{`${num}`}</span>
+          <span>{`(${percentage.toFixed()}%)`}</span>
+        </Flex>
+      </StatNumber>
+    </>
+  )
+
+}
+
 export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
   panelDimensions,
@@ -213,26 +231,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     createGraphVariables();
   }, [data, realOrMock]);
 
-  const numberAndPercentage = (num: number, percentage: number, description_num: string, description_percentage: any) => {
-
-    return (
-      <>
-        <StatNumber>
-          <Flex alignItems="flex-start" justifyContent="space-between">
-            <span>{`${num}`}</span>
-            <ChakraTooltip label={description_num} maxW="150px" fontSize="sm">
-              <QuestionOutlineIcon boxSize={2.5} ml={1} mr={1} mt={2} />
-            </ChakraTooltip>
-            <span>{`(${percentage.toFixed()}%)`}</span>
-            <ChakraTooltip label={description_percentage} maxW="150px" fontSize="sm" >
-              <QuestionOutlineIcon boxSize={2.5} ml={1} mr={1} mt={2} />
-            </ChakraTooltip>
-          </Flex>
-        </StatNumber>
-      </>
-    )
-
-  }
+  
 
   return (
     <VStack align={"start"} spacing="30px">
@@ -243,50 +242,42 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
             <WrapItem>
               <Stat>
-                <StatLabel>COVID Cases</StatLabel>
-                {numberAndPercentage(totalCovidCases, percentTotalCovid, "people reported exposure to COVID", "reported exposure to COVID")}
+                {numberAndPercentage(totalCovidCases, percentTotalCovid, "COVID Cases", "reported exposure to COVID")}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>{"Long COVID >4 Weeks"}</StatLabel>
-                {numberAndPercentage(totalLongCovidFourWeeks, totalLongCovidFourWeeksPerc, "people reported long COVID of more than 4 Weeks", "reported long COVID of more than 4 Weeks")}
+                {numberAndPercentage(totalLongCovidFourWeeks, totalLongCovidFourWeeksPerc, "Long COVID >4 Weeks", "reported long COVID of more than 4 Weeks")}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>{"Long COVID >12 Weeks"}</StatLabel>
-                {numberAndPercentage(totalLongCovidTwelveWeeks, totalLongCovidTwelveWeeksPerc, "people reported long COVID of more than 12 Weeks", "reported long COVID of more than 12 Weeks")}
+                {numberAndPercentage(totalLongCovidTwelveWeeks, totalLongCovidTwelveWeeksPerc, "Long COVID >12 Weeks", "reported long COVID of more than 12 Weeks")}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>{"Self Reported Long COVID"}</StatLabel>
-                {numberAndPercentage(totalSelfReported, totalSelfReportedPerc, "people self reported having long COVID", "self reported having long COVID")}
+                {numberAndPercentage(totalSelfReported, totalSelfReportedPerc, "Self Reported Long COVID", "self reported having long COVID")}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>{"Total Long COVID"}</StatLabel>
-                {numberAndPercentage(totalLongCovid, totalLongCovidPerc, "people either self reporting having long COVID or being symptomatic for more than 4 weeks", "self reported having long COVID or being symptomatic for more than 4 weeks")}
+                {numberAndPercentage(totalLongCovid, totalLongCovidPerc, "Total Long COVID", "self reported having long COVID or being symptomatic for more than 4 weeks")}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>Hospitalizations</StatLabel>
-                {numberAndPercentage(hospitalizations, ((hospitalizations / totalCovidCases) * 100), "people hospitalized due to COVID", "hospitalized due to COVID")}
+                {numberAndPercentage(hospitalizations, ((hospitalizations / totalCovidCases) * 100), "Hospitalizations", "hospitalized due to COVID")}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>Symptomatic</StatLabel>
-                {numberAndPercentage(symptomatic, percentSymptomatic, "people reported COVID related symptoms", "reported COVID related symptoms")}
+                {numberAndPercentage(symptomatic, percentSymptomatic, "Symptomatic", "reported COVID related symptoms")}
               </Stat>
             </WrapItem>
             <WrapItem>
               <Stat>
-                <StatLabel>Medications</StatLabel>
-                {numberAndPercentage(totalPrescribed, percentMedications, "people prescribed medications", "were prescribed medications")}
+                {numberAndPercentage(totalPrescribed, percentMedications, "Medications", "were prescribed medications")}
               </Stat>
             </WrapItem>
           </Wrap>

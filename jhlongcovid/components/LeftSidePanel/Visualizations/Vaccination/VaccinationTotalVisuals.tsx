@@ -44,6 +44,8 @@ import {
 import { RealOrMock } from "../../../../pages";
 import { VaccineTypes } from "../../../../src/API";
 
+import { numberAndPercentage } from "../COVID/COVIDTotalVisuals";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -109,11 +111,8 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
         <WrapItem>
           <Stat>
-            <StatLabel>Vaccinated</StatLabel>
-            <StatNumber>{`${totalVaccinated} (${Math.round(
-              (totalVaccinated / totalEntries) * 100
-            )}%)`}</StatNumber>
-            <StatHelpText>Total people vaccinated</StatHelpText>
+            {numberAndPercentage(totalVaccinated, Math.round(
+              (totalVaccinated / totalEntries) * 100), "Vaccinated", "total people vaccinated")}
           </Stat>
         </WrapItem>
       </Wrap>
