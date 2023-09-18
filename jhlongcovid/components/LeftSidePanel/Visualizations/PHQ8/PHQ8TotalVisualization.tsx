@@ -140,15 +140,6 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         <Spinner color="heritageBlue.800" />
       ) : (
         <>
-          <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
-            <WrapItem>
-              <Stat>
-                <StatLabel>Entries</StatLabel>
-                <StatNumber>{totalEntries}</StatNumber>
-                <StatHelpText>Total Survey Entries</StatHelpText>
-              </Stat>
-            </WrapItem>
-          </Wrap>
           <Wrap spacing="30px" overflow={"visible"}>
             <WrapItem
               width={width < 1500 ? "300px" : "325px"}

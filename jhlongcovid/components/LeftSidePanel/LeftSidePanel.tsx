@@ -171,6 +171,17 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
   const [loading, setLoading] = useState(true);
   const [summaryData, setSummaryData] = useState<any>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const [totalEntries, setTotalEntries] = useState(0);
+
+  useEffect(() => {
+    if (data && realOrMock === RealOrMock.REAL) {
+      setTotalEntries(data.totalFullEntries);
+    } else {
+      setTotalEntries(mockResult.county.totalFullEntries);
+    }
+  }, [data, mockResult, realOrMock]);
+
+
 
   const setDimensions = () => {
     if (panelRef.current !== null) {
@@ -251,11 +262,24 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
               <Wrap>
                 <WrapItem>
                   <HStack spacing="0px">
-                    <Heading as="h3" size="lg">
-                      {data.level === "state"
-                        ? data.name
-                        : data.name + ", " + data.stateAbbrev}
-                    </Heading>
+                    <Box
+                      bg="#002D72" // Background color
+                      color="white" // Text color
+                      borderRadius="lg" // Rounded corners
+                      p="4" // Padding
+                      textAlign="center" // Center align content
+                      position="relative" // To position number on top
+                      display="inline-block" // Adjust to fit the content
+                      maxW = "300px"
+                    >
+                      <Heading as="h3" size="lg" mb="2">
+                        {totalEntries + " total entries in"}
+                      </Heading>
+                      <Heading as="h3" size="lg" mb="2">
+                        {data.level === "state" ? data.name : data.name + ", " + data.stateAbbrev}
+                      </Heading>
+                      
+                    </Box>
                     <IconButton
                       aria-label="downloadButton"
                       variant={"none"}
@@ -274,9 +298,8 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
                         const a = document.createElement("a");
                         a.download =
                           realOrMock === RealOrMock.REAL
-                            ? `${joinWordsByDash(data.name)}-${
-                                data.level
-                              }-jhlongcovid-data.json`
+                            ? `${joinWordsByDash(data.name)}-${data.level
+                            }-jhlongcovid-data.json`
                             : "data.json";
                         a.href = window.URL.createObjectURL(blob);
                         const clickEvent = new MouseEvent("click", {

@@ -243,13 +243,6 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
             <WrapItem>
               <Stat>
-                <StatLabel>Entries</StatLabel>
-                <StatNumber>{totalEntries}</StatNumber>
-                <StatHelpText>Total Survey Entries</StatHelpText>
-              </Stat>
-            </WrapItem>
-            <WrapItem>
-              <Stat>
                 <StatLabel>COVID Cases</StatLabel>
                 {numberAndPercentage(totalCovidCases, percentTotalCovid, "people reported exposure to COVID", "reported exposure to COVID")}
               </Stat>

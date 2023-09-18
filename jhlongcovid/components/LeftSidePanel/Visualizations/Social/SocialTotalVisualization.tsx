@@ -151,13 +151,7 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   return (
     <VStack align={"start"}>
       <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
-        <WrapItem>
-          <Stat>
-            <StatLabel>Entries</StatLabel>
-            <StatNumber>{totalEntries}</StatNumber>
-            <StatHelpText>Total Survey Entries</StatHelpText>
-          </Stat>
-        </WrapItem>
+
         <WrapItem>
           <Stat>
             <StatLabel>Most Common Work Situation</StatLabel>
