@@ -201,7 +201,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           <Stat>
             <StatLabel>Symptoms Count</StatLabel>
             <StatNumber>{totalSymptomsCount}</StatNumber>
-            <StatHelpText>Total people w/ symptoms</StatHelpText>
+            <StatHelpText>Total people with symptoms</StatHelpText>
           </Stat>
         </WrapItem>
         <WrapItem>
