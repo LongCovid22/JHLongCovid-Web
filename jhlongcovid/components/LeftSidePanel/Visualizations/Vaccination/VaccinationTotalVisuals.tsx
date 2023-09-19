@@ -111,8 +111,12 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
         <WrapItem>
           <Stat>
-            {numberAndPercentage(totalVaccinated, Math.round(
-              (totalVaccinated / totalEntries) * 100), "Vaccinated", "total people vaccinated")}
+            {numberAndPercentage(
+              totalVaccinated,
+              Math.round((totalVaccinated / totalEntries) * 100),
+              "Vaccinated",
+              "Total people who reported getting vaccinated (% of people who received a vaccine out of all survey entries)"
+            )}
           </Stat>
         </WrapItem>
       </Wrap>

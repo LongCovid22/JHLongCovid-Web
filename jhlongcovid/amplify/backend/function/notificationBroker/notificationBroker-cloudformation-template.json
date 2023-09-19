@@ -28,7 +28,10 @@
       "Type": "String",
       "Default": "apijhlongcovidGraphQLAPIKeyOutput"
     },
-    "weeklyRemindersQueueUrl": {
+    "weeklyRemindersQueueDev": {
+      "Type": "String"
+    },
+    "weeklyRemindersQueueStaging": {
       "Type": "String"
     }
   },
@@ -94,8 +97,11 @@
             "API_JHLONGCOVID_GRAPHQLAPIKEYOUTPUT": {
               "Ref": "apijhlongcovidGraphQLAPIKeyOutput"
             },
-            "WEEKLY_REMINDERS_QUEUE_URL": {
-              "Ref": "weeklyRemindersQueueUrl"
+            "WEEKLY_REMINDERS_QUEUE_DEV": {
+              "Ref": "weeklyRemindersQueueDev"
+            },
+            "WEEKLY_REMINDERS_QUEUE_STAGING": {
+              "Ref": "weeklyRemindersQueueStaging"
             }
           }
         },

@@ -47,7 +47,10 @@ exports.handler = async (event) => {
     }
 
     let queueParams = {
-      QueueUrl: process.env.WEEKLY_REMINDERS_QUEUE_URL,
+      QueueUrl:
+        process.env.ENV === "staging"
+          ? process.env.WEEKLY_REMINDERS_QUEUE_STAGING
+          : process.env.WEEKLY_REMINDERS_QUEUE_DEV,
       Entries: batchQueueMessages,
     };
 
