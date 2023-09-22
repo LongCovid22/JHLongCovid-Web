@@ -9,7 +9,7 @@
 
 Note: On the cloud, AWS Amplify uses a webhook to kick off the CI/CD pipeline for building the front and back end of the site and then deploying it.
 
-## For safefty
+## For safety
 
 ** Whenever you are pushing a back-end change **
 
