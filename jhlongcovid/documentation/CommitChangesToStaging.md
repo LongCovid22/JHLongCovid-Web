@@ -6,7 +6,7 @@
 1. Make sure that all code is comitted into the branch that you are merging from
 2. Checkout in to the `staging` branch
 3. Merge the branch with your changes in to `staging`
-4. If merged locally, push to remote `staging` branch
+4. If merged locally, push to remote `staging` branch to kick off amplify CI/CD on the cloud.
 
 Note: On the cloud, AWS Amplify uses a webhook to kick off the CI/CD pipeline for building the front and back end of the site and then deploying it.
 
