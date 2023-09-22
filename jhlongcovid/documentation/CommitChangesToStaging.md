@@ -25,4 +25,13 @@ Perform these additional steps to deploy backend changes locally:
 
 The benefit of performing the changes locally is if you experience a problem with the deployment, you can make fixes without having to debug the issue within the cloud CI/CD logs. Also, you won't have to wait for the front-end to build to see if you have a back-end issue. 
 
+## Checking the AWS Amplify CI/CD logs
+
+1. Login the the AWS Console
+2. Go to AWS Amplify
+3. Click on `Hosting Environments`
+4. There you should see the Ci/CD job running that you can click on and see the logs.
+
+## Team Environments
+
 To find more information about multi-environment development using AWS Amplify refer to this page in the documentation: https://docs.amplify.aws/cli/teams/overview/
