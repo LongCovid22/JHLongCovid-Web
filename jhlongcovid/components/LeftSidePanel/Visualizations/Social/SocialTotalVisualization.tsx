@@ -21,6 +21,7 @@ import {
   StatNumber,
   StatHelpText,
   VStack,
+  Spinner,
   Box,
 } from "@chakra-ui/react";
 import { Bar, Doughnut } from "react-chartjs-2";
@@ -127,7 +128,7 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           createTotalsChartConfig(
             socialSummary.currentWorkSituation,
             "Work Situations",
-            "People"
+            ""
           )
         );
       }
@@ -137,7 +138,7 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           createTotalsChartConfig(
             socialSummary.difficultCoveringExpenses,
             "Difficulty Covering Expenses",
-            "People"
+            ""
           )
         );
       }
@@ -149,58 +150,67 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   }, [data, realOrMock]);
 
   return (
-    <VStack align={"start"}>
-      <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
 
-        <WrapItem>
-          <Stat>
-            <StatLabel>Most Common Work Situation</StatLabel>
-            <StatNumber>{mostCommonWorkSituation}</StatNumber>
-            {/* <StatHelpText>Most common work situation</StatHelpText> */}
-          </Stat>
-        </WrapItem>
-      </Wrap>
-      <Wrap spacing="30px" overflow={"visible"}>
-        <WrapItem
-          width={width < 1500 ? "300px" : "375px"}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar
-            options={hasMedicalInsuranceConfig.options}
-            data={hasMedicalInsuranceConfig.data}
-            height={"300px"}
-          />
-        </WrapItem>
-        <WrapItem
-          width={width < 1500 ? "300px" : "375px"}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar
-            options={workSituationConfig.options}
-            data={workSituationConfig.data}
-            height={"300px"}
-          />
-        </WrapItem>
-        <WrapItem
-          width={width < 1500 ? "300px" : "375px"}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar
-            options={coveringExpensesConfig.options}
-            data={coveringExpensesConfig.data}
-            height={"300px"}
-          />
-        </WrapItem>
-      </Wrap>
+    <VStack align={"start"} spacing="30px">
+      {loading ? (
+        <Spinner color="heritageBlue.800" />
+      ) : (
+        <>
+          <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
+            <WrapItem>
+              <Stat>
+                <StatLabel>Most Common Work Situation</StatLabel>
+                <StatNumber>{mostCommonWorkSituation}</StatNumber>
+              </Stat>
+            </WrapItem>
+            {/* Add more WrapItem components for non-graph elements */}
+          </Wrap>
+          <Wrap spacing="30px" overflow={"visible"}>
+            <WrapItem
+              width={width < 1500 ? "300px" : "375px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={hasMedicalInsuranceConfig.options}
+                data={hasMedicalInsuranceConfig.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            <WrapItem
+              width={width < 1500 ? "300px" : "375px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={workSituationConfig.options}
+                data={workSituationConfig.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            <WrapItem
+              width={width < 1500 ? "300px" : "375px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={coveringExpensesConfig.options}
+                data={coveringExpensesConfig.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            {/* Add more WrapItem components for additional graphs */}
+          </Wrap>
+        </>
+      )}
     </VStack>
+
+
   );
 };

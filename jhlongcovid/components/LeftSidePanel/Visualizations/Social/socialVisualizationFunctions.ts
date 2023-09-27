@@ -54,9 +54,7 @@ export const createhasMedInsurConfig = (
         },
       },
       plugins: {
-        legend: {
-          position: "top" as const,
-        },
+        legend: false,
         title: {
           display: true,
           text: "Has Medical Insurance",

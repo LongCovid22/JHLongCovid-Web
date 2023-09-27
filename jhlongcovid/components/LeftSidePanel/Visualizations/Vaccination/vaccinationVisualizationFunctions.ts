@@ -34,13 +34,12 @@ export const createTotalVaccineShotsConfig = (
               family: "Gentona",
               size: 13,
             },
+            stepSize: 1
           },
         },
       },
       plugins: {
-        legend: {
-          position: "top" as const,
-        },
+        legend: false,
         title: {
           display: true,
           text: "Vaccines Taken per Person",
@@ -99,15 +98,14 @@ export const createVaccineTypeConfig = (
               family: "Gentona",
               size: 13,
             },
+            stepSize: 1
           },
         },
       },
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: {
-          position: "top" as const,
-        },
+        legend: false,
         title: {
           display: true,
           text: "Vaccine Types",

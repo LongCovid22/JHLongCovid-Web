@@ -93,13 +93,13 @@ export const createMedicationsTakenConfig = (
               family: "Gentona",
               size: 13,
             },
+            stepSize: 1
           },
+          
         },
       },
       plugins: {
-        legend: {
-          position: "top" as const,
-        },
+        legend: false,
         title: {
           display: true,
           text: "Medications taken",
@@ -111,7 +111,7 @@ export const createMedicationsTakenConfig = (
         datalabels: {
           anchor: "end",
           align: "top",
-          formatter: Math.round,
+          // formatter: Math.round,
           font: {
             weight: "bold",
             size: 16,
