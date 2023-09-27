@@ -102,7 +102,7 @@ export const createMedicationsTakenConfig = (
         legend: false,
         title: {
           display: true,
-          text: "Medications Taken",
+          text: ["Medications Taken Amongst Participants", "With COVID History"],
           font: {
             family: "Gentona",
             size: 18,
@@ -170,7 +170,7 @@ export const createRecoveryConfig = (
         },
         title: {
           display: true,
-          text: "Recovered vs. not recovered",
+          text: ["Full Recovered vs. Not Recovered", "Amongst Participants with COVID", "History"],
           font: {
             family: "Gentona",
             size: 18,
