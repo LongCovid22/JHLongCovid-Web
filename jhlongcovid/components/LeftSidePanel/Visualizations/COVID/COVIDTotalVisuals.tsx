@@ -248,7 +248,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                 {numberAndPercentage(
                   totalCovidCases,
                   percentTotalCovid,
-                  "Participants with history of COVID",
+                  "Share of total participants w/ history of COVID",
                   "Number of participants with a history of COVID (% of total survey participants who had a history of COVID)."
                 )}
               </Stat>
@@ -258,7 +258,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                 {numberAndPercentage(
                   totalLongCovidFourWeeks,
                   totalLongCovidFourWeeksPerc,
-                  "Long COVID >4 Weeks",
+                  "Share of those with a history of COVID Long COVID >4 Weeks",
                   "Number of participants with Long COVID symptoms of 4 weeks or more (% of total survey parcticipants that reported Long COVID symptoms of 4 weeks or more)."
                 )}
               </Stat>

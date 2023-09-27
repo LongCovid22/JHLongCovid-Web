@@ -120,5 +120,12 @@
         "jhlongcovidassets": {}
       }
     }
+  },
+  "dev": {
+    "categories": {
+      "auth": {
+        "jhlongcovid": {}
+      }
+    }
   }
 }

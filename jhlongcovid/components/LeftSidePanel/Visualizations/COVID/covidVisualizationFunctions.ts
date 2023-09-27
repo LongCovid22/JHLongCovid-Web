@@ -102,7 +102,7 @@ export const createMedicationsTakenConfig = (
         legend: false,
         title: {
           display: true,
-          text: "Medications taken",
+          text: "Medications Taken",
           font: {
             family: "Gentona",
             size: 18,
