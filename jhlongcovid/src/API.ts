@@ -17,6 +17,7 @@ export type CreateMapDataInput = {
   long: number,
   covidCount: number,
   longCovid: number,
+  aggregationType: AggregationType,
   phq8AboveTen?: number | null,
   recoveredCount?: number | null,
   selfReportedLongCovid?: number | null,
@@ -33,6 +34,12 @@ export type CreateMapDataInput = {
   socialSummary: SocialSummaryInput,
   totalFullEntries: number,
 };
+
+export enum AggregationType {
+  TOTAL = "TOTAL",
+  LONG = "LONG",
+}
+
 
 export type CovidSummaryInput = {
   beenInfected?: YesNoInput | null,
@@ -368,6 +375,7 @@ export type MapData = {
   long: number,
   covidCount: number,
   longCovid: number,
+  aggregationType: AggregationType,
   phq8AboveTen?: number | null,
   recoveredCount?: number | null,
   selfReportedLongCovid?: number | null,
@@ -680,6 +688,7 @@ export type UpdateMapDataInput = {
   long: number,
   covidCount?: number | null,
   longCovid?: number | null,
+  aggregationType: AggregationType,
   phq8AboveTen?: number | null,
   recoveredCount?: number | null,
   selfReportedLongCovid?: number | null,
@@ -701,6 +710,7 @@ export type DeleteMapDataInput = {
   level: string,
   lat: number,
   long: number,
+  aggregationType: AggregationType,
 };
 
 export type CreateUserInput = {
@@ -1730,6 +1740,7 @@ export type ModelMapDataPrimaryCompositeKeyConditionInput = {
 export type ModelMapDataPrimaryCompositeKeyInput = {
   lat?: number | null,
   long?: number | null,
+  aggregationType?: AggregationType | null,
 };
 
 export type ModelMapDataFilterInput = {
@@ -1741,6 +1752,7 @@ export type ModelMapDataFilterInput = {
   long?: ModelFloatInput | null,
   covidCount?: ModelIntInput | null,
   longCovid?: ModelIntInput | null,
+  aggregationType?: ModelAggregationTypeInput | null,
   phq8AboveTen?: ModelIntInput | null,
   recoveredCount?: ModelIntInput | null,
   selfReportedLongCovid?: ModelIntInput | null,
@@ -1763,6 +1775,11 @@ export type ModelFloatInput = {
   between?: Array< number | null > | null,
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
+};
+
+export type ModelAggregationTypeInput = {
+  eq?: AggregationType | null,
+  ne?: AggregationType | null,
 };
 
 export enum ModelSortDirection {
@@ -2126,6 +2143,7 @@ export type ModelSubscriptionMapDataFilterInput = {
   long?: ModelSubscriptionFloatInput | null,
   covidCount?: ModelSubscriptionIntInput | null,
   longCovid?: ModelSubscriptionIntInput | null,
+  aggregationType?: ModelSubscriptionStringInput | null,
   phq8AboveTen?: ModelSubscriptionIntInput | null,
   recoveredCount?: ModelSubscriptionIntInput | null,
   selfReportedLongCovid?: ModelSubscriptionIntInput | null,
@@ -2442,6 +2460,7 @@ export type CreateMapDataMutation = {
     long: number,
     covidCount: number,
     longCovid: number,
+    aggregationType: AggregationType,
     phq8AboveTen?: number | null,
     recoveredCount?: number | null,
     selfReportedLongCovid?: number | null,
@@ -2524,6 +2543,7 @@ export type UpdateMapDataMutation = {
     long: number,
     covidCount: number,
     longCovid: number,
+    aggregationType: AggregationType,
     phq8AboveTen?: number | null,
     recoveredCount?: number | null,
     selfReportedLongCovid?: number | null,
@@ -2606,6 +2626,7 @@ export type DeleteMapDataMutation = {
     long: number,
     covidCount: number,
     longCovid: number,
+    aggregationType: AggregationType,
     phq8AboveTen?: number | null,
     recoveredCount?: number | null,
     selfReportedLongCovid?: number | null,
@@ -19044,6 +19065,7 @@ export type GetMapDataQueryVariables = {
   level: string,
   lat: number,
   long: number,
+  aggregationType: AggregationType,
 };
 
 export type GetMapDataQuery = {
@@ -19057,6 +19079,7 @@ export type GetMapDataQuery = {
     long: number,
     covidCount: number,
     longCovid: number,
+    aggregationType: AggregationType,
     phq8AboveTen?: number | null,
     recoveredCount?: number | null,
     selfReportedLongCovid?: number | null,
@@ -19125,7 +19148,7 @@ export type GetMapDataQuery = {
 
 export type ListMapDataQueryVariables = {
   level?: string | null,
-  latLong?: ModelMapDataPrimaryCompositeKeyConditionInput | null,
+  latLongAggregationType?: ModelMapDataPrimaryCompositeKeyConditionInput | null,
   filter?: ModelMapDataFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
@@ -19145,6 +19168,7 @@ export type ListMapDataQuery = {
       long: number,
       covidCount: number,
       longCovid: number,
+      aggregationType: AggregationType,
       phq8AboveTen?: number | null,
       recoveredCount?: number | null,
       selfReportedLongCovid?: number | null,
@@ -19181,6 +19205,7 @@ export type MapDataByLevelNameStateQuery = {
       long: number,
       covidCount: number,
       longCovid: number,
+      aggregationType: AggregationType,
       phq8AboveTen?: number | null,
       recoveredCount?: number | null,
       selfReportedLongCovid?: number | null,
@@ -19217,6 +19242,7 @@ export type MapDataByStateAbbrevQuery = {
       long: number,
       covidCount: number,
       longCovid: number,
+      aggregationType: AggregationType,
       phq8AboveTen?: number | null,
       recoveredCount?: number | null,
       selfReportedLongCovid?: number | null,
@@ -45840,6 +45866,7 @@ export type OnCreateMapDataSubscription = {
     long: number,
     covidCount: number,
     longCovid: number,
+    aggregationType: AggregationType,
     phq8AboveTen?: number | null,
     recoveredCount?: number | null,
     selfReportedLongCovid?: number | null,
@@ -45921,6 +45948,7 @@ export type OnUpdateMapDataSubscription = {
     long: number,
     covidCount: number,
     longCovid: number,
+    aggregationType: AggregationType,
     phq8AboveTen?: number | null,
     recoveredCount?: number | null,
     selfReportedLongCovid?: number | null,
@@ -46002,6 +46030,7 @@ export type OnDeleteMapDataSubscription = {
     long: number,
     covidCount: number,
     longCovid: number,
+    aggregationType: AggregationType,
     phq8AboveTen?: number | null,
     recoveredCount?: number | null,
     selfReportedLongCovid?: number | null,

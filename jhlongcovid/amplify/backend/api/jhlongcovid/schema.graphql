@@ -15,7 +15,7 @@ type MapData
   ) {
   id: ID!
   level: String!
-    @primaryKey(sortKeyFields: ["lat", "long"])
+    @primaryKey(sortKeyFields: ["lat", "long", "aggregationType"])
     @index(
       name: "byLevelAndNameAndState"
       sortKeyFields: ["name", "stateAbbrev"]
@@ -32,6 +32,7 @@ type MapData
   long: Float!
   covidCount: Int!
   longCovid: Int!
+  aggregationType: AggregationType!
   phq8AboveTen: Int
   recoveredCount: Int
   selfReportedLongCovid: Int
@@ -75,6 +76,11 @@ type User
   notificationFreq: NotificationFrequency # Daily
   notificationMethod: NotificationMethod # Email
   createdAt: AWSDateTime! # Will automatically be populated
+}
+
+enum AggregationType {
+  TOTAL
+  LONG
 }
 
 enum CovidStatus {
