@@ -191,7 +191,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       createTotalsChartConfig(
         summary.qualityOfLife,
         "Quality of Life",
-        "People",
+        "",
         colors
       )
     );
@@ -199,7 +199,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       createTotalsChartConfig(
         summary.mentalHealthRank,
         "Mental Health",
-        "People",
+        "",
         colors
       )
     );
@@ -207,7 +207,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       createTotalsChartConfig(
         summary.socialSatisfactionRank,
         "Social Satisfaction",
-        "People",
+        "",
         colors
       )
     );
@@ -215,7 +215,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       createTotalsChartConfig(
         summary.carryOutSocialActivitiesRank,
         "Carry Out Social Activities",
-        "People",
+        "",
         colors
       )
     );
@@ -223,11 +223,11 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       createTotalsChartConfig(
         summary.anxietyInPastWeekRank,
         "Anxiety In Past Week",
-        "People",
+        "",
         colors
       )
     );
-    setTotalEntries(totalFullEntries);
+    setTotalEntries(totalFullEntries)
   }, [data]);
 
   useEffect(() => {

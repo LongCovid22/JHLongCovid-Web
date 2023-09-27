@@ -346,7 +346,7 @@
         "branching": {
           "predicate": "No",
           "goto": {
-            "section": 5,
+            "section": 4,
             "question": 0
           }
         },

@@ -3,8 +3,18 @@
 // this is an auto generated file. This will be overwritten
 
 export const getMapData = /* GraphQL */ `
-  query GetMapData($level: String!, $lat: Float!, $long: Float!) {
-    getMapData(level: $level, lat: $lat, long: $long) {
+  query GetMapData(
+    $level: String!
+    $lat: Float!
+    $long: Float!
+    $aggregationType: AggregationType!
+  ) {
+    getMapData(
+      level: $level
+      lat: $lat
+      long: $long
+      aggregationType: $aggregationType
+    ) {
       id
       level
       name
@@ -13,6 +23,7 @@ export const getMapData = /* GraphQL */ `
       long
       covidCount
       longCovid
+      aggregationType
       phq8AboveTen
       recoveredCount
       selfReportedLongCovid
@@ -67,7 +78,7 @@ export const getMapData = /* GraphQL */ `
 export const listMapData = /* GraphQL */ `
   query ListMapData(
     $level: String
-    $latLong: ModelMapDataPrimaryCompositeKeyConditionInput
+    $latLongAggregationType: ModelMapDataPrimaryCompositeKeyConditionInput
     $filter: ModelMapDataFilterInput
     $limit: Int
     $nextToken: String
@@ -75,7 +86,7 @@ export const listMapData = /* GraphQL */ `
   ) {
     listMapData(
       level: $level
-      latLong: $latLong
+      latLongAggregationType: $latLongAggregationType
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -90,6 +101,7 @@ export const listMapData = /* GraphQL */ `
         long
         covidCount
         longCovid
+        aggregationType
         phq8AboveTen
         recoveredCount
         selfReportedLongCovid
@@ -130,6 +142,7 @@ export const mapDataByLevelNameState = /* GraphQL */ `
         long
         covidCount
         longCovid
+        aggregationType
         phq8AboveTen
         recoveredCount
         selfReportedLongCovid
@@ -170,6 +183,7 @@ export const mapDataByStateAbbrev = /* GraphQL */ `
         long
         covidCount
         longCovid
+        aggregationType
         phq8AboveTen
         recoveredCount
         selfReportedLongCovid

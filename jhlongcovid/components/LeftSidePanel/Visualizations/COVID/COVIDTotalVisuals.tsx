@@ -248,8 +248,8 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                 {numberAndPercentage(
                   totalCovidCases,
                   percentTotalCovid,
-                  "COVID Cases",
-                  "Number of people who reported a COVID experience (% of the total survey entries)"
+                  "Share of total participants w/ history of COVID",
+                  "Number of participants with a history of COVID (% of total survey participants who had a history of COVID)."
                 )}
               </Stat>
             </WrapItem>
@@ -258,8 +258,8 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                 {numberAndPercentage(
                   totalLongCovidFourWeeks,
                   totalLongCovidFourWeeksPerc,
-                  "Long COVID >4 Weeks",
-                  "Number of people experienceing COVID symptoms for over 4 weeks (% of total people who reported a COVID experience)"
+                  "Share of those with a history of COVID Long COVID >4 Weeks",
+                  "Number of participants with Long COVID symptoms of 4 weeks or more (% of total survey parcticipants that reported Long COVID symptoms of 4 weeks or more)."
                 )}
               </Stat>
             </WrapItem>
@@ -269,7 +269,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   totalLongCovidTwelveWeeks,
                   totalLongCovidTwelveWeeksPerc,
                   "Long COVID >12 Weeks",
-                  "Number of people experienceing COVID symptoms for over 12 weeks (% of total people who reported a COVID experience)"
+                  "Number of participants with Long COVID symptoms of 12 weeks or more (% of total survey parcticipants that reported Long COVID symptoms of 12 weeks or more)."
                 )}
               </Stat>
             </WrapItem>
@@ -279,7 +279,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   totalSelfReported,
                   totalSelfReportedPerc,
                   "Self Reported Long COVID",
-                  "Self reported having long COVID (% of the total survey entries)"
+                  "Participants that self reported a history of Long COVID (% of total survey participants that self reported a history of Long COVID)."
                 )}
               </Stat>
             </WrapItem>
@@ -289,7 +289,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   totalLongCovid,
                   totalLongCovidPerc,
                   "Total Long COVID",
-                  "The amount of people who reported symptoms for over 4 weeks or reported that they think they have long COVID (% of the total entries)"
+                  "Total number of participants who reported Long COVID symptoms for over 4 weeks or reported that they think they have Long COVID (% of total survey participants who reported Long COVID symptoms for over 4 weeks or reported that they think they have Long COVID)"
                 )}
               </Stat>
             </WrapItem>
@@ -299,7 +299,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   hospitalizations,
                   (hospitalizations / totalCovidCases) * 100,
                   "Hospitalizations",
-                  "Number of people that reported that they were hospitalized due to COVID complications (% of total people who reported a COVID experience)"
+                  "Number of participants that reported that they were hospitalized due to COVID complications (% of total survey participants who reported a COVID experience)"
                 )}
               </Stat>
             </WrapItem>
@@ -309,7 +309,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   symptomatic,
                   percentSymptomatic,
                   "Symptomatic",
-                  "Number of people that reported symptoms during their COVID experience (% of total people who reported a COVID experience)"
+                  "Number of participants with self-reported COVID related symptoms (% of total survey participants with self-reported COVID related symptoms)"
                 )}
               </Stat>
             </WrapItem>

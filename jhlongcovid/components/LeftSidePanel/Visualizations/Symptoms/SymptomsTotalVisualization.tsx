@@ -40,6 +40,7 @@ import { selectWidth } from "../../../../redux/slices/viewportSlice";
 import {
   createSymptomCountConfig,
   getSymptomsCount,
+  getKMostCommonSymptoms,
   getMostCommonSymptom,
 } from "./symptomsVisualizationFunctions";
 import {
@@ -79,6 +80,8 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 }) => {
   const [totalSymptomsCount, setTotalSymptomsCount] = useState(0);
   const [totalEntries, setTotalEntries] = useState(0);
+
+  const [mostCommonSymptoms, setMostCommonSymptoms] = useState([]);
   const [mostCommonSymptom, setMostCommonSymptom] = useState("");
   const [symptomCountConfig, setSymptomCountConfig] = useState<{
     labels: string[];
@@ -143,6 +146,10 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     setMostCommonSymptom(
       capitalizeFirstLetters(getMostCommonSymptom(summary.symptomCounts))
     );
+
+    setMostCommonSymptoms(getKMostCommonSymptoms(summary.symptomCounts, 3));
+
+    
     setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
     setQOLConfig(
       createTotalsChartConfig(
@@ -197,36 +204,49 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             <StatHelpText>Total Symptomatic People</StatHelpText>
           </Stat>
         </WrapItem>
+         { //Removed 9/26/2023
+        //   <WrapItem>
+        //   <Stat>
+        //     <StatLabel>Most Common Symptom</StatLabel>
+        //     <StatNumber>{mostCommonSymptom}</StatNumber>
+        //     {/* <StatHelpText>Most common symptom reported</StatHelpText> */}
+        //   </Stat>
+        // </WrapItem>
+        }
+        
         <WrapItem>
           <Stat>
-            <StatLabel>Most Common Symptom</StatLabel>
-            <StatNumber>{mostCommonSymptom}</StatNumber>
-            {/* <StatHelpText>Most common symptom reported</StatHelpText> */}
+            <StatLabel>Most Commons Symptoms</StatLabel>
+            {mostCommonSymptoms.map((mostCommonSymptom, index) => (
+              <StatNumber key={index}>{mostCommonSymptom}</StatNumber>
+            ))}
           </Stat>
         </WrapItem>
       </Wrap>
-      <Wrap spacing="30px" overflow={"visible"}>
-        <WrapItem
-          // width={width < 1500 ? "300px" : "325px"}
-          width={panelDimensions.width - 80}
-          shadow="base"
-          borderRadius={"20px"}
-          p={"30px"}
-          minWidth="340px"
-        >
-          <Bar
-            options={symptomCountConfig.options}
-            data={symptomCountConfig.data}
-            height="375px"
-            width={
-              panelDimensions.width - 80 < 420
-                ? "340px"
-                : panelDimensions.width - 80
-            }
-          />
-        </WrapItem>
-        
-      </Wrap>
+      {
+      // <Wrap spacing="30px" overflow={"visible"}>
+      //   <WrapItem
+      //     // width={width < 1500 ? "300px" : "325px"}
+      //     width={panelDimensions.width - 80}
+      //     shadow="base"
+      //     borderRadius={"20px"}
+      //     p={"30px"}
+      //     minWidth="340px"
+      //   >
+      //     <Bar
+      //       options={symptomCountConfig.options}
+      //       data={symptomCountConfig.data}
+      //       height="375px"
+      //       width={
+      //         panelDimensions.width - 80 < 420
+      //           ? "340px"
+      //           : panelDimensions.width - 80
+      //       }
+      //     />
+      //   </WrapItem>
+
+      // </Wrap>
+      }
     </VStack>
   );
 };
