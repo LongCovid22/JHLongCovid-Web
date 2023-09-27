@@ -71,7 +71,18 @@ export const getPercentMedications = (
 export const createMedicationsTakenConfig = (
   medicationsTaken: MedicationsAvailable
 ): { labels: string[]; options: any; data: any } => {
-  const { labels, chartData } = createTotalsChartData(medicationsTaken);
+
+  let reformattedMedicationsLabel = {
+    "antibiotics": medicationsTaken.antiBiotics,
+    "antiviral": medicationsTaken.antiViral,
+    "do not know": medicationsTaken.doNotKnow,
+    "oral steroids": medicationsTaken.oralSteroids,
+    "other": medicationsTaken.other
+  }
+
+  let { labels, chartData } = createTotalsChartData(reformattedMedicationsLabel);
+
+  labels = ["Antiviral", "Oral Steroids", "Antibiotics", "Other", "Do Not Know"];
 
   const medicationsTakenConfig = {
     labels: labels,
