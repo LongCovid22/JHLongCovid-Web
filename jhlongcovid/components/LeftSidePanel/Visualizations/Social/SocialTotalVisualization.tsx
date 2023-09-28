@@ -42,6 +42,7 @@ import { useAppSelector } from "../../../../redux/hooks";
 import { selectWidth } from "../../../../redux/slices/viewportSlice";
 import {
   createTotalsChartConfig,
+  createTotalsChartConfigWithXYLabels,
   getMostCommonInSummary,
 } from "../visualizationFunctions";
 import {
@@ -125,7 +126,9 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       }
       if (socialSummary.currentWorkSituation) {
         setWorkSituationConfig(
-          createTotalsChartConfig(
+          createTotalsChartConfigWithXYLabels(
+            "Work Situation Options",
+            "Number of Participants",
             socialSummary.currentWorkSituation,
             "Work Situations",
             ""
@@ -135,7 +138,9 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
       if (socialSummary.difficultCoveringExpenses) {
         setCoveringExpensesConfig(
-          createTotalsChartConfig(
+          createTotalsChartConfigWithXYLabels(
+            "Difficulty Options", 
+            "Number of Participants",
             socialSummary.difficultCoveringExpenses,
             "Difficulty Covering Expenses",
             ""

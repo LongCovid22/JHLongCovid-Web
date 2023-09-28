@@ -12,7 +12,17 @@ export const getVaccinations = (vaccinated: YesNo) => {
 export const createTotalVaccineShotsConfig = (
   totalVaccines: OneToFivePlus
 ): { labels: string[]; options: any; data: any } => {
-  const { labels, chartData } = createTotalsChartData(totalVaccines);
+
+  let { labels, chartData } = createTotalsChartData({
+    "doNotKnow": totalVaccines.dontKnow,
+    "one": totalVaccines.one,
+    "two": totalVaccines.two,
+    "three": totalVaccines.three,
+    "four": totalVaccines.four,
+    "five": totalVaccines.five,
+    "fivePlus": totalVaccines.fivePlus,
+  } );
+
 
   const vaccinationsTakenConfig = {
     labels: labels,
@@ -27,6 +37,15 @@ export const createTotalVaccineShotsConfig = (
               size: 13,
             },
           },
+          title: { // Add y-axis label
+            display: true,
+            text: 'Number of Vaccine Dosages',
+            font: {
+              family: "Gentona",
+              size: 16,
+            },
+            position: 'left'
+          },
         },
         yAxis: {
           ticks: {
@@ -35,6 +54,15 @@ export const createTotalVaccineShotsConfig = (
               size: 13,
             },
             stepSize: 1
+          },
+          title: { // Add y-axis label
+            display: true,
+            text: 'Number of Participants',
+            font: {
+              family: "Gentona",
+              size: 16,
+            },
+            position: 'left'
           },
         },
       },
@@ -91,6 +119,15 @@ export const createVaccineTypeConfig = (
               size: 13,
             },
           },
+          title: { 
+            display: true,
+            text: 'Vaccine Types',
+            font: {
+              family: "Gentona",
+              size: 16,
+            },
+            position: 'left'
+          },
         },
         yAxis: {
           ticks: {
@@ -99,6 +136,15 @@ export const createVaccineTypeConfig = (
               size: 13,
             },
             stepSize: 1
+          },
+          title: { 
+            display: true,
+            text: 'Number of Participants',
+            font: {
+              family: "Gentona",
+              size: 16,
+            },
+            position: 'left'
           },
         },
       },

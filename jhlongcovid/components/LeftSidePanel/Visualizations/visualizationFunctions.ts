@@ -65,6 +65,102 @@ export const createTotalsChartConfig = (
               family: "Gentona",
               size: 13,
             },
+            stepSize: 1
+          },
+        },
+      },
+      plugins: {
+        legend: (label) ? ({
+          position: "top" as const,
+        }) : false,
+        title: {
+          display: true,
+          text: title,
+          font: {
+            size: 18,
+            family: "Gentona",
+          },
+        },
+        datalabels: {
+          anchor: "end",
+          align: "top",
+          formatter: Math.round,
+          font: {
+            weight: "bold",
+            size: 16,
+            family: "Gentona",
+          },
+        },
+      },
+    },
+    data: {
+      labels,
+      datasets: [
+        {
+          label: label,
+          data: chartData,
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: backgroundColors
+            ? backgroundColors
+            : "rgba(9, 30, 235, 0.5)",
+        },
+      ],
+    },
+  };
+  return config;
+};
+
+export const createTotalsChartConfigWithXYLabels = (
+  XAxisLabel: string,
+  YAxisLabel: string,
+  data: object,
+  title: string,
+  label: string,
+  backgroundColors?: string[]
+) => {
+
+  const { labels, chartData } = createTotalsChartData(data);
+
+  
+  const config = {
+    labels: labels,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        xAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
+          }, 
+          title: {
+            display: true,
+            text: XAxisLabel,
+            font: {
+              family: "Gentona",
+              size: 16,
+            },
+            position: 'left'
+          },
+        },
+        yAxis: {
+          ticks: {
+            font: {
+              family: "Gentona",
+              size: 13,
+            },
+            stepSize: 1
+          },
+          title: { // Add y-axis label
+            display: true,
+            text: YAxisLabel,
+            font: {
+              family: "Gentona",
+              size: 16,
+            },
+            position: 'left'
           },
         },
       },
@@ -138,9 +234,9 @@ export const convertCamelCase = (input: string): string => {
 
   // Capitalize the first word and lowercase the rest of the words
   words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
-  for (let i = 1; i < words.length; i++) {
-    words[i] = words[i].toLowerCase();
-  }
+  // for (let i = 1; i < words.length; i++) {
+  //   words[i] = words[i].toLowerCase();
+  // }
 
   // Join the array of words back into a string and return it
   return words.join(" ");

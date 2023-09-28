@@ -51,6 +51,15 @@ export const createhasMedInsurConfig = (
               size: 13,
             },
           },
+          title: { 
+            display: true,
+            text: 'Number of Participants',
+            font: {
+              family: "Gentona",
+              size: 16,
+            },
+            position: 'left'
+          },
         },
       },
       plugins: {

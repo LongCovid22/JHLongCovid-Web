@@ -72,17 +72,14 @@ export const createMedicationsTakenConfig = (
   medicationsTaken: MedicationsAvailable
 ): { labels: string[]; options: any; data: any } => {
 
-  let reformattedMedicationsLabel = {
-    "antibiotics": medicationsTaken.antiBiotics,
-    "antiviral": medicationsTaken.antiViral,
-    "do not know": medicationsTaken.doNotKnow,
-    "oral steroids": medicationsTaken.oralSteroids,
-    "other": medicationsTaken.other
-  }
 
-  let { labels, chartData } = createTotalsChartData(reformattedMedicationsLabel);
-
-  labels = ["Antiviral", "Oral Steroids", "Antibiotics", "Other", "Do Not Know"];
+  let { labels, chartData } = createTotalsChartData({
+      "antibiotics": medicationsTaken.antiBiotics,
+      "antiviral": medicationsTaken.antiViral,
+      "doNotKnow": medicationsTaken.doNotKnow,
+      "oralSteroids": medicationsTaken.oralSteroids,
+      "other": medicationsTaken.other
+    });
 
   const medicationsTakenConfig = {
     labels: labels,
@@ -97,6 +94,14 @@ export const createMedicationsTakenConfig = (
               size: 13,
             },
           },
+          title: { // Add y-axis label
+            display: true,
+            text: 'Medication Options',
+            font: {
+              family: "Gentona",
+              size: 16,
+            },
+          },
         },
         yAxis: {
           ticks: {
@@ -106,7 +111,15 @@ export const createMedicationsTakenConfig = (
             },
             stepSize: 1
           },
-          
+          title: { // Add y-axis label
+            display: true,
+            text: 'Number of Participants',
+            font: {
+              family: "Gentona",
+              size: 16,
+            },
+            position: 'left'
+          },
         },
       },
       plugins: {

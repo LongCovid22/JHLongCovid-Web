@@ -48,6 +48,7 @@ import { useAppSelector } from "../../../../redux/hooks";
 import { selectWidth } from "../../../../redux/slices/viewportSlice";
 import {
   createTotalsChartConfig,
+  createTotalsChartConfigWithXYLabels,
   getMostCommonInSummary,
 } from "../visualizationFunctions";
 import {
@@ -89,6 +90,19 @@ type SymptomSummary = {
   carryOutSocialActivitiesRank: PoorToExcellent;
   anxietyInPastWeekRank: NeverToAlways;
 };
+
+function reverseObjectKeys(obj: any) {
+  const keys = Object.keys(obj);
+  const reversedKeys = keys.reverse();
+  
+  const reversedObject: any = {};
+  
+  for (const key of reversedKeys) {
+    reversedObject[key] = obj[key];
+  }
+  
+  return reversedObject;
+}
 
 export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
@@ -188,44 +202,51 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     );
     setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
     setQOLConfig(
-      createTotalsChartConfig(
-        summary.qualityOfLife,
+
+      createTotalsChartConfigWithXYLabels( 
+        "Satisfactory Level",
+        "Number of Participants",
+        reverseObjectKeys(summary.qualityOfLife),
         "Quality of Life",
         "",
-        colors
-      )
+        colors)
+      
     );
     setMentalHealthConfig(
-      createTotalsChartConfig(
-        summary.mentalHealthRank,
+      createTotalsChartConfigWithXYLabels( 
+        "Satisfactory Level",
+        "Number of Participants",
+        reverseObjectKeys(summary.mentalHealthRank),
         "Mental Health",
         "",
-        colors
-      )
+        colors)
     );
     setSocialSatisConfig(
-      createTotalsChartConfig(
-        summary.socialSatisfactionRank,
+      createTotalsChartConfigWithXYLabels( 
+        "Satisfactory Level",
+        "Number of Participants",
+        reverseObjectKeys(summary.socialSatisfactionRank),
         "Social Satisfaction",
         "",
-        colors
-      )
+        colors)
     );
     setCarryOutSocialConfig(
-      createTotalsChartConfig(
-        summary.carryOutSocialActivitiesRank,
+      createTotalsChartConfigWithXYLabels( 
+        "Satisfactory Level",
+        "Number of Participants",
+        reverseObjectKeys(summary.carryOutSocialActivitiesRank),
         "Carry Out Social Activities",
         "",
-        colors
-      )
+        colors)
     );
     setAnxietyConfig(
-      createTotalsChartConfig(
+      createTotalsChartConfigWithXYLabels( 
+        "Frequency",
+        "Number of Participants",
         summary.anxietyInPastWeekRank,
         "Anxiety In Past Week",
         "",
-        colors
-      )
+        colors)
     );
     setTotalEntries(totalFullEntries)
   }, [data]);
