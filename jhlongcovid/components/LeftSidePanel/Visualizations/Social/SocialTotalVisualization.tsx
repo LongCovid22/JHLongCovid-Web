@@ -172,7 +172,7 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           </Wrap>
           <Wrap spacing="30px" overflow={"visible"}>
             <WrapItem
-              width={width < 1500 ? "300px" : "375px"}
+              width={width < 1500 ? "300px" : "325px"}
               shadow="base"
               borderRadius={"20px"}
               p={"30px"}
@@ -185,20 +185,7 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               />
             </WrapItem>
             <WrapItem
-              width={width < 1500 ? "300px" : "375px"}
-              shadow="base"
-              borderRadius={"20px"}
-              p={"30px"}
-              minWidth="340px"
-            >
-              <Bar
-                options={workSituationConfig.options}
-                data={workSituationConfig.data}
-                height={"300px"}
-              />
-            </WrapItem>
-            <WrapItem
-              width={width < 1500 ? "300px" : "375px"}
+              width={width < 1500 ? "300px" : "325px"}
               shadow="base"
               borderRadius={"20px"}
               p={"30px"}
@@ -210,6 +197,20 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                 height={"300px"}
               />
             </WrapItem>
+            <WrapItem
+              width={width < 1500 ? "450px" : "550px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={workSituationConfig.options}
+                data={workSituationConfig.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            
             {/* Add more WrapItem components for additional graphs */}
           </Wrap>
         </>
