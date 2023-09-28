@@ -161,6 +161,7 @@ export const onUpdateMapDataCust = /* GraphQL */ `
       stateAbbrev
       lat
       long
+      aggregationType
       covidCount
       longCovid
       phq8AboveTen
@@ -183,6 +184,7 @@ export const onCreateMapDataCust = /* GraphQL */ `
       stateAbbrev
       lat
       long
+      aggregationType
       covidCount
       longCovid
       phq8AboveTen
