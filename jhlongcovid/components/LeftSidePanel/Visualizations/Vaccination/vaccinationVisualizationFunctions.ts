@@ -70,7 +70,7 @@ export const createTotalVaccineShotsConfig = (
         legend: false,
         title: {
           display: true,
-          text: "Vaccines Taken per Person",
+          text: "Vaccine Dosage Per Participant",
           font: {
             family: "Gentona",
             size: 18,
@@ -121,7 +121,7 @@ export const createVaccineTypeConfig = (
           },
           title: { 
             display: true,
-            text: 'Vaccine Types',
+            text: `Vaccine Type`,
             font: {
               family: "Gentona",
               size: 16,
@@ -154,7 +154,7 @@ export const createVaccineTypeConfig = (
         legend: false,
         title: {
           display: true,
-          text: "Vaccine Types",
+          text: ["Vaccine Type for Participants'", "Last Dosage"],
           font: {
             family: "Gentona",
             size: 18,
@@ -187,3 +187,6 @@ export const createVaccineTypeConfig = (
 
   return vaccinationsTakenConfig;
 };
+
+
+

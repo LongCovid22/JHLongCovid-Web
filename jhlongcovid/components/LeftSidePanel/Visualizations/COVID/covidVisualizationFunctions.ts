@@ -194,7 +194,7 @@ export const createRecoveryConfig = (
         },
         title: {
           display: true,
-          text: ["Full Recovered vs. Not Recovered", "Amongst Participants with COVID", "History"],
+          text: ["Fully Recovered vs. Not Recovered", "Amongst Participants with COVID", "History"],
           font: {
             family: "Gentona",
             size: 18,

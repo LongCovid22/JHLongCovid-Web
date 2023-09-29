@@ -190,7 +190,9 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         recoverySummary.recovered as YesNo
       );
 
-      if (data !== null) {
+      console.log(data);
+
+      if (data) {
         const longCovidOverFourWeeks = data.longCovidOverFourWeeks
           ? data.longCovidOverFourWeeks
           : 0;
@@ -357,7 +359,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                 height={"350px"}
                 width={
                   panelDimensions.width * 0.4 - 80 < 420
-                    ? "340px"
+                    ? "300px"
                     : panelDimensions.width * 0.4 - 80
                 }
               />
