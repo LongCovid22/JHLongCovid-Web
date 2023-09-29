@@ -178,6 +178,8 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       backgroundColors.orange,
       backgroundColors.red,
     ];
+
+    const reversecolors = colors.slice().reverse();
     let symptomSummary, covidSummary, totalFullEntries;
 
     if (data && realOrMock === RealOrMock.REAL) {
@@ -209,7 +211,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         reverseObjectKeys(summary.qualityOfLife),
         "Quality of Life",
         "",
-        colors)
+        reversecolors)
       
     );
     setMentalHealthConfig(
@@ -219,7 +221,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         reverseObjectKeys(summary.mentalHealthRank),
         "Mental Health",
         "",
-        colors)
+        reversecolors)
     );
     setSocialSatisConfig(
       createTotalsChartConfigWithXYLabels( 
@@ -228,7 +230,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         reverseObjectKeys(summary.socialSatisfactionRank),
         "Social Satisfaction",
         "",
-        colors)
+        reversecolors)
     );
     setCarryOutSocialConfig(
       createTotalsChartConfigWithXYLabels( 
@@ -237,7 +239,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         reverseObjectKeys(summary.carryOutSocialActivitiesRank),
         "Carry Out Social Activities",
         "",
-        colors)
+        reversecolors)
     );
     setAnxietyConfig(
       createTotalsChartConfigWithXYLabels( 
@@ -285,7 +287,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         <>
           <Wrap spacing="30px" overflow={"visible"}>
             <WrapItem
-              width={width < 1500 ? "300px" : "325px"}
+              width={width < 1500 ? "325px" : "350px"}
               shadow="base"
               borderRadius={"20px"}
               p={"30px"}
