@@ -245,10 +245,10 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       createTotalsChartConfigWithXYLabels( 
         "Frequency",
         "Number of Participants",
-        summary.anxietyInPastWeekRank,
+        reverseObjectKeys(summary.anxietyInPastWeekRank),
         "Anxiety In Past Week",
         "",
-        colors)
+        reversecolors)
     );
     setTotalEntries(totalFullEntries)
   }, [data]);
