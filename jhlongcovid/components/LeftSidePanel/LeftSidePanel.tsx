@@ -173,6 +173,8 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
   const panelRef = useRef<HTMLDivElement | null>(null);
   const [totalEntries, setTotalEntries] = useState(0);
 
+  const [covidDataToggle, setCovidDataToggle] = useState(0);
+
   useEffect(() => {
     if (data && realOrMock === RealOrMock.REAL) {
       setTotalEntries(data.totalFullEntries);
@@ -214,6 +216,8 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
     fetchSummaryData();
   }, [data]);
 
+  const covidToggleRadius = "15px";
+
   return (
     <>
       <Slide
@@ -237,7 +241,43 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
           height={width < 700 ? height - 200 : height - 130}
           overflow="hidden"
         >
-          <Flex width={"100%"} paddingTop={2}>
+          <Flex width={"100%"} paddingTop={2} paddingBottom={2} paddingLeft={"1rem"}>
+            <Tabs
+              ringColor={"spiritBlue.200"}
+              color={"heritageBlue.600"}
+              variant={'unstyled'}
+              // style="borderRadius: 10px"
+              // w="100%"
+              h="100%"
+              onClick={() => {
+                if (covidDataToggle === 0) {
+                  setCovidDataToggle(1)
+                } else {
+                  setCovidDataToggle(0)
+                }
+              }}
+              index={covidDataToggle}
+              bg={"gray.200"}
+              style={{borderRadius: covidToggleRadius}}
+            >
+              <TabList>
+                <Tab
+                  style={{borderRadius: `${covidToggleRadius} 0px   0px   ${covidToggleRadius}`}}
+                  _selected={{ color: 'white', bg: 'heritageBlue.600' }}
+                  fontSize={"13px"}
+                >
+                  LONG COVID DATA
+                </Tab>
+                <Tab
+                  style={{borderRadius: ` 0px ${covidToggleRadius} ${covidToggleRadius} 0px  `, whiteSpace: 'pre'}}
+                  _selected={{ color: 'white', bg: 'heritageBlue.600' }}
+                  // onClick={}
+                  fontSize={"13px"}
+                >
+                {'         ALL DATA         '}
+                </Tab>
+              </TabList>
+            </Tabs>
             <Spacer />
             <CloseButton
               size={"md"}
@@ -288,9 +328,8 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
                         const a = document.createElement("a");
                         a.download =
                           realOrMock === RealOrMock.REAL
-                            ? `${joinWordsByDash(data.name)}-${
-                                data.level
-                              }-jhlongcovid-data.json`
+                            ? `${joinWordsByDash(data.name)}-${data.level
+                            }-jhlongcovid-data.json`
                             : "data.json";
                         a.href = window.URL.createObjectURL(blob);
                         const clickEvent = new MouseEvent("click", {
