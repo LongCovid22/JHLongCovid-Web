@@ -178,10 +178,16 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               p={"30px"}
               minWidth="340px"
             >
-              <Bar
+    
+              <Doughnut
                 options={hasMedicalInsuranceConfig.options}
                 data={hasMedicalInsuranceConfig.data}
-                height={"300px"}
+                height={"350px"}
+                width={
+                  panelDimensions.width * 0.4 - 80 < 420
+                    ? "300px"
+                    : panelDimensions.width * 0.4 - 80
+                }
               />
             </WrapItem>
             <WrapItem

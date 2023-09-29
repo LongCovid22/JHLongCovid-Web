@@ -7,22 +7,22 @@ import {
 import { convertCamelCase } from "../visualizationFunctions";
 
 export const createhasMedInsurConfig = (
-  hasMedInsurance: YesNo
+  medicalInsurance: YesNo
 ): { labels: string[]; options: any; data: any } => {
   let labels: string[] = ["Yes", "No"];
   let yes: number[] = [];
   let no: number[] = [];
-  Object.keys(hasMedInsurance).forEach((value: string) => {
+  Object.keys(medicalInsurance).forEach((value: string) => {
     if (value === "yes") {
       yes.push(
-        hasMedInsurance.yes.race.values.reduce(
+        medicalInsurance.yes.race.values.reduce(
           (acc: number, curr: number) => acc + curr,
           0
         )
       );
     } else {
       no.push(
-        hasMedInsurance.no.race.values.reduce(
+        medicalInsurance.no.race.values.reduce(
           (acc: number, curr: number) => acc + curr,
           0
         )
@@ -30,43 +30,18 @@ export const createhasMedInsurConfig = (
     }
   });
 
-  const hasMedInsurConfig = {
+  const medicalInsuranceConfig = {
     labels: labels,
     options: {
       responsive: true,
-      maintainsAspectRation: false,
-      scales: {
-        xAxis: {
-          ticks: {
-            font: {
-              family: "Gentona",
-              size: 13,
-            },
-          },
-        },
-        yAxis: {
-          ticks: {
-            font: {
-              family: "Gentona",
-              size: 13,
-            },
-          },
-          title: { 
-            display: true,
-            text: 'Number of Participants',
-            font: {
-              family: "Gentona",
-              size: 16,
-            },
-            position: 'left'
-          },
-        },
-      },
+      maintainAspectRatio: false,
       plugins: {
-        legend: false,
+        legend: {
+          position: "top" as const,
+        },
         title: {
           display: true,
-          text: "Has Medical Insurance",
+          text: ["Participants That Have", "Medical Insurance"],
           font: {
             family: "Gentona",
             size: 18,
@@ -77,8 +52,7 @@ export const createhasMedInsurConfig = (
           align: "top",
           formatter: Math.round,
           font: {
-            weight: "bold",
-            family: "Gentona",
+            weight: "Gentona",
             size: 16,
           },
         },
@@ -88,7 +62,7 @@ export const createhasMedInsurConfig = (
       labels,
       datasets: [
         {
-          label: "People",
+          label: "Recovered",
           data: [...yes, ...no],
           backgroundColor: [
             "rgba(97, 230, 235, 0.5)",
@@ -99,7 +73,7 @@ export const createhasMedInsurConfig = (
     },
   };
 
-  return hasMedInsurConfig;
+  return medicalInsuranceConfig;
 };
 
 export const capitalizeFirstLetters = (str: string): string => {
