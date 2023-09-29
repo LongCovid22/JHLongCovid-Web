@@ -308,16 +308,6 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             <WrapItem>
               <Stat>
                 {numberAndPercentage(
-                  symptomatic,
-                  percentSymptomatic,
-                  "Symptomatic",
-                  "Number of participants with self-reported COVID related symptoms (% of total survey participants with self-reported COVID related symptoms)"
-                )}
-              </Stat>
-            </WrapItem>
-            <WrapItem>
-              <Stat>
-                {numberAndPercentage(
                   totalPrescribed,
                   percentMedications,
                   "Medications",

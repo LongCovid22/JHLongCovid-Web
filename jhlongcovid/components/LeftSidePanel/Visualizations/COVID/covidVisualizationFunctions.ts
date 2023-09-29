@@ -96,7 +96,7 @@ export const createMedicationsTakenConfig = (
           },
           title: { // Add y-axis label
             display: true,
-            text: 'Medication Options',
+            text: 'Medication',
             font: {
               family: "Gentona",
               size: 16,
