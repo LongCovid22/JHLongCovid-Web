@@ -77,6 +77,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   realOrMock,
   loading,
   setLoading,
+  covidDataToggle
 }) => {
   const [totalSymptomsCount, setTotalSymptomsCount] = useState(0);
   const [totalEntries, setTotalEntries] = useState(0);
@@ -131,9 +132,19 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       covidSummary = data.covidSummary;
       totalFullEntries = data.totalFullEntries;
     } else {
-      symptomSummary = mockResult.county.symptomSummary;
-      covidSummary = mockResult.county.covidSummary;
-      totalFullEntries = mockResult.county.totalFullEntries;
+
+
+      
+
+      if (covidDataToggle == 1) {
+        symptomSummary = mockResult.county.symptomSummary;
+        covidSummary = mockResult.county.covidSummary;
+        totalFullEntries = mockResult.county.totalFullEntries;
+      } else {
+        symptomSummary = mockResult.longCOVID.symptomSummary;
+        covidSummary = mockResult.longCOVID.covidSummary;
+        totalFullEntries = mockResult.longCOVID.totalFullEntries;
+      }
     }
 
     if (covidSummary.symptomatic) {
@@ -143,56 +154,19 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     }
 
     const summary = symptomSummary as SymptomSummary;
+
     setMostCommonSymptom(
       capitalizeFirstLetters(getMostCommonSymptom(summary.symptomCounts))
     );
 
-    setMostCommonSymptoms(getKMostCommonSymptoms(summary.symptomCounts, 3));
+    const symptoms = getKMostCommonSymptoms(summary.symptomCounts, 3);
+
+    setMostCommonSymptoms(symptoms);
+    setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
 
     
-    setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
-    setQOLConfig(
-      createTotalsChartConfig(
-        summary.qualityOfLife,
-        "Quality of Life",
-        "People",
-        colors
-      )
-    );
-    setMentalHealthConfig(
-      createTotalsChartConfig(
-        summary.mentalHealthRank,
-        "Mental Health",
-        "People",
-        colors
-      )
-    );
-    setSocialSatisConfig(
-      createTotalsChartConfig(
-        summary.socialSatisfactionRank,
-        "Social Satisfaction",
-        "People",
-        colors
-      )
-    );
-    setCarryOutSocialConfig(
-      createTotalsChartConfig(
-        summary.carryOutSocialActivitiesRank,
-        "Carry Out Social Activities",
-        "People",
-        colors
-      )
-    );
-    setAnxietyConfig(
-      createTotalsChartConfig(
-        summary.anxietyInPastWeekRank,
-        "Anxiety In Past Week",
-        "People",
-        colors
-      )
-    );
     setTotalEntries(totalFullEntries);
-  }, [data]);
+  }, [data, covidDataToggle, realOrMock]);
 
   return (
     <VStack align={"start"}>

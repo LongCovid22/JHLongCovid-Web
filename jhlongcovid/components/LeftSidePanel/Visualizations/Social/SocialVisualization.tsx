@@ -7,9 +7,10 @@ import {
   TabList,
   TabPanel,
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { LeftSidePanelBodyProps } from "../../LeftSidePanel";
 import { SocialTotalVisuals } from "./SocialTotalVisualization";
+import { LongCovidToggle } from "../../LongCovidToggle";
 
 export const SocialVisualizations: React.FC<LeftSidePanelBodyProps> = ({
   section,
@@ -19,18 +20,10 @@ export const SocialVisualizations: React.FC<LeftSidePanelBodyProps> = ({
   loading,
   setLoading,
 }) => {
+  const [covidDataToggle, setCovidDataToggle] = useState(0);
   return (
     <VStack>
-      {/* <Tabs variant="enclosed" colorScheme={"heritageBlue"}>
-        <TabList>
-          <Tab fontSize={"14px"}>Total</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            
-          </TabPanel>
-        </TabPanels>
-      </Tabs> */}
+      <LongCovidToggle covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle}/>
       <SocialTotalVisuals
         section={section}
         data={data}
@@ -38,6 +31,7 @@ export const SocialVisualizations: React.FC<LeftSidePanelBodyProps> = ({
         realOrMock={realOrMock}
         loading={loading}
         setLoading={setLoading}
+        covidDataToggle={covidDataToggle}
       />
     </VStack>
   );

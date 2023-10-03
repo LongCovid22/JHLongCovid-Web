@@ -1,15 +1,12 @@
 import mockResult from "../../../../mockResult.json";
 import {
-  TabPanels,
-  Tab,
   VStack,
-  Tabs,
-  TabList,
-  TabPanel,
+  Center,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { LeftSidePanelBodyProps } from "../../LeftSidePanel";
 import { SymptomsTotalVisuals } from "./SymptomsTotalVisualization";
+import { LongCovidToggle } from "../../LongCovidToggle";
 
 export const SymptomsVisualizations: React.FC<LeftSidePanelBodyProps> = ({
   section,
@@ -19,18 +16,15 @@ export const SymptomsVisualizations: React.FC<LeftSidePanelBodyProps> = ({
   loading,
   setLoading,
 }) => {
+  const [covidDataToggle, setCovidDataToggle] = useState(0);
   return (
+    <>
+    <Center w='100%'>
+      <LongCovidToggle covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle}/>
+    </Center>
+    
     <VStack>
-      {/* <Tabs variant="enclosed" colorScheme={"heritageBlue"}>
-        <TabList>
-          <Tab fontSize={"14px"}>Total</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            
-          </TabPanel>
-        </TabPanels>
-      </Tabs> */}
+      
       <SymptomsTotalVisuals
         section={section}
         data={data}
@@ -38,7 +32,10 @@ export const SymptomsVisualizations: React.FC<LeftSidePanelBodyProps> = ({
         realOrMock={realOrMock}
         loading={loading}
         setLoading={setLoading}
+        covidDataToggle={covidDataToggle}
       />
     </VStack>
+    </>
+    
   );
 };

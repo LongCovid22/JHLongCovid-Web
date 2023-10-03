@@ -78,6 +78,7 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   realOrMock,
   loading,
   setLoading,
+  covidDataToggle
 }) => {
   const [mostCommonWorkSituation, setMostCommonWorkSituation] = useState("");
   const [totalEntries, setTotalEntries] = useState(0);
@@ -107,8 +108,14 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         socialSummary = data.socialSummary;
         totalFullEntries = data.totalFullEntries;
       } else {
-        socialSummary = mockResult.county.socialSummary;
-        totalFullEntries = mockResult.county.totalFullEntries;
+        if (covidDataToggle == 1) {
+          socialSummary = mockResult.longCOVID.socialSummary;
+          totalFullEntries = mockResult.longCOVID.totalFullEntries;
+        } else {
+          socialSummary = mockResult.county.socialSummary;
+          totalFullEntries = mockResult.county.totalFullEntries;
+        }
+        
       }
 
       if (socialSummary.currentWorkSituation) {
@@ -152,7 +159,7 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     };
 
     createGraphVariables();
-  }, [data, realOrMock]);
+  }, [data, covidDataToggle, realOrMock]);
 
   return (
 

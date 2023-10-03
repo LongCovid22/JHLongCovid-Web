@@ -110,6 +110,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   realOrMock,
   loading,
   setLoading,
+  covidDataToggle
 }) => {
   let patientHealthQuestionnaireSummary: any,
     globalHealthSummary,
@@ -187,9 +188,17 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       covidSummary = data.covidSummary;
       totalFullEntries = data.totalFullEntries;
     } else {
-      symptomSummary = mockResult.county.symptomSummary;
-      covidSummary = mockResult.county.covidSummary;
-      totalFullEntries = mockResult.county.totalFullEntries;
+      if (covidDataToggle === 1) {
+        symptomSummary = mockResult.county.symptomSummary;
+        covidSummary = mockResult.county.covidSummary;
+        totalFullEntries = mockResult.county.totalFullEntries;
+      } else {
+        symptomSummary = mockResult.longCOVID.symptomSummary;
+        covidSummary = mockResult.longCOVID.covidSummary;
+        totalFullEntries = mockResult.longCOVID.totalFullEntries;
+      }
+
+      
     }
 
     if (covidSummary.symptomatic) {
@@ -251,7 +260,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         reversecolors)
     );
     setTotalEntries(totalFullEntries)
-  }, [data]);
+  }, [data, covidDataToggle, realOrMock]);
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
