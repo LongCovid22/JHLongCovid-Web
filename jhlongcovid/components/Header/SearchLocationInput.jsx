@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Input } from "@chakra-ui/react";
+import { Input, useToast } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 import { Box, IconButton } from "@chakra-ui/react";
 import { useMapContext } from "../context/MapContext";
@@ -36,7 +36,7 @@ function enableEnterKey(input) {
   input.addEventListener = addEventListenerWrapper;
 }
 
-function handleScriptLoad(updateQuery, autoCompleteRef, map, markerData, key) {
+function handleScriptLoad(updateQuery, autoCompleteRef, map, markerData, key, toast) {
   autoComplete = new window.google.maps.places.Autocomplete(
     autoCompleteRef.current,
     { componentRestrictions: { country: "us" } }
@@ -50,7 +50,7 @@ function handleScriptLoad(updateQuery, autoCompleteRef, map, markerData, key) {
   enableEnterKey(autoCompleteRef.current);
 
   autoComplete.addListener("place_changed", () => {
-    handlePlaceSelect(updateQuery, map, markerData, key);
+    handlePlaceSelect(updateQuery, map, markerData, key, toast);
   });
 }
 
@@ -67,7 +67,7 @@ const searchLocation = async (query, apiKey) => {
   }
 };
 
-async function handlePlaceSelect(updateQuery, map, markerData, apiKey) {
+async function handlePlaceSelect(updateQuery, map, markerData, apiKey, toast) {
   const addressObject = autoComplete.getPlace();
 
   // console.log(addressObject);
@@ -143,8 +143,18 @@ async function handlePlaceSelect(updateQuery, map, markerData, apiKey) {
               }
             }
           }
+          
           if (closest_marker) {
             google.maps.event.trigger(closest_marker.marker, "click");
+          } else {
+            toast({
+              title: "Not enough survey submissions yet!",
+              description: "Try another time!",
+              status: "error",
+              duration: 3000,
+              isClosable: true,
+              position: "bottom",
+            });
           }
         }, 1000);
       }
@@ -160,13 +170,14 @@ function SearchLocationInput({ markerData }) {
 
   const [value, setValue] = React.useState("");
 
+  const toast = useToast();
   useEffect(() => {
     handleScriptLoad(
       setValue,
       autoCompleteRef,
       mapContext.map,
       markerData,
-      key
+      key, toast
     );
   }, [mapContext]);
 
