@@ -7,7 +7,7 @@ import {
   TabList,
   TabPanel,
 } from "@chakra-ui/react";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { LeftSidePanelBodyProps } from "../../LeftSidePanel";
 import { PHQ8TotalVisuals } from "./PHQ8TotalVisualization";
 import { LongCovidToggle } from "../../LongCovidToggle";
@@ -22,17 +22,21 @@ export const PHQ8Visualizations: React.FC<LeftSidePanelBodyProps> = ({
 }) => {
   const [covidDataToggle, setCovidDataToggle] = useState(0);
   return (
-    <VStack>
-      <LongCovidToggle covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle}/>
-      <PHQ8TotalVisuals
-        section={section}
-        data={data}
-        realOrMock={realOrMock}
-        panelDimensions={panelDimensions}
-        loading={loading}
-        setLoading={setLoading}
-        covidDataToggle={covidDataToggle}
-      />
-    </VStack>
+    <>
+      <LongCovidToggle covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle} />
+
+      <VStack>
+        <PHQ8TotalVisuals
+          section={section}
+          data={data}
+          realOrMock={realOrMock}
+          panelDimensions={panelDimensions}
+          loading={loading}
+          setLoading={setLoading}
+          covidDataToggle={covidDataToggle}
+        />
+      </VStack>
+    </>
+
   );
 };

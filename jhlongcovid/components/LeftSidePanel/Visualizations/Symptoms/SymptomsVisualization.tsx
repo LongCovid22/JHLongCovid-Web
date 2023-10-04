@@ -19,9 +19,9 @@ export const SymptomsVisualizations: React.FC<LeftSidePanelBodyProps> = ({
   const [covidDataToggle, setCovidDataToggle] = useState(0);
   return (
     <>
-    <Center w='100%'>
-      <LongCovidToggle covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle}/>
-    </Center>
+    
+    
+    <LongCovidToggle covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle}/>
     
     <VStack>
       

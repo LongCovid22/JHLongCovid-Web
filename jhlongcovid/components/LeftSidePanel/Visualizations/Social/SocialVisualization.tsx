@@ -22,8 +22,10 @@ export const SocialVisualizations: React.FC<LeftSidePanelBodyProps> = ({
 }) => {
   const [covidDataToggle, setCovidDataToggle] = useState(0);
   return (
+    <>
+    <LongCovidToggle covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle}/>
     <VStack>
-      <LongCovidToggle covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle}/>
+      
       <SocialTotalVisuals
         section={section}
         data={data}
@@ -34,5 +36,7 @@ export const SocialVisualizations: React.FC<LeftSidePanelBodyProps> = ({
         covidDataToggle={covidDataToggle}
       />
     </VStack>
+    </>
+    
   );
 };

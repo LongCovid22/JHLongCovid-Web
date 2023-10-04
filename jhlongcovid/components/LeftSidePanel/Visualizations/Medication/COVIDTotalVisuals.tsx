@@ -249,7 +249,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   hospitalizations,
                   (hospitalizations / totalCovidCases) * 100,
                   "Hospitalizations",
-                  "Number of participants that reported that they were hospitalized due to COVID complications (% of total survey participants who reported a COVID experience)"
+                  "Number of participants that reported hospitalization due to COVID. % represents this figure divided by all survey participants. "
                 )}
               </Stat>
             </WrapItem>
@@ -259,7 +259,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   totalPrescribed,
                   percentMedications,
                   "Medications",
-                  "Number of people who were prescribed medications (% of total people who reported a COVID experience)"
+                  "Number of participants that reported getting medicated due to COVID. % represents this figure divided by all survey participants."
                 )}
               </Stat>
             </WrapItem>

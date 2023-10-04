@@ -22,8 +22,11 @@ export const VaccinationVisualizations: React.FC<LeftSidePanelBodyProps> = ({
 }) => {
   const [covidDataToggle, setCovidDataToggle] = useState(0);
   return (
+    <>
+    <LongCovidToggle covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle}/>
+
     <VStack>
-      <LongCovidToggle covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle}/>
+      
       <VaccinationTotalVisuals
         section={section}
         data={data}
@@ -34,5 +37,7 @@ export const VaccinationVisualizations: React.FC<LeftSidePanelBodyProps> = ({
         covidDataToggle={covidDataToggle}
       />
     </VStack>
+    </>
+    
   );
 };

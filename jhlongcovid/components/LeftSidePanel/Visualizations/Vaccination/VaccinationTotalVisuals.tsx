@@ -122,7 +122,7 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               totalVaccinated,
               Math.round((totalVaccinated / totalEntries) * 100),
               "Vaccinated",
-              "Total people who reported getting vaccinated (% of people who received a vaccine out of all survey entries)"
+              "Number of participants that have received a COVID vaccine. % represents this figure divided by either number of participants with Long COVID or total number of survey participants."
             )}
           </Stat>
         </WrapItem>

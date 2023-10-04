@@ -253,14 +253,14 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   }, [data, realOrMock]);
 
   return (
-    <VStack align={"start"} spacing="30px">
+    <VStack align={"start"} spacing="0px">
       {loading ? (
         <Spinner color="heritageBlue.800" />
       ) : (
         <>
           <Grid
             templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }}
-            gap={{ base: "20px", md: "30px" }}
+            gap={{ base: "10px", md: "15px" }}
             p={"30px"}
             shadow="base"
             borderRadius={"20px"}
@@ -309,7 +309,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                 )}
               </Stat>
             </GridItem>
-            <GridItem colSpan={{ base: "auto", md: 2 }}>
+            <GridItem colSpan={{ base: "auto", md: 3 }}>
               <Text fontSize="sm" as="i">
                 The percentages here are out of <u>total survey participants</u>
               </Text>
@@ -319,7 +319,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
           <Grid
             templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(2, 1fr)" }}
-            gap={{ base: "20px", md: "30px" }}
+            gap={{ base: "10px", md: "15px" }}
             p={"30px"}
             shadow="base"
             borderRadius={"20px"}
@@ -345,7 +345,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               </Stat>
             </GridItem>
 
-            <GridItem colSpan={{ base: "auto", md: 2 }}>
+            <GridItem colSpan={{ base: "auto", md: 3 }}>
               <Text fontSize="sm" as="i">
                 The percentages here are out of <u>participants with a COVID history</u>
               </Text>
