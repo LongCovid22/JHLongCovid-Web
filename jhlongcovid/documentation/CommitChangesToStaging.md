@@ -20,7 +20,7 @@ Perform these additional steps to deploy backend changes locally:
 2. Checkout in to the `staging` git branch
 3. Merge the branch with your changes in to `staging` 
 4. Run `amplify env checkout <staging-env-name>`. This will tell amplify that we are now referring to our staging back-end.
-5. Run `amplify status` or `amplify env list` to verify you are in the `stage` environment.
+5. Run `amplify status` or `amplify env list` to verify you are in the correct amplify environment.
 6. Run `amplify push` to push the changes to the backend. Make sure that you are confident that these changes you are about to make are intended - the push overwrites what is on the cloud.
 7. Once amplify push is succesful, git push to kick off amplify CI/CD on the cloud.
 
