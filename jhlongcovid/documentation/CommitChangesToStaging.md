@@ -16,8 +16,8 @@ Note: On the cloud, AWS Amplify uses a webhook to kick off the CI/CD pipeline fo
 
 Perform these additional steps to deploy backend changes locally:
 
-1. Same as above
-2. Same as above
+1. Make sure that all code is comitted into the branch that you are merging from
+2. Checkout in to the `staging` branch
 3. Run `amplify env checkout <staging-env-name>`. This will tell amplify that we are now referring to our staging back-end.
 4. Run `amplify status` or `amplify env list` to verify you are in the `stage` environment.
 5. Run `amplify push` to push the changes to the backend. Make sure that you are confident that these changes you are about to make are intended - the push overwrites what is on the cloud.
