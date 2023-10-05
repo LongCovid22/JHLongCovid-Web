@@ -23,7 +23,7 @@ export const PHQ8Visualizations: React.FC<LeftSidePanelBodyProps> = ({
   const [covidDataToggle, setCovidDataToggle] = useState(0);
   return (
     <>
-      <LongCovidToggle covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle} />
+      <LongCovidToggle rOM={realOrMock} covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle} />
 
       <VStack>
         <PHQ8TotalVisuals

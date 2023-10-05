@@ -126,7 +126,7 @@ export const createMedicationsTakenConfig = (
         legend: false,
         title: {
           display: true,
-          text: ["Medications Taken Amongst Participants", "With COVID History"],
+          text: ["Medications Taken Amongst Participants", "With COVID History and Got Medicated for COVID"],
           font: {
             family: "Gentona",
             size: 18,

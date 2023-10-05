@@ -1,21 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { LeftSidePanelBodyProps } from "../../LeftSidePanel";
-import mockResult from "../../../../mockResult.json";
-import {
-  createMedicationsTakenConfig,
-  getPercentMedications,
-  getPercentSymptomatic,
-  getTotalCovidCases,
-  getTotalHospitalizations,
-  getTotalSymptomatic,
-  percentOfTotalCovid,
-  createRecoveryConfig,
-  getTotalPrescribed,
-} from "./covidVisualizationFunctions";
+
 import {
   MedicationsAvailable,
   OneToThreePlus,
-  SummaryDemos,
   YesNo,
   YesNoDontKnow,
 } from "../answerTypes";
@@ -25,12 +13,13 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  StatHelpText,
   VStack,
   Spinner,
   Tooltip as ChakraTooltip,
-  HStack,
   Flex,
+  Text,
+  Grid,
+  GridItem
 } from "@chakra-ui/react";
 
 import { QuestionOutlineIcon } from "@chakra-ui/icons";
@@ -47,9 +36,7 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import { useAppSelector } from "../../../../redux/hooks";
-import { selectWidth } from "../../../../redux/slices/viewportSlice";
-import { RealOrMock } from "../../../../pages";
+import useGetRecoverySummary from "./useGetRecoverySummary";
 
 ChartJS.register(
   CategoryScale,
@@ -66,18 +53,19 @@ ChartJS.register(
 type CovidSummary = {
   beenInfected: YesNo;
   timesPositive: OneToThreePlus;
-  hospitalized: YesNo;
+
   timesHospitalized: OneToThreePlus;
   tested: YesNo;
   positiveTest: YesNoDontKnow;
   symptomatic: YesNo;
-  medicationsPrescribed: YesNoDontKnow;
-  medicationsTakenCount: MedicationsAvailable;
+
 };
 
 type RecoverySummary = {
   recovered: YesNo;
-  avglengthOfRecovery: SummaryDemos;
+  medicationsPrescribed: YesNoDontKnow;
+  medicationsTakenCount: MedicationsAvailable;
+  hospitalized: YesNo;
 };
 
 export const numberAndPercentage = (
@@ -97,7 +85,7 @@ export const numberAndPercentage = (
       <StatNumber>
         <Flex alignItems="flex-start">
           <span style={{ marginRight: "8px" }}>{`${num}`}</span>
-          <span>{`(${percentage.toFixed()}%)`}</span>
+          <span>{`(${percentage.toFixed(1)}%)`}</span>
         </Flex>
       </StatNumber>
     </>
@@ -111,160 +99,55 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   loading,
   setLoading,
 }) => {
-  const [totalCovidCases, setTotalCovidCases] = useState(0);
-  const [totalEntries, setTotalEntries] = useState(0);
-  const [percentTotalCovid, setPercentTotalCovid] = useState(0);
-  const [hospitalizations, setHospitalizations] = useState(0);
-  const [percentSymptomatic, setPercentSymptomatic] = useState(0);
-  const [symptomatic, setSymptomatic] = useState(0);
-  const [totalPrescribed, setTotalPrescribed] = useState(0);
-  const [percentMedications, setPercentMedications] = useState(0);
-  const [totalLongCovidFourWeeks, setTotalLongCovidFourWeeks] = useState(0);
-  const [totalLongCovidFourWeeksPerc, setTotalLongCovidFourWeeksPerc] =
-    useState(0);
-  const [totalLongCovidTwelveWeeks, setTotalLongCovidTwelveWeeks] = useState(0);
-  const [totalLongCovidTwelveWeeksPerc, setTotalLongCovidTwelveWeeksPerc] =
-    useState(0);
-  const [totalSelfReported, setTotalSelfReported] = useState<number>(0);
-  const [totalSelfReportedPerc, setTotalSelfReportedPerc] = useState<number>(0);
-  const [totalLongCovid, setTotalLongCovid] = useState<number>(0);
-  const [totalLongCovidPerc, setTotalLongCovidPerc] = useState<number>(0);
-  const [medicationsTakenConfig, setMedicationsTakenConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [recoveryTakenConfig, setRecoveryConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const width = useAppSelector(selectWidth);
-  const [height, setHeight] = useState(350);
-
-  useEffect(() => {
-    // Perform all processing on map data and populate visualizations
-    const createGraphVariables = async () => {
-      let covidSummary,
-        recoverySummary,
-        totalFullEntries = undefined;
-      if (realOrMock === RealOrMock.REAL && data) {
-        covidSummary = data.covidSummary;
-        recoverySummary = data.recoverySummary;
-        totalFullEntries = data.totalFullEntries;
-      } else {
-        covidSummary = mockResult.county.covidSummary;
-        recoverySummary = mockResult.county.recoverySummary;
-        totalFullEntries = mockResult.county.totalFullEntries;
-      }
-
-      const totalCases = getTotalCovidCases(covidSummary.beenInfected);
-      const percentOfCovidReported = percentOfTotalCovid(
-        totalCases,
-        totalFullEntries
-      );
-      
-      const totalHospitalizations = getTotalHospitalizations(
-        covidSummary.hospitalized as YesNo
-      );
-      const totalSymptomatic = getTotalSymptomatic(
-        covidSummary.symptomatic as YesNo
-      );
-      const percOfSymptomatic = getPercentSymptomatic(
-        totalSymptomatic,
-        totalCases
-      );
-
-      const totalPrescribed = getTotalPrescribed(
-        covidSummary.medicationsPrescribed as YesNoDontKnow
-      );
-      const percOfMedications = getPercentMedications(
-        covidSummary.medicationsPrescribed as YesNoDontKnow,
-        totalCases
-      );
-
-      const medTakenConfig = createMedicationsTakenConfig(
-        covidSummary.medicationsTakenCount as MedicationsAvailable
-      );
-
-      const recoveryConfig = createRecoveryConfig(
-        recoverySummary.recovered as YesNo
-      );
-      if (data) {
-        const longCovidOverFourWeeks = data.longCovidOverFourWeeks
-          ? data.longCovidOverFourWeeks
-          : 0;
-        const longCovidOverFourWeeksPerc =
-          (longCovidOverFourWeeks / totalCases) * 100;
-        const longCovidOverTwelveWeeks = data.longCovidOverTwelveWeeks
-          ? data.longCovidOverTwelveWeeks
-          : 0;
-        const longCovidOverTwelveWeeksPerc =
-          (longCovidOverTwelveWeeks / totalCases) * 100;
-        const selfReported = data.selfReportedLongCovid
-          ? data.selfReportedLongCovid
-          : 0;
-        const selfReportedPerc = data.longCovid
-          ? (selfReported / data.longCovid) * 100
-          : 0;
-        const longCovid = data.longCovid ? data.longCovid : 0;
-        const longCovidPerc = (longCovid / totalFullEntries) * 100;
-
-        setTotalLongCovid(longCovid);
-        setTotalLongCovidPerc(longCovidPerc);
-        setTotalSelfReported(selfReported);
-        setTotalSelfReportedPerc(selfReportedPerc);
-        setTotalLongCovidFourWeeks(longCovidOverFourWeeks);
-        setTotalLongCovidFourWeeksPerc(longCovidOverFourWeeksPerc);
-        setTotalLongCovidTwelveWeeks(longCovidOverTwelveWeeks);
-        setTotalLongCovidTwelveWeeksPerc(longCovidOverTwelveWeeksPerc);
-      }
-
-      setTotalPrescribed(totalPrescribed);
-      setSymptomatic(totalSymptomatic);
-      setTotalEntries(totalFullEntries);
-      setTotalCovidCases(totalCases);
-      setPercentTotalCovid(percentOfCovidReported);
-      setHospitalizations(totalHospitalizations);
-      setPercentSymptomatic(percOfSymptomatic);
-      setPercentMedications(percOfMedications);
-      setHeight(350);
-      setMedicationsTakenConfig(medTakenConfig);
-      setRecoveryConfig(recoveryConfig);
-    };
-
-    createGraphVariables();
-  }, [data, realOrMock]);
+  const { recovery_data, error } = useGetRecoverySummary();
 
   return (
     <VStack align={"start"} spacing="30px">
-      {loading ? (
+      {(loading || !recovery_data) ? (
         <Spinner color="heritageBlue.800" />
       ) : (
         <>
-          <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
-            <WrapItem>
+
+          <Grid
+            templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }}
+            gap={{ base: "10px", md: "15px" }}
+            p={"30px"}
+            shadow="base"
+            borderRadius={"20px"}
+            marginBottom="20px"
+          >
+            <GridItem>
               <Stat>
                 {numberAndPercentage(
-                  hospitalizations,
-                  (hospitalizations / totalCovidCases) * 100,
+                  recovery_data.hospitalization,
+                  recovery_data.hospitalizationPercentage,
                   "Hospitalizations",
-                  "Number of participants that reported hospitalization due to COVID. % represents this figure divided by all survey participants. "
+                  "Number of participants that reported hospitalization due to COVID. % represents this figure divided by number of participants with a COVID history. "
                 )}
               </Stat>
-            </WrapItem>
-            <WrapItem>
+            </GridItem>
+
+            <GridItem>
               <Stat>
                 {numberAndPercentage(
-                  totalPrescribed,
-                  percentMedications,
+                  recovery_data.medications,
+                  recovery_data.medicationsPercentage,
                   "Medications",
-                  "Number of participants that reported getting medicated due to COVID. % represents this figure divided by all survey participants."
+                  "Number of participants that reported getting medicated due to COVID. % represents this figure divided by number of participants with a COVID history."
                 )}
               </Stat>
-            </WrapItem>
-          </Wrap>
-          <Wrap spacing="30px" overflow={"visible"}>
+            </GridItem>
+
+
+            <GridItem colSpan={{ base: "auto", md: 3 }}>
+              <Text fontSize="sm" as="i">
+                The percentages here are out of <u>total number of participants with a COVID history</u>
+              </Text>
+            </GridItem>
+
+          </Grid>
+
+           <Wrap spacing="30px" overflow={"visible"}>
             <WrapItem
               // width={width < 1500 ? "300px" : "325px"}
               width={panelDimensions.width * 0.6 - 80}
@@ -274,8 +157,8 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               minWidth="340px"
             >
               <Bar
-                options={medicationsTakenConfig.options}
-                data={medicationsTakenConfig.data}
+                options={recovery_data.medicationsTakenAmongstParticpantsGraph.options}
+                data={recovery_data.medicationsTakenAmongstParticpantsGraph.data}
                 height="350px"
                 width={
                   panelDimensions.width * 0.6 - 80 < 420
@@ -292,8 +175,8 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               minWidth="340px"
             >
               <Doughnut
-                options={recoveryTakenConfig.options}
-                data={recoveryTakenConfig.data}
+                options={recovery_data.fullyRecoveredVsNotRecoveredGraph.options}
+                data={recovery_data.fullyRecoveredVsNotRecoveredGraph.data}
                 height={"350px"}
                 width={
                   panelDimensions.width * 0.4 - 80 < 420
@@ -302,7 +185,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                 }
               />
             </WrapItem>
-          </Wrap>
+          </Wrap> 
         </>
       )}
     </VStack>

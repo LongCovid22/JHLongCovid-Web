@@ -126,8 +126,16 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     patientHealthQuestionnaireSummary =
       mockResult.county.patientHealthQuestionnaireSummary;
     globalHealthSummary = mockResult.county.globalHealthSummary;
-    totalFullEntries = mockResult.county.totalFullEntries;
-    phq8AboveTen = mockResult.county.phq8AboveTen;
+    
+    
+    if (covidDataToggle == 1) {
+      phq8AboveTen = mockResult.county.phq8AboveTen;
+      totalFullEntries = mockResult.county.totalFullEntries;
+    } else {
+      phq8AboveTen = mockResult.longCOVID.phq8AboveTen;
+      totalFullEntries = mockResult.county.covidSummary.covidAndLongCovidOrLongCovidOver4Weeks.total;
+    }
+
   }
 
   const phq8OverTen =

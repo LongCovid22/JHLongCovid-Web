@@ -21,7 +21,7 @@ export const SymptomsVisualizations: React.FC<LeftSidePanelBodyProps> = ({
     <>
     
     
-    <LongCovidToggle covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle}/>
+    <LongCovidToggle rOM={realOrMock}  covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle}/>
     
     <VStack>
       

@@ -14,11 +14,13 @@ import {
   Wrap,
   WrapItem,
   Stat,
+  Text,
   StatLabel,
   StatNumber,
   StatHelpText,
   VStack,
   Box,
+  Center,
 } from "@chakra-ui/react";
 import { Bar, Doughnut } from "react-chartjs-2";
 import {
@@ -93,14 +95,14 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       summary = data.vaccinationSummary;
       totalFullEntries = data.totalFullEntries;
     } else {
-      if (covidDataToggle == 1) {
+      if (covidDataToggle == 0) {
         summary = mockResult.county.vaccinationSummary;
-        totalFullEntries = mockResult.county.totalFullEntries;
+        totalFullEntries = mockResult.county.covidSummary.covidAndLongCovidOrLongCovidOver4Weeks.total;
       } else {
         summary = mockResult.longCOVID.vaccinationSummary;
-        totalFullEntries = mockResult.longCOVID.totalFullEntries;
+        totalFullEntries = mockResult.county.totalFullEntries;
       }
-      
+
     }
 
     setTotalEntries(totalFullEntries);
@@ -129,6 +131,11 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       </Wrap>
       {/* Graph Wrap */}
       <Wrap spacing="30px" overflow={"visible"}>
+        <Center w="100%">
+          <Text fontSize={"md"}>
+            The following graphs are about participants that self-reported vaccination.
+          </Text>
+        </Center>
         <WrapItem
           width={panelDimensions.width * 0.5 - 80}
           p={"30px"}

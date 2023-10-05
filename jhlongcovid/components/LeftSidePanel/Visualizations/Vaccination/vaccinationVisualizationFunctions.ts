@@ -12,17 +12,15 @@ export const getVaccinations = (vaccinated: YesNo) => {
 export const createTotalVaccineShotsConfig = (
   totalVaccines: OneToFivePlus
 ): { labels: string[]; options: any; data: any } => {
-
   let { labels, chartData } = createTotalsChartData({
-    "doNotKnow": totalVaccines.dontKnow,
-    "one": totalVaccines.one,
-    "two": totalVaccines.two,
-    "three": totalVaccines.three,
-    "four": totalVaccines.four,
-    "five": totalVaccines.five,
-    "fivePlus": totalVaccines.fivePlus,
-  } );
-
+    doNotKnow: totalVaccines.dontKnow,
+    one: totalVaccines.one,
+    two: totalVaccines.two,
+    three: totalVaccines.three,
+    four: totalVaccines.four,
+    five: totalVaccines.five,
+    fivePlus: totalVaccines.fivePlus,
+  });
 
   const vaccinationsTakenConfig = {
     labels: labels,
@@ -37,14 +35,15 @@ export const createTotalVaccineShotsConfig = (
               size: 13,
             },
           },
-          title: { // Add y-axis label
+          title: {
+            // Add y-axis label
             display: true,
-            text: 'Number of Vaccine Dosages',
+            text: "Number of Vaccine Dosages",
             font: {
               family: "Gentona",
               size: 16,
             },
-            position: 'left'
+            position: "left",
           },
         },
         yAxis: {
@@ -53,16 +52,17 @@ export const createTotalVaccineShotsConfig = (
               family: "Gentona",
               size: 13,
             },
-            stepSize: 1
+            stepSize: 1,
           },
-          title: { // Add y-axis label
+          title: {
+            // Add y-axis label
             display: true,
-            text: 'Number of Participants',
+            text: "Number of Participants",
             font: {
               family: "Gentona",
               size: 16,
             },
-            position: 'left'
+            position: "left",
           },
         },
       },
@@ -119,14 +119,14 @@ export const createVaccineTypeConfig = (
               size: 13,
             },
           },
-          title: { 
+          title: {
             display: true,
             text: `Vaccine Type`,
             font: {
               family: "Gentona",
               size: 16,
             },
-            position: 'left'
+            position: "left",
           },
         },
         yAxis: {
@@ -135,16 +135,16 @@ export const createVaccineTypeConfig = (
               family: "Gentona",
               size: 13,
             },
-            stepSize: 1
+            stepSize: 1,
           },
-          title: { 
+          title: {
             display: true,
-            text: 'Number of Participants',
+            text: "Number of Participants",
             font: {
               family: "Gentona",
               size: 16,
             },
-            position: 'left'
+            position: "left",
           },
         },
       },
@@ -170,6 +170,10 @@ export const createVaccineTypeConfig = (
             family: "Gentona",
           },
         },
+        commonSeriesSettings: {
+          hoverMode: "includePoints",
+          selectionMode: "includePoints",
+        },
       },
     },
     data: {
@@ -187,6 +191,3 @@ export const createVaccineTypeConfig = (
 
   return vaccinationsTakenConfig;
 };
-
-
-

@@ -9,18 +9,34 @@ import {
 
 import React, { useState, useRef, useEffect } from "react";
 
+import { RealOrMock } from "../../pages";
 
-export const LongCovidToggle: React.FC<{ covidDataToggle: number, setCovidDataToggle: React.Dispatch<React.SetStateAction<number>> }> = ({ covidDataToggle, setCovidDataToggle }) => {
+import mockResult from "../../mockResult.json";
+
+
+export const LongCovidToggle: React.FC<{ rOM?: RealOrMock, covidDataToggle: number, setCovidDataToggle: React.Dispatch<React.SetStateAction<number>> }> = ({rOM, covidDataToggle, setCovidDataToggle }) => {
 
 
 
     const covidToggleRadius = "15px";
     const [width, setWidth] = useState(0);
     const myDivRef = useRef();
+    const [longCovidPop, setLongCovidPop] = useState<number>(0);
+    const [allDataPop, setAllDataPop] = useState<number>(0);
+
+    useEffect(() => {
+        console.log(rOM);
+        if (rOM === RealOrMock.MOCK) {
+            setLongCovidPop(mockResult.county.covidSummary.covidAndLongCovidOrLongCovidOver4Weeks.total);
+            setAllDataPop(mockResult.county.totalFullEntries);
+        } else if (rOM === RealOrMock.REAL) {
+
+        }
+    } , [rOM]);
 
     return (
 
-        <div style ={{width: "100%"}} >
+        <div style={{ width: "100%" }} >
             <Center w='100%'>
                 <VStack>
                     <Tabs
@@ -58,7 +74,7 @@ export const LongCovidToggle: React.FC<{ covidDataToggle: number, setCovidDataTo
                         </TabList>
                     </Tabs>
                     <Text fontSize='md'>
-                        {(covidDataToggle === 0) ? 'You are viewing statistics amongst the (13) participants that have a Long COVID history in the region.' : 'You are viewing numbers amongst the (75) participants in the region.'}
+                        {(covidDataToggle === 0) ? `You are viewing statistics amongst the (${longCovidPop}) participants that have a Long COVID history in the region.` : `You are viewing numbers amongst the (${allDataPop}) survey participants in the region.`}
                     </Text>
                 </VStack>
             </Center>

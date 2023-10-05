@@ -12,6 +12,8 @@ import {
   createRecoveryConfig,
   getTotalPrescribed,
 } from "./covidVisualizationFunctions";
+
+import useGetCovidSummary from "./useGetCovidSummary";
 import {
   MedicationsAvailable,
   OneToThreePlus,
@@ -100,7 +102,7 @@ export const numberAndPercentage = (
       <StatNumber>
         <Flex alignItems="flex-start">
           <span style={{ marginRight: "8px" }}>{`${num}`}</span>
-          <span>{`(${percentage.toFixed()}%)`}</span>
+          <span>{`(${percentage.toFixed(1)}%)`}</span>
         </Flex>
       </StatNumber>
     </>
@@ -114,149 +116,104 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   loading,
   setLoading,
 }) => {
-  const [totalCovidCases, setTotalCovidCases] = useState(0);
-  const [totalEntries, setTotalEntries] = useState(0);
-  const [percentTotalCovid, setPercentTotalCovid] = useState(0);
-  const [hospitalizations, setHospitalizations] = useState(0);
-  const [percentSymptomatic, setPercentSymptomatic] = useState(0);
-  const [symptomatic, setSymptomatic] = useState(0);
-  const [totalPrescribed, setTotalPrescribed] = useState(0);
-  const [percentMedications, setPercentMedications] = useState(0);
-  const [totalLongCovidFourWeeks, setTotalLongCovidFourWeeks] = useState(0);
-  const [totalLongCovidFourWeeksPerc, setTotalLongCovidFourWeeksPerc] =
-    useState(0);
-  const [totalLongCovidTwelveWeeks, setTotalLongCovidTwelveWeeks] = useState(0);
-  const [totalLongCovidTwelveWeeksPerc, setTotalLongCovidTwelveWeeksPerc] =
-    useState(0);
-  const [totalSelfReported, setTotalSelfReported] = useState<number>(0);
-  const [totalSelfReportedPerc, setTotalSelfReportedPerc] = useState<number>(0);
-  const [totalLongCovid, setTotalLongCovid] = useState<number>(0);
-  const [totalLongCovidPerc, setTotalLongCovidPerc] = useState<number>(0);
-  const [medicationsTakenConfig, setMedicationsTakenConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [recoveryTakenConfig, setRecoveryConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const width = useAppSelector(selectWidth);
-  const [height, setHeight] = useState(350);
+  // const [totalCovidCases, setTotalCovidCases] = useState(0);
+  // const [percentTotalCovid, setPercentTotalCovid] = useState(0);
+  // const [totalPrescribed, setTotalPrescribed] = useState(0);
+
+  // const [totalLongCovidFourWeeks, setTotalLongCovidFourWeeks] = useState(0);
+  // const [totalLongCovidFourWeeksPerc, setTotalLongCovidFourWeeksPerc] =
+  //   useState(0);
+  // const [totalLongCovidTwelveWeeks, setTotalLongCovidTwelveWeeks] = useState(0);
+  // const [totalLongCovidTwelveWeeksPerc, setTotalLongCovidTwelveWeeksPerc] =
+  //   useState(0);
 
 
-  useEffect(() => {
-    // Perform all processing on map data and populate visualizations
-    const createGraphVariables = async () => {
-      let covidSummary,
-        recoverySummary,
-        totalFullEntries = undefined;
+  // const [totalSelfReported, setTotalSelfReported] = useState<number>(0);
+  // const [totalSelfReportedPerc, setTotalSelfReportedPerc] = useState<number>(0);
+
+  // const [totalLongCovid, setTotalLongCovid] = useState<number>(0);
+  // const [totalLongCovidPerc, setTotalLongCovidPerc] = useState<number>(0);
+
+
+  // useEffect(() => {
+  //   // Perform all processing on map data and populate visualizations
+  //   const createGraphVariables = async () => {
+  //     let covidSummary,
+  //       recoverySummary,
+  //       totalFullEntries = undefined;
 
 
 
-      let data: any = data;
+  //     let data: any = data;
 
 
-
-      if (realOrMock === RealOrMock.REAL && data) {
-        covidSummary = data.covidSummary;
-        recoverySummary = data.recoverySummary;
-        totalFullEntries = data.totalFullEntries;
-      } else {
-        covidSummary = mockResult.county.covidSummary;
-        recoverySummary = mockResult.county.recoverySummary;
-        totalFullEntries = mockResult.county.totalFullEntries;
-        data = mockResult.county;
-      }
-      console.log(data);
+  //     if (realOrMock === RealOrMock.REAL && data) {
+  //       covidSummary = data.covidSummary;
+  //       recoverySummary = data.recoverySummary;
+  //       totalFullEntries = data.totalFullEntries;
+  //     } else {
+  //       covidSummary = mockResult.county.covidSummary;
+  //       recoverySummary = mockResult.county.recoverySummary;
+  //       totalFullEntries = mockResult.county.totalFullEntries;
+  //       data = mockResult.county;
+  //     }
 
 
-      const totalCases = getTotalCovidCases(covidSummary.beenInfected);
-      const percentOfCovidReported = percentOfTotalCovid(
-        totalCases,
-        totalFullEntries
-      );
-      const totalHospitalizations = getTotalHospitalizations(
-        covidSummary.hospitalized as YesNo
-      );
-      const totalSymptomatic = getTotalSymptomatic(
-        covidSummary.symptomatic as YesNo
-      );
-      const percOfSymptomatic = getPercentSymptomatic(
-        totalSymptomatic,
-        totalCases
-      );
+  //     const totalCases = getTotalCovidCases(covidSummary.beenInfected);
+      
+  //     const percentOfCovidReported = percentOfTotalCovid(
+  //       totalCases,
+  //       totalFullEntries
+  //     );
 
-      const totalPrescribed = getTotalPrescribed(
-        covidSummary.medicationsPrescribed as YesNoDontKnow
-      );
-      const percOfMedications = getPercentMedications(
-        covidSummary.medicationsPrescribed as YesNoDontKnow,
-        totalCases
-      );
+  //     const longCovidOverFourWeeks = data.longCovidOverFourWeeks
+  //       ? data.longCovidOverFourWeeks
+  //       : 0;
+  //     const longCovidOverFourWeeksPerc =
+  //       (longCovidOverFourWeeks / totalCases) * 100;
+  //     const longCovidOverTwelveWeeks = data.longCovidOverTwelveWeeks
+  //       ? data.longCovidOverTwelveWeeks
+  //       : 0;
+  //     const longCovidOverTwelveWeeksPerc =
+  //       (longCovidOverTwelveWeeks / totalCases) * 100;
+  //     const selfReported = data.selfReportedLongCovid
+  //       ? data.selfReportedLongCovid
+  //       : 0;
+  //     const selfReportedPerc = data.longCovid
+  //       ? (selfReported / data.longCovid) * 100
+  //       : 0;
+  //     const longCovid = data.longCovid ? data.longCovid : 0;
+  //     const longCovidPerc = (longCovid / totalFullEntries) * 100;
 
-      const medTakenConfig = createMedicationsTakenConfig(
-        covidSummary.medicationsTakenCount as MedicationsAvailable
-      );
-
-      const recoveryConfig = createRecoveryConfig(
-        recoverySummary.recovered as YesNo
-      );
-
-
-
-
-      const longCovidOverFourWeeks = data.longCovidOverFourWeeks
-        ? data.longCovidOverFourWeeks
-        : 0;
-      const longCovidOverFourWeeksPerc =
-        (longCovidOverFourWeeks / totalCases) * 100;
-      const longCovidOverTwelveWeeks = data.longCovidOverTwelveWeeks
-        ? data.longCovidOverTwelveWeeks
-        : 0;
-      const longCovidOverTwelveWeeksPerc =
-        (longCovidOverTwelveWeeks / totalCases) * 100;
-      const selfReported = data.selfReportedLongCovid
-        ? data.selfReportedLongCovid
-        : 0;
-      const selfReportedPerc = data.longCovid
-        ? (selfReported / data.longCovid) * 100
-        : 0;
-      const longCovid = data.longCovid ? data.longCovid : 0;
-      const longCovidPerc = (longCovid / totalFullEntries) * 100;
-
-      setTotalLongCovid(longCovid);
-      setTotalLongCovidPerc(longCovidPerc);
-      setTotalSelfReported(selfReported);
-      setTotalSelfReportedPerc(selfReportedPerc);
-      setTotalLongCovidFourWeeks(longCovidOverFourWeeks);
-      setTotalLongCovidFourWeeksPerc(longCovidOverFourWeeksPerc);
-      setTotalLongCovidTwelveWeeks(longCovidOverTwelveWeeks);
-      setTotalLongCovidTwelveWeeksPerc(longCovidOverTwelveWeeksPerc);
+  //     setTotalLongCovid(longCovid);
+  //     setTotalLongCovidPerc(longCovidPerc);
+  //     setTotalSelfReported(selfReported);
+  //     setTotalSelfReportedPerc(selfReportedPerc);
+  //     setTotalLongCovidFourWeeks(longCovidOverFourWeeks);
+  //     setTotalLongCovidFourWeeksPerc(longCovidOverFourWeeksPerc);
+  //     setTotalLongCovidTwelveWeeks(longCovidOverTwelveWeeks);
+  //     setTotalLongCovidTwelveWeeksPerc(longCovidOverTwelveWeeksPerc);
 
 
-      setTotalPrescribed(totalPrescribed);
-      setSymptomatic(totalSymptomatic);
-      setTotalEntries(totalFullEntries);
-      setTotalCovidCases(totalCases);
-      setPercentTotalCovid(percentOfCovidReported);
-      setHospitalizations(totalHospitalizations);
-      setPercentSymptomatic(percOfSymptomatic);
-      setPercentMedications(percOfMedications);
-      setHeight(350);
-      setMedicationsTakenConfig(medTakenConfig);
-      setRecoveryConfig(recoveryConfig);
-    };
+  //     setTotalPrescribed(totalPrescribed);
+  //     setTotalEntries(totalFullEntries);
+  //     setTotalCovidCases(totalCases);
+  //     setPercentTotalCovid(percentOfCovidReported);
+  //     setHeight(350);
+  //   };
 
-    createGraphVariables();
-  }, [data, realOrMock]);
+  //   createGraphVariables();
+  // }, [data, realOrMock]);
+
+
+  const{covid_data, error} = useGetCovidSummary();
 
   return (
     <VStack align={"start"} spacing="0px">
       {loading ? (
         <Spinner color="heritageBlue.800" />
       ) : (
+        covid_data ? (
         <>
           <Grid
             templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }}
@@ -269,8 +226,8 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             <GridItem>
               <Stat>
                 {numberAndPercentage(
-                  totalCovidCases,
-                  percentTotalCovid,
+                  covid_data.totalCovid,
+                  covid_data.covidPercentage,
                   "COVID History",
                   "Number of participants that have a history of COVID. % represents this figure divided by total number of all survey participants."
                 )}
@@ -280,8 +237,8 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             <GridItem>
               <Stat>
                 {numberAndPercentage(
-                  totalSelfReported,
-                  totalSelfReportedPerc,
+                  covid_data.covidAndLongCovid,
+                  covid_data.covidAndLongCovidPercentage,
                   "Long COVID and COVID History",
                   "Number of participants that self reported a history of Long COVID and COVID. % represents this figure divided by total number of all survey participants."
                 )}
@@ -291,8 +248,8 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             <GridItem>
               <Stat>
                 {numberAndPercentage(
-                  5,
-                  69,
+                  covid_data.noCovidButLongCovid,
+                  covid_data.noCovidButLongCovidPercentage,
                   "Long COVID History and No COVID History",
                   "Number of participants that self reported a history of Long COVID but not COVID. % represents this figure divided by total number of all survey participants."
                 )}
@@ -302,8 +259,8 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             <GridItem>
               <Stat>
                 {numberAndPercentage(
-                  totalLongCovid,
-                  totalLongCovidPerc,
+                  covid_data.covidAndLongCovidOrLongCovidOver4Weeks,
+                  covid_data.covidAndLongCovidOrLongCovidOver4WeeksPercentage,
                   "Total Long COVID (self reported COVID and Long COVID or >4 weeks symptomatic) ",
                   "Total number of participants who reported Long COVID symptoms for over 4 weeks or self reported that they have a history of Long COVID and COVID. % represents this figure divided by total number of all survey participants."
                 )}
@@ -327,8 +284,8 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             <GridItem>
               <Stat>
                 {numberAndPercentage(
-                  totalLongCovidFourWeeks,
-                  totalLongCovidFourWeeksPerc,
+                  covid_data.longCovidOverFourWeeks,
+                  covid_data.longCovidOverFourWeeksPercentage,
                   "Participants with Long COVID >4 Weeks",
                   "Participants with a history of Long COVID Symptoms for over 4 weeks. % represents this figure divided by total number of participants with a history of COVID."
                 )}
@@ -337,8 +294,8 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
             <GridItem>
               <Stat>
                 {numberAndPercentage(
-                  totalLongCovidTwelveWeeks,
-                  totalLongCovidTwelveWeeksPerc,
+                  covid_data.longCovidOverTwelveWeeks,
+                  covid_data.longCovidOverTwelveWeeksPercentage,
                   "Participants with Long COVID >12 Weeks",
                   "Participants with a history of Long COVID Symptoms for over 12 weeks. % represents this figure divided by total number of participants with a history of COVID."
                 )}
@@ -351,7 +308,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               </Text>
             </GridItem>
           </Grid>
-        </>
+        </>) : (<></>)
       )}
     </VStack>
   );

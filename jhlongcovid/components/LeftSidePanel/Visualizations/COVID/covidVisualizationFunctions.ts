@@ -15,7 +15,7 @@ export const getTotalCovidCases = (beenInfected: any) => {
   );
 };
 
-export const percentOfTotalCovid = (
+export const percent = (
   totalCovidReports: number,
   totalEntries: number
 ) => {
