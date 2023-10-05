@@ -69,9 +69,9 @@ export const createTotalsChartConfig = (
         },
       },
       plugins: {
-        legend: {
+        legend: (label) ? ({
           position: "top" as const,
-        },
+        }) : false,
         title: {
           display: true,
           text: title,

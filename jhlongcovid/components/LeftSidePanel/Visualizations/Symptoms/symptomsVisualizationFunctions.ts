@@ -4,6 +4,7 @@ import {
   createTotalsChartData,
   convertCamelCase,
 } from "../visualizationFunctions";
+import { capitalizeFirstLetters } from "../Social/socialVisualizationFunctions";
 
 export const getSymptomsCount = (symptoms: YesNo) => {
   return symptoms.yes.race.values.reduce(
@@ -11,6 +12,33 @@ export const getSymptomsCount = (symptoms: YesNo) => {
     0
   );
 };
+
+export const getKMostCommonSymptoms = (symptoms: SymptomsAvailable, k: number) => {
+  const symptomCounts: any[] = [];
+
+  // Calculate the count for each symptom
+  Object.keys(symptoms).forEach((value: string) => {
+    let summariesDemo: SummaryDemos = symptoms[value as keyof SymptomsAvailable];
+    let count = summariesDemo.race.values.reduce((acc: number, curr: number) => acc + curr, 0);
+    symptomCounts.push({ symptom: convertCamelCase(value), count });
+  });
+
+  // Sort the symptoms by count in descending order
+  symptomCounts.sort((a, b) => b.count - a.count);
+
+  // Take the top k symptoms and format them with counts
+  const topKSymptoms = symptomCounts.slice(0, k).map((item) => {
+    if (item === "PEM") {
+      return `Post-Exertional Malaise (${item.count})`
+    } else {
+      return `${capitalizeFirstLetters(item.symptom)} (${item.count})`;
+    }
+  });
+
+  return topKSymptoms;
+};
+
+
 
 export const getMostCommonSymptom = (symptoms: SymptomsAvailable) => {
   let max = 0;
