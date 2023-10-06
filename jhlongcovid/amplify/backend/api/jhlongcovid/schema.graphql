@@ -31,14 +31,15 @@ type MapData
   lat: Float!
   long: Float!
   covidCount: Int!
-  longCovid: Int!
+  longCovid: Int! # total long covid
   aggregationType: AggregationType!
   phq8AboveTen: Int
   recoveredCount: Int
-  selfReportedLongCovid: Int
-  longCovidOverFourWeeks: Int
-  longCovidOverTwelveWeeks: Int
-  topMedicalCondition: String!
+  selfReportedLongCovid: Int # total self reported (no covid)
+  longCovidOverFourWeeks: Int # total >4 symptoms
+  longCovidOverTwelveWeeks: Int # >12 symptoms
+  selfReportedPlusCovidLongCovid: Int # Self reported long covid + covid history
+  topMedicalCondition: String! 
   covidSummary: CovidSummary!
   recoverySummary: RecoverySummary!
   vaccinationSummary: VaccinationSummary!
