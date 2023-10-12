@@ -9,8 +9,9 @@ type MapData
   @model
   @auth(
     rules: [
-      { allow: public, operations: [read] }
+      # { allow: public, operations: [read] }
       { allow: private, provider: iam }
+      { allow : public }
     ]
   ) {
   id: ID!
@@ -18,12 +19,12 @@ type MapData
     @primaryKey(sortKeyFields: ["lat", "long", "aggregationType"])
     @index(
       name: "byLevelAndNameAndState"
-      sortKeyFields: ["name", "stateAbbrev"]
+      sortKeyFields: ["name", "stateAbbrev", "aggregationType"]
       queryField: "mapDataByLevelNameState"
     ) # represents location level e.g. "state" | "county"
     @index(
       name: "byState"
-      sortKeyFields: ["stateAbbrev"]
+      sortKeyFields: ["stateAbbrev", "aggregationType"]
       queryField: "mapDataByStateAbbrev"
     )
   name: String!
@@ -31,16 +32,17 @@ type MapData
   lat: Float!
   long: Float!
   covidCount: Int!
-  longCovid: Int!
+  longCovid: Int! #total long covid
   aggregationType: AggregationType!
   phq8AboveTen: Int
   recoveredCount: Int
-  selfReportedLongCovid: Int
-  longCovidOverFourWeeks: Int
-  longCovidOverTwelveWeeks: Int
+  selfReportedLongCovid: Int # total self reported (no covid)
+  longCovidOverFourWeeks: Int # total >4 symptoms
+  longCovidOverTwelveWeeks: Int # >12 symptoms
+  selfReportedPlusCovidLongCovid: Int # Self reported long covid + covid history
   topMedicalCondition: String!
-  covidSummary: CovidSummary!
-  recoverySummary: RecoverySummary!
+  covidSummary: CovidSummary
+  recoverySummary: RecoverySummary
   vaccinationSummary: VaccinationSummary!
   globalHealthSummary: GlobalHealthSummary!
   patientHealthQuestionnaireSummary: PatientHealthQuestionnaireSummary!
@@ -898,15 +900,12 @@ type NotAtAllToNearlyEveryDay {
 type CovidSummary {
   beenInfected: YesNo
   timesPositive: OneToThreePlus
-  hospitalized: YesNo
-  timesHospitalized: OneToThreePlus
+  
   # lastPositive: [String]
   tested: YesNo
   positiveTest: YesNoDontKnow
   symptomatic: YesNo
   symptomsPreventScale: NotAtAllToVeryMuch
-  medicationsPrescribed: YesNoDontKnow
-  medicationsTakenCount: MedicationsAvailable
 }
 
 type MedicationsAvailable {
@@ -918,12 +917,17 @@ type MedicationsAvailable {
 }
 
 type RecoverySummary {
+  hospitalized: YesNo
+  timesHospitalized: OneToThreePlus
+  medicationsPrescribed: YesNoDontKnow
+  medicationsTakenCount: MedicationsAvailable
   recovered: YesNo
   #cannot resolve to own type (infinite range...)
   #check for NULL
   #for each value, have to keep track of average and totalCount
   #i.e. [average, count] AND NOT just a average number
   avglengthOfRecovery: SummaryAvgByDemo
+  
 }
 
 type VaccineTypes {
@@ -1074,6 +1078,7 @@ type Response {
 }
 
 type SummaryResultsByDemo {
+  total: Int
   race: SummaryValues
   sex: SummaryValues
   age: SummaryValues

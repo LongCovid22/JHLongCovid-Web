@@ -34,7 +34,7 @@
         "symptomatic": true,
         "symptomsPreventScale": "notAtAll",
         "medicationsPrescribed": "yes",
-        "medicationsTaken": "antiViral"
+        "medicationsTaken": ["antiViral"]
       },
       "recoveryResults": {
         "id": "4897c703-248b-483d-81cc-4c343c7cac5d",
@@ -101,14 +101,14 @@
         "height": "55",
         "weight": "123",
         "generalHealthResults": {
-          "Little interest or pleasure in doing things?": "notAtAll",
-          "Feeling down, depressed, or hopeless?": "notAtAll",
-          "Trouble falling or staying asleep, or sleeping too much?": "notAtAll",
-          "Feeling tired or having little energy?": "notAtAll",
-          "Poor appetite or overeating?": "notAtAll",
-          "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?": "notAtAll",
-          "Trouble concentrating on things, such as reading the newspaper or watching television?": "notAtAll",
-          "Moving or speaking so slowly that other people could have noticed? Or so fidgety or restless that you have been moving a lot more than usual?": "notAtAll"
+          "littleInterestThings": "notAtAll",
+          "downDepressedHopeless": "notAtAll",
+          "sleepProblems": "notAtAll",
+          "tiredNoEnergy": "notAtAll",
+          "dietProblems": "notAtAll",
+          "badAboutSelf": "notAtAll",
+          "concentrationProblems": "notAtAll",
+          "slowOrRestless": "notAtAll"
         },
         "totalScore": 9
       },

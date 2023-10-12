@@ -261,7 +261,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                 {numberAndPercentage(
                   covid_data.covidAndLongCovidOrLongCovidOver4Weeks,
                   covid_data.covidAndLongCovidOrLongCovidOver4WeeksPercentage,
-                  "Total Long COVID (self reported COVID and Long COVID or >4 weeks symptomatic) ",
+                  "Total Long COVID (self reported Long COVID and COVID or >4 weeks symptomatic) ",
                   "Total number of participants who reported Long COVID symptoms for over 4 weeks or self reported that they have a history of Long COVID and COVID. % represents this figure divided by total number of all survey participants."
                 )}
               </Stat>
