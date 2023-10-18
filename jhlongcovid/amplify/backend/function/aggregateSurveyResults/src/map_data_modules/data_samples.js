@@ -1,4 +1,5 @@
 const NullJSONData = {
+  total: 0,
   age: {
     ranges: ["1-13", "13-25", "25-60", "60+"],
     values: [0, 0, 0, 0],
@@ -55,12 +56,13 @@ let variables = {
       long: -54.345353535635,
       covidCount: 0,
       longCovid: 0,
-      aggregationType: "TOTAL",
+      aggregationType: "",
       phq8AboveTen: 0,
       recoveredCount: 0,
       selfReportedLongCovid: 0,
       longCovidOverFourWeeks: 0,
       longCovidOverTwelveWeeks: 0,
+      selfReportedPlusCovidLongCovid: 0,
       topMedicalCondition: "",
       covidSummary: {
         beenInfected: {

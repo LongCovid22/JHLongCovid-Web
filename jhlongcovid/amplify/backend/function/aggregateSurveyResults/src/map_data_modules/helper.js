@@ -1,3 +1,5 @@
+const { checkNotNullAndBoolType } = require("./checkTypes");
+
 const weeksBetweenDates = (date1, date2) => {
   // Ensure date1 is earlier than date2
   if (date1 > date2) {
@@ -31,14 +33,19 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
     OverFourWeeks: 0,
     OverTwelveWeeks: 0,
     SelfReportedLongCovidWithCovid: 0,
-    SelfReportedLongCovidWithCovid: 0,
+    SelfReportedLongCovidWithoutCovid: 0,
     //either SelfReportLongCovidWithCovid OR >4 Weeks Symtomatic
-    LongCovid: 0
+    LongCovid: 0,
+    hasCovid: 0
   };
 
   // Check to make sure the objects passed in aren't null or undefined
-  if (!symptomResults && !covidResults) {
+  if (!symptomResults && !covidResults && !symptomResults) {
     return longCovidResults;
+  }
+
+  if (checkNotNullAndBoolType(covidResults.beenInfected) && covidResults.beenInfected) {
+    longCovidResults.hasCovid = 1;
   }
 
   // Dates for current cases of long covid
@@ -75,7 +82,7 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
   }
 
   if (selfReportedLongCovid && (covidResults.beenInfected === false)) {
-    longCovidResults.SelfReportedLongCovidWithCovid = 1;
+    longCovidResults.SelfReportedLongCovidWithoutCovid = 1;
   }
 
   // Logic for long covid: time since positive date > 4 && not recovered
@@ -103,7 +110,7 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
     }
   }
 
-  of (longCovidResults.OverTwelveWeeks === 1 || longCovidResults.OverFourWeeks === 1 || longCovidResults.SelfReportedLongCovidWithCovid === 1) {
+  if (longCovidResults.OverTwelveWeeks === 1 || longCovidResults.OverFourWeeks === 1 || longCovidResults.SelfReportedLongCovidWithCovid === 1) {
     longCovidResults.LongCovid = 1;
   }
 

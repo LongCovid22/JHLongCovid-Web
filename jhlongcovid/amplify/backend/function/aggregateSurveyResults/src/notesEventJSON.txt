@@ -144,9 +144,9 @@ doNotKnow
 preferNotToAnswer
 
 
-healthRelatedResults
-77) weight : Integer (in pounds)
-78) height : Integer (in inches) -> convert feet, inches, to just inches!
+healthRelatedResults (asked in the Demographics)
+weight : Integer (in pounds)
+height : Integer (in inches) -> convert feet, inches, to just inches!
 
 
 

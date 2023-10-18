@@ -113,9 +113,6 @@ const makeRequest = async (query, variables) => {
           nameStateAbbrev: {eq: {name: "${name}", stateAbbrev: "${stateAbbrev}"}}
         ) {
           items {
-            id
-            name
-            stateAbbrev
             ${queryString}
           }
   
@@ -127,9 +124,6 @@ const makeRequest = async (query, variables) => {
     query MyQuery {
       mapDataByStateAbbrev(level: "state", filter: {name: {eq: "${name}"}}) {
         items {
-          id
-          name
-          stateAbbrev
           ${queryString}
         }
       }
@@ -161,9 +155,6 @@ const makeRequest = async (query, variables) => {
       query MyQuery {
         listMapData(filter: {aggregationType: {eq: ${aggregationType}}, level: {eq: "county"}, name: {eq: "${name}"}, stateAbbrev: {eq: "${stateAbbrev}"}}) {
           items {
-            id
-            name
-            stateAbbrev
             ${queryString}
           }
   
@@ -175,15 +166,14 @@ const makeRequest = async (query, variables) => {
     query MyQuery {
       listMapData(filter: {aggregationType: {eq: ${aggregationType}}, level: {eq: "state"}, name: {eq: "${name}"} }) {
         items {
-          id
-          name
-          stateAbbrev
           ${queryString}
         }
       }
     }
     `;
     }
+
+    console.log(query);
     let request = await makeRequest(query);
   
     try {

@@ -36,9 +36,9 @@ type MapData
   aggregationType: AggregationType!
   phq8AboveTen: Int
   recoveredCount: Int
-  selfReportedLongCovid: Int # total self reported (no covid)
-  longCovidOverFourWeeks: Int # total >4 symptoms
-  longCovidOverTwelveWeeks: Int # >12 symptoms
+  selfReportedLongCovid: Int # total self reported (regardless of covid)
+  longCovidOverFourWeeks: Int # total >4 weeks
+  longCovidOverTwelveWeeks: Int # >12 weeks
   selfReportedPlusCovidLongCovid: Int # Self reported long covid + covid history
   topMedicalCondition: String!
   covidSummary: CovidSummary

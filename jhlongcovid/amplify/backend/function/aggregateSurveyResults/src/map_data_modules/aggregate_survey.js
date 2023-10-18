@@ -1,60 +1,36 @@
-const { defaultProvider } = require("@aws-sdk/credential-provider-node");
-const credentials = defaultProvider();
-const { SignatureV4 } = require("@aws-sdk/signature-v4");
-const { HttpRequest } = require("@aws-sdk/protocol-http");
-const { default: fetch, Request } = require("node-fetch");
-const {Sha256,
-} = require("@aws-crypto/sha256-js");
-
-const GRAPHQL_ENDPOINT = process.env.API_JHLONGCOVID_GRAPHQLAPIENDPOINTOUTPUT;
-const GRAPHQL_API_KEY = process.env.API_JHLONGCOVID_GRAPHQLAPIKEYOUTPUT;
-const AWS_REGION = process.env.AWS_REGION || "us-east-1";
+const { default: fetch } = require("node-fetch");
 
 //TO DO : make properties with CovidSummary and without RecoverySummary (since it's optional now)
 const {
-  properties,
-  updateQuery,
   query,
-  deleteQuery,
 } = require("./mutations_queries");
 const {
-  NullJSONData,
-  avgNULLJSONData,
   variables,
 } = require("./data_samples.js");
 
 const {
   makeRequest,
-  getMapData,
-  deleteMapData,
-  deleteAllMapData,
-  getID,
   updateMapData,
-  getStateAndCountyInfo,
   getStateAndCountyInfoByAggregation
 } = require("./map_data_crud.js");
 const {
-  isObject,
-  parse,
-  stringify,
   findMatchingIndex,
   findHardCodedAgeRangeIndex,
 } = require("./processing_functions.js");
 const {
-  aggregatePercentageCustomBasedOnCondition,
-  addCustomToTallyBasedOnCondition,
+  updateCovidCountSummaryTabStats,
   updateCovidSummary,
   updateRecoverySummary,
-  addAverage,
   updateVaccinationSummary,
   updateGlobalHealthSummary,
-  findMostFrequentDiagnosis,
   updateSymptomSummary,
   updateMedicalConditionsSummary,
   updatePatientHealthSummary,
   updateSocialSummary,
   incrementTotalFullEntries,
 } = require("./update_survey_functions.js");
+
+const { hasLongCovid } = require("./helper");
 
 const tryFetchRequest = async (request) => {
   try {
@@ -116,32 +92,45 @@ const aggregateSurveyResults = async (eventInput, aggregationType) => {
     ageIndex,
     sexIndex,
   };
-  //eventInput breaks things down based on survey section
-  //but this can differ from how mapData structures itself
-  //i.e. parts of covid is transferred to recovery
-  updateCovidSummary(eventInput, county, state, indexes);
 
-  console.log("County after update Covid Summary is: " + JSON.stringify(county));
-  console.log("State after update Covid Summary is: " + JSON.stringify(state));
+  const {
+    LongCovid
+  } = hasLongCovid(
+    eventInput.symptomResults,
+    eventInput.covidResults,
+    eventInput.recoveryResults
+  );
 
-  updateRecoverySummary(eventInput, county, state, indexes);
-  updateVaccinationSummary(eventInput, county, state, indexes);
-  updateGlobalHealthSummary(eventInput, county, state, indexes);
-  updateSymptomSummary(eventInput, county, state, indexes);
-  updateMedicalConditionsSummary(eventInput, county, state, indexes);
-  updatePatientHealthSummary(eventInput, county, state, indexes);
-  updateSocialSummary(eventInput, county, state, indexes);
+
+  //Only last 4 panel requires distiniction between Long vs Normal Covid
+  if (aggregationType === "TOTAL") {
+    //Percentages should update based on the TOTAL
+    updateCovidCountSummaryTabStats(eventInput, county, state, indexes);
+    updateCovidSummary(eventInput, county, state, indexes);
+    //update recoveredCount as well
+    updateRecoverySummary(eventInput, county, state, indexes);
+  }
+
+  if (aggregationType === "TOTAL" || (aggregationType === "LONG" && (LongCovid === 1))) {
+    updateVaccinationSummary(eventInput, county, state, indexes);
+    updateGlobalHealthSummary(eventInput, county, state, indexes);
+    
+    //update phq8AboveTen as well
+    updateSymptomSummary(eventInput, county, state, indexes);
+    
+    //udpate topMedicalCondition as well
+    updateMedicalConditionsSummary(eventInput, county, state, indexes);
+    updatePatientHealthSummary(eventInput, county, state, indexes);
+    updateSocialSummary(eventInput, county, state, indexes);
+  }
+  
   //increment at the last. updates require OLD count
   incrementTotalFullEntries(county, state);
 
-  // //upload back to appsync, updated county/state
   await updateMapData(county, state);
 
+  //upload back to appsync, updated county/state
   return { county, state };
-};
-
-const aggregateSurveyResultsLong = async (eventInput) => {
-
 };
 
 module.exports = { aggregateSurveyResults};

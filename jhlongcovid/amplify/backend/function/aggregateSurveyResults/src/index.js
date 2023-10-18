@@ -23,12 +23,10 @@ exports.handler = async (event) => {
   let input = event.arguments.results;
 
    //TO-DO: eventually comment this out!
-   await deleteAllMapData();
+  //  await deleteAllMapData();
   const { countyTotal, stateTotal } = await aggregateSurveyResults(input, "TOTAL");
+  
   const { countyLong, stateLong } = await aggregateSurveyResults(input, "LONG");
-
-
-
 
 
   const statusCode = 200;
