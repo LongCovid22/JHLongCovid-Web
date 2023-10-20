@@ -61,8 +61,9 @@ export const DemographicsParseAndNext = (
   weight_lbs: string,
   race: string
 ) => {
-  cy.contains("Find My Location").click();
-  cy.wait(5000);
+  cy.get('input[placeholder="Enter your zipcode"]').type("10019");
+  cy.contains("Verify").click();
+  // cy.wait(5000);
   cy.contains("Change location").scrollIntoView();
   
   cy.get('[data-testid="age-input"]').find("input").type(age);

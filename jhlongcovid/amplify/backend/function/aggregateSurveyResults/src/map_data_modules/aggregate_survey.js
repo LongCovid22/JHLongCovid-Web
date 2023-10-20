@@ -102,16 +102,18 @@ const aggregateSurveyResults = async (eventInput, aggregationType) => {
   );
 
 
-  //Only last 4 panel requires distiniction between Long vs Normal Covid
-  if (aggregationType === "TOTAL") {
-    //Percentages should update based on the TOTAL
-    updateCovidCountSummaryTabStats(eventInput, county, state, indexes);
+  // //Only last 4 panel requires distiniction between Long vs Normal Covid
+
+  //Percentages should update based on the TOTAL
+  //Will update the "denominator" in a sense : number of long covid, covid, etc...
+  updateCovidCountSummaryTabStats(eventInput, county, state, indexes);
+
+  if (aggregationType === "TOTAL" || (aggregationType === "LONG" && (LongCovid === 1))) {
+    
     updateCovidSummary(eventInput, county, state, indexes);
     //update recoveredCount as well
     updateRecoverySummary(eventInput, county, state, indexes);
-  }
 
-  if (aggregationType === "TOTAL" || (aggregationType === "LONG" && (LongCovid === 1))) {
     updateVaccinationSummary(eventInput, county, state, indexes);
     updateGlobalHealthSummary(eventInput, county, state, indexes);
     

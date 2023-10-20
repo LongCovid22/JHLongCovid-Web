@@ -628,10 +628,10 @@ const symptomsMap: any = {
 };
 
 const medicationsMap: any = {
-  "Antiviral pill, such as Paxlovid": "antiviral",
+  "Antiviral pill, such as Paxlovid": "antiViral",
   "Oral steroids, such as dexamethasone, prednisone, or prednisolone":
     "oralSteroids",
-  'Antibiotics, such as a "Z-pak"': "antibiotics",
+  'Antibiotics, such as a "Z-pak"': "antiBiotics",
   "Do not know": "doNotKnow",
 };
 
