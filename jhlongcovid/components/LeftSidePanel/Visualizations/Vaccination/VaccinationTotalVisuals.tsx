@@ -68,6 +68,7 @@ type VaccinationSummary = {
 
 export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
+  longData,
   panelDimensions,
   realOrMock,
   loading,
@@ -92,8 +93,13 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     // Perform all processing on map data and populate visualizations
     let summary, totalFullEntries;
     if (data && realOrMock === RealOrMock.REAL) {
-      summary = data.vaccinationSummary;
-      totalFullEntries = data.totalFullEntries;
+      if (covidDataToggle == 0) {
+        summary = data.vaccinationSummary;
+        totalFullEntries = data.longCovid;
+      } else {
+        summary = longData.vaccinationSummary;
+        totalFullEntries = data.totalFullEntries;
+      }
     } else {
       if (covidDataToggle == 0) {
         summary = mockResult.county.vaccinationSummary;
@@ -113,7 +119,7 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     setVaccineTypeCountConfig(
       createVaccineTypeConfig(summary.vaccineType as VaccineTypes)
     );
-  }, [data, realOrMock, covidDataToggle]);
+  }, [data, realOrMock, covidDataToggle, covidDataToggle]);
 
   return (
     <VStack align={"start"}>

@@ -120,8 +120,10 @@ const Home = () => {
       })
     );
   };
-
+  //to monitor new map data objects
   useOnCreateMapDataSubscription(toggleDisplayDataOnZoom, realOrMock);
+  
+  //to monitor for change in new map data objects
   useOnUpdateMapDataSubscription(toggleDisplayDataOnZoom, realOrMock);
 
   const listenToAuthEvents = async (data: any) => {

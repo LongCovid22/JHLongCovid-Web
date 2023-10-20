@@ -14,6 +14,7 @@ import { LongCovidToggle } from "../../LongCovidToggle";
 
 export const PHQ8Visualizations: React.FC<LeftSidePanelBodyProps> = ({
   section,
+  longData,
   data,
   panelDimensions,
   realOrMock,
@@ -23,11 +24,12 @@ export const PHQ8Visualizations: React.FC<LeftSidePanelBodyProps> = ({
   const [covidDataToggle, setCovidDataToggle] = useState(0);
   return (
     <>
-      <LongCovidToggle rOM={realOrMock} covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle} />
+      <LongCovidToggle realData={data} rOM={realOrMock} covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle} />
 
       <VStack>
         <PHQ8TotalVisuals
           section={section}
+          longData={longData}
           data={data}
           realOrMock={realOrMock}
           panelDimensions={panelDimensions}

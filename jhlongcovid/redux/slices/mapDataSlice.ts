@@ -113,11 +113,13 @@ export const {
   updateStateData,
 } = mapDataSlice.actions;
 
-// calling the above actions would be useless if we could not access the data in the state. So, we use something called a selector which allows us to select a value from the state.
+
+//render the actual data points
 export const selectStateData = (state: RootState) => state.mapData.stateData;
 export const selectCountyData = (state: RootState) => state.mapData.countyData;
+
+//render the actual data gets displayed
 export const selectDisplayData = (state: RootState) =>
   state.mapData.displayData;
 
-// exporting the reducer here, as we need to add this to the store
 export default mapDataSlice.reducer;

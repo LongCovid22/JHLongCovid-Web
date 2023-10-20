@@ -16,6 +16,7 @@ import { LongCovidToggle } from "../../LongCovidToggle";
 export const SocialVisualizations: React.FC<LeftSidePanelBodyProps> = ({
   section,
   data,
+  longData,
   panelDimensions,
   realOrMock,
   loading,
@@ -24,12 +25,13 @@ export const SocialVisualizations: React.FC<LeftSidePanelBodyProps> = ({
   const [covidDataToggle, setCovidDataToggle] = useState(0);
   return (
     <>
-    <LongCovidToggle rOM={realOrMock} covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle}/>
+    <LongCovidToggle realData={data} rOM={realOrMock} covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle}/>
     <VStack>
       
       <SocialTotalVisuals
         section={section}
         data={data}
+        longData={longData}
         panelDimensions={panelDimensions}
         realOrMock={realOrMock}
         loading={loading}

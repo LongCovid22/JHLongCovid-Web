@@ -172,8 +172,6 @@ const makeRequest = async (query, variables) => {
     }
     `;
     }
-
-    console.log(query);
     let request = await makeRequest(query);
   
     try {

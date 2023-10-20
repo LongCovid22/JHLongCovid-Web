@@ -13,7 +13,7 @@ export const createTotalVaccineShotsConfig = (
   totalVaccines: OneToFivePlus
 ): { labels: string[]; options: any; data: any } => {
   let { labels, chartData } = createTotalsChartData({
-    doNotKnow: totalVaccines.dontKnow,
+    doNotKnow: totalVaccines.doNotKnow,
     one: totalVaccines.one,
     two: totalVaccines.two,
     three: totalVaccines.three,

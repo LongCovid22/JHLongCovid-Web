@@ -74,6 +74,7 @@ type SymptomSummary = {
 
 export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
+  longData,
   panelDimensions,
   realOrMock,
   loading,
@@ -105,8 +106,13 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       let socialSummary, totalFullEntries;
 
       if (data && realOrMock === RealOrMock.REAL) {
-        socialSummary = data.socialSummary;
-        totalFullEntries = data.totalFullEntries;
+        if (covidDataToggle == 1) {
+          socialSummary = data.socialSummary;
+          totalFullEntries = data.totalFullEntries;
+        } else {
+          socialSummary = longData.socialSummary;
+          totalFullEntries = data.longCovid;
+        }
       } else {
         if (covidDataToggle == 1) {
           socialSummary = mockResult.longCOVID.socialSummary;

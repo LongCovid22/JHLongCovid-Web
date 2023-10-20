@@ -772,7 +772,7 @@ export const aggregateResults = async (
   userInfo: UserInfo,
   location: LocationData,
   surveyType: SurveyType,
-  user?: User
+  user?: User, 
 ) => {
   const aggregateDetails: any = {
     id: ids["SurveyEntry"],

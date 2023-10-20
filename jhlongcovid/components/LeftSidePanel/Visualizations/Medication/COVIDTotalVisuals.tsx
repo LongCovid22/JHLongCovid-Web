@@ -99,7 +99,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   loading,
   setLoading,
 }) => {
-  const { recovery_data, error } = useGetRecoverySummary();
+  const { recovery_data, error } = useGetRecoverySummary(data, realOrMock);
 
   return (
     <VStack align={"start"} spacing="30px">

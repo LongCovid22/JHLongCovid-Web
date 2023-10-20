@@ -51,7 +51,7 @@ import { SocialVisualizations } from "./Visualizations/Social/SocialVisualizatio
 import { PHQ8Visualizations } from "./Visualizations/PHQ8/PHQ8Visualization";
 import { DownloadIcon } from "@chakra-ui/icons";
 import { RealOrMock } from "../../pages";
-import { getSummaries } from "./Visualizations/visualizationFunctions";
+import { getSummariesWithType } from "./Visualizations/visualizationFunctions";
 
 ChartJS.register(
   CategoryScale,
@@ -82,6 +82,7 @@ export enum SurveySection {
 
 export type LeftSidePanelBodyProps = {
   section: SurveySection;
+  longData?: MapData;
   data: MapData;
   panelDimensions: { width: number; height: number };
   realOrMock: RealOrMock;
@@ -92,6 +93,7 @@ export type LeftSidePanelBodyProps = {
 
 const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
   section,
+  longData,
   data,
   panelDimensions,
   realOrMock,
@@ -124,8 +126,10 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
     case SurveySection.PHQ8:
       return (
         <PHQ8Visualizations
+          
           section={section}
           data={data}
+          longData={longData}
           panelDimensions={panelDimensions}
           realOrMock={realOrMock}
           loading={loading}
@@ -135,8 +139,10 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
     case SurveySection.VACCINATION:
       return (
         <VaccinationVisualizations
+          
           section={section}
           data={data}
+          longData={longData}
           panelDimensions={panelDimensions}
           realOrMock={realOrMock}
           loading={loading}
@@ -148,6 +154,7 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
         <SocialVisualizations
           section={section}
           data={data}
+          longData={longData}
           panelDimensions={panelDimensions}
           realOrMock={realOrMock}
           loading={loading}
@@ -159,6 +166,7 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
         <SymptomsVisualizations
           section={section}
           data={data}
+          longData={longData}
           panelDimensions={panelDimensions}
           realOrMock={realOrMock}
           loading={loading}
@@ -185,6 +193,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
   });
   const [loading, setLoading] = useState(true);
   const [summaryData, setSummaryData] = useState<any>(null);
+  const [longSummaryData, setLongSummaryData] = useState<any>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const [totalEntries, setTotalEntries] = useState(0);
 
@@ -222,14 +231,16 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
     const fetchSummaryData = async () => {
       setLoading(true);
       if (data && Object.keys(data).length > 0) {
-        const returnedData = await getSummaries(data);
+        const returnedData = await getSummariesWithType(data, "TOTAL");
+        const returnLongData = await getSummariesWithType(data, "LONG");
         setSummaryData(returnedData);
+        setLongSummaryData(returnLongData);
       }
       setLoading(false);
     };
 
     fetchSummaryData();
-  }, [data]);
+  }, [data, setLongSummaryData]);
 
 
   return (
@@ -397,6 +408,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
             <VStack w="100%" align={"start"}>
               <LeftSidePanelBody
                 section={section}
+                longData={longSummaryData}
                 data={summaryData}
                 panelDimensions={panelDimensions}
                 realOrMock={realOrMock}

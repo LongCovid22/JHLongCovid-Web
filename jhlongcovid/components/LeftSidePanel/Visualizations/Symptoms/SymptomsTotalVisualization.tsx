@@ -81,6 +81,7 @@ type SymptomSummary = {
 
 export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
+  longData,
   panelDimensions,
   realOrMock,
   loading,
@@ -138,14 +139,16 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     let symptomSummary, covidSummary, totalFullEntries;
 
     if (data && realOrMock === RealOrMock.REAL) {
-      symptomSummary = data.symptomSummary;
-      covidSummary = data.covidSummary;
-      totalFullEntries = data.totalFullEntries;
+      if (covidDataToggle == 1) {
+        symptomSummary = data.symptomSummary;
+        covidSummary = data.covidSummary;
+        totalFullEntries = data.totalFullEntries;
+      } else {
+        symptomSummary = longData.symptomSummary;
+        covidSummary = longData.covidSummary;
+        totalFullEntries = longData.totalFullEntries;
+      }
     } else {
-
-
-
-
       if (covidDataToggle == 1) {
         symptomSummary = mockResult.county.symptomSummary;
         covidSummary = mockResult.county.covidSummary;
@@ -157,7 +160,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       }
     }
 
-    if (covidSummary.symptomatic) {
+    if (covidSummary && covidSummary.symptomatic) {
       setTotalSymptomsCount(
         getSymptomsCount(covidSummary.symptomatic as YesNo)
       );
@@ -176,7 +179,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
 
     setTotalEntries(totalFullEntries);
-  }, [data, covidDataToggle, realOrMock]);
+  }, [data, covidDataToggle, realOrMock, longData]);
 
   return (
     <VStack align={"start"}>

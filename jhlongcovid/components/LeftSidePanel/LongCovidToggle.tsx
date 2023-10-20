@@ -14,9 +14,11 @@ import { RealOrMock } from "../../pages";
 import mockResult from "../../mockResult.json";
 
 
-export const LongCovidToggle: React.FC<{ rOM?: RealOrMock, covidDataToggle: number, setCovidDataToggle: React.Dispatch<React.SetStateAction<number>> }> = ({rOM, covidDataToggle, setCovidDataToggle }) => {
-
-
+export const LongCovidToggle: React.FC<{ rOM?: RealOrMock, 
+    covidDataToggle: number, 
+    setCovidDataToggle: React.Dispatch<React.SetStateAction<number>>,
+    realData: any
+}> = ({rOM, covidDataToggle, setCovidDataToggle, realData }) => {
 
     const covidToggleRadius = "15px";
     const [width, setWidth] = useState(0);
@@ -30,9 +32,10 @@ export const LongCovidToggle: React.FC<{ rOM?: RealOrMock, covidDataToggle: numb
             setLongCovidPop(mockResult.county.covidSummary.covidAndLongCovidOrLongCovidOver4Weeks.total);
             setAllDataPop(mockResult.county.totalFullEntries);
         } else if (rOM === RealOrMock.REAL) {
-
+            setLongCovidPop(realData.longCovid);
+            setAllDataPop(realData.totalFullEntries);
         }
-    } , [rOM]);
+    } , [rOM, realData]);
 
     return (
 

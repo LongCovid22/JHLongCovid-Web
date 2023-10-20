@@ -94,18 +94,19 @@ type SymptomSummary = {
 function reverseObjectKeys(obj: any) {
   const keys = Object.keys(obj);
   const reversedKeys = keys.reverse();
-  
+
   const reversedObject: any = {};
-  
+
   for (const key of reversedKeys) {
     reversedObject[key] = obj[key];
   }
-  
+
   return reversedObject;
 }
 
 export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
+  longData,
   panelDimensions,
   realOrMock,
   loading,
@@ -120,14 +121,21 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   if (data && realOrMock === RealOrMock.REAL) {
     patientHealthQuestionnaireSummary = data.patientHealthQuestionnaireSummary;
     globalHealthSummary = data.globalHealthSummary;
-    totalFullEntries = data.totalFullEntries;
-    phq8AboveTen = data.phq8AboveTen;
+
+    if (covidDataToggle == 1) {
+      phq8AboveTen = data.phq8AboveTen;
+      totalFullEntries = data.totalFullEntries;
+    } else {
+      phq8AboveTen = longData.phq8AboveTen;
+      totalFullEntries = data.longCovid;
+    }
+
   } else {
     patientHealthQuestionnaireSummary =
       mockResult.county.patientHealthQuestionnaireSummary;
     globalHealthSummary = mockResult.county.globalHealthSummary;
-    
-    
+
+
     if (covidDataToggle == 1) {
       phq8AboveTen = mockResult.county.phq8AboveTen;
       totalFullEntries = mockResult.county.totalFullEntries;
@@ -192,9 +200,15 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     let symptomSummary, covidSummary, totalFullEntries;
 
     if (data && realOrMock === RealOrMock.REAL) {
-      symptomSummary = data.symptomSummary;
-      covidSummary = data.covidSummary;
-      totalFullEntries = data.totalFullEntries;
+      if (covidDataToggle === 1) {
+        symptomSummary = data.symptomSummary;
+        covidSummary = data.covidSummary;
+        totalFullEntries = data.totalFullEntries;
+      } else {
+        symptomSummary = longData.symptomSummary;
+        covidSummary = longData.covidSummary;
+        totalFullEntries = longData.totalFullEntries;
+      }
     } else {
       if (covidDataToggle === 1) {
         symptomSummary = mockResult.county.symptomSummary;
@@ -205,8 +219,6 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         covidSummary = mockResult.longCOVID.covidSummary;
         totalFullEntries = mockResult.longCOVID.totalFullEntries;
       }
-
-      
     }
 
     if (covidSummary.symptomatic) {
@@ -222,17 +234,17 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
     setQOLConfig(
 
-      createTotalsChartConfigWithXYLabels( 
+      createTotalsChartConfigWithXYLabels(
         "Satisfactory Level",
         "Number of Participants",
         reverseObjectKeys(summary.qualityOfLife),
         "Quality of Life",
         "",
         reversecolors)
-      
+
     );
     setMentalHealthConfig(
-      createTotalsChartConfigWithXYLabels( 
+      createTotalsChartConfigWithXYLabels(
         "Satisfactory Level",
         "Number of Participants",
         reverseObjectKeys(summary.mentalHealthRank),
@@ -241,7 +253,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         reversecolors)
     );
     setSocialSatisConfig(
-      createTotalsChartConfigWithXYLabels( 
+      createTotalsChartConfigWithXYLabels(
         "Satisfactory Level",
         "Number of Participants",
         reverseObjectKeys(summary.socialSatisfactionRank),
@@ -250,7 +262,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         reversecolors)
     );
     setCarryOutSocialConfig(
-      createTotalsChartConfigWithXYLabels( 
+      createTotalsChartConfigWithXYLabels(
         "Satisfactory Level",
         "Number of Participants",
         reverseObjectKeys(summary.carryOutSocialActivitiesRank),
@@ -259,7 +271,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         reversecolors)
     );
     setAnxietyConfig(
-      createTotalsChartConfigWithXYLabels( 
+      createTotalsChartConfigWithXYLabels(
         "Frequency",
         "Number of Participants",
         reverseObjectKeys(summary.anxietyInPastWeekRank),
@@ -268,7 +280,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         reversecolors)
     );
     setTotalEntries(totalFullEntries)
-  }, [data, covidDataToggle, realOrMock]);
+  }, [data, covidDataToggle, realOrMock, longData]);
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
@@ -276,25 +288,14 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       if (setLoading) {
         setLoading(true);
       }
-
-      // if (patientHealthQuestionnaireSummary.avgPHQScore) {
-      //   setAvgPhq8Score(
-      //     getAvgPhq8Score(
-      //       patientHealthQuestionnaireSummary.avgPHQScore
-      //         .race as SummaryAvgValues
-      //     )
-      //   );
-      // }
-
       setTotalEntries(totalFullEntries);
-
       if (setLoading) {
         setLoading(false);
       }
     };
 
     createGraphVariables();
-  }, [data]);
+  }, [data, setLoading, totalFullEntries]);
 
   return (
     <VStack align={"start"} spacing="30px">

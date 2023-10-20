@@ -8,6 +8,7 @@ import {
   createRecoveryConfig,
 
 } from "./covidVisualizationFunctions";
+import { RealOrMock } from "../../../../pages";
 
 interface GraphInterface {
   labels: string[];
@@ -24,36 +25,64 @@ interface RecoverySummary {
   fullyRecoveredVsNotRecoveredGraph: GraphInterface;
 }
 
-export default function useGetRecoverySummary() {
+export default function useGetRecoverySummary(realData: any, realOrMock: RealOrMock) {
   const [recovery_data, setData] = useState<RecoverySummary | null>(null);
   const [loading, setLoadisng] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-
   useEffect(() => {
-    const { covidSummary, totalFullEntries } = mockResult.county;
-    const testGraphInterface = {
-      labels: [],
-      options: {},
-      data: { labels: [], datasets: [] },
-    };
+    let data: RecoverySummary;
 
-    const totalCovidInfections = mockResult.county.covidSummary.beenInfected.yes.total;
-    const recoveryConfig = createRecoveryConfig(mockResult.county.recoverySummary.recovered as YesNo)
-    const medTakenConfig = createMedicationsTakenConfig(
-      mockResult.county.recoverySummary.medicationsTakenCount as MedicationsAvailable
-          );
-    const data: RecoverySummary = {
-      hospitalization: mockResult.county.recoverySummary.hospitalized.yes.total,
-      hospitalizationPercentage: percent(mockResult.county.recoverySummary.hospitalized.yes.total, totalCovidInfections),
-      medications: mockResult.county.recoverySummary.medicationsPrescribed.yes.total,
-      medicationsPercentage: percent(mockResult.county.recoverySummary.medicationsPrescribed.yes.total, totalCovidInfections),
-      medicationsTakenAmongstParticpantsGraph: medTakenConfig,
-      fullyRecoveredVsNotRecoveredGraph: recoveryConfig,
-    };
+    if (realOrMock === RealOrMock.REAL) {
+      const {
+        recoverySummary: {
+          hospitalized: { yes: { total: hospitalizationTotal } },
+          medicationsPrescribed: { yes: { total: medicationsTotal } },
+          medicationsTakenCount,
+          recovered
+        },
+        covidSummary: {
+          beenInfected: { yes: { total: beenInfectedTotal } }
+        }
+      } = realData;
+      
+      data = {
+        hospitalization: hospitalizationTotal,
+        hospitalizationPercentage: percent(hospitalizationTotal, beenInfectedTotal),
+        medications: medicationsTotal,
+        medicationsPercentage: percent(medicationsTotal, beenInfectedTotal),
+        medicationsTakenAmongstParticpantsGraph: createMedicationsTakenConfig(medicationsTakenCount as MedicationsAvailable),
+        fullyRecoveredVsNotRecoveredGraph: createRecoveryConfig(recovered as YesNo),
+      };
+      setData(data);
 
-    setData(data);
-  }, []);
+    } else if (realOrMock === RealOrMock.MOCK) {
+      const {
+        recoverySummary: {
+          hospitalized: { yes: { total: hospitalizationTotal } },
+          medicationsPrescribed: { yes: { total: medicationsTotal } },
+          medicationsTakenCount,
+          recovered
+        },
+        covidSummary: {
+          beenInfected: { yes: { total: beenInfectedTotal } }
+        }
+      } = mockResult.county;
+      
+      data = {
+        hospitalization: hospitalizationTotal,
+        hospitalizationPercentage: percent(hospitalizationTotal, beenInfectedTotal),
+        medications: medicationsTotal,
+        medicationsPercentage: percent(medicationsTotal, beenInfectedTotal),
+        medicationsTakenAmongstParticpantsGraph: createMedicationsTakenConfig(medicationsTakenCount as MedicationsAvailable),
+        fullyRecoveredVsNotRecoveredGraph: createRecoveryConfig(recovered as YesNo),
+      };
+      setData(data);
+    }
+    
+
+    
+  }, [realOrMock, realData]);
 
   return { recovery_data, error };
 }

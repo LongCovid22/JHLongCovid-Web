@@ -8,7 +8,6 @@ import {
   getTotalCovidCases,
   getTotalHospitalizations,
   getTotalSymptomatic,
-  percentOfTotalCovid,
   createRecoveryConfig,
   getTotalPrescribed,
 } from "./covidVisualizationFunctions";
@@ -160,7 +159,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
 
   //     const totalCases = getTotalCovidCases(covidSummary.beenInfected);
-      
+
   //     const percentOfCovidReported = percentOfTotalCovid(
   //       totalCases,
   //       totalFullEntries
@@ -204,9 +203,8 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
   //   createGraphVariables();
   // }, [data, realOrMock]);
+  let {covid_data, error} = useGetCovidSummary(data, realOrMock);
 
-
-  const{covid_data, error} = useGetCovidSummary();
 
   return (
     <VStack align={"start"} spacing="0px">
@@ -214,101 +212,101 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         <Spinner color="heritageBlue.800" />
       ) : (
         covid_data ? (
-        <>
-          <Grid
-            templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }}
-            gap={{ base: "10px", md: "15px" }}
-            p={"30px"}
-            shadow="base"
-            borderRadius={"20px"}
-            marginBottom="20px"
-          >
-            <GridItem>
-              <Stat>
-                {numberAndPercentage(
-                  covid_data.totalCovid,
-                  covid_data.covidPercentage,
-                  "COVID History",
-                  "Number of participants that have a history of COVID. % represents this figure divided by total number of all survey participants."
-                )}
-              </Stat>
-            </GridItem>
+          <>
+            <Grid
+              templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }}
+              gap={{ base: "10px", md: "15px" }}
+              p={"30px"}
+              shadow="base"
+              borderRadius={"20px"}
+              marginBottom="20px"
+            >
+              <GridItem>
+                <Stat>
+                  {numberAndPercentage(
+                    covid_data.totalCovid,
+                    covid_data.covidPercentage,
+                    "COVID History",
+                    "Number of participants that have a history of COVID. % represents this figure divided by total number of all survey participants."
+                  )}
+                </Stat>
+              </GridItem>
 
-            <GridItem>
-              <Stat>
-                {numberAndPercentage(
-                  covid_data.covidAndLongCovid,
-                  covid_data.covidAndLongCovidPercentage,
-                  "Long COVID and COVID History",
-                  "Number of participants that self reported a history of Long COVID and COVID. % represents this figure divided by total number of all survey participants."
-                )}
-              </Stat>
-            </GridItem>
+              <GridItem>
+                <Stat>
+                  {numberAndPercentage(
+                    covid_data.covidAndLongCovid,
+                    covid_data.covidAndLongCovidPercentage,
+                    "Long COVID and COVID History",
+                    "Number of participants that self reported a history of Long COVID and COVID. % represents this figure divided by total number of all survey participants."
+                  )}
+                </Stat>
+              </GridItem>
 
-            <GridItem>
-              <Stat>
-                {numberAndPercentage(
-                  covid_data.noCovidButLongCovid,
-                  covid_data.noCovidButLongCovidPercentage,
-                  "Long COVID History and No COVID History",
-                  "Number of participants that self reported a history of Long COVID but not COVID. % represents this figure divided by total number of all survey participants."
-                )}
-              </Stat>
-            </GridItem>
+              <GridItem>
+                <Stat>
+                  {numberAndPercentage(
+                    covid_data.noCovidButLongCovid,
+                    covid_data.noCovidButLongCovidPercentage,
+                    "Long COVID History and No COVID History",
+                    "Number of participants that self reported a history of Long COVID but not COVID. % represents this figure divided by total number of all survey participants."
+                  )}
+                </Stat>
+              </GridItem>
 
-            <GridItem>
-              <Stat>
-                {numberAndPercentage(
-                  covid_data.covidAndLongCovidOrLongCovidOver4Weeks,
-                  covid_data.covidAndLongCovidOrLongCovidOver4WeeksPercentage,
-                  "Total Long COVID (self reported Long COVID and COVID or >4 weeks symptomatic) ",
-                  "Total number of participants who reported Long COVID symptoms for over 4 weeks or self reported that they have a history of Long COVID and COVID. % represents this figure divided by total number of all survey participants."
-                )}
-              </Stat>
-            </GridItem>
-            <GridItem colSpan={{ base: "auto", md: 3 }}>
-              <Text fontSize="sm" as="i">
-                The percentages here are out of <u>total survey participants</u>
-              </Text>
-            </GridItem>
+              <GridItem>
+                <Stat>
+                  {numberAndPercentage(
+                    covid_data.covidAndLongCovidOrLongCovidOver4Weeks,
+                    covid_data.covidAndLongCovidOrLongCovidOver4WeeksPercentage,
+                    "Total Long COVID (self reported Long COVID and COVID or >4 weeks symptomatic) ",
+                    "Total number of participants who reported Long COVID symptoms for over 4 weeks or self reported that they have a history of Long COVID and COVID. % represents this figure divided by total number of all survey participants."
+                  )}
+                </Stat>
+              </GridItem>
+              <GridItem colSpan={{ base: "auto", md: 3 }}>
+                <Text fontSize="sm" as="i">
+                  The percentages here are out of <u>total survey participants</u>
+                </Text>
+              </GridItem>
 
-          </Grid>
+            </Grid>
 
-          <Grid
-            templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(2, 1fr)" }}
-            gap={{ base: "10px", md: "15px" }}
-            p={"30px"}
-            shadow="base"
-            borderRadius={"20px"}
-          >
-            <GridItem>
-              <Stat>
-                {numberAndPercentage(
-                  covid_data.longCovidOverFourWeeks,
-                  covid_data.longCovidOverFourWeeksPercentage,
-                  "Participants with Long COVID >4 Weeks",
-                  "Participants with a history of Long COVID Symptoms for over 4 weeks. % represents this figure divided by total number of participants with a history of COVID."
-                )}
-              </Stat>
-            </GridItem>
-            <GridItem>
-              <Stat>
-                {numberAndPercentage(
-                  covid_data.longCovidOverTwelveWeeks,
-                  covid_data.longCovidOverTwelveWeeksPercentage,
-                  "Participants with Long COVID >12 Weeks",
-                  "Participants with a history of Long COVID Symptoms for over 12 weeks. % represents this figure divided by total number of participants with a history of COVID."
-                )}
-              </Stat>
-            </GridItem>
+            <Grid
+              templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(2, 1fr)" }}
+              gap={{ base: "10px", md: "15px" }}
+              p={"30px"}
+              shadow="base"
+              borderRadius={"20px"}
+            >
+              <GridItem>
+                <Stat>
+                  {numberAndPercentage(
+                    covid_data.longCovidOverFourWeeks,
+                    covid_data.longCovidOverFourWeeksPercentage,
+                    "Participants with Long COVID >4 Weeks",
+                    "Participants with a history of Long COVID Symptoms for over 4 weeks. % represents this figure divided by total number of participants with a history of COVID."
+                  )}
+                </Stat>
+              </GridItem>
+              <GridItem>
+                <Stat>
+                  {numberAndPercentage(
+                    covid_data.longCovidOverTwelveWeeks,
+                    covid_data.longCovidOverTwelveWeeksPercentage,
+                    "Participants with Long COVID >12 Weeks",
+                    "Participants with a history of Long COVID Symptoms for over 12 weeks. % represents this figure divided by total number of participants with a history of COVID."
+                  )}
+                </Stat>
+              </GridItem>
 
-            <GridItem colSpan={{ base: "auto", md: 3 }}>
-              <Text fontSize="sm" as="i">
-                The percentages here are out of <u>participants with a COVID history</u>
-              </Text>
-            </GridItem>
-          </Grid>
-        </>) : (<></>)
+              <GridItem colSpan={{ base: "auto", md: 3 }}>
+                <Text fontSize="sm" as="i">
+                  The percentages here are out of <u>participants with a COVID history</u>
+                </Text>
+              </GridItem>
+            </Grid>
+          </>) : (<></>)
       )}
     </VStack>
   );
