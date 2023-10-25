@@ -55,13 +55,16 @@ export const getCountyAndStateWithZip = async (
     stateLong: 0.0,
   };
   const response = await axios.get(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=` +
+    `https://maps.googleapis.com/maps/api/geocode/json?address=` + 'zipcode+'+
       zipCode +
       `&key=${apiKey}`
   );
   if (response.data.results.length > 0) {
+    let address_components = response.data.results[0].address_components;
+    let index = address_components.findIndex((component: any) => component.types.includes("administrative_area_level_1"));
+    let indexBefore = index !== -1 && index !== 0 ? index - 1 : null;
     await Promise.all(
-      response.data.results[0].address_components.map(async (value: any) => {
+      address_components.map(async (value: any, idx: any) => {
         let ac = value as {
           long_name: string;
           short_name: string;
@@ -71,13 +74,12 @@ export const getCountyAndStateWithZip = async (
         if (ac.types.includes("country") && ac.short_name !== "US") {
           throw new NotInUSError("Location not in United States");
         }
-
         if (ac.types.includes("administrative_area_level_1")) {
           locationData.state = ac.long_name;
           locationData.stateAbbrev = ac.short_name;
           const stateResponse = await axios.get(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-              `${ac.long_name} state` +
+            `https://maps.googleapis.com/maps/api/geocode/json?address=` + 'state+'+
+              `${ac.long_name}` +
               `&key=${apiKey}`
           );
 
@@ -97,10 +99,10 @@ export const getCountyAndStateWithZip = async (
           locationData.stateLong = Math.round(lng * 1000000) / 1000000;
         }
 
-        if (ac.types.includes("administrative_area_level_2")) {
+        if (ac.types.includes("administrative_area_level_2") || idx == indexBefore) {
           const countyResponse = await axios.get(
             `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-              ac.long_name +
+              ac.long_name + "+" + locationData.state +
               `&key=${apiKey}`
           );
           locationData.countyLat =
