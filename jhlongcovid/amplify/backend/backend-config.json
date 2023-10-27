@@ -82,6 +82,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "deleteSurveyResults": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "emailReceiptConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -180,6 +185,22 @@
         {
           "category": "function",
           "resourceName": "aggregateSurveyResults"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteSurveyResults_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteSurveyResults"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteSurveyResults_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteSurveyResults"
         }
       ]
     },
