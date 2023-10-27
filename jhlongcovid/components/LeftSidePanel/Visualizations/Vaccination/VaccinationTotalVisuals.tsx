@@ -94,10 +94,10 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     let summary, totalFullEntries;
     if (data && realOrMock === RealOrMock.REAL) {
       if (covidDataToggle == 0) {
-        summary = data.vaccinationSummary;
+        summary = longData.vaccinationSummary;
         totalFullEntries = data.longCovid;
       } else {
-        summary = longData.vaccinationSummary;
+        summary = data.vaccinationSummary;
         totalFullEntries = data.totalFullEntries;
       }
     } else {
@@ -119,7 +119,8 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     setVaccineTypeCountConfig(
       createVaccineTypeConfig(summary.vaccineType as VaccineTypes)
     );
-  }, [data, realOrMock, covidDataToggle, covidDataToggle]);
+  }, [data, realOrMock, covidDataToggle, longData]);
+
 
   return (
     <VStack align={"start"}>
