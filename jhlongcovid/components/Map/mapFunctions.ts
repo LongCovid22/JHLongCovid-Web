@@ -106,7 +106,7 @@ export const calculateRadius = (
   type: "totalLongCovid" | "totalCovid",
   stateOrCounty: string,
   realOrMock: RealOrMock
-): number => {
+): number | null => {
   let ratio: number;
   if (total > 0) {
     if (type == "totalLongCovid") {
@@ -115,10 +115,10 @@ export const calculateRadius = (
       ratio = data.covidCount / total;
     }
   } else {
-    return 50000;
+    return null;
   }
   if (ratio == 0) {
-    return 5000;
+    return null;
   }
 
   if (stateOrCounty === "state") {
