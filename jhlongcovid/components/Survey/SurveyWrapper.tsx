@@ -54,6 +54,8 @@ import {
 } from "../../util/locationFunctions";
 import { SurveyBody } from "./SurveyBody";
 
+import { isValidEmail } from "./SurveyBody/Consent";
+
 // type for the onClose function to close the modal
 interface SurveyWrapperProps {
   onClose: () => void;
@@ -128,9 +130,21 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     onClose: onConfirmClose,
   } = useDisclosure();
 
+
+
   const handleNextQuestion = async () => {
     if (currentQuestion.answerFormat !== "welcome") {
       if (currentQuestion.answerFormat === "consent") {
+        
+        if (isValidEmail(answer) === false) {
+          setErrorText("Please enter valid email");
+          setMissingAnswer(true);
+          return;
+        } else {
+          setErrorText("");
+          setMissingAnswer(false);
+        }
+
         if (recap == false) {
           setErrorText("Please complete the ReCaptcha!");
           setMissingAnswer(true);
@@ -273,7 +287,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           }
         }
       }
-      console.log(answer);
       dispatch(nextQuestion({ answer: answer }));
     }
     setAnswer("");

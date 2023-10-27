@@ -32,6 +32,20 @@ const BulletedList = ({ options }: { options: any }) => {
   );
 };
 
+export const validateEmail = (value: string) => {
+  return value.match(
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+};
+
+export function isValidEmail(email: string) {
+  // Regular expression for a valid email address
+  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+  // Test the email against the regular expression
+  return emailRegex.test(email);
+}
+
 export const Consent: React.FC<SurveyQuestionProps> = ({
   currentQuestion,
   setRecap,
@@ -47,19 +61,22 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
 
 
   const handleAnswerChange = (value: string) => {
+    setErrorText!("");
+    setErrorPresent!(false);
     setEmail(value);
     setAnswer(value);
-    if (validateEmail(value)) {
-      setEmailError(false);
-      setErrorText!("");
-      setErrorPresent!(false);
-    } else {
-      if (value !== "") {
-        setEmailError(true);
-        setErrorPresent!(true);
-        setErrorText!("Please enter valid email");
-      }
-    }
+    // setAnswer(value);
+    // if (validateEmail(value)) {
+    //   setEmailError(false);
+    //   setErrorText!("");
+    //   setErrorPresent!(false);
+    // } else {
+    //   if (value !== "") {
+    //     setEmailError(true);
+    //     setErrorPresent!(true);
+    //     setErrorText!("Please enter valid email");
+    //   }
+    // }
   };
 
   function onChange(value: string | null) {
@@ -69,11 +86,7 @@ export const Consent: React.FC<SurveyQuestionProps> = ({
     }
   }
 
-  const validateEmail = (value: string) => {
-    return value.match(
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-  };
+  
 
   useEffect(() => {
     if (currentAnswer !== null) {
