@@ -90,6 +90,9 @@ export const numberAndPercentage = (
   title: string,
   description: string
 ) => {
+  if (!percentage) {
+    percentage = 0;
+  }
   return (
     <>
       <StatLabel>
@@ -226,7 +229,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   {numberAndPercentage(
                     covid_data.totalCovid,
                     covid_data.covidPercentage,
-                    "COVID History",
+                    "Self Reported COVID History",
                     "Number of participants that have a history of COVID. % represents this figure divided by total number of all survey participants."
                   )}
                 </Stat>
@@ -237,7 +240,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   {numberAndPercentage(
                     covid_data.covidAndLongCovid,
                     covid_data.covidAndLongCovidPercentage,
-                    "Long COVID and COVID History",
+                    "Self Reported Long COVID and COVID History",
                     "Number of participants that self reported a history of Long COVID and COVID. % represents this figure divided by total number of all survey participants."
                   )}
                 </Stat>
@@ -248,7 +251,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   {numberAndPercentage(
                     covid_data.noCovidButLongCovid,
                     covid_data.noCovidButLongCovidPercentage,
-                    "Long COVID History and No COVID History",
+                    "Self Reported Long COVID History and No Self Reported COVID History",
                     "Number of participants that self reported a history of Long COVID but not COVID. % represents this figure divided by total number of all survey participants."
                   )}
                 </Stat>
