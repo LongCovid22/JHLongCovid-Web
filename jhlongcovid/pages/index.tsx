@@ -202,7 +202,7 @@ const Home = () => {
     return (
       <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
         {displayData.map((data) => {
-          console.log(data);
+
           return (
              (
               <Marker

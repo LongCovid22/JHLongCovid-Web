@@ -70,7 +70,20 @@ const searchLocation = async (query, apiKey) => {
 async function handlePlaceSelect(updateQuery, map, markerData, apiKey, toast) {
   const addressObject = autoComplete.getPlace();
 
-  // console.log(addressObject);
+  const keysArray = Object.keys(markerData).filter((element) => { 
+    // console.log(markerData[element]);
+    return markerData[element].data.covidCount > 0 
+    // && markerData[element].data.longCovid > 0;
+      //TODO: depending on which toggle is on
+  }); //element.data.longCovid > 0
+
+
+  let filteredObject = {};
+  keysArray.forEach(key => {
+    filteredObject[key] = markerData[key];
+  });
+  markerData = filteredObject;
+
 
   if (
     addressObject &&
@@ -91,73 +104,107 @@ async function handlePlaceSelect(updateQuery, map, markerData, apiKey, toast) {
       let southwest = new google.maps.LatLng(sw.lat, sw.lng);
       let bounds = new google.maps.LatLngBounds(southwest, northeast);
 
-      if (res.results[0].types[0] == "administrative_area_level_1") {
-        const name = addressObject.address_components[0].long_name;
+      map.fitBounds(bounds);
 
-        if (markerData.hasOwnProperty(name)) {
-          google.maps.event.trigger(markerData[name].marker, "click");
-        }
+      let name;
+
+      let countyOrState = false;
+
+      console.log(addressObject);
+
+      if (res.results[0].types[0] == "administrative_area_level_1") { 
+        name = addressObject.address_components[0].long_name;
+        countyOrState = true;
+      } else if (res.results[0].types[0] == "administrative_area_level_2") {
+        name = addressObject.formatted_address;
+        name = name.replace('County', 'County County');
+        countyOrState = true;
       } else {
-        //output only at the COUNTY level
-        map.fitBounds(bounds);
-        if (map.getZoom() > 12) {
-          map.setZoom(12);
-        }
-        const new_bnd = map.getBounds();
-        const latLow = new_bnd?.getSouthWest().lat();
-        const latHigh = new_bnd?.getNorthEast().lat();
-        const longLow = new_bnd?.getSouthWest().lng();
-        const longHigh = new_bnd?.getNorthEast().lng();
-
-        //wait for 1 second for marker to load (is there a better way?)
-        setTimeout(() => {
-          let closest_distance = 100000000;
-          let closest_marker;
-          for (const c in markerData) {
-            const county = markerData[c].data;
-
-            if (
-              markerData[c].data.level === "county" &&
-              latLow <= county.lat &&
-              county.lat <= latHigh &&
-              longLow <= county.long &&
-              county.long <= longHigh
-            ) {
-              const first = new google.maps.LatLng(county.lat, county.long);
-              const second = new google.maps.LatLng(
-                map.getCenter().lat(),
-                map.getCenter().lng()
-              );
-              if (
-                google.maps.geometry.spherical.computeDistanceBetween(
-                  first,
-                  second
-                ) < closest_distance
-              ) {
-                closest_marker = markerData[c];
-                closest_distance =
-                  google.maps.geometry.spherical.computeDistanceBetween(
-                    first,
-                    second
-                  );
-              }
-            }
-          }
-          
-          if (closest_marker) {
-            google.maps.event.trigger(closest_marker.marker, "click");
-          } else {
-            toast({
-              title: "Not enough survey submissions yet!",
-              description: "Try another time!",
-              status: "error",
-              duration: 3000,
-              isClosable: true,
-              position: "bottom",
-            });
-          }
-        }, 1000);
+        name = addressObject.formatted_address;
       }
+
+      if (markerData.hasOwnProperty(name)) {
+        google.maps.event.trigger(markerData[name].marker, "click");
+      } else if (countyOrState) {
+        toast({
+          title: "Not enough survey submissions yet!",
+          description: "Try another time!",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "bottom",
+        });
+      }
+
+      // if (res.results[0].types[0] == "administrative_area_level_1") {
+      //   const name = addressObject.address_components[0].long_name;
+
+      //   console.log(name);
+
+        
+      // } else {
+      //   //output only at the COUNTY level
+        
+      //   if (map.getZoom() > 12) {
+      //     map.setZoom(12);
+      //   } 
+      //   const new_bnd = map.getBounds();
+      //   const latLow = new_bnd?.getSouthWest().lat();
+      //   const latHigh = new_bnd?.getNorthEast().lat();
+      //   const longLow = new_bnd?.getSouthWest().lng();
+      //   const longHigh = new_bnd?.getNorthEast().lng();
+
+      //   //wait for 1 second for marker to load (is there a better way?)
+      //   setTimeout(() => {
+      //     let closest_distance = 100000000;
+      //     let closest_marker;
+      //     for (const c in markerData) {
+      //       const county = markerData[c].data;
+
+      //       if (
+      //         markerData[c].data.level === "county" &&
+      //         latLow <= county.lat &&
+      //         county.lat <= latHigh &&
+      //         longLow <= county.long &&
+      //         county.long <= longHigh
+      //       ) {
+      //         const first = new google.maps.LatLng(county.lat, county.long);
+      //         const second = new google.maps.LatLng(
+      //           map.getCenter().lat(),
+      //           map.getCenter().lng()
+      //         );
+      //         if (
+      //           google.maps.geometry.spherical.computeDistanceBetween(
+      //             first,
+      //             second
+      //           ) < closest_distance
+      //         ) {
+      //           closest_marker = markerData[c];
+      //           closest_distance =
+      //             google.maps.geometry.spherical.computeDistanceBetween(
+      //               first,
+      //               second
+      //             );
+      //         }
+      //       }
+      //     }
+          
+      //     if (closest_marker) {
+      //       //markerData
+      //       console.log(closest_marker);
+      //       google.maps.event.trigger(closest_marker.marker, "click");
+      //     } else {
+      //       toast({
+      //         title: "Not enough survey submissions yet!",
+      //         description: "Try another time!",
+      //         status: "error",
+      //         duration: 3000,
+      //         isClosable: true,
+      //         position: "bottom",
+      //       });
+      //     }
+      //   }, 1000);
+      // }
     }
   }
 }
