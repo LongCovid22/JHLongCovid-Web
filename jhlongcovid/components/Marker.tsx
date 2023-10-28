@@ -196,13 +196,12 @@ export const Marker: React.FC<CircleProps> = ({
             shouldFocus: false,
             // pixelOffset: new google.maps.size(250, 150)
           });
+          setTimeout(() => {
+            if (infoWindow !== undefined) {
+              infoWindow.close();
+            }
+          }, 3000);
         }
-
-        // setTimeout(() => {
-        //   if (infoWindow !== undefined) {
-        //     infoWindow.close();
-        //   }
-        // }, 3000);
       });
 
       // google.maps.event.addListener(marker, "mouseout", function () {
