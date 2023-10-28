@@ -130,6 +130,7 @@ function SearchLocationInput({ markerType, markerData }) {
   
       let res = await searchLocation(query, apiKey);
   
+      
       if (res.status == "OK" && map) {
         let ne = res.results[0].geometry.viewport.northeast;
         let sw = res.results[0].geometry.viewport.southwest;
@@ -141,51 +142,58 @@ function SearchLocationInput({ markerType, markerData }) {
         map.fitBounds(bounds);
         dispatch(setLeftSidePanelPres(false));
 
-        const keysArray = Object.keys(markerData).filter((element) => { 
-          return eval(filterRef.current);
-          // Essentially    
-          // if (markerType.current === "totalLongCovid") {
-          //   return markerData[element].data.longCovid > 0 
-          // } else if (markerType.current === "totalCovid") {
-          //   return markerData[element].data.covidCount > 0 
-          // }
-        }); 
+        // const keysArray = Object.keys(markerData).filter((element) => { 
+        //   return eval(filterRef.current);
+        //   // Essentially    
+        //   // if (markerType.current === "totalLongCovid") {
+        //   //   return markerData[element].data.longCovid > 0 
+        //   // } else if (markerType.current === "totalCovid") {
+        //   //   return markerData[element].data.covidCount > 0 
+        //   // }
+        // }); 
       
       
-        let filteredObject = {};
-        keysArray.forEach(key => {
-          filteredObject[key] = markerData[key];
-        });
-        markerData = filteredObject;
-        
+        // let filteredObject = {};
+        // keysArray.forEach(key => {
+        //   filteredObject[key] = markerData[key];
+        // });
+        // markerData = filteredObject;
+
   
-        let name;
+        // let name;
   
-        let countyOrState = false;
+        // let countyOrState = false;
   
-        if (res.results[0].types[0] == "administrative_area_level_1") { 
-          name = addressObject.address_components[0].long_name;
-          countyOrState = true;
-        } else if (res.results[0].types[0] == "administrative_area_level_2") {
-          name = addressObject.formatted_address;
-          name = name.replace('County', 'County County');
-          countyOrState = true;
-        } else {
-          name = addressObject.formatted_address;
-        }
+        // if (res.results[0].types[0] == "administrative_area_level_1") { 
+        //   name = addressObject.address_components[0].long_name;
+        //   countyOrState = true;
+        // } else if (res.results[0].types[0] == "administrative_area_level_2") {
+        //   name = addressObject.formatted_address;
+        //   name = name.replace('County', 'County County');
+        //   countyOrState = true;
+        // } else {
+        //   name = addressObject.formatted_address;
+        // }
   
-        if (markerData.hasOwnProperty(name)) {
-          google.maps.event.trigger(markerData[name].marker, "click");
-        } else if (countyOrState) {
-          toast({
-            title: "Not enough survey submissions yet!",
-            description: "Try another time!",
-            status: "error",
-            duration: 3000,
-            isClosable: true,
-            position: "bottom",
-          });
-        }
+        // if (markerData.hasOwnProperty(name)) {
+        //   google.maps.event.trigger(markerData[name].marker, "click");
+        // } else if (countyOrState) {
+        //   toast({
+        //     title: "Not enough survey submissions yet!",
+        //     description: "Try another time!",
+        //     status: "error",
+        //     duration: 3000,
+        //     isClosable: true,
+        //     position: "bottom",
+        //   });
+        // }
+
+
+
+
+
+
+
   
         // if (res.results[0].types[0] == "administrative_area_level_1") {
         //   const name = addressObject.address_components[0].long_name;
