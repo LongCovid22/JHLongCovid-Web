@@ -200,7 +200,7 @@ export const Marker: React.FC<CircleProps> = ({
             if (infoWindow !== undefined) {
               infoWindow.close();
             }
-          }, 3000);
+          }, 4000);
         }
       });
 
