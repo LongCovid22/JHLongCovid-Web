@@ -86,10 +86,10 @@ const Choices = (
                         max={
                           option.type === "date"
                             ? new Date(
-                                new Date().setDate(new Date().getDate() - 1)
-                              )
-                                .toISOString()
-                                .split("T")[0]
+                              new Date().setDate(new Date().getDate() - 1)
+                            )
+                              .toISOString()
+                              .split("T")[0]
                             : undefined
                         }
                         focusBorderColor="clear"
@@ -134,7 +134,7 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
 }) => {
   const currentAnswer = useAppSelector(selectCurrentAnswer);
   const [choiceValue, setChoiceValue] = useState<string>("");
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>("1");
   const [inputError, setInputError] = useState<boolean>(false);
 
   const handleAnswerChange = (val: string, validation?: any) => {
@@ -189,9 +189,17 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
     return true;
   };
 
+  useEffect(() => {
+    // Handle the default answer
+    const defaultAnswer = "1"; // for your dropdown
+    handleAnswerChange(defaultAnswer);
+  }, [])
+
   // Check if there is an already existing answer to provide as a default value
   useEffect(() => {
-    handleAnswerChange(currentAnswer as string);
+    if (currentAnswer !== "") {
+      handleAnswerChange(currentAnswer as string);
+    }
     // if (currentAnswer !== "") {
     //   handleAnswerChange(currentAnswer as string);
     // } else {
