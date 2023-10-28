@@ -57,16 +57,38 @@ const searchLocation = async (query, apiKey) => {
 
 
 
-function SearchLocationInput({ markerData }) {
+function SearchLocationInput({ markerType, markerData }) {
   const [query, setQuery] = useState("");
   const autoCompleteRef = useRef(null);
   const key = process.env.GOOGLEMAPS_API_KEY;
   const mapContext = useMapContext();
 
   const [value, setValue] = React.useState("");
+  
+  const [filter, setFilter] = React.useState("markerData[element].data.longCovid > 0");
+  // "markerData[element].data.covidCount > 0 "
 
   const toast = useToast();
   const dispatch = useAppDispatch();
+
+  const filterRef = useRef("markerData[element].data.longCovid > 0");
+
+  useEffect(() => {
+    if (markerType === "totalLongCovid") { 
+      filterRef.current = "markerData[element].data.longCovid > 0";
+    } else if (markerType === "totalCovid") {
+      filterRef.current = "markerData[element].data.covidCount > 0";
+    }
+  }, [markerType])
+
+
+  const markerTypeRef = useRef(markerType);
+
+  useEffect(() => {
+    dispatch(setLeftSidePanelPres(false));
+    markerTypeRef.current = markerType;
+  
+  }, [markerType]);
 
   function handleScriptLoad(updateQuery, autoCompleteRef, map, markerData, key, toast) {
     autoComplete = new window.google.maps.places.Autocomplete(
@@ -88,22 +110,7 @@ function SearchLocationInput({ markerData }) {
 
   async function handlePlaceSelect(updateQuery, map, markerData, apiKey, toast) {
   
-    const addressObject = autoComplete.getPlace();
-  
-    const keysArray = Object.keys(markerData).filter((element) => { 
-      // console.log(markerData[element]);
-      return markerData[element].data.covidCount > 0 
-      // && markerData[element].data.longCovid > 0;
-        //TODO: depending on which toggle is on
-    }); //element.data.longCovid > 0
-  
-  
-    let filteredObject = {};
-    keysArray.forEach(key => {
-      filteredObject[key] = markerData[key];
-    });
-    markerData = filteredObject;
-  
+    const addressObject = autoComplete.getPlace();  
   
     if (
       addressObject &&
@@ -133,6 +140,24 @@ function SearchLocationInput({ markerData }) {
   
         map.fitBounds(bounds);
         dispatch(setLeftSidePanelPres(false));
+
+        const keysArray = Object.keys(markerData).filter((element) => { 
+          return eval(filterRef.current);
+          // Essentially    
+          // if (markerType.current === "totalLongCovid") {
+          //   return markerData[element].data.longCovid > 0 
+          // } else if (markerType.current === "totalCovid") {
+          //   return markerData[element].data.covidCount > 0 
+          // }
+        }); 
+      
+      
+        let filteredObject = {};
+        keysArray.forEach(key => {
+          filteredObject[key] = markerData[key];
+        });
+        markerData = filteredObject;
+        
   
         let name;
   
@@ -243,7 +268,7 @@ function SearchLocationInput({ markerData }) {
       markerData,
       key, toast
     );
-  }, [mapContext]);
+  }, [mapContext, markerType]);
 
   return (
     <>

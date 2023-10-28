@@ -332,6 +332,7 @@ const Home = () => {
       <div className={styles.main}>
         {MapMemo}
         <Header
+          markerType={markerType}
           markerData={markerData}
           realOrMock={realOrMock}
           setRealOrMock={setRealOrMock}

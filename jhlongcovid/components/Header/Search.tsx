@@ -12,9 +12,10 @@ import { BrandingMenu } from "./BrandingMenu/BrandingMenu";
 
 interface SearchProps {
   markerData: any;
+  markerType: any;
 }
 
-export const Search: React.FC<SearchProps> = ({ markerData }) => {
+export const Search: React.FC<SearchProps> = ({ markerType, markerData }) => {
   const [input, setInput] = React.useState("");
   const [places, setPlaces] = React.useState([]);
 
@@ -27,8 +28,8 @@ export const Search: React.FC<SearchProps> = ({ markerData }) => {
         boxShadow={"xl"}
       >
         <BrandingMenu />
-        <SearchLocationInput markerData={markerData} />
-      </Flex>
+        <SearchLocationInput markerType={markerType} markerData={markerData} />
+      </Flex> 
 
       {input.length > 0 && places.length > 0 && places[0] != null && (
         <Flex
