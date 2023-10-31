@@ -142,6 +142,8 @@ function SearchLocationInput({ markerType, markerData }) {
         map.fitBounds(bounds);
         dispatch(setLeftSidePanelPres(false));
 
+        //remember to wait first before searching for map data objects to load first!
+
         // const keysArray = Object.keys(markerData).filter((element) => { 
         //   return eval(filterRef.current);
         //   // Essentially    

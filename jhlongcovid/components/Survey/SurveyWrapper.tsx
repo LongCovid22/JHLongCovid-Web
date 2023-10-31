@@ -214,14 +214,14 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       //   }
       // }
       // Check for empty fields in any stage of the survey
-      else if ((
+      else if (currentQuestion.questionNum !== 17 && (
         answer === "" ||
         answer === null ||
         (Array.isArray(answer) && answer.length === 0) ||
         (Array.isArray(answer) &&
           answer.filter((element) => element === "").length > 0))
       ) {
-        setErrorText("Please provide an answer to the missing fields");
+        setErrorText("Please provide an answer to the missing fields!");
         setMissingAnswer(true);
         return;
       } else if ( currentQuestion.questionNum !== 25 && 

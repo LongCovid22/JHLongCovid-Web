@@ -204,7 +204,7 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
       setInputValue("1");
       setAnswer("1");
     }
-  }, [currentQuestion]);
+  }, [currentQuestion, setAnswer]);
 
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>
