@@ -290,9 +290,10 @@ const updateRecoverySummary = (eventInput, county, state, indexes) => {
 
   //high level stats
   if (checkNotNullAndBoolType(new_survey_recovery_input_.recovered) && new_survey_recovery_input_.recovered) {
-    if (county.recoveredCount) {
+    if (typeof county.recoveredCount === "number") {
       county.recoveredCount += 1;
-    } else if (state.recoveredCount) {
+    }
+    if (typeof state.recoveredCount === "number") {
       state.recoveredCount += 1;
     }
   }
