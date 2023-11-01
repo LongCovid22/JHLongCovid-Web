@@ -54,6 +54,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
       // setEmail("");
       // setPassword("");
     } catch (error) {
+      console.log('error signing in', error);
       setPerformingQueries(false);
       if (error instanceof Error) {
         if (error.message === "User is not confirmed.") {
