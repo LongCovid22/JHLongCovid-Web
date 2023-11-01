@@ -174,7 +174,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           )}
         </FormControl>
         <FormControl isInvalid={!passwordsMatch} tabIndex={2}>
-          <FormLabel fontSize={"lg"}>Confrim Password</FormLabel>
+          <FormLabel fontSize={"lg"}>Confirm Password</FormLabel>
           <Input
             value={confirmPass}
             fontSize={"lg"}

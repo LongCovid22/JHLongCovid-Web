@@ -21,7 +21,15 @@ import {
   StatNumber,
   StatHelpText,
   VStack,
+  Spinner,
+  Tooltip as ChakraTooltip,
+  Text,
+  HStack,
+  Grid,
+  GridItem,
+  Flex,
 } from "@chakra-ui/react";
+import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -73,10 +81,12 @@ type SymptomSummary = {
 
 export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
+  longData,
   panelDimensions,
   realOrMock,
   loading,
   setLoading,
+  covidDataToggle
 }) => {
   const [totalSymptomsCount, setTotalSymptomsCount] = useState(0);
   const [totalEntries, setTotalEntries] = useState(0);
@@ -115,6 +125,8 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
   const width = useAppSelector(selectWidth);
 
+  const explanation = 'Participants are queried on potential COVID-19 symptoms like fever and cough, then separately asked about experiencing any of 26 general symptoms, including headaches and brain fogs, in the survey\'s Global Health Symptom Check section.'
+
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
     const colors = [
@@ -127,125 +139,115 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     let symptomSummary, covidSummary, totalFullEntries;
 
     if (data && realOrMock === RealOrMock.REAL) {
-      symptomSummary = data.symptomSummary;
-      covidSummary = data.covidSummary;
-      totalFullEntries = data.totalFullEntries;
+      if (covidDataToggle == 1) {
+        symptomSummary = data.symptomSummary;
+        covidSummary = data.covidSummary;
+        totalFullEntries = data.totalFullEntries;
+      } else {
+        symptomSummary = longData.symptomSummary;
+        covidSummary = longData.covidSummary;
+        totalFullEntries = longData.totalFullEntries;
+      }
     } else {
-      symptomSummary = mockResult.county.symptomSummary;
-      covidSummary = mockResult.county.covidSummary;
-      totalFullEntries = mockResult.county.totalFullEntries;
+      if (covidDataToggle == 1) {
+        symptomSummary = mockResult.county.symptomSummary;
+        covidSummary = mockResult.county.covidSummary;
+        totalFullEntries = mockResult.county.totalFullEntries;
+      } else {
+        symptomSummary = mockResult.longCOVID.symptomSummary;
+        covidSummary = mockResult.longCOVID.covidSummary;
+        totalFullEntries = mockResult.longCOVID.totalFullEntries;
+      }
     }
 
-    if (covidSummary.symptomatic) {
+    if (covidSummary && covidSummary.symptomatic) {
       setTotalSymptomsCount(
         getSymptomsCount(covidSummary.symptomatic as YesNo)
       );
     }
 
     const summary = symptomSummary as SymptomSummary;
+
     setMostCommonSymptom(
       capitalizeFirstLetters(getMostCommonSymptom(summary.symptomCounts))
     );
 
-    setMostCommonSymptoms(getKMostCommonSymptoms(summary.symptomCounts, 3));
+    const symptoms = getKMostCommonSymptoms(summary.symptomCounts, 3);
 
-    
+    setMostCommonSymptoms(symptoms);
     setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
-    setQOLConfig(
-      createTotalsChartConfig(
-        summary.qualityOfLife,
-        "Quality of Life",
-        "People",
-        colors
-      )
-    );
-    setMentalHealthConfig(
-      createTotalsChartConfig(
-        summary.mentalHealthRank,
-        "Mental Health",
-        "People",
-        colors
-      )
-    );
-    setSocialSatisConfig(
-      createTotalsChartConfig(
-        summary.socialSatisfactionRank,
-        "Social Satisfaction",
-        "People",
-        colors
-      )
-    );
-    setCarryOutSocialConfig(
-      createTotalsChartConfig(
-        summary.carryOutSocialActivitiesRank,
-        "Carry Out Social Activities",
-        "People",
-        colors
-      )
-    );
-    setAnxietyConfig(
-      createTotalsChartConfig(
-        summary.anxietyInPastWeekRank,
-        "Anxiety In Past Week",
-        "People",
-        colors
-      )
-    );
+
+
     setTotalEntries(totalFullEntries);
-  }, [data]);
+  }, [data, covidDataToggle, realOrMock, longData]);
 
   return (
     <VStack align={"start"}>
       <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
         <WrapItem>
           <Stat>
-            <StatLabel>Symptoms Count</StatLabel>
+            <StatLabel>COVID related Symptoms Count</StatLabel>
             <StatNumber>{totalSymptomsCount}</StatNumber>
-            <StatHelpText>Total people with symptoms</StatHelpText>
+            <StatHelpText>Total Symptomatic People</StatHelpText>
           </Stat>
         </WrapItem>
-         { //Removed 9/26/2023
-        //   <WrapItem>
-        //   <Stat>
-        //     <StatLabel>Most Common Symptom</StatLabel>
-        //     <StatNumber>{mostCommonSymptom}</StatNumber>
-        //     {/* <StatHelpText>Most common symptom reported</StatHelpText> */}
-        //   </Stat>
-        // </WrapItem>
+        { //Removed 9/26/2023
+          //   <WrapItem>
+          //   <Stat>
+          //     <StatLabel>Most Common Symptom</StatLabel>
+          //     <StatNumber>{mostCommonSymptom}</StatNumber>
+          //     {/* <StatHelpText>Most common symptom reported</StatHelpText> */}
+          //   </Stat>
+          // </WrapItem>
         }
-        
+
         <WrapItem>
           <Stat>
-            <StatLabel>Most Commons Symptoms</StatLabel>
+            <StatLabel>Most General Health Symptoms Over the Past Month</StatLabel>
             {mostCommonSymptoms.map((mostCommonSymptom, index) => (
               <StatNumber key={index}>{mostCommonSymptom}</StatNumber>
             ))}
+
+
+
           </Stat>
+        </WrapItem>
+
+        <WrapItem>
+          <Stat>
+            <StatLabel>
+              <ChakraTooltip label={explanation} maxW="500px" fontSize="sm">
+                <QuestionOutlineIcon boxSize={7} ml={1} mr={1} />
+              </ChakraTooltip>
+              These two statistics are independent of one another
+            </StatLabel>
+          </Stat>
+
         </WrapItem>
       </Wrap>
       {
-      // <Wrap spacing="30px" overflow={"visible"}>
-      //   <WrapItem
-      //     // width={width < 1500 ? "300px" : "325px"}
-      //     width={panelDimensions.width - 80}
-      //     shadow="base"
-      //     borderRadius={"20px"}
-      //     p={"30px"}
-      //     minWidth="340px"
-      //   >
-      //     <Bar
-      //       options={symptomCountConfig.options}
-      //       data={symptomCountConfig.data}
-      //       height="375px"
-      //       width={
-      //         panelDimensions.width - 80 < 420
-      //           ? "340px"
-      //           : panelDimensions.width - 80
-      //       }
-      //     />
-      //   </WrapItem>
+        // <Wrap spacing="30px" overflow={"visible"}>
+        //   <WrapItem
+        //     // width={width < 1500 ? "300px" : "325px"}
+        //     width={panelDimensions.width - 80}
+        //     shadow="base"
+        //     borderRadius={"20px"}
+        //     p={"30px"}
+        //     minWidth="340px"
+        //   >
+        //     <Bar
+        //       options={symptomCountConfig.options}
+        //       data={symptomCountConfig.data}
+        //       height="375px"
+        //       width={
+        //         panelDimensions.width - 80 < 420
+        //           ? "340px"
+        //           : panelDimensions.width - 80
+        //       }
+        //     />
+        //   </WrapItem>
 
-      // </Wrap>
+        // </Wrap>
       }
     </VStack>
   );

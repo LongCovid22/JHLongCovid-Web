@@ -28,6 +28,7 @@ export const useOnCreateMapDataSubscription = (
       next: ({ provider, value }) => {
         const v = value.data as OnCreateMapDataSubscription;
         const newMapData = v.onCreateMapData;
+        console.log(newMapData);
         if (newMapData) {
           if (newMapData.level === "county") {
             if (realOrMock == RealOrMock.REAL) {

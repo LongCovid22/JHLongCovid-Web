@@ -53,12 +53,14 @@ export const processEntries = (
       }
     } else if (value === "VaccinationEntry") {
       const sectionInfo = sectionQuestionInfo.VaccinationEntry;
+      // console.log(sectionInfo)
       if (sectionQuestionInfo.VaccinationEntry.questions.length > 0) {
         entries[value] = processVaccinationEntry(
           sectionInfo,
           demographics,
           user
         );
+        // console.log(entries[value]);
       }
     } else if (value === "GlobalHealthEntry") {
       const sectionInfo = sectionQuestionInfo.GlobalHealthEntry;
@@ -471,6 +473,8 @@ const createEntries = (
         //     }
         //     entries[s.field] = reportedSymptoms;
         //   }
+      } else if (s.field === "totalVaccineShots" && a === "Do not know") {
+        entries[s.field] = 0;
       } else if (s.type === "Int") {
         const splitAnswer = a.split(" ")[0];
         entries[s.field] = parseInt(splitAnswer);
@@ -628,10 +632,10 @@ const symptomsMap: any = {
 };
 
 const medicationsMap: any = {
-  "Antiviral pill, such as Paxlovid": "antiviral",
+  "Antiviral pill, such as Paxlovid": "antiViral",
   "Oral steroids, such as dexamethasone, prednisone, or prednisolone":
     "oralSteroids",
-  'Antibiotics, such as a "Z-pak"': "antibiotics",
+  'Antibiotics, such as a "Z-pak"': "antiBiotics",
   "Do not know": "doNotKnow",
 };
 

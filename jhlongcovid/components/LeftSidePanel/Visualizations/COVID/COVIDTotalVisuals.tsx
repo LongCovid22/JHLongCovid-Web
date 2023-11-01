@@ -8,10 +8,11 @@ import {
   getTotalCovidCases,
   getTotalHospitalizations,
   getTotalSymptomatic,
-  percentOfTotalCovid,
   createRecoveryConfig,
   getTotalPrescribed,
 } from "./covidVisualizationFunctions";
+
+import useGetCovidSummary from "./useGetCovidSummary";
 import {
   MedicationsAvailable,
   OneToThreePlus,
@@ -29,7 +30,10 @@ import {
   VStack,
   Spinner,
   Tooltip as ChakraTooltip,
+  Text,
   HStack,
+  Grid,
+  GridItem,
   Flex,
 } from "@chakra-ui/react";
 
@@ -86,6 +90,9 @@ export const numberAndPercentage = (
   title: string,
   description: string
 ) => {
+  if (!percentage) {
+    percentage = 0;
+  }
   return (
     <>
       <StatLabel>
@@ -97,7 +104,7 @@ export const numberAndPercentage = (
       <StatNumber>
         <Flex alignItems="flex-start">
           <span style={{ marginRight: "8px" }}>{`${num}`}</span>
-          <span>{`(${percentage.toFixed()}%)`}</span>
+          <span>{`(${percentage.toFixed(1)}%)`}</span>
         </Flex>
       </StatNumber>
     </>
@@ -111,259 +118,198 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   loading,
   setLoading,
 }) => {
-  const [totalCovidCases, setTotalCovidCases] = useState(0);
-  const [totalEntries, setTotalEntries] = useState(0);
-  const [percentTotalCovid, setPercentTotalCovid] = useState(0);
-  const [hospitalizations, setHospitalizations] = useState(0);
-  const [percentSymptomatic, setPercentSymptomatic] = useState(0);
-  const [symptomatic, setSymptomatic] = useState(0);
-  const [totalPrescribed, setTotalPrescribed] = useState(0);
-  const [percentMedications, setPercentMedications] = useState(0);
-  const [totalLongCovidFourWeeks, setTotalLongCovidFourWeeks] = useState(0);
-  const [totalLongCovidFourWeeksPerc, setTotalLongCovidFourWeeksPerc] =
-    useState(0);
-  const [totalLongCovidTwelveWeeks, setTotalLongCovidTwelveWeeks] = useState(0);
-  const [totalLongCovidTwelveWeeksPerc, setTotalLongCovidTwelveWeeksPerc] =
-    useState(0);
-  const [totalSelfReported, setTotalSelfReported] = useState<number>(0);
-  const [totalSelfReportedPerc, setTotalSelfReportedPerc] = useState<number>(0);
-  const [totalLongCovid, setTotalLongCovid] = useState<number>(0);
-  const [totalLongCovidPerc, setTotalLongCovidPerc] = useState<number>(0);
-  const [medicationsTakenConfig, setMedicationsTakenConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [recoveryTakenConfig, setRecoveryConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const width = useAppSelector(selectWidth);
-  const [height, setHeight] = useState(350);
+  // const [totalCovidCases, setTotalCovidCases] = useState(0);
+  // const [percentTotalCovid, setPercentTotalCovid] = useState(0);
+  // const [totalPrescribed, setTotalPrescribed] = useState(0);
 
-  useEffect(() => {
-    // Perform all processing on map data and populate visualizations
-    const createGraphVariables = async () => {
-      let covidSummary,
-        recoverySummary,
-        totalFullEntries = undefined;
-      if (realOrMock === RealOrMock.REAL && data) {
-        covidSummary = data.covidSummary;
-        recoverySummary = data.recoverySummary;
-        totalFullEntries = data.totalFullEntries;
-      } else {
-        covidSummary = mockResult.county.covidSummary;
-        recoverySummary = mockResult.county.recoverySummary;
-        totalFullEntries = mockResult.county.totalFullEntries;
-      }
+  // const [totalLongCovidFourWeeks, setTotalLongCovidFourWeeks] = useState(0);
+  // const [totalLongCovidFourWeeksPerc, setTotalLongCovidFourWeeksPerc] =
+  //   useState(0);
+  // const [totalLongCovidTwelveWeeks, setTotalLongCovidTwelveWeeks] = useState(0);
+  // const [totalLongCovidTwelveWeeksPerc, setTotalLongCovidTwelveWeeksPerc] =
+  //   useState(0);
 
-      const totalCases = getTotalCovidCases(covidSummary.beenInfected);
-      const percentOfCovidReported = percentOfTotalCovid(
-        totalCases,
-        totalFullEntries
-      );
-      const totalHospitalizations = getTotalHospitalizations(
-        covidSummary.hospitalized as YesNo
-      );
-      const totalSymptomatic = getTotalSymptomatic(
-        covidSummary.symptomatic as YesNo
-      );
-      const percOfSymptomatic = getPercentSymptomatic(
-        totalSymptomatic,
-        totalCases
-      );
 
-      const totalPrescribed = getTotalPrescribed(
-        covidSummary.medicationsPrescribed as YesNoDontKnow
-      );
-      const percOfMedications = getPercentMedications(
-        covidSummary.medicationsPrescribed as YesNoDontKnow,
-        totalCases
-      );
+  // const [totalSelfReported, setTotalSelfReported] = useState<number>(0);
+  // const [totalSelfReportedPerc, setTotalSelfReportedPerc] = useState<number>(0);
 
-      const medTakenConfig = createMedicationsTakenConfig(
-        covidSummary.medicationsTakenCount as MedicationsAvailable
-      );
+  // const [totalLongCovid, setTotalLongCovid] = useState<number>(0);
+  // const [totalLongCovidPerc, setTotalLongCovidPerc] = useState<number>(0);
 
-      const recoveryConfig = createRecoveryConfig(
-        recoverySummary.recovered as YesNo
-      );
 
-      if (data !== null) {
-        const longCovidOverFourWeeks = data.longCovidOverFourWeeks
-          ? data.longCovidOverFourWeeks
-          : 0;
-        const longCovidOverFourWeeksPerc =
-          (longCovidOverFourWeeks / totalCases) * 100;
-        const longCovidOverTwelveWeeks = data.longCovidOverTwelveWeeks
-          ? data.longCovidOverTwelveWeeks
-          : 0;
-        const longCovidOverTwelveWeeksPerc =
-          (longCovidOverTwelveWeeks / totalCases) * 100;
-        const selfReported = data.selfReportedLongCovid
-          ? data.selfReportedLongCovid
-          : 0;
-        const selfReportedPerc = data.longCovid
-          ? (selfReported / data.longCovid) * 100
-          : 0;
-        const longCovid = data.longCovid ? data.longCovid : 0;
-        const longCovidPerc = (longCovid / totalFullEntries) * 100;
+  // useEffect(() => {
+  //   // Perform all processing on map data and populate visualizations
+  //   const createGraphVariables = async () => {
+  //     let covidSummary,
+  //       recoverySummary,
+  //       totalFullEntries = undefined;
 
-        setTotalLongCovid(longCovid);
-        setTotalLongCovidPerc(longCovidPerc);
-        setTotalSelfReported(selfReported);
-        setTotalSelfReportedPerc(selfReportedPerc);
-        setTotalLongCovidFourWeeks(longCovidOverFourWeeks);
-        setTotalLongCovidFourWeeksPerc(longCovidOverFourWeeksPerc);
-        setTotalLongCovidTwelveWeeks(longCovidOverTwelveWeeks);
-        setTotalLongCovidTwelveWeeksPerc(longCovidOverTwelveWeeksPerc);
-      }
 
-      setTotalPrescribed(totalPrescribed);
-      setSymptomatic(totalSymptomatic);
-      setTotalEntries(totalFullEntries);
-      setTotalCovidCases(totalCases);
-      setPercentTotalCovid(percentOfCovidReported);
-      setHospitalizations(totalHospitalizations);
-      setPercentSymptomatic(percOfSymptomatic);
-      setPercentMedications(percOfMedications);
-      setHeight(350);
-      setMedicationsTakenConfig(medTakenConfig);
-      setRecoveryConfig(recoveryConfig);
-    };
 
-    createGraphVariables();
-  }, [data, realOrMock]);
+  //     let data: any = data;
+
+
+  //     if (realOrMock === RealOrMock.REAL && data) {
+  //       covidSummary = data.covidSummary;
+  //       recoverySummary = data.recoverySummary;
+  //       totalFullEntries = data.totalFullEntries;
+  //     } else {
+  //       covidSummary = mockResult.county.covidSummary;
+  //       recoverySummary = mockResult.county.recoverySummary;
+  //       totalFullEntries = mockResult.county.totalFullEntries;
+  //       data = mockResult.county;
+  //     }
+
+
+  //     const totalCases = getTotalCovidCases(covidSummary.beenInfected);
+
+  //     const percentOfCovidReported = percentOfTotalCovid(
+  //       totalCases,
+  //       totalFullEntries
+  //     );
+
+  //     const longCovidOverFourWeeks = data.longCovidOverFourWeeks
+  //       ? data.longCovidOverFourWeeks
+  //       : 0;
+  //     const longCovidOverFourWeeksPerc =
+  //       (longCovidOverFourWeeks / totalCases) * 100;
+  //     const longCovidOverTwelveWeeks = data.longCovidOverTwelveWeeks
+  //       ? data.longCovidOverTwelveWeeks
+  //       : 0;
+  //     const longCovidOverTwelveWeeksPerc =
+  //       (longCovidOverTwelveWeeks / totalCases) * 100;
+  //     const selfReported = data.selfReportedLongCovid
+  //       ? data.selfReportedLongCovid
+  //       : 0;
+  //     const selfReportedPerc = data.longCovid
+  //       ? (selfReported / data.longCovid) * 100
+  //       : 0;
+  //     const longCovid = data.longCovid ? data.longCovid : 0;
+  //     const longCovidPerc = (longCovid / totalFullEntries) * 100;
+
+  //     setTotalLongCovid(longCovid);
+  //     setTotalLongCovidPerc(longCovidPerc);
+  //     setTotalSelfReported(selfReported);
+  //     setTotalSelfReportedPerc(selfReportedPerc);
+  //     setTotalLongCovidFourWeeks(longCovidOverFourWeeks);
+  //     setTotalLongCovidFourWeeksPerc(longCovidOverFourWeeksPerc);
+  //     setTotalLongCovidTwelveWeeks(longCovidOverTwelveWeeks);
+  //     setTotalLongCovidTwelveWeeksPerc(longCovidOverTwelveWeeksPerc);
+
+
+  //     setTotalPrescribed(totalPrescribed);
+  //     setTotalEntries(totalFullEntries);
+  //     setTotalCovidCases(totalCases);
+  //     setPercentTotalCovid(percentOfCovidReported);
+  //     setHeight(350);
+  //   };
+
+  //   createGraphVariables();
+  // }, [data, realOrMock]);
+  let {covid_data, error} = useGetCovidSummary(data, realOrMock);
+
 
   return (
-    <VStack align={"start"} spacing="30px">
+    <VStack align={"start"} spacing="0px">
       {loading ? (
         <Spinner color="heritageBlue.800" />
       ) : (
-        <>
-          <Wrap spacing="30px" p={"30px"} shadow="base" borderRadius={"20px"}>
-            <WrapItem>
-              <Stat>
-                {numberAndPercentage(
-                  totalCovidCases,
-                  percentTotalCovid,
-                  "Share of total participants w/ history of COVID",
-                  "Number of participants with a history of COVID (% of total survey participants who had a history of COVID)."
-                )}
-              </Stat>
-            </WrapItem>
-            <WrapItem>
-              <Stat>
-                {numberAndPercentage(
-                  totalLongCovidFourWeeks,
-                  totalLongCovidFourWeeksPerc,
-                  "Share of those with a history of COVID Long COVID >4 Weeks",
-                  "Number of participants with Long COVID symptoms of 4 weeks or more (% of total survey parcticipants that reported Long COVID symptoms of 4 weeks or more)."
-                )}
-              </Stat>
-            </WrapItem>
-            <WrapItem>
-              <Stat>
-                {numberAndPercentage(
-                  totalLongCovidTwelveWeeks,
-                  totalLongCovidTwelveWeeksPerc,
-                  "Long COVID >12 Weeks",
-                  "Number of participants with Long COVID symptoms of 12 weeks or more (% of total survey parcticipants that reported Long COVID symptoms of 12 weeks or more)."
-                )}
-              </Stat>
-            </WrapItem>
-            <WrapItem>
-              <Stat>
-                {numberAndPercentage(
-                  totalSelfReported,
-                  totalSelfReportedPerc,
-                  "Self Reported Long COVID",
-                  "Participants that self reported a history of Long COVID (% of total survey participants that self reported a history of Long COVID)."
-                )}
-              </Stat>
-            </WrapItem>
-            <WrapItem>
-              <Stat>
-                {numberAndPercentage(
-                  totalLongCovid,
-                  totalLongCovidPerc,
-                  "Total Long COVID",
-                  "Total number of participants who reported Long COVID symptoms for over 4 weeks or reported that they think they have Long COVID (% of total survey participants who reported Long COVID symptoms for over 4 weeks or reported that they think they have Long COVID)"
-                )}
-              </Stat>
-            </WrapItem>
-            <WrapItem>
-              <Stat>
-                {numberAndPercentage(
-                  hospitalizations,
-                  (hospitalizations / totalCovidCases) * 100,
-                  "Hospitalizations",
-                  "Number of participants that reported that they were hospitalized due to COVID complications (% of total survey participants who reported a COVID experience)"
-                )}
-              </Stat>
-            </WrapItem>
-            <WrapItem>
-              <Stat>
-                {numberAndPercentage(
-                  symptomatic,
-                  percentSymptomatic,
-                  "Symptomatic",
-                  "Number of participants with self-reported COVID related symptoms (% of total survey participants with self-reported COVID related symptoms)"
-                )}
-              </Stat>
-            </WrapItem>
-            <WrapItem>
-              <Stat>
-                {numberAndPercentage(
-                  totalPrescribed,
-                  percentMedications,
-                  "Medications",
-                  "Number of people who were prescribed medications (% of total people who reported a COVID experience)"
-                )}
-              </Stat>
-            </WrapItem>
-          </Wrap>
-          <Wrap spacing="30px" overflow={"visible"}>
-            <WrapItem
-              // width={width < 1500 ? "300px" : "325px"}
-              width={panelDimensions.width * 0.6 - 80}
+        covid_data ? (
+          <>
+            <Grid
+              templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }}
+              gap={{ base: "10px", md: "15px" }}
+              p={"30px"}
               shadow="base"
               borderRadius={"20px"}
-              p={"30px"}
-              minWidth="340px"
+              marginBottom="20px"
             >
-              <Bar
-                options={medicationsTakenConfig.options}
-                data={medicationsTakenConfig.data}
-                height="350px"
-                width={
-                  panelDimensions.width * 0.6 - 80 < 420
-                    ? "340px"
-                    : panelDimensions.width * 0.6 - 80
-                }
-              />
-            </WrapItem>
-            <WrapItem
-              width={panelDimensions.width * 0.4 - 80}
+              <GridItem>
+                <Stat>
+                  {numberAndPercentage(
+                    covid_data.totalCovid,
+                    covid_data.covidPercentage,
+                    "Self Reported COVID History",
+                    "Number of participants that have a history of COVID. % represents this figure divided by total number of all survey participants."
+                  )}
+                </Stat>
+              </GridItem>
+
+              <GridItem>
+                <Stat>
+                  {numberAndPercentage(
+                    covid_data.covidAndLongCovid,
+                    covid_data.covidAndLongCovidPercentage,
+                    "Self Reported Long COVID and COVID History",
+                    "Number of participants that self reported a history of Long COVID and COVID. % represents this figure divided by total number of all survey participants."
+                  )}
+                </Stat>
+              </GridItem>
+
+              <GridItem>
+                <Stat>
+                  {numberAndPercentage(
+                    covid_data.noCovidButLongCovid,
+                    covid_data.noCovidButLongCovidPercentage,
+                    "Self Reported Long COVID History and No Self Reported COVID History",
+                    "Number of participants that self reported a history of Long COVID but not COVID. % represents this figure divided by total number of all survey participants."
+                  )}
+                </Stat>
+              </GridItem>
+
+              <GridItem>
+                <Stat>
+                  {numberAndPercentage(
+                    covid_data.covidAndLongCovidOrLongCovidOver4Weeks,
+                    covid_data.covidAndLongCovidOrLongCovidOver4WeeksPercentage,
+                    "Total Long COVID (self reported Long COVID and COVID or >4 weeks symptomatic) ",
+                    "Total number of participants who reported Long COVID symptoms for over 4 weeks or self reported that they have a history of Long COVID and COVID. % represents this figure divided by total number of all survey participants."
+                  )}
+                </Stat>
+              </GridItem>
+              <GridItem colSpan={{ base: "auto", md: 3 }}>
+                <Text fontSize="sm" as="i">
+                  The percentages here are out of <u>total survey participants</u>
+                </Text>
+              </GridItem>
+
+            </Grid>
+
+            <Grid
+              templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(2, 1fr)" }}
+              gap={{ base: "10px", md: "15px" }}
+              p={"30px"}
               shadow="base"
               borderRadius={"20px"}
-              p={"30px"}
-              minWidth="340px"
             >
-              <Doughnut
-                options={recoveryTakenConfig.options}
-                data={recoveryTakenConfig.data}
-                height={"350px"}
-                width={
-                  panelDimensions.width * 0.4 - 80 < 420
-                    ? "340px"
-                    : panelDimensions.width * 0.4 - 80
-                }
-              />
-            </WrapItem>
-          </Wrap>
-        </>
+              <GridItem>
+                <Stat>
+                  {numberAndPercentage(
+                    covid_data.longCovidOverFourWeeks,
+                    covid_data.longCovidOverFourWeeksPercentage,
+                    "Participants with Long COVID >4 Weeks",
+                    "Participants with a history of Long COVID Symptoms for over 4 weeks. % represents this figure divided by total number of participants with a history of COVID."
+                  )}
+                </Stat>
+              </GridItem>
+              <GridItem>
+                <Stat>
+                  {numberAndPercentage(
+                    covid_data.longCovidOverTwelveWeeks,
+                    covid_data.longCovidOverTwelveWeeksPercentage,
+                    "Participants with Long COVID >12 Weeks",
+                    "Participants with a history of Long COVID Symptoms for over 12 weeks. % represents this figure divided by total number of participants with a history of COVID."
+                  )}
+                </Stat>
+              </GridItem>
+
+              <GridItem colSpan={{ base: "auto", md: 3 }}>
+                <Text fontSize="sm" as="i">
+                  The percentages here are out of <u>participants with a COVID history</u>
+                </Text>
+              </GridItem>
+            </Grid>
+          </>) : (<></>)
       )}
     </VStack>
   );

@@ -25,7 +25,7 @@ export type OneToThreePlus = {
   two: SummaryDemos;
   three: SummaryDemos;
   threePlus: SummaryDemos;
-  dontKnow: SummaryDemos;
+  doNotKnow: SummaryDemos;
 };
 
 export type OneToFivePlus = {
@@ -35,7 +35,7 @@ export type OneToFivePlus = {
   four: SummaryDemos;
   five: SummaryDemos;
   fivePlus: SummaryDemos;
-  dontKnow: SummaryDemos;
+  doNotKnow: SummaryDemos;
 };
 
 export type PoorToExcellent = {

@@ -22,7 +22,7 @@ export const createPHQ8OverTenConfig = (
   phq8OverTen: number,
   totalEntries: number
 ): { labels: string[]; options: any; data: any } => {
-  let labels: string[] = ["Depression Screening Score >10", "Depression Screening Score <=10"];
+  let labels: string[] = ["Report Score >10", "Report Score <=10"];
   let aboveTen: number[] = [phq8OverTen];
   let belowTen: number[] = [totalEntries - phq8OverTen];
 
@@ -34,10 +34,14 @@ export const createPHQ8OverTenConfig = (
       plugins: {
         legend: {
           position: "top" as const,
+          font: {
+            weight: "Gentona",
+            size: 14,
+          },
         },
         title: {
           display: true,
-          text: "Depression Screening Score >10",
+          text: "Mental Health Depression Report Score",
           font: {
             family: "Gentona",
             size: 18,
@@ -46,10 +50,10 @@ export const createPHQ8OverTenConfig = (
         datalabels: {
           anchor: "end",
           align: "top",
-          formatter: Math.round,
+    
           font: {
             weight: "Gentona",
-            size: 16,
+            size: 14,
           },
         },
       },

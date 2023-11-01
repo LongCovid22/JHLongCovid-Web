@@ -106,7 +106,7 @@ export const calculateRadius = (
   type: "totalLongCovid" | "totalCovid",
   stateOrCounty: string,
   realOrMock: RealOrMock
-): number => {
+): number | null => {
   let ratio: number;
   if (total > 0) {
     if (type == "totalLongCovid") {
@@ -115,22 +115,24 @@ export const calculateRadius = (
       ratio = data.covidCount / total;
     }
   } else {
-    return 50000;
+    return null;
   }
   if (ratio == 0) {
-    return 5000;
+    return null;
   }
 
   if (stateOrCounty === "state") {
-    const maxRadius = 500000;
+    const minRadius = 40000;
+    const maxRadius = 100000;
     return realOrMock === RealOrMock.MOCK
       ? ratio * maxRadius * 10
-      : ratio * maxRadius;
+      : minRadius + ratio * (maxRadius - minRadius);
   } else {
-    const maxRadius = 50000;
+    const minRadius = 10000;
+    const maxRadius = 30000;
     return realOrMock === RealOrMock.MOCK
       ? ratio * maxRadius * 120
-      : ratio * maxRadius;
+      :minRadius + ratio * (maxRadius - minRadius);
   }
 };
 
@@ -161,6 +163,7 @@ export const onUpdateMapDataCust = /* GraphQL */ `
       stateAbbrev
       lat
       long
+      aggregationType
       covidCount
       longCovid
       phq8AboveTen
@@ -183,6 +186,7 @@ export const onCreateMapDataCust = /* GraphQL */ `
       stateAbbrev
       lat
       long
+      aggregationType
       covidCount
       longCovid
       phq8AboveTen

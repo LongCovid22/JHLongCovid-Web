@@ -5,6 +5,7 @@ import { ProfileCheckin } from "./ProfileCheckin";
 import { RealOrMock } from "../../pages";
 
 interface HeaderProps {
+  markerType: any;
   markerData: any;
   realOrMock: RealOrMock;
   setRealOrMock: React.Dispatch<React.SetStateAction<RealOrMock>>;
@@ -18,6 +19,7 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
+  markerType,
   markerData,
   realOrMock,
   setRealOrMock,
@@ -29,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   return (
     <Flex>
-      <Search markerData={markerData} />
+      <Search markerType={markerType} markerData={markerData} />
       <ProfileCheckin
         showInstructions={showInstructions}
         setShowInstructions={setShowInstructions}

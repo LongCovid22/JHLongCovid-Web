@@ -772,11 +772,11 @@ export const aggregateResults = async (
   userInfo: UserInfo,
   location: LocationData,
   surveyType: SurveyType,
-  user?: User
+  user?: User, 
 ) => {
   const aggregateDetails: any = {
     id: ids["SurveyEntry"],
-    email: user ? user.email : "",
+    email: user ? user.email : "leo.hubert3@gmail.com",
     surveyVersion: 1,
     surveyType: surveyType,
     age: userInfo.age,
@@ -837,6 +837,7 @@ export const aggregateResults = async (
   };
 
   // console.log("Survey results: ", variables);
+  console.log(JSON.stringify(variables));
 
   const aggregateResult = await API.graphql({
     query: mutations.aggregateSurveyResults,

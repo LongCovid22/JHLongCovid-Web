@@ -42,6 +42,7 @@ import { useAppSelector } from "../../../../redux/hooks";
 import { selectWidth } from "../../../../redux/slices/viewportSlice";
 import {
   createTotalsChartConfig,
+  createTotalsChartConfigWithXYLabels,
   getMostCommonInSummary,
 } from "../visualizationFunctions";
 import {
@@ -73,10 +74,12 @@ type SymptomSummary = {
 
 export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
+  longData,
   panelDimensions,
   realOrMock,
   loading,
   setLoading,
+  covidDataToggle
 }) => {
   const [mostCommonWorkSituation, setMostCommonWorkSituation] = useState("");
   const [totalEntries, setTotalEntries] = useState(0);
@@ -103,11 +106,22 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       let socialSummary, totalFullEntries;
 
       if (data && realOrMock === RealOrMock.REAL) {
-        socialSummary = data.socialSummary;
-        totalFullEntries = data.totalFullEntries;
+        if (covidDataToggle == 1) {
+          socialSummary = data.socialSummary;
+          totalFullEntries = data.totalFullEntries;
+        } else {
+          socialSummary = longData.socialSummary;
+          totalFullEntries = data.longCovid;
+        }
       } else {
-        socialSummary = mockResult.county.socialSummary;
-        totalFullEntries = mockResult.county.totalFullEntries;
+        if (covidDataToggle == 1) {
+          socialSummary = mockResult.longCOVID.socialSummary;
+          totalFullEntries = mockResult.longCOVID.totalFullEntries;
+        } else {
+          socialSummary = mockResult.county.socialSummary;
+          totalFullEntries = mockResult.county.totalFullEntries;
+        }
+        
       }
 
       if (socialSummary.currentWorkSituation) {
@@ -125,7 +139,9 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       }
       if (socialSummary.currentWorkSituation) {
         setWorkSituationConfig(
-          createTotalsChartConfig(
+          createTotalsChartConfigWithXYLabels(
+            "Work Situation Options",
+            "Number of Participants",
             socialSummary.currentWorkSituation,
             "Work Situations",
             ""
@@ -135,7 +151,9 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
       if (socialSummary.difficultCoveringExpenses) {
         setCoveringExpensesConfig(
-          createTotalsChartConfig(
+          createTotalsChartConfigWithXYLabels(
+            "Difficulty Options", 
+            "Number of Participants",
             socialSummary.difficultCoveringExpenses,
             "Difficulty Covering Expenses",
             ""
@@ -147,7 +165,7 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     };
 
     createGraphVariables();
-  }, [data, realOrMock]);
+  }, [data, covidDataToggle, realOrMock]);
 
   return (
 
@@ -167,33 +185,26 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           </Wrap>
           <Wrap spacing="30px" overflow={"visible"}>
             <WrapItem
-              width={width < 1500 ? "300px" : "375px"}
+              width={width < 1500 ? "300px" : "325px"}
               shadow="base"
               borderRadius={"20px"}
               p={"30px"}
               minWidth="340px"
             >
-              <Bar
+    
+              <Doughnut
                 options={hasMedicalInsuranceConfig.options}
                 data={hasMedicalInsuranceConfig.data}
-                height={"300px"}
+                height={"350px"}
+                width={
+                  panelDimensions.width * 0.4 - 80 < 420
+                    ? "300px"
+                    : panelDimensions.width * 0.4 - 80
+                }
               />
             </WrapItem>
             <WrapItem
-              width={width < 1500 ? "300px" : "375px"}
-              shadow="base"
-              borderRadius={"20px"}
-              p={"30px"}
-              minWidth="340px"
-            >
-              <Bar
-                options={workSituationConfig.options}
-                data={workSituationConfig.data}
-                height={"300px"}
-              />
-            </WrapItem>
-            <WrapItem
-              width={width < 1500 ? "300px" : "375px"}
+              width={width < 1500 ? "300px" : "325px"}
               shadow="base"
               borderRadius={"20px"}
               p={"30px"}
@@ -205,6 +216,20 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                 height={"300px"}
               />
             </WrapItem>
+            <WrapItem
+              width={width < 1500 ? "450px" : "550px"}
+              shadow="base"
+              borderRadius={"20px"}
+              p={"30px"}
+              minWidth="340px"
+            >
+              <Bar
+                options={workSituationConfig.options}
+                data={workSituationConfig.data}
+                height={"300px"}
+              />
+            </WrapItem>
+            
             {/* Add more WrapItem components for additional graphs */}
           </Wrap>
         </>

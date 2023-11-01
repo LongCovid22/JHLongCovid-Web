@@ -120,8 +120,10 @@ const Home = () => {
       })
     );
   };
-
+  //to monitor new map data objects
   useOnCreateMapDataSubscription(toggleDisplayDataOnZoom, realOrMock);
+
+  //to monitor for change in new map data objects
   useOnUpdateMapDataSubscription(toggleDisplayDataOnZoom, realOrMock);
 
   const listenToAuthEvents = async (data: any) => {
@@ -199,33 +201,28 @@ const Home = () => {
     // data.totalFullEntries >= 10 &&
     return (
       <Map style={{ flexGrow: "1", height: "100vh", width: "100%" }}>
-        {displayData.map((data) => (
-          <Marker
-            key={`marker-${data.lat}-${data.long}`}
-            center={{ lat: data.lat, lng: data.long }}
-            type={markerType}
-            data={data}
-            radius={
-              totals > 0
-                ? calculateRadius(
-                    data,
-                    totals,
-                    markerType,
-                    data.level,
-                    realOrMock
-                  )
-                : 50000
-            }
-            total={totals}
-            realOrMock={realOrMock}
-            setSelectedData={setSelectedData}
-            markerData={markerData}
-            setMarkerData={setMarkerData}
-          />
-        ))}
+        {displayData.map((data) => {
+          return (
+             (
+              <Marker
+                key={`marker-${data.lat}-${data.long}`}
+                center={{ lat: data.lat, lng: data.long }}
+                type={markerType}
+                data={data}
+                radius={calculateRadius(data, totals, markerType, data.level, realOrMock)}
+                total={totals}
+                realOrMock={realOrMock}
+                setSelectedData={setSelectedData}
+                markerData={markerData}
+                setMarkerData={setMarkerData}
+              />
+            ) 
+          );
+        })}
       </Map>
+
     );
-  }, [displayData, markerType]);
+  }, [displayData, markerType, markerData, totals, realOrMock]);
 
   useEffect(() => {
     const initApp = async () => {
@@ -334,6 +331,7 @@ const Home = () => {
       <div className={styles.main}>
         {MapMemo}
         <Header
+          markerType={markerType}
           markerData={markerData}
           realOrMock={realOrMock}
           setRealOrMock={setRealOrMock}

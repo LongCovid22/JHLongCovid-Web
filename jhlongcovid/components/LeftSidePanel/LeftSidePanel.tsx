@@ -13,6 +13,7 @@ import {
   TabList,
   Heading,
   IconButton,
+  Center,
   Text,
   Button,
 } from "@chakra-ui/react";
@@ -43,13 +44,14 @@ import faker from "faker";
 import { MapData } from "../../src/API";
 import { mapDataByLevelNameState } from "../../src/graphql/queries";
 import { COVIDVisualizations } from "./Visualizations/COVID/COVIDVisualizations";
+import { MedicationVisualization } from "./Visualizations/Medication/MedicationVisualization";
 import { VaccinationVisualizations } from "./Visualizations/Vaccination/VaccinationVisualization";
 import { SymptomsVisualizations } from "./Visualizations/Symptoms/SymptomsVisualization";
 import { SocialVisualizations } from "./Visualizations/Social/SocialVisualization";
 import { PHQ8Visualizations } from "./Visualizations/PHQ8/PHQ8Visualization";
 import { DownloadIcon } from "@chakra-ui/icons";
 import { RealOrMock } from "../../pages";
-import { getSummaries } from "./Visualizations/visualizationFunctions";
+import { getSummariesWithType } from "./Visualizations/visualizationFunctions";
 
 ChartJS.register(
   CategoryScale,
@@ -71,6 +73,7 @@ interface LeftSidePanelProps {
 export enum SurveySection {
   COVID = "COVID",
   VACCINATION = "Vaccination",
+  MEDICATIONS = "Medication and Treatment",
   PHQ8 = "Mental Health",
   Global = "Global",
   SOCIAL = "Social Factors",
@@ -79,15 +82,18 @@ export enum SurveySection {
 
 export type LeftSidePanelBodyProps = {
   section: SurveySection;
+  longData?: MapData;
   data: MapData;
   panelDimensions: { width: number; height: number };
   realOrMock: RealOrMock;
   loading?: boolean;
   setLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+  covidDataToggle?: number;
 };
 
 const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
   section,
+  longData,
   data,
   panelDimensions,
   realOrMock,
@@ -106,11 +112,24 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
           setLoading={setLoading}
         />
       );
+    case SurveySection.MEDICATIONS:
+      return (
+        <MedicationVisualization
+          section={section}
+          data={data}
+          panelDimensions={panelDimensions}
+          realOrMock={realOrMock}
+          loading={loading}
+          setLoading={setLoading}
+        />
+      )
     case SurveySection.PHQ8:
       return (
         <PHQ8Visualizations
+          
           section={section}
           data={data}
+          longData={longData}
           panelDimensions={panelDimensions}
           realOrMock={realOrMock}
           loading={loading}
@@ -120,8 +139,10 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
     case SurveySection.VACCINATION:
       return (
         <VaccinationVisualizations
+          
           section={section}
           data={data}
+          longData={longData}
           panelDimensions={panelDimensions}
           realOrMock={realOrMock}
           loading={loading}
@@ -133,6 +154,7 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
         <SocialVisualizations
           section={section}
           data={data}
+          longData={longData}
           panelDimensions={panelDimensions}
           realOrMock={realOrMock}
           loading={loading}
@@ -144,6 +166,7 @@ const LeftSidePanelBody: React.FC<LeftSidePanelBodyProps> = ({
         <SymptomsVisualizations
           section={section}
           data={data}
+          longData={longData}
           panelDimensions={panelDimensions}
           realOrMock={realOrMock}
           loading={loading}
@@ -170,8 +193,11 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
   });
   const [loading, setLoading] = useState(true);
   const [summaryData, setSummaryData] = useState<any>(null);
+  const [longSummaryData, setLongSummaryData] = useState<any>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const [totalEntries, setTotalEntries] = useState(0);
+
+
 
   useEffect(() => {
     if (data && realOrMock === RealOrMock.REAL) {
@@ -205,14 +231,17 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
     const fetchSummaryData = async () => {
       setLoading(true);
       if (data && Object.keys(data).length > 0) {
-        const returnedData = await getSummaries(data);
+        const returnedData = await getSummariesWithType(data, "TOTAL");
+        const returnLongData = await getSummariesWithType(data, "LONG");
         setSummaryData(returnedData);
+        setLongSummaryData(returnLongData);
       }
       setLoading(false);
     };
 
     fetchSummaryData();
-  }, [data]);
+  }, [data, setLongSummaryData]);
+
 
   return (
     <>
@@ -220,8 +249,8 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
         direction="left"
         in={presentLeftSidePanel}
         style={{
-          minWidth: "410px",
-          width: "50%",
+          minWidth: "440px",
+          width: "55%",
           position: "absolute",
           maxWidth: 1100,
           top: width < 700 ? "160px" : "90px",
@@ -237,7 +266,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
           height={width < 700 ? height - 200 : height - 130}
           overflow="hidden"
         >
-          <Flex width={"100%"} paddingTop={2}>
+          <Flex width={"100%"} paddingTop={2} paddingBottom={2} paddingLeft={"1rem"}>
             <Spacer />
             <CloseButton
               size={"md"}
@@ -259,112 +288,127 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
             <Flex width={"100%"}>
               <Wrap>
                 <WrapItem>
-                  <HStack spacing="0px" align={"top"}>
-                    <Box display="flex" flexDirection="column">
+                  <Box display="flex" flexDirection="column">
+                    <HStack spacing="0px" align={"top"}>
                       <Heading as="h3" size="lg" mb="2">
                         {data.level === "state"
                           ? data.name
                           : data.name + ", " + data.stateAbbrev}
                       </Heading>
-                      <Text as="span" fontSize="lg" color="gray.600">
-                        {totalEntries} total survey entries
-                      </Text>
-                    </Box>
-                    <IconButton
-                      aria-label="downloadButton"
-                      variant={"none"}
-                      icon={<DownloadIcon color="gray" />}
-                      onClick={() => {
-                        const blob = new Blob(
-                          [
-                            JSON.stringify(
-                              realOrMock === RealOrMock.REAL
-                                ? summaryData
-                                : mockResult.county
-                            ),
-                          ],
-                          { type: "text/json" }
-                        );
-                        const a = document.createElement("a");
-                        a.download =
-                          realOrMock === RealOrMock.REAL
-                            ? `${joinWordsByDash(data.name)}-${
-                                data.level
+                      <IconButton
+                        aria-label="downloadButton"
+                        variant={"none"}
+                        icon={<DownloadIcon color="gray" />}
+                        onClick={() => {
+                          const blob = new Blob(
+                            [
+                              JSON.stringify(
+                                realOrMock === RealOrMock.REAL
+                                  ? summaryData
+                                  : mockResult.county
+                              ),
+                            ],
+                            { type: "text/json" }
+                          );
+                          const a = document.createElement("a");
+                          a.download =
+                            realOrMock === RealOrMock.REAL
+                              ? `${joinWordsByDash(data.name)}-${data.level
                               }-jhlongcovid-data.json`
-                            : "data.json";
-                        a.href = window.URL.createObjectURL(blob);
-                        const clickEvent = new MouseEvent("click", {
-                          view: window,
-                          bubbles: true,
-                          cancelable: true,
-                        });
-                        a.dispatchEvent(clickEvent);
-                        a.remove();
-                      }}
-                    />
-                  </HStack>
+                              : "data.json";
+                          a.href = window.URL.createObjectURL(blob);
+                          const clickEvent = new MouseEvent("click", {
+                            view: window,
+                            bubbles: true,
+                            cancelable: true,
+                          });
+                          a.dispatchEvent(clickEvent);
+                          a.remove();
+                        }}
+                      />
+                    </HStack>
+                    <HStack spacing="0px" align={"top"}>
+                      <Text as="span" fontSize="lg" color="gray.600">
+                        {totalEntries} total participants
+                      </Text>
+                    </HStack>
+                  </Box>
+
                 </WrapItem>
                 <WrapItem>
-                  <Tabs
-                    ringColor={"spiritBlue.100"}
-                    color={"heritageBlue.500"}
-                    variant={"soft-rounded"}
-                    w="100%"
-                    h="100%"
-                  >
-                    <TabList>
-                      <Wrap>
-                        <WrapItem>
-                          <Tab
-                            onClick={() => setSection(SurveySection.COVID)}
-                            fontSize={"13px"}
-                          >
-                            COVID
-                          </Tab>
-                        </WrapItem>
-                        <WrapItem>
-                          <Tab
-                            onClick={() =>
-                              setSection(SurveySection.VACCINATION)
-                            }
-                            fontSize={"13px"}
-                          >
-                            Vaccination
-                          </Tab>
-                        </WrapItem>
-                        <WrapItem>
-                          <Tab
-                            onClick={() => setSection(SurveySection.SYMPTOMS)}
-                            fontSize={"13px"}
-                          >
-                            Symptoms
-                          </Tab>
-                        </WrapItem>
-                        <WrapItem>
-                          <Tab
-                            onClick={() => setSection(SurveySection.PHQ8)}
-                            fontSize={"13px"}
-                          >
-                            Mental Health
-                          </Tab>
-                        </WrapItem>
-                        <WrapItem>
-                          <Tab
-                            onClick={() => setSection(SurveySection.SOCIAL)}
-                            fontSize={"13px"}
-                          >
-                            Social Factors
-                          </Tab>
-                        </WrapItem>
-                      </Wrap>
-                    </TabList>
-                  </Tabs>
+                  <Flex alignContent={"center"} justifyContent={"center"}>
+                    <Tabs
+                      ringColor={"spiritBlue.100"}
+                      color={"heritageBlue.500"}
+                      variant={"soft-rounded"}
+                      w="100%"
+                      h="100%"
+                    >
+                      <TabList>
+                        <Wrap>
+                          <WrapItem>
+                            <Tab
+                              onClick={() => setSection(SurveySection.COVID)}
+                              fontSize={"13px"}
+                            >
+                              Summary
+                            </Tab>
+                          </WrapItem>
+                          <WrapItem>
+                            <Tab
+                              onClick={() => setSection(SurveySection.MEDICATIONS)}
+                              fontSize={"13px"}
+                            >
+                              Medications & <br></br>
+                              Treatment
+                            </Tab>
+                          </WrapItem>
+                          <WrapItem>
+                            <Tab
+                              onClick={() =>
+                                setSection(SurveySection.VACCINATION)
+                              }
+                              fontSize={"13px"}
+                            >
+                              Vaccination
+                            </Tab>
+                          </WrapItem>
+                          <WrapItem>
+                            <Tab
+                              onClick={() => setSection(SurveySection.SYMPTOMS)}
+                              fontSize={"13px"}
+                            >
+                              Symptoms
+                            </Tab>
+                          </WrapItem>
+                          <WrapItem>
+                            <Tab
+                              onClick={() => setSection(SurveySection.PHQ8)}
+                              fontSize={"13px"}
+                            >
+                              Mental Health
+                            </Tab>
+                          </WrapItem>
+                          <WrapItem>
+                            <Tab
+                              onClick={() => setSection(SurveySection.SOCIAL)}
+                              fontSize={"13px"}
+                            >
+                              Social Factors
+                            </Tab>
+                          </WrapItem>
+                        </Wrap>
+                      </TabList>
+                    </Tabs>
+                  </Flex>
+
                 </WrapItem>
               </Wrap>
             </Flex>
             <VStack w="100%" align={"start"}>
               <LeftSidePanelBody
                 section={section}
+                longData={longSummaryData}
                 data={summaryData}
                 panelDimensions={panelDimensions}
                 realOrMock={realOrMock}

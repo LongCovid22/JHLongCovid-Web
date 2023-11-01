@@ -48,6 +48,7 @@ import { useAppSelector } from "../../../../redux/hooks";
 import { selectWidth } from "../../../../redux/slices/viewportSlice";
 import {
   createTotalsChartConfig,
+  createTotalsChartConfigWithXYLabels,
   getMostCommonInSummary,
 } from "../visualizationFunctions";
 import {
@@ -90,12 +91,27 @@ type SymptomSummary = {
   anxietyInPastWeekRank: NeverToAlways;
 };
 
+function reverseObjectKeys(obj: any) {
+  const keys = Object.keys(obj);
+  const reversedKeys = keys.reverse();
+
+  const reversedObject: any = {};
+
+  for (const key of reversedKeys) {
+    reversedObject[key] = obj[key];
+  }
+
+  return reversedObject;
+}
+
 export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
+  longData,
   panelDimensions,
   realOrMock,
   loading,
   setLoading,
+  covidDataToggle
 }) => {
   let patientHealthQuestionnaireSummary: any,
     globalHealthSummary,
@@ -105,14 +121,29 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   if (data && realOrMock === RealOrMock.REAL) {
     patientHealthQuestionnaireSummary = data.patientHealthQuestionnaireSummary;
     globalHealthSummary = data.globalHealthSummary;
-    totalFullEntries = data.totalFullEntries;
-    phq8AboveTen = data.phq8AboveTen;
+
+    if (covidDataToggle == 1) {
+      phq8AboveTen = data.phq8AboveTen;
+      totalFullEntries = data.totalFullEntries;
+    } else {
+      phq8AboveTen = longData.phq8AboveTen;
+      totalFullEntries = data.longCovid;
+    }
+
   } else {
     patientHealthQuestionnaireSummary =
       mockResult.county.patientHealthQuestionnaireSummary;
     globalHealthSummary = mockResult.county.globalHealthSummary;
-    totalFullEntries = mockResult.county.totalFullEntries;
-    phq8AboveTen = mockResult.county.phq8AboveTen;
+
+
+    if (covidDataToggle == 1) {
+      phq8AboveTen = mockResult.county.phq8AboveTen;
+      totalFullEntries = mockResult.county.totalFullEntries;
+    } else {
+      phq8AboveTen = mockResult.longCOVID.phq8AboveTen;
+      totalFullEntries = mockResult.county.covidSummary.covidAndLongCovidOrLongCovidOver4Weeks.total;
+    }
+
   }
 
   const phq8OverTen =
@@ -164,16 +195,30 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       backgroundColors.orange,
       backgroundColors.red,
     ];
+
+    const reversecolors = colors.slice().reverse();
     let symptomSummary, covidSummary, totalFullEntries;
 
     if (data && realOrMock === RealOrMock.REAL) {
-      symptomSummary = data.symptomSummary;
-      covidSummary = data.covidSummary;
-      totalFullEntries = data.totalFullEntries;
+      if (covidDataToggle === 1) {
+        symptomSummary = data.symptomSummary;
+        covidSummary = data.covidSummary;
+        totalFullEntries = data.totalFullEntries;
+      } else {
+        symptomSummary = longData.symptomSummary;
+        covidSummary = longData.covidSummary;
+        totalFullEntries = longData.totalFullEntries;
+      }
     } else {
-      symptomSummary = mockResult.county.symptomSummary;
-      covidSummary = mockResult.county.covidSummary;
-      totalFullEntries = mockResult.county.totalFullEntries;
+      if (covidDataToggle === 1) {
+        symptomSummary = mockResult.county.symptomSummary;
+        covidSummary = mockResult.county.covidSummary;
+        totalFullEntries = mockResult.county.totalFullEntries;
+      } else {
+        symptomSummary = mockResult.longCOVID.symptomSummary;
+        covidSummary = mockResult.longCOVID.covidSummary;
+        totalFullEntries = mockResult.longCOVID.totalFullEntries;
+      }
     }
 
     if (covidSummary.symptomatic) {
@@ -188,47 +233,54 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     );
     setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
     setQOLConfig(
-      createTotalsChartConfig(
-        summary.qualityOfLife,
+
+      createTotalsChartConfigWithXYLabels(
+        "Satisfactory Level",
+        "Number of Participants",
+        reverseObjectKeys(summary.qualityOfLife),
         "Quality of Life",
         "",
-        colors
-      )
+        reversecolors)
+
     );
     setMentalHealthConfig(
-      createTotalsChartConfig(
-        summary.mentalHealthRank,
+      createTotalsChartConfigWithXYLabels(
+        "Satisfactory Level",
+        "Number of Participants",
+        reverseObjectKeys(summary.mentalHealthRank),
         "Mental Health",
         "",
-        colors
-      )
+        reversecolors)
     );
     setSocialSatisConfig(
-      createTotalsChartConfig(
-        summary.socialSatisfactionRank,
+      createTotalsChartConfigWithXYLabels(
+        "Satisfactory Level",
+        "Number of Participants",
+        reverseObjectKeys(summary.socialSatisfactionRank),
         "Social Satisfaction",
         "",
-        colors
-      )
+        reversecolors)
     );
     setCarryOutSocialConfig(
-      createTotalsChartConfig(
-        summary.carryOutSocialActivitiesRank,
+      createTotalsChartConfigWithXYLabels(
+        "Satisfactory Level",
+        "Number of Participants",
+        reverseObjectKeys(summary.carryOutSocialActivitiesRank),
         "Carry Out Social Activities",
         "",
-        colors
-      )
+        reversecolors)
     );
     setAnxietyConfig(
-      createTotalsChartConfig(
-        summary.anxietyInPastWeekRank,
+      createTotalsChartConfigWithXYLabels(
+        "Frequency",
+        "Number of Participants",
+        reverseObjectKeys(summary.anxietyInPastWeekRank),
         "Anxiety In Past Week",
         "",
-        colors
-      )
+        reversecolors)
     );
     setTotalEntries(totalFullEntries)
-  }, [data]);
+  }, [data, covidDataToggle, realOrMock, longData]);
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
@@ -236,25 +288,14 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       if (setLoading) {
         setLoading(true);
       }
-
-      // if (patientHealthQuestionnaireSummary.avgPHQScore) {
-      //   setAvgPhq8Score(
-      //     getAvgPhq8Score(
-      //       patientHealthQuestionnaireSummary.avgPHQScore
-      //         .race as SummaryAvgValues
-      //     )
-      //   );
-      // }
-
       setTotalEntries(totalFullEntries);
-
       if (setLoading) {
         setLoading(false);
       }
     };
 
     createGraphVariables();
-  }, [data]);
+  }, [data, setLoading, totalFullEntries]);
 
   return (
     <VStack align={"start"} spacing="30px">
@@ -264,7 +305,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         <>
           <Wrap spacing="30px" overflow={"visible"}>
             <WrapItem
-              width={width < 1500 ? "300px" : "325px"}
+              width={width < 1500 ? "325px" : "350px"}
               shadow="base"
               borderRadius={"20px"}
               p={"30px"}

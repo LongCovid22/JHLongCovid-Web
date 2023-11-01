@@ -15,7 +15,7 @@ export const getTotalCovidCases = (beenInfected: any) => {
   );
 };
 
-export const percentOfTotalCovid = (
+export const percent = (
   totalCovidReports: number,
   totalEntries: number
 ) => {
@@ -71,7 +71,15 @@ export const getPercentMedications = (
 export const createMedicationsTakenConfig = (
   medicationsTaken: MedicationsAvailable
 ): { labels: string[]; options: any; data: any } => {
-  const { labels, chartData } = createTotalsChartData(medicationsTaken);
+
+
+  let { labels, chartData } = createTotalsChartData({
+      "antibiotics": medicationsTaken.antiBiotics,
+      "antiviral": medicationsTaken.antiViral,
+      "doNotKnow": medicationsTaken.doNotKnow,
+      "oralSteroids": medicationsTaken.oralSteroids,
+      "other": medicationsTaken.other
+    });
 
   const medicationsTakenConfig = {
     labels: labels,
@@ -86,6 +94,14 @@ export const createMedicationsTakenConfig = (
               size: 13,
             },
           },
+          title: { // Add y-axis label
+            display: true,
+            text: 'Medication',
+            font: {
+              family: "Gentona",
+              size: 16,
+            },
+          },
         },
         yAxis: {
           ticks: {
@@ -95,14 +111,22 @@ export const createMedicationsTakenConfig = (
             },
             stepSize: 1
           },
-          
+          title: { // Add y-axis label
+            display: true,
+            text: 'Number of Participants',
+            font: {
+              family: "Gentona",
+              size: 16,
+            },
+            position: 'left'
+          },
         },
       },
       plugins: {
         legend: false,
         title: {
           display: true,
-          text: "Medications Taken",
+          text: ["Medications Taken Amongst Participants", "With COVID History"],
           font: {
             family: "Gentona",
             size: 18,
@@ -170,7 +194,7 @@ export const createRecoveryConfig = (
         },
         title: {
           display: true,
-          text: "Recovered vs. not recovered",
+          text: ["Fully Recovered vs. Not Recovered", "Amongst Participants with COVID", "History"],
           font: {
             family: "Gentona",
             size: 18,

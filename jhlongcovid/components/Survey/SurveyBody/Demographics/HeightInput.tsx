@@ -40,7 +40,7 @@ export const HeightInput: React.FC<HeightInputProps> = ({
   const [heightErrorText, setHeightErrorText] = useState<string | null>(null);
 
   const [heightFeet, setHeightFeet] = useState<string>("");
-  const [heightInches, setHeightInches] = useState<string>("");
+  const [heightInches, setHeightInches] = useState<string>("0");
 
   
   function isStringOfIntegers(input: string): boolean {
@@ -76,6 +76,10 @@ export const HeightInput: React.FC<HeightInputProps> = ({
   
   const handleNewChange = (payload: string, feature: string) => {
     let demosCopy = { ...demos };
+
+    demosCopy["inches"] = "0";
+    setHeightInches(payload);
+    
     if (feature === "feet") {
       demosCopy["feet"] = payload;
       setHeightFeet(payload);

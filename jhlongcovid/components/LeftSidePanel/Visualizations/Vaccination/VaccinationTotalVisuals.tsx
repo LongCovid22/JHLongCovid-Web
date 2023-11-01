@@ -14,11 +14,13 @@ import {
   Wrap,
   WrapItem,
   Stat,
+  Text,
   StatLabel,
   StatNumber,
   StatHelpText,
   VStack,
   Box,
+  Center,
 } from "@chakra-ui/react";
 import { Bar, Doughnut } from "react-chartjs-2";
 import {
@@ -66,10 +68,12 @@ type VaccinationSummary = {
 
 export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   data,
+  longData,
   panelDimensions,
   realOrMock,
   loading,
   setLoading,
+  covidDataToggle
 }) => {
   const [totalVaccinated, setTotalVaccinated] = useState(0);
   const [totalEntries, setTotalEntries] = useState(0);
@@ -89,11 +93,22 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     // Perform all processing on map data and populate visualizations
     let summary, totalFullEntries;
     if (data && realOrMock === RealOrMock.REAL) {
-      summary = data.vaccinationSummary;
-      totalFullEntries = data.totalFullEntries;
+      if (covidDataToggle == 0) {
+        summary = longData.vaccinationSummary;
+        totalFullEntries = data.longCovid;
+      } else {
+        summary = data.vaccinationSummary;
+        totalFullEntries = data.totalFullEntries;
+      }
     } else {
-      summary = mockResult.county.vaccinationSummary;
-      totalFullEntries = mockResult.county.totalFullEntries;
+      if (covidDataToggle == 0) {
+        summary = mockResult.county.vaccinationSummary;
+        totalFullEntries = mockResult.county.covidSummary.covidAndLongCovidOrLongCovidOver4Weeks.total;
+      } else {
+        summary = mockResult.longCOVID.vaccinationSummary;
+        totalFullEntries = mockResult.county.totalFullEntries;
+      }
+
     }
 
     setTotalEntries(totalFullEntries);
@@ -104,7 +119,8 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     setVaccineTypeCountConfig(
       createVaccineTypeConfig(summary.vaccineType as VaccineTypes)
     );
-  }, [data, realOrMock]);
+  }, [data, realOrMock, covidDataToggle, longData]);
+
 
   return (
     <VStack align={"start"}>
@@ -115,13 +131,18 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               totalVaccinated,
               Math.round((totalVaccinated / totalEntries) * 100),
               "Vaccinated",
-              "Total people who reported getting vaccinated (% of people who received a vaccine out of all survey entries)"
+              "Number of participants that have received a COVID vaccine. % represents this figure divided by either number of participants with Long COVID or total number of survey participants."
             )}
           </Stat>
         </WrapItem>
       </Wrap>
       {/* Graph Wrap */}
       <Wrap spacing="30px" overflow={"visible"}>
+        <Center w="100%">
+          <Text fontSize={"md"}>
+            The following graphs are about participants that self-reported vaccination.
+          </Text>
+        </Center>
         <WrapItem
           width={panelDimensions.width * 0.5 - 80}
           p={"30px"}

@@ -7,38 +7,38 @@ import {
   TabList,
   TabPanel,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { LeftSidePanelBodyProps } from "../../LeftSidePanel";
 import { PHQ8TotalVisuals } from "./PHQ8TotalVisualization";
+import { LongCovidToggle } from "../../LongCovidToggle";
 
 export const PHQ8Visualizations: React.FC<LeftSidePanelBodyProps> = ({
   section,
+  longData,
   data,
   panelDimensions,
   realOrMock,
   loading,
   setLoading,
 }) => {
+  const [covidDataToggle, setCovidDataToggle] = useState(0);
   return (
-    <VStack>
-      {/* <Tabs variant="enclosed" colorScheme={"heritageBlue"}>
-        <TabList>
-          <Tab fontSize={"14px"}>Total</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            
-          </TabPanel>
-        </TabPanels>
-      </Tabs> */}
-      <PHQ8TotalVisuals
-        section={section}
-        data={data}
-        realOrMock={realOrMock}
-        panelDimensions={panelDimensions}
-        loading={loading}
-        setLoading={setLoading}
-      />
-    </VStack>
+    <>
+      <LongCovidToggle realData={data} rOM={realOrMock} covidDataToggle={covidDataToggle} setCovidDataToggle={setCovidDataToggle} />
+
+      <VStack>
+        <PHQ8TotalVisuals
+          section={section}
+          longData={longData}
+          data={data}
+          realOrMock={realOrMock}
+          panelDimensions={panelDimensions}
+          loading={loading}
+          setLoading={setLoading}
+          covidDataToggle={covidDataToggle}
+        />
+      </VStack>
+    </>
+
   );
 };
