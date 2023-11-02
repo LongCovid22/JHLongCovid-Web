@@ -49,12 +49,56 @@ export const HeightInput: React.FC<HeightInputProps> = ({
   }
 
 
-  useEffect(() => {
-    if (isStringOfIntegers(heightFeet) && isStringOfIntegers(heightInches)) {
-      let inchParse = parseInt(heightInches);
-      let feetParse = parseInt(heightFeet);
+  // useEffect(() => {
+  //   setHeightFeet(demos.feet);
+  //   setHeightInches(demos.inches);
+  //   if (isStringOfIntegers(heightFeet) && isStringOfIntegers(heightInches)) {
+  //     let inchParse = parseInt(heightInches);
+  //     let feetParse = parseInt(heightFeet);
 
-      if (isNaN(inchParse) || isNaN(feetParse) || inchParse < 0 || feetParse <= 0 
+  //     if (isNaN(inchParse) || isNaN(feetParse) || inchParse < 0 || feetParse <= 0 
+  //     || inchParse > 11 || feetParse > 7) {
+  //       if (setErrorPresent) setErrorPresent(true);
+  //       setHeightErrorText("Invalid height");
+  //     } else {
+  //       if (setErrorPresent) setErrorPresent(false);
+  //       setHeightErrorText(null);
+  //     }
+  //   } else {
+  //     if (setErrorPresent) setErrorPresent(true);
+  //     setHeightErrorText("Invalid height");
+  //   }
+
+  //   if (heightFeet === "" || heightInches === "") {
+  //     setHeightErrorText(null);
+  //   }
+
+
+  // }, [heightFeet, heightInches, setErrorPresent]);
+  
+  // const handleNewChange = (payload: string, feature: string) => {
+  //   let demosCopy = { ...demos };
+
+  //   // demosCopy["inches"] = "0";
+  //   // setHeightInches(payload);
+    
+  //   if (feature === "feet") {
+  //     demosCopy["feet"] = payload;
+  //     setHeightFeet(payload);
+  //   } else if (feature === "inches") {
+  //     demosCopy["inches"] = payload;
+  //     setHeightInches(payload);
+  //   }
+  //   setDemos(demosCopy);
+  //   setAnswer(demosCopy);
+  // }
+
+  const validateHeight = (feet: string, inches: string) => {
+    if (isStringOfIntegers(feet) && isStringOfIntegers(inches)) {
+      let inchParse = parseInt(inches);
+      let feetParse = parseInt(feet);
+
+      if (isNaN(inchParse) || isNaN(feetParse) || inchParse < 0 || feetParse <= 1 
       || inchParse > 11 || feetParse > 7) {
         if (setErrorPresent) setErrorPresent(true);
         setHeightErrorText("Invalid height");
@@ -67,29 +111,23 @@ export const HeightInput: React.FC<HeightInputProps> = ({
       setHeightErrorText("Invalid height");
     }
 
-    if (heightFeet === "" || heightInches === "") {
+    if (feet === "" || inches === "") {
       setHeightErrorText(null);
     }
+  };
 
-
-  }, [heightFeet, heightInches, setErrorPresent]);
-  
   const handleNewChange = (payload: string, feature: string) => {
     let demosCopy = { ...demos };
-
-    demosCopy["inches"] = "0";
-    setHeightInches(payload);
-    
     if (feature === "feet") {
       demosCopy["feet"] = payload;
-      setHeightFeet(payload);
     } else if (feature === "inches") {
       demosCopy["inches"] = payload;
-      setHeightInches(payload);
     }
+
+    validateHeight(demosCopy.feet, demosCopy.inches);
     setDemos(demosCopy);
     setAnswer(demosCopy);
-  }
+  };
 
  
   return (

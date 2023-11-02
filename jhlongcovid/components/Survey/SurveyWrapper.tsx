@@ -169,7 +169,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
 
       // Check for empty fields during the demographics stage
       if (currentQuestion.answerFormat === "demographics") {
-        console.log(ageDemoError);
         if (answer !== null) {
           const emptyLocation = checkEmptyLocationData(location);
           const emptyFields = checkEmptyDemoFields(answer);
@@ -183,12 +182,24 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           }
         }
 
-        if (ageDemoError || heightDemoError || weightDemoError) {
-          setErrorText(`Please correct invalid responses`);
+        if (ageDemoError) {
+          setErrorText(`Recheck Age Input`);
           setMissingAnswer(true);
           return;
         }
 
+        if (heightDemoError) {
+          setErrorText('Recheck Height Input');
+          setMissingAnswer(true);
+          return;
+        }
+
+        if (weightDemoError) {
+          setErrorText('Recheck Weight Input');
+          setMissingAnswer(true);
+          return;
+        }
+ 
 
 
       }
@@ -415,17 +426,19 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           });
         }
       }
-      try {
-        // TODO: Check email lambda for height parsing
-        await sendEmailResult(
-          questions,
-          questionStack,
-          answerStack,
-          userInfo.email
-        );
-      } catch (error) {
-        console.log("Error sending email receipt: ", error);
-      }
+      // if (process.env.PROD_ENVIRONMENT) {
+        try {
+          // TODO: Check email lambda for height parsing
+          await sendEmailResult(
+            questions,
+            questionStack,
+            answerStack,
+            userInfo.email
+          );
+        } catch (error) {
+          console.log("Error sending email receipt: ", error);
+        }
+      // }
     }
 
     onClose();
