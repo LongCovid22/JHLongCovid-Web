@@ -206,6 +206,7 @@ export const surveySlice = createSlice({
         }
 
         state.questionStack.pop();
+        state.answerStack.pop();
         state.currentQuestion =
           state.questions[
             state.questionStack[state.currentQuestionIndex].section
