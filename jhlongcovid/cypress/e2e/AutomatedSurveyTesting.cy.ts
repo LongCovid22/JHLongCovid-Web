@@ -64,7 +64,7 @@ import { BeingSurveyTest, ConsentParseAndNext, DemographicsParseAndNext
       //Test out different (random) variants of the answers -- create fake profiles
       BeingSurveyTest(); 
       ConsentParseAndNext(answer.email);
-      DemographicsParseAndNext(answer.age, answer.gender, answer.heightFeet, answer.heightInches, answer.weight, answer.race);
+      // DemographicsParseAndNext(answer.age, answer.gender, answer.heightFeet, answer.heightInches, answer.weight, answer.race);
   
       //Question #3, Are you infected with COVID?
       //Yes/No. If no go to [3][0]. A ["choice", "choice"]

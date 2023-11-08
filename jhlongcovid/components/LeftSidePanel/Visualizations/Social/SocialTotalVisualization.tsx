@@ -103,15 +103,19 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
     const createGraphVariables = () => {
-      let socialSummary, totalFullEntries;
+      let socialSummary;
+
+      let totalFullEntries = 0;
 
       if (data && realOrMock === RealOrMock.REAL) {
         if (covidDataToggle == 1) {
           socialSummary = data.socialSummary;
           totalFullEntries = data.totalFullEntries;
         } else {
-          socialSummary = longData.socialSummary;
-          totalFullEntries = data.longCovid;
+          if (longData) {
+            socialSummary = longData.socialSummary;
+            totalFullEntries = data.longCovid;
+          }
         }
       } else {
         if (covidDataToggle == 1) {
@@ -121,10 +125,10 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
           socialSummary = mockResult.county.socialSummary;
           totalFullEntries = mockResult.county.totalFullEntries;
         }
-        
+
       }
 
-      if (socialSummary.currentWorkSituation) {
+      if (socialSummary && socialSummary.currentWorkSituation) {
         setMostCommonWorkSituation(
           capitalizeFirstLetters(
             getMostCommonInSummary(socialSummary.currentWorkSituation)
@@ -132,12 +136,12 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         );
       }
 
-      if (socialSummary.hasMedicalInsurance) {
+      if (socialSummary && socialSummary.hasMedicalInsurance) {
         setHasMedicalInsuranceConfig(
           createhasMedInsurConfig(socialSummary.hasMedicalInsurance as YesNo)
         );
       }
-      if (socialSummary.currentWorkSituation) {
+      if (socialSummary && socialSummary.currentWorkSituation) {
         setWorkSituationConfig(
           createTotalsChartConfigWithXYLabels(
             "Work Situation Options",
@@ -149,10 +153,10 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         );
       }
 
-      if (socialSummary.difficultCoveringExpenses) {
+      if (socialSummary && socialSummary.difficultCoveringExpenses) {
         setCoveringExpensesConfig(
           createTotalsChartConfigWithXYLabels(
-            "Difficulty Options", 
+            "Difficulty Options",
             "Number of Participants",
             socialSummary.difficultCoveringExpenses,
             "Difficulty Covering Expenses",
@@ -191,7 +195,7 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
               p={"30px"}
               minWidth="340px"
             >
-    
+
               <Doughnut
                 options={hasMedicalInsuranceConfig.options}
                 data={hasMedicalInsuranceConfig.data}
@@ -229,7 +233,7 @@ export const SocialTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                 height={"300px"}
               />
             </WrapItem>
-            
+
             {/* Add more WrapItem components for additional graphs */}
           </Wrap>
         </>

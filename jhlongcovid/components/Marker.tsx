@@ -97,15 +97,16 @@ export const Marker: React.FC<CircleProps> = ({
       marker.setOptions(options);
       if (infoWindow) {
         if (total && data) {
-          let radius: number;
+          let radius: number | null;
           // if (data.totalFullEntries >= 10) {
           //   radius = calculateRadius(data, total, type, data.level, realOrMock);
           // } else {
           //   radius = 50000;
           // }
           radius = calculateRadius(data, total, type, data.level, realOrMock);
-
-          marker.setRadius(radius);
+          if (radius) {
+            marker.setRadius(radius);
+          }
         }
 
         if (data) {

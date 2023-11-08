@@ -136,7 +136,8 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       backgroundColors.orange,
       backgroundColors.red,
     ];
-    let symptomSummary, covidSummary, totalFullEntries;
+    let symptomSummary, covidSummary;
+    let totalFullEntries = 0;
 
     if (data && realOrMock === RealOrMock.REAL) {
       if (covidDataToggle == 1) {
@@ -144,9 +145,11 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         covidSummary = data.covidSummary;
         totalFullEntries = data.totalFullEntries;
       } else {
-        symptomSummary = longData.symptomSummary;
-        covidSummary = longData.covidSummary;
-        totalFullEntries = longData.totalFullEntries;
+        if (longData) {
+          symptomSummary = longData.symptomSummary;
+          covidSummary = longData.covidSummary;
+          totalFullEntries = longData.totalFullEntries;
+        }
       }
     } else {
       if (covidDataToggle == 1) {
@@ -174,7 +177,9 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
     const symptoms = getKMostCommonSymptoms(summary.symptomCounts, 3);
 
-    setMostCommonSymptoms(symptoms);
+    if (typeof symptoms === "string") {
+      setMostCommonSymptoms(symptoms);
+    }
     setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
 
 

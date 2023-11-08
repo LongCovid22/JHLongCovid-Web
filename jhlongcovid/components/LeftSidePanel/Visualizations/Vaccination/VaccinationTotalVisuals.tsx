@@ -91,11 +91,15 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
   useEffect(() => {
     // Perform all processing on map data and populate visualizations
-    let summary, totalFullEntries;
+    let summary;
+    let totalFullEntries = 0;
     if (data && realOrMock === RealOrMock.REAL) {
       if (covidDataToggle == 0) {
-        summary = longData.vaccinationSummary;
-        totalFullEntries = data.longCovid;
+        if (longData) {
+          summary = longData.vaccinationSummary;
+          totalFullEntries = data.longCovid;
+        }
+
       } else {
         summary = data.vaccinationSummary;
         totalFullEntries = data.totalFullEntries;
@@ -112,13 +116,16 @@ export const VaccinationTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     }
 
     setTotalEntries(totalFullEntries);
-    setTotalVaccinated(getVaccinations(summary.vaccinated as YesNo));
-    setVaccineCountConfig(
-      createTotalVaccineShotsConfig(summary.totalVaccineShots as OneToFivePlus)
-    );
-    setVaccineTypeCountConfig(
-      createVaccineTypeConfig(summary.vaccineType as VaccineTypes)
-    );
+    if (summary) {
+      setTotalVaccinated(getVaccinations(summary.vaccinated as YesNo));
+      setVaccineCountConfig(
+        createTotalVaccineShotsConfig(summary.totalVaccineShots as OneToFivePlus)
+      );
+      setVaccineTypeCountConfig(
+        createVaccineTypeConfig(summary.vaccineType as VaccineTypes)
+      );
+    }
+
   }, [data, realOrMock, covidDataToggle, longData]);
 
 
