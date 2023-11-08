@@ -10,7 +10,7 @@ export const targetInputWithTestIdAndFillWithValue = (target: string, value: any
 };
 
 export const BeingSurveyTest = () => {
-  cy.contains(surveyLogic.questions[0][0].question).should(
+  cy.contains(surveyLogic.questions[0][0].question, { timeout: 10000 }).should(
     "be.visible"
   );
   const obj : any = surveyLogic.questions[0][0];
@@ -59,9 +59,10 @@ export const DemographicsParseAndNext = (
   height_ft: string,
   height_in: string,
   weight_lbs: string,
-  race: string
+  race: string,
+  zipcode: string
 ) => {
-  cy.get('input[placeholder="Enter your zipcode"]').type("10019");
+  cy.get('input[placeholder="Enter your zipcode"]').type(zipcode);
   cy.contains("Verify").click();
   // cy.wait(5000);
   cy.contains("Change location").scrollIntoView();
@@ -77,10 +78,14 @@ export const DemographicsParseAndNext = (
   cy.contains("button", "Next").click();
 };
 
-export const RadioOnlyParseAndNext = (answer: string) => {
+export const RadioOnlyClick = (answer: string) => {
   cy.get('div[role="radiogroup"]') // Locate the div with role="radiogroup"
       .contains(answer)
       .click();
+}
+
+export const RadioOnlyParseAndNext = (answer: string) => {
+    RadioOnlyClick(answer);
     cy.contains("button", "Next").click();
 }
 
@@ -102,6 +107,17 @@ export const TextInputandParseAndNext = (placeholder: string, answer: string) =>
 export  const getDataTestIdAndSelectAndNext = (dataTestId: string, select: string): void => {
   cy.get(`[data-testid="${dataTestId}"]`).select(select);
   pressButton("Next");
+}
+
+export const MultiChoiceClick = (answer: string) => {
+  cy.contains(answer, { matchCase: false }).click();
+}
+
+export const MultiChoiceClickArrayAndNext = (answer: string[]) => {
+  for (let ans of answer) {
+    cy.contains(ans, { matchCase: false }).click();
+  }
+  cy.contains("button", "Next").click();
 }
 
 export const MultiChoiceParseAndNext = (answer : string) => {

@@ -15,8 +15,8 @@ describe("Iterate through Step 36", () => {
     //verify that the logic follows the surveylogic.json
     //Test out different (random) variants of the answers -- create fake profiles
     BeingSurveyTest(); 
-    ConsentParseAndNext("edgesummerprograms@gmail.com");
-    DemographicsParseAndNext("22", "Male", "6", "3", "150", "Asian");
+    ConsentParseAndNext("leo.hubert3@gmail.com");
+    DemographicsParseAndNext("22", "Male", "6", "3", "150", "Asian", "59230");
 
     //Question #3, Are you infected with COVID?
     //Yes/No. If no go to [3][0]. A ["choice", "choice"]
@@ -28,7 +28,7 @@ describe("Iterate through Step 36", () => {
 
     //Question 5, Have you every been hospitalized for COVID-19?
     //Yes/No. If no go to [1][4]. A ["choice", "choice"]
-    RadioOnlyParseAndNext("Yes");
+    RadioOnlyParseAndNext("No");
 
     //Question 6, Times Hospitalized for Covid
     //Questoin Type: ["choice", "choice", "choice", "input", "choice"]
@@ -41,7 +41,7 @@ describe("Iterate through Step 36", () => {
 //           "Do not know"
 //         ]
     
-    RadioWithCustomParseAndNext("1 COVID hospitalization");
+    // RadioWithCustomParseAndNext("1 COVID hospitalization");
     
     
     //Question Number: 7, Question: Most recent COVID Infection
@@ -52,7 +52,7 @@ describe("Iterate through Step 36", () => {
     //   "placeholder": "Enter date"
     // }
     //branching: null
-    TextInputandParseAndNext("Enter date", "2023-11-08");
+    TextInputandParseAndNext("Enter date", "2023-03-29");
     
     //Number: 8
     // "Question": "Did you take a COVID-19 test at that time?",
@@ -134,7 +134,8 @@ describe("Iterate through Step 36", () => {
     //   "Do not know"
     // ],
     // "Branching": null
-    MultiChoiceParseAndNext("Antiviral");
+    // MultiChoiceParseAndNext("Do not know");
+    TextInputandParseAndNext("Enter medication", "test meds");
 
     //Number 14
     // "Question": "Would you say that you are completely recovered from COVID-19 now?",
@@ -147,7 +148,7 @@ describe("Iterate through Step 36", () => {
     //     "question": 0
     //   }
     // }
-    RadioOnlyParseAndNext("Yes");
+    RadioOnlyParseAndNext("No");
 
     //Number 15
     // "Question": "How long did it take for you to recover from your most recent infection?",
@@ -158,7 +159,7 @@ describe("Iterate through Step 36", () => {
     //   "placeholder": "Enter number of days"
     // },
     // "Branching": null
-    TextInputandParseAndNext("Enter number of days", "3");
+    // TextInputandParseAndNext("Enter number of days", "85");
 
     //Number 16
     // "Question": "Have you ever been vaccinated against COVID-19?",
@@ -402,7 +403,7 @@ describe("Iterate through Step 36", () => {
     // "Answer Format": ["choice", "choice", "choice"],
     // "Options": ["Yes", "No", "Do not know"],
     // "Branching": null
-    RadioOnlyParseAndNext("Yes");
+    RadioOnlyParseAndNext("No");
 
     //Number: 34
     // "Question": "Do you currently have some form of health insurance to help pay for medical bills?",
@@ -456,8 +457,15 @@ describe("Iterate through Step 36", () => {
     RadioOnlyParseAndNext("Working outside of the home");
 
 
-    // cy.contains("button", "Skip").click();
-    // cy.contains("button", "Finish").click();
+    cy.get('[data-testid="survey-certification"]')
+  .scrollIntoView();
+
+    cy.contains("I certify that the answers to the survey were completed by myself and are true and correct.", { matchCase: false }).click();
+
+
+    cy.contains("button", "Next").click();
+    cy.contains("button", "Skip").click();
+    cy.contains("button", "Finish").click();
   });
 });
 /*
