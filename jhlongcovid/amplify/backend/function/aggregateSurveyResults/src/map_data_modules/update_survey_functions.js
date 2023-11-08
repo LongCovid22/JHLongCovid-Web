@@ -412,10 +412,14 @@ const updateVaccinationSummary = (eventInput, county, state, indexes) => {
         addCustomToTallyBasedOnCondition(indexes, totalVaccineShots[prop], true, 1);
       }
       if (
-        checkNotNullAndStringType(vaccinationResults.vaccineType) &&
-        checkVaccineType(vaccinationResults.vaccineType)
+        checkNotNullAndStringType(vaccinationResults.vaccineType)
       ) {
-        addCustomToTallyBasedOnCondition(indexes, vaccineType[vaccinationResults.vaccineType], true, 1);
+        if (checkVaccineType(vaccinationResults.vaccineType)) {
+          addCustomToTallyBasedOnCondition(indexes, vaccineType[vaccinationResults.vaccineType], true, 1);
+        } else {
+          addCustomToTallyBasedOnCondition(indexes, vaccineType['other'], true, 1);
+        }
+        
       }
     }
   }
