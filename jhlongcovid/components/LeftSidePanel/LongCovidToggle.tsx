@@ -27,11 +27,10 @@ export const LongCovidToggle: React.FC<{ rOM?: RealOrMock,
     const [allDataPop, setAllDataPop] = useState<number>(0);
 
     useEffect(() => {
-        console.log(rOM);
         if (rOM === RealOrMock.MOCK) {
             setLongCovidPop(mockResult.county.covidSummary.covidAndLongCovidOrLongCovidOver4Weeks.total);
             setAllDataPop(mockResult.county.totalFullEntries);
-        } else if (rOM === RealOrMock.REAL) {
+        } else if (rOM === RealOrMock.REAL && realData) {
             setLongCovidPop(realData.longCovid);
             setAllDataPop(realData.totalFullEntries);
         }
