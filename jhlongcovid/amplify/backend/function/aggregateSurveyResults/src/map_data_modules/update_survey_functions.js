@@ -762,9 +762,6 @@ const updateSocialSummary = (eventInput, county, state, indexes) => {
       );
     }
 
-    console.log("Checking social determinatsresults.currentWorkSituation");
-    console.log(socialDeterminantsResults.currentWorkSituation);
-
     if (
       checkCurrentWorkSituationType(
         socialDeterminantsResults.currentWorkSituation
