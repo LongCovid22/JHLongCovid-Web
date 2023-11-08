@@ -36,7 +36,7 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
     SelfReportedLongCovidWithoutCovid: 0,
     //either SelfReportLongCovidWithCovid OR >4 Weeks Symtomatic
     LongCovid: 0,
-    hasCovid: 0
+    hasCovid: 0,
   };
 
   // Check to make sure the objects passed in aren't null or undefined
@@ -44,7 +44,10 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
     return longCovidResults;
   }
 
-  if (checkNotNullAndBoolType(covidResults.beenInfected) && covidResults.beenInfected) {
+  if (
+    checkNotNullAndBoolType(covidResults.beenInfected) &&
+    covidResults.beenInfected
+  ) {
     longCovidResults.hasCovid = 1;
   }
 
