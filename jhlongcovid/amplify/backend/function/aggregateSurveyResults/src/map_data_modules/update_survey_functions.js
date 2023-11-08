@@ -347,14 +347,18 @@ const updateRecoverySummary = (eventInput, county, state, indexes) => {
       if (
         new_survey_covid_input_.medicationsTaken &&
         new_survey_covid_input_.medicationsTaken !== null &&
-        checkMedicationsTakenType(new_survey_covid_input_.medicationsTaken)
+        Array.isArray(new_survey_covid_input_.medicationsTaken) &&
+        checkMedicationsTakenType(new_survey_covid_input_.medicationsTaken) 
       ) {
-        addCustomToTallyBasedOnCondition(
-          indexes,
-          medicationsTakenCount[new_survey_covid_input_.medicationsTaken],
-          true,
-          1
-        );
+        for (let medicine of new_survey_covid_input_.medicationsTaken) {
+          addCustomToTallyBasedOnCondition(
+            indexes,
+            medicationsTakenCount[medicine],
+            true,
+            1
+          );
+        }
+        
       }
 
       if (checkNotNullAndBoolType(new_survey_recovery_input_.recovered)) {
@@ -757,6 +761,9 @@ const updateSocialSummary = (eventInput, county, state, indexes) => {
         1
       );
     }
+
+    console.log("Checking social determinatsresults.currentWorkSituation");
+    console.log(socialDeterminantsResults.currentWorkSituation);
 
     if (
       checkCurrentWorkSituationType(
