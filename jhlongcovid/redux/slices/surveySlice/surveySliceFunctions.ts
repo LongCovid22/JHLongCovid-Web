@@ -560,7 +560,7 @@ const socialDeterminantsMap: any = {
   Retired: "retired",
   "Disabled, permanently or temporarily": "disability",
   Student: "student",
-  "Do not know": "doNotKnow",
+  "Don't know": "doNotKnow",
   "Prefer not to answer": "preferNotToAnswer",
 };
 
