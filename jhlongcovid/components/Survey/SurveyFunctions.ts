@@ -343,6 +343,7 @@ export const createVaccinationEntry = async (
     totalVaccineShots: surveyData.totalVaccineShots ?? null,
     vaccinated: surveyData.vaccinated ?? null,
     dateOfLastVaccine: surveyData.dateOfLastVaccine ?? null,
+    vaccineType : surveyData.vaccineType ?? null
   };
 
   try {
@@ -392,7 +393,7 @@ export const createGlobalHealthEntry = async (
     weight: surveyData.weight,
     healthRank: surveyData.healthRank ?? null,
     physicalHealthRank: surveyData.physicalHealthRank ?? null,
-    carryPhysicalActivities: surveyData.carryOutSocialActivitiesRank ?? null,
+    carryPhysicalActivities: surveyData.carryPhysicalActivities ?? null,
     fatigueRank: surveyData.fatigueRank ?? null,
     painLevel: surveyData.painLevel ?? null,
   };
@@ -494,6 +495,8 @@ export const createSymptomEntry = async (
     weight: surveyData.weight,
     symptoms: surveyData.symptoms ?? null,
     qualityOfLifeRank: surveyData.qualityOfLifeRank ?? null,
+    mentalHealthRank: surveyData.mentalHealthRank ?? null,
+    socialSatisfactionRank: surveyData.socialSatisfactionRank ?? null,
     carryOutSocialActivitiesRank:
       surveyData.carryOutSocialActivitiesRank ?? null,
     anxietyInPastWeekRank: surveyData.anxietyInPastWeekRank ?? null,
