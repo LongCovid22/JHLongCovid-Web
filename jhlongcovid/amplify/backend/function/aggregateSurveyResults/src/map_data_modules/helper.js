@@ -64,12 +64,12 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
     );
   }
 
-  const weeksSinceLastPositiveOld = oldRecoveryDate
-    ? weeksBetweenDates(lastPositiveDate, oldRecoveryDate)
-    : null;
+  // const weeksSinceLastPositiveOld = oldRecoveryDate
+  //   ? weeksBetweenDates(lastPositiveDate, oldRecoveryDate)
+  //   : null;
 
   const selfReportedLongCovid = symptomResults.hasLongCovid === "yes";
-  const selfReportedCovid = covidResults.beenInfected === true;
+  // const selfReportedCovid = covidResults.beenInfected === true;
 
   const notRecovered = recoveryResults ? !recoveryResults.recovered : false;
 
@@ -77,15 +77,18 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
     longCovidResults.SelfReportedLongCovid = 1;
   }
 
-  if (selfReportedLongCovid && (covidResults.beenInfected === true)) {
+  if (selfReportedLongCovid && covidResults.beenInfected === true) {
     longCovidResults.SelfReportedLongCovidWithCovid = 1;
   }
 
-  if (selfReportedLongCovid && (covidResults.beenInfected === false)) {
+  if (selfReportedLongCovid && covidResults.beenInfected === false) {
     longCovidResults.SelfReportedLongCovidWithoutCovid = 1;
   }
 
-  // Logic for long covid: time since positive date > 4 && not recovered
+  // To determine # of weeks that one has COVID, either:
+  // Not recovered, and determine # of weeks from last positive until now
+  // Recovered, and determine # of days that it took to recover
+  
   if (weeksSinceLastPositive) {
     if (weeksSinceLastPositive > 4 && notRecovered) {
       longCovidResults.OverFourWeeks = 1;
@@ -96,21 +99,21 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
     }
   }
 
-  // Logic for an old case of long covid: (time since positive date > 4 && not recovered)
-  if (weeksSinceLastPositiveOld) {
-    const oldHasLongCovid = weeksSinceLastPositiveOld > 4;
-    const oldOverTwelveWeeks = weeksSinceLastPositiveOld > 12;
-
-    if (oldHasLongCovid) {
-      longCovidResults.OverFourWeeks = 1;
-    }
-
-    if (oldOverTwelveWeeks) {
+  if (recoveryResults && recoveryResults.lengthOfRecovery) {
+    let days = recoveryResults.lengthOfRecovery;
+    if (days > 84) {
       longCovidResults.OverTwelveWeeks = 1;
+    }
+    if (days > 28) {
+      longCovidResults.OverFourWeeks = 1;
     }
   }
 
-  if (longCovidResults.OverTwelveWeeks === 1 || longCovidResults.OverFourWeeks === 1 || longCovidResults.SelfReportedLongCovidWithCovid === 1) {
+  if (
+    longCovidResults.OverTwelveWeeks === 1 ||
+    longCovidResults.OverFourWeeks === 1 ||
+    symptomResults.hasLongCovid === "yes"
+  ) {
     longCovidResults.LongCovid = 1;
   }
 
