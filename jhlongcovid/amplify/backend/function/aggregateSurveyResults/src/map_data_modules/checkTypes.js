@@ -40,7 +40,6 @@ const checkVaccineType = (str) => {
     "moderna",
     "janssen",
     "novavax",
-    "other",
     "doNotKnow",
   ];
   return allowed.includes(str);
