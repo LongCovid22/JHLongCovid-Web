@@ -19,7 +19,7 @@ import {
   Flex,
   Text,
   Grid,
-  GridItem
+  GridItem, Center
 } from "@chakra-ui/react";
 
 import { QuestionOutlineIcon } from "@chakra-ui/icons";
@@ -102,92 +102,101 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   const { recovery_data, error } = useGetRecoverySummary(data, realOrMock);
 
   return (
-    <VStack align={"start"} spacing="30px">
-      {(loading || !recovery_data) ? (
-        <Spinner color="heritageBlue.800" />
-      ) : (
-        <>
+    <>
+    { recovery_data &&
+    !isNaN(recovery_data.hospitalizationPercentage)
+    ? (<VStack align={"start"} spacing="30px">
+    {(loading || !recovery_data) ? (
+      <Spinner color="heritageBlue.800" />
+    ) : (
+      <>
 
-          <Grid
-            templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }}
-            gap={{ base: "10px", md: "15px" }}
-            p={"30px"}
+        <Grid
+          templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }}
+          gap={{ base: "10px", md: "15px" }}
+          p={"30px"}
+          shadow="base"
+          borderRadius={"20px"}
+          marginBottom="20px"
+        >
+          <GridItem>
+            <Stat>
+              {numberAndPercentage(
+                recovery_data.hospitalization,
+                recovery_data.hospitalizationPercentage,
+                "Hospitalizations",
+                "Number of participants that reported hospitalization due to COVID. % represents this figure divided by number of participants with a COVID history. "
+              )}
+            </Stat>
+          </GridItem>
+
+          <GridItem>
+            <Stat>
+              {numberAndPercentage(
+                recovery_data.medications,
+                recovery_data.medicationsPercentage,
+                "Medications",
+                "Number of participants that reported getting medicated due to COVID. % represents this figure divided by number of participants with a COVID history."
+              )}
+            </Stat>
+          </GridItem>
+
+
+          <GridItem colSpan={{ base: "auto", md: 3 }}>
+            <Text fontSize="sm" as="i">
+              The percentages here are out of <u>total number of participants with a COVID history</u>
+            </Text>
+          </GridItem>
+
+        </Grid>
+
+         <Wrap spacing="30px" overflow={"visible"}>
+          <WrapItem
+            // width={width < 1500 ? "300px" : "325px"}
+            width={panelDimensions.width * 0.6 - 80}
             shadow="base"
             borderRadius={"20px"}
-            marginBottom="20px"
+            p={"30px"}
+            minWidth="340px"
           >
-            <GridItem>
-              <Stat>
-                {numberAndPercentage(
-                  recovery_data.hospitalization,
-                  recovery_data.hospitalizationPercentage,
-                  "Hospitalizations",
-                  "Number of participants that reported hospitalization due to COVID. % represents this figure divided by number of participants with a COVID history. "
-                )}
-              </Stat>
-            </GridItem>
-
-            <GridItem>
-              <Stat>
-                {numberAndPercentage(
-                  recovery_data.medications,
-                  recovery_data.medicationsPercentage,
-                  "Medications",
-                  "Number of participants that reported getting medicated due to COVID. % represents this figure divided by number of participants with a COVID history."
-                )}
-              </Stat>
-            </GridItem>
-
-
-            <GridItem colSpan={{ base: "auto", md: 3 }}>
-              <Text fontSize="sm" as="i">
-                The percentages here are out of <u>total number of participants with a COVID history</u>
-              </Text>
-            </GridItem>
-
-          </Grid>
-
-           <Wrap spacing="30px" overflow={"visible"}>
-            <WrapItem
-              // width={width < 1500 ? "300px" : "325px"}
-              width={panelDimensions.width * 0.6 - 80}
-              shadow="base"
-              borderRadius={"20px"}
-              p={"30px"}
-              minWidth="340px"
-            >
-              <Bar
-                options={recovery_data.medicationsTakenAmongstParticpantsGraph.options}
-                data={recovery_data.medicationsTakenAmongstParticpantsGraph.data}
-                height="350px"
-                width={
-                  panelDimensions.width * 0.6 - 80 < 420
-                    ? "340px"
-                    : panelDimensions.width * 0.6 - 80
-                }
-              />
-            </WrapItem>
-            <WrapItem
-              width={panelDimensions.width * 0.4 - 80}
-              shadow="base"
-              borderRadius={"20px"}
-              p={"30px"}
-              minWidth="340px"
-            >
-              <Doughnut
-                options={recovery_data.fullyRecoveredVsNotRecoveredGraph.options}
-                data={recovery_data.fullyRecoveredVsNotRecoveredGraph.data}
-                height={"350px"}
-                width={
-                  panelDimensions.width * 0.4 - 80 < 420
-                    ? "300px"
-                    : panelDimensions.width * 0.4 - 80
-                }
-              />
-            </WrapItem>
-          </Wrap> 
-        </>
-      )}
-    </VStack>
+            <Bar
+              options={recovery_data.medicationsTakenAmongstParticpantsGraph.options}
+              data={recovery_data.medicationsTakenAmongstParticpantsGraph.data}
+              height="350px"
+              width={
+                panelDimensions.width * 0.6 - 80 < 420
+                  ? "340px"
+                  : panelDimensions.width * 0.6 - 80
+              }
+            />
+          </WrapItem>
+          <WrapItem
+            width={panelDimensions.width * 0.4 - 80}
+            shadow="base"
+            borderRadius={"20px"}
+            p={"30px"}
+            minWidth="340px"
+          >
+            <Doughnut
+              options={recovery_data.fullyRecoveredVsNotRecoveredGraph.options}
+              data={recovery_data.fullyRecoveredVsNotRecoveredGraph.data}
+              height={"350px"}
+              width={
+                panelDimensions.width * 0.4 - 80 < 420
+                  ? "300px"
+                  : panelDimensions.width * 0.4 - 80
+              }
+            />
+          </WrapItem>
+        </Wrap> 
+      </>
+    )}
+  </VStack>) : ( <Center> {/* Adjust the height as needed */}
+      <Text fontSize="xl" fontWeight="bold">
+        No available data on COVID-19 history.
+      </Text>
+    </Center>)
+    }
+    </>
   );
 };
