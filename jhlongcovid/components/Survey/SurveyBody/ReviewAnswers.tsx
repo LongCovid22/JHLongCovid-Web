@@ -147,7 +147,7 @@ export const ReviewAnswers: React.FC<SurveyQuestionProps> = ({
                     </Table>
                 </Box>
 
-                <Checkbox onChange={(e) => setAnswer(e.target.checked)}>
+                <Checkbox data-testid="survey-certification" onChange={(e) => setAnswer(e.target.checked)}>
                     I certify that the answers to the survey were completed by myself and are true and correct.
                 </Checkbox>
             </VStack>
