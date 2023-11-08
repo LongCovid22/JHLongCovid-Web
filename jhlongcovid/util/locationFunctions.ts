@@ -60,9 +60,10 @@ export const getCountyAndStateWithZip = async (
       `&key=${apiKey}`
   );
   if (response.data.results.length > 0) {
-    let address_components = response.data.results[0].address_components;
+    let address_components = response.data.results[0].address_components.reverse();
     let index = address_components.findIndex((component: any) => component.types.includes("administrative_area_level_1"));
     let indexBefore = index !== -1 && index !== 0 ? index - 1 : null;
+    // console.log(address_components);
     await Promise.all(
       address_components.map(async (value: any, idx: any) => {
         let ac = value as {
@@ -71,12 +72,16 @@ export const getCountyAndStateWithZip = async (
           types: string[];
         };
 
+     
+
         if (ac.types.includes("country") && ac.short_name !== "US") {
           throw new NotInUSError("Location not in United States");
         }
         if (ac.types.includes("administrative_area_level_1")) {
           locationData.state = ac.long_name;
           locationData.stateAbbrev = ac.short_name;
+
+          // console.log(locationData.state);
           const stateResponse = await axios.get(
             `https://maps.googleapis.com/maps/api/geocode/json?address=` + 'state+'+
               `${ac.long_name}` +
@@ -99,7 +104,11 @@ export const getCountyAndStateWithZip = async (
           locationData.stateLong = Math.round(lng * 1000000) / 1000000;
         }
 
+      
+
         if (ac.types.includes("administrative_area_level_2") || idx == indexBefore) {
+          // console.log(ac.long_name);
+          // console.log(locationData.state);
           const countyResponse = await axios.get(
             `https://maps.googleapis.com/maps/api/geocode/json?address=` +
               ac.long_name + "+" + locationData.state +
@@ -118,7 +127,6 @@ export const getCountyAndStateWithZip = async (
       })
     );
   }
-
   return locationData;
 };
 
