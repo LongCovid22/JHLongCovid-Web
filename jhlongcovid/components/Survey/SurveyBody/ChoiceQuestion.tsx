@@ -68,12 +68,13 @@ const Choices = (
                         }}
                         data-testid="dropdown-input"
                       >
+                        <option value={""}>Please Select</option>
                         <option value={"1"}>1</option>
                         <option value={"2"}>2</option>
                         <option value={"3"}>3</option>
                         <option value={"4"}>4</option>
                         <option value={"5"}>5</option>
-                        <option value={"6"}>6</option>
+                        <option value={"6"}>More Than Five</option>
                       </Select>
                     ) : (
                       <Input
@@ -199,12 +200,12 @@ export const ChoiceQuestion: React.FC<SurveyQuestionProps> = ({
     // }
   }, [currentAnswer, currentQuestion]);
 
-  useEffect(() => {
-    if (currentQuestion.questionNum === 17) {
-      setInputValue("1");
-      setAnswer("1");
-    }
-  }, [currentQuestion, setAnswer]);
+  // useEffect(() => {
+  //   if (currentQuestion.questionNum === 17) {
+  //     setInputValue("1");
+  //     setAnswer("1");
+  //   }
+  // }, [currentQuestion, setAnswer]);
 
   return (
     <VStack height={"100%"} width={"100%"} spacing={"20px"}>

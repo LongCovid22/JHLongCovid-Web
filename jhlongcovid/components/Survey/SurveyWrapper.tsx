@@ -130,6 +130,10 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     onClose: onConfirmClose,
   } = useDisclosure();
 
+  // useEffect(() => {
+  //   console.log(answer);
+  // }, [answer]);
+
 
 
   const handleNextQuestion = async () => {
@@ -225,7 +229,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
       //   }
       // }
       // Check for empty fields in any stage of the survey
-      else if (currentQuestion.questionNum !== 17 && (
+      else if ((
         answer === "" ||
         answer === null ||
         (Array.isArray(answer) && answer.length === 0) ||
