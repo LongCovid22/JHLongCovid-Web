@@ -117,7 +117,7 @@ medicalConditionsChanges
     "other"
     "notSure"
 
-65) longCovid : String ("yes", "no", "doNotKnow")
+65) hasLongCovid : String ("yes", "no", "doNotKnow")
 
 
 socialDeterminantsResults
