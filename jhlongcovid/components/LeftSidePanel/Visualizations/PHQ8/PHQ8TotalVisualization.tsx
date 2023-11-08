@@ -115,9 +115,10 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 }) => {
   let patientHealthQuestionnaireSummary: any,
     globalHealthSummary,
-    totalFullEntries: number,
+    // totalFullEntries: number,
     phq8AboveTen;
 
+    let totalFullEntries = 0;
   if (data && realOrMock === RealOrMock.REAL) {
     patientHealthQuestionnaireSummary = data.patientHealthQuestionnaireSummary;
     globalHealthSummary = data.globalHealthSummary;
@@ -126,8 +127,11 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       phq8AboveTen = data.phq8AboveTen;
       totalFullEntries = data.totalFullEntries;
     } else {
-      phq8AboveTen = longData.phq8AboveTen;
-      totalFullEntries = data.longCovid;
+      if (longData) {
+        phq8AboveTen = longData.phq8AboveTen;
+        totalFullEntries = data.longCovid;
+      }
+      
     }
 
   } else {
@@ -197,7 +201,9 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
     ];
 
     const reversecolors = colors.slice().reverse();
-    let symptomSummary, covidSummary, totalFullEntries;
+    let symptomSummary, covidSummary;
+
+    let totalFullEntries = 0;
 
     if (data && realOrMock === RealOrMock.REAL) {
       if (covidDataToggle === 1) {
@@ -205,9 +211,11 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
         covidSummary = data.covidSummary;
         totalFullEntries = data.totalFullEntries;
       } else {
-        symptomSummary = longData.symptomSummary;
-        covidSummary = longData.covidSummary;
-        totalFullEntries = longData.totalFullEntries;
+        if (longData) {
+          symptomSummary = longData.symptomSummary;
+          covidSummary = longData.covidSummary;
+          totalFullEntries = longData.totalFullEntries;
+        }
       }
     } else {
       if (covidDataToggle === 1) {
@@ -221,7 +229,7 @@ export const PHQ8TotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
       }
     }
 
-    if (covidSummary.symptomatic) {
+    if (covidSummary && covidSummary.symptomatic) {
       setTotalSymptomsCount(
         getSymptomsCount(covidSummary.symptomatic as YesNo)
       );

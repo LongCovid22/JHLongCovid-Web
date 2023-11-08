@@ -136,7 +136,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     if (currentQuestion.answerFormat !== "welcome") {
       if (currentQuestion.answerFormat === "consent") {
         
-        if (isValidEmail(answer) === false) {
+        if (typeof answer === 'string' && isValidEmail(answer) === false) {
           setErrorText("Please enter valid email");
           setMissingAnswer(true);
           return;
