@@ -130,10 +130,6 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     onClose: onConfirmClose,
   } = useDisclosure();
 
-  // useEffect(() => {
-  //   console.log(answer);
-  // }, [answer]);
-
 
 
   const handleNextQuestion = async () => {
