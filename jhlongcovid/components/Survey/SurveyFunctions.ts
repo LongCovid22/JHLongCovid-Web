@@ -102,7 +102,7 @@ export const updateUserWithInfoFromSurvey = async (
   let userDetails = {
     input: {
       id: user.id,
-      email: user.email,
+      email: user && user.email ? user.email : (userInfo && userInfo.email) ? userInfo.email : null,
       age: userInfo.age !== "" ? parseInt(userInfo.age) : user.age,
       race: userInfo.race !== "" ? race : user.race,
       sex: userInfo.sex !== "" ? userInfo.sex : user.sex,
@@ -631,7 +631,7 @@ export const createSurveyEntry = async (
       surveyVersion: 1,
       surveyType: surveyType,
       parentSurveyId: parentSurveyId,
-      email: user ? user.email : null,
+      email: user && user.email ? user.email : (userInfo && userInfo.email) ? userInfo.email : null,
       state: locationData.state,
       countyState: countyState,
       age:
@@ -781,7 +781,7 @@ export const aggregateResults = async (
 ) => {
   const aggregateDetails: any = {
     id: ids["SurveyEntry"],
-    email: user ? user.email : "leo.hubert3@gmail.com",
+    email: user && user.email ? user.email : (userInfo && userInfo.email) ? userInfo.email : null,
     surveyVersion: 1,
     surveyType: surveyType,
     age: userInfo.age,
