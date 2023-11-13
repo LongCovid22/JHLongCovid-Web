@@ -22,7 +22,7 @@ export const FeedbackPanel = () => {
   align="center"
 >
   {/* Tooltip with Text Bubble */}
-  <Box
+  {/* <Box
     borderRadius="40px"
     padding="10px"
     background="white"
@@ -35,7 +35,7 @@ export const FeedbackPanel = () => {
     <Tooltip label="The region or state you reside in must have at least 1 case of COVID/Long COVID" fontSize="md" placement="top" marginBottom="5px"  maxWidth="150px" >
       <Icon as={InfoOutlineIcon} w={7} h={7} color="gray.500" marginRight="5px" marginLeft="5px" />
     </Tooltip>
-  </Box>
+  </Box> */}
 
   {/* Send Feedback Button Bubble */}
   <Button
