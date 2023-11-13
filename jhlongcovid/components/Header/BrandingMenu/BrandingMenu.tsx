@@ -43,7 +43,7 @@ export const BrandingMenu = () => {
           /> */}
           <Text fontSize="sm" color="black">
             <strong>
-              JHU.edu Copyright © 2022 by Johns Hopkins University & Medicine.
+              JHU.edu Copyright © {new Date().getFullYear()} by Johns Hopkins University & Medicine.
               All rights reserved.
             </strong>
           </Text>
