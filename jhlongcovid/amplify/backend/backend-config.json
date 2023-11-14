@@ -25,7 +25,7 @@
           ],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDate": "2024-07-27T11:57:27.522Z",
+              "apiKeyExpirationDate": "2024-11-13T21:21:21.134Z",
               "apiKeyExpirationDays": 365,
               "description": "LongCovidPublicAPIKey"
             },
