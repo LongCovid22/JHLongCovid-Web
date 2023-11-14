@@ -1,7 +1,7 @@
 import { BeingSurveyTest, ConsentParseAndNext, DemographicsParseAndNext
   , RadioOnlyParseAndNext, RadioWithCustomParseAndNext, MultiChoiceParseAndNext,
   TextInputandParseAndNext, clickRadioButtonsAndNext, goNext, RadioOnlyClick, TextInputandParseOnly, getRandomArbitrary
-  } from "./spec.cy";
+  } from "./spec";
 
   import surveyLogic from "../../surveyLogic.json";
 

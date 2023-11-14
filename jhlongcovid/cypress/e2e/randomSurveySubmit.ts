@@ -17,7 +17,7 @@ import {
   getDataTestIdAndSelectAndNext,
   sliderRandomAndNext,
   getRandomVaccine,
-} from "./spec.cy";
+} from "./spec";
 
 import surveyLogic from "../../surveyLogic.json";
 

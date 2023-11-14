@@ -1,7 +1,7 @@
 import { BeingSurveyTest, ConsentParseAndNext, DemographicsParseAndNext
   , RadioOnlyParseAndNext, RadioWithCustomParseAndNext, MultiChoiceParseAndNext,
   TextInputandParseAndNext, clickRadioButtonsAndNext, goNext, getDataTestIdAndSelectAndNext, getRandomVaccine, MultiChoiceClickArrayAndNext
-  } from "./spec.cy";
+  } from "./spec";
 
 
 describe("Test Vaccine", () => {
