@@ -18,7 +18,7 @@
       "function": {
         "aggregateSurveyResults": {
           "deploymentBucketName": "amplify-jhlongcovid-develop-183929-deployment",
-          "s3Key": "amplify-builds/aggregateSurveyResults-7574427671744a426930-build.zip"
+          "s3Key": "amplify-builds/aggregateSurveyResults-7866543650326f78474c-build.zip"
         },
         "emailReceiptConfirmation": {
           "deploymentBucketName": "amplify-jhlongcovid-develop-183929-deployment",
@@ -47,7 +47,7 @@
         "jhlongcovid": {},
         "deleteSurveyResults": {
           "deploymentBucketName": "amplify-jhlongcovid-develop-183929-deployment",
-          "s3Key": "amplify-builds/deleteSurveyResults-7a5a44366e4e31787576-build.zip"
+          "s3Key": "amplify-builds/deleteSurveyResults-754a3231514f7831552b-build.zip"
         }
       },
       "hosting": {
