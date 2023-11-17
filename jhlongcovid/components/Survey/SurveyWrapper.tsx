@@ -130,6 +130,16 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     onClose: onConfirmClose,
   } = useDisclosure();
 
+  function isDateInRange(dateString : string) {
+
+    const startDate = new Date('2020-01-01');
+    const endDate = new Date();
+    const testDate = new Date(dateString);
+
+    return testDate >= startDate && testDate <= endDate;
+}
+
+
 
 
   const handleNextQuestion = async () => {
@@ -214,6 +224,32 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             setMissingAnswer(false);
           }
       } 
+
+      if (currentQuestion.answerFormat === "input" || currentQuestion.answerFormat.includes("input") ) {
+        if (typeof answer === "string") {
+          const DateRegex = /^\d{4}-\d{2}-\d{2}$/;;
+          if (DateRegex.test(answer)) {
+            if (!isDateInRange(answer)) {
+              setErrorText("Please enter a date between January 1, 2020 and today's date");
+              setMissingAnswer(true);
+              return;
+            } else {
+              setMissingAnswer(false);
+            }
+          }
+        }
+
+
+        
+        // if (currentQuestion.options.type === "date" || currentQuestion.options[0].type === "date") {
+        //   if (answer) {
+        //     console.log("checking date");
+        //     console.log(answer);
+        //   } else {
+
+        //   }
+        // }
+      }
       
       // else if (currentQuestion.answerFormat === "input") {
       //   if (answer === "" || answer === null || answer === "0") {
