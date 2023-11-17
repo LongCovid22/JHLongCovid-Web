@@ -152,11 +152,11 @@
       "function": {
         "aggregateSurveyResults": {
           "deploymentBucketName": "amplify-jhlongcovid-test-111045-deployment",
-          "s3Key": "amplify-builds/aggregateSurveyResults-7574427671744a426930-build.zip"
+          "s3Key": "amplify-builds/aggregateSurveyResults-4943453470444441784a-build.zip"
         },
         "deleteSurveyResults": {
           "deploymentBucketName": "amplify-jhlongcovid-test-111045-deployment",
-          "s3Key": "amplify-builds/deleteSurveyResults-7a5a44366e4e31787576-build.zip"
+          "s3Key": "amplify-builds/deleteSurveyResults-754a3231514f7831552b-build.zip"
         },
         "emailReceiptConfirmation": {
           "deploymentBucketName": "amplify-jhlongcovid-test-111045-deployment",

@@ -6,8 +6,8 @@
     "defaultAuthType": {
       "mode": "API_KEY",
       "expirationTime": 365,
-      "apiKeyExpirationDate": "2024-07-27T11:57:27.522Z",
-      "keyDescription": "LongCovidPublicAPIKey"
+      "apiKeyExpirationDate": "2024-11-15T16:52:39.259Z",
+      "keyDescription": "jhlongcovid"
     },
     "conflictResolution": {},
     "additionalAuthTypes": [
