@@ -200,7 +200,7 @@ const LocationInput: React.FC<LocationInputProps> = ({
                     },
                     (error) => {
                       setVerifyingZip(false);
-                      console.log("ERROR GETTING LOCATION: ", error);
+                      // console.log("ERROR GETTING LOCATION: ", error);
                     }
                   );
                 }

@@ -54,18 +54,18 @@ export const SignInForm: React.FC<SignInFormProps> = ({
       // setEmail("");
       // setPassword("");
     } catch (error) {
-      console.log('error signing in', error);
+      // console.log('error signing in', error);
       setPerformingQueries(false);
       if (error instanceof Error) {
         if (error.message === "User is not confirmed.") {
-          console.log("User not yet confirmed");
+          // console.log("User not yet confirmed");
           try {
             await Auth.resendSignUp(email);
             setVerifType("SignUp");
             changeAuthState(AuthState.VerifyCode);
             return;
           } catch (resendCodeError) {
-            console.log("Error resending sing up code: ", resendCodeError);
+            // console.log("Error resending sing up code: ", resendCodeError);
           }
         }
         setErrorMessage(error.message);

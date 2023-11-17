@@ -68,7 +68,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
         isClosable: true,
         position: "top-right",
       });
-      console.log("Error creating new feedback: ", error);
+      // console.log("Error creating new feedback: ", error);
     }
 
     setLoading(false);

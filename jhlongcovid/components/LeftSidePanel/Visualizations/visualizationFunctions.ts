@@ -276,7 +276,7 @@ export const getSummariesWithType = async (data: any, type: AggregationType) => 
       return covidSummary.data.listMapAggregations.items[0];
     }
   } catch (error) {
-    console.log("error getting covid summary: ", error);
+    // console.log("error getting covid summary: ", error);
   }
 }
 
@@ -303,6 +303,6 @@ export const getSummaries = async (data: any) => {
       return covidSummary.data.getMapData;
     }
   } catch (error) {
-    console.log("error getting covid summary: ", error);
+    // console.log("error getting covid summary: ", error);
   }
 };

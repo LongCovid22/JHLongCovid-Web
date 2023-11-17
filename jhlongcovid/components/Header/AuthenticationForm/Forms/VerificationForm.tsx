@@ -100,7 +100,7 @@ export const VerificationForm: React.FC<TotpProps> = ({
         onVerify();
       }
     } catch (error) {
-      console.log("Error signing up: ", error);
+      // console.log("Error signing up: ", error);
       setPerformingQueries(false);
       if (error instanceof Error) {
         setCodeErrorMessage(error.message);
@@ -112,9 +112,9 @@ export const VerificationForm: React.FC<TotpProps> = ({
   const resendSignUpCode = async () => {
     try {
       await Auth.resendSignUp(email);
-      console.log("Resent sign up code");
+      // console.log("Resent sign up code");
     } catch (error) {
-      console.log("Error resending code", error);
+      // console.log("Error resending code", error);
     }
   };
 

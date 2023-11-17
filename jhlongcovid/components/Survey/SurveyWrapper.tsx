@@ -406,7 +406,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           user
         );
       } catch (error) {
-        console.log("Error saving survey entries", error);
+        // console.log("Error saving survey entries", error);
         toast({
           title: "Survey submission",
           description: "Failed to submit survey",
@@ -451,7 +451,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             position: "top-right",
           });
         } catch (error) {
-          console.log("Error aggregating survey results", error);
+          // console.log("Error aggregating survey results", error);
           toast({
             title: "Error aggregating results",
             description: `${error}`,
@@ -472,7 +472,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             userInfo.email
           );
         } catch (error) {
-          console.log("Error sending email receipt: ", error);
+          // console.log("Error sending email receipt: ", error);
         }
       // }
     }

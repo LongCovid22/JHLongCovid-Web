@@ -143,7 +143,7 @@ export const updateUserWithInfoFromSurvey = async (
     if (graphqlResponse.data && graphqlResponse.data.updateUser) {
       return graphqlResponse.data.updateUser as User;
     }
-    console.log("Error: ", error);
+    // console.log("Error: ", error);
   }
 };
 
@@ -265,7 +265,7 @@ export const createCovidEntry = async (
     if (mutation.data && mutation.data.createCovidEntry) {
       return mutation.data.createCovidEntry.id;
     } else {
-      console.log("Error creating COVID Entry: ", mutation.errors);
+      // console.log("Error creating COVID Entry: ", mutation.errors);
     }
   }
 };
@@ -314,7 +314,7 @@ export const createRecoveryEntry = async (
     if (mutation.data && mutation.data.createRecoveryEntry) {
       return mutation.data.createRecoveryEntry.id;
     } else {
-      console.log("Error creating Recovery Entry: ", mutation.errors);
+      // console.log("Error creating Recovery Entry: ", mutation.errors);
     }
   }
 };
@@ -365,7 +365,7 @@ export const createVaccinationEntry = async (
     if (mutation.data && mutation.data.createVaccinationEntry) {
       return mutation.data.createVaccinationEntry.id;
     } else {
-      console.log("Error creating Vaccination Entry: ", mutation.errors);
+      // console.log("Error creating Vaccination Entry: ", mutation.errors);
     }
   }
 };
@@ -417,7 +417,7 @@ export const createGlobalHealthEntry = async (
     if (mutation.data && mutation.data.createGlobalHealthEntry) {
       return mutation.data.createGlobalHealthEntry.id;
     } else {
-      console.log("Error creating Global Health Entry: ", mutation.errors);
+      // console.log("Error creating Global Health Entry: ", mutation.errors);
     }
   }
 };
@@ -467,7 +467,7 @@ export const createPatientHealthEntry = async (
     if (mutation.data && mutation.data.createPatientHealthEntry) {
       return mutation.data.createPatientHealthEntry.id;
     } else {
-      console.log("Error creating Patient Health Entry: ", mutation.errors);
+      // console.log("Error creating Patient Health Entry: ", mutation.errors);
     }
   }
 };
@@ -522,7 +522,7 @@ export const createSymptomEntry = async (
     if (mutation.data && mutation.data.createSymptomEntry) {
       return mutation.data.createSymptomEntry.id;
     } else {
-      console.log("Error creating Symptom Entry: ", mutation.errors);
+      // console.log("Error creating Symptom Entry: ", mutation.errors);
     }
   }
 };
@@ -574,7 +574,7 @@ export const createSocialDeterminantsEntry = async (
     if (mutation.data && mutation.data.createSocialDeterminantsEntry) {
       return mutation.data.createSocialDeterminantsEntry.id;
     } else {
-      console.log("Error creating Symptom Entry: ", mutation.errors);
+      // console.log("Error creating Symptom Entry: ", mutation.errors);
     }
   }
 };
@@ -675,7 +675,7 @@ export const createSurveyEntry = async (
     if (mutation.data && mutation.data.createSurveyEntry) {
       return mutation.data.createSurveyEntry.id;
     } else {
-      console.log("Error creating Survey Entry: ", mutation.errors);
+      // console.log("Error creating Survey Entry: ", mutation.errors);
     }
   }
 };
@@ -766,7 +766,7 @@ export const saveEntries = async (
       error: any[];
     };
     if (!graphqlResponse.data) {
-      console.log("Saving entries: ", error);
+      // console.log("Saving entries: ", error);
     }
   }
 };
@@ -842,7 +842,7 @@ export const aggregateResults = async (
   };
 
   // console.log("Survey results: ", variables);
-  console.log(JSON.stringify(variables));
+  // console.log(JSON.stringify(variables));
 
   const aggregateResult = await API.graphql({
     query: mutations.aggregateSurveyResults,
