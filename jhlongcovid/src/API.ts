@@ -8,7 +8,7 @@ export type Response = {
   body?: string | null,
 };
 
-export type CreateMapDataInput = {
+export type CreateMapAggregationInput = {
   id?: string | null,
   level: string,
   name: string,
@@ -298,11 +298,15 @@ export type WorkingSituationInput = {
   preferNotToAnswer?: SummaryResultsByDemoInput | null,
 };
 
-export type ModelMapDataConditionInput = {
+export type ModelMapAggregationConditionInput = {
+  level?: ModelStringInput | null,
   name?: ModelStringInput | null,
   stateAbbrev?: ModelStringInput | null,
+  lat?: ModelFloatInput | null,
+  long?: ModelFloatInput | null,
   covidCount?: ModelIntInput | null,
   longCovid?: ModelIntInput | null,
+  aggregationType?: ModelAggregationTypeInput | null,
   phq8AboveTen?: ModelIntInput | null,
   recoveredCount?: ModelIntInput | null,
   selfReportedLongCovid?: ModelIntInput | null,
@@ -311,9 +315,9 @@ export type ModelMapDataConditionInput = {
   selfReportedPlusCovidLongCovid?: ModelIntInput | null,
   topMedicalCondition?: ModelStringInput | null,
   totalFullEntries?: ModelIntInput | null,
-  and?: Array< ModelMapDataConditionInput | null > | null,
-  or?: Array< ModelMapDataConditionInput | null > | null,
-  not?: ModelMapDataConditionInput | null,
+  and?: Array< ModelMapAggregationConditionInput | null > | null,
+  or?: Array< ModelMapAggregationConditionInput | null > | null,
+  not?: ModelMapAggregationConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -356,6 +360,18 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelFloatInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type ModelIntInput = {
   ne?: number | null,
   eq?: number | null,
@@ -368,8 +384,13 @@ export type ModelIntInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
-export type MapData = {
-  __typename: "MapData",
+export type ModelAggregationTypeInput = {
+  eq?: AggregationType | null,
+  ne?: AggregationType | null,
+};
+
+export type MapAggregation = {
+  __typename: "MapAggregation",
   id: string,
   level: string,
   name: string,
@@ -682,6 +703,116 @@ export type WorkingSituation = {
   student?: SummaryResultsByDemo | null,
   doNotKnow?: SummaryResultsByDemo | null,
   preferNotToAnswer?: SummaryResultsByDemo | null,
+};
+
+export type UpdateMapAggregationInput = {
+  id: string,
+  level?: string | null,
+  name?: string | null,
+  stateAbbrev?: string | null,
+  lat?: number | null,
+  long?: number | null,
+  covidCount?: number | null,
+  longCovid?: number | null,
+  aggregationType?: AggregationType | null,
+  phq8AboveTen?: number | null,
+  recoveredCount?: number | null,
+  selfReportedLongCovid?: number | null,
+  longCovidOverFourWeeks?: number | null,
+  longCovidOverTwelveWeeks?: number | null,
+  selfReportedPlusCovidLongCovid?: number | null,
+  topMedicalCondition?: string | null,
+  covidSummary?: CovidSummaryInput | null,
+  recoverySummary?: RecoverySummaryInput | null,
+  vaccinationSummary?: VaccinationSummaryInput | null,
+  globalHealthSummary?: GlobalHealthSummaryInput | null,
+  patientHealthQuestionnaireSummary?: PatientHealthQuestionnaireSummaryInput | null,
+  symptomSummary?: SymptomSummaryInput | null,
+  medicalConditionsSummary?: MedicalConditionsSummaryInput | null,
+  socialSummary?: SocialSummaryInput | null,
+  totalFullEntries?: number | null,
+};
+
+export type DeleteMapAggregationInput = {
+  id: string,
+};
+
+export type CreateMapDataInput = {
+  id?: string | null,
+  level: string,
+  name: string,
+  stateAbbrev: string,
+  lat: number,
+  long: number,
+  covidCount: number,
+  longCovid: number,
+  aggregationType: AggregationType,
+  phq8AboveTen?: number | null,
+  recoveredCount?: number | null,
+  selfReportedLongCovid?: number | null,
+  longCovidOverFourWeeks?: number | null,
+  longCovidOverTwelveWeeks?: number | null,
+  selfReportedPlusCovidLongCovid?: number | null,
+  topMedicalCondition: string,
+  covidSummary?: CovidSummaryInput | null,
+  recoverySummary?: RecoverySummaryInput | null,
+  vaccinationSummary: VaccinationSummaryInput,
+  globalHealthSummary: GlobalHealthSummaryInput,
+  patientHealthQuestionnaireSummary: PatientHealthQuestionnaireSummaryInput,
+  symptomSummary: SymptomSummaryInput,
+  medicalConditionsSummary: MedicalConditionsSummaryInput,
+  socialSummary: SocialSummaryInput,
+  totalFullEntries: number,
+};
+
+export type ModelMapDataConditionInput = {
+  name?: ModelStringInput | null,
+  stateAbbrev?: ModelStringInput | null,
+  covidCount?: ModelIntInput | null,
+  longCovid?: ModelIntInput | null,
+  phq8AboveTen?: ModelIntInput | null,
+  recoveredCount?: ModelIntInput | null,
+  selfReportedLongCovid?: ModelIntInput | null,
+  longCovidOverFourWeeks?: ModelIntInput | null,
+  longCovidOverTwelveWeeks?: ModelIntInput | null,
+  selfReportedPlusCovidLongCovid?: ModelIntInput | null,
+  topMedicalCondition?: ModelStringInput | null,
+  totalFullEntries?: ModelIntInput | null,
+  and?: Array< ModelMapDataConditionInput | null > | null,
+  or?: Array< ModelMapDataConditionInput | null > | null,
+  not?: ModelMapDataConditionInput | null,
+};
+
+export type MapData = {
+  __typename: "MapData",
+  id: string,
+  level: string,
+  name: string,
+  stateAbbrev: string,
+  lat: number,
+  long: number,
+  covidCount: number,
+  longCovid: number,
+  aggregationType: AggregationType,
+  phq8AboveTen?: number | null,
+  recoveredCount?: number | null,
+  selfReportedLongCovid?: number | null,
+  longCovidOverFourWeeks?: number | null,
+  longCovidOverTwelveWeeks?: number | null,
+  selfReportedPlusCovidLongCovid?: number | null,
+  topMedicalCondition: string,
+  covidSummary?: CovidSummary | null,
+  recoverySummary?: RecoverySummary | null,
+  vaccinationSummary: VaccinationSummary,
+  globalHealthSummary: GlobalHealthSummary,
+  patientHealthQuestionnaireSummary: PatientHealthQuestionnaireSummary,
+  symptomSummary: SymptomSummary,
+  medicalConditionsSummary: MedicalConditionsSummary,
+  socialSummary: SocialSummary,
+  totalFullEntries: number,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
 };
 
 export type UpdateMapDataInput = {
@@ -1733,6 +1864,35 @@ export type DeleteFeedbackEntryInput = {
   id: string,
 };
 
+export type ModelMapAggregationFilterInput = {
+  id?: ModelIDInput | null,
+  level?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  stateAbbrev?: ModelStringInput | null,
+  lat?: ModelFloatInput | null,
+  long?: ModelFloatInput | null,
+  covidCount?: ModelIntInput | null,
+  longCovid?: ModelIntInput | null,
+  aggregationType?: ModelAggregationTypeInput | null,
+  phq8AboveTen?: ModelIntInput | null,
+  recoveredCount?: ModelIntInput | null,
+  selfReportedLongCovid?: ModelIntInput | null,
+  longCovidOverFourWeeks?: ModelIntInput | null,
+  longCovidOverTwelveWeeks?: ModelIntInput | null,
+  selfReportedPlusCovidLongCovid?: ModelIntInput | null,
+  topMedicalCondition?: ModelStringInput | null,
+  totalFullEntries?: ModelIntInput | null,
+  and?: Array< ModelMapAggregationFilterInput | null > | null,
+  or?: Array< ModelMapAggregationFilterInput | null > | null,
+  not?: ModelMapAggregationFilterInput | null,
+};
+
+export type ModelMapAggregationConnection = {
+  __typename: "ModelMapAggregationConnection",
+  items:  Array<MapAggregation | null >,
+  nextToken?: string | null,
+};
+
 export type ModelMapDataPrimaryCompositeKeyConditionInput = {
   eq?: ModelMapDataPrimaryCompositeKeyInput | null,
   le?: ModelMapDataPrimaryCompositeKeyInput | null,
@@ -1770,23 +1930,6 @@ export type ModelMapDataFilterInput = {
   and?: Array< ModelMapDataFilterInput | null > | null,
   or?: Array< ModelMapDataFilterInput | null > | null,
   not?: ModelMapDataFilterInput | null,
-};
-
-export type ModelFloatInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
-export type ModelAggregationTypeInput = {
-  eq?: AggregationType | null,
-  ne?: AggregationType | null,
 };
 
 export enum ModelSortDirection {
@@ -2157,7 +2300,7 @@ export type ModelFeedbackEntryConnection = {
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionMapDataFilterInput = {
+export type ModelSubscriptionMapAggregationFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   level?: ModelSubscriptionStringInput | null,
   name?: ModelSubscriptionStringInput | null,
@@ -2175,8 +2318,8 @@ export type ModelSubscriptionMapDataFilterInput = {
   selfReportedPlusCovidLongCovid?: ModelSubscriptionIntInput | null,
   topMedicalCondition?: ModelSubscriptionStringInput | null,
   totalFullEntries?: ModelSubscriptionIntInput | null,
-  and?: Array< ModelSubscriptionMapDataFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMapDataFilterInput | null > | null,
+  and?: Array< ModelSubscriptionMapAggregationFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMapAggregationFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -2231,6 +2374,28 @@ export type ModelSubscriptionIntInput = {
   between?: Array< number | null > | null,
   in?: Array< number | null > | null,
   notIn?: Array< number | null > | null,
+};
+
+export type ModelSubscriptionMapDataFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  level?: ModelSubscriptionStringInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  stateAbbrev?: ModelSubscriptionStringInput | null,
+  lat?: ModelSubscriptionFloatInput | null,
+  long?: ModelSubscriptionFloatInput | null,
+  covidCount?: ModelSubscriptionIntInput | null,
+  longCovid?: ModelSubscriptionIntInput | null,
+  aggregationType?: ModelSubscriptionStringInput | null,
+  phq8AboveTen?: ModelSubscriptionIntInput | null,
+  recoveredCount?: ModelSubscriptionIntInput | null,
+  selfReportedLongCovid?: ModelSubscriptionIntInput | null,
+  longCovidOverFourWeeks?: ModelSubscriptionIntInput | null,
+  longCovidOverTwelveWeeks?: ModelSubscriptionIntInput | null,
+  selfReportedPlusCovidLongCovid?: ModelSubscriptionIntInput | null,
+  topMedicalCondition?: ModelSubscriptionStringInput | null,
+  totalFullEntries?: ModelSubscriptionIntInput | null,
+  and?: Array< ModelSubscriptionMapDataFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMapDataFilterInput | null > | null,
 };
 
 export type ModelSubscriptionUserFilterInput = {
@@ -2465,6 +2630,2952 @@ export type EmailReceiptConfirmationMutation = {
     __typename: "Response",
     statusCode?: number | null,
     body?: string | null,
+  } | null,
+};
+
+export type CreateMapAggregationMutationVariables = {
+  input: CreateMapAggregationInput,
+  condition?: ModelMapAggregationConditionInput | null,
+};
+
+export type CreateMapAggregationMutation = {
+  createMapAggregation?:  {
+    __typename: "MapAggregation",
+    id: string,
+    level: string,
+    name: string,
+    stateAbbrev: string,
+    lat: number,
+    long: number,
+    covidCount: number,
+    longCovid: number,
+    aggregationType: AggregationType,
+    phq8AboveTen?: number | null,
+    recoveredCount?: number | null,
+    selfReportedLongCovid?: number | null,
+    longCovidOverFourWeeks?: number | null,
+    longCovidOverTwelveWeeks?: number | null,
+    selfReportedPlusCovidLongCovid?: number | null,
+    topMedicalCondition: string,
+    covidSummary?:  {
+      __typename: "CovidSummary",
+      beenInfected?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesPositive?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tested?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      positiveTest?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomatic?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomsPreventScale?:  {
+        __typename: "NotAtAllToVeryMuch",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        alittleBit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhat?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        quiteABit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryMuch?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    } | null,
+    recoverySummary?:  {
+      __typename: "RecoverySummary",
+      hospitalized?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesHospitalized?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsPrescribed?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsTakenCount?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        oralSteroids?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        antiBiotics?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      recovered?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    } | null,
+    vaccinationSummary:  {
+      __typename: "VaccinationSummary",
+      vaccinated?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      totalVaccineShots?:  {
+        __typename: "OneToFivePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        four?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        five?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fivePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      vaccineType?:  {
+        __typename: "VaccineTypes",
+        pfizer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderna?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        janssen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        novavax?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    globalHealthSummary:  {
+      __typename: "GlobalHealthSummary",
+      healthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      physicalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryPhysicalActivities?:  {
+        __typename: "CompletelyToNotAtAll",
+        completely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mostly?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderately?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        aLittle?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      fatigueRank?:  {
+        __typename: "NoneToVerySevere",
+        none?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mild?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderate?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severe?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        verySevere?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    patientHealthQuestionnaireSummary:  {
+      __typename: "PatientHealthQuestionnaireSummary",
+      littleInterestThings?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      downDepressedHopeless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      sleepProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tiredNoEnergy?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      dietProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      badAboutSelf?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      concentrationProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      slowOrRestless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    symptomSummary:  {
+      __typename: "SymptomSummary",
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bodyMuscleAche?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        feverChillsSweatsFlushing?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        faintDizzyGoofy?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        postExertionalMalaise?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        weaknessInArmsLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        shortnessOfBreath?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        cough?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        palpitations?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        swellingOfLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        indigestionNausea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bladderProblem?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nerveProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        brainFog?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        anxietyDepressionNightmares?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        difficultyFallingAsleep?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepyDuringDaytime?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        loudSnoring?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        uncomfortableFeelingsInLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        skinRash?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lossOfChangeInSmell?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveThirst?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveDryMouth?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        visionProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hearingProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fertilityProblemsForWomen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      qualityOfLife?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      mentalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      socialSatisfactionRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryOutSocialActivitiesRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      anxietyInPastWeekRank?:  {
+        __typename: "NeverToAlways",
+        never?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        rarely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sometimes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        often?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        always?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    medicalConditionsSummary:  {
+      __typename: "MedicalConditionsSummary",
+      longCovid?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      newDiagnosisCounts?:  {
+        __typename: "DiagnosisTypes",
+        noNewDiagnosis?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        heartProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lungProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bloodClotLung?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepApnea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        memory?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        migraine?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stroke?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        seizure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        kidneyProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stomachProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        psychologicalProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        diabetes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        autoImmuneDiseases?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mecfs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notSure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    socialSummary:  {
+      __typename: "SocialSummary",
+      hasMedicalInsurance?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      difficultCoveringExpenses?:  {
+        __typename: "DifficultExpenses",
+        veryDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhatDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAllDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      currentWorkSituation?:  {
+        __typename: "WorkingSituation",
+        atOffice?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hybrid?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remote?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remoteAndParenting?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        onJobLeave?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        unemployed?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        retired?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        disability?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        student?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    totalFullEntries: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateMapAggregationMutationVariables = {
+  input: UpdateMapAggregationInput,
+  condition?: ModelMapAggregationConditionInput | null,
+};
+
+export type UpdateMapAggregationMutation = {
+  updateMapAggregation?:  {
+    __typename: "MapAggregation",
+    id: string,
+    level: string,
+    name: string,
+    stateAbbrev: string,
+    lat: number,
+    long: number,
+    covidCount: number,
+    longCovid: number,
+    aggregationType: AggregationType,
+    phq8AboveTen?: number | null,
+    recoveredCount?: number | null,
+    selfReportedLongCovid?: number | null,
+    longCovidOverFourWeeks?: number | null,
+    longCovidOverTwelveWeeks?: number | null,
+    selfReportedPlusCovidLongCovid?: number | null,
+    topMedicalCondition: string,
+    covidSummary?:  {
+      __typename: "CovidSummary",
+      beenInfected?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesPositive?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tested?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      positiveTest?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomatic?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomsPreventScale?:  {
+        __typename: "NotAtAllToVeryMuch",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        alittleBit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhat?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        quiteABit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryMuch?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    } | null,
+    recoverySummary?:  {
+      __typename: "RecoverySummary",
+      hospitalized?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesHospitalized?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsPrescribed?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsTakenCount?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        oralSteroids?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        antiBiotics?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      recovered?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    } | null,
+    vaccinationSummary:  {
+      __typename: "VaccinationSummary",
+      vaccinated?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      totalVaccineShots?:  {
+        __typename: "OneToFivePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        four?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        five?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fivePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      vaccineType?:  {
+        __typename: "VaccineTypes",
+        pfizer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderna?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        janssen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        novavax?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    globalHealthSummary:  {
+      __typename: "GlobalHealthSummary",
+      healthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      physicalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryPhysicalActivities?:  {
+        __typename: "CompletelyToNotAtAll",
+        completely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mostly?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderately?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        aLittle?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      fatigueRank?:  {
+        __typename: "NoneToVerySevere",
+        none?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mild?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderate?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severe?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        verySevere?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    patientHealthQuestionnaireSummary:  {
+      __typename: "PatientHealthQuestionnaireSummary",
+      littleInterestThings?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      downDepressedHopeless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      sleepProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tiredNoEnergy?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      dietProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      badAboutSelf?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      concentrationProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      slowOrRestless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    symptomSummary:  {
+      __typename: "SymptomSummary",
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bodyMuscleAche?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        feverChillsSweatsFlushing?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        faintDizzyGoofy?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        postExertionalMalaise?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        weaknessInArmsLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        shortnessOfBreath?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        cough?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        palpitations?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        swellingOfLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        indigestionNausea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bladderProblem?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nerveProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        brainFog?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        anxietyDepressionNightmares?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        difficultyFallingAsleep?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepyDuringDaytime?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        loudSnoring?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        uncomfortableFeelingsInLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        skinRash?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lossOfChangeInSmell?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveThirst?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveDryMouth?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        visionProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hearingProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fertilityProblemsForWomen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      qualityOfLife?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      mentalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      socialSatisfactionRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryOutSocialActivitiesRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      anxietyInPastWeekRank?:  {
+        __typename: "NeverToAlways",
+        never?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        rarely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sometimes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        often?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        always?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    medicalConditionsSummary:  {
+      __typename: "MedicalConditionsSummary",
+      longCovid?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      newDiagnosisCounts?:  {
+        __typename: "DiagnosisTypes",
+        noNewDiagnosis?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        heartProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lungProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bloodClotLung?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepApnea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        memory?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        migraine?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stroke?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        seizure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        kidneyProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stomachProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        psychologicalProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        diabetes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        autoImmuneDiseases?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mecfs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notSure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    socialSummary:  {
+      __typename: "SocialSummary",
+      hasMedicalInsurance?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      difficultCoveringExpenses?:  {
+        __typename: "DifficultExpenses",
+        veryDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhatDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAllDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      currentWorkSituation?:  {
+        __typename: "WorkingSituation",
+        atOffice?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hybrid?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remote?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remoteAndParenting?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        onJobLeave?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        unemployed?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        retired?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        disability?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        student?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    totalFullEntries: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteMapAggregationMutationVariables = {
+  input: DeleteMapAggregationInput,
+  condition?: ModelMapAggregationConditionInput | null,
+};
+
+export type DeleteMapAggregationMutation = {
+  deleteMapAggregation?:  {
+    __typename: "MapAggregation",
+    id: string,
+    level: string,
+    name: string,
+    stateAbbrev: string,
+    lat: number,
+    long: number,
+    covidCount: number,
+    longCovid: number,
+    aggregationType: AggregationType,
+    phq8AboveTen?: number | null,
+    recoveredCount?: number | null,
+    selfReportedLongCovid?: number | null,
+    longCovidOverFourWeeks?: number | null,
+    longCovidOverTwelveWeeks?: number | null,
+    selfReportedPlusCovidLongCovid?: number | null,
+    topMedicalCondition: string,
+    covidSummary?:  {
+      __typename: "CovidSummary",
+      beenInfected?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesPositive?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tested?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      positiveTest?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomatic?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomsPreventScale?:  {
+        __typename: "NotAtAllToVeryMuch",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        alittleBit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhat?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        quiteABit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryMuch?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    } | null,
+    recoverySummary?:  {
+      __typename: "RecoverySummary",
+      hospitalized?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesHospitalized?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsPrescribed?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsTakenCount?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        oralSteroids?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        antiBiotics?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      recovered?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    } | null,
+    vaccinationSummary:  {
+      __typename: "VaccinationSummary",
+      vaccinated?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      totalVaccineShots?:  {
+        __typename: "OneToFivePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        four?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        five?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fivePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      vaccineType?:  {
+        __typename: "VaccineTypes",
+        pfizer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderna?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        janssen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        novavax?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    globalHealthSummary:  {
+      __typename: "GlobalHealthSummary",
+      healthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      physicalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryPhysicalActivities?:  {
+        __typename: "CompletelyToNotAtAll",
+        completely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mostly?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderately?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        aLittle?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      fatigueRank?:  {
+        __typename: "NoneToVerySevere",
+        none?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mild?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderate?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severe?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        verySevere?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    patientHealthQuestionnaireSummary:  {
+      __typename: "PatientHealthQuestionnaireSummary",
+      littleInterestThings?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      downDepressedHopeless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      sleepProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tiredNoEnergy?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      dietProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      badAboutSelf?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      concentrationProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      slowOrRestless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    symptomSummary:  {
+      __typename: "SymptomSummary",
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bodyMuscleAche?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        feverChillsSweatsFlushing?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        faintDizzyGoofy?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        postExertionalMalaise?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        weaknessInArmsLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        shortnessOfBreath?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        cough?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        palpitations?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        swellingOfLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        indigestionNausea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bladderProblem?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nerveProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        brainFog?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        anxietyDepressionNightmares?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        difficultyFallingAsleep?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepyDuringDaytime?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        loudSnoring?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        uncomfortableFeelingsInLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        skinRash?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lossOfChangeInSmell?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveThirst?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveDryMouth?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        visionProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hearingProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fertilityProblemsForWomen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      qualityOfLife?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      mentalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      socialSatisfactionRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryOutSocialActivitiesRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      anxietyInPastWeekRank?:  {
+        __typename: "NeverToAlways",
+        never?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        rarely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sometimes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        often?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        always?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    medicalConditionsSummary:  {
+      __typename: "MedicalConditionsSummary",
+      longCovid?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      newDiagnosisCounts?:  {
+        __typename: "DiagnosisTypes",
+        noNewDiagnosis?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        heartProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lungProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bloodClotLung?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepApnea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        memory?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        migraine?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stroke?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        seizure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        kidneyProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stomachProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        psychologicalProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        diabetes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        autoImmuneDiseases?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mecfs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notSure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    socialSummary:  {
+      __typename: "SocialSummary",
+      hasMedicalInsurance?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      difficultCoveringExpenses?:  {
+        __typename: "DifficultExpenses",
+        veryDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhatDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAllDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      currentWorkSituation?:  {
+        __typename: "WorkingSituation",
+        atOffice?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hybrid?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remote?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remoteAndParenting?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        onJobLeave?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        unemployed?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        retired?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        disability?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        student?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    totalFullEntries: number,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -3447,6 +6558,7 @@ export type CreateMapDataMutation = {
     totalFullEntries: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -4429,6 +7541,7 @@ export type UpdateMapDataMutation = {
     totalFullEntries: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -5411,6 +8524,7 @@ export type DeleteMapDataMutation = {
     totalFullEntries: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -21782,6 +24896,1166 @@ export type DeleteFeedbackEntryMutation = {
   } | null,
 };
 
+export type GetMapAggregationQueryVariables = {
+  id: string,
+};
+
+export type GetMapAggregationQuery = {
+  getMapAggregation?:  {
+    __typename: "MapAggregation",
+    id: string,
+    level: string,
+    name: string,
+    stateAbbrev: string,
+    lat: number,
+    long: number,
+    covidCount: number,
+    longCovid: number,
+    aggregationType: AggregationType,
+    phq8AboveTen?: number | null,
+    recoveredCount?: number | null,
+    selfReportedLongCovid?: number | null,
+    longCovidOverFourWeeks?: number | null,
+    longCovidOverTwelveWeeks?: number | null,
+    selfReportedPlusCovidLongCovid?: number | null,
+    topMedicalCondition: string,
+    covidSummary?:  {
+      __typename: "CovidSummary",
+      beenInfected?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesPositive?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tested?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      positiveTest?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomatic?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomsPreventScale?:  {
+        __typename: "NotAtAllToVeryMuch",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        alittleBit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhat?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        quiteABit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryMuch?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    } | null,
+    recoverySummary?:  {
+      __typename: "RecoverySummary",
+      hospitalized?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesHospitalized?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsPrescribed?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsTakenCount?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        oralSteroids?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        antiBiotics?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      recovered?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    } | null,
+    vaccinationSummary:  {
+      __typename: "VaccinationSummary",
+      vaccinated?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      totalVaccineShots?:  {
+        __typename: "OneToFivePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        four?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        five?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fivePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      vaccineType?:  {
+        __typename: "VaccineTypes",
+        pfizer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderna?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        janssen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        novavax?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    globalHealthSummary:  {
+      __typename: "GlobalHealthSummary",
+      healthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      physicalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryPhysicalActivities?:  {
+        __typename: "CompletelyToNotAtAll",
+        completely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mostly?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderately?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        aLittle?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      fatigueRank?:  {
+        __typename: "NoneToVerySevere",
+        none?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mild?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderate?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severe?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        verySevere?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    patientHealthQuestionnaireSummary:  {
+      __typename: "PatientHealthQuestionnaireSummary",
+      littleInterestThings?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      downDepressedHopeless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      sleepProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tiredNoEnergy?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      dietProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      badAboutSelf?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      concentrationProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      slowOrRestless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    symptomSummary:  {
+      __typename: "SymptomSummary",
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bodyMuscleAche?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        feverChillsSweatsFlushing?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        faintDizzyGoofy?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        postExertionalMalaise?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        weaknessInArmsLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        shortnessOfBreath?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        cough?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        palpitations?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        swellingOfLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        indigestionNausea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bladderProblem?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nerveProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        brainFog?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        anxietyDepressionNightmares?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        difficultyFallingAsleep?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepyDuringDaytime?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        loudSnoring?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        uncomfortableFeelingsInLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        skinRash?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lossOfChangeInSmell?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveThirst?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveDryMouth?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        visionProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hearingProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fertilityProblemsForWomen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      qualityOfLife?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      mentalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      socialSatisfactionRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryOutSocialActivitiesRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      anxietyInPastWeekRank?:  {
+        __typename: "NeverToAlways",
+        never?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        rarely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sometimes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        often?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        always?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    medicalConditionsSummary:  {
+      __typename: "MedicalConditionsSummary",
+      longCovid?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      newDiagnosisCounts?:  {
+        __typename: "DiagnosisTypes",
+        noNewDiagnosis?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        heartProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lungProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bloodClotLung?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepApnea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        memory?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        migraine?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stroke?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        seizure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        kidneyProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stomachProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        psychologicalProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        diabetes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        autoImmuneDiseases?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mecfs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notSure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    socialSummary:  {
+      __typename: "SocialSummary",
+      hasMedicalInsurance?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      difficultCoveringExpenses?:  {
+        __typename: "DifficultExpenses",
+        veryDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhatDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAllDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      currentWorkSituation?:  {
+        __typename: "WorkingSituation",
+        atOffice?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hybrid?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remote?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remoteAndParenting?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        onJobLeave?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        unemployed?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        retired?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        disability?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        student?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    totalFullEntries: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListMapAggregationsQueryVariables = {
+  filter?: ModelMapAggregationFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListMapAggregationsQuery = {
+  listMapAggregations?:  {
+    __typename: "ModelMapAggregationConnection",
+    items:  Array< {
+      __typename: "MapAggregation",
+      id: string,
+      level: string,
+      name: string,
+      stateAbbrev: string,
+      lat: number,
+      long: number,
+      covidCount: number,
+      longCovid: number,
+      aggregationType: AggregationType,
+      phq8AboveTen?: number | null,
+      recoveredCount?: number | null,
+      selfReportedLongCovid?: number | null,
+      longCovidOverFourWeeks?: number | null,
+      longCovidOverTwelveWeeks?: number | null,
+      selfReportedPlusCovidLongCovid?: number | null,
+      topMedicalCondition: string,
+      covidSummary?:  {
+        __typename: "CovidSummary",
+        beenInfected?:  {
+          __typename: "YesNo",
+        } | null,
+        timesPositive?:  {
+          __typename: "OneToThreePlus",
+        } | null,
+        tested?:  {
+          __typename: "YesNo",
+        } | null,
+        positiveTest?:  {
+          __typename: "YesNoDontKnow",
+        } | null,
+        symptomatic?:  {
+          __typename: "YesNo",
+        } | null,
+        symptomsPreventScale?:  {
+          __typename: "NotAtAllToVeryMuch",
+        } | null,
+      } | null,
+      recoverySummary?:  {
+        __typename: "RecoverySummary",
+        hospitalized?:  {
+          __typename: "YesNo",
+        } | null,
+        timesHospitalized?:  {
+          __typename: "OneToThreePlus",
+        } | null,
+        medicationsPrescribed?:  {
+          __typename: "YesNoDontKnow",
+        } | null,
+        medicationsTakenCount?:  {
+          __typename: "MedicationsAvailable",
+        } | null,
+        recovered?:  {
+          __typename: "YesNo",
+        } | null,
+        avglengthOfRecovery?:  {
+          __typename: "SummaryAvgByDemo",
+        } | null,
+      } | null,
+      vaccinationSummary:  {
+        __typename: "VaccinationSummary",
+        vaccinated?:  {
+          __typename: "YesNoDontKnow",
+        } | null,
+        totalVaccineShots?:  {
+          __typename: "OneToFivePlus",
+        } | null,
+        vaccineType?:  {
+          __typename: "VaccineTypes",
+        } | null,
+      },
+      globalHealthSummary:  {
+        __typename: "GlobalHealthSummary",
+        healthRank?:  {
+          __typename: "ExcellentToPoor",
+        } | null,
+        physicalHealthRank?:  {
+          __typename: "ExcellentToPoor",
+        } | null,
+        carryPhysicalActivities?:  {
+          __typename: "CompletelyToNotAtAll",
+        } | null,
+        fatigueRank?:  {
+          __typename: "NoneToVerySevere",
+        } | null,
+        avgpainLevel?:  {
+          __typename: "SummaryAvgByDemo",
+        } | null,
+      },
+      patientHealthQuestionnaireSummary:  {
+        __typename: "PatientHealthQuestionnaireSummary",
+        littleInterestThings?:  {
+          __typename: "NotAtAllToNearlyEveryDay",
+        } | null,
+        downDepressedHopeless?:  {
+          __typename: "NotAtAllToNearlyEveryDay",
+        } | null,
+        sleepProblems?:  {
+          __typename: "NotAtAllToNearlyEveryDay",
+        } | null,
+        tiredNoEnergy?:  {
+          __typename: "NotAtAllToNearlyEveryDay",
+        } | null,
+        dietProblems?:  {
+          __typename: "NotAtAllToNearlyEveryDay",
+        } | null,
+        badAboutSelf?:  {
+          __typename: "NotAtAllToNearlyEveryDay",
+        } | null,
+        concentrationProblems?:  {
+          __typename: "NotAtAllToNearlyEveryDay",
+        } | null,
+        slowOrRestless?:  {
+          __typename: "NotAtAllToNearlyEveryDay",
+        } | null,
+        avgPHQScore?:  {
+          __typename: "SummaryAvgByDemo",
+        } | null,
+      },
+      symptomSummary:  {
+        __typename: "SymptomSummary",
+        symptomCounts?:  {
+          __typename: "SymptomsAvailabLe",
+        } | null,
+        qualityOfLife?:  {
+          __typename: "ExcellentToPoor",
+        } | null,
+        mentalHealthRank?:  {
+          __typename: "ExcellentToPoor",
+        } | null,
+        socialSatisfactionRank?:  {
+          __typename: "ExcellentToPoor",
+        } | null,
+        carryOutSocialActivitiesRank?:  {
+          __typename: "ExcellentToPoor",
+        } | null,
+        anxietyInPastWeekRank?:  {
+          __typename: "NeverToAlways",
+        } | null,
+      },
+      medicalConditionsSummary:  {
+        __typename: "MedicalConditionsSummary",
+        longCovid?:  {
+          __typename: "YesNoDontKnow",
+        } | null,
+        newDiagnosisCounts?:  {
+          __typename: "DiagnosisTypes",
+        } | null,
+      },
+      socialSummary:  {
+        __typename: "SocialSummary",
+        hasMedicalInsurance?:  {
+          __typename: "YesNo",
+        } | null,
+        difficultCoveringExpenses?:  {
+          __typename: "DifficultExpenses",
+        } | null,
+        currentWorkSituation?:  {
+          __typename: "WorkingSituation",
+        } | null,
+      },
+      totalFullEntries: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetMapDataQueryVariables = {
   level: string,
   lat: number,
@@ -22763,6 +27037,7 @@ export type GetMapDataQuery = {
     totalFullEntries: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -22943,6 +27218,7 @@ export type ListMapDataQuery = {
       totalFullEntries: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -23125,6 +27401,7 @@ export type MapDataByLevelNameStateQuery = {
       totalFullEntries: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -23307,6 +27584,7 @@ export type MapDataByStateAbbrevQuery = {
       totalFullEntries: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -49906,8 +54184,2952 @@ export type FeedbackByIDQuery = {
   } | null,
 };
 
+export type OnCreateMapAggregationSubscriptionVariables = {
+  filter?: ModelSubscriptionMapAggregationFilterInput | null,
+};
+
+export type OnCreateMapAggregationSubscription = {
+  onCreateMapAggregation?:  {
+    __typename: "MapAggregation",
+    id: string,
+    level: string,
+    name: string,
+    stateAbbrev: string,
+    lat: number,
+    long: number,
+    covidCount: number,
+    longCovid: number,
+    aggregationType: AggregationType,
+    phq8AboveTen?: number | null,
+    recoveredCount?: number | null,
+    selfReportedLongCovid?: number | null,
+    longCovidOverFourWeeks?: number | null,
+    longCovidOverTwelveWeeks?: number | null,
+    selfReportedPlusCovidLongCovid?: number | null,
+    topMedicalCondition: string,
+    covidSummary?:  {
+      __typename: "CovidSummary",
+      beenInfected?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesPositive?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tested?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      positiveTest?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomatic?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomsPreventScale?:  {
+        __typename: "NotAtAllToVeryMuch",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        alittleBit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhat?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        quiteABit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryMuch?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    } | null,
+    recoverySummary?:  {
+      __typename: "RecoverySummary",
+      hospitalized?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesHospitalized?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsPrescribed?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsTakenCount?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        oralSteroids?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        antiBiotics?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      recovered?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    } | null,
+    vaccinationSummary:  {
+      __typename: "VaccinationSummary",
+      vaccinated?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      totalVaccineShots?:  {
+        __typename: "OneToFivePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        four?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        five?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fivePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      vaccineType?:  {
+        __typename: "VaccineTypes",
+        pfizer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderna?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        janssen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        novavax?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    globalHealthSummary:  {
+      __typename: "GlobalHealthSummary",
+      healthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      physicalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryPhysicalActivities?:  {
+        __typename: "CompletelyToNotAtAll",
+        completely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mostly?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderately?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        aLittle?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      fatigueRank?:  {
+        __typename: "NoneToVerySevere",
+        none?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mild?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderate?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severe?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        verySevere?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    patientHealthQuestionnaireSummary:  {
+      __typename: "PatientHealthQuestionnaireSummary",
+      littleInterestThings?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      downDepressedHopeless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      sleepProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tiredNoEnergy?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      dietProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      badAboutSelf?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      concentrationProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      slowOrRestless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    symptomSummary:  {
+      __typename: "SymptomSummary",
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bodyMuscleAche?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        feverChillsSweatsFlushing?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        faintDizzyGoofy?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        postExertionalMalaise?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        weaknessInArmsLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        shortnessOfBreath?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        cough?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        palpitations?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        swellingOfLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        indigestionNausea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bladderProblem?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nerveProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        brainFog?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        anxietyDepressionNightmares?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        difficultyFallingAsleep?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepyDuringDaytime?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        loudSnoring?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        uncomfortableFeelingsInLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        skinRash?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lossOfChangeInSmell?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveThirst?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveDryMouth?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        visionProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hearingProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fertilityProblemsForWomen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      qualityOfLife?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      mentalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      socialSatisfactionRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryOutSocialActivitiesRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      anxietyInPastWeekRank?:  {
+        __typename: "NeverToAlways",
+        never?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        rarely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sometimes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        often?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        always?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    medicalConditionsSummary:  {
+      __typename: "MedicalConditionsSummary",
+      longCovid?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      newDiagnosisCounts?:  {
+        __typename: "DiagnosisTypes",
+        noNewDiagnosis?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        heartProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lungProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bloodClotLung?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepApnea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        memory?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        migraine?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stroke?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        seizure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        kidneyProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stomachProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        psychologicalProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        diabetes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        autoImmuneDiseases?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mecfs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notSure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    socialSummary:  {
+      __typename: "SocialSummary",
+      hasMedicalInsurance?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      difficultCoveringExpenses?:  {
+        __typename: "DifficultExpenses",
+        veryDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhatDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAllDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      currentWorkSituation?:  {
+        __typename: "WorkingSituation",
+        atOffice?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hybrid?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remote?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remoteAndParenting?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        onJobLeave?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        unemployed?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        retired?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        disability?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        student?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    totalFullEntries: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateMapAggregationSubscriptionVariables = {
+  filter?: ModelSubscriptionMapAggregationFilterInput | null,
+};
+
+export type OnUpdateMapAggregationSubscription = {
+  onUpdateMapAggregation?:  {
+    __typename: "MapAggregation",
+    id: string,
+    level: string,
+    name: string,
+    stateAbbrev: string,
+    lat: number,
+    long: number,
+    covidCount: number,
+    longCovid: number,
+    aggregationType: AggregationType,
+    phq8AboveTen?: number | null,
+    recoveredCount?: number | null,
+    selfReportedLongCovid?: number | null,
+    longCovidOverFourWeeks?: number | null,
+    longCovidOverTwelveWeeks?: number | null,
+    selfReportedPlusCovidLongCovid?: number | null,
+    topMedicalCondition: string,
+    covidSummary?:  {
+      __typename: "CovidSummary",
+      beenInfected?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesPositive?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tested?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      positiveTest?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomatic?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomsPreventScale?:  {
+        __typename: "NotAtAllToVeryMuch",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        alittleBit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhat?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        quiteABit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryMuch?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    } | null,
+    recoverySummary?:  {
+      __typename: "RecoverySummary",
+      hospitalized?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesHospitalized?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsPrescribed?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsTakenCount?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        oralSteroids?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        antiBiotics?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      recovered?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    } | null,
+    vaccinationSummary:  {
+      __typename: "VaccinationSummary",
+      vaccinated?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      totalVaccineShots?:  {
+        __typename: "OneToFivePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        four?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        five?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fivePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      vaccineType?:  {
+        __typename: "VaccineTypes",
+        pfizer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderna?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        janssen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        novavax?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    globalHealthSummary:  {
+      __typename: "GlobalHealthSummary",
+      healthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      physicalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryPhysicalActivities?:  {
+        __typename: "CompletelyToNotAtAll",
+        completely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mostly?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderately?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        aLittle?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      fatigueRank?:  {
+        __typename: "NoneToVerySevere",
+        none?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mild?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderate?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severe?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        verySevere?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    patientHealthQuestionnaireSummary:  {
+      __typename: "PatientHealthQuestionnaireSummary",
+      littleInterestThings?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      downDepressedHopeless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      sleepProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tiredNoEnergy?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      dietProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      badAboutSelf?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      concentrationProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      slowOrRestless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    symptomSummary:  {
+      __typename: "SymptomSummary",
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bodyMuscleAche?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        feverChillsSweatsFlushing?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        faintDizzyGoofy?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        postExertionalMalaise?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        weaknessInArmsLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        shortnessOfBreath?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        cough?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        palpitations?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        swellingOfLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        indigestionNausea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bladderProblem?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nerveProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        brainFog?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        anxietyDepressionNightmares?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        difficultyFallingAsleep?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepyDuringDaytime?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        loudSnoring?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        uncomfortableFeelingsInLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        skinRash?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lossOfChangeInSmell?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveThirst?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveDryMouth?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        visionProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hearingProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fertilityProblemsForWomen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      qualityOfLife?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      mentalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      socialSatisfactionRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryOutSocialActivitiesRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      anxietyInPastWeekRank?:  {
+        __typename: "NeverToAlways",
+        never?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        rarely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sometimes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        often?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        always?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    medicalConditionsSummary:  {
+      __typename: "MedicalConditionsSummary",
+      longCovid?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      newDiagnosisCounts?:  {
+        __typename: "DiagnosisTypes",
+        noNewDiagnosis?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        heartProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lungProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bloodClotLung?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepApnea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        memory?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        migraine?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stroke?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        seizure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        kidneyProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stomachProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        psychologicalProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        diabetes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        autoImmuneDiseases?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mecfs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notSure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    socialSummary:  {
+      __typename: "SocialSummary",
+      hasMedicalInsurance?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      difficultCoveringExpenses?:  {
+        __typename: "DifficultExpenses",
+        veryDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhatDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAllDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      currentWorkSituation?:  {
+        __typename: "WorkingSituation",
+        atOffice?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hybrid?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remote?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remoteAndParenting?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        onJobLeave?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        unemployed?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        retired?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        disability?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        student?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    totalFullEntries: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteMapAggregationSubscriptionVariables = {
+  filter?: ModelSubscriptionMapAggregationFilterInput | null,
+};
+
+export type OnDeleteMapAggregationSubscription = {
+  onDeleteMapAggregation?:  {
+    __typename: "MapAggregation",
+    id: string,
+    level: string,
+    name: string,
+    stateAbbrev: string,
+    lat: number,
+    long: number,
+    covidCount: number,
+    longCovid: number,
+    aggregationType: AggregationType,
+    phq8AboveTen?: number | null,
+    recoveredCount?: number | null,
+    selfReportedLongCovid?: number | null,
+    longCovidOverFourWeeks?: number | null,
+    longCovidOverTwelveWeeks?: number | null,
+    selfReportedPlusCovidLongCovid?: number | null,
+    topMedicalCondition: string,
+    covidSummary?:  {
+      __typename: "CovidSummary",
+      beenInfected?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesPositive?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tested?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      positiveTest?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomatic?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      symptomsPreventScale?:  {
+        __typename: "NotAtAllToVeryMuch",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        alittleBit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhat?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        quiteABit?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryMuch?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    } | null,
+    recoverySummary?:  {
+      __typename: "RecoverySummary",
+      hospitalized?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      timesHospitalized?:  {
+        __typename: "OneToThreePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        threePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsPrescribed?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      medicationsTakenCount?:  {
+        __typename: "MedicationsAvailable",
+        antiViral?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        oralSteroids?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        antiBiotics?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      recovered?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avglengthOfRecovery?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    } | null,
+    vaccinationSummary:  {
+      __typename: "VaccinationSummary",
+      vaccinated?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      totalVaccineShots?:  {
+        __typename: "OneToFivePlus",
+        one?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        two?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        three?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        four?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        five?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fivePlus?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      vaccineType?:  {
+        __typename: "VaccineTypes",
+        pfizer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderna?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        janssen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        novavax?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    globalHealthSummary:  {
+      __typename: "GlobalHealthSummary",
+      healthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      physicalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryPhysicalActivities?:  {
+        __typename: "CompletelyToNotAtAll",
+        completely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mostly?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderately?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        aLittle?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      fatigueRank?:  {
+        __typename: "NoneToVerySevere",
+        none?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mild?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moderate?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severe?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        verySevere?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgpainLevel?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    patientHealthQuestionnaireSummary:  {
+      __typename: "PatientHealthQuestionnaireSummary",
+      littleInterestThings?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      downDepressedHopeless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      sleepProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      tiredNoEnergy?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      dietProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      badAboutSelf?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      concentrationProblems?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      slowOrRestless?:  {
+        __typename: "NotAtAllToNearlyEveryDay",
+        notAtAll?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        severalDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        moreThanHalfTheDays?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nearlyEveryDay?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      avgPHQScore?:  {
+        __typename: "SummaryAvgByDemo",
+        race?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        sex?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+        age?:  {
+          __typename: "SummaryAvgValues",
+          ranges?: Array< string | null > | null,
+        } | null,
+      } | null,
+    },
+    symptomSummary:  {
+      __typename: "SymptomSummary",
+      symptomCounts?:  {
+        __typename: "SymptomsAvailabLe",
+        headache?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bodyMuscleAche?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        feverChillsSweatsFlushing?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        faintDizzyGoofy?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        postExertionalMalaise?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        weaknessInArmsLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        shortnessOfBreath?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        cough?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        palpitations?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        swellingOfLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        indigestionNausea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bladderProblem?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        nerveProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        brainFog?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        anxietyDepressionNightmares?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        difficultyFallingAsleep?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepyDuringDaytime?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        loudSnoring?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        uncomfortableFeelingsInLegs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        skinRash?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lossOfChangeInSmell?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveThirst?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        excessiveDryMouth?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        visionProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hearingProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fertilityProblemsForWomen?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      qualityOfLife?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      mentalHealthRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      socialSatisfactionRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      carryOutSocialActivitiesRank?:  {
+        __typename: "ExcellentToPoor",
+        excellent?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        veryGood?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        good?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        fair?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        poor?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      anxietyInPastWeekRank?:  {
+        __typename: "NeverToAlways",
+        never?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        rarely?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sometimes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        often?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        always?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    medicalConditionsSummary:  {
+      __typename: "MedicalConditionsSummary",
+      longCovid?:  {
+        __typename: "YesNoDontKnow",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      newDiagnosisCounts?:  {
+        __typename: "DiagnosisTypes",
+        noNewDiagnosis?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        heartProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        lungProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        bloodClotLung?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        sleepApnea?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        memory?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        migraine?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stroke?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        seizure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        kidneyProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        stomachProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        psychologicalProblems?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        diabetes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        autoImmuneDiseases?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        mecfs?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        other?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notSure?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    socialSummary:  {
+      __typename: "SocialSummary",
+      hasMedicalInsurance?:  {
+        __typename: "YesNo",
+        yes?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        no?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      difficultCoveringExpenses?:  {
+        __typename: "DifficultExpenses",
+        veryDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        somewhatDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        notAtAllDifficult?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+      currentWorkSituation?:  {
+        __typename: "WorkingSituation",
+        atOffice?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        hybrid?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remote?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        remoteAndParenting?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        onJobLeave?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        unemployed?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        retired?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        disability?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        student?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        doNotKnow?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+        preferNotToAnswer?:  {
+          __typename: "SummaryResultsByDemo",
+          total?: number | null,
+        } | null,
+      } | null,
+    },
+    totalFullEntries: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type OnCreateMapDataSubscriptionVariables = {
   filter?: ModelSubscriptionMapDataFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnCreateMapDataSubscription = {
@@ -50884,11 +58106,13 @@ export type OnCreateMapDataSubscription = {
     totalFullEntries: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateMapDataSubscriptionVariables = {
   filter?: ModelSubscriptionMapDataFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnUpdateMapDataSubscription = {
@@ -51865,11 +59089,13 @@ export type OnUpdateMapDataSubscription = {
     totalFullEntries: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteMapDataSubscriptionVariables = {
   filter?: ModelSubscriptionMapDataFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnDeleteMapDataSubscription = {
@@ -52846,6 +60072,7 @@ export type OnDeleteMapDataSubscription = {
     totalFullEntries: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 

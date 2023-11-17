@@ -1,19 +1,98 @@
+# type MapAggregated @model @auth(rules: [{ allow: public }]) {
+#   id: ID!
+#   level: String!
+#   @primaryKey(sortKeyFields: ["lat", "long", "aggregationType"])
+#     @index(
+#       name: "byAggregatedLevelAndNameAndState"
+#       sortKeyFields: ["name", "stateAbbrev", "aggregationType"]
+#       queryField: "mapAggregatedDataByLevelNameState"
+#     ) # represents location level e.g. "state" | "county"
+#     @index(
+#       name: "byAggregatedState"
+#       sortKeyFields: ["stateAbbrev", "aggregationType"]
+#       queryField: "mapAggregatedDataByStateAbbrev"
+#     )
+#   name: String!
+#   stateAbbrev: String!
+#   lat: Float!
+#   long: Float!
+#   covidCount: Int!
+#   longCovid: Int! #total long covid
+#   aggregationType: AggregationType!
+#   phq8AboveTen: Int
+#   recoveredCount: Int
+#   selfReportedLongCovid: Int # total self reported (regardless of covid)
+#   longCovidOverFourWeeks: Int # total >4 weeks
+#   longCovidOverTwelveWeeks: Int # >12 weeks
+#   selfReportedPlusCovidLongCovid: Int # Self reported long covid + covid history
+#   topMedicalCondition: String!
+#   covidSummary: CovidSummary
+#   recoverySummary: RecoverySummary
+#   vaccinationSummary: VaccinationSummary!
+#   globalHealthSummary: GlobalHealthSummary!
+#   patientHealthQuestionnaireSummary: PatientHealthQuestionnaireSummary!
+#   symptomSummary: SymptomSummary!
+#   medicalConditionsSummary: MedicalConditionsSummary!
+#   socialSummary: SocialSummary!
+#   totalFullEntries: Int!
+# }
+
+type MapAggregation @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  level: String!
+  name: String!
+  stateAbbrev: String!
+  lat: Float!
+  long: Float!
+  covidCount: Int!
+  longCovid: Int! #total long covid
+  aggregationType: AggregationType!
+  phq8AboveTen: Int
+  recoveredCount: Int
+  selfReportedLongCovid: Int # total self reported (regardless of covid)
+  longCovidOverFourWeeks: Int # total >4 weeks
+  longCovidOverTwelveWeeks: Int # >12 weeks
+  selfReportedPlusCovidLongCovid: Int # Self reported long covid + covid history
+  topMedicalCondition: String!
+  covidSummary: CovidSummary
+  recoverySummary: RecoverySummary
+  vaccinationSummary: VaccinationSummary!
+  globalHealthSummary: GlobalHealthSummary!
+  patientHealthQuestionnaireSummary: PatientHealthQuestionnaireSummary!
+  symptomSummary: SymptomSummary!
+  medicalConditionsSummary: MedicalConditionsSummary!
+  socialSummary: SocialSummary!
+  totalFullEntries: Int!
+}
+
 """
 MapData - Object that will be queried for on map pan/zoom. Will contain summary-level
   information to show within map markers and within panels that we want to display over
   the map markers.
   Access Patterns:
     - Based on the level ("state" | "county") give all map data sorted by latitude and longitude
+
 """
+
+
 type MapData
   @model
+  # @auth(
+  #   rules: [
+  #     # { allow: public, operations: [read] }
+  #     # { allow: private, provider: iam }
+  #     { allow : public }
+  #   ]
+  # ) 
   @auth(
     rules: [
-      # { allow: public, operations: [read] }
       { allow: private, provider: iam }
-      { allow : public }
+      { allow: public, operations: [create, read] }
+      { allow: owner }
     ]
-  ) {
+  )
+  
+  {
   id: ID!
   level: String!
     @primaryKey(sortKeyFields: ["lat", "long", "aggregationType"])

@@ -9,41 +9,54 @@ const {Sha256,
 } = require("@aws-crypto/sha256-js");
 
 const GRAPHQL_ENDPOINT = process.env.API_JHLONGCOVID_GRAPHQLAPIENDPOINTOUTPUT;
-// const GRAPHQL_API_KEY = process.env.API_JHLONGCOVID_GRAPHQLAPIKEYOUTPUT;
+const GRAPHQL_API_KEY = process.env.API_JHLONGCOVID_GRAPHQLAPIKEYOUTPUT;
 const AWS_REGION = process.env.AWS_REGION || "us-east-1";
 
 const makeRequest = async (query, variables) => {
-    const endpoint = new URL(GRAPHQL_ENDPOINT);
-    const signer = new SignatureV4({
-      credentials: defaultProvider(),
-      region: AWS_REGION,
-      service: "appsync",
-      sha256: Sha256,
-    });
+    // const endpoint = new URL(GRAPHQL_ENDPOINT);
+    // const signer = new SignatureV4({
+    //   credentials: defaultProvider(),
+    //   region: AWS_REGION,
+    //   service: "appsync",
+    //   sha256: Sha256,
+    // });
   
-    const requestToBeSigned = new HttpRequest({
-      method: "POST",
+    // const requestToBeSigned = new HttpRequest({
+    //   method: "POST",
+    //   headers: {
+    //     'x-api-key': GRAPHQL_API_KEY,
+    //     "Content-Type": "application/json",
+    //     // host: endpoint.host,
+    //   },
+    //   // hostname: endpoint.host,
+    //   body:
+    //     variables != null
+    //       ? JSON.stringify({ query, variables })
+    //       : JSON.stringify({ query }),
+    //   // path: endpoint.pathname,
+    // });
+
+    const options = {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        host: endpoint.host,
+        'x-api-key': GRAPHQL_API_KEY,
+        'Content-Type': 'application/json'
       },
-      hostname: endpoint.host,
       body:
         variables != null
           ? JSON.stringify({ query, variables })
           : JSON.stringify({ query }),
-      path: endpoint.pathname,
-    });
+    }
   
-    const signed = await signer.sign(requestToBeSigned);
-    const request = new Request(endpoint, signed);
+    // const signed = await signer.sign(requestToBeSigned);
+    const request = new Request(GRAPHQL_ENDPOINT, options);
     return request;
   };
   
   const getMapData = async () => {
     const listMapDataQuery = `
     query MyQuery {
-      listMapData {
+      listMapAggregations {
         items {
           id
           lat
@@ -67,8 +80,8 @@ const makeRequest = async (query, variables) => {
   
   const deleteMapData = async (level, lat, long, aggregationType) => {
     const deleteQuery = `
-    mutation DELETEMAPDATA($input : DeleteMapDataInput!) {
-      deleteMapData(input: $input) {
+    mutation DELETEMAPDATA($input : DeleteMapAggregationInput!) {
+      deleteMapAggregation(input: $input) {
         id
       }
     }
@@ -92,8 +105,8 @@ const makeRequest = async (query, variables) => {
 
     console.log(load);
   
-    while (load.data.listMapData.items.length > 0) {
-      for (const mapData of load.data.listMapData.items) {
+    while (load.data.listMapAggregations.items.length > 0) {
+      for (const mapData of load.data.listMapAggregations.items) {
         await deleteMapData(mapData.level, mapData.lat, mapData.long, mapData.aggregationType);
       }
   
@@ -106,29 +119,48 @@ const makeRequest = async (query, variables) => {
   const getID = async (level, name, stateAbbrev) => {
     let query = null;
     if (level === "county") {
-      query = `
+      query = 
+      // `
+      // query MyQuery {
+      //   mapDataByLevelNameState(
+      //     level: "${level}"
+      //     nameStateAbbrev: {eq: {name: "${name}", stateAbbrev: "${stateAbbrev}"}}
+      //   ) {
+      //     items {
+      //       ${queryString}
+      //     }
+  
+      //   }
+      // }
+      // `;
+      `
       query MyQuery {
-        mapDataByLevelNameState(
-          level: "${level}"
-          nameStateAbbrev: {eq: {name: "${name}", stateAbbrev: "${stateAbbrev}"}}
-        ) {
+        listMapAggregations(filter: {level: {eq: "${level}"}, name: {eq: "${name}"}, stateAbbrev: {eq: "${stateAbbrev}"}}) {
           items {
             ${queryString}
           }
-  
         }
       }
-      `;
+      `
     } else if (level === "state") {
-      query = `
+      query = 
+    //   `
+    // query MyQuery {
+    //   mapDataByStateAbbrev(level: "state", filter: {name: {eq: "${name}"}}) {
+    //     items {
+    //       ${queryString}
+    //     }
+    //   }
+    // }
+    // `;
+    `
     query MyQuery {
-      mapDataByStateAbbrev(level: "state", filter: {name: {eq: "${name}"}}) {
+      listMapAggregations(filter: {level: {eq: "${level}"}, name: {eq: "${name}"}"}}) {
         items {
           ${queryString}
         }
       }
-    }
-    `;
+    }`;
     }
     let request = await makeRequest(query);
   
@@ -153,7 +185,7 @@ const makeRequest = async (query, variables) => {
     if (level === "county") {
       query = `
       query MyQuery {
-        listMapData(filter: {aggregationType: {eq: ${aggregationType}}, level: {eq: "county"}, name: {eq: "${name}"}, stateAbbrev: {eq: "${stateAbbrev}"}}) {
+        listMapAggregations(filter: {aggregationType: {eq: ${aggregationType}}, level: {eq: "county"}, name: {eq: "${name}"}, stateAbbrev: {eq: "${stateAbbrev}"}}) {
           items {
             ${queryString}
           }
@@ -164,7 +196,7 @@ const makeRequest = async (query, variables) => {
     } else if (level === "state") {
       query = `
     query MyQuery {
-      listMapData(filter: {aggregationType: {eq: ${aggregationType}}, level: {eq: "state"}, name: {eq: "${name}"} }) {
+      listMapAggregations(filter: {aggregationType: {eq: ${aggregationType}}, level: {eq: "state"}, name: {eq: "${name}"} }) {
         items {
           ${queryString}
         }
@@ -179,11 +211,8 @@ const makeRequest = async (query, variables) => {
       let load = await response.json();
       console.log(`Fetching MapData for ${level} ${name}...`);
       console.log(load);
-      if (level === "county") {
-        return (load.data.listMapData.items) ? (load.data.listMapData.items) :  null;
-      } else if (level === "state") {
-        // return load.data.mapDataByStateAbbrev.items
-        return (load.data.listMapData.items) ? (load.data.listMapData.items) : null;
+      if (level === "county" || level === "state") {
+        return (load.data.listMapAggregations.items && load.data.listMapAggregations.items.length > 0) ? (load.data.listMapAggregations.items) :  null;
       }
     } catch (error) {
       console.log(`${level} fetch: ` + error.message);
@@ -211,6 +240,7 @@ const makeRequest = async (query, variables) => {
       let requestToBeSigned = new HttpRequest({
         method: "POST",
         headers: {
+          'x-api-key': GRAPHQL_API_KEY,
           "Content-Type": "application/json",
           host: endpoint.host,
         },
@@ -246,6 +276,7 @@ const makeRequest = async (query, variables) => {
     requestToBeSigned = new HttpRequest({
       method: "POST",
       headers: {
+        'x-api-key': GRAPHQL_API_KEY,
         "Content-Type": "application/json",
         host: endpoint.host,
       },

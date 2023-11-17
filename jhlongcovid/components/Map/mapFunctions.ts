@@ -1,6 +1,6 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { listMapData } from "../../src/graphql/queries";
-import { ListMapDataQuery } from "../../src/API";
+import { listMapData, listMapAggregations } from "../../src/graphql/queries";
+import { ListMapDataQuery, ListMapAggregationsQuery } from "../../src/API";
 import { RealOrMock } from "../../pages";
 /**
  * Calculates the amount of pixels needed to offset the pan from the center. On
@@ -67,16 +67,16 @@ export const calculatePanelOffset = (map: google.maps.Map): number => {
 
 export const getAllMapData = async (nextToken: string | null): Promise<any> => {
   const result = (await API.graphql({
-    query: listMapData,
+    query: listMapAggregations,
     variables: { limit: 1000, nextToken },
     authMode: "API_KEY",
-  })) as { data?: ListMapDataQuery; errors: any[] };
+  })) as { data?: ListMapAggregationsQuery; errors: any[] };
 
-  if (result.data && result.data !== null && result.data.listMapData) {
-    let mapData = result.data.listMapData.items;
-    if (result.data.listMapData.nextToken) {
+  if (result.data && result.data !== null && result.data.listMapAggregations) {
+    let mapData = result.data.listMapAggregations.items;
+    if (result.data.listMapAggregations.nextToken) {
       return mapData.concat(
-        await getAllMapData(result.data.listMapData.nextToken)
+        await getAllMapData(result.data.listMapAggregations.nextToken)
       );
     } else {
       return mapData;
@@ -155,8 +155,8 @@ export const markerHoverColor = (type: "totalCovid" | "totalLongCovid") => {
 };
 
 export const onUpdateMapDataCust = /* GraphQL */ `
-  subscription OnUpdateMapData($filter: ModelSubscriptionMapDataFilterInput) {
-    onUpdateMapData(filter: $filter) {
+  subscription OnUpdateMapAggregation($filter: ModelSubscriptionMapAggregationFilterInput) {
+    onUpdateMapAggregation(filter: $filter) {
       id
       level
       name
@@ -178,8 +178,8 @@ export const onUpdateMapDataCust = /* GraphQL */ `
 `;
 
 export const onCreateMapDataCust = /* GraphQL */ `
-  subscription OnCreateMapData($filter: ModelSubscriptionMapDataFilterInput) {
-    onCreateMapData(filter: $filter) {
+  subscription OnCreateMapAggregation($filter: ModelSubscriptionMapAggregationFilterInput) {
+    onCreateMapAggregation(filter: $filter) {
       id
       level
       name
