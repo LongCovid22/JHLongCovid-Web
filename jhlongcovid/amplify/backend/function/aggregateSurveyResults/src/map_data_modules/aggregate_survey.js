@@ -72,7 +72,7 @@ const aggregateSurveyResults = async (eventInput, aggregationType) => {
   }
 
   //after creation if county/state does not exist, county/state is guranteed to have base data
-  if ((!county && eventInput.location.county !== "") || (!state && eventInput.location.state !== "")) {
+  if ((!county && location.county !== "") || (!state && location.state !== "")) {
     ({ county, state } = await getStateAndCountyInfoByAggregation(eventInput, aggregationType));
   }
 
