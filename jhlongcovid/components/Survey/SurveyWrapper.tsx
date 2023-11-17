@@ -450,6 +450,28 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
             isClosable: true,
             position: "top-right",
           });
+
+          // if (process.env.PROD_ENVIRONMENT) {
+          try {
+            // TODO: Check email lambda for height parsing
+            await sendEmailResult(
+              questions,
+              questionStack,
+              answerStack,
+              userInfo.email
+            );
+          } catch (error) {
+            // console.log("Error sending email receipt: ", error);
+            toast({
+              title: "Error sending email receipt!",
+              description: `${error}`,
+              status: "error",
+              duration: 3000,
+              isClosable: true,
+              position: "top-right",
+            });
+          }
+      // }
         } catch (error) {
           // console.log("Error aggregating survey results", error);
           toast({
@@ -462,19 +484,7 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           });
         }
       }
-      // if (process.env.PROD_ENVIRONMENT) {
-        try {
-          // TODO: Check email lambda for height parsing
-          await sendEmailResult(
-            questions,
-            questionStack,
-            answerStack,
-            userInfo.email
-          );
-        } catch (error) {
-          // console.log("Error sending email receipt: ", error);
-        }
-      // }
+      
     }
 
     onClose();
