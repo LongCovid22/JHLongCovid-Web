@@ -56,7 +56,7 @@ let variables = {
       long: -54.345353535635,
       covidCount: 0,
       longCovid: 0,
-      aggregationType: "",
+      aggregationType: "LONG",
       phq8AboveTen: 0,
       recoveredCount: 0,
       selfReportedLongCovid: 0,
