@@ -91,38 +91,14 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
   const [totalSymptomsCount, setTotalSymptomsCount] = useState(0);
   const [totalEntries, setTotalEntries] = useState(0);
 
-  const [mostCommonSymptoms, setMostCommonSymptoms] = useState([]);
+  const [mostCommonSymptoms, setMostCommonSymptoms] = useState<string[]>([]);
   const [mostCommonSymptom, setMostCommonSymptom] = useState("");
   const [symptomCountConfig, setSymptomCountConfig] = useState<{
     labels: string[];
     options: any;
     data: any;
   }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [qualityOfLife, setQOLConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [mentalHealthRank, setMentalHealthConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [socialSatisfactionRank, setSocialSatisConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [carryOutSocial, setCarryOutSocialConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
-  const [anxiety, setAnxietyConfig] = useState<{
-    labels: string[];
-    options: any;
-    data: any;
-  }>({ labels: [], options: {}, data: { labels: [], datasets: [] } });
+  
   const width = useAppSelector(selectWidth);
 
   const explanation = 'Participants are queried on potential COVID-19 symptoms like fever and cough, then separately asked about experiencing any of 26 general symptoms, including headaches and brain fogs, in the survey\'s Global Health Symptom Check section.'
@@ -177,9 +153,7 @@ export const SymptomsTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
     const symptoms = getKMostCommonSymptoms(summary.symptomCounts, 3);
 
-    if (typeof symptoms === "string") {
-      setMostCommonSymptoms(symptoms);
-    }
+    setMostCommonSymptoms(symptoms);
     setSymptomCountConfig(createSymptomCountConfig(summary.symptomCounts));
 
 
