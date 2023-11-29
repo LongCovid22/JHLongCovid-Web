@@ -8,6 +8,1566 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const getMapAggregationNew = /* GraphQL */ `query GetMapAggregationNew(
+  $level: String!
+  $lat: Float!
+  $long: Float!
+  $aggregationType: AggregationType!
+) {
+  getMapAggregationNew(
+    level: $level
+    lat: $lat
+    long: $long
+    aggregationType: $aggregationType
+  ) {
+    id
+    level
+    name
+    stateAbbrev
+    lat
+    long
+    covidCount
+    longCovid
+    aggregationType
+    phq8AboveTen
+    recoveredCount
+    selfReportedLongCovid
+    longCovidOverFourWeeks
+    longCovidOverTwelveWeeks
+    selfReportedPlusCovidLongCovid
+    topMedicalCondition
+    covidSummary {
+      beenInfected {
+        yes {
+          total
+          __typename
+        }
+        no {
+          total
+          __typename
+        }
+        __typename
+      }
+      timesPositive {
+        one {
+          total
+          __typename
+        }
+        two {
+          total
+          __typename
+        }
+        three {
+          total
+          __typename
+        }
+        threePlus {
+          total
+          __typename
+        }
+        doNotKnow {
+          total
+          __typename
+        }
+        __typename
+      }
+      tested {
+        yes {
+          total
+          __typename
+        }
+        no {
+          total
+          __typename
+        }
+        __typename
+      }
+      positiveTest {
+        yes {
+          total
+          __typename
+        }
+        no {
+          total
+          __typename
+        }
+        doNotKnow {
+          total
+          __typename
+        }
+        __typename
+      }
+      symptomatic {
+        yes {
+          total
+          __typename
+        }
+        no {
+          total
+          __typename
+        }
+        __typename
+      }
+      symptomsPreventScale {
+        notAtAll {
+          total
+          __typename
+        }
+        alittleBit {
+          total
+          __typename
+        }
+        somewhat {
+          total
+          __typename
+        }
+        quiteABit {
+          total
+          __typename
+        }
+        veryMuch {
+          total
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    recoverySummary {
+      hospitalized {
+        yes {
+          total
+          __typename
+        }
+        no {
+          total
+          __typename
+        }
+        __typename
+      }
+      timesHospitalized {
+        one {
+          total
+          __typename
+        }
+        two {
+          total
+          __typename
+        }
+        three {
+          total
+          __typename
+        }
+        threePlus {
+          total
+          __typename
+        }
+        doNotKnow {
+          total
+          __typename
+        }
+        __typename
+      }
+      medicationsPrescribed {
+        yes {
+          total
+          __typename
+        }
+        no {
+          total
+          __typename
+        }
+        doNotKnow {
+          total
+          __typename
+        }
+        __typename
+      }
+      medicationsTakenCount {
+        antiViral {
+          total
+          __typename
+        }
+        oralSteroids {
+          total
+          __typename
+        }
+        antiBiotics {
+          total
+          __typename
+        }
+        other {
+          total
+          __typename
+        }
+        doNotKnow {
+          total
+          __typename
+        }
+        __typename
+      }
+      recovered {
+        yes {
+          total
+          __typename
+        }
+        no {
+          total
+          __typename
+        }
+        __typename
+      }
+      avglengthOfRecovery {
+        race {
+          ranges
+          __typename
+        }
+        sex {
+          ranges
+          __typename
+        }
+        age {
+          ranges
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    vaccinationSummary {
+      vaccinated {
+        yes {
+          total
+          __typename
+        }
+        no {
+          total
+          __typename
+        }
+        doNotKnow {
+          total
+          __typename
+        }
+        __typename
+      }
+      totalVaccineShots {
+        one {
+          total
+          __typename
+        }
+        two {
+          total
+          __typename
+        }
+        three {
+          total
+          __typename
+        }
+        four {
+          total
+          __typename
+        }
+        five {
+          total
+          __typename
+        }
+        fivePlus {
+          total
+          __typename
+        }
+        doNotKnow {
+          total
+          __typename
+        }
+        __typename
+      }
+      vaccineType {
+        pfizer {
+          total
+          __typename
+        }
+        moderna {
+          total
+          __typename
+        }
+        janssen {
+          total
+          __typename
+        }
+        novavax {
+          total
+          __typename
+        }
+        other {
+          total
+          __typename
+        }
+        doNotKnow {
+          total
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    globalHealthSummary {
+      healthRank {
+        excellent {
+          total
+          __typename
+        }
+        veryGood {
+          total
+          __typename
+        }
+        good {
+          total
+          __typename
+        }
+        fair {
+          total
+          __typename
+        }
+        poor {
+          total
+          __typename
+        }
+        __typename
+      }
+      physicalHealthRank {
+        excellent {
+          total
+          __typename
+        }
+        veryGood {
+          total
+          __typename
+        }
+        good {
+          total
+          __typename
+        }
+        fair {
+          total
+          __typename
+        }
+        poor {
+          total
+          __typename
+        }
+        __typename
+      }
+      carryPhysicalActivities {
+        completely {
+          total
+          __typename
+        }
+        mostly {
+          total
+          __typename
+        }
+        moderately {
+          total
+          __typename
+        }
+        aLittle {
+          total
+          __typename
+        }
+        notAtAll {
+          total
+          __typename
+        }
+        __typename
+      }
+      fatigueRank {
+        none {
+          total
+          __typename
+        }
+        mild {
+          total
+          __typename
+        }
+        moderate {
+          total
+          __typename
+        }
+        severe {
+          total
+          __typename
+        }
+        verySevere {
+          total
+          __typename
+        }
+        __typename
+      }
+      avgpainLevel {
+        race {
+          ranges
+          __typename
+        }
+        sex {
+          ranges
+          __typename
+        }
+        age {
+          ranges
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    patientHealthQuestionnaireSummary {
+      littleInterestThings {
+        notAtAll {
+          total
+          __typename
+        }
+        severalDays {
+          total
+          __typename
+        }
+        moreThanHalfTheDays {
+          total
+          __typename
+        }
+        nearlyEveryDay {
+          total
+          __typename
+        }
+        __typename
+      }
+      downDepressedHopeless {
+        notAtAll {
+          total
+          __typename
+        }
+        severalDays {
+          total
+          __typename
+        }
+        moreThanHalfTheDays {
+          total
+          __typename
+        }
+        nearlyEveryDay {
+          total
+          __typename
+        }
+        __typename
+      }
+      sleepProblems {
+        notAtAll {
+          total
+          __typename
+        }
+        severalDays {
+          total
+          __typename
+        }
+        moreThanHalfTheDays {
+          total
+          __typename
+        }
+        nearlyEveryDay {
+          total
+          __typename
+        }
+        __typename
+      }
+      tiredNoEnergy {
+        notAtAll {
+          total
+          __typename
+        }
+        severalDays {
+          total
+          __typename
+        }
+        moreThanHalfTheDays {
+          total
+          __typename
+        }
+        nearlyEveryDay {
+          total
+          __typename
+        }
+        __typename
+      }
+      dietProblems {
+        notAtAll {
+          total
+          __typename
+        }
+        severalDays {
+          total
+          __typename
+        }
+        moreThanHalfTheDays {
+          total
+          __typename
+        }
+        nearlyEveryDay {
+          total
+          __typename
+        }
+        __typename
+      }
+      badAboutSelf {
+        notAtAll {
+          total
+          __typename
+        }
+        severalDays {
+          total
+          __typename
+        }
+        moreThanHalfTheDays {
+          total
+          __typename
+        }
+        nearlyEveryDay {
+          total
+          __typename
+        }
+        __typename
+      }
+      concentrationProblems {
+        notAtAll {
+          total
+          __typename
+        }
+        severalDays {
+          total
+          __typename
+        }
+        moreThanHalfTheDays {
+          total
+          __typename
+        }
+        nearlyEveryDay {
+          total
+          __typename
+        }
+        __typename
+      }
+      slowOrRestless {
+        notAtAll {
+          total
+          __typename
+        }
+        severalDays {
+          total
+          __typename
+        }
+        moreThanHalfTheDays {
+          total
+          __typename
+        }
+        nearlyEveryDay {
+          total
+          __typename
+        }
+        __typename
+      }
+      avgPHQScore {
+        race {
+          ranges
+          __typename
+        }
+        sex {
+          ranges
+          __typename
+        }
+        age {
+          ranges
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    symptomSummary {
+      symptomCounts {
+        headache {
+          total
+          __typename
+        }
+        bodyMuscleAche {
+          total
+          __typename
+        }
+        feverChillsSweatsFlushing {
+          total
+          __typename
+        }
+        faintDizzyGoofy {
+          total
+          __typename
+        }
+        postExertionalMalaise {
+          total
+          __typename
+        }
+        weaknessInArmsLegs {
+          total
+          __typename
+        }
+        shortnessOfBreath {
+          total
+          __typename
+        }
+        cough {
+          total
+          __typename
+        }
+        palpitations {
+          total
+          __typename
+        }
+        swellingOfLegs {
+          total
+          __typename
+        }
+        indigestionNausea {
+          total
+          __typename
+        }
+        bladderProblem {
+          total
+          __typename
+        }
+        nerveProblems {
+          total
+          __typename
+        }
+        brainFog {
+          total
+          __typename
+        }
+        anxietyDepressionNightmares {
+          total
+          __typename
+        }
+        difficultyFallingAsleep {
+          total
+          __typename
+        }
+        sleepyDuringDaytime {
+          total
+          __typename
+        }
+        loudSnoring {
+          total
+          __typename
+        }
+        uncomfortableFeelingsInLegs {
+          total
+          __typename
+        }
+        skinRash {
+          total
+          __typename
+        }
+        lossOfChangeInSmell {
+          total
+          __typename
+        }
+        excessiveThirst {
+          total
+          __typename
+        }
+        excessiveDryMouth {
+          total
+          __typename
+        }
+        visionProblems {
+          total
+          __typename
+        }
+        hearingProblems {
+          total
+          __typename
+        }
+        fertilityProblemsForWomen {
+          total
+          __typename
+        }
+        __typename
+      }
+      qualityOfLife {
+        excellent {
+          total
+          __typename
+        }
+        veryGood {
+          total
+          __typename
+        }
+        good {
+          total
+          __typename
+        }
+        fair {
+          total
+          __typename
+        }
+        poor {
+          total
+          __typename
+        }
+        __typename
+      }
+      mentalHealthRank {
+        excellent {
+          total
+          __typename
+        }
+        veryGood {
+          total
+          __typename
+        }
+        good {
+          total
+          __typename
+        }
+        fair {
+          total
+          __typename
+        }
+        poor {
+          total
+          __typename
+        }
+        __typename
+      }
+      socialSatisfactionRank {
+        excellent {
+          total
+          __typename
+        }
+        veryGood {
+          total
+          __typename
+        }
+        good {
+          total
+          __typename
+        }
+        fair {
+          total
+          __typename
+        }
+        poor {
+          total
+          __typename
+        }
+        __typename
+      }
+      carryOutSocialActivitiesRank {
+        excellent {
+          total
+          __typename
+        }
+        veryGood {
+          total
+          __typename
+        }
+        good {
+          total
+          __typename
+        }
+        fair {
+          total
+          __typename
+        }
+        poor {
+          total
+          __typename
+        }
+        __typename
+      }
+      anxietyInPastWeekRank {
+        never {
+          total
+          __typename
+        }
+        rarely {
+          total
+          __typename
+        }
+        sometimes {
+          total
+          __typename
+        }
+        often {
+          total
+          __typename
+        }
+        always {
+          total
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    medicalConditionsSummary {
+      longCovid {
+        yes {
+          total
+          __typename
+        }
+        no {
+          total
+          __typename
+        }
+        doNotKnow {
+          total
+          __typename
+        }
+        __typename
+      }
+      newDiagnosisCounts {
+        noNewDiagnosis {
+          total
+          __typename
+        }
+        heartProblems {
+          total
+          __typename
+        }
+        lungProblems {
+          total
+          __typename
+        }
+        bloodClotLung {
+          total
+          __typename
+        }
+        sleepApnea {
+          total
+          __typename
+        }
+        memory {
+          total
+          __typename
+        }
+        migraine {
+          total
+          __typename
+        }
+        stroke {
+          total
+          __typename
+        }
+        seizure {
+          total
+          __typename
+        }
+        kidneyProblems {
+          total
+          __typename
+        }
+        stomachProblems {
+          total
+          __typename
+        }
+        psychologicalProblems {
+          total
+          __typename
+        }
+        diabetes {
+          total
+          __typename
+        }
+        autoImmuneDiseases {
+          total
+          __typename
+        }
+        mecfs {
+          total
+          __typename
+        }
+        other {
+          total
+          __typename
+        }
+        notSure {
+          total
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    socialSummary {
+      hasMedicalInsurance {
+        yes {
+          total
+          __typename
+        }
+        no {
+          total
+          __typename
+        }
+        __typename
+      }
+      difficultCoveringExpenses {
+        veryDifficult {
+          total
+          __typename
+        }
+        somewhatDifficult {
+          total
+          __typename
+        }
+        notAtAllDifficult {
+          total
+          __typename
+        }
+        doNotKnow {
+          total
+          __typename
+        }
+        preferNotToAnswer {
+          total
+          __typename
+        }
+        __typename
+      }
+      currentWorkSituation {
+        atOffice {
+          total
+          __typename
+        }
+        hybrid {
+          total
+          __typename
+        }
+        remote {
+          total
+          __typename
+        }
+        remoteAndParenting {
+          total
+          __typename
+        }
+        onJobLeave {
+          total
+          __typename
+        }
+        unemployed {
+          total
+          __typename
+        }
+        retired {
+          total
+          __typename
+        }
+        disability {
+          total
+          __typename
+        }
+        student {
+          total
+          __typename
+        }
+        doNotKnow {
+          total
+          __typename
+        }
+        preferNotToAnswer {
+          total
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    totalFullEntries
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetMapAggregationNewQueryVariables,
+  APITypes.GetMapAggregationNewQuery
+>;
+export const listMapAggregationNews = /* GraphQL */ `query ListMapAggregationNews(
+  $level: String
+  $latLongAggregationType: ModelMapAggregationNewPrimaryCompositeKeyConditionInput
+  $filter: ModelMapAggregationNewFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listMapAggregationNews(
+    level: $level
+    latLongAggregationType: $latLongAggregationType
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      level
+      name
+      stateAbbrev
+      lat
+      long
+      covidCount
+      longCovid
+      aggregationType
+      phq8AboveTen
+      recoveredCount
+      selfReportedLongCovid
+      longCovidOverFourWeeks
+      longCovidOverTwelveWeeks
+      selfReportedPlusCovidLongCovid
+      topMedicalCondition
+      covidSummary {
+        beenInfected {
+          __typename
+        }
+        timesPositive {
+          __typename
+        }
+        tested {
+          __typename
+        }
+        positiveTest {
+          __typename
+        }
+        symptomatic {
+          __typename
+        }
+        symptomsPreventScale {
+          __typename
+        }
+        __typename
+      }
+      recoverySummary {
+        hospitalized {
+          __typename
+        }
+        timesHospitalized {
+          __typename
+        }
+        medicationsPrescribed {
+          __typename
+        }
+        medicationsTakenCount {
+          __typename
+        }
+        recovered {
+          __typename
+        }
+        avglengthOfRecovery {
+          __typename
+        }
+        __typename
+      }
+      vaccinationSummary {
+        vaccinated {
+          __typename
+        }
+        totalVaccineShots {
+          __typename
+        }
+        vaccineType {
+          __typename
+        }
+        __typename
+      }
+      globalHealthSummary {
+        healthRank {
+          __typename
+        }
+        physicalHealthRank {
+          __typename
+        }
+        carryPhysicalActivities {
+          __typename
+        }
+        fatigueRank {
+          __typename
+        }
+        avgpainLevel {
+          __typename
+        }
+        __typename
+      }
+      patientHealthQuestionnaireSummary {
+        littleInterestThings {
+          __typename
+        }
+        downDepressedHopeless {
+          __typename
+        }
+        sleepProblems {
+          __typename
+        }
+        tiredNoEnergy {
+          __typename
+        }
+        dietProblems {
+          __typename
+        }
+        badAboutSelf {
+          __typename
+        }
+        concentrationProblems {
+          __typename
+        }
+        slowOrRestless {
+          __typename
+        }
+        avgPHQScore {
+          __typename
+        }
+        __typename
+      }
+      symptomSummary {
+        symptomCounts {
+          __typename
+        }
+        qualityOfLife {
+          __typename
+        }
+        mentalHealthRank {
+          __typename
+        }
+        socialSatisfactionRank {
+          __typename
+        }
+        carryOutSocialActivitiesRank {
+          __typename
+        }
+        anxietyInPastWeekRank {
+          __typename
+        }
+        __typename
+      }
+      medicalConditionsSummary {
+        longCovid {
+          __typename
+        }
+        newDiagnosisCounts {
+          __typename
+        }
+        __typename
+      }
+      socialSummary {
+        hasMedicalInsurance {
+          __typename
+        }
+        difficultCoveringExpenses {
+          __typename
+        }
+        currentWorkSituation {
+          __typename
+        }
+        __typename
+      }
+      totalFullEntries
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListMapAggregationNewsQueryVariables,
+  APITypes.ListMapAggregationNewsQuery
+>;
+export const mapDataAggregationByLevelNameState = /* GraphQL */ `query MapDataAggregationByLevelNameState(
+  $level: String!
+  $nameStateAbbrevAggregationType: ModelMapAggregationNewMapAggregationbyLevelAndNameAndStateCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelMapAggregationNewFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  mapDataAggregationByLevelNameState(
+    level: $level
+    nameStateAbbrevAggregationType: $nameStateAbbrevAggregationType
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      level
+      name
+      stateAbbrev
+      lat
+      long
+      covidCount
+      longCovid
+      aggregationType
+      phq8AboveTen
+      recoveredCount
+      selfReportedLongCovid
+      longCovidOverFourWeeks
+      longCovidOverTwelveWeeks
+      selfReportedPlusCovidLongCovid
+      topMedicalCondition
+      covidSummary {
+        beenInfected {
+          __typename
+        }
+        timesPositive {
+          __typename
+        }
+        tested {
+          __typename
+        }
+        positiveTest {
+          __typename
+        }
+        symptomatic {
+          __typename
+        }
+        symptomsPreventScale {
+          __typename
+        }
+        __typename
+      }
+      recoverySummary {
+        hospitalized {
+          __typename
+        }
+        timesHospitalized {
+          __typename
+        }
+        medicationsPrescribed {
+          __typename
+        }
+        medicationsTakenCount {
+          __typename
+        }
+        recovered {
+          __typename
+        }
+        avglengthOfRecovery {
+          __typename
+        }
+        __typename
+      }
+      vaccinationSummary {
+        vaccinated {
+          __typename
+        }
+        totalVaccineShots {
+          __typename
+        }
+        vaccineType {
+          __typename
+        }
+        __typename
+      }
+      globalHealthSummary {
+        healthRank {
+          __typename
+        }
+        physicalHealthRank {
+          __typename
+        }
+        carryPhysicalActivities {
+          __typename
+        }
+        fatigueRank {
+          __typename
+        }
+        avgpainLevel {
+          __typename
+        }
+        __typename
+      }
+      patientHealthQuestionnaireSummary {
+        littleInterestThings {
+          __typename
+        }
+        downDepressedHopeless {
+          __typename
+        }
+        sleepProblems {
+          __typename
+        }
+        tiredNoEnergy {
+          __typename
+        }
+        dietProblems {
+          __typename
+        }
+        badAboutSelf {
+          __typename
+        }
+        concentrationProblems {
+          __typename
+        }
+        slowOrRestless {
+          __typename
+        }
+        avgPHQScore {
+          __typename
+        }
+        __typename
+      }
+      symptomSummary {
+        symptomCounts {
+          __typename
+        }
+        qualityOfLife {
+          __typename
+        }
+        mentalHealthRank {
+          __typename
+        }
+        socialSatisfactionRank {
+          __typename
+        }
+        carryOutSocialActivitiesRank {
+          __typename
+        }
+        anxietyInPastWeekRank {
+          __typename
+        }
+        __typename
+      }
+      medicalConditionsSummary {
+        longCovid {
+          __typename
+        }
+        newDiagnosisCounts {
+          __typename
+        }
+        __typename
+      }
+      socialSummary {
+        hasMedicalInsurance {
+          __typename
+        }
+        difficultCoveringExpenses {
+          __typename
+        }
+        currentWorkSituation {
+          __typename
+        }
+        __typename
+      }
+      totalFullEntries
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.MapDataAggregationByLevelNameStateQueryVariables,
+  APITypes.MapDataAggregationByLevelNameStateQuery
+>;
+export const mapDataAggregationByStateAbbrev = /* GraphQL */ `query MapDataAggregationByStateAbbrev(
+  $level: String!
+  $stateAbbrevAggregationType: ModelMapAggregationNewMapAggregationbyStateCompositeKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelMapAggregationNewFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  mapDataAggregationByStateAbbrev(
+    level: $level
+    stateAbbrevAggregationType: $stateAbbrevAggregationType
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      level
+      name
+      stateAbbrev
+      lat
+      long
+      covidCount
+      longCovid
+      aggregationType
+      phq8AboveTen
+      recoveredCount
+      selfReportedLongCovid
+      longCovidOverFourWeeks
+      longCovidOverTwelveWeeks
+      selfReportedPlusCovidLongCovid
+      topMedicalCondition
+      covidSummary {
+        beenInfected {
+          __typename
+        }
+        timesPositive {
+          __typename
+        }
+        tested {
+          __typename
+        }
+        positiveTest {
+          __typename
+        }
+        symptomatic {
+          __typename
+        }
+        symptomsPreventScale {
+          __typename
+        }
+        __typename
+      }
+      recoverySummary {
+        hospitalized {
+          __typename
+        }
+        timesHospitalized {
+          __typename
+        }
+        medicationsPrescribed {
+          __typename
+        }
+        medicationsTakenCount {
+          __typename
+        }
+        recovered {
+          __typename
+        }
+        avglengthOfRecovery {
+          __typename
+        }
+        __typename
+      }
+      vaccinationSummary {
+        vaccinated {
+          __typename
+        }
+        totalVaccineShots {
+          __typename
+        }
+        vaccineType {
+          __typename
+        }
+        __typename
+      }
+      globalHealthSummary {
+        healthRank {
+          __typename
+        }
+        physicalHealthRank {
+          __typename
+        }
+        carryPhysicalActivities {
+          __typename
+        }
+        fatigueRank {
+          __typename
+        }
+        avgpainLevel {
+          __typename
+        }
+        __typename
+      }
+      patientHealthQuestionnaireSummary {
+        littleInterestThings {
+          __typename
+        }
+        downDepressedHopeless {
+          __typename
+        }
+        sleepProblems {
+          __typename
+        }
+        tiredNoEnergy {
+          __typename
+        }
+        dietProblems {
+          __typename
+        }
+        badAboutSelf {
+          __typename
+        }
+        concentrationProblems {
+          __typename
+        }
+        slowOrRestless {
+          __typename
+        }
+        avgPHQScore {
+          __typename
+        }
+        __typename
+      }
+      symptomSummary {
+        symptomCounts {
+          __typename
+        }
+        qualityOfLife {
+          __typename
+        }
+        mentalHealthRank {
+          __typename
+        }
+        socialSatisfactionRank {
+          __typename
+        }
+        carryOutSocialActivitiesRank {
+          __typename
+        }
+        anxietyInPastWeekRank {
+          __typename
+        }
+        __typename
+      }
+      medicalConditionsSummary {
+        longCovid {
+          __typename
+        }
+        newDiagnosisCounts {
+          __typename
+        }
+        __typename
+      }
+      socialSummary {
+        hasMedicalInsurance {
+          __typename
+        }
+        difficultCoveringExpenses {
+          __typename
+        }
+        currentWorkSituation {
+          __typename
+        }
+        __typename
+      }
+      totalFullEntries
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.MapDataAggregationByStateAbbrevQueryVariables,
+  APITypes.MapDataAggregationByStateAbbrevQuery
+>;
 export const getMapAggregation = /* GraphQL */ `query GetMapAggregation($id: ID!) {
   getMapAggregation(id: $id) {
     id
@@ -2151,7 +3711,6 @@ export const getMapData = /* GraphQL */ `query GetMapData(
     totalFullEntries
     createdAt
     updatedAt
-    owner
     __typename
   }
 }
@@ -2339,7 +3898,6 @@ export const listMapData = /* GraphQL */ `query ListMapData(
       totalFullEntries
       createdAt
       updatedAt
-      owner
       __typename
     }
     nextToken
@@ -2530,7 +4088,6 @@ export const mapDataByLevelNameState = /* GraphQL */ `query MapDataByLevelNameSt
       totalFullEntries
       createdAt
       updatedAt
-      owner
       __typename
     }
     nextToken
@@ -2721,7 +4278,6 @@ export const mapDataByStateAbbrev = /* GraphQL */ `query MapDataByStateAbbrev(
       totalFullEntries
       createdAt
       updatedAt
-      owner
       __typename
     }
     nextToken
