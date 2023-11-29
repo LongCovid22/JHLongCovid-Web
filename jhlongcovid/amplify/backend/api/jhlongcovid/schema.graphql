@@ -1,41 +1,41 @@
-# type MapAggregated @model @auth(rules: [{ allow: public }]) {
-#   id: ID!
-#   level: String!
-#   @primaryKey(sortKeyFields: ["lat", "long", "aggregationType"])
-#     @index(
-#       name: "byAggregatedLevelAndNameAndState"
-#       sortKeyFields: ["name", "stateAbbrev", "aggregationType"]
-#       queryField: "mapAggregatedDataByLevelNameState"
-#     ) # represents location level e.g. "state" | "county"
-#     @index(
-#       name: "byAggregatedState"
-#       sortKeyFields: ["stateAbbrev", "aggregationType"]
-#       queryField: "mapAggregatedDataByStateAbbrev"
-#     )
-#   name: String!
-#   stateAbbrev: String!
-#   lat: Float!
-#   long: Float!
-#   covidCount: Int!
-#   longCovid: Int! #total long covid
-#   aggregationType: AggregationType!
-#   phq8AboveTen: Int
-#   recoveredCount: Int
-#   selfReportedLongCovid: Int # total self reported (regardless of covid)
-#   longCovidOverFourWeeks: Int # total >4 weeks
-#   longCovidOverTwelveWeeks: Int # >12 weeks
-#   selfReportedPlusCovidLongCovid: Int # Self reported long covid + covid history
-#   topMedicalCondition: String!
-#   covidSummary: CovidSummary
-#   recoverySummary: RecoverySummary
-#   vaccinationSummary: VaccinationSummary!
-#   globalHealthSummary: GlobalHealthSummary!
-#   patientHealthQuestionnaireSummary: PatientHealthQuestionnaireSummary!
-#   symptomSummary: SymptomSummary!
-#   medicalConditionsSummary: MedicalConditionsSummary!
-#   socialSummary: SocialSummary!
-#   totalFullEntries: Int!
-# }
+type MapAggregationNew @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  level: String!
+  @primaryKey(sortKeyFields: ["lat", "long", "aggregationType"])
+    @index(
+      name: "MapAggregationbyLevelAndNameAndState"
+      sortKeyFields: ["name", "stateAbbrev", "aggregationType"]
+      queryField: "mapDataAggregationByLevelNameState"
+    ) # represents location level e.g. "state" | "county"
+    @index(
+      name: "MapAggregationbyState"
+      sortKeyFields: ["stateAbbrev", "aggregationType"]
+      queryField: "mapDataAggregationByStateAbbrev"
+    )
+  name: String!
+  stateAbbrev: String!
+  lat: Float!
+  long: Float!
+  covidCount: Int!
+  longCovid: Int! #total long covid
+  aggregationType: AggregationType!
+  phq8AboveTen: Int
+  recoveredCount: Int
+  selfReportedLongCovid: Int # total self reported (regardless of covid)
+  longCovidOverFourWeeks: Int # total >4 weeks
+  longCovidOverTwelveWeeks: Int # >12 weeks
+  selfReportedPlusCovidLongCovid: Int # Self reported long covid + covid history
+  topMedicalCondition: String!
+  covidSummary: CovidSummary
+  recoverySummary: RecoverySummary
+  vaccinationSummary: VaccinationSummary!
+  globalHealthSummary: GlobalHealthSummary!
+  patientHealthQuestionnaireSummary: PatientHealthQuestionnaireSummary!
+  symptomSummary: SymptomSummary!
+  medicalConditionsSummary: MedicalConditionsSummary!
+  socialSummary: SocialSummary!
+  totalFullEntries: Int!
+}
 
 type MapAggregation @model @auth(rules: [{ allow: public }]) {
   id: ID!
@@ -86,9 +86,10 @@ type MapData
   # ) 
   @auth(
     rules: [
-      { allow: private, provider: iam }
-      { allow: public, operations: [create, read] }
-      { allow: owner }
+      # { allow: private, provider: iam }
+      # { allow: public, operations: [create, read] }
+      # { allow: owner }
+      {allow: public}
     ]
   )
   

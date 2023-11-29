@@ -1,6 +1,6 @@
 import { SummaryDemos } from "./answerTypes";
 import { API } from "aws-amplify";
-import { GetMapDataQuery, ListMapAggregationsQuery } from "../../../src/API";
+import { GetMapDataQuery, ListMapAggregationsQuery, GetMapAggregationNewQuery } from "../../../src/API";
 import { countySocialDetEntryByAge } from "../../../src/graphql/queries";
 
 import { properties} from "./queryVariables";
@@ -248,35 +248,25 @@ type AggregationType = "LONG" | "TOTAL"
 
 export const getSummariesWithType = async (data: any, type: AggregationType) => {
   const { level, lat, long } = data;
-
-  let query =  `
-  query MyQuery {
-    listMapAggregations(filter: {aggregationType: {eq: ${type}}, level: {eq: "${level}"}, lat: {eq: ${lat}}, long: {eq: ${long}} }) {
-      items {
+  const getSummariesQuery = `
+    query GET_SUMMARIES($level: String!, $lat: Float!, $long: Float!) {
+      getMapAggregationNew(aggregationType: ${type}, level: $level, lat: $lat, long: $long) {
         ${properties}
       }
     }
-  }
   `;
-  // const getSummariesQuery = `
-  //   query GET_SUMMARIES($level: String!, $lat: Float!, $long: Float!) {
-  //     getMapData(aggregationType: ${type}, level: $level, lat: $lat, long: $long) {
-  //       ${properties}
-  //     }
-  //   }
-  // `;
 
   try {
     const covidSummary = (await API.graphql({
-      query: query,
+      query: getSummariesQuery,
       variables: { level: level, lat: lat, long: long },
       authMode: "API_KEY",
-    })) as { data?: ListMapAggregationsQuery; errors: any[] };
-    if (covidSummary.data?.listMapAggregations) {
-      return covidSummary.data.listMapAggregations.items[0];
+    })) as { data?: GetMapAggregationNewQuery; errors: any[] };
+    if (covidSummary.data?.getMapAggregationNew) {
+      return covidSummary.data.getMapAggregationNew;
     }
   } catch (error) {
-    // console.log("error getting covid summary: ", error);
+    console.log("error getting covid summary: ", error);
   }
 }
 

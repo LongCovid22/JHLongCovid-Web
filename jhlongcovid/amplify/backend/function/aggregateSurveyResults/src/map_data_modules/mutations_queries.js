@@ -84,8 +84,8 @@ let properties = `
 
 const updateQuery =
   `
-  mutation UPDATE_MAP_DATA($input: UpdateMapAggregationInput!) {
-    updateMapAggregation(input: $input) {
+  mutation UPDATE_MAP_DATA($input: UpdateMapAggregationNewInput!) {
+    updateMapAggregationNew(input: $input) {
       ` +
   properties +
   `
@@ -93,10 +93,10 @@ const updateQuery =
   }
 `;
 
-const query =
+const createQuery =
   `
-  mutation CREATE_MAP_DATA($input: CreateMapAggregationInput!) {
-    createMapAggregation(input: $input) {
+  mutation CREATE_MAP_DATA($input: CreateMapAggregationNewInput!) {
+    createMapAggregationNew(input: $input) {
       ` +
   properties +
   `
@@ -106,10 +106,10 @@ const query =
 
 const deleteQuery = `
 mutation MyMutation {
-  deleteMapAggregation(input: {level: "county", lat: 13.5, long: -54.3}) {
+  deleteMapAggregationNew(input: {level: "county", lat: 13.5, long: -54.3}) {
     id
   }
 }
 `;
 
-module.exports = { properties, updateQuery, query, deleteQuery };
+module.exports = { properties, updateQuery, createQuery, deleteQuery };

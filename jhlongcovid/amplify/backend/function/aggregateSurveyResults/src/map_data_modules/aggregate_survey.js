@@ -10,6 +10,7 @@ const {
 
 const {
   makeRequest,
+  makeMapData,
   updateMapData,
   getStateAndCountyInfoByAggregation
 } = require("./map_data_crud.js");
@@ -64,11 +65,14 @@ const aggregateSurveyResults = async (eventInput, aggregationType) => {
 
   //create county/state if it does not exist
   if (!county && location.county !== "") {
-    await processRequest("county", location.county, location.stateAbbrev, location.countyLat, location.countyLong, aggregationType);
+
+    const {statusCode, body} = await makeMapData("county", location.county, location.stateAbbrev, location.countyLat, location.countyLong, aggregationType);
+    // await processRequest("county", location.county, location.stateAbbrev, location.countyLat, location.countyLong, aggregationType);
   }
 
   if (!state && location.state !== "") {
-    await processRequest("state", location.state, location.stateAbbrev, location.stateLat, location.stateLong, aggregationType);
+    const {statusCode, body} = await makeMapData("state", location.state, location.stateAbbrev, location.stateLat, location.stateLong, aggregationType);
+    // await processRequest("county", location.state, location.stateAbbrev, location.stateLat, location.stateLong, aggregationType);
   }
 
   //after creation if county/state does not exist, county/state is guranteed to have base data
