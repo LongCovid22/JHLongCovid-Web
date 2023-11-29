@@ -1,8 +1,7 @@
 import {
-  onUpdateMapDataCust,
   onCreateMapDataCust,
 } from "../components/Map/mapFunctions";
-import { Amplify, API, graphqlOperation } from "aws-amplify";
+import {  API, graphqlOperation } from "aws-amplify";
 import { RealOrMock } from "../pages";
 import { useAppDispatch } from "../redux/hooks";
 import { useEffect } from "react";
