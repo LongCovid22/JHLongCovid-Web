@@ -206,7 +206,7 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
 
   //   createGraphVariables();
   // }, [data, realOrMock]);
-  let {covid_data, error} = useGetCovidSummary(data, realOrMock);
+  let { covid_data, error } = useGetCovidSummary(data, realOrMock);
 
 
   return (
@@ -262,8 +262,8 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   {numberAndPercentage(
                     covid_data.covidAndLongCovidOrLongCovidOver4Weeks,
                     covid_data.covidAndLongCovidOrLongCovidOver4WeeksPercentage,
-                    "Total Long COVID (self reported Long COVID and COVID or >4 weeks symptomatic) ",
-                    "Total number of participants who reported Long COVID symptoms for over 4 weeks or self reported that they have a history of Long COVID and COVID. % represents this figure divided by total number of all survey participants."
+                    "Total Long COVID (self reported Long COVID or >4 weeks symptomatic) ",
+                    "Total number of participants who reported Long COVID symptoms for over 4 weeks or self reported that they have a history of Long COVID. % represents this figure divided by total number of all survey participants."
                   )}
                 </Stat>
               </GridItem>
@@ -308,6 +308,15 @@ export const COVIDTotalVisuals: React.FC<LeftSidePanelBodyProps> = ({
                   The percentages here are out of <u>participants with a COVID history</u>
                 </Text>
               </GridItem>
+
+              <Stat>
+                <StatLabel>
+                  <ChakraTooltip label={"For recovered participants, use the time to recovery from last positive. For those not recovered, use time from last positive date to survey submission."} maxW="500px" fontSize="sm">
+                    <QuestionOutlineIcon boxSize={7} ml={1} mr={1} />
+                  </ChakraTooltip>
+                  How is length of COVID exposure estimated?
+                </StatLabel>
+              </Stat>
             </Grid>
           </>) : (<></>)
       )}
