@@ -149,7 +149,7 @@
         "instructions": "The following questions refer to your most recent COVID-19 infection",
         "title": "COVID",
         "questionNum": 7,
-        "question": "When do you know or think you had your most recent COVID-19 infection?",
+        "question": "When do you know or think you had your most recent COVID-19 infection? This information is important to find out the length of time you were infected with COVID depending on information about COVID recovery in later questions.",
         "options": {
           "title": "Date:",
           "type": "date",
