@@ -56,7 +56,7 @@ export const getCountyAndStateWithZip = async (
   };
   const response = await axios.get(
     `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-      "zipcode+" +
+      "usa+zipcode+" +
       zipCode +
       `&key=${apiKey}`
   );
@@ -65,7 +65,7 @@ export const getCountyAndStateWithZip = async (
       response.data.results[0].address_components.reverse();
 
     let StateIndex = address_components.findIndex((component: any) =>
-    component.types.includes("administrative_area_level_1")
+      component.types.includes("administrative_area_level_1")
     );
 
     let StateIndexAfter = StateIndex + 1;
@@ -82,34 +82,44 @@ export const getCountyAndStateWithZip = async (
           throw new NotInUSError("Location not in United States");
         }
         if (idx === StateIndex) {
+          // locationData.state = ac.long_name;
+          // locationData.stateAbbrev = ac.short_name;
+          // const stateResponse = await axios.get(
+          //   `https://maps.googleapis.com/maps/api/geocode/json?address=` +
+          //     "state+" +
+          //     `${ac.long_name}` +
+          //     `&key=${apiKey}`
+          // );
+
+          // const west =
+          //   stateResponse.data.results[0].geometry.bounds.southwest.lng;
+          // const east =
+          //   stateResponse.data.results[0].geometry.bounds.northeast.lng;
+          // const lng = (west + east) / 2;
+
+          // const north =
+          //   stateResponse.data.results[0].geometry.bounds.northeast.lat;
+          // const south =
+          //   stateResponse.data.results[0].geometry.bounds.southwest.lat;
+          // const lat = (north + south) / 2;
+
+          // locationData.stateLat = Math.round(lat * 1000000) / 1000000;
+          // locationData.stateLong = Math.round(lng * 1000000) / 1000000;
           locationData.state = ac.long_name;
           locationData.stateAbbrev = ac.short_name;
           const stateResponse = await axios.get(
-            `https://maps.googleapis.com/maps/api/geocode/json?address=` +
-              "state+" +
-              `${ac.long_name}` +
-              `&key=${apiKey}`
+            `https://maps.googleapis.com/maps/api/geocode/json?address=state+${ac.long_name}&key=${apiKey}`
           );
 
-          const west =
-            stateResponse.data.results[0].geometry.bounds.southwest.lng;
-          const east =
-            stateResponse.data.results[0].geometry.bounds.northeast.lng;
-          const lng = (west + east) / 2;
-
-          const north =
-            stateResponse.data.results[0].geometry.bounds.northeast.lat;
-          const south =
-            stateResponse.data.results[0].geometry.bounds.southwest.lat;
-          const lat = (north + south) / 2;
+          const centroid = stateResponse.data.results[0].geometry.location;
+          const lat = centroid.lat;
+          const lng = centroid.lng;
 
           locationData.stateLat = Math.round(lat * 1000000) / 1000000;
           locationData.stateLong = Math.round(lng * 1000000) / 1000000;
         }
 
-        if (
-          idx === StateIndexAfter
-        ) {
+        if (idx === StateIndexAfter) {
           const countyResponse = await axios.get(
             `https://maps.googleapis.com/maps/api/geocode/json?address=` +
               ac.long_name +
