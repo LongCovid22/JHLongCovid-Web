@@ -1,0 +1,9837 @@
+{
+  input: {
+    level: "county",
+    name: "Orange Fruit County",
+    stateAbbrev: "CA",
+    lat: 13.54535353533555,
+    long: -54.345353535635,
+    covidCount: 0,
+    longCovid: 0,
+    aggregationType: "LONG",
+    phq8AboveTen: 0,
+    recoveredCount: 0,
+    selfReportedLongCovid: 0,
+    longCovidOverFourWeeks: 0,
+    longCovidOverTwelveWeeks: 0,
+    selfReportedPlusCovidLongCovid: 0,
+    topMedicalCondition: "",
+    covidSummary: {
+      beenInfected: {
+        yes: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        no: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      timesPositive: {
+        one: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        two: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        three: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        threePlus: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        doNotKnow: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      tested: {
+        yes: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        no: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      positiveTest: {
+        yes: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        no: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        doNotKnow: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      symptomatic: {
+        yes: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        no: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      symptomsPreventScale: {
+        notAtAll: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        alittleBit: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        somewhat: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        quiteABit: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        veryMuch: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    recoverySummary: {
+      recovered: {
+        yes: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        no: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      avglengthOfRecovery: {
+        age: {
+          ranges: [
+            "1-13",
+            "13-25",
+            "25-60",
+            "60+"
+          ],
+          values: [
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            }
+          ]
+        },
+        race: {
+          ranges: [
+            "White",
+            "Black",
+            "Asian",
+            "Native",
+            "Hispanic",
+            "Other",
+            "None"
+          ],
+          values: [
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            }
+          ]
+        },
+        sex: {
+          ranges: [
+            "Male",
+            "Female",
+            "Other"
+          ],
+          values: [
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            }
+          ]
+        }
+      },
+      medicationsPrescribed: {
+        yes: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        no: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        doNotKnow: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      medicationsTakenCount: {
+        antiViral: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        oralSteroids: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        antiBiotics: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        other: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        doNotKnow: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      hospitalized: {
+        yes: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        no: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      timesHospitalized: {
+        one: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        two: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        three: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        threePlus: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        doNotKnow: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    vaccinationSummary: {
+      vaccinated: {
+        yes: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        no: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        doNotKnow: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      totalVaccineShots: {
+        one: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        two: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        three: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        four: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        five: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        fivePlus: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        doNotKnow: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      vaccineType: {
+        pfizer: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        moderna: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        janssen: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        novavax: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        other: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        doNotKnow: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    globalHealthSummary: {
+      healthRank: {
+        excellent: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        veryGood: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        good: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        fair: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        poor: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      physicalHealthRank: {
+        excellent: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        veryGood: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        good: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        fair: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        poor: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      carryPhysicalActivities: {
+        completely: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        mostly: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        moderately: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        aLittle: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        notAtAll: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      fatigueRank: {
+        none: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        mild: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        moderate: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        severe: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        verySevere: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      avgpainLevel: {
+        age: {
+          ranges: [
+            "1-13",
+            "13-25",
+            "25-60",
+            "60+"
+          ],
+          values: [
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            }
+          ]
+        },
+        race: {
+          ranges: [
+            "White",
+            "Black",
+            "Asian",
+            "Native",
+            "Hispanic",
+            "Other",
+            "None"
+          ],
+          values: [
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            }
+          ]
+        },
+        sex: {
+          ranges: [
+            "Male",
+            "Female",
+            "Other"
+          ],
+          values: [
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            }
+          ]
+        }
+      }
+    },
+    symptomSummary: {
+      symptomCounts: {
+        headache: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        bodyMuscleAche: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        feverChillsSweatsFlushing: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        faintDizzyGoofy: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        postExertionalMalaise: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        weaknessInArmsLegs: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        shortnessOfBreath: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        cough: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        palpitations: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        swellingOfLegs: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        indigestionNausea: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        bladderProblem: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        nerveProblems: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        brainFog: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        anxietyDepressionNightmares: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        difficultyFallingAsleep: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        sleepyDuringDaytime: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        loudSnoring: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        uncomfortableFeelingsInLegs: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        skinRash: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        lossOfChangeInSmell: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        excessiveThirst: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        excessiveDryMouth: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        visionProblems: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        hearingProblems: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        fertilityProblemsForWomen: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      qualityOfLife: {
+        excellent: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        veryGood: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        good: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        fair: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        poor: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      mentalHealthRank: {
+        excellent: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        veryGood: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        good: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        fair: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        poor: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      socialSatisfactionRank: {
+        excellent: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        veryGood: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        good: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        fair: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        poor: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      carryOutSocialActivitiesRank: {
+        excellent: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        veryGood: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        good: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        fair: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        poor: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      anxietyInPastWeekRank: {
+        never: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        rarely: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        sometimes: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        often: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        always: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    patientHealthQuestionnaireSummary: {
+      littleInterestThings: {
+        notAtAll: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        severalDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        moreThanHalfTheDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        nearlyEveryDay: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      downDepressedHopeless: {
+        notAtAll: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        severalDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        moreThanHalfTheDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        nearlyEveryDay: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      sleepProblems: {
+        notAtAll: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        severalDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        moreThanHalfTheDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        nearlyEveryDay: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      tiredNoEnergy: {
+        notAtAll: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        severalDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        moreThanHalfTheDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        nearlyEveryDay: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      dietProblems: {
+        notAtAll: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        severalDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        moreThanHalfTheDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        nearlyEveryDay: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      badAboutSelf: {
+        notAtAll: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        severalDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        moreThanHalfTheDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        nearlyEveryDay: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      concentrationProblems: {
+        notAtAll: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        severalDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        moreThanHalfTheDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        nearlyEveryDay: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      slowOrRestless: {
+        notAtAll: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        severalDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        moreThanHalfTheDays: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        nearlyEveryDay: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      avgPHQScore: {
+        age: {
+          ranges: [
+            "1-13",
+            "13-25",
+            "25-60",
+            "60+"
+          ],
+          values: [
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            }
+          ]
+        },
+        race: {
+          ranges: [
+            "White",
+            "Black",
+            "Asian",
+            "Native",
+            "Hispanic",
+            "Other",
+            "None"
+          ],
+          values: [
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            }
+          ]
+        },
+        sex: {
+          ranges: [
+            "Male",
+            "Female",
+            "Other"
+          ],
+          values: [
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            },
+            {
+              count: 0,
+              average: 0
+            }
+          ]
+        }
+      }
+    },
+    medicalConditionsSummary: {
+      longCovid: {
+        yes: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        no: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        doNotKnow: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      newDiagnosisCounts: {
+        noNewDiagnosis: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        heartProblems: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        lungProblems: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        bloodClotLung: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        sleepApnea: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        memory: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        migraine: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        stroke: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        seizure: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        kidneyProblems: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        stomachProblems: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        psychologicalProblems: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        diabetes: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        autoImmuneDiseases: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        mecfs: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        other: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        notSure: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    socialSummary: {
+      hasMedicalInsurance: {
+        yes: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        no: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      difficultCoveringExpenses: {
+        veryDifficult: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        somewhatDifficult: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        notAtAllDifficult: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        doNotKnow: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        preferNotToAnswer: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      currentWorkSituation: {
+        atOffice: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        hybrid: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        remote: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        remoteAndParenting: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        onJobLeave: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        unemployed: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        retired: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        disability: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        student: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        doNotKnow: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        preferNotToAnswer: {
+          total: 0,
+          age: {
+            ranges: [
+              "1-13",
+              "13-25",
+              "25-60",
+              "60+"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          race: {
+            ranges: [
+              "White",
+              "Black",
+              "Asian",
+              "Native",
+              "Hispanic",
+              "Other",
+              "None"
+            ],
+            values: [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          sex: {
+            ranges: [
+              "Male",
+              "Female",
+              "Other"
+            ],
+            values: [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    totalFullEntries: 0
+  }
+}
