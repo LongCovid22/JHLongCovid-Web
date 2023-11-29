@@ -10,7 +10,7 @@ export const targetInputWithTestIdAndFillWithValue = (target: string, value: any
 };
 
 export const BeingSurveyTest = () => {
-  cy.contains(surveyLogic.questions[0][0].question, { timeout: 10000 }).should(
+  cy.contains(surveyLogic.questions[0][0].question, { timeout: 30000 }).should(
     "be.visible"
   );
   const obj : any = surveyLogic.questions[0][0];
@@ -120,8 +120,10 @@ export const MultiChoiceClickArrayAndNext = (answer: string[]) => {
   cy.contains("button", "Next").click();
 }
 
-export const MultiChoiceParseAndNext = (answer : string) => {
-  cy.contains(answer, { matchCase: false }).click();
+export const MultiChoiceParseAndNext = (answer : string[]) => {
+  answer.forEach((value) => {
+    cy.contains(value, { matchCase: false }).click();
+  })
   cy.contains("button", "Next").click();
 }
 

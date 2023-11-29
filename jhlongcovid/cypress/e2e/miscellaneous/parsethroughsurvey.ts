@@ -1,7 +1,7 @@
 import { BeingSurveyTest, ConsentParseAndNext, DemographicsParseAndNext
 , RadioOnlyParseAndNext, RadioWithCustomParseAndNext, MultiChoiceParseAndNext,
 TextInputandParseAndNext, clickRadioButtonsAndNext, goNext
-} from "./spec";
+} from "../helper";
 
 describe("Iterate through Step 36", () => {
   before(() => {

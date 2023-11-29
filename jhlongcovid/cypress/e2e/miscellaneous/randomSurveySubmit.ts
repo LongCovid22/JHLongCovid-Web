@@ -17,9 +17,9 @@ import {
   getDataTestIdAndSelectAndNext,
   sliderRandomAndNext,
   getRandomVaccine,
-} from "./spec";
+} from "../helper";
 
-import surveyLogic from "../../surveyLogic.json";
+import surveyLogic from "../../../surveyLogic.json";
 
 function makeRandomProfile() {
   // Generate a random integer between 12 and 100 for age and convert it to a string

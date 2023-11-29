@@ -1,9 +1,9 @@
 import { BeingSurveyTest, ConsentParseAndNext, DemographicsParseAndNext
   , RadioOnlyParseAndNext, RadioWithCustomParseAndNext, MultiChoiceParseAndNext,
   TextInputandParseAndNext, clickRadioButtonsAndNext, goNext, RadioOnlyClick, TextInputandParseOnly, getRandomArbitrary
-  } from "./spec";
+  } from "../helper";
 
-  import surveyLogic from "../../surveyLogic.json";
+  import surveyLogic from "../../../surveyLogic.json";
 
   let answer = {
     email : "leo.hubert3@gmail.com",
