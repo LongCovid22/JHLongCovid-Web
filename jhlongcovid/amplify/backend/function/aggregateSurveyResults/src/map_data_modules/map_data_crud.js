@@ -47,9 +47,6 @@ const makeRequest = async (query, variables) => {
         ? JSON.stringify({ query, variables })
         : JSON.stringify({ query }),
   };
-
-  console.log(JSON.stringify(options));
-
   // const signed = await signer.sign(requestToBeSigned);
   const request = new Request(GRAPHQL_ENDPOINT, options);
   return request;
@@ -146,7 +143,7 @@ const getID = async (level, name, stateAbbrev) => {
   try {
     let response = await fetch(request);
     let load = await response.json();
-    console.log(`Fetching MapData for ${level} ${name}...`);
+    // console.log(`Fetching MapData for ${level} ${name}...`);
     if (level === "county") {
       return load.data.mapDataByLevelNameState.items
         ? load.data.mapDataByLevelNameState.items
@@ -205,14 +202,14 @@ const getCountyOrStateByAggregationType = async (
     `;
   }
 
-  console.log(query);
+  // console.log(query);
   let request = await makeRequest(query);
 
   try {
     let response = await fetch(request);
     let load = await response.json();
-    console.log(`Fetching MapData for ${level} ${name}...`);
-    console.log(load);
+    // console.log(`Fetching MapData for ${level} ${name}...`);
+    // console.log(load);
     if (level === "county") {
       return load.data.mapDataAggregationByLevelNameState.items &&
         load.data.mapDataAggregationByLevelNameState.items.length > 0
@@ -225,7 +222,7 @@ const getCountyOrStateByAggregationType = async (
         : null;
     }
   } catch (error) {
-    console.log(`${level} fetch: ` + error.message);
+    // console.log(`${level} fetch: ` + error.message);
     return null;
   }
 };
@@ -265,7 +262,7 @@ const updateMapData = async (county, state) => {
     try {
       response = await fetch(request);
       body = await response.json();
-      console.log(`Updating MapData for ${county.level} ${county.name}...`);
+      // console.log(`Updating MapData for ${county.level} ${county.name}...`);
 
       if (body.errors) statusCode = 400;
     } catch (error) {
@@ -301,7 +298,7 @@ const updateMapData = async (county, state) => {
   try {
     response = await fetch(request);
     body = await response.json();
-    console.log(`Updating MapData for ${state.level} ${state.name}...`);
+    // console.log(`Updating MapData for ${state.level} ${state.name}...`);
     if (body.errors) statusCode = 400;
   } catch (error) {
     statusCode = 500;
@@ -395,7 +392,7 @@ const makeMapData = async (
     body: JSON.stringify({ query: createQuery, variables }),
   };
 
-  console.log(options);
+  // console.log(options);
 
   const request = new Request(GRAPHQL_ENDPOINT, options);
 
