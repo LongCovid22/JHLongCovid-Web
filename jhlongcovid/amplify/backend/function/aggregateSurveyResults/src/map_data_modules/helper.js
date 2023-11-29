@@ -2,6 +2,9 @@ const { checkNotNullAndBoolType } = require("./checkTypes");
 
 const weeksBetweenDates = (date1, date2) => {
   // Ensure date1 is earlier than date2
+  if (!date1 || !date2) {
+    return null;
+  }
   if (date1 > date2) {
     [date1, date2] = [date2, date1];
   }
@@ -29,14 +32,21 @@ function addDaysToDate(date, days) {
 
 function hasLongCovid(symptomResults, covidResults, recoveryResults) {
   let longCovidResults = {
+    //question 1 -> do you been infected with COVID?
+    hasCovid: 0,
+    //question 65 -> do you have Long COVID?
     SelfReportedLongCovid: 0,
-    OverFourWeeks: 0,
-    OverTwelveWeeks: 0,
+
+    //question 65 vs question 1
     SelfReportedLongCovidWithCovid: 0,
     SelfReportedLongCovidWithoutCovid: 0,
+
+
+    //length of COVID exposure
+    OverFourWeeks: 0,
+    OverTwelveWeeks: 0,
     //either SelfReportLongCovidWithCovid OR >4 Weeks Symtomatic
     LongCovid: 0,
-    hasCovid: 0,
   };
 
   // Check to make sure the objects passed in aren't null or undefined
@@ -44,37 +54,14 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
     return longCovidResults;
   }
 
+  const selfReportedLongCovid = symptomResults.hasLongCovid === "yes";
+
   if (
     checkNotNullAndBoolType(covidResults.beenInfected) &&
     covidResults.beenInfected
   ) {
     longCovidResults.hasCovid = 1;
   }
-
-  // Dates for current cases of long covid
-  const lastPositiveDate = Date.parse(covidResults.lastPositive);
-  const weeksSinceLastPositive = weeksBetweenDates(
-    lastPositiveDate,
-    Date.now()
-  );
-
-  // For old cases of long covid
-  let oldRecoveryDate = null;
-  if (recoveryResults && recoveryResults.lengthOfRecovery) {
-    oldRecoveryDate = addDaysToDate(
-      lastPositiveDate,
-      recoveryResults.lengthOfRecovery
-    );
-  }
-
-  // const weeksSinceLastPositiveOld = oldRecoveryDate
-  //   ? weeksBetweenDates(lastPositiveDate, oldRecoveryDate)
-  //   : null;
-
-  const selfReportedLongCovid = symptomResults.hasLongCovid === "yes";
-  // const selfReportedCovid = covidResults.beenInfected === true;
-
-  const notRecovered = recoveryResults ? !recoveryResults.recovered : false;
 
   if (selfReportedLongCovid) {
     longCovidResults.SelfReportedLongCovid = 1;
@@ -90,24 +77,33 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
 
   // To determine # of weeks that one has COVID, either:
   // Not recovered, and determine # of weeks from last positive until now
-  // Recovered, and determine # of days that it took to recover
-  
-  if (weeksSinceLastPositive) {
-    if (weeksSinceLastPositive > 4 && notRecovered) {
-      longCovidResults.OverFourWeeks = 1;
-    }
 
-    if (weeksSinceLastPositive > 12 && notRecovered) {
-      longCovidResults.OverTwelveWeeks = 1;
+  if (covidResults && covidResults.lastPositive) {
+      // Dates for current cases of long covid
+    const lastPositiveDate = Date.parse(covidResults.lastPositive);
+    const weeksSinceLastPositive = weeksBetweenDates(
+      lastPositiveDate,
+      Date.now()
+    );
+    const notRecovered = recoveryResults ? !recoveryResults.recovered : false;
+    if (weeksSinceLastPositive) {
+      if (weeksSinceLastPositive > 4 && notRecovered) {
+        longCovidResults.OverFourWeeks = 1;
+      }
+
+      if (weeksSinceLastPositive > 12 && notRecovered) {
+        longCovidResults.OverTwelveWeeks = 1;
+      }
     }
   }
+  
 
+  // Recovered, and determine # of days that it took to recover
   if (recoveryResults && recoveryResults.lengthOfRecovery) {
-    let days = recoveryResults.lengthOfRecovery;
-    if (days > 84) {
+    if (recoveryResults.lengthOfRecovery > 84) {
       longCovidResults.OverTwelveWeeks = 1;
     }
-    if (days > 28) {
+    if (recoveryResults.lengthOfRecovery > 28) {
       longCovidResults.OverFourWeeks = 1;
     }
   }
