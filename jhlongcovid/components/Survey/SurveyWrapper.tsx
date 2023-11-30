@@ -139,6 +139,25 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
     return testDate >= startDate && testDate <= endDate;
 }
 
+function isRecoveryValid(lastPositiveDate: string, recoveryDays: string) {
+  // Parse the lastPositiveDate string into a Date object
+  const lastPositiveDateObj = new Date(lastPositiveDate);
+
+  // Get today's date as a Date object
+  const today = new Date();
+
+  // Calculate the time difference in milliseconds
+  const timeDifference = today.getTime() - lastPositiveDateObj.getTime();
+
+  // Convert the time difference to days
+  const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+  // console.log(daysDifference);
+
+  // Check if the days difference is less than or equal to recoveryDays
+  return parseInt(recoveryDays) <= daysDifference;
+}
+
 
 
 
@@ -225,43 +244,8 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           }
       } 
 
-      if (currentQuestion.answerFormat === "input" || currentQuestion.answerFormat.includes("input") ) {
-        if (typeof answer === "string") {
-          const DateRegex = /^\d{4}-\d{2}-\d{2}$/;;
-          if (DateRegex.test(answer)) {
-            if (!isDateInRange(answer)) {
-              setErrorText("Please enter a date between January 1, 2020 and today's date");
-              setMissingAnswer(true);
-              return;
-            } else {
-              setMissingAnswer(false);
-            }
-          }
-        }
-
-
-        
-        // if (currentQuestion.options.type === "date" || currentQuestion.options[0].type === "date") {
-        //   if (answer) {
-        //     console.log("checking date");
-        //     console.log(answer);
-        //   } else {
-
-        //   }
-        // }
-      }
       
-      // else if (currentQuestion.answerFormat === "input") {
-      //   if (answer === "" || answer === null || answer === "0") {
-      //     setErrorText("Please provide a number using the slider");
-      //     setMissingAnswer(true);
-      //     return;
-      //   } else {
-      //     setMissingAnswer(false);
-      //   }
-      // }
-      // Check for empty fields in any stage of the survey
-      else if ((
+      if ((
         answer === "" ||
         answer === null ||
         (Array.isArray(answer) && answer.length === 0) ||
@@ -289,11 +273,54 @@ export const SurveyWrapper: React.FC<SurveyWrapperProps> = ({ onClose }) => {
           return;
         }
       } 
-      
-      
       else {
         setMissingAnswer(false);
       }
+
+      if (currentQuestion.answerFormat === "input" || currentQuestion.answerFormat.includes("input") ) {
+        if (typeof answer === "string") {
+          const DateRegex = /^\d{4}-\d{2}-\d{2}$/;;
+          if (DateRegex.test(answer)) {
+            if (!isDateInRange(answer)) {
+              setErrorText("Please enter a date between January 1, 2020 and today's date");
+              setMissingAnswer(true);
+              return;
+            } else {
+              setMissingAnswer(false);
+            }
+          }
+        }
+
+        if (currentQuestion.questionNum === 15) {
+          //# of days to recover must be between last positive date and today's date
+          
+
+          const index = questionStack.findIndex((obj) => obj.section === 1 && obj.question === 4);
+
+          if (index !== -1) {
+            let recoveryDays = answer as string;
+            let lastPositiveDate = answerStack[index];
+            console.log(recoveryDays);
+            console.log(lastPositiveDate);
+
+            if (!isRecoveryValid(lastPositiveDate, recoveryDays)) {
+              setErrorText("# of days to recover must be between last positive date and today's date");
+              setMissingAnswer(true);
+              return;
+            } else {
+              setMissingAnswer(false);
+            }
+          }
+
+
+          
+
+        }
+
+      }
+
+
+
     }
 
     if (!errorPresent) {
