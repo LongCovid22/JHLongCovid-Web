@@ -103,13 +103,13 @@ export const AboutUs = () => {
                   />
                   <TeamMember
                     name={"Ahmed Hassoon, MD"}
-                    role={"Assistant Scientist"}
+                    role={"Assistant Professor"}
                     school={"Bloomberg School of Public Health"}
                     image="./AhmedHeadshot.jpg"
                   />
                   <TeamMember
                     name={"Nathan Farrell, BS"}
-                    role={"Lead Software Engineer"}
+                    role={"Lead Software Engineer (Former)"}
                     school={"Johns Hopkins School of Medicine"}
                     image="./NateHeadshot.jpg"
                   />
@@ -117,14 +117,14 @@ export const AboutUs = () => {
                     <TeamMember
                       name={"Hubert Leo, BS"}
                       role={"Software Engineer"}
-                      school={"Johns Hopkins University Grad"}
+                      school={"Johns Hopkins University"}
                       image="./HubertHeadshot.jpg"
                     />
                   </WrapItem>
                   <WrapItem>
                     <TeamMember
                       name={"Nora Xu"}
-                      role={"Software Engineer"}
+                      role={"Software Engineer (Student)"}
                       school={"Johns Hopkins University"}
                       image="./NoraHeadshot.jpg"
                     />
