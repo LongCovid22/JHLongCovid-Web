@@ -1,4 +1,10 @@
-enum MONTH {
+export type VALIDDATE = {
+  day: DAYS,
+  month: MONTH, 
+  year: YEARS
+}
+
+export enum MONTH {
   January = "01",
   February = "02",
   March = "03",
@@ -13,7 +19,7 @@ enum MONTH {
   December = "12",
 }
 
-enum YEARS {
+export enum YEARS {
   twentytwenty = "2020",
   twenthtwentyone = "2021",
   twentytwentytwo = "2022",
@@ -27,7 +33,7 @@ enum YEARS {
   twentythirty = "2030",
 }
 
-enum DAYS {
+export enum DAYS {
   one = "01",
   two = "02",
   three = "03",

@@ -1,17 +1,17 @@
 //smiilar to answerTypes.ts, for more specific type checking and answer providing for cypress testing purposes
 
-enum YESNO {
+export enum YESNO {
   YES = "Yes",
   NO = "No"
 }
 
-enum YESNODONOTKNOW {
+export enum YESNODONOTKNOW {
   YES = "Yes",
   NO = "No",
   DONOTKNOW = "Do not know"
 }
 
-enum NUMOFINFECTIONS {
+export enum NUMOFINFECTIONS {
   ONE = "1 infection",
   TWO = "2 infections",
   THREE = "3 infections",
@@ -19,9 +19,9 @@ enum NUMOFINFECTIONS {
   DONOTKNOW = "Do not know"
 }
 
-type NUMOFINFECTIONSTYPE = NUMOFINFECTIONS | number;
+export type NUMOFINFECTIONSTYPE = NUMOFINFECTIONS | number;
 
-enum NUMHOSPITALIZATIONS {
+export enum NUMHOSPITALIZATIONS {
   ONE = "1 COVID",
   TWO = "2 COVID",
   THREE = "3 COVID",
@@ -29,18 +29,22 @@ enum NUMHOSPITALIZATIONS {
   DONOTKNOW = "Do not know"
 }
 
-type NUMOFHOSPITALIZATIONSTYPE = NUMHOSPITALIZATIONS | number;
+export type NUMOFHOSPITALIZATIONSTYPE = NUMHOSPITALIZATIONS | number;
 
-enum MEDICATIONS {
+export enum MEDICATIONS {
   ANTIVIRAL = "Antiviral pill",
   ORALSTEROIDS = "Oral steroids",
   ANTIBIOTICS = "Antibiotics",
   DONOTKNOW = "Do not know"
 }
 
-type MEDICATIONSTYPE = MEDICATIONS | string;
+export function isMedication(value: string): value is MEDICATIONS {
+  return Object.values(MEDICATIONS).includes(value as MEDICATIONS);
+}
 
-enum NUMCOVIDVACCINESHOTS {
+export type MEDICATIONSTYPE = MEDICATIONS | string;
+
+export enum NUMCOVIDVACCINESHOTS {
   ONE = "1",
   TWO = "2",
   THREE = "3",
@@ -50,7 +54,7 @@ enum NUMCOVIDVACCINESHOTS {
   DONOTKNOW = "Do not know"
 }
 
-enum COVIDVACCINES {
+export enum COVIDVACCINES {
   PFIZER = "Pfizer",
   MODERNA = "Moderna",
   JANSSEN = "Janssen",
@@ -58,9 +62,9 @@ enum COVIDVACCINES {
   DONOTKNOW = "Do not know"
 }
 
-type COVIDVACCINETYPE = COVIDVACCINES | string;
+export type COVIDVACCINETYPE = COVIDVACCINES | string;
 
-enum PAINLEVEL {
+export enum PAINLEVEL {
   ONE = "1",
   TWO = "2",
   THREE = "3",
@@ -74,7 +78,7 @@ enum PAINLEVEL {
 }
 
 
-enum EXCELLENTTOPOOR {
+export enum EXCELLENTTOPOOR {
   EXCELLENT = "Excellent",
   VERYGOOD = "Very Good",
   GOOD = "Good",
@@ -83,7 +87,7 @@ enum EXCELLENTTOPOOR {
 }
 
 
-enum COMPLETELYTONOTATALL {
+export enum COMPLETELYTONOTATALL {
   COMPLETELY = "Completely",
   MOSTLY = "Mostly",
   MODERATELY = "Moderately",
@@ -91,7 +95,7 @@ enum COMPLETELYTONOTATALL {
   NOTATALL = "Not at all",
 }
 
-enum NONETOVERYSEVERE {
+export enum NONETOVERYSEVERE {
   NONE = "None",
   MILD = "Mild",
   MODERATE = "Moderate",
@@ -99,7 +103,7 @@ enum NONETOVERYSEVERE {
   VERYSEVERE = "Very Severe",
 }
 
-enum FREQUENCY {
+export enum NEVERTOALWAYS {
   NEVER = "Never",
   RARELY = "Rarely",
   SOMETIMES = "Sometimes",
@@ -107,7 +111,7 @@ enum FREQUENCY {
   ALWAYS = "Always",
 }  
 
-enum NOTATALLTOVERYMUCH {
+export enum NOTATALLTOVERYMUCH {
   NOTATALL = "Not at all",
   ALITTLEBIT = "A little bit",
   SOMEWHAT = "Somewhat",
@@ -115,7 +119,7 @@ enum NOTATALLTOVERYMUCH {
   VERYMUCH = "Very much",
 }
 
-enum DifficultyOfPaying {
+export enum DIFFICULTYOFPAYING {
   VERYDIFFICULT = "Very difficult",
   SOMEWHATDIFFICULT = "Somewhat difficult",
   NOTATALLDIFFICULT = "Not at all difficult",
@@ -124,7 +128,7 @@ enum DifficultyOfPaying {
 }
 
 
-enum WorkSituation {
+export enum WORKSITUATION {
   WORKINGOUTSIDEHOME = "Working outside of the home",
   HYBRIDWORK = "Working outside the home as well as working remotely from home (“hybrid” work)",
   REMOTEWORK = "Working remotely from home",

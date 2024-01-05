@@ -23,10 +23,12 @@ function Start() {
   BeingSurveyTest();
   ConsentParseAndNext("leo.hubert3@gmail.com");
   DemographicsParseAndNext("16", "Male", "6", "3", "150", "White", "21218");
+
 }
 
 function End() {
   cy.get('[data-testid="survey-certification"]').scrollIntoView();
+
   cy.contains(
     "I certify that the answers to the survey were completed by myself and are true and correct.",
     { matchCase: false }
@@ -45,8 +47,6 @@ function RadioOnlyParseAndNextWithSkipQuestion( answer: string, answerConditiona
     skipQuestionUntil = newSkipQuestionUntilConditional;
   }
 }
-
-
 
 function SocialFactorsCustom(HealthInsurance: string, DifficultyOfPaying: string, WorkSituation: string) {
   skipQuestionUntil = 0;
@@ -455,29 +455,29 @@ function SocialFactorsCustom(HealthInsurance: string, DifficultyOfPaying: string
       "Headache",
       "Body or muscle aches",
       "Fever, chills, sweats or flushing",
-      "Feeling faint, dizzy, “goofy”; difficulty thinking soon after standing up from a sitting or lying position",
-      "Feeling sick after you exert yourself physically or mentally (“post-exertional malaise”)",
-      "Weakness in arms or legs",
-      "Shortness of breath (trouble breathing)",
-      "Cough",
-      "Palpitations, racing heart, arrhythmia, or skipped beats",
-      "Swelling of your legs",
-      "Indigestion, nausea, feeling uncomfortably full or vomiting after eating, diarrhea, or constipation",
-      "Bladder problems including incontinence, trouble passing urine or emptying bladder",
-      "Nerve problems including tremor, shaking, numbness, tingling, or burning",
-      "Problems thinking or concentrating (“brain fog”)",
-      "Problems with anxiety, depression, stress or trauma-related symptoms like nightmares or grief",
-      "Difficulty falling asleep, difficulty staying asleep, or early morning awakenings, 3 or more times per week",
-      "Feeling sleepy, trouble staying awake during the daytime, or falling asleep during the day when you do not intend to, 3 or more times per week",
-      "Loud snoring, stopping breathing, or gasping during sleep, 3 or more times per week",
-      "Uncomfortable feelings in your legs (creepy, crawling feeling) that make you want to move your legs, that are worse at night and improved with movement",
-      "Skin rash",
-      "Loss of or change in smell or taste",
-      "Excessive thirst",
-      "Excessively dry mouth",
-      "Vision problems (blurry, light sensitivity, difficult reading or focusing, floaters, flashing lights, “snow”)",
-      "Problems with hearing (hearing loss, ringing in ears)",
-      "Problems with fertility, changes in your menstrual cycle, changes in menopause symptoms",
+      // "Feeling faint, dizzy, “goofy”; difficulty thinking soon after standing up from a sitting or lying position",
+      // "Feeling sick after you exert yourself physically or mentally (“post-exertional malaise”)",
+      // "Weakness in arms or legs",
+      // "Shortness of breath (trouble breathing)",
+      // "Cough",
+      // "Palpitations, racing heart, arrhythmia, or skipped beats",
+      // "Swelling of your legs",
+      // "Indigestion, nausea, feeling uncomfortably full or vomiting after eating, diarrhea, or constipation",
+      // "Bladder problems including incontinence, trouble passing urine or emptying bladder",
+      // "Nerve problems including tremor, shaking, numbness, tingling, or burning",
+      // "Problems thinking or concentrating (“brain fog”)",
+      // "Problems with anxiety, depression, stress or trauma-related symptoms like nightmares or grief",
+      // "Difficulty falling asleep, difficulty staying asleep, or early morning awakenings, 3 or more times per week",
+      // "Feeling sleepy, trouble staying awake during the daytime, or falling asleep during the day when you do not intend to, 3 or more times per week",
+      // "Loud snoring, stopping breathing, or gasping during sleep, 3 or more times per week",
+      // "Uncomfortable feelings in your legs (creepy, crawling feeling) that make you want to move your legs, that are worse at night and improved with movement",
+      // "Skin rash",
+      // "Loss of or change in smell or taste",
+      // "Excessive thirst",
+      // "Excessively dry mouth",
+      // "Vision problems (blurry, light sensitivity, difficult reading or focusing, floaters, flashing lights, “snow”)",
+      // "Problems with hearing (hearing loss, ringing in ears)",
+      // "Problems with fertility, changes in your menstrual cycle, changes in menopause symptoms",
     ]);
     // MultiChoiceParseAndNext("Feeling faint");
   }

@@ -1,4 +1,4 @@
-enum SYMPTOMS {
+export enum SYMPTOMS {
   HEADACHE = "Headache",
   BODYACHES = "Body or muscle aches",
   FEVERCHILLS = "Fever, chills, sweats or flushing",
@@ -28,14 +28,14 @@ enum SYMPTOMS {
 }
 
 
-enum DEPRESSIONRESPONSES {
+export enum DEPRESSIONRESPONSES {
   NOTATALL = "0",
   SEVERALDAYS = "1",
   MORETHANHALFTHEDAYS = "2",
   NEARLYEVERYDAY = "3",
 }
 
-enum DEPRESSIONQUESTIONS {
+export enum DEPRESSIONQUESTIONS {
   LITTLEINTEREST = "0",
   FEELINGDOWN = "1",
   TROUBLESLEEPING = "2",
@@ -45,3 +45,24 @@ enum DEPRESSIONQUESTIONS {
   TROUBLECONCENTRATING = "6",
   MOVINGORSPEAKINGSLOWLY = "7",
 }
+
+export enum NEWDIAGNOSIS {
+  HEARTPROBLEMS = "Heart problems, such as heart failure or arrhythmia (e.g., 'atrial fibrillation')",
+  LUNGPROBLEMS = "Lung problems, such as asthma, COPD, fibrosis or interstitial lung disease",
+  BLOODCLOTS = "Blood clots in the lung ('pulmonary embolism'), leg or arm ('deep vein thrombosis')",
+  SLEEPAPNEA = "Sleep apnea or insomnia",
+  MEMORYIMPAREMENT = "Memory or cognitive impairment or dementia",
+  MIGRAINE = "Migraine or other headache disorder",
+  STROKE = "Stroke",
+  SEIZURE = "Seizure or epilepsy",
+  KIDNEYPROBLEMS = "Kidney problems or kidney disease",
+  STOMACHPROBLEMS = "Stomach problems or gastrointestinal disease, like stomach ulcer or irritable bowel syndrome",
+  PSYCHOLOGICALPROBLEMS = "Psychological problems or psychiatric problems, like depression or anxiety or psychosis",
+  DIABETES = "Diabetes",
+  AUTOIMMUNEDISEASES = "Autoimmune diseases (such as systemic lupus, thyroid disease)",
+  CHRONICCONDITIONS = "Myalgic Encephalomyelitis/Chronic Fatigue Syndrome (ME-CFS), Postural Orthostatic Tachycardia Syndrome (POTS) or dysautonomia, or Ehlers Danlos Syndrome (EDS)",
+  NOTSURE = "Not sure",
+  NONEWDIAGNOSES = "No new diagnoses since the beginning of 2020"
+}
+
+export type NEWDIAGNOSISTYPE = NEWDIAGNOSIS | string;
