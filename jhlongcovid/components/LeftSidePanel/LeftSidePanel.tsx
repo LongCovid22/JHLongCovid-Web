@@ -295,7 +295,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
                           ? data.name
                           : data.name + ", " + data.stateAbbrev}
                       </Heading>
-                      <IconButton
+                      {/* <IconButton
                         aria-label="downloadButton"
                         variant={"none"}
                         icon={<DownloadIcon color="gray" />}
@@ -325,7 +325,7 @@ export const LeftSidePanel: React.FC<LeftSidePanelProps> = ({
                           a.dispatchEvent(clickEvent);
                           a.remove();
                         }}
-                      />
+                      /> */}
                     </HStack>
                     <HStack spacing="0px" align={"top"}>
                       <Text as="span" fontSize="lg" color="gray.600">

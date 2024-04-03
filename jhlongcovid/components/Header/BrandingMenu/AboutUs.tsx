@@ -102,7 +102,7 @@ export const AboutUs = () => {
                     image="./ElizabethOelsnerHeadshot.jpg"
                   />
                   <TeamMember
-                    name={"Ahmed Hassoon, MD"}
+                    name={"Ahmed Hassoon, MD, MPH"}
                     role={"Assistant Professor"}
                     school={"Bloomberg School of Public Health"}
                     image="./AhmedHeadshot.jpg"
