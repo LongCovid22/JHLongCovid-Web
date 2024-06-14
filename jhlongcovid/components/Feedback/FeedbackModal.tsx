@@ -90,6 +90,9 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
               onClick={onClose}
             />
           </HStack>
+          <Text fontSize="sm" fontWeight="semibold" color="red.500">
+            This website is still an ongoing work in progress and we are still actively seeking feedback for our project.
+          </Text>
         </ModalHeader>
         <ModalBody>
           <Input

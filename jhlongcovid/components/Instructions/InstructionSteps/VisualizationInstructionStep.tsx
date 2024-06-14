@@ -110,7 +110,8 @@ export const VisualizationInstructionStep: React.FC<InstructionStepProps> = ({
             Here is a video showing how use the bubbles to view data about a
             state and county.
           </Text>
-          {videoUrl && (
+          <iframe className='sproutvideo-player' src='https://videos.sproutvideo.com/embed/d390dbbd1216e3c45a/d4b0e6293bdf6df4' width='640' height='360' title='Video Player'></iframe>
+          {/* {videoUrl && (
             <video
               controls
               width={"750px"}
@@ -119,9 +120,9 @@ export const VisualizationInstructionStep: React.FC<InstructionStepProps> = ({
                 boxShadow: "4px 6px 8px rgba(0, 0, 0, 0.2)",
               }}
             >
-              <source src={videoUrl} type="video/mp4" />
+              <source src="https://videos.sproutvideo.com/embed/4d90dbbd1216e3c2c4/5fc4b0ca7f1afe8c" type="video/mp4" />
             </video>
-          )}
+          )} */}
         </VStack>
       </HStack>
 

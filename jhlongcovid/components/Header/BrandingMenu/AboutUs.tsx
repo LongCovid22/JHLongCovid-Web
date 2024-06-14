@@ -57,8 +57,8 @@ export const AboutUs = () => {
             minWidth: 410,
             maxWidth: 800,
             borderRadius: "35px",
-            minHeight: height * 0.45,
-            height: height < 950 ? height * 0.85 : "850px",
+            minHeight: height * 0.25,
+            height: height < 850 ? height * 0.65 : "850px",
           }}
           mx="10px"
           containerProps={{
@@ -88,11 +88,11 @@ export const AboutUs = () => {
             <VStack spacing={5} w="100%" align={"start"}>
               <VStack spacing={5} w="100%" align={"start"}>
                 <Heading size={"md"}>Team Members</Heading>
-                <Wrap spacingY={"30px"}>
+                {/* <Wrap spacingY={"30px"}>
                   <TeamMember
                     name={"Josef Coresh, MD"}
                     role={"Professor"}
-                    school={"Bloomberg School of Public Health"}
+                    school={"Optimal Aging Institute NYU Langone"}
                     image="./JosefCoreshHeadshot.jpg"
                   />
                   <TeamMember
@@ -129,7 +129,7 @@ export const AboutUs = () => {
                       image="./NoraHeadshot.jpg"
                     />
                   </WrapItem>
-                </Wrap>
+                </Wrap> */}
                 <Text fontSize={"lg"}>
                   Our team at Johns Hopkins is passionate about helping to
                   better understand the prevalence and impact of long covid in

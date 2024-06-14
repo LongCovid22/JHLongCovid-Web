@@ -118,16 +118,17 @@ export const LongitudinalInstructionStep: React.FC<InstructionStepProps> = ({
             Here is a video walking through the account creation process.
           </Text>
           {videoUrl && (
-            <video
-              controls
-              width={"750px"}
-              style={{
-                borderRadius: "20px",
-                boxShadow: "4px 6px 8px rgba(0, 0, 0, 0.2)",
-              }}
-            >
-              <source src={videoUrl} type="video/mp4" />
-            </video>
+            <iframe className='sproutvideo-player' src='https://videos.sproutvideo.com/embed/0690dbbd1216e3c58f/fbdb2976d456847d' width='640' height='360' title='Video Player'></iframe>
+            // <video
+            //   controls
+            //   width={"750px"}
+            //   style={{
+            //     borderRadius: "20px",
+            //     boxShadow: "4px 6px 8px rgba(0, 0, 0, 0.2)",
+            //   }}
+            // >
+            //   <source src="https://videos.sproutvideo.com/embed/4d90dbbd1216e3c2c4/5fc4b0ca7f1afe8c" type="video/mp4" />
+            // </video>
           )}
         </VStack>
       </HStack>

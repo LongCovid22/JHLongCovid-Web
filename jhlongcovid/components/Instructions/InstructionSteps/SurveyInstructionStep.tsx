@@ -120,7 +120,10 @@ export const SurveyInstructionStep: React.FC<InstructionStepProps> = ({
           <Text color={"gray.400"}>
             Here is a video showing a sample run through of a survey.
           </Text>
-          {videoUrl && (
+          <iframe className='sproutvideo-player' src='https://videos.sproutvideo.com/embed/4d90dbbd1216e3c2c4/5fc4b0ca7f1afe8c' width='640' height='360' title='Video Player'></iframe>
+
+          
+          {/* {videoUrl && (
             <video
               controls
               width={"750px"}
@@ -129,9 +132,9 @@ export const SurveyInstructionStep: React.FC<InstructionStepProps> = ({
                 boxShadow: "4px 6px 8px rgba(0, 0, 0, 0.2)",
               }}
             >
-              <source src={videoUrl} type="video/mp4" />
+              <source src="https://videos.sproutvideo.com/embed/4d90dbbd1216e3c2c4/5fc4b0ca7f1afe8c" type="video/mp4" />
             </video>
-          )}
+          )} */}
         </VStack>
       </HStack>
 
