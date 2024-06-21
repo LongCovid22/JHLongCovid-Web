@@ -367,6 +367,7 @@ const Home = () => {
           <Spacer />
         </Flex>
         <FeedbackPanel />
+        
         <Slide
           direction="top"
           in={loadingMapData}

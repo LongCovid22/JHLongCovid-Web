@@ -87,7 +87,7 @@ export const AboutUs = () => {
           >
             <VStack spacing={5} w="100%" align={"start"}>
               <VStack spacing={5} w="100%" align={"start"}>
-                <Heading size={"md"}>Team Members</Heading>
+                <Heading size={"md"}>Research Team and Purpose</Heading>
                 {/* <Wrap spacingY={"30px"}>
                   <TeamMember
                     name={"Josef Coresh, MD"}
@@ -131,7 +131,7 @@ export const AboutUs = () => {
                   </WrapItem>
                 </Wrap> */}
                 <Text fontSize={"lg"}>
-                  Our team at Johns Hopkins is passionate about helping to
+                  We are researchers from Johns Hopkins and Columbia University passionate about helping to
                   better understand the prevalence and impact of long covid in
                   the United States. We saw an opportunity to gather valuable
                   information by creating a map-based crowd sourcing
