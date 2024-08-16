@@ -36,12 +36,9 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
     hasCovid: 0,
     //question 65 -> do you have Long COVID?
     SelfReportedLongCovid: 0,
-
     //question 65 vs question 1
     SelfReportedLongCovidWithCovid: 0,
     SelfReportedLongCovidWithoutCovid: 0,
-
-
     //length of COVID exposure
     OverFourWeeks: 0,
     OverTwelveWeeks: 0,
@@ -110,7 +107,7 @@ function hasLongCovid(symptomResults, covidResults, recoveryResults) {
 
   if (
     longCovidResults.OverTwelveWeeks === 1 ||
-    longCovidResults.OverFourWeeks === 1 ||
+    // longCovidResults.OverFourWeeks === 1 || // removed this definition as per meeeting in August 2024 with Ahmed and Lizzy.
     symptomResults.hasLongCovid === "yes"
   ) {
     longCovidResults.LongCovid = 1;
