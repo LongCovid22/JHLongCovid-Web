@@ -314,6 +314,8 @@ export type ModelMapAggregationNewConditionInput = {
   and?: Array< ModelMapAggregationNewConditionInput | null > | null,
   or?: Array< ModelMapAggregationNewConditionInput | null > | null,
   not?: ModelMapAggregationNewConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ModelStringInput = {
@@ -767,6 +769,8 @@ export type ModelMapAggregationConditionInput = {
   and?: Array< ModelMapAggregationConditionInput | null > | null,
   or?: Array< ModelMapAggregationConditionInput | null > | null,
   not?: ModelMapAggregationConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ModelFloatInput = {
@@ -893,6 +897,8 @@ export type ModelMapDataConditionInput = {
   and?: Array< ModelMapDataConditionInput | null > | null,
   or?: Array< ModelMapDataConditionInput | null > | null,
   not?: ModelMapDataConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type MapData = {
@@ -1025,7 +1031,9 @@ export type ModelUserConditionInput = {
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
+  updatedAt?: ModelStringInput | null,
   userLastSubmissionEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelRaceInput = {
@@ -1345,6 +1353,7 @@ export type ModelNotificationConditionInput = {
   and?: Array< ModelNotificationConditionInput | null > | null,
   or?: Array< ModelNotificationConditionInput | null > | null,
   not?: ModelNotificationConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type ModelSendStatusInput = {
@@ -1414,6 +1423,7 @@ export type ModelSurveyEntryConditionInput = {
   and?: Array< ModelSurveyEntryConditionInput | null > | null,
   or?: Array< ModelSurveyEntryConditionInput | null > | null,
   not?: ModelSurveyEntryConditionInput | null,
+  updatedAt?: ModelStringInput | null,
   surveyEntryCovidEntryId?: ModelIDInput | null,
   surveyEntryVaccinationEntryId?: ModelIDInput | null,
   surveyEntrySocialDeterminantsEntryId?: ModelIDInput | null,
@@ -1422,6 +1432,7 @@ export type ModelSurveyEntryConditionInput = {
   surveyEntryPatientHealthEntryId?: ModelIDInput | null,
   surveyEntrySymptomsEntryId?: ModelIDInput | null,
   surveyEntryMonthlyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSurveyTypeInput = {
@@ -1490,7 +1501,9 @@ export type ModelVaccinationEntryConditionInput = {
   and?: Array< ModelVaccinationEntryConditionInput | null > | null,
   or?: Array< ModelVaccinationEntryConditionInput | null > | null,
   not?: ModelVaccinationEntryConditionInput | null,
+  updatedAt?: ModelStringInput | null,
   vaccinationEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type UpdateVaccinationEntryInput = {
@@ -1549,7 +1562,9 @@ export type ModelGlobalHealthEntryConditionInput = {
   and?: Array< ModelGlobalHealthEntryConditionInput | null > | null,
   or?: Array< ModelGlobalHealthEntryConditionInput | null > | null,
   not?: ModelGlobalHealthEntryConditionInput | null,
+  updatedAt?: ModelStringInput | null,
   globalHealthEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type UpdateGlobalHealthEntryInput = {
@@ -1623,7 +1638,9 @@ export type ModelCovidEntryConditionInput = {
   and?: Array< ModelCovidEntryConditionInput | null > | null,
   or?: Array< ModelCovidEntryConditionInput | null > | null,
   not?: ModelCovidEntryConditionInput | null,
+  updatedAt?: ModelStringInput | null,
   covidEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelBooleanInput = {
@@ -1691,7 +1708,9 @@ export type ModelRecoveryEntryConditionInput = {
   and?: Array< ModelRecoveryEntryConditionInput | null > | null,
   or?: Array< ModelRecoveryEntryConditionInput | null > | null,
   not?: ModelRecoveryEntryConditionInput | null,
+  updatedAt?: ModelStringInput | null,
   recoveryEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type UpdateRecoveryEntryInput = {
@@ -1742,7 +1761,9 @@ export type ModelPatientHealthEntryConditionInput = {
   and?: Array< ModelPatientHealthEntryConditionInput | null > | null,
   or?: Array< ModelPatientHealthEntryConditionInput | null > | null,
   not?: ModelPatientHealthEntryConditionInput | null,
+  updatedAt?: ModelStringInput | null,
   patientHealthEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type UpdatePatientHealthEntryInput = {
@@ -1805,7 +1826,9 @@ export type ModelSymptomEntryConditionInput = {
   and?: Array< ModelSymptomEntryConditionInput | null > | null,
   or?: Array< ModelSymptomEntryConditionInput | null > | null,
   not?: ModelSymptomEntryConditionInput | null,
+  updatedAt?: ModelStringInput | null,
   symptomEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type UpdateSymptomEntryInput = {
@@ -1864,7 +1887,9 @@ export type ModelSocialDeterminantsEntryConditionInput = {
   and?: Array< ModelSocialDeterminantsEntryConditionInput | null > | null,
   or?: Array< ModelSocialDeterminantsEntryConditionInput | null > | null,
   not?: ModelSocialDeterminantsEntryConditionInput | null,
+  updatedAt?: ModelStringInput | null,
   socialDeterminantsEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type UpdateSocialDeterminantsEntryInput = {
@@ -1914,7 +1939,9 @@ export type ModelMonthlyEntryConditionInput = {
   and?: Array< ModelMonthlyEntryConditionInput | null > | null,
   or?: Array< ModelMonthlyEntryConditionInput | null > | null,
   not?: ModelMonthlyEntryConditionInput | null,
+  updatedAt?: ModelStringInput | null,
   monthlyEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type UpdateMonthlyEntryInput = {
@@ -1951,6 +1978,7 @@ export type ModelFeedbackEntryConditionInput = {
   and?: Array< ModelFeedbackEntryConditionInput | null > | null,
   or?: Array< ModelFeedbackEntryConditionInput | null > | null,
   not?: ModelFeedbackEntryConditionInput | null,
+  updatedAt?: ModelStringInput | null,
 };
 
 export type FeedbackEntry = {
@@ -2009,6 +2037,8 @@ export type ModelMapAggregationNewFilterInput = {
   selfReportedPlusCovidLongCovid?: ModelIntInput | null,
   topMedicalCondition?: ModelStringInput | null,
   totalFullEntries?: ModelIntInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelMapAggregationNewFilterInput | null > | null,
   or?: Array< ModelMapAggregationNewFilterInput | null > | null,
   not?: ModelMapAggregationNewFilterInput | null,
@@ -2075,6 +2105,8 @@ export type ModelMapAggregationFilterInput = {
   selfReportedPlusCovidLongCovid?: ModelIntInput | null,
   topMedicalCondition?: ModelStringInput | null,
   totalFullEntries?: ModelIntInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelMapAggregationFilterInput | null > | null,
   or?: Array< ModelMapAggregationFilterInput | null > | null,
   not?: ModelMapAggregationFilterInput | null,
@@ -2120,6 +2152,8 @@ export type ModelMapDataFilterInput = {
   selfReportedPlusCovidLongCovid?: ModelIntInput | null,
   topMedicalCondition?: ModelStringInput | null,
   totalFullEntries?: ModelIntInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelMapDataFilterInput | null > | null,
   or?: Array< ModelMapDataFilterInput | null > | null,
   not?: ModelMapDataFilterInput | null,
@@ -2176,10 +2210,12 @@ export type ModelUserFilterInput = {
   notificationFreq?: ModelNotificationFrequencyInput | null,
   notificationMethod?: ModelNotificationMethodInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
   userLastSubmissionEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelUserConnection = {
@@ -2204,6 +2240,7 @@ export type ModelNotificationFilterInput = {
   message?: ModelStringInput | null,
   sendStatus?: ModelSendStatusInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelNotificationFilterInput | null > | null,
   or?: Array< ModelNotificationFilterInput | null > | null,
   not?: ModelNotificationFilterInput | null,
@@ -2229,6 +2266,7 @@ export type ModelSurveyEntryFilterInput = {
   sex?: ModelStringInput | null,
   height?: ModelStringInput | null,
   weight?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelSurveyEntryFilterInput | null > | null,
   or?: Array< ModelSurveyEntryFilterInput | null > | null,
   not?: ModelSurveyEntryFilterInput | null,
@@ -2240,6 +2278,7 @@ export type ModelSurveyEntryFilterInput = {
   surveyEntryPatientHealthEntryId?: ModelIDInput | null,
   surveyEntrySymptomsEntryId?: ModelIDInput | null,
   surveyEntryMonthlyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSurveyEntryConnection = {
@@ -2271,10 +2310,12 @@ export type ModelVaccinationEntryFilterInput = {
   vaccineType?: ModelStringInput | null,
   dateOfLastVaccine?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelVaccinationEntryFilterInput | null > | null,
   or?: Array< ModelVaccinationEntryFilterInput | null > | null,
   not?: ModelVaccinationEntryFilterInput | null,
   vaccinationEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelVaccinationEntryConnection = {
@@ -2298,10 +2339,12 @@ export type ModelGlobalHealthEntryFilterInput = {
   fatigueRank?: ModelStringInput | null,
   painLevel?: ModelIntInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelGlobalHealthEntryFilterInput | null > | null,
   or?: Array< ModelGlobalHealthEntryFilterInput | null > | null,
   not?: ModelGlobalHealthEntryFilterInput | null,
   globalHealthEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelGlobalHealthEntryConnection = {
@@ -2332,10 +2375,12 @@ export type ModelCovidEntryFilterInput = {
   medicationsPrescribed?: ModelStringInput | null,
   medicationsTaken?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelCovidEntryFilterInput | null > | null,
   or?: Array< ModelCovidEntryFilterInput | null > | null,
   not?: ModelCovidEntryFilterInput | null,
   covidEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelCovidEntryConnection = {
@@ -2356,10 +2401,12 @@ export type ModelRecoveryEntryFilterInput = {
   recovered?: ModelBooleanInput | null,
   lengthOfRecovery?: ModelIntInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelRecoveryEntryFilterInput | null > | null,
   or?: Array< ModelRecoveryEntryFilterInput | null > | null,
   not?: ModelRecoveryEntryFilterInput | null,
   recoveryEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelRecoveryEntryConnection = {
@@ -2380,10 +2427,12 @@ export type ModelPatientHealthEntryFilterInput = {
   generalHealthResults?: ModelStringInput | null,
   totalScore?: ModelIntInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelPatientHealthEntryFilterInput | null > | null,
   or?: Array< ModelPatientHealthEntryFilterInput | null > | null,
   not?: ModelPatientHealthEntryFilterInput | null,
   patientHealthEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelPatientHealthEntryConnection = {
@@ -2410,10 +2459,12 @@ export type ModelSymptomEntryFilterInput = {
   anxietyInPastWeekRank?: ModelStringInput | null,
   medicalConditions?: ModelStringInput | null,
   hasLongCovid?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelSymptomEntryFilterInput | null > | null,
   or?: Array< ModelSymptomEntryFilterInput | null > | null,
   not?: ModelSymptomEntryFilterInput | null,
   symptomEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSymptomEntryConnection = {
@@ -2435,10 +2486,12 @@ export type ModelSocialDeterminantsEntryFilterInput = {
   difficultCoveringExpenses?: ModelStringInput | null,
   currentWorkSituation?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelSocialDeterminantsEntryFilterInput | null > | null,
   or?: Array< ModelSocialDeterminantsEntryFilterInput | null > | null,
   not?: ModelSocialDeterminantsEntryFilterInput | null,
   socialDeterminantsEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSocialDeterminantsEntryConnection = {
@@ -2458,10 +2511,12 @@ export type ModelMonthlyEntryFilterInput = {
   weight?: ModelStringInput | null,
   results?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelMonthlyEntryFilterInput | null > | null,
   or?: Array< ModelMonthlyEntryFilterInput | null > | null,
   not?: ModelMonthlyEntryFilterInput | null,
   monthlyEntrySurveyEntryId?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelMonthlyEntryConnection = {
@@ -2476,6 +2531,7 @@ export type ModelFeedbackEntryFilterInput = {
   feedback?: ModelStringInput | null,
   completed?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelFeedbackEntryFilterInput | null > | null,
   or?: Array< ModelFeedbackEntryFilterInput | null > | null,
   not?: ModelFeedbackEntryFilterInput | null,
@@ -2505,6 +2561,8 @@ export type ModelSubscriptionMapAggregationNewFilterInput = {
   selfReportedPlusCovidLongCovid?: ModelSubscriptionIntInput | null,
   topMedicalCondition?: ModelSubscriptionStringInput | null,
   totalFullEntries?: ModelSubscriptionIntInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMapAggregationNewFilterInput | null > | null,
   or?: Array< ModelSubscriptionMapAggregationNewFilterInput | null > | null,
 };
@@ -2581,6 +2639,8 @@ export type ModelSubscriptionMapAggregationFilterInput = {
   selfReportedPlusCovidLongCovid?: ModelSubscriptionIntInput | null,
   topMedicalCondition?: ModelSubscriptionStringInput | null,
   totalFullEntries?: ModelSubscriptionIntInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMapAggregationFilterInput | null > | null,
   or?: Array< ModelSubscriptionMapAggregationFilterInput | null > | null,
 };
@@ -2603,6 +2663,8 @@ export type ModelSubscriptionMapDataFilterInput = {
   selfReportedPlusCovidLongCovid?: ModelSubscriptionIntInput | null,
   topMedicalCondition?: ModelSubscriptionStringInput | null,
   totalFullEntries?: ModelSubscriptionIntInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMapDataFilterInput | null > | null,
   or?: Array< ModelSubscriptionMapDataFilterInput | null > | null,
 };
@@ -2621,8 +2683,11 @@ export type ModelSubscriptionUserFilterInput = {
   notificationFreq?: ModelSubscriptionStringInput | null,
   notificationMethod?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
+  userLastSubmissionEntryId?: ModelSubscriptionIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionNotificationFilterInput = {
@@ -2631,6 +2696,7 @@ export type ModelSubscriptionNotificationFilterInput = {
   message?: ModelSubscriptionStringInput | null,
   sendStatus?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionNotificationFilterInput | null > | null,
   or?: Array< ModelSubscriptionNotificationFilterInput | null > | null,
 };
@@ -2649,8 +2715,18 @@ export type ModelSubscriptionSurveyEntryFilterInput = {
   sex?: ModelSubscriptionStringInput | null,
   height?: ModelSubscriptionStringInput | null,
   weight?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSurveyEntryFilterInput | null > | null,
   or?: Array< ModelSubscriptionSurveyEntryFilterInput | null > | null,
+  surveyEntryCovidEntryId?: ModelSubscriptionIDInput | null,
+  surveyEntryVaccinationEntryId?: ModelSubscriptionIDInput | null,
+  surveyEntrySocialDeterminantsEntryId?: ModelSubscriptionIDInput | null,
+  surveyEntryRecoveryEntryId?: ModelSubscriptionIDInput | null,
+  surveyEntryGlobalHealthEntryId?: ModelSubscriptionIDInput | null,
+  surveyEntryPatientHealthEntryId?: ModelSubscriptionIDInput | null,
+  surveyEntrySymptomsEntryId?: ModelSubscriptionIDInput | null,
+  surveyEntryMonthlyEntryId?: ModelSubscriptionIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionVaccinationEntryFilterInput = {
@@ -2667,8 +2743,11 @@ export type ModelSubscriptionVaccinationEntryFilterInput = {
   vaccineType?: ModelSubscriptionStringInput | null,
   dateOfLastVaccine?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionVaccinationEntryFilterInput | null > | null,
   or?: Array< ModelSubscriptionVaccinationEntryFilterInput | null > | null,
+  vaccinationEntrySurveyEntryId?: ModelSubscriptionIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionGlobalHealthEntryFilterInput = {
@@ -2686,8 +2765,11 @@ export type ModelSubscriptionGlobalHealthEntryFilterInput = {
   fatigueRank?: ModelSubscriptionStringInput | null,
   painLevel?: ModelSubscriptionIntInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionGlobalHealthEntryFilterInput | null > | null,
   or?: Array< ModelSubscriptionGlobalHealthEntryFilterInput | null > | null,
+  globalHealthEntrySurveyEntryId?: ModelSubscriptionIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionCovidEntryFilterInput = {
@@ -2712,8 +2794,11 @@ export type ModelSubscriptionCovidEntryFilterInput = {
   medicationsPrescribed?: ModelSubscriptionStringInput | null,
   medicationsTaken?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCovidEntryFilterInput | null > | null,
   or?: Array< ModelSubscriptionCovidEntryFilterInput | null > | null,
+  covidEntrySurveyEntryId?: ModelSubscriptionIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionBooleanInput = {
@@ -2733,8 +2818,11 @@ export type ModelSubscriptionRecoveryEntryFilterInput = {
   recovered?: ModelSubscriptionBooleanInput | null,
   lengthOfRecovery?: ModelSubscriptionIntInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionRecoveryEntryFilterInput | null > | null,
   or?: Array< ModelSubscriptionRecoveryEntryFilterInput | null > | null,
+  recoveryEntrySurveyEntryId?: ModelSubscriptionIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionPatientHealthEntryFilterInput = {
@@ -2749,8 +2837,11 @@ export type ModelSubscriptionPatientHealthEntryFilterInput = {
   generalHealthResults?: ModelSubscriptionStringInput | null,
   totalScore?: ModelSubscriptionIntInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionPatientHealthEntryFilterInput | null > | null,
   or?: Array< ModelSubscriptionPatientHealthEntryFilterInput | null > | null,
+  patientHealthEntrySurveyEntryId?: ModelSubscriptionIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionSymptomEntryFilterInput = {
@@ -2771,8 +2862,11 @@ export type ModelSubscriptionSymptomEntryFilterInput = {
   anxietyInPastWeekRank?: ModelSubscriptionStringInput | null,
   medicalConditions?: ModelSubscriptionStringInput | null,
   hasLongCovid?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSymptomEntryFilterInput | null > | null,
   or?: Array< ModelSubscriptionSymptomEntryFilterInput | null > | null,
+  symptomEntrySurveyEntryId?: ModelSubscriptionIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionSocialDeterminantsEntryFilterInput = {
@@ -2788,8 +2882,11 @@ export type ModelSubscriptionSocialDeterminantsEntryFilterInput = {
   difficultCoveringExpenses?: ModelSubscriptionStringInput | null,
   currentWorkSituation?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSocialDeterminantsEntryFilterInput | null > | null,
   or?: Array< ModelSubscriptionSocialDeterminantsEntryFilterInput | null > | null,
+  socialDeterminantsEntrySurveyEntryId?: ModelSubscriptionIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionMonthlyEntryFilterInput = {
@@ -2803,8 +2900,11 @@ export type ModelSubscriptionMonthlyEntryFilterInput = {
   weight?: ModelSubscriptionStringInput | null,
   results?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMonthlyEntryFilterInput | null > | null,
   or?: Array< ModelSubscriptionMonthlyEntryFilterInput | null > | null,
+  monthlyEntrySurveyEntryId?: ModelSubscriptionIDInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionFeedbackEntryFilterInput = {
@@ -2813,6 +2913,7 @@ export type ModelSubscriptionFeedbackEntryFilterInput = {
   feedback?: ModelSubscriptionStringInput | null,
   completed?: ModelSubscriptionBooleanInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionFeedbackEntryFilterInput | null > | null,
   or?: Array< ModelSubscriptionFeedbackEntryFilterInput | null > | null,
 };

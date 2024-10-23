@@ -601,7 +601,6 @@
           "multichoice",
           "multichoice",
           "multichoice",
-          "multichoice",
           "multichoice"
         ],
         "options": [
@@ -610,7 +609,7 @@
           "Fever, chills, sweats or flushing",
           "Feeling faint, dizzy, “goofy”; difficulty thinking soon after standing up from a sitting or lying position",
           "Feeling sick after you exert yourself physically or mentally (“post-exertional malaise”)",
-          "Weakness in arms or legs",
+   
           "Shortness of breath (trouble breathing)",
           "Cough",
           "Palpitations, racing heart, arrhythmia, or skipped beats",

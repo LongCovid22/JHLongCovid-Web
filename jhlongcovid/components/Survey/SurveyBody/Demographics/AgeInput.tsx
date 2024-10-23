@@ -55,7 +55,7 @@ export const AgeInput: React.FC<AgeInputProps> = ({
             return false;
         }
         const parsedNumber = parseInt(input, 10); //Parse base 10
-        return !isNaN(parsedNumber) && parsedNumber >= 12 && parsedNumber <= 100;
+        return !isNaN(parsedNumber) && parsedNumber >= 18 && parsedNumber <= 100;
     };
     const handleAnswerChange = (value: string) => {
         let demosCopy = { ...demos };
@@ -67,7 +67,7 @@ export const AgeInput: React.FC<AgeInputProps> = ({
             setAnswer(demosCopy);
         } else {
             if (setAgeDemoError) { setAgeDemoError(true) };
-            setAgeErrorText("Age must be valid number between 12 and 100");
+            setAgeErrorText("Age must be valid number between 18 and 100");
         }
 
     };
