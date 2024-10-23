@@ -779,7 +779,7 @@ function isRecoveryValid(lastPositiveDate: string, recoveryDays: string) {
                     }}
                     fontSize="lg"
                   >
-                    Skip
+                    Next
                   </Button>
                 </>
 

@@ -50,6 +50,7 @@ export const Survey: React.FC<ProfileCheckinProps> = ({
         >
           Participate
         </Button>
+        
         <Modal isOpen={isOpen} onClose={closeSurvey} isCentered size={"lg"} closeOnEsc={false} closeOnOverlayClick={false}>
           <ModalOverlay p="30px" />
           <SurveyWrapper onClose={closeSurvey} />

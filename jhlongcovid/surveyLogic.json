@@ -904,9 +904,9 @@
         "branching": null
       },
       {
-        "title": "Create Account",
+        "title": "Thank You",
         "questionNum": 38,
-        "question": "In order to better understand Long COVID, we would like to check in to see how your COVID-19 experience changes over time. To participate, enter your desired password to continue creating your account.\n\nIf you would like to skip creating an account and continue submitting your survey response, just click the skip button!",
+        "question": "Thank you for your participation. Please press next to continue.",
         "options": null,
         "answer": null,
         "answerFormat": "account",

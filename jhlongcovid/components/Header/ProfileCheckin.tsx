@@ -58,6 +58,8 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
   };
 
   return (
+
+    
     <HStack
       position={"absolute"}
       top={width < 700 ? "90px" : "20px"}
@@ -94,7 +96,7 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
           />
         </TestContext.Provider>
 
-        <Menu isLazy>
+        {/* <Menu isLazy>
           <MenuButton>
             <Avatar></Avatar>
           </MenuButton>
@@ -126,7 +128,7 @@ export const ProfileCheckin: React.FC<ProfileCheckinProps> = ({
               />
             )}
           </MenuList>
-        </Menu>
+        </Menu> */}
       </Flex>
     </HStack>
   );

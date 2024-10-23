@@ -18,7 +18,7 @@ export const Account: React.FC<SurveyQuestionProps> = ({
         <Text fontSize={"lg"} fontWeight={"regular"}>
           {currentQuestion.question}
         </Text>
-        <AuthenticationForm
+        {/* <AuthenticationForm
           initialAuthState={AuthState.SignUp}
           userInfo={userInfo}
           midSurvey={true}
@@ -27,7 +27,7 @@ export const Account: React.FC<SurveyQuestionProps> = ({
               onVerify();
             }
           }}
-        />
+        /> */}
       </VStack>
     </>
   );
